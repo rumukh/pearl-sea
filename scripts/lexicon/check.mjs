@@ -53,7 +53,7 @@ export const LEXICON_DIR = join(repositoryRoot, 'content', 'lexicon-src');
  * @typedef {{ start: number; end: number; correct: string; alts: string[] }} Gap
  *
  * @typedef {{ files: number; words: number; families: number; sentences: number }} LexiconCounts
- * @typedef {{ errors: string[]; counts: LexiconCounts; summary: string[] }} LexiconReport
+ * @typedef {{ errors: string[]; counts: LexiconCounts; summary: string[]; model?: any }} LexiconReport
  */
 
 const ID_PATTERN = /^[a-z0-9]+(?:[-.:][a-z0-9]+)*$/;
@@ -66,7 +66,28 @@ const SENTENCE_ONLY_RULES = new Set([
   'spisovne',
 ]);
 const PREFIXES_WITH_VOICED_END = ['od', 'nad', 'pod', 'před', 'roz', 'bez'];
-const VERB_FORM_KEYS = ['inf', 'pres', 'imp', 'past'];
+const VERB_FORM_KEYS = ['inf', 'pres', 'imp', 'past', 'fut'];
+/** Imperfective verbs whose future is not budu + infinitive: their paradigm lists `fut`. */
+const IRREGULAR_FUTURES = [
+  'být',
+  'jít',
+  'jet',
+  'letět',
+  'běžet',
+  'nést',
+  'vést',
+  'vézt',
+  'lézt',
+  'téct',
+  'růst',
+  'kvést',
+  'hnát',
+  'plout',
+];
+/** The conditional auxiliary: forms of být outside its paradigm. */
+const CONDITIONAL_AUXILIARY = ['bych', 'bys', 'by', 'bychom', 'byste'];
+/** Files of the word bank that are not topic files. */
+const SPECIAL_FILES = ['vocabulary.json', 'sources.json', 'paradigms.json'];
 const PAST_KEYS = ['m', 'f', 'n', 'ma', 'mi', 'fpl', 'npl'];
 /** @type {Record<string, string | undefined>} */
 const IY = { y: 'i', ý: 'í', i: 'y', í: 'ý' };
@@ -225,12 +246,17 @@ export function checkLexicon(options = {}) {
   /** @type {{ sources: { id: string }[] } | undefined} */
   const sourceFile = readJson('sources.json');
   const topicFiles = readdirSync(DIR)
-    .filter((f) => f.endsWith('.json') && f !== 'vocabulary.json' && f !== 'sources.json')
+    .filter((f) => f.endsWith('.json') && !SPECIAL_FILES.includes(f))
     .sort();
+  /** @type {{ paradigms: Record<string, any> } | undefined} */
+  const paradigmFile = existsSync(join(DIR, 'paradigms.json'))
+    ? readJson('paradigms.json')
+    : { paradigms: {} };
   /** @type {{ file: string; data: TopicFile }[]} */
   const topics = topicFiles.map((file) => ({ file, data: readJson(file) }));
   counts.files = topics.length;
-  if (unreadable || !vocabFile || !sourceFile) return { errors, counts, summary: [] };
+  if (unreadable || !vocabFile || !sourceFile || !paradigmFile)
+    return { errors, counts, summary: [] };
   const vocab = vocabFile;
   const sources = new Map(sourceFile.sources.map((s) => [s.id, s]));
 
@@ -416,6 +442,39 @@ export function checkLexicon(options = {}) {
     }
   }
 
+  // Paradigms of words whose topic files give none.
+  for (const [id, paradigm] of Object.entries(paradigmFile.paradigms ?? {})) {
+    const where = `paradigms.json ${id}`;
+    const word = words.get(id);
+    if (!word) fail(where, 'is not a word of the topic files');
+    else if (word.pos !== 'noun' && word.pos !== 'verb')
+      fail(where, 'only nouns and verbs inflect');
+    else if (word.paradigm) fail(where, `${word.files[0]} already gives the paradigm`);
+    else word.paradigm = paradigm;
+  }
+
+  /**
+   * The forms a word's paradigm gives (cells of every number, tense and mood), and its lemma.
+   * @param {any} word
+   * @returns {Set<string>}
+   */
+  function paradigmForms(word) {
+    const out = new Set([word.lemma]);
+    const p = word.paradigm;
+    if (p && word.pos === 'noun') {
+      for (const num of ['sg', 'pl'])
+        for (const cell of p[num] ?? []) for (const f of [cell].flat()) out.add(f);
+    }
+    if (p && word.pos === 'verb') {
+      out.add(p.inf);
+      for (const f of [...(p.pres ?? []), ...(p.imp ?? []), ...(p.fut ?? [])].flat()) out.add(f);
+      for (const f of Object.values(p.past ?? {}).flat()) out.add(f);
+      // být is also the auxiliary of the conditional (plaval bych), composed by the contract
+      if (p.inf === 'být') for (const f of CONDITIONAL_AUXILIARY) out.add(f);
+    }
+    return out;
+  }
+
   /**
    * Every known form of a word: its lemma, paradigm and `forms`.
    * @param {any} word
@@ -430,7 +489,7 @@ export function checkLexicon(options = {}) {
     }
     if (p && word.pos === 'verb') {
       out.add(p.inf);
-      for (const f of [...(p.pres ?? []), ...(p.imp ?? [])].flat()) out.add(f);
+      for (const f of [...(p.pres ?? []), ...(p.imp ?? []), ...(p.fut ?? [])].flat()) out.add(f);
       for (const f of Object.values(p.past ?? {}).flat()) out.add(f);
     }
     for (const f of word.forms ?? []) out.add(f);
@@ -723,6 +782,10 @@ export function checkLexicon(options = {}) {
     }
   }
 
+  /** Every word's spelling points, by their position in the lemma. */
+  /** @type {Map<string, Map<number, { correct: string; alts: string[]; rule: string; test?: string }>>} */
+  const wordPoints = new Map();
+
   // Word-level spelling points and per-word checks
   for (const [id, w] of words) {
     const where = `${w.files[0]} word ${id}`;
@@ -780,8 +843,14 @@ export function checkLexicon(options = {}) {
             );
         }
       }
+      if (!w.paradigm && w.register !== 'colloquial')
+        fail(where, 'a noun needs its paradigm (in its topic file or paradigms.json)');
       if (w.paradigm) {
-        for (const num of numbers === 'both' ? ['sg', 'pl'] : [numbers]) {
+        const want = numbers === 'both' ? ['sg', 'pl'] : [numbers];
+        for (const num of ['sg', 'pl'])
+          if (w.paradigm[num] !== undefined && !want.includes(num))
+            fail(where, `paradigm.${num} is given, but "numbers" is "${numbers}"`);
+        for (const num of want) {
           const cells = w.paradigm[num];
           if (!Array.isArray(cells) || cells.length !== 7)
             fail(where, `paradigm.${num} needs 7 cases`);
@@ -808,9 +877,29 @@ export function checkLexicon(options = {}) {
         fail(where, `a reflexive lemma ends with " ${w.reflexive}"`);
       if (!w.reflexive && / s[ei]$/.test(w.lemma))
         fail(where, 'the lemma ends with se/si: set "reflexive"');
+      if (!w.paradigm && w.register !== 'colloquial')
+        fail(where, 'a verb needs its paradigm (in its topic file or paradigms.json)');
       if (w.paradigm) {
         for (const key of Object.keys(w.paradigm))
           if (!VERB_FORM_KEYS.includes(key)) fail(where, `paradigm has unknown key "${key}"`);
+        for (const key of ['inf', 'pres', 'imp', 'past'])
+          if (w.paradigm[key] === undefined) fail(where, `paradigm.${key} is missing`);
+        if (w.paradigm.fut !== undefined) {
+          if (w.aspect !== 'impf')
+            fail(where, 'only an imperfective verb lists fut (a perfective present is future)');
+          if (!Array.isArray(w.paradigm.fut) || w.paradigm.fut.length !== 6)
+            fail(where, 'paradigm.fut needs 6 forms (1-3 sg, 1-3 pl)');
+        } else if (w.aspect === 'impf' && IRREGULAR_FUTURES.includes(w.paradigm.inf)) {
+          fail(where, `"${w.paradigm.inf}" forms its future without budu: list paradigm.fut`);
+        }
+        for (const cell of [
+          w.paradigm.inf,
+          ...(w.paradigm.pres ?? []),
+          ...(w.paradigm.imp ?? []),
+          ...(w.paradigm.fut ?? []),
+          ...Object.values(w.paradigm.past ?? {}),
+        ])
+          for (const f of [cell].flat()) checkText(`${where} paradigm`, f);
         if (w.paradigm.inf !== w.lemma.replace(/ s[ei]$/, ''))
           fail(where, 'paradigm.inf must be the lemma without se/si');
         if (w.paradigm.pres && w.paradigm.pres.length !== 6)
@@ -826,6 +915,12 @@ export function checkLexicon(options = {}) {
       }
     } else if (w.aspect !== undefined || w.reflexive !== undefined) {
       fail(where, '"aspect" and "reflexive" are for verbs');
+    }
+
+    if (w.paradigm) {
+      const given = paradigmForms(w);
+      for (const f of w.forms ?? [])
+        if (!given.has(f)) fail(where, `form "${f}" is not a form of the paradigm`);
     }
 
     if (w.register !== undefined) {
@@ -874,6 +969,9 @@ export function checkLexicon(options = {}) {
     }
 
     const seen = new Map(); // position -> correct
+    /** @type {Map<number, { correct: string; alts: string[]; rule: string; test?: string }>} */
+    const byPosition = new Map();
+    wordPoints.set(id, byPosition);
     for (const p of w.points) {
       const at = `${p.file} word ${id}`;
       let parsed;
@@ -904,6 +1002,16 @@ export function checkLexicon(options = {}) {
         if (seen.has(key) && seen.get(key) !== gap.correct)
           fail(at, `two spelling points at position ${gap.start} disagree`);
         seen.set(key, gap.correct);
+        const known = byPosition.get(gap.start);
+        if (known && known.rule !== rule)
+          fail(at, `the spelling point at ${gap.start} has the rules ${known.rule} and ${rule}`);
+        if (!known)
+          byPosition.set(gap.start, {
+            correct: gap.correct,
+            alts: gap.alts,
+            rule,
+            ...(typeof r === 'string' || r.test === undefined ? {} : { test: r.test }),
+          });
       });
     }
   }
@@ -1009,6 +1117,11 @@ export function checkLexicon(options = {}) {
 
   const sentenceIds = new Set();
   let sentenceCount = 0;
+  /** The spelling point (position in the lemma) each sentence gap tests, by sentence ID. */
+  /** @type {Map<string, (number | undefined)[]>} */
+  const gapPoints = new Map();
+  /** `<word>:<at>` of every word spelling point a sentence gap tests. */
+  const pointsInSentences = new Set();
   for (const { file, data } of topics) {
     for (const s of data.sentences ?? []) {
       sentenceCount++;
@@ -1042,6 +1155,9 @@ export function checkLexicon(options = {}) {
 
       /** @param {number} start */
       const findToken = (start) => toks.find((t) => t.start <= start && start < t.end);
+      /** @type {(number | undefined)[]} */
+      const pointsHere = gaps.map(() => undefined);
+      gapPoints.set(s.id, pointsHere);
       gaps.forEach((gap, i) => {
         const m = meta[i];
         if (!m) return;
@@ -1084,6 +1200,22 @@ export function checkLexicon(options = {}) {
             );
         } else if (!['shoda'].includes(m.rule)) {
           fail(gw, 'the gap names its word');
+        }
+        // The word's spelling point this gap tests: the same letters at the same place of the lemma.
+        if (word && !SENTENCE_ONLY_RULES.has(m.rule)) {
+          const lemma = word.lemma;
+          const point = wordPoints.get(word.id)?.get(local.start);
+          if (
+            point &&
+            tok.text.slice(0, local.start).toLowerCase() ===
+              lemma.slice(0, local.start).toLowerCase() &&
+            point.correct.toLowerCase() === local.correct.toLowerCase()
+          ) {
+            if (point.rule !== m.rule)
+              fail(gw, `the word's spelling point here has the rule ${point.rule}`);
+            pointsHere[i] = local.start;
+            pointsInSentences.add(`${word.id}:${local.start}`);
+          }
         }
         if (m.rule === 'spisovne') {
           if (!word || word.register === 'colloquial')
@@ -1227,6 +1359,37 @@ export function checkLexicon(options = {}) {
   }
 
   // ---------------------------------------------------------------------------------------------
+  // Spelling points that are ambiguous on their own (S2's rule a, docs/lexicon.md §2.2): when a key
+  // of the gap's letter pad, or one of its alternatives, spells another form of the word bank, the
+  // word alone cannot decide, so a sentence must have a gap on the point.
+
+  /** @type {Set<string>} */
+  const spelled = new Set();
+  for (const w of words.values()) {
+    for (const f of formsOf(w)) spelled.add(f);
+    for (const f of adjectiveForms(w)) spelled.add(f);
+  }
+  /** @type {string[]} */
+  const ambiguous = [];
+  for (const [id, byPosition] of wordPoints) {
+    const w = words.get(id);
+    for (const [at, point] of byPosition) {
+      const keys = new Set([...padKeys(point), ...point.alts]);
+      keys.delete(point.correct);
+      const others = [...keys]
+        .map((key) => w.lemma.slice(0, at) + key + w.lemma.slice(at + point.correct.length))
+        .filter((other) => other !== w.lemma && spelled.has(other));
+      if (others.length === 0) continue;
+      ambiguous.push(`${id}:${at}`);
+      if (!pointsInSentences.has(`${id}:${at}`))
+        fail(
+          `${w.files[0]} word ${id}`,
+          `the spelling point at ${at} also spells ${others.map((o) => `"${o}"`).join(', ')}: a sentence needs a gap on it`,
+        );
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------
   // Report
 
   counts.words = words.size;
@@ -1278,7 +1441,70 @@ export function checkLexicon(options = {}) {
       `  ${file}: ${(data.words ?? []).length} words, ${(data.sentences ?? []).length} sentences, ${(data.sets ?? []).length} sets, ${(data.families ?? []).length} families`,
     );
   }
-  return { errors, counts, summary };
+  return {
+    errors,
+    counts,
+    summary,
+    model: { vocab, sources, words, families, topics, gapPoints, ambiguous },
+  };
+
+  /**
+   * The keys of a gap's letter pad (S2): the letters a child may enter for this rule.
+   * @param {{ correct: string; alts: string[]; rule: string }} point
+   * @returns {string[]}
+   */
+  function padKeys(point) {
+    const upper = point.correct !== point.correct.toLowerCase();
+    /** @param {string[]} list */
+    const cased = (list) =>
+      upper ? list.map((k) => k.charAt(0).toUpperCase() + k.slice(1)) : list;
+    if (
+      ['vyjm', 'vyjm-prefix', 'obojetna-i', 'tvrda', 'mekka', 'dtn-mekke', 'vzor'].includes(
+        point.rule,
+      )
+    )
+      return cased(['i', 'í', 'y', 'ý']);
+    if (['de-te-ne', 'be-pe-ve-me', 'bje-vje', 'mne', 'mne-zajmeno'].includes(point.rule))
+      return cased(['e', 'é', 'ě', 'je']);
+    if (point.rule.startsWith('u-')) return cased(['u', 'ú', 'ů']);
+    if (point.rule === 'delka') {
+      const low = point.correct.toLowerCase();
+      return cased([low, ...(LENGTH.get(low) ?? [])]);
+    }
+    if (point.rule === 'parova') return [point.correct, PAIR.get(point.correct) ?? point.correct];
+    if (point.rule === 'velke-pismeno')
+      return [point.correct.toUpperCase(), point.correct.toLowerCase()];
+    return [point.correct, ...point.alts];
+  }
+
+  /**
+   * The case forms of an adjective, for the ambiguity check only (adjectives have no paradigm).
+   * @param {any} w
+   * @returns {string[]}
+   */
+  function adjectiveForms(w) {
+    if (w.pos !== 'adj') return [];
+    const lemma = w.lemma;
+    if (lemma.endsWith('ý')) {
+      const stem = lemma.slice(0, -1);
+      const soft = stem
+        .replace(/ck$/, 'čť')
+        .replace(/sk$/, 'šť')
+        .replace(/ch$/, 'š')
+        .replace(/k$/, 'c')
+        .replace(/[hg]$/, 'z')
+        .replace(/r$/, 'ř');
+      return [
+        ...['á', 'é', 'ého', 'ému', 'ém', 'ým', 'ou', 'ých', 'ými'].map((e) => stem + e),
+        `${soft}í`,
+      ];
+    }
+    if (lemma.endsWith('í')) {
+      const stem = lemma.slice(0, -1);
+      return ['ího', 'ímu', 'ím', 'ích', 'ími'].map((e) => stem + e);
+    }
+    return [];
+  }
 }
 
 /**

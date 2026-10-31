@@ -159,7 +159,8 @@
           "mi": "byly",
           "fpl": "byly",
           "npl": "byla"
-        }
+        },
+        "fut": ["budu", "budeš", "bude", "budeme", "budete", "budou"]
       },
       "forms": [
         "budu",
@@ -348,6 +349,7 @@
       "lemma": "bydlení",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "staveni",
       "family": "vyjm-b.bydlit",
       "role": "member",
@@ -468,6 +470,7 @@
       "lemma": "ubytování",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "staveni",
       "family": "vyjm-b.byt",
       "role": "member",
@@ -494,6 +497,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "family": "vyjm-b.naabytek",
       "role": "head",
@@ -517,6 +521,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "family": "vyjm-b.dobytek",
       "role": "head",
@@ -607,6 +612,7 @@
       "lemma": "bystrost",
       "pos": "noun",
       "gender": "f",
+      "numbers": "sg",
       "pattern": "kost",
       "family": "vyjm-b.bystryy",
       "role": "member",
@@ -761,6 +767,7 @@
       "lemma": "Přibyslav",
       "pos": "noun",
       "gender": "f",
+      "numbers": "sg",
       "proper": "town",
       "family": "vyjm-b.prxibyslav",
       "role": "head",
@@ -843,6 +850,7 @@
       "lemma": "obilí",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "staveni",
       "spell": "ob{i|y}lí",
       "rules": ["obojetna-i"],
@@ -1034,6 +1042,16 @@
       "id": "vyjm-b.35",
       "text": "Musím nab{í|ý}t baterii v ponorce.",
       "gaps": [{ "rule": "obojetna-i", "word": "nabiit" }]
+    },
+    {
+      "id": "vyjm-b.36",
+      "text": "Piráti chtěli dob{ý|í}t hrad na útesu.",
+      "gaps": [{ "rule": "vyjm", "word": "dobyyt" }]
+    },
+    {
+      "id": "vyjm-b.37",
+      "text": "Náš b{y|i}t má výhled na moře.",
+      "gaps": [{ "rule": "vyjm", "word": "byt" }]
     }
   ]
 }

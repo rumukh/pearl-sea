@@ -224,6 +224,7 @@
       "role": "member",
       "spell": "s{ý|í}rový",
       "rules": ["vyjm"],
+      "forms": ["sýrovou"],
       "src": ["derinet", "morfflex"]
     },
     {
@@ -353,6 +354,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "family": "vyjm-s.sycxet",
       "role": "member",
@@ -611,6 +613,11 @@
       "id": "vyjm-s.23",
       "text": "Tuleň pros{i|y}l o rybu.",
       "gaps": [{ "rule": "obojetna-i", "word": "prosit" }]
+    },
+    {
+      "id": "vyjm-s.24",
+      "text": "Kuchař uvařil s{ý|í}rovou polévku.",
+      "gaps": [{ "rule": "vyjm", "word": "syyrovyy" }]
     }
   ]
 }

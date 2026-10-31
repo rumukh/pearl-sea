@@ -60,7 +60,7 @@ def generate(lemma):
 def load():
     words, sentences, families, sets = {}, [], {}, []
     for name in sorted(os.listdir(DIR)):
-        if not name.endswith(".json") or name in ("vocabulary.json", "sources.json"):
+        if not name.endswith(".json") or name in ("vocabulary.json", "sources.json", "paradigms.json"):
             continue
         with open(os.path.join(DIR, name), encoding="utf-8") as fh:
             data = json.load(fh)
@@ -79,6 +79,12 @@ def load():
         for f in data.get("families", []):
             families[f["id"]] = f
         sets.extend(st for st in data.get("sets", []) if st.get("kind") == "lookalikes")
+    para = os.path.join(DIR, "paradigms.json")
+    if os.path.exists(para):
+        with open(para, encoding="utf-8") as fh:
+            for wid, paradigm in json.load(fh)["paradigms"].items():
+                if wid in words and "paradigm" not in words[wid]:
+                    words[wid]["paradigm"] = paradigm
     return words, sentences, families, sets
 
 
@@ -193,7 +199,8 @@ def noun_cells(lemma_ids, gender):
     cells = defaultdict(dict)  # (num, case) -> form -> variant
     for lid in lemma_ids:
         for form, tag in generate(lid):
-            if tag[0] != "N" or tag[4] not in "1234567" or tag[3] not in "SP" or tag[10] == "N":
+            # the dual (D: oči, nohama) is the plural of the school grammar
+            if tag[0] != "N" or tag[4] not in "1234567" or tag[3] not in "SPD" or tag[10] == "N":
                 continue
             if gender and tag[2] not in (gender, "X", "Y" if gender in "MI" else "-"):
                 continue
@@ -256,6 +263,15 @@ def check_verb_paradigm(wid, w, lemma_ids):
                 note("verb", where, f"imperative {person}{num} '{form}' not generated")
             elif v not in STANDARD_VARIANTS:
                 note("verb-variant", where, f"imperative {person}{num} '{form}' is MorfFlex variant {v}")
+    for i, cell in enumerate(p.get("fut", [])):
+        num = "S" if i < 3 else "P"
+        person = str(i % 3 + 1)
+        for form in (cell if isinstance(cell, list) else [cell]):
+            found = [t for _, t in analyze(form) if t.startswith("VB") and t[3] == num and t[7] == person and t[8] == "F"]
+            if not found:
+                note("verb", where, f"future {person}{num} '{form}' not analysed as a future")
+            elif not any(t[14] in STANDARD_VARIANTS for t in found):
+                note("verb-variant", where, f"future {person}{num} '{form}' is a non-standard variant")
     past_codes = {"m": ("Y", "S"), "f": ("Q", "W"), "n": ("N", "S"), "ma": ("M", "P"), "mi": ("T", "P"), "fpl": ("T", "P"), "npl": ("Q", "W")}
     for key, (g, n) in past_codes.items():
         cell = p.get("past", {}).get(key)

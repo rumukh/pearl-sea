@@ -159,6 +159,36 @@ const faults: Fault[] = [
     change: (d) => (sentence(d, 'vowels.03').text = 'Delf{í|i}n skáče — přes vlny.'),
     reported: 'outside the Czech text set',
   },
+  {
+    name: 'a standard noun without its paradigm',
+    file: 'paradigms.json',
+    change: (d) => delete d.paradigms.haadka,
+    reported: 'a noun needs its paradigm',
+  },
+  {
+    name: 'a paradigm with a number the noun does not have',
+    file: 'paired-consonants.json',
+    change: (d) => (word(d, 'haadka').numbers = 'sg'),
+    reported: 'paradigm.pl is given, but "numbers" is "sg"',
+  },
+  {
+    name: 'an irregular future left out (půjdu, never budu jít)',
+    file: 'verbs.json',
+    change: (d) => delete word(d, 'jiit').paradigm.fut,
+    reported: '"jít" forms its future without budu',
+  },
+  {
+    name: 'a listed form that is not in the paradigm',
+    file: 'paired-consonants.json',
+    change: (d) => (word(d, 'hrad').forms = ['hradou']),
+    reported: 'form "hradou" is not a form of the paradigm',
+  },
+  {
+    name: 'an ambiguous spelling point without a sentence (vila, víla)',
+    file: 'vowels.json',
+    change: (d) => (d.sentences = d.sentences.filter((s: any) => s.id !== 'vowels.14')),
+    reported: 'the spelling point at 1 also spells "víla": a sentence needs a gap on it',
+  },
 ];
 
 describe('scripts/lexicon/check.mjs', () => {
@@ -174,6 +204,17 @@ describe('scripts/lexicon/check.mjs', () => {
     edit(file, change);
     const { errors } = checkLexicon({ dir });
     expect(errors.join('\n')).toContain(reported);
+  });
+
+  it('finds the spelling points the word alone cannot decide, and their sentence gaps', () => {
+    const { model } = checkLexicon();
+    // být × bít by the i/y pad, vila × víla by length, děti × dětí by the pad's í.
+    expect(model.ambiguous).toEqual(
+      expect.arrayContaining(['byyt:1', 'biit:1', 'vila:1', 'viila:1', 'dexti:3']),
+    );
+    expect(model.ambiguous).not.toContain('ryba:1');
+    // vowels.14 (bílá v{i|í}la) tests the point at 1 of vila.
+    expect(model.gapPoints.get('vowels.14')).toEqual([1]);
   });
 
   it('reports a BOM and CR line endings', () => {

@@ -649,6 +649,11 @@
       "grade": 4,
       "text": "Ta perla je pro {mě|mně}?",
       "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }]
+    },
+    {
+      "id": "e-caron.45",
+      "text": "Dět{i|y} staví na pláži hrad z písku.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "dexti" }]
     }
   ]
 }

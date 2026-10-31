@@ -160,6 +160,7 @@
       "lemma": "tma",
       "pos": "noun",
       "gender": "f",
+      "numbers": "sg",
       "pattern": "zena",
       "src": ["ssc", "morfflex"]
     },
@@ -416,6 +417,7 @@
       "lemma": "zelenina",
       "pos": "noun",
       "gender": "f",
+      "numbers": "sg",
       "pattern": "zena",
       "src": ["ssc", "morfflex"]
     },

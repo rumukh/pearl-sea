@@ -19,7 +19,7 @@
       "head": "jazyk",
       "order": 2,
       "core": true,
-      "root": "jazyk/jazýč/jazyč",
+      "root": "jazyk",
       "src": ["ijp-100"]
     },
     {
@@ -144,7 +144,8 @@
       "lemma": "Ruzyně",
       "pos": "noun",
       "gender": "f",
-      "proper": "place",
+      "numbers": "sg",
+      "proper": "town",
       "family": "vyjm-z.ruzynex",
       "role": "head",
       "spell": "Ruz{y|i}ně",

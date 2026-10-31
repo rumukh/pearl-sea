@@ -59,7 +59,7 @@
       "aspect": "impf",
       "paradigm": {
         "inf": "hrát",
-        "pres": [["hraju", "hraji"], "hraješ", "hraje", "hrajeme", "hrajete", ["hrají", "hrajou"]],
+        "pres": [["hraji", "hraju"], "hraješ", "hraje", "hrajeme", "hrajete", "hrají"],
         "imp": ["hraj", "hrajme", "hrajte"],
         "past": {
           "m": "hrál",
@@ -81,7 +81,7 @@
       "reflexive": "si",
       "paradigm": {
         "inf": "hrát",
-        "pres": [["hraju", "hraji"], "hraješ", "hraje", "hrajeme", "hrajete", ["hrají", "hrajou"]],
+        "pres": [["hraji", "hraju"], "hraješ", "hraje", "hrajeme", "hrajete", "hrají"],
         "imp": ["hraj", "hrajme", "hrajte"],
         "past": {
           "m": "hrál",
@@ -259,7 +259,8 @@
           "mi": "nesly",
           "fpl": "nesly",
           "npl": "nesla"
-        }
+        },
+        "fut": ["ponesu", "poneseš", "ponese", "poneseme", "ponesete", "ponesou"]
       },
       "src": ["morfflex"]
     },
@@ -343,7 +344,8 @@
           "mi": "šly",
           "fpl": "šly",
           "npl": "šla"
-        }
+        },
+        "fut": ["půjdu", "půjdeš", "půjde", "půjdeme", "půjdete", "půjdou"]
       },
       "forms": ["půjdu", "půjdeš", "půjde", "půjdeme", "půjdete", "půjdou"],
       "note": "budoucí čas půjdu",
@@ -409,7 +411,7 @@
       "reflexive": "se",
       "paradigm": {
         "inf": "smát",
-        "pres": [["směju", "směji"], "směješ", "směje", "smějeme", "smějete", ["smějí", "smějou"]],
+        "pres": [["směji", "směju"], "směješ", "směje", "smějeme", "smějete", "smějí"],
         "imp": ["směj", "smějme", "smějte"],
         "past": {
           "m": "smál",
@@ -539,7 +541,7 @@
       "tags": ["sea"],
       "paradigm": {
         "inf": "plout",
-        "pres": [["pluji", "pluju"], "pluješ", "pluje", "plujeme", "plujete", ["plují", "plujou"]],
+        "pres": [["pluji", "pluju"], "pluješ", "pluje", "plujeme", "plujete", "plují"],
         "imp": ["pluj", "plujme", "plujte"],
         "past": {
           "m": "plul",
@@ -549,7 +551,8 @@
           "mi": "pluly",
           "fpl": "pluly",
           "npl": "plula"
-        }
+        },
+        "fut": [["popluji", "popluju"], "popluješ", "popluje", "poplujeme", "poplujete", "poplují"]
       },
       "src": ["morfflex"]
     },

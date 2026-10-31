@@ -35,8 +35,6 @@
       "gender": "m",
       "animate": false,
       "pattern": "hrad",
-      "spell": "p{í|i}sek",
-      "rules": ["delka"],
       "src": ["morfflex"]
     },
     {
@@ -265,11 +263,8 @@
     },
     {
       "id": "vowels.02",
-      "text": "Na pl{á|a}ži je teplý p{í|i}sek.",
-      "gaps": [
-        { "rule": "delka", "word": "plaazx" },
-        { "rule": "delka", "word": "piisek" }
-      ]
+      "text": "Na pl{á|a}ži je teplý písek.",
+      "gaps": [{ "rule": "delka", "word": "plaazx" }]
     },
     {
       "id": "vowels.03",

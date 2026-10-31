@@ -185,6 +185,16 @@
       "grade": 4,
       "text": "Ponorka musí dob{í|ý}t baterie.",
       "gaps": [{ "rule": "obojetna-i", "word": "dobiit" }]
+    },
+    {
+      "id": "alike.18",
+      "text": "V přístavu začaly hodiny b{í|ý}t poledne.",
+      "gaps": [{ "rule": "obojetna-i", "word": "biit" }]
+    },
+    {
+      "id": "alike.19",
+      "text": "Na pláži budeme v{í|ý}t věnečky z řas.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viit" }]
     }
   ]
 }

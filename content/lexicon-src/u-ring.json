@@ -151,6 +151,7 @@
       "lemma": "sůl",
       "pos": "noun",
       "gender": "f",
+      "numbers": "sg",
       "pattern": "kost",
       "spell": "s{ů|ú}l",
       "rules": ["u-uprostred"],

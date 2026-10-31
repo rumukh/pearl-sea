@@ -142,12 +142,34 @@ describe('the fixture lexicon', () => {
 
   it('demands the future of verbs that do not use budu, and the reflexive pronoun in the lemma', () => {
     const lexicon = fixture();
-    delete lexicon.words.find((w) => w.id === 'byyt')!.verb!.paradigm.fut;
+    delete lexicon.words.find((w) => w.id === 'byyt')!.verb!.paradigm!.fut;
     lexicon.words.find((w) => w.id === 'biit')!.verb!.reflexive = 'se';
     const found = messages(lexicon);
     expect(found).toContain('word byyt: "být" forms its future without "budu": list `fut`.');
     expect(found).toContain(
       'word biit: The infinitive (with its reflexive pronoun) must be the lemma.',
+    );
+  });
+
+  it('lets a colloquial word, and only one, leave out its paradigm', () => {
+    const lexicon = fixture();
+    expect(messages(lexicon)).toEqual([]);
+    const mlejn = lexicon.words.find((w) => w.id === 'mlejn')!;
+    const bejt = lexicon.words.find((w) => w.id === 'bejt')!;
+    expect(formCells(mlejn)).toEqual([]);
+    expect(formCells(bejt)).toEqual([]);
+    delete mlejn.register;
+    delete bejt.register;
+    delete lexicon.words.find((w) => w.id === 'ryba')!.noun!.paradigm;
+    const found = messages(lexicon);
+    expect(found).toContain(
+      'word ryba: A standard noun needs its paradigm (only a colloquial word may omit it).',
+    );
+    expect(found).toContain(
+      'word mlejn: A standard noun needs its paradigm (only a colloquial word may omit it).',
+    );
+    expect(found).toContain(
+      'word bejt: A standard verb needs its paradigm (only a colloquial word may omit it).',
     );
   });
 

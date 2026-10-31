@@ -162,7 +162,7 @@ IDs are ASCII and stable; the Czech school terms live in the catalogs (§7.4).
 | `REGISTERS`, `PROPER_KINDS`                               | `standard colloquial`; `person animal town river mountain country sea character`                                                                   | spisovná, nespisovná; vlastní jména              |
 | `SEGMENT_ROLES`                                           | `prefix root suffix ending`                                                                                                                        | předpona, kořen, přípona, koncovka               |
 | `WORD_RELATIONS`                                          | `synonym antonym general specific coordinate sound-alike related`                                                                                  | význam slov                                      |
-| `SPELLING_RULES`                                          | 24 rules, below                                                                                                                                    | pravopis                                         |
+| `SPELLING_RULES`                                          | 25 rules, below                                                                                                                                    | pravopis                                         |
 | `SENTENCE_KINDS`, `CLAUSE_STRUCTURES`, `SENTENCE_MEMBERS` | `statement question command wish`; `simple compound`; `subject predicate other`                                                                    | druhy vět; věta, souvětí; podmět, přísudek       |
 
 **Spelling rules** say why a gap is filled as it is. Every spelling point of the lexicon and every
@@ -175,6 +175,7 @@ sentence gap names one; hints show the rule's strategy, distractors and item IDs
 | ú/ů       | `u-zacatek` (ú at the start), `u-predpona` (ú after a prefix), `u-uprostred` (ů inside or at the end), `u-prejate` (ú in borrowed words and interjections)                                                                                                                                                                            |
 | other     | `delka` (short or long vowel), `parova` (a paired consonant, proved by a test word), `velke-pismeno` (a capital letter), `predpona-predlozka` (prefix together, preposition apart), `predpona-souhlaska` (the consonant at a prefix seam), `shoda` (subject-predicate agreement in the past tense), `vzor` (an ending by the pattern) |
 | sentences | `interpunkce` (the end mark by the kind of sentence, a comma between clauses), `spojka` (the conjunction that joins clauses)                                                                                                                                                                                                          |
+| register  | `spisovne` (the standard word in a sentence, not its colloquial twin: _Ke snídani mám {mléko\|mlíko}._)                                                                                                                                                                                                                               |
 
 **Czech alphabetical order** (`compareCzech`): letters compare by their primary letter, with `ch`
 after `h` and `č ř š ž` after `c r s z`; other diacritics (á ď é ě í ň ó ť ú ů ý) sort with their
@@ -276,26 +277,34 @@ A skill is `{ id, titleKey, strand, generator, params }`. The generator decides 
 its parameters are checked by `SKILL_PARAM_SCHEMAS[generator]` and by cross-field rules.
 `skillItems(skill, lexicon)` enumerates the skill's item universe (sorted, unique, bounded by the
 lexicon); content validation rejects a skill whose universe is empty. Words are selected by a
-**word filter** `{ words?, topics?, tags?, pos?, families?, letters?, grades?, aspects?, core?,
-exclude? }` and sentences by a **sentence filter** `{ sentences?, topics?, grades? }`; every present
-field narrows the selection (`aspects` keeps to verbs of those aspects: a 3rd-grade tense skill
-takes imperfective verbs only).
+**word filter** `{ words?, topics?, tags?, pos?, families?, letters?, grades?, aspects?, registers?,
+core?, exclude? }` and sentences by a **sentence filter** `{ sentences?, topics?, grades? }`; every
+present field narrows the selection (`aspects` keeps to verbs of those aspects: a 3rd-grade tense
+skill takes imperfective verbs only).
+
+**Colloquial words stay in register skills.** `registers` is the one field with a default: absent,
+a filter selects standard words only (`DEFAULT_REGISTERS`). A **register skill** (`isRegisterSkill`:
+`classify` or `sort` by the `register` dimension, `odd-one-out` on the `register` basis, `pairs` of
+the `standard` kind) must name `colloquial` in `words.registers` (`['standard', 'colloquial']`, or
+`['colloquial']` for standard pairs), and no other skill may. So a colloquial word (_dobrej, mlíko,
+bejt_) is only ever asked its register or paired with its standard twin, never its gender, its
+forms or its spelling.
 
 ### 6.1 Generators
 
-| Generator        | Parameters                                                                                                                         | Problems or boards                                           | Items                        |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| `spell.word`     | `words`, `rules`, `maxGaps` (1-3), `choices` (2-4)                                                                                 | a word with 1-3 letter gaps (`gaps`)                         | `spell:` points of the rules |
-| `spell.sentence` | `sentences`, `rules`                                                                                                               | a sentence with 1-3 gaps, one by one (`gaps`)                | `spell:` or `gap:`           |
-| `spell.mistake`  | `sentences`, `rules`                                                                                                               | a sentence with one mistake: find, then fix (`mistake`)      | `spell:` or `gap:`           |
-| `classify`       | `dimension`, `context` (`word`, `form`, `sentence`), `words`, `sentences`, `values` (or null: all), `cells` (form groups, or null) | name a dimension (`classify`)                                | `class:`                     |
-| `odd-one-out`    | `basis` (a word dimension, `family`, `listed`), `words`, `size` (3-6)                                                              | which word does not belong (`odd`)                           | `class:` or `fam:`           |
-| `relation`       | `relations`, `words`                                                                                                               | pick the related word (`relation`)                           | `rel:`                       |
-| `alphabet`       | `words`, `order` (`alphabet`, `rhyme`), `size` (3-10)                                                                              | Perlový náhrdelník: order the pearls                         | `abc:`                       |
-| `pairs`          | `pair` (a pair kind), `words`, `pairs` (3-8)                                                                                       | Pexeso                                                       | `pair:`                      |
-| `sort`           | `dimension`, `context` (`word`, `form`), `values` (2-4 nets), `words`, `fish` (4-12), `cells` (form groups, or null)               | Rybářské sítě                                                | `class:`                     |
-| `segment`        | `words`, `roles`                                                                                                                   | Ulita slov: cut and name the parts                           | `seg:`                       |
-| `family`         | `words`, `families` (or null), `pick` (2-8), `distractors` (1-6)                                                                   | Slovní rodinka: pick the family among sound-alike neighbours | `fam:`                       |
+| Generator        | Parameters                                                                                                                                        | Problems or boards                                           | Items                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| `spell.word`     | `words`, `rules`, `maxGaps` (1-3), `choices` (2-4)                                                                                                | a word with 1-3 letter gaps (`gaps`)                         | `spell:` points of the rules |
+| `spell.sentence` | `sentences`, `rules`                                                                                                                              | a sentence with 1-3 gaps, one by one (`gaps`)                | `spell:` or `gap:`           |
+| `spell.mistake`  | `sentences`, `rules`                                                                                                                              | a sentence with one mistake: find, then fix (`mistake`)      | `spell:` or `gap:`           |
+| `classify`       | `dimension`, `context` (`word`, `form`, `sentence`), `words`, `sentences`, `values` (or null: all), `cells` (form groups, or null); `consonants?` | name a dimension (`classify`)                                | `class:`                     |
+| `odd-one-out`    | `basis` (a word dimension, `family`, `listed`), `words`, `size` (3-6)                                                                             | which word does not belong (`odd`)                           | `class:` or `fam:`           |
+| `relation`       | `relations`, `words`                                                                                                                              | pick the related word (`relation`)                           | `rel:`                       |
+| `alphabet`       | `words`, `order` (`alphabet`, `rhyme`), `size` (3-10)                                                                                             | Perlový náhrdelník: order the pearls                         | `abc:`                       |
+| `pairs`          | `pair` (a pair kind), `words`, `pairs` (3-8)                                                                                                      | Pexeso                                                       | `pair:`                      |
+| `sort`           | `dimension`, `context` (`word`, `form`), `values` (2-4 nets), `words`, `fish` (4-12), `cells` (form groups, or null); `consonants?`               | Rybářské sítě                                                | `class:`                     |
+| `segment`        | `words`, `roles`                                                                                                                                  | Ulita slov: cut and name the parts                           | `seg:`                       |
+| `family`         | `words`, `families` (or null), `pick` (2-8), `distractors` (1-6)                                                                                  | Slovní rodinka: pick the family among sound-alike neighbours | `fam:`                       |
 
 The bounds of each skill per level are in [curriculum.md](curriculum.md) (generator bounds). A
 sentence gap with a `word` and a `point` trains that word's spelling item, so the word list and
@@ -323,6 +332,15 @@ it never shows an imperative or a conditional, which the 4th grade names. Odd-on
 in a word dimension (`WORD_VALUE_DIMENSIONS`), their family or being a listed word; fishing nets
 sort words by a word dimension or consonant letters by class (`SORT_DIMENSIONS.word`), or forms by
 a form dimension (`SORT_DIMENSIONS.form`).
+
+A **consonant skill** (`classify` or `sort` with `dimension: 'consonant'`; items
+`class:consonant:<id>`) serves all 24 consonant letters, or only those its optional `consonants`
+lists (`CONSONANT_IDS`, the letters' `lexiconId`s in school order: `h`, `ch`, `k`, …, `cx` for č,
+…), so a friend's set can hold just its own letters (Krab Tvrďák's seven hard consonants: `h`,
+`ch`, `k`, `r`, `d`, `t`, `n`). `values` still lists the classes offered as options or nets, and
+every listed letter's class must be among them. A skill of one class's letters shares its activity
+with the other classes' skills, so a round never has the same answer every time; a board of all
+24 letters credits each letter's item to whichever friend's set holds it.
 
 ### 6.3 Activities and generators
 
@@ -575,21 +593,21 @@ The curated, annotated Czech words every problem is made from (S3 owns the data;
 
 ### 8.1 Words
 
-| Field                    | Meaning                                                                                                                                                                                       |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                     | the transliterated lemma, plus `.<sense>` for a homograph (§8.2)                                                                                                                              |
-| `lemma`                  | the basic form, NFC; proper names capitalised; a reflexive verb with its pronoun (`bát se`)                                                                                                   |
-| `pos`                    | one of the ten parts of speech                                                                                                                                                                |
-| `grade`                  | `3` or `4`                                                                                                                                                                                    |
-| `topics`, `tags`         | content-ID-like labels (`vyjmenovana-b`, `sea`) that skills filter by                                                                                                                         |
-| `src`                    | source IDs (`lexicon.sources`: the IJP, PČP 1993, SSJČ, MorfFlex, …)                                                                                                                          |
-| `noun?`                  | `{ gender, animate? (masculine only), numbers, pattern (or null when irregular: dítě, člověk, oko), paradigm: { sg?, pl? }, proper? }`; each number has 7 cells, case 1 first                 |
-| `verb?`                  | `{ aspect, reflexive (se, si or null), paradigm: { inf, pres[6], imp[3], past{m f n ma mi fpl npl}, fut?[6] } }`                                                                              |
-| `register?`, `standard?` | `standard` or `colloquial`; a colloquial word names its standard twin                                                                                                                         |
-| `family?`                | `{ id, role: 'head' \| 'related' }`                                                                                                                                                           |
-| `segments?`              | `[role, text][]` in order prefix, root, suffix, ending; they rebuild the lower-case lemma; a suffix or ending may be `""` (a zero ending)                                                     |
-| `spelling?`              | spelling points `{ at, correct, alt[], rule, test? }`: the letters at `at` (code points of the NFC lemma) are `correct`, not one of `alt`, because of `rule`; `test` proves it (hrad → hrady) |
-| `senses?`                | short Czech glosses of a word with several meanings                                                                                                                                           |
+| Field                    | Meaning                                                                                                                                                                                                                           |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                     | the transliterated lemma, plus `.<sense>` for a homograph (§8.2)                                                                                                                                                                  |
+| `lemma`                  | the basic form, NFC; proper names capitalised; a reflexive verb with its pronoun (`bát se`)                                                                                                                                       |
+| `pos`                    | one of the ten parts of speech                                                                                                                                                                                                    |
+| `grade`                  | `3` or `4`                                                                                                                                                                                                                        |
+| `topics`, `tags`         | content-ID-like labels (`vyjmenovana-b`, `sea`) that skills filter by                                                                                                                                                             |
+| `src`                    | source IDs (`lexicon.sources`: the IJP, PČP 1993, SSJČ, MorfFlex, …)                                                                                                                                                              |
+| `noun?`                  | `{ gender, animate? (masculine only), numbers, pattern (or null when irregular: dítě, člověk, oko), paradigm?: { sg?, pl? }, proper? }`; each number has 7 cells, case 1 first; only a colloquial word may leave out the paradigm |
+| `verb?`                  | `{ aspect, reflexive (se, si or null), paradigm?: { inf, pres[6], imp[3], past{m f n ma mi fpl npl}, fut?[6] } }`; only a colloquial word may leave out the paradigm                                                              |
+| `register?`, `standard?` | `standard` or `colloquial`; a colloquial word names its standard twin, appears only in register skills (§6) and may have no paradigm (_mlejn, bejt_: its forms cannot be verified to the lexicon's standard)                      |
+| `family?`                | `{ id, role: 'head' \| 'related' }`                                                                                                                                                                                               |
+| `segments?`              | `[role, text][]` in order prefix, root, suffix, ending; they rebuild the lower-case lemma; a suffix or ending may be `""` (a zero ending)                                                                                         |
+| `spelling?`              | spelling points `{ at, correct, alt[], rule, test? }`: the letters at `at` (code points of the NFC lemma) are `correct`, not one of `alt`, because of `rule`; `test` proves it (hrad → hrady)                                     |
+| `senses?`                | short Czech glosses of a word with several meanings                                                                                                                                                                               |
 
 A **cell** is a form or an array of variants, the preferred first (`["mlýně", "mlýnu"]`). Verb
 cells never contain the reflexive pronoun: `formCells` adds it. A perfective verb's present forms
@@ -636,14 +654,14 @@ ID, or one of its forms written out, `{ word, form }`, because some verified pai
 lemmas: `["pyl", { "word": "piit", "form": "pil" }]`, `["my", { "word": "jaa", "form": "mi" }]`,
 `[{ "word": "vysiit", "form": "vysel" }, { "word": "viset", "form": "visel" }]`. A form of a noun or
 verb must be one of its paradigm's forms; a pronoun's form is checked by S3's checker. Only
-verified pairs are used (curriculum.md): být × bít, bydlo × bidlo, mýt × mít, my × mi, pyl × pil,
-sýrový × syrový × sírový, výr × vír, výskat × vískat, vysel × visel. `sources:
-{ id, title, url? }[]` names the reference works the data was checked against.
+verified pairs are used (curriculum.md): být × bít, bydlo × bidlo, dobýt × dobít, mýt × mít, my × mi,
+pyl × pil, sýrový × syrový × sírový, výr × vír, výskat × vískat, vysel × visel, výt × vít.
+`sources: { id, title, url? }[]` names the reference works the data was checked against.
 
 ### 8.6 Forms (`formCells`)
 
 `formCells(word)` derives the forms of a noun or a verb from its paradigm, for `form`
-classifications and form nets:
+classifications and form nets (`[]` for a colloquial word without a paradigm):
 
 | Cells                        | Form                                                                                   |
 | ---------------------------- | -------------------------------------------------------------------------------------- |
@@ -674,8 +692,9 @@ linguistic consistency:
 - IDs are unique and each is the lemma's `lexiconId` (or it with `.<sense>`); lemmas are NFC;
   sources exist;
 - noun data only on nouns and verb data only on verbs; masculine nouns, and only they, state
-  `animate`; a pattern fits the gender (hrad is masculine inanimate); the paradigm has exactly the
-  numbers `numbers` says and starts with the lemma; a proper name is capitalised;
+  `animate`; a pattern fits the gender (hrad is masculine inanimate); a standard noun or verb has
+  its paradigm (only a colloquial word may leave it out); a noun's paradigm has exactly the numbers
+  `numbers` says and starts with the lemma; a proper name is capitalised;
 - the infinitive with its reflexive pronoun is the lemma; only imperfective verbs list `fut`, and
   the verbs of `IRREGULAR_FUTURE_INFINITIVES` must; a colloquial word names an existing standard
   twin;
@@ -699,23 +718,24 @@ rules as well and joins `npm run verify` in S3's pull request.
 
 The lexicon schema carries every field of S3's field set; the differences are names and nesting:
 
-| S3's field set                                                             | In the contract                                                                                                                            |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| noun `gender`, `animate`, `numbers`, `pattern`, `paradigm`, `proper`       | nested in `noun: { … }`                                                                                                                    |
-| verb `aspect`, `reflexive`, `paradigm`                                     | nested in `verb: { … }`; cells without the reflexive pronoun; optional `fut` for irregular futures                                         |
-| `family` (ID) and its role                                                 | `family: { id, role }`                                                                                                                     |
-| per-word `soundAlikes[]`, synonym and antonym pairs, general/specific sets | `relations.soundAlikes` (a side may be a word form, `{ word, form }`), `relations.synonyms`, `relations.antonyms`, `relations.hierarchies` |
-| source IDs                                                                 | `src` naming `lexicon.sources` records `{ id, title, url? }`                                                                               |
-| family `kin`, a family's sound-alike family                                | `kin`; `soundAlike` (one family ID)                                                                                                        |
-| sentence gap `{ rule, word, case?, number?, subjects? }`                   | the same plus `point` (the spelling point the gap tests)                                                                                   |
-| per-token analysis `{ t, word, pos, case?, number?, person?, tense? }`     | `tokens`, plus `gender`, `mood` and `member`                                                                                               |
-| sentence syntax                                                            | `subjects`, `predicates`, `clauses`, `conjunctions`, plus `kind` (statement, question, command, wish)                                      |
+| S3's field set                                                             | In the contract                                                                                                                                |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| noun `gender`, `animate`, `numbers`, `pattern`, `paradigm`, `proper`       | nested in `noun: { … }`; a colloquial noun may leave out `paradigm`                                                                            |
+| verb `aspect`, `reflexive`, `paradigm`                                     | nested in `verb: { … }`; cells without the reflexive pronoun; optional `fut` for irregular futures; a colloquial verb may leave out `paradigm` |
+| `family` (ID) and its role                                                 | `family: { id, role }`                                                                                                                         |
+| per-word `soundAlikes[]`, synonym and antonym pairs, general/specific sets | `relations.soundAlikes` (a side may be a word form, `{ word, form }`), `relations.synonyms`, `relations.antonyms`, `relations.hierarchies`     |
+| source IDs                                                                 | `src` naming `lexicon.sources` records `{ id, title, url? }`                                                                                   |
+| family `kin`, a family's sound-alike family                                | `kin`; `soundAlike` (one family ID)                                                                                                            |
+| sentence gap `{ rule, word, case?, number?, subjects? }`                   | the same plus `point` (the spelling point the gap tests)                                                                                       |
+| per-token analysis `{ t, word, pos, case?, number?, person?, tense? }`     | `tokens`, plus `gender`, `mood` and `member`                                                                                                   |
+| sentence syntax                                                            | `subjects`, `predicates`, `clauses`, `conjunctions`, plus `kind` (statement, question, command, wish)                                          |
 
 The closed vocabularies are S3's exactly: the 42-letter alphabet, the consonant classes, the
 paired consonants, the 7 cases, the 14 patterns, person, number, tense and mood. The spelling rules
 are S3's 22 plus `interpunkce` and `spojka` for sentence gaps (the end mark, a comma, a
-conjunction), and a token's `gender` is the class with animacy (`ma`, `mi`, `f`, `n`), from which
-the 3rd grade's `gender` dimension (m, f, n) is derived.
+conjunction) and `spisovne` for the standard word against its colloquial twin, and a token's
+`gender` is the class with animacy (`ma`, `mi`, `f`, `n`), from which the 3rd grade's `gender`
+dimension (m, f, n) is derived.
 
 ## 9. Per-profile state (`state.ts`)
 

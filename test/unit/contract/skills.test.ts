@@ -6,8 +6,10 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
+  CONSONANT_IDS,
   CONTEXT_DIMENSIONS,
   DIMENSIONS,
+  isRegisterSkill,
   skillItems,
   skillSchema,
   wordFilterSchema,
@@ -46,6 +48,9 @@ describe('skill items', () => {
       items({ generator: 'spell.sentence', params: { sentences: {}, rules: ['shoda'] } }),
     ).toEqual(['gap:s.ryby-1:0']);
     expect(
+      items({ generator: 'spell.mistake', params: { sentences: {}, rules: ['spisovne'] } }),
+    ).toEqual(['gap:s.mlyn-2:0']);
+    expect(
       items({
         generator: 'spell.mistake',
         params: { sentences: { grades: [3] }, rules: ['vyjm'] },
@@ -79,6 +84,18 @@ describe('skill items', () => {
       'class:reflexive:byyt',
       'class:reflexive:vyletext',
     ]);
+    expect(
+      classify('register', 'word', null, {
+        topics: ['spisovnost'],
+        registers: ['standard', 'colloquial'],
+      }),
+    ).toEqual([
+      'class:register:bejt',
+      'class:register:dobrej',
+      'class:register:dobryy',
+      'class:register:mlejn',
+    ]);
+    expect(classify('pos', 'word', null, { topics: ['spisovnost'] })).toEqual(['class:pos:dobryy']);
     expect(
       classify('person', 'form', ['1'], { aspects: ['impf'] }, ['pres', 'past', 'fut']),
     ).toEqual([
@@ -123,6 +140,54 @@ describe('skill items', () => {
     ]);
   });
 
+  it('consonant skills: all 24 letters, or only the listed ones', () => {
+    expect([...CONSONANT_IDS]).toEqual(
+      'h ch k r d t n zx sx cx rx c j dx tx nx b f l m p s v z'.split(' '),
+    );
+    const consonantItems = (ids: string) => ids.split(' ').map((id) => `class:consonant:${id}`);
+    expect(
+      items({
+        generator: 'classify',
+        params: {
+          dimension: 'consonant',
+          context: 'word',
+          words: {},
+          sentences: {},
+          values: null,
+          cells: null,
+        },
+      }),
+    ).toHaveLength(24);
+    expect(
+      items({
+        generator: 'classify',
+        params: {
+          dimension: 'consonant',
+          context: 'word',
+          words: {},
+          sentences: {},
+          values: ['hard', 'soft', 'both-way'],
+          cells: null,
+          consonants: ['h', 'ch', 'k', 'r', 'd', 't', 'n'],
+        },
+      }),
+    ).toEqual(consonantItems('ch d h k n r t'));
+    expect(
+      items({
+        generator: 'sort',
+        params: {
+          dimension: 'consonant',
+          context: 'word',
+          values: ['hard', 'soft'],
+          words: {},
+          fish: 6,
+          cells: null,
+          consonants: ['zx', 'sx', 'cx', 'h'],
+        },
+      }),
+    ).toEqual(consonantItems('cx h sx zx'));
+  });
+
   it('odd-one-out, relation, alphabet, pairs, sort, segment and family', () => {
     expect(
       items({ generator: 'odd-one-out', params: { basis: 'listed', words: {}, size: 4 } }),
@@ -165,10 +230,13 @@ describe('skill items', () => {
         generator: 'alphabet',
         params: { words: { pos: ['adj'] }, order: 'alphabet', size: 3 },
       }),
-    ).toEqual(['abc:dobrej', 'abc:dobryy', 'abc:malyy', 'abc:velkyy']);
+    ).toEqual(['abc:dobryy', 'abc:malyy', 'abc:velkyy']);
     expect(
-      items({ generator: 'pairs', params: { pair: 'standard', words: {}, pairs: 3 } }),
-    ).toEqual(['pair:standard:dobrej']);
+      items({
+        generator: 'pairs',
+        params: { pair: 'standard', words: { registers: ['colloquial'] }, pairs: 3 },
+      }),
+    ).toEqual(['pair:standard:bejt', 'pair:standard:dobrej', 'pair:standard:mlejn']);
     expect(items({ generator: 'pairs', params: { pair: 'plural', words: {}, pairs: 4 } })).toEqual(
       ['mlyyn', 'mlynaarx', 'ryba', 'pes', 'zviirxe'].map((word) => `pair:plural:${word}`).sort(),
     );
@@ -292,6 +360,105 @@ describe('skill records', () => {
     expect(wordFilterSchema.parse({ grades: [5] }).ok).toBe(false);
     expect(wordFilterSchema.parse({ aspects: ['impf'] }).ok).toBe(true);
     expect(wordFilterSchema.parse({ aspects: ['perfect'] }).ok).toBe(false);
+    expect(wordFilterSchema.parse({ registers: ['colloquial'] }).ok).toBe(true);
+    expect(wordFilterSchema.parse({ registers: ['slang'] }).ok).toBe(false);
+  });
+
+  it('narrow a consonant skill only to letters of the classes it offers', () => {
+    const problem = (generator: string, params: Record<string, unknown>) => {
+      const outcome = skillSchema.parse(skill({ generator, params }));
+      return outcome.ok ? null : (outcome.error.diagnostics[0]?.message ?? 'invalid');
+    };
+    const classify = (values: string[] | null, consonants: unknown, dimension = 'consonant') =>
+      problem('classify', {
+        dimension,
+        context: 'word',
+        words: {},
+        sentences: {},
+        values,
+        cells: null,
+        consonants,
+      });
+    const all = ['hard', 'soft', 'both-way'];
+    expect(classify(all, ['h', 'ch', 'k', 'r', 'd', 't', 'n'])).toBeNull();
+    expect(classify(null, ['cx', 'zx'])).toBeNull();
+    expect(classify(['hard', 'soft'], ['h', 'b'])).toBe(
+      '"b" is a both-way consonant, which the skill\'s values leave out.',
+    );
+    expect(classify(null, ['h'], 'pos')).toBe('Only a consonant skill lists consonants.');
+    expect(classify(all, ['č'])).not.toBeNull();
+    expect(classify(all, ['x'])).not.toBeNull();
+    expect(classify(all, [])).not.toBeNull();
+    expect(classify(all, ['h', 'h'])).not.toBeNull();
+    const sort = (values: string[], consonants: string[]) =>
+      problem('sort', {
+        dimension: 'consonant',
+        context: 'word',
+        values,
+        words: {},
+        fish: 6,
+        cells: null,
+        consonants,
+      });
+    expect(sort(['hard', 'soft'], ['h', 'ch', 'cx', 'sx'])).toBeNull();
+    expect(sort(['hard', 'soft'], ['h', 'ch', 'v'])).toBe(
+      '"v" is a both-way consonant, which the skill\'s values leave out.',
+    );
+  });
+
+  it('keep colloquial words to register skills, which must select them', () => {
+    const parse = (generator: string, params: Record<string, unknown>) =>
+      skillSchema.parse(skill({ generator, params })).ok;
+    const classify = (dimension: string, registers?: string[]) =>
+      parse('classify', {
+        dimension,
+        context: 'word',
+        words: registers ? { registers } : {},
+        sentences: {},
+        values: null,
+        cells: null,
+      });
+    expect(classify('register', ['standard', 'colloquial'])).toBe(true);
+    expect(classify('register')).toBe(false);
+    expect(classify('register', ['standard'])).toBe(false);
+    expect(classify('pos')).toBe(true);
+    expect(classify('pos', ['standard', 'colloquial'])).toBe(false);
+    const pairs = (pair: string, registers?: string[]) =>
+      parse('pairs', { pair, words: registers ? { registers } : {}, pairs: 3 });
+    expect(pairs('standard', ['colloquial'])).toBe(true);
+    expect(pairs('standard')).toBe(false);
+    expect(pairs('synonym', ['colloquial'])).toBe(false);
+    expect(
+      parse('odd-one-out', {
+        basis: 'register',
+        words: { registers: ['standard', 'colloquial'] },
+        size: 4,
+      }),
+    ).toBe(true);
+    expect(
+      parse('spell.word', {
+        words: { registers: ['colloquial'] },
+        rules: ['tvrda'],
+        maxGaps: 1,
+        choices: 2,
+      }),
+    ).toBe(false);
+    expect(
+      isRegisterSkill({
+        id: 'sk.nets',
+        titleKey: 'skill.nets',
+        strand: 'standard-czech',
+        generator: 'sort',
+        params: {
+          dimension: 'register',
+          context: 'word',
+          values: ['standard', 'colloquial'],
+          words: { registers: ['standard', 'colloquial'] },
+          fish: 6,
+          cells: null,
+        },
+      }),
+    ).toBe(true);
   });
 
   it('can ask every dimension in some context', () => {

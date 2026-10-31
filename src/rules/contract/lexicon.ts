@@ -109,7 +109,12 @@ export interface NounData {
   numbers: NounNumbers;
   /** The pattern (vzor), or `null` for an irregular noun (dítě, člověk, oko). */
   pattern: NounPattern | null;
-  paradigm: NounParadigm;
+  /**
+   * The case forms. Required of a standard word; a colloquial word (`register: 'colloquial'`:
+   * vokno, mlíko) may leave it out, because it appears only as a whole word in register skills
+   * and its paradigm cannot be verified to the lexicon's standard.
+   */
+  paradigm?: NounParadigm;
   /** A proper name (velké písmeno) and what it names. */
   proper?: ProperKind;
 }
@@ -132,7 +137,8 @@ export interface VerbParadigm {
 export interface VerbData {
   aspect: Aspect;
   reflexive: Reflexive | null;
-  paradigm: VerbParadigm;
+  /** Required of a standard word; a colloquial word (bejt, cejtit) may leave it out. */
+  paradigm?: VerbParadigm;
 }
 
 /** A word's place in a family: the family's head word or a related word. */
@@ -469,14 +475,18 @@ export interface FormCell {
   values: FormValues;
 }
 
-/** The forms of a noun or verb (`[]` for other words), in paradigm order. */
+/**
+ * The forms of a noun or verb, in paradigm order; `[]` for other words and for a colloquial word
+ * without a paradigm.
+ */
 export function formCells(word: Read<Word>): FormCell[] {
   const raw: { cell: string; texts: string[]; values: FormValues }[] = [];
   const variants = (value: Read<Cell>): string[] =>
     typeof value === 'string' ? [value] : [...value];
-  if (word.noun) {
+  const nounParadigm = word.noun?.paradigm;
+  if (nounParadigm) {
     for (const number of NUMBERS) {
-      (word.noun.paradigm[number] ?? []).forEach((value, index) => {
+      (nounParadigm[number] ?? []).forEach((value, index) => {
         raw.push({
           cell: `${number}${index + 1}`,
           texts: variants(value),
@@ -485,8 +495,9 @@ export function formCells(word: Read<Word>): FormCell[] {
       });
     }
   }
-  if (word.verb) {
-    const { aspect, reflexive, paradigm } = word.verb;
+  if (word.verb?.paradigm) {
+    const { aspect, reflexive } = word.verb;
+    const paradigm = word.verb.paradigm;
     const compose = (...parts: string[]) => parts.filter((part) => part !== '').join(' ');
     const se = reflexive ?? '';
     const infinitive = preferred(paradigm.inf);
@@ -591,26 +602,33 @@ const nounSchema: Schema<NounData> = objectWithOptional(
     gender: oneOf(GENDERS),
     numbers: oneOf(NOUN_NUMBERS),
     pattern: nullable(oneOf(NOUN_PATTERNS)),
-    paradigm: objectWithOptional({}, { sg: sevenCells, pl: sevenCells }),
   },
-  { animate: schema.boolean, proper: oneOf(PROPER_KINDS) },
+  {
+    animate: schema.boolean,
+    paradigm: objectWithOptional({}, { sg: sevenCells, pl: sevenCells }),
+    proper: oneOf(PROPER_KINDS),
+  },
 );
 
-const verbSchema: Schema<VerbData> = schema.object({
-  aspect: oneOf(ASPECTS),
-  reflexive: nullable(oneOf(REFLEXIVES)),
-  paradigm: objectWithOptional(
-    {
-      inf: cell,
-      pres: schema.array(cell, { min: 6, max: 6 }),
-      imp: schema.array(cell, { min: 3, max: 3 }),
-      past: schema.object(
-        Object.fromEntries(PAST_KEYS.map((key) => [key, cell])) as Record<PastKey, Schema<Cell>>,
-      ),
-    },
-    { fut: schema.array(cell, { min: 6, max: 6 }) },
-  ),
-});
+const verbSchema: Schema<VerbData> = objectWithOptional(
+  {
+    aspect: oneOf(ASPECTS),
+    reflexive: nullable(oneOf(REFLEXIVES)),
+  },
+  {
+    paradigm: objectWithOptional(
+      {
+        inf: cell,
+        pres: schema.array(cell, { min: 6, max: 6 }),
+        imp: schema.array(cell, { min: 3, max: 3 }),
+        past: schema.object(
+          Object.fromEntries(PAST_KEYS.map((key) => [key, cell])) as Record<PastKey, Schema<Cell>>,
+        ),
+      },
+      { fut: schema.array(cell, { min: 6, max: 6 }) },
+    ),
+  },
+);
 
 const segmentSchema: Schema<Segment> = refine(
   schema.array(schema.string({ maxLength: 32 }), { min: 2, max: 2 }),
@@ -749,8 +767,9 @@ export function preferred(value: Read<Cell>): string {
 
 /**
  * Every form of a word as written: its lemma, every variant of its paradigm cells and its
- * composed forms (`formCells`). A word without a paradigm (a pronoun) accepts any form: S3's
- * checker verifies those against the sources.
+ * composed forms (`formCells`). A word with no noun or verb data (a pronoun) accepts any form:
+ * S3's checker verifies those against the sources. A colloquial word without a paradigm has only
+ * its lemma.
  */
 function formsOf(word: Read<Word>): { has(form: string): boolean } {
   if (!word.noun && !word.verb) return { has: () => true };
@@ -759,9 +778,9 @@ function formsOf(word: Read<Word>): { has(form: string): boolean } {
     if (cell !== undefined)
       for (const text of typeof cell === 'string' ? [cell] : cell) forms.add(text);
   };
-  word.noun?.paradigm.sg?.forEach(add);
-  word.noun?.paradigm.pl?.forEach(add);
-  if (word.verb) {
+  word.noun?.paradigm?.sg?.forEach(add);
+  word.noun?.paradigm?.pl?.forEach(add);
+  if (word.verb?.paradigm) {
     const { inf, pres, imp, past, fut } = word.verb.paradigm;
     [inf, ...pres, ...imp, ...Object.values(past), ...(fut ?? [])].forEach(add);
   }
@@ -803,6 +822,7 @@ export function validateLexicon(lexicon: Read<Lexicon>): LexiconProblem[] {
     if (word.noun && word.pos !== 'noun') report(where, 'Noun data on a word that is not a noun.');
     if (word.verb && word.pos !== 'verb') report(where, 'Verb data on a word that is not a verb.');
     if (word.pos === 'noun' && !word.noun) report(where, 'A noun needs its noun data.');
+    const colloquial = word.register === 'colloquial';
     if (word.noun) {
       const noun = word.noun;
       if ((noun.gender === 'm') !== (noun.animate !== undefined)) {
@@ -812,24 +832,32 @@ export function validateLexicon(lexicon: Read<Lexicon>): LexiconProblem[] {
       if (noun.pattern !== null && PATTERN_GENDER[noun.pattern] !== klass) {
         report(where, `The pattern "${noun.pattern}" does not fit the gender ${klass}.`);
       }
-      const wantSg = noun.numbers !== 'pl';
-      const wantPl = noun.numbers !== 'sg';
-      if (
-        wantSg !== (noun.paradigm.sg !== undefined) ||
-        wantPl !== (noun.paradigm.pl !== undefined)
-      ) {
-        report(where, `The paradigm must have exactly the numbers "${noun.numbers}" says.`);
-      }
-      const first = noun.paradigm.sg?.[0] ?? noun.paradigm.pl?.[0];
-      if (first !== undefined && preferred(first) !== word.lemma) {
-        report(where, 'The 1st case of the paradigm must be the lemma.');
+      if (noun.paradigm) {
+        const wantSg = noun.numbers !== 'pl';
+        const wantPl = noun.numbers !== 'sg';
+        if (
+          wantSg !== (noun.paradigm.sg !== undefined) ||
+          wantPl !== (noun.paradigm.pl !== undefined)
+        ) {
+          report(where, `The paradigm must have exactly the numbers "${noun.numbers}" says.`);
+        }
+        const first = noun.paradigm.sg?.[0] ?? noun.paradigm.pl?.[0];
+        if (first !== undefined && preferred(first) !== word.lemma) {
+          report(where, 'The 1st case of the paradigm must be the lemma.');
+        }
+      } else if (!colloquial) {
+        report(where, 'A standard noun needs its paradigm (only a colloquial word may omit it).');
       }
       if (noun.proper && word.lemma[0] === word.lemma[0]!.toLowerCase()) {
         report(where, 'A proper name starts with a capital letter.');
       }
     }
-    if (word.verb) {
-      const { aspect, reflexive, paradigm } = word.verb;
+    if (word.verb && !word.verb.paradigm && !colloquial) {
+      report(where, 'A standard verb needs its paradigm (only a colloquial word may omit it).');
+    }
+    if (word.verb?.paradigm) {
+      const { aspect, reflexive } = word.verb;
+      const paradigm = word.verb.paradigm;
       const infinitive = preferred(paradigm.inf);
       if ((reflexive ? `${infinitive} ${reflexive}` : infinitive) !== word.lemma) {
         report(where, 'The infinitive (with its reflexive pronoun) must be the lemma.');

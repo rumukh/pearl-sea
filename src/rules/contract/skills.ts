@@ -46,6 +46,7 @@ import type {
   Aspect,
   ListedLetter,
   PartOfSpeech,
+  Register,
   SegmentRole,
   SpellingRule,
   WordRelation,
@@ -111,7 +112,11 @@ export const DIMENSION_VALUES: Readonly<Record<Dimension, readonly string[]>> = 
 // ---------------------------------------------------------------------------------------------
 // Filters
 
-/** Selects lexicon words. Every present field narrows the selection; absent fields allow all. */
+/**
+ * Selects lexicon words. Every present field narrows the selection; absent fields allow all,
+ * except `registers`: absent, it selects standard words only (`DEFAULT_REGISTERS`), so a colloquial
+ * word (dobrej, mlíko) reaches only the register skills that ask for it.
+ */
 export interface WordFilter {
   words?: string[];
   topics?: string[];
@@ -123,10 +128,18 @@ export interface WordFilter {
   grades?: Grade[];
   /** Only verbs of these aspects (a 3rd-grade tense skill keeps to imperfective verbs). */
   aspects?: Aspect[];
+  /**
+   * Words of these registers (default: standard only). Only register skills (`isRegisterSkill`)
+   * may name `colloquial`, and they must.
+   */
+  registers?: Register[];
   /** Only words of core (school-list) families. */
   core?: boolean;
   exclude?: string[];
 }
+
+/** The registers a word filter selects when it names none: standard Czech only. */
+export const DEFAULT_REGISTERS: readonly Register[] = ['standard'];
 
 /** Selects lexicon sentences. */
 export interface SentenceFilter {
@@ -155,6 +168,7 @@ export function matchesWordFilter(
     (filter.grades === undefined || filter.grades.includes(word.grade)) &&
     (filter.aspects === undefined ||
       (word.verb !== undefined && filter.aspects.includes(word.verb.aspect))) &&
+    (filter.registers ?? DEFAULT_REGISTERS).includes(word.register ?? 'standard') &&
     (filter.core === undefined || (family !== undefined && family.core === filter.core)) &&
     (filter.exclude === undefined || !filter.exclude.includes(word.id))
   );
@@ -260,6 +274,12 @@ export const CONSONANT_ITEMS: readonly { letter: string; id: string; value: stri
   ...BOTH_WAY_CONSONANTS.map((letter) => ({ letter, value: 'both-way' })),
 ].map((entry) => ({ ...entry, id: lexiconId(entry.letter)! }));
 
+/**
+ * The IDs of `CONSONANT_ITEMS`, in school order (`h`, `ch`, …, `cx` for č, …): what a consonant
+ * skill's `consonants` may list, and the last part of its item IDs (`class:consonant:cx`).
+ */
+export const CONSONANT_IDS: readonly string[] = CONSONANT_ITEMS.map((entry) => entry.id);
+
 // ---------------------------------------------------------------------------------------------
 // Skills
 
@@ -287,6 +307,11 @@ export type SkillSpec =
         values: string[] | null;
         /** With `context: 'form'`: only forms of these groups (null: all; else null). */
         cells: FormGroup[] | null;
+        /**
+         * With `dimension: 'consonant'`: only these letters (`CONSONANT_IDS`); absent, all 24. Each
+         * letter's class must be among `values`.
+         */
+        consonants?: string[];
       };
     }
   | { generator: 'odd-one-out'; params: { basis: OddBasis; words: WordFilter; size: number } }
@@ -303,6 +328,8 @@ export type SkillSpec =
         fish: number;
         /** With `context: 'form'`: only forms of these groups (null: all; else null). */
         cells: FormGroup[] | null;
+        /** With `dimension: 'consonant'`: only these letters, each of a class among the nets. */
+        consonants?: string[];
       };
     }
   | { generator: 'segment'; params: { words: WordFilter; roles: SegmentRole[] } }
@@ -327,6 +354,7 @@ export const wordFilterSchema: Schema<WordFilter> = objectWithOptional(
     letters: uniqueArray(oneOf(LISTED_LETTERS), { min: 1, max: 7 }),
     grades: uniqueArray(gradeSchema, { min: 1, max: 2 }),
     aspects: uniqueArray(oneOf(ASPECTS), { min: 1, max: 2 }),
+    registers: uniqueArray(oneOf(REGISTERS), { min: 1, max: 2 }),
     core: schema.boolean,
     exclude: ids,
   },
@@ -342,6 +370,7 @@ export const sentenceFilterSchema: Schema<SentenceFilter> = objectWithOptional(
 );
 
 const rules = uniqueArray(oneOf(SPELLING_RULES), { min: 1, max: SPELLING_RULES.length });
+const consonants = uniqueArray(oneOf(CONSONANT_IDS), { min: 1, max: CONSONANT_IDS.length });
 
 /** Parameter schema of each generator. */
 export const SKILL_PARAM_SCHEMAS: { readonly [G in GeneratorId]: Schema<unknown> } = {
@@ -353,16 +382,19 @@ export const SKILL_PARAM_SCHEMAS: { readonly [G in GeneratorId]: Schema<unknown>
   }),
   'spell.sentence': schema.object({ sentences: sentenceFilterSchema, rules }),
   'spell.mistake': schema.object({ sentences: sentenceFilterSchema, rules }),
-  classify: schema.object({
-    dimension: oneOf(DIMENSIONS),
-    context: oneOf(['word', 'form', 'sentence'] as const),
-    words: wordFilterSchema,
-    sentences: sentenceFilterSchema,
-    values: nullable(
-      uniqueArray(schema.string({ minLength: 1, maxLength: 24 }), { min: 2, max: 14 }),
-    ),
-    cells: nullable(uniqueArray(oneOf(FORM_GROUPS), { min: 1, max: FORM_GROUPS.length })),
-  }),
+  classify: objectWithOptional(
+    {
+      dimension: oneOf(DIMENSIONS),
+      context: oneOf(['word', 'form', 'sentence'] as const),
+      words: wordFilterSchema,
+      sentences: sentenceFilterSchema,
+      values: nullable(
+        uniqueArray(schema.string({ minLength: 1, maxLength: 24 }), { min: 2, max: 14 }),
+      ),
+      cells: nullable(uniqueArray(oneOf(FORM_GROUPS), { min: 1, max: FORM_GROUPS.length })),
+    },
+    { consonants },
+  ),
   'odd-one-out': schema.object({
     basis: oneOf([...DIMENSIONS, 'family', 'listed'] as const),
     words: wordFilterSchema,
@@ -378,14 +410,17 @@ export const SKILL_PARAM_SCHEMAS: { readonly [G in GeneratorId]: Schema<unknown>
     size: int(3, 10),
   }),
   pairs: schema.object({ pair: oneOf(PAIR_KINDS), words: wordFilterSchema, pairs: int(3, 8) }),
-  sort: schema.object({
-    dimension: oneOf(DIMENSIONS),
-    context: oneOf(['word', 'form'] as const),
-    values: uniqueArray(schema.string({ minLength: 1, maxLength: 24 }), { min: 2, max: 4 }),
-    words: wordFilterSchema,
-    fish: int(4, 12),
-    cells: nullable(uniqueArray(oneOf(FORM_GROUPS), { min: 1, max: FORM_GROUPS.length })),
-  }),
+  sort: objectWithOptional(
+    {
+      dimension: oneOf(DIMENSIONS),
+      context: oneOf(['word', 'form'] as const),
+      values: uniqueArray(schema.string({ minLength: 1, maxLength: 24 }), { min: 2, max: 4 }),
+      words: wordFilterSchema,
+      fish: int(4, 12),
+      cells: nullable(uniqueArray(oneOf(FORM_GROUPS), { min: 1, max: FORM_GROUPS.length })),
+    },
+    { consonants },
+  ),
   segment: schema.object({
     words: wordFilterSchema,
     roles: uniqueArray(oneOf(SEGMENT_ROLES), { min: 1, max: 4 }),
@@ -422,29 +457,77 @@ export const skillSchema: Schema<Skill> = {
   },
 };
 
+/**
+ * Whether a skill teaches the register (spisovná × nespisovná čeština): it asks the `register`
+ * dimension or pairs a colloquial word with its standard twin. Only these skills select
+ * colloquial words, and they must (`words.registers`).
+ */
+export function isRegisterSkill(skill: Read<Skill>): boolean {
+  switch (skill.generator) {
+    case 'classify':
+    case 'sort':
+      return skill.params.dimension === 'register';
+    case 'odd-one-out':
+      return skill.params.basis === 'register';
+    case 'pairs':
+      return skill.params.pair === 'standard';
+    default:
+      return false;
+  }
+}
+
 /** Cross-field checks of a skill's parameters. */
 function paramProblem(skill: Skill): string | null {
+  const filter = (skill.params as { words?: WordFilter }).words;
+  if (filter !== undefined) {
+    const colloquial = (filter.registers ?? DEFAULT_REGISTERS).includes('colloquial');
+    if (isRegisterSkill(skill) && !colloquial) {
+      return 'A register skill selects colloquial words too: name them in words.registers.';
+    }
+    if (!isRegisterSkill(skill) && colloquial) {
+      return 'Only register skills (the register dimension, standard pairs) select colloquial words.';
+    }
+  }
   const valuesOf = (dimension: Dimension, values: readonly string[] | null) => {
     const allowed = DIMENSION_VALUES[dimension];
     const bad = (values ?? []).find((value) => !allowed.includes(value));
     return bad === undefined ? null : `"${bad}" is not a ${dimension} value.`;
   };
+  const consonantsOf = (
+    dimension: Dimension,
+    listed: readonly string[] | undefined,
+    values: readonly string[] | null,
+  ) => {
+    if (listed === undefined) return null;
+    if (dimension !== 'consonant') return 'Only a consonant skill lists consonants.';
+    const offered = values ?? DIMENSION_VALUES.consonant;
+    const left = CONSONANT_ITEMS.find(
+      (entry) => listed.includes(entry.id) && !offered.includes(entry.value),
+    );
+    return left === undefined
+      ? null
+      : `"${left.letter}" is a ${left.value} consonant, which the skill's values leave out.`;
+  };
   switch (skill.generator) {
     case 'classify': {
-      const { dimension, context, cells } = skill.params;
+      const { dimension, context, cells, values } = skill.params;
       if (!(CONTEXT_DIMENSIONS[context] as readonly string[]).includes(dimension)) {
         return `A ${context} classification cannot ask "${dimension}".`;
       }
       if (cells !== null && context !== 'form') return 'Only a form classification chooses cells.';
-      return valuesOf(dimension, skill.params.values);
+      return (
+        valuesOf(dimension, values) ?? consonantsOf(dimension, skill.params.consonants, values)
+      );
     }
     case 'sort': {
-      const { dimension, context, cells } = skill.params;
+      const { dimension, context, cells, values } = skill.params;
       if (!(SORT_DIMENSIONS[context] as readonly string[]).includes(dimension)) {
         return `Nets of ${context}s cannot sort by "${dimension}".`;
       }
       if (cells !== null && context !== 'form') return 'Only nets of forms choose cells.';
-      return valuesOf(dimension, skill.params.values);
+      return (
+        valuesOf(dimension, values) ?? consonantsOf(dimension, skill.params.consonants, values)
+      );
     }
     case 'odd-one-out': {
       const basis = skill.params.basis;
@@ -501,7 +584,7 @@ function relationPartners(lexicon: Read<Lexicon>, relation: WordRelation | PairK
     case 'plural':
       return new Set(
         lexicon.words
-          .filter((word) => word.noun?.numbers === 'both' && word.noun.paradigm.pl)
+          .filter((word) => word.noun?.numbers === 'both' && word.noun.paradigm?.pl)
           .map((word) => word.id),
       );
     case 'pattern':
@@ -562,12 +645,14 @@ export function skillItems(skill: Read<Skill>, lexicon: Read<Lexicon>): string[]
       }
       break;
     case 'classify': {
-      const { dimension, context, values } = skill.params;
+      const { dimension, context, values, consonants: listed } = skill.params;
       const allowed = (value: string | null | undefined) =>
         value !== null && value !== undefined && (values === null || values.includes(value));
       if (dimension === 'consonant') {
         for (const entry of CONSONANT_ITEMS) {
-          if (allowed(entry.value)) items.add(classItem('consonant', entry.id));
+          if (allowed(entry.value) && (listed === undefined || listed.includes(entry.id))) {
+            items.add(classItem('consonant', entry.id));
+          }
         }
       } else if (context === 'form') {
         const cells = skill.params.cells;
@@ -656,10 +741,12 @@ export function skillItems(skill: Read<Skill>, lexicon: Read<Lexicon>): string[]
       break;
     }
     case 'sort': {
-      const { dimension, context, values, cells } = skill.params;
+      const { dimension, context, values, cells, consonants: listed } = skill.params;
       if (dimension === 'consonant') {
         for (const entry of CONSONANT_ITEMS) {
-          if (values.includes(entry.value)) items.add(classItem('consonant', entry.id));
+          if (values.includes(entry.value) && (listed === undefined || listed.includes(entry.id))) {
+            items.add(classItem('consonant', entry.id));
+          }
         }
         break;
       }

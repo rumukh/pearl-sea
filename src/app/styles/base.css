@@ -274,3 +274,22 @@ svg {
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Entrances (a new screen, a dialog, a toast) start faint, and even a 1 ms entrance shows its
+ * faint first frame until the browser draws the next one. With less motion they do not run at
+ * all: their end state is the element's own.
+ */
+:root[data-reduced-motion='true'] .ps-screen[data-entering='true'],
+:root[data-reduced-motion='true'] .ps-dialog[open],
+:root[data-reduced-motion='true'] .ps-toast {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-screen[data-entering='true'],
+  .ps-dialog[open],
+  .ps-toast {
+    animation: none !important;
+  }
+}

@@ -161,8 +161,10 @@ game is saved.
 - **Components**: buttons, choice tiles, the number pad, cards, segmented choices and tabs,
   switches, dialogs, toasts, an `aria-live` announcer, meters, stars, the coin counter with fly-in,
   confetti and screen transitions. Motion uses transform and opacity only and stops with
-  `prefers-reduced-motion` or the child's own setting. A control's face lifts on hover and sinks
-  when pressed while its hit area stays at rest. Words stay whole at 200 % text; rows wrap.
+  `prefers-reduced-motion` or the child's own setting: durations collapse to 1 ms, and the
+  entrances of screens, dialogs and toasts do not run at all, since even a 1 ms fade draws its
+  faint first frame (`styles/base.css`). A control's face lifts on hover and sinks when pressed
+  while its hit area stays at rest. Words stay whole at 200 % text; rows wrap.
 - **Feedback never relies on colour alone**: a right choice is green with a check badge, a miss
   warm orange with a "?" badge (never red), stars are filled or outlined, pressed choices have a
   ring as well as a colour.
@@ -298,11 +300,13 @@ that had it (`replaceKeepingFocus` in `ui/dom.ts`, matched by `data-testid`).
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
   download, offline installation into this game's caches and scope, and the recovery screen for
-  an unreadable family record; axe WCAG 2.1 A and AA on every screen. The spec runs with reduced motion (axe would otherwise measure a half-faded toast) and
-  waits up to 20 s for readiness: boot opens the family record, and Firefox's first IndexedDB open
-  in a new browser context takes about 1 to 5 s. `smoke.spec.ts` and `isolation.spec.ts` stay
-  green. Locally the default project is the installed Edge; set `PS_E2E_PORT` to a free port when
-  another checkout serves 4331.
+  an unreadable family record; axe WCAG 2.1 A and AA on every screen. The spec runs with less
+  motion; the gate, a new screen and a toast must appear at full strength at once (read before
+  the first frame), and axe waits until nothing is fading (no `data-entering`, no running
+  animation), since it would measure half-faded colours. It waits up to 20 s for readiness: boot
+  opens the family record, and Firefox's first IndexedDB open in a new browser context takes
+  about 1 to 5 s. `smoke.spec.ts` and `isolation.spec.ts` stay green. Locally the default project
+  is the installed Edge; set `PS_E2E_PORT` to a free port when another checkout serves 4331.
 
 ## 16. Phase B
 

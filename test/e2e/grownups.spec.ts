@@ -19,7 +19,7 @@ import { recordPolicy, RecordStore } from '../../src/app/persistence/records';
 import { SAVE_DATABASE } from '../../src/rules/contract';
 import { observe } from './support/observe';
 
-// Toasts and screens arrive with short fades; axe would measure a half-faded toast. The smoke
+// Every check here runs with less motion, as a family that asks for it sees the game. The smoke
 // suite keeps the default motion.
 test.use({ reducedMotion: 'reduce' });
 
@@ -35,7 +35,23 @@ async function ready(page: Page, screen: string): Promise<void> {
   await expect(status).toHaveAttribute('data-screen', screen);
 }
 
+/**
+ * Wait until nothing on the page is still fading: axe would measure half-faded colours. The
+ * router marks a new screen `data-entering` for its first moments; a toast leaving fades out.
+ */
+async function settled(page: Page): Promise<void> {
+  await expect(page.locator('[data-entering]')).toHaveCount(0);
+  await page.evaluate(async () => {
+    const running = document
+      .getAnimations()
+      .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
+      .map((animation) => animation.finished.catch(() => undefined));
+    await Promise.race([Promise.all(running), new Promise((resolve) => setTimeout(resolve, 2000))]);
+  });
+}
+
 async function noViolations(page: Page, what: string): Promise<void> {
+  await settled(page);
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
     .analyze();
@@ -49,6 +65,31 @@ async function noViolations(page: Page, what: string): Promise<void> {
     ),
     `axe violations: ${what}`,
   ).toEqual([]);
+}
+
+/**
+ * Start watching for `selector`. The returned function gives the element's opacity at the moment
+ * it appeared, read before the browser could draw a single frame of it.
+ */
+async function watchArrival(page: Page, selector: string): Promise<() => Promise<string>> {
+  await page.evaluate((selector) => {
+    const scope = globalThis as { psArrivals?: Record<string, Promise<string>> };
+    const arrivals = (scope.psArrivals ??= {});
+    arrivals[selector] = new Promise<string>((resolve) => {
+      const observer = new MutationObserver(() => {
+        const element = document.querySelector(selector);
+        if (!element) return;
+        observer.disconnect();
+        resolve(getComputedStyle(element).opacity);
+      });
+      observer.observe(document.body, { subtree: true, childList: true, attributes: true });
+    });
+  }, selector);
+  return () =>
+    page.evaluate((selector) => {
+      const scope = globalThis as { psArrivals?: Record<string, Promise<string>> };
+      return scope.psArrivals![selector]!;
+    }, selector);
 }
 
 /** Through the gate: hold the lock from the keyboard, then answer the question. */
@@ -147,6 +188,23 @@ test('the gate lets a grown-up in only after holding the lock and answering', as
   expect(seen.consoleErrors, 'console errors').toEqual([]);
   expect(seen.foreignRequests, 'requests to another origin').toEqual([]);
   expect(seen.failedRequests, 'failed or 4xx/5xx requests').toEqual([]);
+});
+
+test('with less motion, the gate, a new screen and a toast appear at full strength at once', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await ready(page, 'title');
+  const gate = await watchArrival(page, '[data-testid="grownups-gate"][open]');
+  const area = await watchArrival(page, '[data-testid="screen-grownups"]');
+  await enterGrownUps(page);
+  const toast = await watchArrival(page, '[data-testid="toast"]');
+  await page.getByTestId('grownups-language-en').click();
+  await expect(page.getByTestId('toast')).toBeVisible();
+  // A fade, however short, would still be at its first faint frame when this is read.
+  expect(await gate(), 'the gate').toBe('1');
+  expect(await area(), 'the grown-ups’ area').toBe('1');
+  expect(await toast(), 'the toast').toBe('1');
 });
 
 test('the grown-ups’ area speaks English when chosen, and keeps it, while the game stays Czech', async ({

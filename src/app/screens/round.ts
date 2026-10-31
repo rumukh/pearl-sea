@@ -266,8 +266,9 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         testId: 'ink-splash',
         attributes: { type: 'button', 'aria-label': t('battle.wipe') },
       });
+      // Spread over the stage below the top bar, never on the round's heading and meter.
       blot.style.left = `${12 + ((spot * 37) % 70)}%`;
-      blot.style.top = `${10 + ((spot * 53) % 60)}%`;
+      blot.style.top = `${26 + ((spot * 53) % 52)}%`;
       blot.addEventListener('click', () => {
         app.kit.cue('fx.wipe');
         blot.dataset['wiped'] = 'true';

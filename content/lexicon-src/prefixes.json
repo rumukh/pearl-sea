@@ -1,0 +1,282 @@
+{
+  "topic": "prefixes",
+  "title": "Předpony a předložky, psaní předpon od-, nad-, pod-, před-, roz-, bez-",
+  "grade": 4,
+  "note": "Předponu píšeme se slovem dohromady (odplavala), předložku zvlášť (od břehu). Předpony od-, nad-, pod-, před-, roz-, bez- píšeme stejně, i když je slyšíme jinak (odpověď [otpověť]).",
+  "src": ["pcp-1993"],
+  "words": [
+    {
+      "id": "podplout",
+      "lemma": "podplout",
+      "pos": "verb",
+      "aspect": "pf",
+      "prefix": "pod",
+      "forms": ["podplula"],
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "nadskocxit",
+      "lemma": "nadskočit",
+      "pos": "verb",
+      "aspect": "pf",
+      "prefix": "nad",
+      "forms": ["nadskočil"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "prxedbexhnout",
+      "lemma": "předběhnout",
+      "pos": "verb",
+      "aspect": "pf",
+      "prefix": "před",
+      "forms": ["předběhl"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "zaplavat-si",
+      "lemma": "zaplavat si",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "si",
+      "prefix": "za",
+      "src": ["morfflex"]
+    },
+    {
+      "id": "nastoupit",
+      "lemma": "nastoupit",
+      "pos": "verb",
+      "aspect": "pf",
+      "prefix": "na",
+      "forms": ["nastoupil"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "odpocxiivat",
+      "lemma": "odpočívat",
+      "pos": "verb",
+      "prefix": "od",
+      "forms": ["odpočívá"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "odpovexdx",
+      "lemma": "odpověď",
+      "pos": "noun",
+      "gender": "f",
+      "prefix": "od",
+      "spell": "o{d|t}pověď",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "podpis",
+      "lemma": "podpis",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "prefix": "pod",
+      "spell": "po{d|t}pis",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "prxedpovexdx",
+      "lemma": "předpověď",
+      "pos": "noun",
+      "gender": "f",
+      "prefix": "před",
+      "spell": "pře{d|t}pověď",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "nadpis",
+      "lemma": "nadpis",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "prefix": "nad",
+      "spell": "na{d|t}pis",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "rozpustit",
+      "lemma": "rozpustit",
+      "pos": "verb",
+      "aspect": "pf",
+      "prefix": "roz",
+      "spell": "ro{z|s}pustit",
+      "rules": ["predpona-souhlaska"],
+      "forms": ["rozpustí"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "bezpecxii",
+      "lemma": "bezpečí",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "prefix": "bez",
+      "spell": "be{z|s}pečí",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "odpocxinek",
+      "lemma": "odpočinek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "prefix": "od",
+      "spell": "o{d|t}počinek",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "rozkaz",
+      "lemma": "rozkaz",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "prefix": "roz",
+      "spell": "ro{z|s}kaz",
+      "rules": ["predpona-souhlaska"],
+      "src": ["pcp-1993", "morfflex"]
+    },
+    {
+      "id": "odplout",
+      "lemma": "odplout",
+      "pos": "verb",
+      "aspect": "pf",
+      "prefix": "od",
+      "spell": "o{d|t}plout",
+      "rules": ["predpona-souhlaska"],
+      "forms": ["odpluje"],
+      "tags": ["sea"],
+      "src": ["pcp-1993", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "prefix.01",
+      "text": "Rybka {odplavala|od plavala} {od břehu|odbřehu}.",
+      "gaps": [
+        { "rule": "predpona-predlozka", "word": "odplavat" },
+        { "rule": "predpona-predlozka" }
+      ]
+    },
+    {
+      "id": "prefix.02",
+      "text": "Delfín {doplaval|do plaval} {do zátoky|dozátoky}.",
+      "gaps": [
+        { "rule": "predpona-predlozka", "word": "doplavat" },
+        { "rule": "predpona-predlozka" }
+      ]
+    },
+    {
+      "id": "prefix.03",
+      "text": "Želva {připlavala|při plavala} k lodi.",
+      "gaps": [{ "rule": "predpona-predlozka", "word": "prxiplavat" }]
+    },
+    {
+      "id": "prefix.04",
+      "text": "Ponorka {podplula|pod plula} {pod mostem|podmostem}.",
+      "gaps": [
+        { "rule": "predpona-predlozka", "word": "podplout" },
+        { "rule": "predpona-predlozka" }
+      ]
+    },
+    {
+      "id": "prefix.05",
+      "text": "Racek letí {nad mořem|nadmořem}.",
+      "gaps": [{ "rule": "predpona-predlozka" }]
+    },
+    {
+      "id": "prefix.06",
+      "text": "Delfín {nadskočil|nad skočil} radostí.",
+      "gaps": [{ "rule": "predpona-predlozka", "word": "nadskocxit" }]
+    },
+    {
+      "id": "prefix.07",
+      "text": "Lachtan {předběhl|před běhl} tuleně.",
+      "gaps": [{ "rule": "predpona-predlozka", "word": "prxedbexhnout" }]
+    },
+    {
+      "id": "prefix.08",
+      "text": "Pojďme si {zaplavat|za plavat} do zátoky.",
+      "gaps": [{ "rule": "predpona-predlozka", "word": "zaplavat-si" }]
+    },
+    {
+      "id": "prefix.09",
+      "text": "Kapitán {nastoupil|na stoupil} {na loď|naloď}.",
+      "gaps": [
+        { "rule": "predpona-predlozka", "word": "nastoupit" },
+        { "rule": "predpona-predlozka" }
+      ]
+    },
+    {
+      "id": "prefix.10",
+      "text": "Ponorka vyplula {z přístavu|zpřístavu}.",
+      "gaps": [{ "rule": "predpona-predlozka" }]
+    },
+    {
+      "id": "prefix.11",
+      "text": "Tuleň {odpočívá|od počívá} {na ledu|naledu}.",
+      "gaps": [
+        { "rule": "predpona-predlozka", "word": "odpocxiivat" },
+        { "rule": "predpona-predlozka" }
+      ]
+    },
+    {
+      "id": "prefix.12",
+      "text": "Na otázku neznám o{d|t}pověď.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "odpovexdx" }]
+    },
+    {
+      "id": "prefix.13",
+      "text": "Kapitán připojil svůj po{d|t}pis.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "podpis" }]
+    },
+    {
+      "id": "prefix.14",
+      "text": "Námořníci poslouchají pře{d|t}pověď počasí.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "prxedpovexdx" }]
+    },
+    {
+      "id": "prefix.15",
+      "text": "Nad článkem je velký na{d|t}pis.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "nadpis" }]
+    },
+    {
+      "id": "prefix.16",
+      "text": "Cukr se ve vodě ro{z|s}pustí.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "rozpustit" }]
+    },
+    {
+      "id": "prefix.17",
+      "text": "V přístavu je loď v be{z|s}pečí.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "bezpecxii" }]
+    },
+    {
+      "id": "prefix.18",
+      "text": "Po plavání potřebuji o{d|t}počinek.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "odpocxinek" }]
+    },
+    {
+      "id": "prefix.19",
+      "text": "Kapitán dal ro{z|s}kaz k vyplutí.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "rozkaz" }]
+    },
+    {
+      "id": "prefix.20",
+      "text": "Loď brzy o{d|t}pluje.",
+      "gaps": [{ "rule": "predpona-souhlaska", "word": "odplout" }]
+    }
+  ]
+}

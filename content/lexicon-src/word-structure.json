@@ -1,0 +1,393 @@
+{
+  "topic": "word-structure",
+  "title": "Stavba slova a slova příbuzná",
+  "grade": 4,
+  "note": "Rozdělení: předpona – kořen – přípona – koncovka; přípona je celá část mezi kořenem a koncovkou, prázdná koncovka je nulová. Dělíme jen podstatná a přídavná jména, kde je dělení jednoznačné; u sloves uvádíme jen předponu.",
+  "src": ["pcp-1993", "derinet"],
+  "families": [
+    { "id": "fam.voda", "letter": null, "head": "voda", "root": "vod", "src": ["derinet"] },
+    { "id": "fam.morxe", "letter": null, "head": "morxe", "root": "moř", "src": ["derinet"] },
+    { "id": "fam.ryba", "letter": null, "head": "ryba", "root": "ryb", "src": ["derinet"] },
+    { "id": "fam.plavat", "letter": null, "head": "plavat", "root": "plav", "src": ["derinet"] },
+    { "id": "fam.hvexzda", "letter": null, "head": "hvexzda", "root": "hvězd", "src": ["derinet"] },
+    { "id": "fam.perla", "letter": null, "head": "perla", "root": "perl", "src": ["derinet"] },
+    { "id": "fam.ostrov", "letter": null, "head": "ostrov", "root": "ostrov", "src": ["derinet"] }
+  ],
+  "words": [
+    {
+      "id": "voda",
+      "lemma": "voda",
+      "pos": "noun",
+      "family": "fam.voda",
+      "role": "head",
+      "segments": { "prefix": "", "root": "vod", "suffix": "", "ending": "a" },
+      "src": ["morfflex"]
+    },
+    {
+      "id": "vodnii",
+      "lemma": "vodní",
+      "pos": "adj",
+      "family": "fam.voda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "vod", "suffix": "n", "ending": "í" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "podvodnii",
+      "lemma": "podvodní",
+      "pos": "adj",
+      "family": "fam.voda",
+      "role": "member",
+      "prefix": "pod",
+      "segments": { "prefix": "pod", "root": "vod", "suffix": "n", "ending": "í" },
+      "tags": ["sea"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "vodniik",
+      "lemma": "vodník",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "fam.voda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "vod", "suffix": "ník", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "vodicxka",
+      "lemma": "vodička",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "fam.voda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "vod", "suffix": "ičk", "ending": "a" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "vodiitko",
+      "lemma": "vodítko",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "note": "od slova vodit, není příbuzné se slovem voda",
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "morxe",
+      "lemma": "moře",
+      "pos": "noun",
+      "family": "fam.morxe",
+      "role": "head",
+      "segments": { "prefix": "", "root": "moř", "suffix": "", "ending": "e" },
+      "src": ["morfflex"]
+    },
+    {
+      "id": "morxskyy",
+      "lemma": "mořský",
+      "pos": "adj",
+      "family": "fam.morxe",
+      "role": "member",
+      "segments": { "prefix": "", "root": "moř", "suffix": "sk", "ending": "ý" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "podmorxskyy",
+      "lemma": "podmořský",
+      "pos": "adj",
+      "family": "fam.morxe",
+      "role": "member",
+      "prefix": "pod",
+      "segments": { "prefix": "pod", "root": "moř", "suffix": "sk", "ending": "ý" },
+      "tags": ["sea"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "prxiimorxskyy",
+      "lemma": "přímořský",
+      "pos": "adj",
+      "family": "fam.morxe",
+      "role": "member",
+      "prefix": "pří",
+      "segments": { "prefix": "pří", "root": "moř", "suffix": "sk", "ending": "ý" },
+      "tags": ["sea"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "naamorxniik",
+      "lemma": "námořník",
+      "pos": "noun",
+      "family": "fam.morxe",
+      "role": "member",
+      "prefix": "ná",
+      "segments": { "prefix": "ná", "root": "moř", "suffix": "ník", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ryba",
+      "lemma": "ryba",
+      "pos": "noun",
+      "family": "fam.ryba",
+      "role": "head",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "", "ending": "a" },
+      "src": ["morfflex"]
+    },
+    {
+      "id": "rybaarx",
+      "lemma": "rybář",
+      "pos": "noun",
+      "family": "fam.ryba",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "ář", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rybka",
+      "lemma": "rybka",
+      "pos": "noun",
+      "family": "fam.ryba",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "k", "ending": "a" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rybniik",
+      "lemma": "rybník",
+      "pos": "noun",
+      "family": "fam.ryba",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "ník", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rybii",
+      "lemma": "rybí",
+      "pos": "adj",
+      "family": "fam.ryba",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "", "ending": "í" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rybicxka",
+      "lemma": "rybička",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "fam.ryba",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "ičk", "ending": "a" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rybaarxskyy",
+      "lemma": "rybářský",
+      "pos": "adj",
+      "family": "fam.ryba",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ryb", "suffix": "ářsk", "ending": "ý" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rybiiz",
+      "lemma": "rybíz",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "note": "keř s bobulemi, není příbuzné se slovem ryba",
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "plavat",
+      "lemma": "plavat",
+      "pos": "verb",
+      "family": "fam.plavat",
+      "role": "head",
+      "src": ["morfflex"]
+    },
+    {
+      "id": "plavec",
+      "lemma": "plavec",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "fam.plavat",
+      "role": "member",
+      "segments": { "prefix": "", "root": "plav", "suffix": "ec", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "plavky",
+      "lemma": "plavky",
+      "pos": "noun",
+      "family": "fam.plavat",
+      "role": "member",
+      "segments": { "prefix": "", "root": "plav", "suffix": "k", "ending": "y" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "plavba",
+      "lemma": "plavba",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "fam.plavat",
+      "role": "member",
+      "segments": { "prefix": "", "root": "plav", "suffix": "b", "ending": "a" },
+      "tags": ["sea"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "prxiplavat",
+      "lemma": "připlavat",
+      "pos": "verb",
+      "family": "fam.plavat",
+      "role": "member",
+      "prefix": "při",
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "odplavat",
+      "lemma": "odplavat",
+      "pos": "verb",
+      "family": "fam.plavat",
+      "role": "member",
+      "prefix": "od",
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "doplavat",
+      "lemma": "doplavat",
+      "pos": "verb",
+      "family": "fam.plavat",
+      "role": "member",
+      "prefix": "do",
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "hvexzda",
+      "lemma": "hvězda",
+      "pos": "noun",
+      "family": "fam.hvexzda",
+      "role": "head",
+      "segments": { "prefix": "", "root": "hvězd", "suffix": "", "ending": "a" },
+      "src": ["morfflex"]
+    },
+    {
+      "id": "hvexzdicxka",
+      "lemma": "hvězdička",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "fam.hvexzda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "hvězd", "suffix": "ičk", "ending": "a" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "hvexzdice",
+      "lemma": "hvězdice",
+      "pos": "noun",
+      "family": "fam.hvexzda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "hvězd", "suffix": "ic", "ending": "e" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "hvexzdnyy",
+      "lemma": "hvězdný",
+      "pos": "adj",
+      "family": "fam.hvexzda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "hvězd", "suffix": "n", "ending": "ý" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "hvexzdaarx",
+      "lemma": "hvězdář",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "fam.hvexzda",
+      "role": "member",
+      "segments": { "prefix": "", "root": "hvězd", "suffix": "ář", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "perla",
+      "lemma": "perla",
+      "pos": "noun",
+      "family": "fam.perla",
+      "role": "head",
+      "segments": { "prefix": "", "root": "perl", "suffix": "", "ending": "a" },
+      "src": ["morfflex"]
+    },
+    {
+      "id": "perlicxka",
+      "lemma": "perlička",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "fam.perla",
+      "role": "member",
+      "segments": { "prefix": "", "root": "perl", "suffix": "ičk", "ending": "a" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "perlovyy",
+      "lemma": "perlový",
+      "pos": "adj",
+      "family": "fam.perla",
+      "role": "member",
+      "segments": { "prefix": "", "root": "perl", "suffix": "ov", "ending": "ý" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ostrov",
+      "lemma": "ostrov",
+      "pos": "noun",
+      "family": "fam.ostrov",
+      "role": "head",
+      "segments": { "prefix": "", "root": "ostrov", "suffix": "", "ending": "" },
+      "src": ["morfflex"]
+    },
+    {
+      "id": "ostrovnii",
+      "lemma": "ostrovní",
+      "pos": "adj",
+      "family": "fam.ostrov",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ostrov", "suffix": "n", "ending": "í" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ostrovan",
+      "lemma": "ostrovan",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "fam.ostrov",
+      "role": "member",
+      "segments": { "prefix": "", "root": "ostrov", "suffix": "an", "ending": "" },
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ostryy",
+      "lemma": "ostrý",
+      "pos": "adj",
+      "note": "není příbuzné se slovem ostrov",
+      "src": ["derinet", "morfflex"]
+    }
+  ],
+  "sets": [
+    { "id": "look.voda", "kind": "lookalikes", "family": "fam.voda", "words": ["vodiitko"] },
+    { "id": "look.ryba", "kind": "lookalikes", "family": "fam.ryba", "words": ["rybiiz"] },
+    { "id": "look.ostrov", "kind": "lookalikes", "family": "fam.ostrov", "words": ["ostryy"] }
+  ]
+}

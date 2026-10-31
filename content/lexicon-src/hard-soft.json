@@ -1,0 +1,637 @@
+{
+  "topic": "hard-soft",
+  "title": "Tvrdé a měkké souhlásky, dy ty ny a di ti ni",
+  "grade": 3,
+  "src": ["ijp-103"],
+  "words": [
+    {
+      "id": "ryba",
+      "lemma": "ryba",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "r{y|i}ba",
+      "rules": ["tvrda"],
+      "forms": ["ryby", "rybu", "rybou", "rybě"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "rybaarx",
+      "lemma": "rybář",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "spell": "r{y|i}bář",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "velryba",
+      "lemma": "velryba",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "velr{y|i}ba",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "rychlyy",
+      "lemma": "rychlý",
+      "pos": "adj",
+      "spell": "r{y|i}chlý",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "chyba",
+      "lemma": "chyba",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "ch{y|i}ba",
+      "rules": ["tvrda"],
+      "forms": ["chybu"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "chytat",
+      "lemma": "chytat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "ch{y|i}tat",
+      "rules": ["tvrda"],
+      "forms": ["chytá", "chytají"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "chytryy",
+      "lemma": "chytrý",
+      "pos": "adj",
+      "spell": "ch{y|i}trý",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "kytara",
+      "lemma": "kytara",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "k{y|i}tara",
+      "rules": ["tvrda"],
+      "forms": ["kytaru"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "dyychat",
+      "lemma": "dýchat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "d{ý|í}chat",
+      "rules": ["tvrda"],
+      "forms": ["dýchá", "dýchají"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "dyynex",
+      "lemma": "dýně",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "spell": "d{ý|í}n{ě|e}",
+      "rules": ["tvrda", "de-te-ne"],
+      "src": ["ijp-103", "ijp-126", "morfflex"]
+    },
+    {
+      "id": "ty",
+      "lemma": "ty",
+      "pos": "pron",
+      "spell": "t{y|i}",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "tyyden",
+      "lemma": "týden",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "spell": "t{ý|í}den",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "tygr",
+      "lemma": "tygr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "spell": "t{y|i}gr",
+      "rules": ["tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "nynii",
+      "lemma": "nyní",
+      "pos": "adv",
+      "spell": "n{y|i}n{í|ý}",
+      "rules": ["tvrda", "dtn-mekke"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "hyybat",
+      "lemma": "hýbat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "h{ý|í}bat",
+      "rules": ["tvrda"],
+      "forms": ["hýbá"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "koryysx",
+      "lemma": "korýš",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "spell": "kor{ý|í}š",
+      "rules": ["tvrda"],
+      "tags": ["sea"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "krunyyrx",
+      "lemma": "krunýř",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "spell": "krun{ý|í}ř",
+      "rules": ["tvrda"],
+      "tags": ["sea"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "mexkkyysx",
+      "lemma": "měkkýš",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "spell": "m{ě|ně}kk{ý|í}š",
+      "rules": ["be-pe-ve-me", "tvrda"],
+      "tags": ["sea"],
+      "src": ["ijp-103", "ijp-126", "morfflex"]
+    },
+    {
+      "id": "sxipka",
+      "lemma": "šipka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "š{i|y}pka",
+      "rules": ["mekka"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "zxiizenx",
+      "lemma": "žízeň",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "pisen",
+      "spell": "ž{í|ý}zeň",
+      "rules": ["mekka"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "sxirokyy",
+      "lemma": "široký",
+      "pos": "adj",
+      "spell": "š{i|y}roký",
+      "rules": ["mekka"],
+      "forms": ["široké"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "cxistyy",
+      "lemma": "čistý",
+      "pos": "adj",
+      "spell": "č{i|y}stý",
+      "rules": ["mekka"],
+      "forms": ["čistá"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "cxiihat",
+      "lemma": "číhat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "č{í|ý}hat",
+      "rules": ["mekka"],
+      "forms": ["číhá"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "cxiislo",
+      "lemma": "číslo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "č{í|ý}slo",
+      "rules": ["mekka"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "rxiidit",
+      "lemma": "řídit",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "ř{í|ý}d{i|y}t",
+      "rules": ["mekka", "dtn-mekke"],
+      "forms": ["řídí"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "krxiidlo",
+      "lemma": "křídlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "kř{í|ý}dlo",
+      "rules": ["mekka"],
+      "forms": ["křídly"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "ciil",
+      "lemma": "cíl",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "spell": "c{í|ý}l",
+      "rules": ["mekka"],
+      "forms": ["cíli"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "jiidlo",
+      "lemma": "jídlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "j{í|ý}dlo",
+      "rules": ["mekka"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "jiskra",
+      "lemma": "jiskra",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "j{i|y}skra",
+      "rules": ["mekka"],
+      "forms": ["jiskry"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "jih",
+      "lemma": "jih",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "j{i|y}h",
+      "rules": ["mekka"],
+      "forms": ["jihu"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "divadlo",
+      "lemma": "divadlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "d{i|y}vadlo",
+      "rules": ["dtn-mekke"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "diivka",
+      "lemma": "dívka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "d{í|ý}vka",
+      "rules": ["dtn-mekke"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "diitex",
+      "lemma": "dítě",
+      "pos": "noun",
+      "gender": "n",
+      "spell": "d{í|ý}t{ě|e}",
+      "rules": ["dtn-mekke", "de-te-ne"],
+      "note": "v množném čísle děti, skloňuje se jako kost",
+      "src": ["ijp-103", "ijp-126", "morfflex"]
+    },
+    {
+      "id": "divokyy",
+      "lemma": "divoký",
+      "pos": "adj",
+      "spell": "d{i|y}voký",
+      "rules": ["dtn-mekke"],
+      "forms": ["divoká"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "ticho",
+      "lemma": "ticho",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "t{i|y}cho",
+      "rules": ["dtn-mekke"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "tisiic",
+      "lemma": "tisíc",
+      "pos": "num",
+      "spell": "t{i|y}s{í|ý}c",
+      "rules": ["dtn-mekke", "obojetna-i"],
+      "forms": ["tisíce"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "nic",
+      "lemma": "nic",
+      "pos": "pron",
+      "spell": "n{i|y}c",
+      "rules": ["dtn-mekke"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "nikdo",
+      "lemma": "nikdo",
+      "pos": "pron",
+      "spell": "n{i|y}kdo",
+      "rules": ["dtn-mekke"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "nikdy",
+      "lemma": "nikdy",
+      "pos": "adv",
+      "spell": "n{i|y}kd{y|i}",
+      "rules": ["dtn-mekke", "tvrda"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "rybniik",
+      "lemma": "rybník",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "r{y|i}bn{í|ý}k",
+      "rules": ["tvrda", "dtn-mekke"],
+      "forms": ["rybníku", "rybníka"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "hniizdo",
+      "lemma": "hnízdo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "hn{í|ý}zdo",
+      "rules": ["dtn-mekke"],
+      "forms": ["hnízda"],
+      "src": ["ijp-103", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "hard-soft.01",
+      "text": "Zlatá r{y|i}ba plave v zátoce.",
+      "gaps": [{ "rule": "tvrda", "word": "ryba" }]
+    },
+    {
+      "id": "hard-soft.02",
+      "text": "Velr{y|i}ba d{ý|í}chá na hladině.",
+      "gaps": [
+        { "rule": "tvrda", "word": "velryba" },
+        { "rule": "tvrda", "word": "dyychat" }
+      ]
+    },
+    {
+      "id": "hard-soft.03",
+      "text": "Potápěč d{ý|í}chá pod vodou z láhve.",
+      "gaps": [{ "rule": "tvrda", "word": "dyychat" }]
+    },
+    {
+      "id": "hard-soft.04",
+      "text": "R{y|i}bář ch{y|i}tá r{y|i}by.",
+      "gaps": [
+        { "rule": "tvrda", "word": "rybaarx" },
+        { "rule": "tvrda", "word": "chytat" },
+        { "rule": "tvrda", "word": "ryba" }
+      ]
+    },
+    {
+      "id": "hard-soft.05",
+      "text": "Žralok je r{y|i}chlý a ch{y|i}trý.",
+      "gaps": [
+        { "rule": "tvrda", "word": "rychlyy" },
+        { "rule": "tvrda", "word": "chytryy" }
+      ]
+    },
+    {
+      "id": "hard-soft.06",
+      "text": "Inkoustová skvrna zakryla ve větě ch{y|i}bu.",
+      "gaps": [{ "rule": "tvrda", "word": "chyba" }]
+    },
+    {
+      "id": "hard-soft.07",
+      "text": "Námořník hraje na k{y|i}taru.",
+      "gaps": [{ "rule": "tvrda", "word": "kytara" }]
+    },
+    {
+      "id": "hard-soft.08",
+      "text": "Kor{ý|í}š má tvrdý krun{ý|í}ř.",
+      "gaps": [
+        { "rule": "tvrda", "word": "koryysx" },
+        { "rule": "tvrda", "word": "krunyyrx" }
+      ]
+    },
+    {
+      "id": "hard-soft.09",
+      "text": "Chobotnice je mořský měkk{ý|í}š.",
+      "gaps": [{ "rule": "tvrda", "word": "mexkkyysx" }]
+    },
+    {
+      "id": "hard-soft.10",
+      "text": "Na lodi měli námořníci velkou ž{í|ý}zeň.",
+      "gaps": [{ "rule": "mekka", "word": "zxiizenx" }]
+    },
+    {
+      "id": "hard-soft.11",
+      "text": "Moře je š{i|y}roké a hluboké.",
+      "gaps": [{ "rule": "mekka", "word": "sxirokyy" }]
+    },
+    {
+      "id": "hard-soft.12",
+      "text": "Voda v zátoce je č{i|y}stá.",
+      "gaps": [{ "rule": "mekka", "word": "cxistyy" }]
+    },
+    {
+      "id": "hard-soft.13",
+      "text": "Ďas č{í|ý}há ve tmě na rybky.",
+      "gaps": [{ "rule": "mekka", "word": "cxiihat" }]
+    },
+    {
+      "id": "hard-soft.14",
+      "text": "Ponorka má na boku č{í|ý}slo.",
+      "gaps": [{ "rule": "mekka", "word": "cxiislo" }]
+    },
+    {
+      "id": "hard-soft.15",
+      "text": "Kapitán ř{í|ý}d{í|ý} loď.",
+      "gaps": [
+        { "rule": "mekka", "word": "rxiidit" },
+        { "rule": "dtn-mekke", "word": "rxiidit" }
+      ]
+    },
+    {
+      "id": "hard-soft.16",
+      "text": "Racek mává kř{í|ý}dly.",
+      "gaps": [{ "rule": "mekka", "word": "krxiidlo" }]
+    },
+    {
+      "id": "hard-soft.17",
+      "text": "Loď pluje k c{í|ý}li.",
+      "gaps": [{ "rule": "mekka", "word": "ciil" }]
+    },
+    {
+      "id": "hard-soft.18",
+      "text": "Na j{i|y}hu je teplé moře.",
+      "gaps": [{ "rule": "mekka", "word": "jih" }]
+    },
+    {
+      "id": "hard-soft.19",
+      "text": "Pro tuleně je ryba nejlepší j{í|ý}dlo.",
+      "gaps": [{ "rule": "mekka", "word": "jiidlo" }]
+    },
+    {
+      "id": "hard-soft.20",
+      "text": "Š{i|y}pka ukazuje cestu k pokladu.",
+      "gaps": [{ "rule": "mekka", "word": "sxipka" }]
+    },
+    {
+      "id": "hard-soft.21",
+      "text": "Na pobřeží stojí staré d{i|y}vadlo.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "divadlo" }]
+    },
+    {
+      "id": "hard-soft.22",
+      "text": "Malé d{í|ý}t{ě|e} staví hrad z písku.",
+      "gaps": [
+        { "rule": "dtn-mekke", "word": "diitex" },
+        { "rule": "de-te-ne", "word": "diitex" }
+      ]
+    },
+    {
+      "id": "hard-soft.23",
+      "text": "Pod vodou je velké t{i|y}cho.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "ticho" }]
+    },
+    {
+      "id": "hard-soft.24",
+      "text": "V oceánu žijí t{i|y}síce ryb.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "tisiic" }]
+    },
+    {
+      "id": "hard-soft.25",
+      "text": "N{i|y}kdo neví, kde je poklad.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "nikdo" }]
+    },
+    {
+      "id": "hard-soft.26",
+      "text": "N{i|y}kdy neplav sám daleko od břehu.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "nikdy" }]
+    },
+    {
+      "id": "hard-soft.27",
+      "text": "V r{y|i}bn{í|ý}ku plavou kapři.",
+      "gaps": [
+        { "rule": "tvrda", "word": "rybniik" },
+        { "rule": "dtn-mekke", "word": "rybniik" }
+      ]
+    },
+    {
+      "id": "hard-soft.28",
+      "text": "Ptáci si staví hn{í|ý}zda na útesech.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "hniizdo" }]
+    },
+    {
+      "id": "hard-soft.29",
+      "text": "T{y|i} jsi můj nejlepší kamarád.",
+      "gaps": [{ "rule": "tvrda", "word": "ty" }]
+    },
+    {
+      "id": "hard-soft.30",
+      "text": "Za t{ý|í}den pojedeme k moři.",
+      "gaps": [{ "rule": "tvrda", "word": "tyyden" }]
+    },
+    {
+      "id": "hard-soft.31",
+      "text": "Na podzim zdobíme d{ý|í}ně.",
+      "gaps": [{ "rule": "tvrda", "word": "dyynex" }]
+    },
+    {
+      "id": "hard-soft.32",
+      "text": "N{y|i}n{í|ý} se ponoříme.",
+      "gaps": [
+        { "rule": "tvrda", "word": "nynii" },
+        { "rule": "dtn-mekke", "word": "nynii" }
+      ]
+    },
+    {
+      "id": "hard-soft.33",
+      "text": "T{y|i}gr je velká kočka.",
+      "gaps": [{ "rule": "tvrda", "word": "tygr" }]
+    },
+    {
+      "id": "hard-soft.34",
+      "text": "Mořská želva se pomalu h{ý|í}bá.",
+      "gaps": [{ "rule": "tvrda", "word": "hyybat" }]
+    },
+    {
+      "id": "hard-soft.35",
+      "text": "Na ostrově žijí d{i|y}voká zvířata.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "divokyy" }]
+    },
+    {
+      "id": "hard-soft.36",
+      "text": "D{í|ý}vka sbírá mušle.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "diivka" }]
+    },
+    {
+      "id": "hard-soft.37",
+      "text": "Z ohně létají j{i|y}skry.",
+      "gaps": [{ "rule": "mekka", "word": "jiskra" }]
+    },
+    {
+      "id": "hard-soft.38",
+      "text": "Na pláži není n{i|y}c než písek.",
+      "gaps": [{ "rule": "dtn-mekke", "word": "nic" }]
+    }
+  ]
+}

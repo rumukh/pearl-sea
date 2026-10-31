@@ -1,0 +1,353 @@
+{
+  "topic": "vowels",
+  "title": "Samohlásky krátké a dlouhé",
+  "grade": 3,
+  "src": ["pcp-1993"],
+  "words": [
+    {
+      "id": "rybaarx",
+      "lemma": "rybář",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "spell": "ryb{á|a}ř",
+      "rules": ["delka"],
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "plaazx",
+      "lemma": "pláž",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "pisen",
+      "spell": "pl{á|a}ž",
+      "rules": ["delka"],
+      "forms": ["pláži"],
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "piisek",
+      "lemma": "písek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "p{í|i}sek",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "delfiin",
+      "lemma": "delfín",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "spell": "delf{í|i}n",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "naamorxniik",
+      "lemma": "námořník",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "spell": "n{á|a}mořn{í|i}k",
+      "rules": ["delka", "delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "majaak",
+      "lemma": "maják",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "maj{á|a}k",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "prxiistav",
+      "lemma": "přístav",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "př{í|i}stav",
+      "rules": ["delka"],
+      "forms": ["přístavu"],
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "zaatoka",
+      "lemma": "zátoka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "z{á|a}toka",
+      "rules": ["delka"],
+      "forms": ["zátoce"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "koraal",
+      "lemma": "korál",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "kor{á|a}l",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "pas",
+      "lemma": "pas",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "p{a|á}s",
+      "rules": ["delka"],
+      "note": "doklad na cesty do ciziny",
+      "src": ["morfflex"]
+    },
+    {
+      "id": "paas",
+      "lemma": "pás",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "p{á|a}s",
+      "rules": ["delka"],
+      "note": "opasek nebo dlouhý kus něčeho",
+      "src": ["morfflex"]
+    },
+    {
+      "id": "rada",
+      "lemma": "rada",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "r{a|á}da",
+      "rules": ["delka"],
+      "forms": ["radu"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "raad",
+      "lemma": "rád",
+      "pos": "adj",
+      "spell": "r{á|a}d",
+      "rules": ["delka"],
+      "forms": ["ráda", "rádi"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "daat",
+      "lemma": "dát",
+      "pos": "verb",
+      "aspect": "pf",
+      "forms": ["dal", "dala", "dali"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "daal",
+      "lemma": "dál",
+      "pos": "adv",
+      "spell": "d{á|a}l",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "vila",
+      "lemma": "vila",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "v{i|í}la",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "viila",
+      "lemma": "víla",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "v{í|i}la",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "miile",
+      "lemma": "míle",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "spell": "m{í|i}le",
+      "rules": ["delka"],
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "mile",
+      "lemma": "mile",
+      "pos": "adv",
+      "spell": "m{i|í}le",
+      "rules": ["delka"],
+      "src": ["morfflex"]
+    }
+  ],
+  "sets": [
+    {
+      "id": "len.pas",
+      "kind": "minimal-length",
+      "forms": [
+        { "form": "pas", "word": "pas" },
+        { "form": "pás", "word": "paas" }
+      ]
+    },
+    {
+      "id": "len.rada",
+      "kind": "minimal-length",
+      "forms": [
+        { "form": "rada", "word": "rada" },
+        { "form": "ráda", "word": "raad" }
+      ]
+    },
+    {
+      "id": "len.dal",
+      "kind": "minimal-length",
+      "forms": [
+        { "form": "dal", "word": "daat" },
+        { "form": "dál", "word": "daal" }
+      ]
+    },
+    {
+      "id": "len.byt",
+      "kind": "minimal-length",
+      "forms": [
+        { "form": "byt", "word": "byt" },
+        { "form": "být", "word": "byyt" }
+      ]
+    },
+    {
+      "id": "len.vila",
+      "kind": "minimal-length",
+      "forms": [
+        { "form": "vila", "word": "vila" },
+        { "form": "víla", "word": "viila" }
+      ]
+    },
+    {
+      "id": "len.mile",
+      "kind": "minimal-length",
+      "forms": [
+        { "form": "mile", "word": "mile" },
+        { "form": "míle", "word": "miile" }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "vowels.01",
+      "text": "Ryb{á|a}ř chytil velkou rybu.",
+      "gaps": [{ "rule": "delka", "word": "rybaarx" }]
+    },
+    {
+      "id": "vowels.02",
+      "text": "Na pl{á|a}ži je teplý p{í|i}sek.",
+      "gaps": [
+        { "rule": "delka", "word": "plaazx" },
+        { "rule": "delka", "word": "piisek" }
+      ]
+    },
+    {
+      "id": "vowels.03",
+      "text": "Delf{í|i}n skáče přes vlny.",
+      "gaps": [{ "rule": "delka", "word": "delfiin" }]
+    },
+    {
+      "id": "vowels.04",
+      "text": "N{á|a}mořník stojí u kormidla.",
+      "gaps": [{ "rule": "delka", "word": "naamorxniik" }]
+    },
+    {
+      "id": "vowels.05",
+      "text": "Maj{á|a}k svítí lodím na cestu.",
+      "gaps": [{ "rule": "delka", "word": "majaak" }]
+    },
+    {
+      "id": "vowels.06",
+      "text": "Lodě kotví v př{í|i}stavu.",
+      "gaps": [{ "rule": "delka", "word": "prxiistav" }]
+    },
+    {
+      "id": "vowels.07",
+      "text": "V z{á|a}toce je klidná voda.",
+      "gaps": [{ "rule": "delka", "word": "zaatoka" }]
+    },
+    {
+      "id": "vowels.08",
+      "text": "Na útesu roste červený kor{á|a}l.",
+      "gaps": [{ "rule": "delka", "word": "koraal" }]
+    },
+    {
+      "id": "vowels.09",
+      "text": "Na letišti ukážeš p{a|á}s.",
+      "gaps": [{ "rule": "delka", "word": "pas" }]
+    },
+    {
+      "id": "vowels.10",
+      "text": "Mám r{á|a}da mořské koníky.",
+      "gaps": [{ "rule": "delka", "word": "raad" }]
+    },
+    {
+      "id": "vowels.11",
+      "text": "Delfín plaval d{á|a}l a d{á|a}l.",
+      "gaps": [
+        { "rule": "delka", "word": "daal" },
+        { "rule": "delka", "word": "daal" }
+      ]
+    },
+    {
+      "id": "vowels.12",
+      "text": "Do přístavu zbývá jedna m{í|i}le.",
+      "gaps": [{ "rule": "delka", "word": "miile" }]
+    },
+    {
+      "id": "vowels.13",
+      "text": "Mořská v{í|i}la zpívá na skále.",
+      "gaps": [{ "rule": "delka", "word": "viila" }]
+    },
+    {
+      "id": "vowels.14",
+      "text": "Na pobřeží stojí bílá v{i|í}la s bazénem.",
+      "gaps": [{ "rule": "delka", "word": "vila" }]
+    },
+    {
+      "id": "vowels.15",
+      "text": "Dám ti dobrou r{a|á}du.",
+      "gaps": [{ "rule": "delka", "word": "rada" }]
+    },
+    {
+      "id": "vowels.16",
+      "text": "Námořník si utáhl p{á|a}s.",
+      "gaps": [{ "rule": "delka", "word": "paas" }]
+    },
+    {
+      "id": "vowels.17",
+      "text": "Krab se na nás m{i|í}le usmál.",
+      "gaps": [{ "rule": "delka", "word": "mile" }]
+    }
+  ]
+}

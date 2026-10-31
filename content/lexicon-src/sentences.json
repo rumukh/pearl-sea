@@ -1,0 +1,478 @@
+{
+  "topic": "sentences",
+  "title": "Věta jednoduchá a souvětí, podmět a přísudek, shoda přísudku s podmětem",
+  "grade": 3,
+  "note": "Počet vět v souvětí = počet přísudků (sloves v určitém tvaru). Věty s několikanásobným přísudkem (krab se schoval a čeká) tu nejsou, protože by je děti počítaly jako souvětí. Shoda: je-li v podmětu jméno rodu mužského životného, píšeme -i; jsou-li všechny podměty rodu středního v množném čísle, -a; jinak -y (IJP). Podmět vždy stojí před přísudkem.",
+  "src": ["ijp-601", "pcp-1993"],
+  "words": [
+    {
+      "id": "letext",
+      "lemma": "letět",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["letí"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "sxumext",
+      "lemma": "šumět",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["šumí", "šuměly", "šuměli"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "krxicxet",
+      "lemma": "křičet",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["křičí", "křičeli", "křičely"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "volat",
+      "lemma": "volat",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["volá"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "odpocxiivat",
+      "lemma": "odpočívat",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["odpočívají"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "leezt",
+      "lemma": "lézt",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["lezou", "lezli", "lezly"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "spaat",
+      "lemma": "spát",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["spala", "spali", "spaly"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "zmizet",
+      "lemma": "zmizet",
+      "pos": "verb",
+      "aspect": "pf",
+      "forms": ["zmizely", "zmizeli"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "kotvit",
+      "lemma": "kotvit",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["kotvily", "kotvili"],
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "lezxet",
+      "lemma": "ležet",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["ležely", "leželi"],
+      "src": ["morfflex"]
+    },
+    { "id": "lodx", "lemma": "loď", "pos": "noun", "forms": ["lodě"], "src": ["morfflex"] },
+    { "id": "cxlun", "lemma": "člun", "pos": "noun", "forms": ["čluny"], "src": ["morfflex"] },
+    {
+      "id": "chlapec",
+      "lemma": "chlapec",
+      "pos": "noun",
+      "forms": ["chlapci"],
+      "src": ["morfflex"]
+    },
+    { "id": "diivka", "lemma": "dívka", "pos": "noun", "forms": ["dívky"], "src": ["morfflex"] },
+    {
+      "id": "tucxnxaak",
+      "lemma": "tučňák",
+      "pos": "noun",
+      "forms": ["tučňáci"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "lidee",
+      "lemma": "lidé",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "numbers": "pl",
+      "note": "množné číslo slova člověk; rod mužský životný: lidé se dívali",
+      "src": ["ijp-601", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "clause.01",
+      "text": "Delfín skáče přes vlny.",
+      "clauses": 1,
+      "marks": [{ "t": "skáče", "word": "skaakat", "role": "predicate" }]
+    },
+    {
+      "id": "clause.02",
+      "text": "Delfín skáče a ryby plavou.",
+      "clauses": 2,
+      "marks": [
+        { "t": "skáče", "word": "skaakat", "role": "predicate" },
+        { "t": "plavou", "word": "plavat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.03",
+      "text": "Delfín a želva plavou k ostrovu.",
+      "clauses": 1,
+      "marks": [{ "t": "plavou", "word": "plavat", "role": "predicate" }]
+    },
+    {
+      "id": "clause.04",
+      "text": "Když svítí slunce, delfíni skáčou.",
+      "clauses": 2,
+      "marks": [
+        { "t": "svítí", "word": "sviitit", "role": "predicate" },
+        { "t": "skáčou", "word": "skaakat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.05",
+      "text": "Racek letí nad mořem.",
+      "clauses": 1,
+      "marks": [{ "t": "letí", "word": "letext", "role": "predicate" }]
+    },
+    {
+      "id": "clause.06",
+      "text": "Ryba plave, protože má ploutve.",
+      "clauses": 2,
+      "marks": [
+        { "t": "plave", "word": "plavat", "role": "predicate" },
+        { "t": "má", "word": "miit", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.07",
+      "text": "Svítí slunce a moře šumí.",
+      "clauses": 2,
+      "marks": [
+        { "t": "Svítí", "word": "sviitit", "role": "predicate" },
+        { "t": "šumí", "word": "sxumext", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.08",
+      "text": "Želva plave pomalu, ale vytrvale.",
+      "clauses": 1,
+      "marks": [{ "t": "plave", "word": "plavat", "role": "predicate" }]
+    },
+    {
+      "id": "clause.09",
+      "text": "Vlny šumí a racci křičí.",
+      "clauses": 2,
+      "marks": [
+        { "t": "šumí", "word": "sxumext", "role": "predicate" },
+        { "t": "křičí", "word": "krxicxet", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.10",
+      "text": "Kapitán volá, že vidí ostrov.",
+      "clauses": 2,
+      "marks": [
+        { "t": "volá", "word": "volat", "role": "predicate" },
+        { "t": "vidí", "word": "vidext", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.11",
+      "text": "Ponorka pluje pod hladinou.",
+      "clauses": 1,
+      "marks": [{ "t": "pluje", "word": "plout", "role": "predicate" }]
+    },
+    {
+      "id": "clause.12",
+      "text": "Chobotnice mění barvu, když loví.",
+      "clauses": 2,
+      "marks": [
+        { "t": "mění", "word": "mexnit", "role": "predicate" },
+        { "t": "loví", "word": "lovit", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "clause.13",
+      "text": "Tuleni a lachtani odpočívají na skále.",
+      "clauses": 1,
+      "marks": [{ "t": "odpočívají", "word": "odpocxiivat", "role": "predicate" }]
+    },
+    {
+      "id": "subj.01",
+      "grade": 4,
+      "text": "Delfín skáče.",
+      "clauses": 1,
+      "marks": [
+        { "t": "Delfín", "word": "delfiin", "role": "subject" },
+        { "t": "skáče", "word": "skaakat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.02",
+      "grade": 4,
+      "text": "Malá rybka plave v korálech.",
+      "clauses": 1,
+      "marks": [
+        { "t": "rybka", "word": "rybka", "role": "subject" },
+        { "t": "plave", "word": "plavat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.03",
+      "grade": 4,
+      "text": "V zátoce plavou ryby.",
+      "clauses": 1,
+      "marks": [
+        { "t": "ryby", "word": "ryba", "role": "subject" },
+        { "t": "plavou", "word": "plavat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.04",
+      "grade": 4,
+      "text": "Kapitán řídí loď.",
+      "clauses": 1,
+      "marks": [
+        { "t": "Kapitán", "word": "kapitaan", "role": "subject" },
+        { "t": "řídí", "word": "rxiidit", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.05",
+      "grade": 4,
+      "text": "Na útesu svítí maják.",
+      "clauses": 1,
+      "marks": [
+        { "t": "maják", "word": "majaak", "role": "subject" },
+        { "t": "svítí", "word": "sviitit", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.06",
+      "grade": 4,
+      "text": "Želvy pomalu lezou na pláž.",
+      "clauses": 1,
+      "marks": [
+        { "t": "Želvy", "word": "zxelva", "role": "subject" },
+        { "t": "lezou", "word": "leezt", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.07",
+      "grade": 4,
+      "text": "Racek a pelikán letí nad mořem.",
+      "clauses": 1,
+      "marks": [
+        { "t": "Racek", "word": "racek", "role": "subject" },
+        { "t": "pelikán", "word": "pelikaan", "role": "subject" },
+        { "t": "letí", "word": "letext", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "agree.01",
+      "grade": 4,
+      "text": "Delfíni skákal{i|y} přes vlny.",
+      "gaps": [
+        { "rule": "shoda", "word": "skaakat", "subjects": [{ "t": "Delfíni", "word": "delfiin" }] }
+      ]
+    },
+    {
+      "id": "agree.02",
+      "grade": 4,
+      "text": "Ryby plaval{y|i} v zátoce.",
+      "gaps": [{ "rule": "shoda", "word": "plavat", "subjects": [{ "t": "Ryby", "word": "ryba" }] }]
+    },
+    {
+      "id": "agree.03",
+      "grade": 4,
+      "text": "Mláďata tuleňů spal{a|y|i} na ledu.",
+      "gaps": [
+        { "rule": "shoda", "word": "spaat", "subjects": [{ "t": "Mláďata", "word": "mlaadex" }] }
+      ]
+    },
+    {
+      "id": "agree.04",
+      "grade": 4,
+      "text": "Krabi lezl{i|y} po kamenech.",
+      "gaps": [{ "rule": "shoda", "word": "leezt", "subjects": [{ "t": "Krabi", "word": "krab" }] }]
+    },
+    {
+      "id": "agree.05",
+      "grade": 4,
+      "text": "Děti si na pláži hrál{y|i}.",
+      "gaps": [
+        { "rule": "shoda", "word": "hraat-si", "subjects": [{ "t": "Děti", "word": "dexti" }] }
+      ]
+    },
+    {
+      "id": "agree.06",
+      "grade": 4,
+      "text": "Racci křičel{i|y} nad mořem.",
+      "gaps": [
+        { "rule": "shoda", "word": "krxicxet", "subjects": [{ "t": "Racci", "word": "racek" }] }
+      ]
+    },
+    {
+      "id": "agree.07",
+      "grade": 4,
+      "text": "Vlny šuměl{y|i} celou noc.",
+      "gaps": [
+        { "rule": "shoda", "word": "sxumext", "subjects": [{ "t": "Vlny", "word": "vlna" }] }
+      ]
+    },
+    {
+      "id": "agree.08",
+      "grade": 4,
+      "text": "Ostrovy zmizel{y|i} v mlze.",
+      "gaps": [
+        { "rule": "shoda", "word": "zmizet", "subjects": [{ "t": "Ostrovy", "word": "ostrov" }] }
+      ]
+    },
+    {
+      "id": "agree.09",
+      "grade": 4,
+      "text": "Koťata se bál{a|y|i} vody.",
+      "gaps": [
+        { "rule": "shoda", "word": "baat-se", "subjects": [{ "t": "Koťata", "word": "kotex" }] }
+      ]
+    },
+    {
+      "id": "agree.10",
+      "grade": 4,
+      "text": "Delfíni a želvy plaval{i|y} spolu.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "plavat",
+          "subjects": [
+            { "t": "Delfíni", "word": "delfiin" },
+            { "t": "želvy", "word": "zxelva" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.11",
+      "grade": 4,
+      "text": "Želvy a ryby plaval{y|i} k útesu.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "plavat",
+          "subjects": [
+            { "t": "Želvy", "word": "zxelva" },
+            { "t": "ryby", "word": "ryba" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.12",
+      "grade": 4,
+      "text": "Lodě a čluny kotvil{y|i} v přístavu.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "kotvit",
+          "subjects": [
+            { "t": "Lodě", "word": "lodx" },
+            { "t": "čluny", "word": "cxlun" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.13",
+      "grade": 4,
+      "text": "Chlapci a dívky se koupal{i|y} v moři.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "koupat-se",
+          "subjects": [
+            { "t": "Chlapci", "word": "chlapec" },
+            { "t": "dívky", "word": "diivka" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.14",
+      "grade": 4,
+      "text": "Kuřata a koťata spal{a|y|i} v trávě.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "spaat",
+          "subjects": [
+            { "t": "Kuřata", "word": "kurxe" },
+            { "t": "koťata", "word": "kotex" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.15",
+      "grade": 4,
+      "text": "Racci a tučňáci lovil{i|y} ryby.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "lovit",
+          "subjects": [
+            { "t": "Racci", "word": "racek" },
+            { "t": "tučňáci", "word": "tucxnxaak" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.16",
+      "grade": 4,
+      "text": "Mušle a hvězdice ležel{y|i} na pláži.",
+      "gaps": [
+        {
+          "rule": "shoda",
+          "word": "lezxet",
+          "subjects": [
+            { "t": "Mušle", "word": "musxle" },
+            { "t": "hvězdice", "word": "hvexzdice" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agree.17",
+      "grade": 4,
+      "text": "Tuleni ležel{i|y} na ledu.",
+      "gaps": [
+        { "rule": "shoda", "word": "lezxet", "subjects": [{ "t": "Tuleni", "word": "tulenx" }] }
+      ]
+    },
+    {
+      "id": "agree.18",
+      "grade": 4,
+      "text": "Lidé se díval{i|y} na velryby.",
+      "gaps": [
+        { "rule": "shoda", "word": "diivat-se", "subjects": [{ "t": "Lidé", "word": "lidee" }] }
+      ]
+    }
+  ]
+}

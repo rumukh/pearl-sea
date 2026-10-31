@@ -1,0 +1,923 @@
+{
+  "topic": "vyjmenovana-l",
+  "title": "Vyjmenovaná slova po L",
+  "grade": 3,
+  "src": ["ijp-100", "ijp-103", "school-list"],
+  "families": [
+    {
+      "id": "vyjm-l.slysxet",
+      "letter": "l",
+      "head": "slysxet",
+      "order": 1,
+      "core": true,
+      "root": "slyš/slých",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.mlyyn",
+      "letter": "l",
+      "head": "mlyyn",
+      "order": 2,
+      "core": true,
+      "root": "mlýn/mlyn",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.blyyskat-se",
+      "letter": "l",
+      "head": "blyyskat-se",
+      "order": 3,
+      "core": true,
+      "root": "blýsk/blyšt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.polykat",
+      "letter": "l",
+      "head": "polykat",
+      "order": 4,
+      "core": true,
+      "root": "lyk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.plynout",
+      "letter": "l",
+      "head": "plynout",
+      "order": 5,
+      "core": true,
+      "root": "plyn",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.plyytvat",
+      "letter": "l",
+      "head": "plyytvat",
+      "order": 6,
+      "core": true,
+      "root": "plýtv",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.vzlykat",
+      "letter": "l",
+      "head": "vzlykat",
+      "order": 7,
+      "core": true,
+      "root": "vzlyk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.lysyy",
+      "letter": "l",
+      "head": "lysyy",
+      "order": 8,
+      "core": true,
+      "root": "lys",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.lyytko",
+      "letter": "l",
+      "head": "lyytko",
+      "order": 9,
+      "core": true,
+      "root": "lýt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.lyyko",
+      "letter": "l",
+      "head": "lyyko",
+      "order": 10,
+      "core": true,
+      "root": "lýk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.lyzxe",
+      "letter": "l",
+      "head": "lyzxe",
+      "order": 11,
+      "core": true,
+      "root": "lyž",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.pelynexk",
+      "letter": "l",
+      "head": "pelynexk",
+      "order": 12,
+      "core": true,
+      "root": "pelyn/pelyň",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-l.plysx",
+      "letter": "l",
+      "head": "plysx",
+      "order": 13,
+      "core": true,
+      "root": "plyš",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "fam.mliit",
+      "letter": null,
+      "head": "mliit",
+      "root": "ml",
+      "soundAlikeOf": "vyjm-l.mlyyn",
+      "src": ["ijp-100"]
+    }
+  ],
+  "words": [
+    {
+      "id": "slysxet",
+      "lemma": "slyšet",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-l.slysxet",
+      "role": "head",
+      "spell": "sl{y|i}šet",
+      "rules": ["vyjm"],
+      "forms": ["slyším", "slyšíš", "slyší", "slyšíme", "slyšíte", "slyšel", "slyšela", "slyšeli"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "uslysxet",
+      "lemma": "uslyšet",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-l.slysxet",
+      "role": "member",
+      "spell": "usl{y|i}šet",
+      "rules": ["vyjm"],
+      "forms": ["uslyšel", "uslyšela", "uslyšeli"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "slysxitelnyy",
+      "lemma": "slyšitelný",
+      "pos": "adj",
+      "grade": 4,
+      "family": "vyjm-l.slysxet",
+      "role": "member",
+      "spell": "sl{y|i}šitelný",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "nedoslyychavyy",
+      "lemma": "nedoslýchavý",
+      "pos": "adj",
+      "grade": 4,
+      "family": "vyjm-l.slysxet",
+      "role": "member",
+      "spell": "nedosl{ý|í}chavý",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "mlyyn",
+      "lemma": "mlýn",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-l.mlyyn",
+      "role": "head",
+      "spell": "ml{ý|í}n",
+      "rules": ["vyjm"],
+      "forms": ["mlýna", "mlýnu", "mlýně", "mlýny", "mlýnem"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "mlynaarx",
+      "lemma": "mlynář",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-l.mlyyn",
+      "role": "member",
+      "spell": "ml{y|i}nář",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "mlynaarxka",
+      "lemma": "mlynářka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-l.mlyyn",
+      "role": "member",
+      "spell": "ml{y|i}nářka",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "mlyynek",
+      "lemma": "mlýnek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-l.mlyyn",
+      "role": "member",
+      "spell": "ml{ý|í}nek",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "mlyynskyy",
+      "lemma": "mlýnský",
+      "pos": "adj",
+      "family": "vyjm-l.mlyyn",
+      "role": "member",
+      "spell": "ml{ý|í}nský",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "blyyskat-se",
+      "lemma": "blýskat se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-l.blyyskat-se",
+      "role": "head",
+      "spell": "bl{ý|í}skat se",
+      "rules": ["vyjm"],
+      "forms": ["blýská"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "zablyysknout-se",
+      "lemma": "zablýsknout se",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "se",
+      "family": "vyjm-l.blyyskat-se",
+      "role": "member",
+      "spell": "zabl{ý|í}sknout se",
+      "rules": ["vyjm"],
+      "forms": ["zablýsklo"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "blyyskavyy",
+      "lemma": "blýskavý",
+      "pos": "adj",
+      "family": "vyjm-l.blyyskat-se",
+      "role": "member",
+      "spell": "bl{ý|í}skavý",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "blyyskavice",
+      "lemma": "blýskavice",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "family": "vyjm-l.blyyskat-se",
+      "role": "member",
+      "spell": "bl{ý|í}skavice",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "blysxtext-se",
+      "lemma": "blyštět se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-l.blyyskat-se",
+      "role": "member",
+      "spell": "bl{y|i}štět se",
+      "rules": ["vyjm"],
+      "forms": ["blyští"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "polykat",
+      "lemma": "polykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-l.polykat",
+      "role": "head",
+      "spell": "pol{y|i}kat",
+      "rules": ["vyjm"],
+      "forms": ["polyká", "polykají", "polykal"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "spolykat",
+      "lemma": "spolykat",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-l.polykat",
+      "role": "member",
+      "spell": "spol{y|i}kat",
+      "rules": ["vyjm"],
+      "forms": ["spolykal"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "polykaanii",
+      "lemma": "polykání",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-l.polykat",
+      "role": "member",
+      "spell": "pol{y|i}kání",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "plynout",
+      "lemma": "plynout",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-l.plynout",
+      "role": "head",
+      "spell": "pl{y|i}nout",
+      "rules": ["vyjm"],
+      "forms": ["plyne", "plynou", "plynul"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "plyn",
+      "lemma": "plyn",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-l.plynout",
+      "role": "member",
+      "spell": "pl{y|i}n",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "plynovyy",
+      "lemma": "plynový",
+      "pos": "adj",
+      "family": "vyjm-l.plynout",
+      "role": "member",
+      "spell": "pl{y|i}nový",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "plynulyy",
+      "lemma": "plynulý",
+      "pos": "adj",
+      "family": "vyjm-l.plynout",
+      "role": "member",
+      "spell": "pl{y|i}nulý",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "plynule",
+      "lemma": "plynule",
+      "pos": "adv",
+      "family": "vyjm-l.plynout",
+      "role": "member",
+      "spell": "pl{y|i}nule",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "uplynout",
+      "lemma": "uplynout",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-l.plynout",
+      "role": "member",
+      "spell": "upl{y|i}nout",
+      "rules": ["vyjm"],
+      "forms": ["uplynulo", "uplynul"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "plyytvat",
+      "lemma": "plýtvat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-l.plyytvat",
+      "role": "head",
+      "spell": "pl{ý|í}tvat",
+      "rules": ["vyjm"],
+      "forms": ["plýtvá"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "plyytvaanii",
+      "lemma": "plýtvání",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-l.plyytvat",
+      "role": "member",
+      "spell": "pl{ý|í}tvání",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "vzlykat",
+      "lemma": "vzlykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-l.vzlykat",
+      "role": "head",
+      "spell": "vzl{y|i}kat",
+      "rules": ["vyjm"],
+      "forms": ["vzlyká", "vzlykal", "vzlykala"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vzlyk",
+      "lemma": "vzlyk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-l.vzlykat",
+      "role": "member",
+      "spell": "vzl{y|i}k",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vzlykot",
+      "lemma": "vzlykot",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-l.vzlykat",
+      "role": "member",
+      "spell": "vzl{y|i}kot",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vzlyknout",
+      "lemma": "vzlyknout",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-l.vzlykat",
+      "role": "member",
+      "spell": "vzl{y|i}knout",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "lysyy",
+      "lemma": "lysý",
+      "pos": "adj",
+      "family": "vyjm-l.lysyy",
+      "role": "head",
+      "spell": "l{y|i}sý",
+      "rules": ["vyjm"],
+      "forms": ["lysou"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "lysina",
+      "lemma": "lysina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-l.lysyy",
+      "role": "member",
+      "spell": "l{y|i}sina",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "lyska",
+      "lemma": "lyska",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-l.lysyy",
+      "role": "member",
+      "spell": "l{y|i}ska",
+      "rules": ["vyjm"],
+      "note": "vodní pták s bílou lysinkou na čele",
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "lyytko",
+      "lemma": "lýtko",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "family": "vyjm-l.lyytko",
+      "role": "head",
+      "spell": "l{ý|í}tko",
+      "rules": ["vyjm"],
+      "forms": ["lýtku"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "lyytkovyy",
+      "lemma": "lýtkový",
+      "pos": "adj",
+      "grade": 4,
+      "family": "vyjm-l.lyytko",
+      "role": "member",
+      "spell": "l{ý|í}tkový",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "lyyko",
+      "lemma": "lýko",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "family": "vyjm-l.lyyko",
+      "role": "head",
+      "spell": "l{ý|í}ko",
+      "rules": ["vyjm"],
+      "forms": ["lýka"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "lyykovyy",
+      "lemma": "lýkový",
+      "pos": "adj",
+      "family": "vyjm-l.lyyko",
+      "role": "member",
+      "spell": "l{ý|í}kový",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "lyzxe",
+      "lemma": "lyže",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "family": "vyjm-l.lyzxe",
+      "role": "head",
+      "spell": "l{y|i}že",
+      "rules": ["vyjm"],
+      "forms": ["lyžích"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "lyzxarx",
+      "lemma": "lyžař",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-l.lyzxe",
+      "role": "member",
+      "spell": "l{y|i}žař",
+      "rules": ["vyjm"],
+      "forms": ["lyžaři"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "lyzxarxka",
+      "lemma": "lyžařka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-l.lyzxe",
+      "role": "member",
+      "spell": "l{y|i}žařka",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "lyzxovat",
+      "lemma": "lyžovat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-l.lyzxe",
+      "role": "member",
+      "spell": "l{y|i}žovat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "lyzxovaanii",
+      "lemma": "lyžování",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-l.lyzxe",
+      "role": "member",
+      "spell": "l{y|i}žování",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "lyzxarxskyy",
+      "lemma": "lyžařský",
+      "pos": "adj",
+      "family": "vyjm-l.lyzxe",
+      "role": "member",
+      "spell": "l{y|i}žařský",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "pelynexk",
+      "lemma": "pelyněk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-l.pelynexk",
+      "role": "head",
+      "spell": "pel{y|i}něk",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "plysx",
+      "lemma": "plyš",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "family": "vyjm-l.plysx",
+      "role": "head",
+      "spell": "pl{y|i}š",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "plysxovyy",
+      "lemma": "plyšový",
+      "pos": "adj",
+      "family": "vyjm-l.plysx",
+      "role": "member",
+      "spell": "pl{y|i}šový",
+      "rules": ["vyjm"],
+      "forms": ["plyšovou"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "mliit",
+      "lemma": "mlít",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "fam.mliit",
+      "role": "head",
+      "spell": "ml{í|ý}t",
+      "rules": ["obojetna-i"],
+      "forms": ["mele", "melou"],
+      "note": "mlít není příbuzné se slovem mlýn (IJP)",
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "liipa",
+      "lemma": "lípa",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "l{í|ý}pa",
+      "rules": ["obojetna-i"],
+      "forms": ["lípou"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "liinyy",
+      "lemma": "líný",
+      "pos": "adj",
+      "spell": "l{í|ý}ný",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "list",
+      "lemma": "list",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "l{i|y}st",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "klid",
+      "lemma": "klid",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "kl{i|y}d",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "lisxka",
+      "lemma": "liška",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "l{i|y}ška",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "bliizko",
+      "lemma": "blízko",
+      "pos": "adv",
+      "spell": "bl{í|ý}zko",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "pliice",
+      "lemma": "plíce",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "spell": "pl{í|ý}ce",
+      "rules": ["obojetna-i"],
+      "forms": ["plících"],
+      "src": ["ijp-103", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "vyjm-l.01",
+      "text": "Sl{y|i}šíš, jak šumí moře?",
+      "gaps": [{ "rule": "vyjm", "word": "slysxet" }]
+    },
+    {
+      "id": "vyjm-l.02",
+      "text": "Delfíni sl{y|i}ší pod vodou velmi dobře.",
+      "gaps": [{ "rule": "vyjm", "word": "slysxet" }]
+    },
+    {
+      "id": "vyjm-l.03",
+      "text": "Najednou jsme usl{y|i}šeli zpěv velryby.",
+      "gaps": [{ "rule": "vyjm", "word": "uslysxet" }]
+    },
+    {
+      "id": "vyjm-l.04",
+      "text": "U zátoky stojí starý ml{ý|í}n.",
+      "gaps": [{ "rule": "vyjm", "word": "mlyyn" }]
+    },
+    {
+      "id": "vyjm-l.05",
+      "text": "Ml{y|i}nář mele mouku pro celou vesnici.",
+      "gaps": [{ "rule": "vyjm", "word": "mlynaarx" }]
+    },
+    {
+      "id": "vyjm-l.06",
+      "text": "V ml{ý|í}nu se mele mouka.",
+      "gaps": [{ "rule": "vyjm", "word": "mlyyn" }]
+    },
+    {
+      "id": "vyjm-l.07",
+      "text": "Ml{ý|í}nek umí ml{í|ý}t kávu.",
+      "gaps": [
+        { "rule": "vyjm", "word": "mlyynek" },
+        { "rule": "obojetna-i", "word": "mliit" }
+      ]
+    },
+    {
+      "id": "vyjm-l.08",
+      "text": "Nad mořem se bl{ý|í}ská a hřmí.",
+      "gaps": [{ "rule": "vyjm", "word": "blyyskat-se" }]
+    },
+    {
+      "id": "vyjm-l.09",
+      "text": "Na obloze se zabl{ý|í}sklo.",
+      "gaps": [{ "rule": "vyjm", "word": "zablyysknout-se" }]
+    },
+    {
+      "id": "vyjm-l.10",
+      "text": "Šupiny ryb se bl{y|i}ští ve slunci.",
+      "gaps": [{ "rule": "vyjm", "word": "blysxtext-se" }]
+    },
+    {
+      "id": "vyjm-l.11",
+      "text": "Velryba pol{y|i}ká malé ryby a drobné korýše.",
+      "gaps": [{ "rule": "vyjm", "word": "polykat" }]
+    },
+    {
+      "id": "vyjm-l.12",
+      "text": "Žralok spol{y|i}kal celou návnadu.",
+      "gaps": [{ "rule": "vyjm", "word": "spolykat" }]
+    },
+    {
+      "id": "vyjm-l.13",
+      "text": "Čas na pláži pl{y|i}ne rychle.",
+      "gaps": [{ "rule": "vyjm", "word": "plynout" }]
+    },
+    {
+      "id": "vyjm-l.14",
+      "text": "Ponorka plula pl{y|i}nule a tiše.",
+      "gaps": [{ "rule": "vyjm", "word": "plynule" }]
+    },
+    {
+      "id": "vyjm-l.15",
+      "text": "Léto upl{y|i}nulo jako voda.",
+      "gaps": [{ "rule": "vyjm", "word": "uplynout" }]
+    },
+    {
+      "id": "vyjm-l.16",
+      "text": "Neměli bychom pl{ý|í}tvat vodou.",
+      "gaps": [{ "rule": "vyjm", "word": "plyytvat" }]
+    },
+    {
+      "id": "vyjm-l.17",
+      "text": "Malá rybka tiše vzl{y|i}kala.",
+      "gaps": [{ "rule": "vyjm", "word": "vzlykat" }]
+    },
+    {
+      "id": "vyjm-l.18",
+      "text": "Starý rybář má l{y|i}sou hlavu.",
+      "gaps": [{ "rule": "vyjm", "word": "lysyy" }]
+    },
+    {
+      "id": "vyjm-l.19",
+      "text": "Na jezeře plave černá l{y|i}ska.",
+      "gaps": [{ "rule": "vyjm", "word": "lyska" }]
+    },
+    {
+      "id": "vyjm-l.20",
+      "text": "Potápěč si natáhl sval v l{ý|í}tku.",
+      "gaps": [{ "rule": "vyjm", "word": "lyytko" }]
+    },
+    {
+      "id": "vyjm-l.21",
+      "text": "Košík je spletený z l{ý|í}ka.",
+      "gaps": [{ "rule": "vyjm", "word": "lyyko" }]
+    },
+    {
+      "id": "vyjm-l.22",
+      "text": "Lachtan jezdí na l{y|i}žích po vlnách.",
+      "gaps": [{ "rule": "vyjm", "word": "lyzxe" }]
+    },
+    {
+      "id": "vyjm-l.23",
+      "text": "L{y|i}žaři jezdí i na vodních l{y|i}žích.",
+      "gaps": [
+        { "rule": "vyjm", "word": "lyzxarx" },
+        { "rule": "vyjm", "word": "lyzxe" }
+      ]
+    },
+    {
+      "id": "vyjm-l.24",
+      "text": "Na skále u moře roste pel{y|i}něk.",
+      "gaps": [{ "rule": "vyjm", "word": "pelynexk" }]
+    },
+    {
+      "id": "vyjm-l.25",
+      "text": "Mám pl{y|i}šovou chobotnici.",
+      "gaps": [{ "rule": "vyjm", "word": "plysxovyy" }]
+    },
+    {
+      "id": "vyjm-l.26",
+      "text": "Pod l{í|ý}pou u přístavu je stín.",
+      "gaps": [{ "rule": "obojetna-i", "word": "liipa" }]
+    },
+    {
+      "id": "vyjm-l.27",
+      "text": "Potápěč má v pl{í|ý}cích hodně vzduchu.",
+      "gaps": [{ "rule": "obojetna-i", "word": "pliice" }]
+    },
+    {
+      "id": "vyjm-l.28",
+      "text": "Delfín je už bl{í|ý}zko.",
+      "gaps": [{ "rule": "obojetna-i", "word": "bliizko" }]
+    },
+    {
+      "id": "vyjm-l.29",
+      "text": "Na pláži je kl{i|y}d a ticho.",
+      "gaps": [{ "rule": "obojetna-i", "word": "klid" }]
+    },
+    {
+      "id": "vyjm-l.30",
+      "text": "L{i|y}ška se dívá na moře.",
+      "gaps": [{ "rule": "obojetna-i", "word": "lisxka" }]
+    },
+    {
+      "id": "vyjm-l.31",
+      "text": "L{í|ý}ný tuleň spí na ledu.",
+      "gaps": [{ "rule": "obojetna-i", "word": "liinyy" }]
+    },
+    {
+      "id": "vyjm-l.32",
+      "text": "Vítr odnesl ze stromu l{i|y}st.",
+      "gaps": [{ "rule": "obojetna-i", "word": "list" }]
+    }
+  ]
+}

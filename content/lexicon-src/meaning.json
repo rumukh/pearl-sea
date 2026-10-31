@@ -1,0 +1,723 @@
+{
+  "topic": "meaning",
+  "title": "Slova souznačná, protikladná, nadřazená a podřazená, slova s více významy",
+  "grade": 3,
+  "note": "Žralok není v sadě ryb: v přírodopise patří k parybám. Mnohoznačná slova mají u všech významů stejný rod a životnost.",
+  "src": ["ssjc", "ssc"],
+  "words": [
+    { "id": "hezkyy", "lemma": "hezký", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "pexknyy", "lemma": "pěkný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "chlapec",
+      "lemma": "chlapec",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "hoch",
+      "lemma": "hoch",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "diivka",
+      "lemma": "dívka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "dexvcxe",
+      "lemma": "děvče",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "mluvit",
+      "lemma": "mluvit",
+      "pos": "verb",
+      "aspect": "impf",
+      "forms": ["mluvili"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "hovorxit",
+      "lemma": "hovořit",
+      "pos": "verb",
+      "aspect": "impf",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "zacxaatek",
+      "lemma": "začátek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "pocxaatek",
+      "lemma": "počátek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "konec",
+      "lemma": "konec",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "statecxnyy", "lemma": "statečný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "odvaazxnyy", "lemma": "odvážný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "hbityy", "lemma": "hbitý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "rychlyy", "lemma": "rychlý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "pomalyy", "lemma": "pomalý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "veselyy", "lemma": "veselý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "radostnyy", "lemma": "radostný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "smutnyy", "lemma": "smutný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "zarmoucenyy", "lemma": "zarmoucený", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "malyy",
+      "lemma": "malý",
+      "pos": "adj",
+      "forms": ["malá", "malé", "malou"],
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "drobnyy", "lemma": "drobný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "velkyy",
+      "lemma": "velký",
+      "pos": "adj",
+      "forms": ["velká", "velké", "velkou"],
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "velikyy", "lemma": "veliký", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "hlubokyy",
+      "lemma": "hluboký",
+      "pos": "adj",
+      "forms": ["hluboké", "hlubokém"],
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "mexlkyy", "lemma": "mělký", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "teplyy",
+      "lemma": "teplý",
+      "pos": "adj",
+      "forms": ["teplé", "teplém"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "studenyy",
+      "lemma": "studený",
+      "pos": "adj",
+      "forms": ["studené", "studenou"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "den",
+      "lemma": "den",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "noc",
+      "lemma": "noc",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "kost",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "svextlo",
+      "lemma": "světlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "tma",
+      "lemma": "tma",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "nahorxe", "lemma": "nahoře", "pos": "adv", "src": ["ssc", "morfflex"] },
+    { "id": "dole", "lemma": "dole", "pos": "adv", "src": ["ssc", "morfflex"] },
+    {
+      "id": "plnyy",
+      "lemma": "plný",
+      "pos": "adj",
+      "forms": ["plná", "plnou"],
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "praazdnyy", "lemma": "prázdný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "otevrxiit",
+      "lemma": "otevřít",
+      "pos": "verb",
+      "aspect": "pf",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "zavrxiit",
+      "lemma": "zavřít",
+      "pos": "verb",
+      "aspect": "pf",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "prxiplavat",
+      "lemma": "připlavat",
+      "pos": "verb",
+      "aspect": "pf",
+      "forms": ["připlavala", "připlaval"],
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "odplavat",
+      "lemma": "odplavat",
+      "pos": "verb",
+      "aspect": "pf",
+      "forms": ["odplavala", "odplaval", "odplavaly"],
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "tvrdyy", "lemma": "tvrdý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "mexkkyy", "lemma": "měkký", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "texzxkyy", "lemma": "těžký", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "lehkyy", "lemma": "lehký", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "silnyy", "lemma": "silný", "pos": "adj", "src": ["ssc", "morfflex"] },
+    { "id": "slabyy", "lemma": "slabý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "dobryy",
+      "lemma": "dobrý",
+      "pos": "adj",
+      "forms": ["dobrou"],
+      "src": ["ssc", "morfflex"]
+    },
+    { "id": "zlyy", "lemma": "zlý", "pos": "adj", "src": ["ssc", "morfflex"] },
+    {
+      "id": "leeto",
+      "lemma": "léto",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "forms": ["létě"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "zima",
+      "lemma": "zima",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "kapr",
+      "lemma": "kapr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "forms": ["kapři"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "sxtika",
+      "lemma": "štika",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "pstruh",
+      "lemma": "pstruh",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "tunxaak",
+      "lemma": "tuňák",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "losos",
+      "lemma": "losos",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "ptaak",
+      "lemma": "pták",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "tucxnxaak",
+      "lemma": "tučňák",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "pelikaan",
+      "lemma": "pelikán",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "kachna",
+      "lemma": "kachna",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "savec",
+      "lemma": "savec",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "lachtan",
+      "lemma": "lachtan",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "plavidlo",
+      "lemma": "plavidlo",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "n",
+      "pattern": "mesto",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "vor",
+      "lemma": "vor",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "plachetnice",
+      "lemma": "plachetnice",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "tags": ["sea"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "ovoce",
+      "lemma": "ovoce",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "more",
+      "numbers": "sg",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "jablko",
+      "lemma": "jablko",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "hrusxka",
+      "lemma": "hruška",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "sxvestka",
+      "lemma": "švestka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "banaan",
+      "lemma": "banán",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "zelenina",
+      "lemma": "zelenina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "okurka",
+      "lemma": "okurka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "rajcxe",
+      "lemma": "rajče",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "paprika",
+      "lemma": "paprika",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "stuol",
+      "lemma": "stůl",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "zxidle",
+      "lemma": "židle",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "skrxiinx",
+      "lemma": "skříň",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "pisen",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "postel",
+      "lemma": "postel",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "pisen",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "strom",
+      "lemma": "strom",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "forms": ["stromu"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "buk",
+      "lemma": "buk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "smrk",
+      "lemma": "smrk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "borovice",
+      "lemma": "borovice",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "naastroj",
+      "lemma": "nástroj",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "note": "hudební nástroj",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "housle",
+      "lemma": "housle",
+      "pos": "noun",
+      "gender": "f",
+      "numbers": "pl",
+      "pattern": "ruze",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "buben",
+      "lemma": "buben",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "fleetna",
+      "lemma": "flétna",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "koruna",
+      "lemma": "koruna",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "senses": ["ozdoba na hlavě krále", "horní část stromu", "peníze, kterými se platí v Česku"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "list",
+      "lemma": "list",
+      "pos": "noun",
+      "senses": ["list na stromě", "list papíru"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "korxen",
+      "lemma": "kořen",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "note": "skloňuje se smíšeně jako kámen, proto nemá vzor",
+      "senses": ["část rostliny v zemi", "společná část příbuzných slov"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "paad",
+      "lemma": "pád",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "senses": ["když někdo nebo něco spadne", "tvar podstatného jména, ptáme se na něj"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "rod",
+      "lemma": "rod",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "senses": ["rodina a předkové", "rod mužský, ženský a střední"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "vzor",
+      "lemma": "vzor",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "senses": [
+        "příklad, podle kterého něco děláme",
+        "slovo, podle kterého skloňujeme jiná slova"
+      ],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "noha",
+      "lemma": "noha",
+      "pos": "noun",
+      "gender": "f",
+      "senses": ["část těla, na které stojíme", "noha stolu nebo židle"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "zaamek",
+      "lemma": "zámek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "senses": ["velká budova, kde žili šlechtici", "věc, kterou zamykáme dveře"],
+      "src": ["ssc", "morfflex"]
+    },
+    {
+      "id": "krk",
+      "lemma": "krk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "senses": ["část těla mezi hlavou a trupem", "úzká horní část láhve"],
+      "src": ["ssc", "morfflex"]
+    }
+  ],
+  "sets": [
+    { "id": "syn.hezky", "kind": "synonyms", "words": ["hezkyy", "pexknyy"] },
+    { "id": "syn.chlapec", "kind": "synonyms", "words": ["chlapec", "hoch"] },
+    { "id": "syn.divka", "kind": "synonyms", "words": ["diivka", "dexvcxe"] },
+    { "id": "syn.mluvit", "kind": "synonyms", "words": ["mluvit", "hovorxit"] },
+    { "id": "syn.zacatek", "kind": "synonyms", "words": ["zacxaatek", "pocxaatek"] },
+    { "id": "syn.statecny", "kind": "synonyms", "words": ["statecxnyy", "odvaazxnyy"] },
+    { "id": "syn.rychly", "kind": "synonyms", "words": ["rychlyy", "hbityy"] },
+    { "id": "syn.vesely", "kind": "synonyms", "words": ["veselyy", "radostnyy"] },
+    { "id": "syn.smutny", "kind": "synonyms", "words": ["smutnyy", "zarmoucenyy"] },
+    { "id": "syn.maly", "kind": "synonyms", "words": ["malyy", "drobnyy"] },
+    { "id": "syn.velky", "kind": "synonyms", "words": ["velkyy", "velikyy"] },
+    { "id": "ant.velky", "kind": "antonyms", "words": ["velkyy", "malyy"] },
+    { "id": "ant.melky", "kind": "antonyms", "words": ["mexlkyy", "hlubokyy"] },
+    { "id": "ant.teply", "kind": "antonyms", "words": ["teplyy", "studenyy"] },
+    { "id": "ant.rychly", "kind": "antonyms", "words": ["rychlyy", "pomalyy"] },
+    { "id": "ant.den", "kind": "antonyms", "words": ["den", "noc"] },
+    { "id": "ant.svetlo", "kind": "antonyms", "words": ["svextlo", "tma"] },
+    { "id": "ant.nahore", "kind": "antonyms", "words": ["nahorxe", "dole"] },
+    { "id": "ant.plny", "kind": "antonyms", "words": ["plnyy", "praazdnyy"] },
+    { "id": "ant.otevrit", "kind": "antonyms", "words": ["otevrxiit", "zavrxiit"] },
+    { "id": "ant.priplavat", "kind": "antonyms", "words": ["prxiplavat", "odplavat"] },
+    { "id": "ant.smutny", "kind": "antonyms", "words": ["smutnyy", "veselyy"] },
+    { "id": "ant.zacatek", "kind": "antonyms", "words": ["zacxaatek", "konec"] },
+    { "id": "ant.tvrdy", "kind": "antonyms", "words": ["tvrdyy", "mexkkyy"] },
+    { "id": "ant.tezky", "kind": "antonyms", "words": ["texzxkyy", "lehkyy"] },
+    { "id": "ant.silny", "kind": "antonyms", "words": ["silnyy", "slabyy"] },
+    { "id": "ant.dobry", "kind": "antonyms", "words": ["dobryy", "zlyy"] },
+    { "id": "ant.leto", "kind": "antonyms", "words": ["leeto", "zima"] },
+    {
+      "id": "hyp.ryba",
+      "kind": "hyponyms",
+      "general": "ryba",
+      "specific": ["kapr", "sxtika", "pstruh", "tunxaak", "losos", "sardinka"]
+    },
+    {
+      "id": "hyp.ptak",
+      "kind": "hyponyms",
+      "general": "ptaak",
+      "specific": ["racek", "tucxnxaak", "pelikaan", "kachna"]
+    },
+    {
+      "id": "hyp.savec",
+      "kind": "hyponyms",
+      "general": "savec",
+      "specific": ["delfiin", "velryba", "tulenx", "vydra", "lachtan"]
+    },
+    {
+      "id": "hyp.plavidlo",
+      "kind": "hyponyms",
+      "general": "plavidlo",
+      "specific": ["cxlun", "vor", "plachetnice", "ponorka"]
+    },
+    {
+      "id": "hyp.ovoce",
+      "kind": "hyponyms",
+      "general": "ovoce",
+      "specific": ["jablko", "hrusxka", "sxvestka", "banaan"]
+    },
+    {
+      "id": "hyp.zelenina",
+      "kind": "hyponyms",
+      "general": "zelenina",
+      "specific": ["mrkev", "okurka", "rajcxe", "paprika"]
+    },
+    {
+      "id": "hyp.nabytek",
+      "kind": "hyponyms",
+      "general": "naabytek",
+      "specific": ["stuol", "zxidle", "skrxiinx", "postel"]
+    },
+    {
+      "id": "hyp.strom",
+      "kind": "hyponyms",
+      "general": "strom",
+      "specific": ["dub", "buk", "smrk", "liipa", "borovice"]
+    },
+    {
+      "id": "hyp.nastroj",
+      "kind": "hyponyms",
+      "general": "naastroj",
+      "specific": ["kytara", "housle", "buben", "fleetna"]
+    }
+  ]
+}

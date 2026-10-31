@@ -1,0 +1,1039 @@
+{
+  "topic": "vyjmenovana-b",
+  "title": "Vyjmenovaná slova po B",
+  "grade": 3,
+  "src": ["ijp-100", "ijp-101", "ijp-103", "school-list"],
+  "families": [
+    {
+      "id": "vyjm-b.byyt",
+      "letter": "b",
+      "head": "byyt",
+      "order": 1,
+      "core": true,
+      "root": "bý/by",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.bydlit",
+      "letter": "b",
+      "head": "bydlit",
+      "order": 2,
+      "core": true,
+      "root": "bydl",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.obyvatel",
+      "letter": "b",
+      "head": "obyvatel",
+      "order": 3,
+      "core": true,
+      "root": "býv/byv",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.byt",
+      "letter": "b",
+      "head": "byt",
+      "order": 4,
+      "core": true,
+      "root": "byt",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.prxiibytek",
+      "letter": "b",
+      "head": "prxiibytek",
+      "order": 5,
+      "core": true,
+      "root": "byt",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.naabytek",
+      "letter": "b",
+      "head": "naabytek",
+      "order": 6,
+      "core": true,
+      "root": "byt",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.dobytek",
+      "letter": "b",
+      "head": "dobytek",
+      "order": 7,
+      "core": true,
+      "root": "byt",
+      "kin": "b-by",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.obycxej",
+      "letter": "b",
+      "head": "obycxej",
+      "order": 8,
+      "core": true,
+      "root": "byč",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.bystryy",
+      "letter": "b",
+      "head": "bystryy",
+      "order": 9,
+      "core": true,
+      "root": "bystr/bystř",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.bylina",
+      "letter": "b",
+      "head": "bylina",
+      "order": 10,
+      "core": true,
+      "root": "byl/býl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.kobyla",
+      "letter": "b",
+      "head": "kobyla",
+      "order": 11,
+      "core": true,
+      "root": "kobyl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.byyk",
+      "letter": "b",
+      "head": "byyk",
+      "order": 12,
+      "core": true,
+      "root": "býk/býč",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-b.prxibyslav",
+      "letter": "b",
+      "head": "prxibyslav",
+      "order": 13,
+      "core": true,
+      "root": "byslav",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "fam.biit",
+      "letter": null,
+      "head": "biit",
+      "root": "bí/bi",
+      "soundAlikeOf": "vyjm-b.byyt",
+      "src": ["ijp-101"]
+    }
+  ],
+  "words": [
+    {
+      "id": "byyt",
+      "lemma": "být",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.byyt",
+      "role": "head",
+      "spell": "b{ý|í}t",
+      "rules": ["vyjm"],
+      "paradigm": {
+        "inf": "být",
+        "pres": ["jsem", "jsi", "je", "jsme", "jste", "jsou"],
+        "imp": ["buď", "buďme", "buďte"],
+        "past": {
+          "m": "byl",
+          "f": "byla",
+          "n": "bylo",
+          "ma": "byli",
+          "mi": "byly",
+          "fpl": "byly",
+          "npl": "byla"
+        }
+      },
+      "forms": [
+        "budu",
+        "budeš",
+        "bude",
+        "budeme",
+        "budete",
+        "budou",
+        "bych",
+        "bys",
+        "by",
+        "bychom",
+        "byste"
+      ],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "bytost",
+      "lemma": "bytost",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "kost",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "b{y|i}tost",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "pobyt",
+      "lemma": "pobyt",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "pob{y|i}t",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "zbytek",
+      "lemma": "zbytek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "zb{y|i}tek",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zbytecxnyy",
+      "lemma": "zbytečný",
+      "pos": "adj",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "zb{y|i}tečný",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "zbyyt",
+      "lemma": "zbýt",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "zb{ý|í}t",
+      "rules": ["vyjm"],
+      "forms": ["zbyl", "zbyla", "zbylo"],
+      "src": ["ijp-101", "morfflex"]
+    },
+    {
+      "id": "zbyyvat",
+      "lemma": "zbývat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "zb{ý|í}vat",
+      "rules": ["vyjm"],
+      "forms": ["zbývá"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "prxibyyvat",
+      "lemma": "přibývat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "přib{ý|í}vat",
+      "rules": ["vyjm"],
+      "forms": ["přibývá"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "ubyyvat",
+      "lemma": "ubývat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "ub{ý|í}vat",
+      "rules": ["vyjm"],
+      "forms": ["ubývá"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "byyvat",
+      "lemma": "bývat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "b{ý|í}vat",
+      "rules": ["vyjm"],
+      "forms": ["bývá"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "dobyyt",
+      "lemma": "dobýt",
+      "pos": "verb",
+      "aspect": "pf",
+      "grade": 4,
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "dob{ý|í}t",
+      "rules": ["vyjm"],
+      "forms": ["dobyli", "dobyl"],
+      "note": "dobýt hrad, poklad (získat); jiné je dobít baterii",
+      "src": ["ijp-100", "ijp-101", "morfflex"]
+    },
+    {
+      "id": "aby",
+      "lemma": "aby",
+      "pos": "conj",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "ab{y|i}",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "kdyby",
+      "lemma": "kdyby",
+      "pos": "conj",
+      "family": "vyjm-b.byyt",
+      "role": "member",
+      "spell": "kd{y|i}b{y|i}",
+      "rules": ["tvrda", "vyjm"],
+      "src": ["ijp-100", "ijp-103", "morfflex"]
+    },
+    {
+      "id": "bydlit",
+      "lemma": "bydlit",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.bydlit",
+      "role": "head",
+      "spell": "b{y|i}dlit",
+      "rules": ["vyjm"],
+      "forms": ["bydlím", "bydlíš", "bydlí", "bydlíme", "bydlíte"],
+      "note": "i bydlet",
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "bydlisxtex",
+      "lemma": "bydliště",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "more",
+      "family": "vyjm-b.bydlit",
+      "role": "member",
+      "spell": "b{y|i}dliště",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "bydlenii",
+      "lemma": "bydlení",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-b.bydlit",
+      "role": "member",
+      "spell": "b{y|i}dlení",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "obydlii",
+      "lemma": "obydlí",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-b.bydlit",
+      "role": "member",
+      "spell": "ob{y|i}dlí",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "obyvatel",
+      "lemma": "obyvatel",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-b.obyvatel",
+      "role": "head",
+      "spell": "ob{y|i}vatel",
+      "rules": ["vyjm"],
+      "forms": ["obyvatelé"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "obyvatelka",
+      "lemma": "obyvatelka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.obyvatel",
+      "role": "member",
+      "spell": "ob{y|i}vatelka",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "obyyvat",
+      "lemma": "obývat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-b.obyvatel",
+      "role": "member",
+      "spell": "ob{ý|í}vat",
+      "rules": ["vyjm"],
+      "forms": ["obývají"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "obyyvacii",
+      "lemma": "obývací",
+      "pos": "adj",
+      "family": "vyjm-b.obyvatel",
+      "role": "member",
+      "spell": "ob{ý|í}vací",
+      "rules": ["vyjm"],
+      "forms": ["obývacím"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "byt",
+      "lemma": "byt",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-b.byt",
+      "role": "head",
+      "spell": "b{y|i}t",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "bytovyy",
+      "lemma": "bytový",
+      "pos": "adj",
+      "family": "vyjm-b.byt",
+      "role": "member",
+      "spell": "b{y|i}tový",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "ubytovat",
+      "lemma": "ubytovat",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-b.byt",
+      "role": "member",
+      "spell": "ub{y|i}tovat",
+      "rules": ["vyjm"],
+      "forms": ["ubytovali"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ubytovna",
+      "lemma": "ubytovna",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.byt",
+      "role": "member",
+      "spell": "ub{y|i}tovna",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ubytovaanii",
+      "lemma": "ubytování",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-b.byt",
+      "role": "member",
+      "spell": "ub{y|i}tování",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "prxiibytek",
+      "lemma": "příbytek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-b.prxiibytek",
+      "role": "head",
+      "spell": "příb{y|i}tek",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "naabytek",
+      "lemma": "nábytek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-b.naabytek",
+      "role": "head",
+      "spell": "náb{y|i}tek",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "naabytkovyy",
+      "lemma": "nábytkový",
+      "pos": "adj",
+      "family": "vyjm-b.naabytek",
+      "role": "member",
+      "spell": "náb{y|i}tkový",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "dobytek",
+      "lemma": "dobytek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-b.dobytek",
+      "role": "head",
+      "spell": "dob{y|i}tek",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "dobytcxe",
+      "lemma": "dobytče",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "family": "vyjm-b.dobytek",
+      "role": "member",
+      "spell": "dob{y|i}tče",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "dobytcxii",
+      "lemma": "dobytčí",
+      "pos": "adj",
+      "family": "vyjm-b.dobytek",
+      "role": "member",
+      "spell": "dob{y|i}tčí",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "obycxej",
+      "lemma": "obyčej",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "family": "vyjm-b.obycxej",
+      "role": "head",
+      "spell": "ob{y|i}čej",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "obycxejnyy",
+      "lemma": "obyčejný",
+      "pos": "adj",
+      "family": "vyjm-b.obycxej",
+      "role": "member",
+      "spell": "ob{y|i}čejný",
+      "rules": ["vyjm"],
+      "forms": ["obyčejnou"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "obycxejnex",
+      "lemma": "obyčejně",
+      "pos": "adv",
+      "family": "vyjm-b.obycxej",
+      "role": "member",
+      "spell": "ob{y|i}čejně",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "neobycxejnyy",
+      "lemma": "neobyčejný",
+      "pos": "adj",
+      "family": "vyjm-b.obycxej",
+      "role": "member",
+      "spell": "neob{y|i}čejný",
+      "rules": ["vyjm"],
+      "forms": ["neobyčejná"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "bystryy",
+      "lemma": "bystrý",
+      "pos": "adj",
+      "family": "vyjm-b.bystryy",
+      "role": "head",
+      "spell": "b{y|i}strý",
+      "rules": ["vyjm"],
+      "forms": ["bystrá"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "bystrost",
+      "lemma": "bystrost",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "kost",
+      "family": "vyjm-b.bystryy",
+      "role": "member",
+      "spell": "b{y|i}strost",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "bystrxe",
+      "lemma": "bystře",
+      "pos": "adv",
+      "family": "vyjm-b.bystryy",
+      "role": "member",
+      "spell": "b{y|i}stře",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "bystrxina",
+      "lemma": "bystřina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.bystryy",
+      "role": "member",
+      "spell": "b{y|i}střina",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zbystrxit",
+      "lemma": "zbystřit",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-b.bystryy",
+      "role": "member",
+      "spell": "zb{y|i}střit",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "bylina",
+      "lemma": "bylina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.bylina",
+      "role": "head",
+      "spell": "b{y|i}lina",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "bylinka",
+      "lemma": "bylinka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.bylina",
+      "role": "member",
+      "spell": "b{y|i}linka",
+      "rules": ["vyjm"],
+      "forms": ["bylinky"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "bylinkovyy",
+      "lemma": "bylinkový",
+      "pos": "adj",
+      "family": "vyjm-b.bylina",
+      "role": "member",
+      "spell": "b{y|i}linkový",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "byylozxravec",
+      "lemma": "býložravec",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-b.bylina",
+      "role": "member",
+      "spell": "b{ý|í}ložravec",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "kobyla",
+      "lemma": "kobyla",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.kobyla",
+      "role": "head",
+      "spell": "kob{y|i}la",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "kobylka",
+      "lemma": "kobylka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-b.kobyla",
+      "role": "member",
+      "spell": "kob{y|i}lka",
+      "rules": ["vyjm"],
+      "senses": ["malá kobyla", "hmyz, který skáče v trávě"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "byyk",
+      "lemma": "býk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-b.byyk",
+      "role": "head",
+      "spell": "b{ý|í}k",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "byycxek",
+      "lemma": "býček",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-b.byyk",
+      "role": "member",
+      "spell": "b{ý|í}ček",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "byycxii",
+      "lemma": "býčí",
+      "pos": "adj",
+      "family": "vyjm-b.byyk",
+      "role": "member",
+      "spell": "b{ý|í}čí",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "prxibyslav",
+      "lemma": "Přibyslav",
+      "pos": "noun",
+      "gender": "f",
+      "proper": "town",
+      "family": "vyjm-b.prxibyslav",
+      "role": "head",
+      "spell": "Přib{y|i}slav",
+      "rules": ["vyjm"],
+      "forms": ["Přibyslavi"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "biit",
+      "lemma": "bít",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "fam.biit",
+      "role": "head",
+      "spell": "b{í|ý}t",
+      "rules": ["obojetna-i"],
+      "forms": ["bije", "bil", "bila", "bilo", "bili"],
+      "src": ["ijp-101", "morfflex"]
+    },
+    {
+      "id": "bitva",
+      "lemma": "bitva",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "fam.biit",
+      "role": "member",
+      "spell": "b{i|y}tva",
+      "rules": ["obojetna-i"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "rozbiit",
+      "lemma": "rozbít",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "fam.biit",
+      "role": "member",
+      "spell": "rozb{í|ý}t",
+      "rules": ["obojetna-i"],
+      "forms": ["rozbil", "rozbila", "rozbilo", "rozbili"],
+      "src": ["ijp-101", "morfflex"]
+    },
+    {
+      "id": "nabiit",
+      "lemma": "nabít",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "fam.biit",
+      "role": "member",
+      "spell": "nab{í|ý}t",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-101", "morfflex"]
+    },
+    {
+      "id": "dobiit",
+      "lemma": "dobít",
+      "pos": "verb",
+      "aspect": "pf",
+      "grade": 4,
+      "family": "fam.biit",
+      "role": "member",
+      "spell": "dob{í|ý}t",
+      "rules": ["obojetna-i"],
+      "note": "dobít baterii, telefon; jiné je dobýt hrad",
+      "src": ["ijp-101", "morfflex"]
+    },
+    {
+      "id": "biilyy",
+      "lemma": "bílý",
+      "pos": "adj",
+      "spell": "b{í|ý}lý",
+      "rules": ["obojetna-i"],
+      "forms": ["bílá", "bílé"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "obilii",
+      "lemma": "obilí",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "spell": "ob{i|y}lí",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "vyjm-b.01",
+      "text": "Delfíni b{y|i}dlí v teplém moři.",
+      "gaps": [{ "rule": "vyjm", "word": "bydlit" }]
+    },
+    {
+      "id": "vyjm-b.02",
+      "text": "Krab b{y|i}l celý den schovaný pod kamenem.",
+      "gaps": [{ "rule": "vyjm", "word": "byyt" }]
+    },
+    {
+      "id": "vyjm-b.03",
+      "text": "Chobotnice je moudrá b{y|i}tost.",
+      "gaps": [{ "rule": "vyjm", "word": "bytost" }]
+    },
+    {
+      "id": "vyjm-b.04",
+      "text": "Pob{y|i}t u moře se nám líbil.",
+      "gaps": [{ "rule": "vyjm", "word": "pobyt" }]
+    },
+    {
+      "id": "vyjm-b.05",
+      "text": "Ze svačiny mi zb{y|i}l jen malý kousek.",
+      "gaps": [{ "rule": "vyjm", "word": "zbyyt" }]
+    },
+    {
+      "id": "vyjm-b.06",
+      "text": "Je to zb{y|i}tečný strach, žralok spí.",
+      "gaps": [{ "rule": "vyjm", "word": "zbytecxnyy" }]
+    },
+    {
+      "id": "vyjm-b.07",
+      "text": "Do konce výletu zb{ý|í}vá jeden den.",
+      "gaps": [{ "rule": "vyjm", "word": "zbyyvat" }]
+    },
+    {
+      "id": "vyjm-b.08",
+      "text": "Na pláži přib{ý|í}vá turistů.",
+      "gaps": [{ "rule": "vyjm", "word": "prxibyyvat" }]
+    },
+    {
+      "id": "vyjm-b.09",
+      "text": "Večer ub{ý|í}vá světla.",
+      "gaps": [{ "rule": "vyjm", "word": "ubyyvat" }]
+    },
+    {
+      "id": "vyjm-b.10",
+      "text": "V zátoce b{ý|í}vá klidná voda.",
+      "gaps": [{ "rule": "vyjm", "word": "byyvat" }]
+    },
+    {
+      "id": "vyjm-b.11",
+      "text": "Delfín chce, ab{y|i} si s ním děti hrály.",
+      "gaps": [{ "rule": "vyjm", "word": "aby" }]
+    },
+    {
+      "id": "vyjm-b.12",
+      "text": "Kdyb{y|i} b{y|i}lo teplo, šli b{y|i}chom plavat.",
+      "gaps": [
+        { "rule": "vyjm", "word": "kdyby" },
+        { "rule": "vyjm", "word": "byyt" },
+        { "rule": "vyjm", "word": "byyt" }
+      ]
+    },
+    {
+      "id": "vyjm-b.13",
+      "text": "Teta b{y|i}dlí v Přib{y|i}slavi.",
+      "gaps": [
+        { "rule": "vyjm", "word": "bydlit" },
+        { "rule": "vyjm", "word": "prxibyslav" }
+      ]
+    },
+    {
+      "id": "vyjm-b.14",
+      "text": "Chobotnice má ob{y|i}dlí v jeskyni.",
+      "gaps": [{ "rule": "vyjm", "word": "obydlii" }]
+    },
+    {
+      "id": "vyjm-b.15",
+      "text": "Tuleni ob{ý|í}vají studená moře.",
+      "gaps": [{ "rule": "vyjm", "word": "obyyvat" }]
+    },
+    {
+      "id": "vyjm-b.16",
+      "text": "V ob{ý|í}vacím pokoji je akvárium.",
+      "gaps": [{ "rule": "vyjm", "word": "obyyvacii" }]
+    },
+    {
+      "id": "vyjm-b.17",
+      "text": "V přístavu je ub{y|i}tovna pro námořníky.",
+      "gaps": [{ "rule": "vyjm", "word": "ubytovna" }]
+    },
+    {
+      "id": "vyjm-b.18",
+      "text": "Ub{y|i}tovali jsme se v chatě u moře.",
+      "gaps": [{ "rule": "vyjm", "word": "ubytovat" }]
+    },
+    {
+      "id": "vyjm-b.19",
+      "text": "Na mořském dně leží starý náb{y|i}tek.",
+      "gaps": [{ "rule": "vyjm", "word": "naabytek" }]
+    },
+    {
+      "id": "vyjm-b.20",
+      "text": "U moře se pase dob{y|i}tek.",
+      "gaps": [{ "rule": "vyjm", "word": "dobytek" }]
+    },
+    {
+      "id": "vyjm-b.21",
+      "text": "Mám ob{y|i}čejnou mušli, ale je krásná.",
+      "gaps": [{ "rule": "vyjm", "word": "obycxejnyy" }]
+    },
+    {
+      "id": "vyjm-b.22",
+      "text": "Ob{y|i}čejně plaveme v zátoce.",
+      "gaps": [{ "rule": "vyjm", "word": "obycxejnex" }]
+    },
+    {
+      "id": "vyjm-b.23",
+      "text": "To je neob{y|i}čejná perla!",
+      "gaps": [{ "rule": "vyjm", "word": "neobycxejnyy" }]
+    },
+    {
+      "id": "vyjm-b.24",
+      "text": "Želva je b{y|i}strá a moudrá.",
+      "gaps": [{ "rule": "vyjm", "word": "bystryy" }]
+    },
+    {
+      "id": "vyjm-b.25",
+      "text": "Z hor teče do moře b{y|i}střina.",
+      "gaps": [{ "rule": "vyjm", "word": "bystrxina" }]
+    },
+    {
+      "id": "vyjm-b.26",
+      "text": "Vydra sbírá na břehu b{y|i}linky.",
+      "gaps": [{ "rule": "vyjm", "word": "bylinka" }]
+    },
+    {
+      "id": "vyjm-b.27",
+      "text": "Babička vaří b{y|i}linkový čaj.",
+      "gaps": [{ "rule": "vyjm", "word": "bylinkovyy" }]
+    },
+    {
+      "id": "vyjm-b.28",
+      "text": "Žralok není b{ý|í}ložravec.",
+      "gaps": [{ "rule": "vyjm", "word": "byylozxravec" }]
+    },
+    {
+      "id": "vyjm-b.29",
+      "text": "Kob{y|i}lka skáče v trávě u pláže.",
+      "gaps": [{ "rule": "vyjm", "word": "kobylka" }]
+    },
+    {
+      "id": "vyjm-b.30",
+      "text": "Na pastvině u moře stojí silný b{ý|í}k.",
+      "gaps": [{ "rule": "vyjm", "word": "byyk" }]
+    },
+    {
+      "id": "vyjm-b.31",
+      "text": "Někteří ob{y|i}vatelé moře b{y|i}dlí v korálech.",
+      "gaps": [
+        { "rule": "vyjm", "word": "obyvatel" },
+        { "rule": "vyjm", "word": "bydlit" }
+      ]
+    },
+    {
+      "id": "vyjm-b.32",
+      "text": "Na pláži je jemný b{í|ý}lý písek.",
+      "gaps": [{ "rule": "obojetna-i", "word": "biilyy" }]
+    },
+    {
+      "id": "vyjm-b.33",
+      "text": "Racek klove ob{i|y}lí na poli u moře.",
+      "gaps": [{ "rule": "obojetna-i", "word": "obilii" }]
+    },
+    {
+      "id": "vyjm-b.34",
+      "text": "Vlna rozb{i|y}la hrad z písku.",
+      "gaps": [{ "rule": "obojetna-i", "word": "rozbiit" }]
+    },
+    {
+      "id": "vyjm-b.35",
+      "text": "Musím nab{í|ý}t baterii v ponorce.",
+      "gaps": [{ "rule": "obojetna-i", "word": "nabiit" }]
+    }
+  ]
+}

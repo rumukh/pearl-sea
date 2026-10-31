@@ -1,0 +1,150 @@
+{
+  "topic": "nouns",
+  "title": "Podstatná jména: rod, životnost, číslo a pád",
+  "grade": 3,
+  "note": "Ptáme se: 1. kdo? co?, 2. koho? čeho?, 3. komu? čemu?, 4. koho? co?, 5. oslovujeme, voláme, 6. o kom? o čem?, 7. s kým? s čím? Pád ve větě určuje předložka nebo sloveso; tvary jsou ověřeny proti paradigmatu slova.",
+  "src": ["pcp-1993"],
+  "words": [],
+  "sentences": [
+    {
+      "id": "case.01",
+      "text": "Delfín skáče přes vlny.",
+      "marks": [{ "t": "Delfín", "word": "delfiin", "case": 1, "number": "sg" }]
+    },
+    {
+      "id": "case.02",
+      "text": "Na útesu sedí racek.",
+      "marks": [{ "t": "racek", "word": "racek", "case": 1, "number": "sg" }]
+    },
+    {
+      "id": "case.03",
+      "text": "Želvy kladou vejce na pláži.",
+      "marks": [{ "t": "Želvy", "word": "zxelva", "case": 1, "number": "pl" }]
+    },
+    {
+      "id": "case.04",
+      "text": "Perla leží na dně.",
+      "marks": [{ "t": "Perla", "word": "perla", "case": 1, "number": "sg" }]
+    },
+    {
+      "id": "case.05",
+      "text": "Bez sítě rybář nic nechytí.",
+      "marks": [{ "t": "sítě", "word": "siitx", "case": 2, "number": "sg" }]
+    },
+    {
+      "id": "case.06",
+      "text": "Rybky plavou do jezera.",
+      "marks": [{ "t": "jezera", "word": "jezero", "case": 2, "number": "sg" }]
+    },
+    {
+      "id": "case.07",
+      "text": "U majáku kotví loď.",
+      "marks": [{ "t": "majáku", "word": "majaak", "case": 2, "number": "sg" }]
+    },
+    {
+      "id": "case.08",
+      "text": "Potápěč vytáhl perlu z mušle.",
+      "marks": [{ "t": "mušle", "word": "musxle", "case": 2, "number": "sg" }]
+    },
+    {
+      "id": "case.09",
+      "text": "Plaveme k ostrovu.",
+      "marks": [{ "t": "ostrovu", "word": "ostrov", "case": 3, "number": "sg" }]
+    },
+    {
+      "id": "case.10",
+      "text": "Tuleň plave k rybáři.",
+      "marks": [{ "t": "rybáři", "word": "rybaarx", "case": 3, "number": "sg" }]
+    },
+    {
+      "id": "case.11",
+      "text": "Kapitán dal rybu tuleni.",
+      "marks": [{ "t": "tuleni", "word": "tulenx", "case": 3, "number": "sg" }]
+    },
+    {
+      "id": "case.12",
+      "text": "Vlny šplouchají k pláži.",
+      "marks": [{ "t": "pláži", "word": "plaazx", "case": 3, "number": "sg" }]
+    },
+    {
+      "id": "case.13",
+      "text": "Vidím velkou želvu.",
+      "marks": [{ "t": "želvu", "word": "zxelva", "case": 4, "number": "sg" }]
+    },
+    {
+      "id": "case.14",
+      "text": "Racek chytil malou rybu.",
+      "marks": [{ "t": "rybu", "word": "ryba", "case": 4, "number": "sg" }]
+    },
+    {
+      "id": "case.15",
+      "text": "Delfíni mají rádi míč.",
+      "marks": [{ "t": "míč", "word": "miicx", "case": 4, "number": "sg" }]
+    },
+    {
+      "id": "case.16",
+      "text": "Rybář táhne síť.",
+      "marks": [{ "t": "síť", "word": "siitx", "case": 4, "number": "sg" }]
+    },
+    {
+      "id": "case.17",
+      "text": "Delfíne, skoč!",
+      "marks": [{ "t": "Delfíne", "word": "delfiin", "case": 5, "number": "sg" }]
+    },
+    {
+      "id": "case.18",
+      "text": "Želvo, kam plaveš?",
+      "marks": [{ "t": "Želvo", "word": "zxelva", "case": 5, "number": "sg" }]
+    },
+    {
+      "id": "case.19",
+      "text": "Tuleni, pojď sem!",
+      "marks": [{ "t": "Tuleni", "word": "tulenx", "case": 5, "number": "sg" }]
+    },
+    {
+      "id": "case.20",
+      "text": "Delfíni, pojďte si hrát!",
+      "marks": [{ "t": "Delfíni", "word": "delfiin", "case": 5, "number": "pl" }]
+    },
+    {
+      "id": "case.21",
+      "text": "Vyprávěj mi o delfínovi.",
+      "marks": [{ "t": "delfínovi", "word": "delfiin", "case": 6, "number": "sg" }]
+    },
+    {
+      "id": "case.22",
+      "text": "Na ostrově roste palma.",
+      "marks": [{ "t": "ostrově", "word": "ostrov", "case": 6, "number": "sg" }]
+    },
+    {
+      "id": "case.23",
+      "text": "Ryby žijí v jezeře.",
+      "marks": [{ "t": "jezeře", "word": "jezero", "case": 6, "number": "sg" }]
+    },
+    {
+      "id": "case.24",
+      "text": "Mluvíme o chobotnici.",
+      "marks": [{ "t": "chobotnici", "word": "chobotnice", "case": 6, "number": "sg" }]
+    },
+    {
+      "id": "case.25",
+      "text": "Plavu s delfínem.",
+      "marks": [{ "t": "delfínem", "word": "delfiin", "case": 7, "number": "sg" }]
+    },
+    {
+      "id": "case.26",
+      "text": "Rybář chytá ryby sítí.",
+      "marks": [{ "t": "sítí", "word": "siitx", "case": 7, "number": "sg" }]
+    },
+    {
+      "id": "case.27",
+      "text": "Nad mořem letí racek.",
+      "marks": [{ "t": "mořem", "word": "morxe", "case": 7, "number": "sg" }]
+    },
+    {
+      "id": "case.28",
+      "text": "Pod útesem plave želva.",
+      "marks": [{ "t": "útesem", "word": "uutes", "case": 7, "number": "sg" }]
+    }
+  ]
+}

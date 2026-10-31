@@ -1,0 +1,345 @@
+{
+  "topic": "alphabet",
+  "title": "Abeceda a řazení slov podle abecedy",
+  "grade": 3,
+  "note": "Řadí se podle primární abecedy: ch po h; č, ř, š, ž po c, r, s, z; ostatní diakritika se při prvním porovnání nerozlišuje. Sady nemají slova, která by se lišila jen diakritikou.",
+  "src": ["pcp-1993"],
+  "words": [
+    {
+      "id": "bublina",
+      "lemma": "bublina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "chobotnice",
+      "lemma": "chobotnice",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "cxlun",
+      "lemma": "člun",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "delfiin",
+      "lemma": "delfín",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "hvexzdice",
+      "lemma": "hvězdice",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "chaluha",
+      "lemma": "chaluha",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "hlubina",
+      "lemma": "hlubina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "humr",
+      "lemma": "humr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "kapitaan",
+      "lemma": "kapitán",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "koraal",
+      "lemma": "korál",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "kotva",
+      "lemma": "kotva",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "krab",
+      "lemma": "krab",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "majaak",
+      "lemma": "maják",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "meduuza",
+      "lemma": "medúza",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "loan": true,
+      "tags": ["sea"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "musxle",
+      "lemma": "mušle",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "naamorxniik",
+      "lemma": "námořník",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "ostrov",
+      "lemma": "ostrov",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "perla",
+      "lemma": "perla",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "ponorka",
+      "lemma": "ponorka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "racek",
+      "lemma": "racek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "ryba",
+      "lemma": "ryba",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "rxasa",
+      "lemma": "řasa",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "senses": ["chloupek na víčku oka", "rostlina, která roste ve vodě"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "sardinka",
+      "lemma": "sardinka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "sxkeble",
+      "lemma": "škeble",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "sxnek",
+      "lemma": "šnek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "src": ["morfflex"]
+    },
+    {
+      "id": "tulenx",
+      "lemma": "tuleň",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "uuhorx",
+      "lemma": "úhoř",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "uutes",
+      "lemma": "útes",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "velryba",
+      "lemma": "velryba",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "vlna",
+      "lemma": "vlna",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "senses": ["vyvýšená voda na hladině", "chlupy ovcí, ze kterých se přede příze"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "zaatoka",
+      "lemma": "zátoka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "zxelva",
+      "lemma": "želva",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "zxralok",
+      "lemma": "žralok",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "tags": ["sea"],
+      "src": ["morfflex"]
+    }
+  ],
+  "sets": [
+    { "id": "abc.01", "kind": "alphabet", "words": ["krab", "musxle", "ostrov", "ryba", "zxelva"] },
+    {
+      "id": "abc.02",
+      "kind": "alphabet",
+      "words": ["delfiin", "hvexzdice", "chobotnice", "kotva"]
+    },
+    { "id": "abc.03", "kind": "alphabet", "words": ["hlubina", "humr", "chaluha"] },
+    { "id": "abc.04", "kind": "alphabet", "words": ["racek", "ryba", "rxasa"] },
+    { "id": "abc.05", "kind": "alphabet", "words": ["sardinka", "sxkeble", "sxnek", "tulenx"] },
+    { "id": "abc.06", "kind": "alphabet", "words": ["zaatoka", "zxelva", "zxralok"] },
+    { "id": "abc.07", "kind": "alphabet", "words": ["cxlun", "delfiin", "chobotnice", "majaak"] },
+    { "id": "abc.08", "kind": "alphabet", "words": ["kapitaan", "koraal", "kotva", "krab"] },
+    { "id": "abc.09", "kind": "alphabet", "words": ["perla", "piisek", "ponorka"] },
+    { "id": "abc.10", "kind": "alphabet", "words": ["uuhorx", "uutes", "velryba", "vlna"] },
+    { "id": "abc.11", "kind": "alphabet", "words": ["majaak", "meduuza", "musxle"] },
+    {
+      "id": "abc.12",
+      "kind": "alphabet",
+      "words": ["bublina", "naamorxniik", "ostrov", "perla", "racek"]
+    }
+  ]
+}

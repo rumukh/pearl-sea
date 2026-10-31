@@ -1,0 +1,784 @@
+{
+  "topic": "vyjmenovana-v",
+  "title": "Vyjmenovaná slova po V",
+  "grade": 3,
+  "src": ["ijp-100", "ijp-103", "school-list"],
+  "families": [
+    {
+      "id": "vyjm-v.vy",
+      "letter": "v",
+      "head": "vy",
+      "order": 1,
+      "core": true,
+      "root": "vy",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vysokyy",
+      "letter": "v",
+      "head": "vysokyy",
+      "order": 2,
+      "core": true,
+      "root": "vys/výš",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vyyt",
+      "letter": "v",
+      "head": "vyyt",
+      "order": 3,
+      "core": true,
+      "root": "vý/vy",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vyyskat",
+      "letter": "v",
+      "head": "vyyskat",
+      "order": 4,
+      "core": true,
+      "root": "výsk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.zvykat",
+      "letter": "v",
+      "head": "zvykat",
+      "order": 5,
+      "core": true,
+      "root": "vyk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.zxvyykat",
+      "letter": "v",
+      "head": "zxvyykat",
+      "order": 6,
+      "core": true,
+      "root": "žvýk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vydra",
+      "letter": "v",
+      "head": "vydra",
+      "order": 7,
+      "core": true,
+      "root": "vydr/vydř",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vyyr",
+      "letter": "v",
+      "head": "vyyr",
+      "order": 8,
+      "core": true,
+      "root": "výr/výř",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vyzxle",
+      "letter": "v",
+      "head": "vyzxle",
+      "order": 9,
+      "core": true,
+      "root": "vyžl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.povyk",
+      "letter": "v",
+      "head": "povyk",
+      "order": 10,
+      "core": true,
+      "root": "vyk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-v.vyyhenx",
+      "letter": "v",
+      "head": "vyyhenx",
+      "order": 11,
+      "core": true,
+      "root": "výheň/výhn",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "fam.viir",
+      "letter": null,
+      "head": "viir",
+      "root": "vír/víř",
+      "soundAlikeOf": "vyjm-v.vyyr",
+      "src": ["ijp-100"]
+    }
+  ],
+  "words": [
+    {
+      "id": "vy",
+      "lemma": "vy",
+      "pos": "pron",
+      "family": "vyjm-v.vy",
+      "role": "head",
+      "spell": "v{y|i}",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vykat",
+      "lemma": "vykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-v.vy",
+      "role": "member",
+      "spell": "v{y|i}kat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vysokyy",
+      "lemma": "vysoký",
+      "pos": "adj",
+      "family": "vyjm-v.vysokyy",
+      "role": "head",
+      "spell": "v{y|i}soký",
+      "rules": ["vyjm"],
+      "forms": ["vysokou"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vyysxka",
+      "lemma": "výška",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-v.vysokyy",
+      "role": "member",
+      "spell": "v{ý|í}ška",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vysoko",
+      "lemma": "vysoko",
+      "pos": "adv",
+      "family": "vyjm-v.vysokyy",
+      "role": "member",
+      "spell": "v{y|i}soko",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "zvyysxit",
+      "lemma": "zvýšit",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-v.vysokyy",
+      "role": "member",
+      "spell": "zv{ý|í}šit",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vysocxina",
+      "lemma": "Vysočina",
+      "pos": "noun",
+      "gender": "f",
+      "proper": "place",
+      "family": "vyjm-v.vysokyy",
+      "role": "member",
+      "spell": "V{y|i}sočina",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyyt",
+      "lemma": "výt",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-v.vyyt",
+      "role": "head",
+      "spell": "v{ý|í}t",
+      "rules": ["vyjm"],
+      "forms": ["vyje", "vyjí", "vyl"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "zavyyt",
+      "lemma": "zavýt",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-v.vyyt",
+      "role": "member",
+      "spell": "zav{ý|í}t",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vytii",
+      "lemma": "vytí",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-v.vyyt",
+      "role": "member",
+      "spell": "v{y|i}tí",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "vyyskat",
+      "lemma": "výskat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-v.vyyskat",
+      "role": "head",
+      "spell": "v{ý|í}skat",
+      "rules": ["vyjm"],
+      "forms": ["výskaly", "výská"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vyyskot",
+      "lemma": "výskot",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-v.vyyskat",
+      "role": "member",
+      "spell": "v{ý|í}skot",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zavyyskat",
+      "lemma": "zavýskat",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-v.vyyskat",
+      "role": "member",
+      "spell": "zav{ý|í}skat",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "zvykat",
+      "lemma": "zvykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-v.zvykat",
+      "role": "head",
+      "spell": "zv{y|i}kat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "zvyk",
+      "lemma": "zvyk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-v.zvykat",
+      "role": "member",
+      "spell": "zv{y|i}k",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zvyknout-si",
+      "lemma": "zvyknout si",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "si",
+      "family": "vyjm-v.zvykat",
+      "role": "member",
+      "spell": "zv{y|i}knout si",
+      "rules": ["vyjm"],
+      "forms": ["zvykli"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "obvyklyy",
+      "lemma": "obvyklý",
+      "pos": "adj",
+      "family": "vyjm-v.zvykat",
+      "role": "member",
+      "spell": "obv{y|i}klý",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "obvykle",
+      "lemma": "obvykle",
+      "pos": "adv",
+      "family": "vyjm-v.zvykat",
+      "role": "member",
+      "spell": "obv{y|i}kle",
+      "rules": ["vyjm"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "naavyk",
+      "lemma": "návyk",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-v.zvykat",
+      "role": "member",
+      "spell": "náv{y|i}k",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zxvyykat",
+      "lemma": "žvýkat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-v.zxvyykat",
+      "role": "head",
+      "spell": "žv{ý|í}kat",
+      "rules": ["vyjm"],
+      "forms": ["žvýká"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "zxvyykacxka",
+      "lemma": "žvýkačka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-v.zxvyykat",
+      "role": "member",
+      "spell": "žv{ý|í}kačka",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "rozzxvyykat",
+      "lemma": "rozžvýkat",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-v.zxvyykat",
+      "role": "member",
+      "spell": "rozžv{ý|í}kat",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "prxezxvyykavec",
+      "lemma": "přežvýkavec",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-v.zxvyykat",
+      "role": "member",
+      "spell": "přežv{ý|í}kavec",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vydra",
+      "lemma": "vydra",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-v.vydra",
+      "role": "head",
+      "spell": "v{y|i}dra",
+      "rules": ["vyjm"],
+      "tags": ["sea"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vydrxii",
+      "lemma": "vydří",
+      "pos": "adj",
+      "family": "vyjm-v.vydra",
+      "role": "member",
+      "spell": "v{y|i}dří",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyyr",
+      "lemma": "výr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-v.vyyr",
+      "role": "head",
+      "spell": "v{ý|í}r",
+      "rules": ["vyjm"],
+      "note": "pták, velká sova; jiné je vír ve vodě",
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vyyrxii",
+      "lemma": "výří",
+      "pos": "adj",
+      "family": "vyjm-v.vyyr",
+      "role": "member",
+      "spell": "v{ý|í}ří",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "vyzxle",
+      "lemma": "vyžle",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "family": "vyjm-v.vyzxle",
+      "role": "head",
+      "spell": "v{y|i}žle",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "povyk",
+      "lemma": "povyk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-v.povyk",
+      "role": "head",
+      "spell": "pov{y|i}k",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "povykovat",
+      "lemma": "povykovat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-v.povyk",
+      "role": "member",
+      "spell": "pov{y|i}kovat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyyhenx",
+      "lemma": "výheň",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "pisen",
+      "family": "vyjm-v.vyyhenx",
+      "role": "head",
+      "spell": "v{ý|í}heň",
+      "rules": ["vyjm"],
+      "forms": ["výhně"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "vyplout",
+      "lemma": "vyplout",
+      "pos": "verb",
+      "aspect": "pf",
+      "spell": "v{y|i}plout",
+      "rules": ["vyjm-prefix"],
+      "forms": ["vyplula", "vypluje"],
+      "tags": ["sea"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vynorxit-se",
+      "lemma": "vynořit se",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "se",
+      "spell": "v{y|i}nořit se",
+      "rules": ["vyjm-prefix"],
+      "forms": ["vynořila", "vynořil"],
+      "tags": ["sea"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyylet",
+      "lemma": "výlet",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "v{ý|í}let",
+      "rules": ["vyjm-prefix"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyyhled",
+      "lemma": "výhled",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "v{ý|í}hled",
+      "rules": ["vyjm-prefix"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyhraat",
+      "lemma": "vyhrát",
+      "pos": "verb",
+      "aspect": "pf",
+      "spell": "v{y|i}hrát",
+      "rules": ["vyjm-prefix"],
+      "forms": ["vyhrál", "vyhrála"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyyhra",
+      "lemma": "výhra",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "v{ý|í}hra",
+      "rules": ["vyjm-prefix"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyyprava",
+      "lemma": "výprava",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "v{ý|í}prava",
+      "rules": ["vyjm-prefix"],
+      "tags": ["sea"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vyleezt",
+      "lemma": "vylézt",
+      "pos": "verb",
+      "aspect": "pf",
+      "spell": "v{y|i}lézt",
+      "rules": ["vyjm-prefix"],
+      "forms": ["vylezli", "vylezl"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vidext",
+      "lemma": "vidět",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "v{i|y}dět",
+      "rules": ["obojetna-i"],
+      "forms": ["vidím", "vidíš", "vidí"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "viitr",
+      "lemma": "vítr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "v{í|ý}tr",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "viila",
+      "lemma": "víla",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "v{í|ý}la",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "viitexz",
+      "lemma": "vítěz",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "spell": "v{í|ý}těz",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "viir",
+      "lemma": "vír",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "fam.viir",
+      "role": "head",
+      "spell": "v{í|ý}r",
+      "rules": ["obojetna-i"],
+      "forms": ["víru"],
+      "tags": ["sea"],
+      "note": "točící se voda; jiné je výr, pták",
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "viirxit",
+      "lemma": "vířit",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "fam.viir",
+      "role": "member",
+      "spell": "v{í|ý}řit",
+      "rules": ["obojetna-i"],
+      "forms": ["víří"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "zviirxit",
+      "lemma": "zvířit",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "fam.viir",
+      "role": "member",
+      "spell": "zv{í|ý}řit",
+      "rules": ["obojetna-i"],
+      "forms": ["zvířila", "zvířil", "zvířily"],
+      "src": ["derinet", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "vyjm-v.01",
+      "text": "V{y|i} jste naši noví kamarádi!",
+      "gaps": [{ "rule": "vyjm", "word": "vy" }]
+    },
+    {
+      "id": "vyjm-v.02",
+      "text": "Maják je v{y|i}soký a bílý.",
+      "gaps": [{ "rule": "vyjm", "word": "vysokyy" }]
+    },
+    {
+      "id": "vyjm-v.03",
+      "text": "Pes na pláži v{y|i}je na měsíc.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyt" }]
+    },
+    {
+      "id": "vyjm-v.04",
+      "text": "Děti na lodi radostně v{ý|í}skaly.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyskat" }]
+    },
+    {
+      "id": "vyjm-v.05",
+      "text": "Delfíni obv{y|i}kle plavou ve skupinách.",
+      "gaps": [{ "rule": "vyjm", "word": "obvykle" }]
+    },
+    {
+      "id": "vyjm-v.06",
+      "text": "Kráva u moře žv{ý|í}ká trávu.",
+      "gaps": [{ "rule": "vyjm", "word": "zxvyykat" }]
+    },
+    {
+      "id": "vyjm-v.07",
+      "text": "V{y|i}dra se potápí pro rybu.",
+      "gaps": [{ "rule": "vyjm", "word": "vydra" }]
+    },
+    {
+      "id": "vyjm-v.08",
+      "text": "Ponorka v{y|i}plula z přístavu.",
+      "gaps": [{ "rule": "vyjm-prefix", "word": "vyplout" }]
+    },
+    {
+      "id": "vyjm-v.09",
+      "text": "Velryba se v{y|i}nořila u lodi.",
+      "gaps": [{ "rule": "vyjm-prefix", "word": "vynorxit-se" }]
+    },
+    {
+      "id": "vyjm-v.10",
+      "text": "Jedeme na v{ý|í}let k moři.",
+      "gaps": [{ "rule": "vyjm-prefix", "word": "vyylet" }]
+    },
+    {
+      "id": "vyjm-v.11",
+      "text": "Z majáku je krásný v{ý|í}hled.",
+      "gaps": [{ "rule": "vyjm-prefix", "word": "vyyhled" }]
+    },
+    {
+      "id": "vyjm-v.12",
+      "text": "Na lodi byl velký pov{y|i}k.",
+      "gaps": [{ "rule": "vyjm", "word": "povyk" }]
+    },
+    {
+      "id": "vyjm-v.13",
+      "text": "Kovář pracuje u v{ý|í}hně.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyhenx" }]
+    },
+    {
+      "id": "vyjm-v.14",
+      "text": "Tuleni si zv{y|i}kli na studenou vodu.",
+      "gaps": [{ "rule": "vyjm", "word": "zvyknout-si" }]
+    },
+    {
+      "id": "vyjm-v.15",
+      "text": "Kdo v{y|i}hrál závod delfínů?",
+      "gaps": [{ "rule": "vyjm-prefix", "word": "vyhraat" }]
+    },
+    {
+      "id": "vyjm-v.16",
+      "text": "V{ý|í}ška vln je dva metry.",
+      "gaps": [{ "rule": "vyjm", "word": "vyysxka" }]
+    },
+    {
+      "id": "vyjm-v.17",
+      "text": "Racek letí v{y|i}soko nad mořem.",
+      "gaps": [{ "rule": "vyjm", "word": "vysoko" }]
+    },
+    {
+      "id": "vyjm-v.18",
+      "text": "Malé v{y|i}žle běhá po pláži.",
+      "gaps": [{ "rule": "vyjm", "word": "vyzxle" }]
+    },
+    {
+      "id": "vyjm-v.19",
+      "text": "V{ý|í}r houká v lese u moře.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyr" }]
+    },
+    {
+      "id": "vyjm-v.20",
+      "text": "Žv{ý|í}kačka se přilepila na lavici.",
+      "gaps": [{ "rule": "vyjm", "word": "zxvyykacxka" }]
+    },
+    {
+      "id": "vyjm-v.21",
+      "text": "V{y|i}lezli jsme na v{y|i}sokou skálu.",
+      "gaps": [
+        { "rule": "vyjm-prefix", "word": "vyleezt" },
+        { "rule": "vyjm", "word": "vysokyy" }
+      ]
+    },
+    {
+      "id": "vyjm-v.22",
+      "text": "Na moři fouká silný v{í|ý}tr.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viitr" }]
+    },
+    {
+      "id": "vyjm-v.23",
+      "text": "V{i|y}díš tu velkou želvu?",
+      "gaps": [{ "rule": "obojetna-i", "word": "vidext" }]
+    },
+    {
+      "id": "vyjm-v.24",
+      "text": "V jeskyni žije mořská v{í|ý}la.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viila" }]
+    },
+    {
+      "id": "vyjm-v.25",
+      "text": "Delfín je v{í|ý}těz závodu.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viitexz" }]
+    },
+    {
+      "id": "vyjm-v.26",
+      "text": "Ploutve delfína zv{í|ý}řily písek.",
+      "gaps": [{ "rule": "obojetna-i", "word": "zviirxit" }]
+    }
+  ]
+}

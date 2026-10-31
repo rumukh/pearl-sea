@@ -1,0 +1,736 @@
+{
+  "topic": "vyjmenovana-p",
+  "title": "Vyjmenovaná slova po P",
+  "grade": 3,
+  "src": ["ijp-100", "ijp-103", "school-list"],
+  "families": [
+    {
+      "id": "vyjm-p.pyycha",
+      "letter": "p",
+      "head": "pyycha",
+      "order": 1,
+      "core": true,
+      "root": "pých/pyš",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.pytel",
+      "letter": "p",
+      "head": "pytel",
+      "order": 2,
+      "core": true,
+      "root": "pytel/pytl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.pysk",
+      "letter": "p",
+      "head": "pysk",
+      "order": 3,
+      "core": true,
+      "root": "pysk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.netopyyr",
+      "letter": "p",
+      "head": "netopyyr",
+      "order": 4,
+      "core": true,
+      "root": "netopýr/netopýř",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.slepyysx",
+      "letter": "p",
+      "head": "slepyysx",
+      "order": 5,
+      "core": true,
+      "root": "slepýš",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.pyl",
+      "letter": "p",
+      "head": "pyl",
+      "order": 6,
+      "core": true,
+      "root": "pyl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.kopyto",
+      "letter": "p",
+      "head": "kopyto",
+      "order": 7,
+      "core": true,
+      "root": "kopyt/kopýt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.klopyytat",
+      "letter": "p",
+      "head": "klopyytat",
+      "order": 8,
+      "core": true,
+      "root": "klopýt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.trxpytit-se",
+      "letter": "p",
+      "head": "trxpytit-se",
+      "order": 9,
+      "core": true,
+      "root": "třpyt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.zpytovat",
+      "letter": "p",
+      "head": "zpytovat",
+      "order": 10,
+      "core": true,
+      "root": "zpyt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.pykat",
+      "letter": "p",
+      "head": "pykat",
+      "order": 11,
+      "core": true,
+      "root": "pyk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.pyyr",
+      "letter": "p",
+      "head": "pyyr",
+      "order": 12,
+      "core": true,
+      "root": "pýr",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.pyyrxit-se",
+      "letter": "p",
+      "head": "pyyrxit-se",
+      "order": 13,
+      "core": true,
+      "root": "pýř",
+      "kin": "p-pyr",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-p.cxepyyrxit-se",
+      "letter": "p",
+      "head": "cxepyyrxit-se",
+      "order": 14,
+      "core": true,
+      "root": "čepýř",
+      "kin": "p-pyr",
+      "src": ["ijp-100"]
+    }
+  ],
+  "words": [
+    {
+      "id": "pyycha",
+      "lemma": "pýcha",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-p.pyycha",
+      "role": "head",
+      "spell": "p{ý|í}cha",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pysxnyy",
+      "lemma": "pyšný",
+      "pos": "adj",
+      "family": "vyjm-p.pyycha",
+      "role": "member",
+      "spell": "p{y|i}šný",
+      "rules": ["vyjm"],
+      "forms": ["pyšná"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "pysxnex",
+      "lemma": "pyšně",
+      "pos": "adv",
+      "family": "vyjm-p.pyycha",
+      "role": "member",
+      "spell": "p{y|i}šně",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "pysxnit-se",
+      "lemma": "pyšnit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-p.pyycha",
+      "role": "member",
+      "spell": "p{y|i}šnit se",
+      "rules": ["vyjm"],
+      "forms": ["pyšní"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "prxepych",
+      "lemma": "přepych",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-p.pyycha",
+      "role": "member",
+      "spell": "přep{y|i}ch",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "prxepychovyy",
+      "lemma": "přepychový",
+      "pos": "adj",
+      "grade": 4,
+      "family": "vyjm-p.pyycha",
+      "role": "member",
+      "spell": "přep{y|i}chový",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "pytel",
+      "lemma": "pytel",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "family": "vyjm-p.pytel",
+      "role": "head",
+      "spell": "p{y|i}tel",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pytliik",
+      "lemma": "pytlík",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-p.pytel",
+      "role": "member",
+      "spell": "p{y|i}tlík",
+      "rules": ["vyjm"],
+      "forms": ["pytlíku"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "pytlaak",
+      "lemma": "pytlák",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-p.pytel",
+      "role": "member",
+      "spell": "p{y|i}tlák",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "pysk",
+      "lemma": "pysk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-p.pysk",
+      "role": "head",
+      "spell": "p{y|i}sk",
+      "rules": ["vyjm"],
+      "forms": ["pysky"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pyskatyy",
+      "lemma": "pyskatý",
+      "pos": "adj",
+      "family": "vyjm-p.pysk",
+      "role": "member",
+      "spell": "p{y|i}skatý",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "pyskoun",
+      "lemma": "pyskoun",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-p.pysk",
+      "role": "member",
+      "spell": "p{y|i}skoun",
+      "rules": ["vyjm"],
+      "tags": ["sea"],
+      "note": "mořská ryba s velkými pysky",
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "ptakopysk",
+      "lemma": "ptakopysk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-p.pysk",
+      "role": "member",
+      "spell": "ptakop{y|i}sk",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "netopyyr",
+      "lemma": "netopýr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-p.netopyyr",
+      "role": "head",
+      "spell": "netop{ý|í}r",
+      "rules": ["vyjm"],
+      "forms": ["netopýři"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "netopyyrxii",
+      "lemma": "netopýří",
+      "pos": "adj",
+      "family": "vyjm-p.netopyyr",
+      "role": "member",
+      "spell": "netop{ý|í}ří",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "slepyysx",
+      "lemma": "slepýš",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-p.slepyysx",
+      "role": "head",
+      "spell": "slep{ý|í}š",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pyl",
+      "lemma": "pyl",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-p.pyl",
+      "role": "head",
+      "spell": "p{y|i}l",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "opylovat",
+      "lemma": "opylovat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-p.pyl",
+      "role": "member",
+      "spell": "op{y|i}lovat",
+      "rules": ["vyjm"],
+      "forms": ["opylují"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "pylovyy",
+      "lemma": "pylový",
+      "pos": "adj",
+      "family": "vyjm-p.pyl",
+      "role": "member",
+      "spell": "p{y|i}lový",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "kopyto",
+      "lemma": "kopyto",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "family": "vyjm-p.kopyto",
+      "role": "head",
+      "spell": "kop{y|i}to",
+      "rules": ["vyjm"],
+      "forms": ["kopyta"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "kopyytko",
+      "lemma": "kopýtko",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "family": "vyjm-p.kopyto",
+      "role": "member",
+      "spell": "kop{ý|í}tko",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "kopytniik",
+      "lemma": "kopytník",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-p.kopyto",
+      "role": "member",
+      "spell": "kop{y|i}tník",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "klopyytat",
+      "lemma": "klopýtat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-p.klopyytat",
+      "role": "head",
+      "spell": "klop{ý|í}tat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "klopyytnout",
+      "lemma": "klopýtnout",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-p.klopyytat",
+      "role": "member",
+      "spell": "klop{ý|í}tnout",
+      "rules": ["vyjm"],
+      "forms": ["klopýtl"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "trxpytit-se",
+      "lemma": "třpytit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-p.trxpytit-se",
+      "role": "head",
+      "spell": "třp{y|i}tit se",
+      "rules": ["vyjm"],
+      "forms": ["třpytí"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "trxpyt",
+      "lemma": "třpyt",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-p.trxpytit-se",
+      "role": "member",
+      "spell": "třp{y|i}t",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "trxpytivyy",
+      "lemma": "třpytivý",
+      "pos": "adj",
+      "family": "vyjm-p.trxpytit-se",
+      "role": "member",
+      "spell": "třp{y|i}tivý",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "trxpytka",
+      "lemma": "třpytka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-p.trxpytit-se",
+      "role": "member",
+      "spell": "třp{y|i}tka",
+      "rules": ["vyjm"],
+      "forms": ["třpytku"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zpytovat",
+      "lemma": "zpytovat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-p.zpytovat",
+      "role": "head",
+      "spell": "zp{y|i}tovat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pykat",
+      "lemma": "pykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-p.pykat",
+      "role": "head",
+      "spell": "p{y|i}kat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pyyr",
+      "lemma": "pýr",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-p.pyyr",
+      "role": "head",
+      "spell": "p{ý|í}r",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "pyyrxit-se",
+      "lemma": "pýřit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-p.pyyrxit-se",
+      "role": "head",
+      "spell": "p{ý|í}řit se",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "zapyyrxit-se",
+      "lemma": "zapýřit se",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "se",
+      "family": "vyjm-p.pyyrxit-se",
+      "role": "member",
+      "spell": "zap{ý|í}řit se",
+      "rules": ["vyjm"],
+      "forms": ["zapýřila"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "cxepyyrxit-se",
+      "lemma": "čepýřit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-p.cxepyyrxit-se",
+      "role": "head",
+      "spell": "čep{ý|í}řit se",
+      "rules": ["vyjm"],
+      "forms": ["čepýří"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "nacxepyyrxenyy",
+      "lemma": "načepýřený",
+      "pos": "adj",
+      "family": "vyjm-p.cxepyyrxit-se",
+      "role": "member",
+      "spell": "načep{ý|í}řený",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "piit",
+      "lemma": "pít",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "p{í|ý}t",
+      "rules": ["obojetna-i"],
+      "forms": ["pije", "pil", "pila", "pili"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "piisek",
+      "lemma": "písek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "p{í|ý}sek",
+      "rules": ["obojetna-i"],
+      "tags": ["sea"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "piraat",
+      "lemma": "pirát",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "spell": "p{i|y}rát",
+      "rules": ["obojetna-i"],
+      "tags": ["sea"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "pilnyy",
+      "lemma": "pilný",
+      "pos": "adj",
+      "spell": "p{i|y}lný",
+      "rules": ["obojetna-i"],
+      "forms": ["pilná"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "piirko",
+      "lemma": "pírko",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "p{í|ý}rko",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "vyjm-p.01",
+      "text": "P{y|i}skoun je p{y|i}šný na své p{y|i}sky.",
+      "gaps": [
+        { "rule": "vyjm", "word": "pyskoun" },
+        { "rule": "vyjm", "word": "pysxnyy" },
+        { "rule": "vyjm", "word": "pysk" }
+      ]
+    },
+    {
+      "id": "vyjm-p.02",
+      "text": "Pirát nese těžký p{y|i}tel mincí.",
+      "gaps": [{ "rule": "vyjm", "word": "pytel" }]
+    },
+    {
+      "id": "vyjm-p.03",
+      "text": "Ptakop{y|i}sk umí plavat i potápět se.",
+      "gaps": [{ "rule": "vyjm", "word": "ptakopysk" }]
+    },
+    {
+      "id": "vyjm-p.04",
+      "text": "V jeskyni u moře visí netop{ý|í}ři.",
+      "gaps": [{ "rule": "vyjm", "word": "netopyyr" }]
+    },
+    {
+      "id": "vyjm-p.05",
+      "text": "Včely nosí p{y|i}l z květů.",
+      "gaps": [{ "rule": "vyjm", "word": "pyl" }]
+    },
+    {
+      "id": "vyjm-p.06",
+      "text": "Kůň na pláži má mokrá kop{y|i}ta.",
+      "gaps": [{ "rule": "vyjm", "word": "kopyto" }]
+    },
+    {
+      "id": "vyjm-p.07",
+      "text": "Námořník klop{ý|í}tl o lano.",
+      "gaps": [{ "rule": "vyjm", "word": "klopyytnout" }]
+    },
+    {
+      "id": "vyjm-p.08",
+      "text": "Mořská hladina se třp{y|i}tí ve slunci.",
+      "gaps": [{ "rule": "vyjm", "word": "trxpytit-se" }]
+    },
+    {
+      "id": "vyjm-p.09",
+      "text": "Rybář chytá ryby na třp{y|i}tku.",
+      "gaps": [{ "rule": "vyjm", "word": "trxpytka" }]
+    },
+    {
+      "id": "vyjm-p.10",
+      "text": "Medúzka se při pochvale zap{ý|í}řila.",
+      "gaps": [{ "rule": "vyjm", "word": "zapyyrxit-se" }]
+    },
+    {
+      "id": "vyjm-p.11",
+      "text": "Racek se na útesu čep{ý|í}ří.",
+      "gaps": [{ "rule": "vyjm", "word": "cxepyyrxit-se" }]
+    },
+    {
+      "id": "vyjm-p.12",
+      "text": "Slep{ý|í}š není had, ale ještěrka.",
+      "gaps": [{ "rule": "vyjm", "word": "slepyysx" }]
+    },
+    {
+      "id": "vyjm-p.13",
+      "text": "Na zahradě u moře roste p{ý|í}r.",
+      "gaps": [{ "rule": "vyjm", "word": "pyyr" }]
+    },
+    {
+      "id": "vyjm-p.14",
+      "text": "P{ý|í}cha předchází pád.",
+      "gaps": [{ "rule": "vyjm", "word": "pyycha" }]
+    },
+    {
+      "id": "vyjm-p.15",
+      "text": "Tuleň se p{y|i}šní svými vousy.",
+      "gaps": [{ "rule": "vyjm", "word": "pysxnit-se" }]
+    },
+    {
+      "id": "vyjm-p.16",
+      "text": "V p{y|i}tlíku mám mušle.",
+      "gaps": [{ "rule": "vyjm", "word": "pytliik" }]
+    },
+    {
+      "id": "vyjm-p.17",
+      "text": "Racek je načep{ý|í}řený a mokrý.",
+      "gaps": [{ "rule": "vyjm", "word": "nacxepyyrxenyy" }]
+    },
+    {
+      "id": "vyjm-p.18",
+      "text": "Včely op{y|i}lují květy.",
+      "gaps": [{ "rule": "vyjm", "word": "opylovat" }]
+    },
+    {
+      "id": "vyjm-p.19",
+      "text": "Na pláži je teplý p{í|ý}sek.",
+      "gaps": [{ "rule": "obojetna-i", "word": "piisek" }]
+    },
+    {
+      "id": "vyjm-p.20",
+      "text": "P{i|y}rát hledá ztracený poklad.",
+      "gaps": [{ "rule": "obojetna-i", "word": "piraat" }]
+    },
+    {
+      "id": "vyjm-p.21",
+      "text": "Malá chobotnice je p{i|y}lná žákyně.",
+      "gaps": [{ "rule": "obojetna-i", "word": "pilnyy" }]
+    },
+    {
+      "id": "vyjm-p.22",
+      "text": "Racek ztratil bílé p{í|ý}rko.",
+      "gaps": [{ "rule": "obojetna-i", "word": "piirko" }]
+    }
+  ]
+}

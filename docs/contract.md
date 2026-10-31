@@ -865,7 +865,9 @@ and words carry their Czech text from the lexicon.
   `feedback`, coins, the friend being fed with its expression, the `battle` (`washed` of `target`,
   `arms`, `armsWashed` = ⌊washed × arms / target⌋, the current joke, `splashes`) and the placement
   ladder; for minigame rounds the board count, the raw `projectMinigame` view (`minigame`, whose
-  `revision` every move carries) and the typed board `current` (§12.1).
+  `revision` every move carries) and the typed board `current` (§12.1). The battle's `jokeKey` is
+  the joke on screen (the one `monster.joked` just told: at the start until the first answer, after
+  a 5th right answer until the next one, and once freed), else `null`.
 - `friends`: owned friends with stage, expression, mastery shares (percent, rounded down),
   hunger, due items, outfit and the next stage's exact counts (`have` of `need`).
 - `shell`: the **Great Shell** (Velká lastura): pearls by strand and skill (`counts` per mastery
@@ -900,21 +902,26 @@ Card faces (`CardFace`) are a word, a form of a word (`cell`, §8.6), a noun pat
 value; in the narrative projection they are ID-only labels: `word:<word>`, `form:<word>:<cell>`,
 `pattern:<pattern>`, `cat:<dimension>:<value>`, and every card back is `card:back`. The pairs of a
 board are all different, so a match is never ambiguous. The three custom kinds are `MinigameAdapter`s
-the rules register; a finished step earns `balance.coins.correct` and credits its item, fast when
-nothing was wrong on the board before (as in Dragon Valley).
+the rules register; every pair, pearl, fish, part or family word earns `balance.coins.correct` and
+credits its item: a Pexeso pair fast while no mismatch happened yet, else ok; a necklace, word shell
+or word family fast when right at the first check, else slow; a fish fast when caught on a first
+haul with no wrong fish, ok on a first haul that sent some back, slow on a later haul.
 
 ## 13. Events (`events.ts`)
 
 Rules emit these as transient runtime events with each commit; the shell turns them into one-shot
 sounds, animations and announcements, and tests assert on them by name. Events are never replayed:
 after a restore the shell rebuilds the screen from the view. Names are `<subject>.<verb>`; payloads
-are small JSON objects of IDs and numbers (`EventPayloads`).
+are small JSON objects of IDs and numbers (`EventPayloads`). `monster.joked { monster, joke }`
+announces a battle joke (a catalog key) at the start, after every 5th right answer while ink is
+left and when the monster is freed, cycling through its `jokes`; `BattleView.jokeKey` carries the
+joke on screen, so a reload redraws the bubble.
 
 | Group                       | Events                                                                                                                                                                                                                                                                                                       |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Session and answers         | `session.started`, `round.started`, `answer.correct`, `answer.incorrect`, `item.promoted`, `reask.scheduled`, `hint.shown`                                                                                                                                                                                   |
 | Progression                 | `round.completed`, `level.completed`, `region.unlocked`, `placement.completed`, `grade.completed`                                                                                                                                                                                                            |
-| Monsters and Inkoustíci     | `ink.washed`, `ink.splashed`, `arm.washed`, `monster.freed`, `inkoustik.ambushed`, `inkoustik.splashed`                                                                                                                                                                                                      |
+| Monsters and Inkoustíci     | `ink.washed`, `ink.splashed`, `arm.washed`, `monster.freed`, `monster.joked`, `inkoustik.ambushed`, `inkoustik.splashed`                                                                                                                                                                                     |
 | Friends and the Shell       | `egg.received`, `friend.hatched`, `friend.grew`, `friend.crowned`, `friend.dressed`, `grotto.decorated`, `pearl.polished`                                                                                                                                                                                    |
 | Economy, collections, story | `coins.earned` (reasons `answer`, `streak`, `stars`, `monster`, `ambush`, `quest`, `chest`, `placement`, `story`), `item.purchased`, `sticker.earned`, `quest.completed`, `quest.claimed`, `daily.goal-reached`, `chest.opened`, `story.advanced`, `finale.completed`, `minigame.completed`, `race.finished` |
 
@@ -940,10 +947,14 @@ motion, read-aloud).
 
 ## 15. The rules today
 
-The contract is complete and tested; the rules are S2's next work. Implemented and tested in the
-contract: the schemas, ID patterns and closed vocabularies; Czech alphabetical order; lexicon IDs,
-gapped text, forms and the linguistic checks; problems, answers and item IDs; skill item universes;
-content validation, catalog and art collection, grammar keys and curriculum gaps; the catalog
-convention; state, days and actions (`test/unit/contract/**`, on the fixture pack). Planned: the
-adapter and everything it registers (S2), the content pack and its strings (S3), the shell and its
-records (S4), art and audio (S5).
+The contract is complete and tested. Implemented and tested in the contract: the schemas, ID
+patterns and closed vocabularies; Czech alphabetical order; lexicon IDs, gapped text, forms and the
+linguistic checks; problems, answers and item IDs; skill item universes; content validation,
+catalog and art collection, grammar keys and curriculum gaps; the catalog convention; state, days,
+actions and events (`test/unit/contract/**`, on the fixture pack). S2's rules (docs/learning.md)
+implement the adapter and everything it registers: items, selection, rounds, Svačinka, placement,
+the daily adventure, progression, the economy, story beats, the views, the `spell.*` generators,
+the five minigames, battles and the Inkoustíci (`test/unit/**`, `test/traces/**`,
+`test/migration/**` on the rules' lagoon fixture). Planned: the `classify`, `odd-one-out` and
+`relation` generators, the finale's checks and the learner simulations (S2), the content pack and
+its strings (S3), the shell and its records (S4), art and audio (S5).

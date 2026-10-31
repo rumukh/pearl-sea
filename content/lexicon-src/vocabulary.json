@@ -123,7 +123,7 @@
     { "id": "ending", "cs": "koncovka" }
   ],
   "properKinds": ["person", "animal", "character", "town", "place", "river", "lake", "mountain", "country", "sea"],
-  "setKinds": ["alphabet", "synonyms", "antonyms", "hyponyms", "sound-alikes", "minimal-length"],
+  "setKinds": ["alphabet", "synonyms", "antonyms", "hyponyms", "sound-alikes", "minimal-length", "lookalikes"],
   "rules": [
     { "id": "vyjm", "grade": 3, "cs": "vyjmenované slovo nebo slovo příbuzné: y, ý" },
     { "id": "vyjm-prefix", "grade": 3, "cs": "předpona vy-, vý-" },
@@ -146,7 +146,8 @@
     { "id": "predpona-predlozka", "grade": 4, "cs": "předponu píšeme dohromady se slovem, předložku zvlášť" },
     { "id": "predpona-souhlaska", "grade": 4, "cs": "předpony od-, nad-, pod-, před-, roz-, bez- píšeme vždy stejně" },
     { "id": "shoda", "grade": 4, "cs": "shoda přísudku s podmětem v čase minulém: -i, -y, -a" },
-    { "id": "vzor", "grade": 4, "cs": "koncovka podstatného jména podle vzoru" }
+    { "id": "vzor", "grade": 4, "cs": "koncovka podstatného jména podle vzoru" },
+    { "id": "spisovne", "grade": 4, "cs": "spisovné slovo místo nespisovného" }
   ],
   "schoolLists": {
     "b": ["být", "bydlit", "obyvatel", "byt", "příbytek", "nábytek", "dobytek", "obyčej", "bystrý", "bylina", "kobyla", "býk", "Přibyslav"],

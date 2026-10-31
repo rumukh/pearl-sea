@@ -61,7 +61,7 @@ const SET_KINDS = new Set(vocab.setKinds);
 const PROPER_KINDS = new Set(vocab.properKinds);
 const TENSES = new Set(vocab.tenses.map((t) => t.id));
 const MOODS = new Set(vocab.moods.map((m) => m.id));
-const SENTENCE_ONLY_RULES = new Set(['shoda', 'mne-zajmeno', 'vzor', 'predpona-predlozka']);
+const SENTENCE_ONLY_RULES = new Set(['shoda', 'mne-zajmeno', 'vzor', 'predpona-predlozka', 'spisovne']);
 const PREFIXES_WITH_VOICED_END = ['od', 'nad', 'pod', 'před', 'roz', 'bez'];
 const VERB_FORM_KEYS = ['inf', 'pres', 'imp', 'past'];
 const PAST_KEYS = ['m', 'f', 'n', 'ma', 'mi', 'fpl', 'npl'];
@@ -151,7 +151,7 @@ function tokens(plain) {
 const words = new Map(); // id -> merged entry
 const SCALAR_FIELDS = [
   'lemma', 'pos', 'gender', 'animate', 'pattern', 'numbers', 'proper', 'aspect', 'reflexive',
-  'family', 'role', 'register', 'standard', 'loan', 'grade',
+  'family', 'role', 'register', 'standard', 'loan', 'grade', 'prefix',
 ];
 const STRUCT_FIELDS = ['paradigm', 'segments'];
 const LIST_FIELDS = ['src', 'tags', 'forms', 'senses', 'topics'];
@@ -405,7 +405,7 @@ function checkPoint(where, form, gap, rule, word, extra = {}) {
       break;
     case 'predpona-souhlaska': {
       if (!['d', 'z'].includes(correct) || !onlyAlts([PAIR.get(correct)])) fail(where, 'predpona-souhlaska needs d/z against t/s');
-      const prefix = word?.segments?.prefix ?? '';
+      const prefix = word?.prefix ?? word?.segments?.prefix ?? '';
       const head = lower.slice(0, end);
       if (!PREFIXES_WITH_VOICED_END.some((p) => head.endsWith(p)) || !prefix.endsWith(head.slice(-2))) {
         fail(where, `predpona-souhlaska: the gap must end one of the prefixes ${PREFIXES_WITH_VOICED_END.join(', ')} (segments.prefix "${prefix}")`);
@@ -417,6 +417,7 @@ function checkPoint(where, form, gap, rule, word, extra = {}) {
       break;
     case 'vzor':
     case 'predpona-predlozka':
+    case 'spisovne':
       break;
     default:
       fail(where, `rule "${rule}" has no check`);
@@ -518,6 +519,8 @@ for (const [id, w] of words) {
     }
   } else if (w.role !== undefined) fail(where, '"role" without "family"');
 
+  if (w.prefix !== undefined && !w.lemma.toLowerCase().startsWith(w.prefix)) fail(where, `the lemma does not start with its prefix "${w.prefix}"`);
+  if (w.prefix !== undefined && w.segments && w.segments.prefix !== w.prefix) fail(where, '"prefix" and segments.prefix differ');
   if (w.segments) {
     const s = w.segments;
     for (const key of Object.keys(s)) if (!['prefix', 'root', 'suffix', 'ending'].includes(key)) fail(where, `segments has unknown key "${key}"`);
@@ -596,6 +599,9 @@ for (const { file, data } of topics) {
       const specific = need(set.specific ?? []);
       if (specific.length < 2) fail(where, 'a hyponym set lists at least 2 specific words');
       for (const w of [general, ...specific]) if (w && w.pos !== 'noun') fail(where, `"${w.id}" is not a noun`);
+    } else if (set.kind === 'lookalikes') {
+      if (!families.has(set.family)) fail(where, `family "${set.family}" does not exist`);
+      for (const w of need(set.words ?? [])) if (w && w.family === set.family) fail(where, `"${w.id}" belongs to ${set.family}`);
     } else if (set.kind === 'sound-alikes' || set.kind === 'minimal-length') {
       const items = set.forms ?? [];
       if (items.length < 2 || (set.kind === 'minimal-length' && items.length !== 2)) fail(where, 'too few forms');
@@ -670,7 +676,7 @@ for (const { file, data } of topics) {
         if (!apart) {
           if (!word) fail(gw, 'a prefix gap names its word');
           else if (!matchForm(plain, gap.start, word, gap.start === 0)) fail(gw, `"${together}" is not a known form of ${word.id}`);
-          else if (!word.segments?.prefix || !together.toLowerCase().startsWith(word.segments.prefix) || word.segments.prefix !== prep.toLowerCase()) {
+          else if ((word.prefix ?? word.segments?.prefix) !== prep.toLowerCase()) {
             fail(gw, `the prefix "${prep}" must be the word's segments.prefix`);
           }
         }
@@ -684,6 +690,17 @@ for (const { file, data } of topics) {
         if (!form) fail(gw, `"${tok.text}" is not a known form of ${word.id} (add it to "forms" or the paradigm)`);
       } else if (!['shoda'].includes(m.rule)) {
         fail(gw, 'the gap names its word');
+      }
+      if (m.rule === 'spisovne') {
+        if (!word || word.register === 'colloquial') return fail(gw, 'spisovne names the standard word');
+        const form = tok.start === 0 && !word.proper ? tok.text[0].toLowerCase() + tok.text.slice(1) : tok.text;
+        const twins = [...words.values()].filter((w) => w.register === 'colloquial' && w.standard === word.id);
+        for (const alt of gap.alts) {
+          let altForm = form.slice(0, local.start) + alt + form.slice(local.end);
+          if (tok.start === 0 && !word.proper) altForm = altForm[0].toLowerCase() + altForm.slice(1);
+          if (!twins.some((w) => formsOf(w).has(altForm))) fail(gw, `"${altForm}" is not a form of a colloquial twin of ${word.id}`);
+        }
+        return;
       }
       if (m.rule === 'vzor') {
         if (!word?.paradigm) return fail(gw, 'vzor needs a word with a paradigm');
@@ -739,6 +756,13 @@ for (const { file, data } of topics) {
         continue;
       }
       if (mk.role === 'predicate') predicates++;
+      for (const key of Object.keys(mk)) {
+        if (!['t', 'word', 'pos', 'case', 'number', 'person', 'tense', 'mood', 'gender', 'compound', 'role'].includes(key)) {
+          fail(mw, `unknown field "${key}"`);
+        }
+      }
+      if (mk.compound !== undefined && typeof mk.compound !== 'boolean') fail(mw, '"compound" is true or false');
+      if (mk.gender !== undefined && !['m', 'f', 'n'].includes(mk.gender)) fail(mw, 'gender must be m, f or n');
       if (mk.role !== undefined && !['subject', 'predicate'].includes(mk.role)) fail(mw, `unknown role "${mk.role}"`);
       if (mk.pos !== undefined && !POS.has(mk.pos)) fail(mw, `unknown pos "${mk.pos}"`);
       if (mk.tense !== undefined && !TENSES.has(mk.tense)) fail(mw, `unknown tense "${mk.tense}"`);

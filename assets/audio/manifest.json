@@ -1,0 +1,8 @@
+{
+  "schema": "pearl-sea-audio-manifest/1",
+  "packId": "pearl-sea-audio",
+  "revision": "placeholder-0",
+  "sounds": [],
+  "events": {},
+  "music": { "states": {}, "crossfadeSeconds": 1.2 }
+}

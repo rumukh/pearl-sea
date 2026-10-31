@@ -1,0 +1,436 @@
+/*
+ * Screens: the title, recovery and error, the grown-ups' area and the print preview (with the
+ * print styles that put only the pages on paper).
+ */
+
+/* ---- Title ------------------------------------------------------------------------------ */
+
+.ps-title {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.ps-title__card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 30em);
+  padding: clamp(18px, 3vw, 36px);
+  border-radius: 1.4em;
+  background: color-mix(in srgb, var(--ps-card) 92%, transparent);
+  box-shadow: 0 0.8em 2em color-mix(in srgb, var(--ps-abyss) 35%, transparent);
+  text-align: center;
+}
+
+.ps-title__card > p {
+  margin-inline: auto;
+}
+
+.ps-title__name {
+  font-size: min(2.5rem, 12vw);
+  color: var(--ps-sea-deep);
+}
+
+.ps-title__subtitle {
+  margin-top: 0.4em;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ps-primary-deep);
+}
+
+.ps-title__tagline {
+  margin-top: 0.9em;
+}
+
+.ps-title__soon {
+  margin-top: 0.7em;
+  font-weight: 700;
+  color: var(--ps-coral-deep);
+}
+
+.ps-title__pearls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 1em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-pearl {
+  display: grid;
+  place-items: center;
+  width: 2.3em;
+  height: 2.3em;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ps-ink);
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 15%,
+    var(--ps-pearl) 45%,
+    var(--ps-mastery-silver) 100%
+  );
+  box-shadow:
+    inset 0 -0.15em 0.3em color-mix(in srgb, var(--ps-ink) 15%, transparent),
+    0 0.2em 0.5em color-mix(in srgb, var(--ps-abyss) 25%, transparent);
+}
+
+.ps-title__corner {
+  position: absolute;
+  z-index: 1;
+  top: max(clamp(8px, 2vw, 20px), env(safe-area-inset-top));
+  right: clamp(8px, 2vw, 20px);
+}
+
+/* The grown-ups' button sits on open water: pearl text on a soft dark plate. */
+.ps-title__corner .ps-link-button {
+  font-size: 0.85rem;
+  color: var(--ps-ink-inverse);
+  background: color-mix(in srgb, var(--ps-abyss) 55%, transparent);
+}
+
+.ps-title__bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ps-bubble {
+  position: absolute;
+  bottom: -3rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid color-mix(in srgb, var(--ps-card) 70%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ps-card) 15%, transparent);
+  animation: ps-rise 14s linear infinite;
+}
+
+.ps-bubble:nth-child(3n) {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.ps-bubble:nth-child(4n + 1) {
+  width: 0.45rem;
+  height: 0.45rem;
+}
+
+.ps-bubble:nth-child(1) {
+  left: 6%;
+  animation-delay: 0s;
+}
+
+.ps-bubble:nth-child(2) {
+  left: 14%;
+  animation-delay: -3s;
+}
+
+.ps-bubble:nth-child(3) {
+  left: 23%;
+  animation-delay: -7s;
+}
+
+.ps-bubble:nth-child(4) {
+  left: 31%;
+  animation-delay: -11s;
+}
+
+.ps-bubble:nth-child(5) {
+  left: 42%;
+  animation-delay: -5s;
+}
+
+.ps-bubble:nth-child(6) {
+  left: 51%;
+  animation-delay: -9s;
+}
+
+.ps-bubble:nth-child(7) {
+  left: 60%;
+  animation-delay: -1s;
+}
+
+.ps-bubble:nth-child(8) {
+  left: 68%;
+  animation-delay: -12s;
+}
+
+.ps-bubble:nth-child(9) {
+  left: 76%;
+  animation-delay: -4s;
+}
+
+.ps-bubble:nth-child(10) {
+  left: 84%;
+  animation-delay: -8s;
+}
+
+.ps-bubble:nth-child(11) {
+  left: 91%;
+  animation-delay: -2s;
+}
+
+.ps-bubble:nth-child(12) {
+  left: 97%;
+  animation-delay: -6s;
+}
+
+@keyframes ps-rise {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(0, -110vh, 0);
+    opacity: 0.2;
+  }
+}
+
+/* Bubbles are pure decoration: with less motion they are not drawn at all. */
+:root[data-reduced-motion='true'] .ps-bubble {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-bubble {
+    display: none;
+  }
+}
+
+/* ---- Recovery and error ----------------------------------------------------------------- */
+
+.ps-recovery {
+  display: grid;
+  place-items: center;
+}
+
+.ps-recovery__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  width: min(100%, 32em);
+}
+
+.ps-recovery__icon {
+  align-self: flex-start;
+  display: grid;
+  place-items: center;
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 50%;
+  color: var(--ps-primary-deep);
+  background: var(--ps-primary-soft);
+}
+
+.ps-recovery__icon svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.ps-recovery__languages {
+  justify-content: flex-end;
+}
+
+.ps-recovery__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6em;
+}
+
+.ps-recovery__status:empty {
+  display: none;
+}
+
+.ps-recovery__status {
+  color: var(--ps-miss-deep);
+  font-weight: 700;
+}
+
+/* The card is paper even in the dark deep. */
+.ps-field-abyss .ps-card .ps-note {
+  color: var(--ps-ink-muted);
+}
+
+/* ---- Grown-ups' area -------------------------------------------------------------------- */
+
+.ps-grownups {
+  width: min(100%, 52em);
+  margin-inline: auto;
+}
+
+.ps-grownups__panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+.ps-grownups__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.ps-grownups__section h2 {
+  color: var(--ps-primary-deep);
+}
+
+/* A section's own buttons keep their size instead of stretching across the card. */
+.ps-grownups__section > .ps-button,
+.ps-grownups__section > .ps-link-button {
+  align-self: flex-start;
+}
+
+.ps-grownups__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-grownups__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6em;
+  padding: 0.5em 0.6em;
+  border-radius: 0.9em;
+  background: var(--ps-card);
+  border: 0.08em solid var(--ps-line);
+}
+
+.ps-grownups__row--stack {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ps-offline-status {
+  font-weight: 700;
+}
+
+.ps-offline-status[data-state='ready'],
+.ps-offline-status[data-state='up-to-date'],
+.ps-offline-status[data-state='update-ready'] {
+  color: var(--ps-success-deep);
+}
+
+.ps-offline-status[data-state='failed'] {
+  color: var(--ps-miss-deep);
+}
+
+/* ---- Print preview ---------------------------------------------------------------------- */
+
+.ps-print {
+  width: min(100%, 60em);
+  margin-inline: auto;
+}
+
+.ps-print__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.ps-sheets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2em;
+}
+
+/* An A4 page scaled to the column; text is sized in page-width units, so it scales with it. */
+.ps-sheet {
+  position: relative;
+  width: min(100%, var(--paper-width));
+  aspect-ratio: var(--paper-ratio);
+  container-type: inline-size;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.3em 1em color-mix(in srgb, var(--ps-shadow) 22%, transparent);
+}
+
+.ps-sheet__cell {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
+  padding: 2cqw;
+  border: 0.15cqw dashed var(--ps-line-strong);
+  border-radius: 1.2cqw;
+  text-align: center;
+  font-size: calc(var(--font-pt) / var(--paper-pt) * 100cqw);
+  line-height: 1.25;
+  overflow: hidden;
+}
+
+.ps-sheet__line {
+  max-width: none;
+  margin: 0;
+}
+
+.ps-sheet__art {
+  width: 40%;
+  max-height: 60%;
+}
+
+.ps-sheets--certificate .ps-sheet__cell {
+  border-style: solid;
+  border-color: var(--ps-sun-deep);
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: none;
+  }
+
+  :root[data-printing] .ps-stage > main > :not(.ps-sheets),
+  :root[data-printing] .ps-toasts,
+  :root[data-printing] .ps-fx-layer,
+  :root[data-printing] .ps-dialogs,
+  :root[data-printing] .ps-announcer {
+    display: none !important;
+  }
+
+  :root[data-printing] .ps-screen {
+    min-height: 0;
+    padding: 0;
+    background: none;
+  }
+
+  :root[data-printing] .ps-sheets {
+    gap: 0;
+  }
+
+  :root[data-printing] .ps-sheet {
+    width: var(--paper-width);
+    height: var(--paper-height);
+    box-shadow: none;
+    break-after: page;
+  }
+
+  :root[data-printing] .ps-sheet:last-child {
+    break-after: auto;
+  }
+}

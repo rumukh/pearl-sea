@@ -1,0 +1,1121 @@
+/*
+ * Components: chunky buttons, choice tiles, the number pad, cards, the top bar, the save status,
+ * meters, stars, coins, dialogs, toasts and the effects layer.
+ *
+ * Interaction motion is transform and opacity only, so a press never reflows the page.
+ * Feedback never relies on colour alone: every state also changes an icon, a shape or a word.
+ */
+
+.ps-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+.ps-note {
+  color: var(--ps-ink-muted);
+  font-size: 0.85rem;
+}
+
+.ps-field-abyss .ps-note {
+  color: var(--ps-ink-inverse);
+}
+
+/* ---- Buttons ---------------------------------------------------------------------------- */
+
+.ps-button {
+  --face: var(--ps-primary);
+  --lip: var(--ps-primary-deep);
+  --label: var(--ps-card);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  min-height: max(var(--ps-target), 2.2em);
+  min-width: var(--ps-target);
+  max-width: 100%;
+  padding: 0.4em 1.05em 0.46em;
+  border: 0;
+  border-radius: 1.1em;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--label);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--face) 86%, var(--ps-card)) 0%,
+    var(--face) 46%,
+    var(--face) 100%
+  );
+  box-shadow:
+    0 0.26em 0 var(--lip),
+    0 0.42em 0.8em color-mix(in srgb, var(--ps-shadow) 26%, transparent);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    transform 110ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 110ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A glossy highlight, like light on a wet pebble. */
+.ps-button::before {
+  content: '';
+  position: absolute;
+  inset: 0.16em 0.7em auto;
+  height: 36%;
+  border-radius: 1em;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ps-card) 52%, transparent),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.ps-button > * {
+  position: relative;
+}
+
+/*
+ * The hit area stays where a control rests. The face lifts on hover and sinks when pressed, and
+ * this invisible layer moves the opposite way, so a pointer resting on the edge never makes the
+ * control jitter between hovered and not, and a press at the very edge still clicks.
+ */
+.ps-button::after,
+.ps-tile::after,
+.ps-key::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transition: inherit;
+}
+
+.ps-button:hover {
+  transform: translateY(-0.05em);
+}
+
+.ps-button:hover::after {
+  transform: translateY(0.05em);
+}
+
+.ps-button:active,
+.ps-button[data-pressed='true'] {
+  transform: translateY(0.2em);
+  box-shadow:
+    0 0.06em 0 var(--lip),
+    0 0.16em 0.3em color-mix(in srgb, var(--ps-shadow) 24%, transparent);
+}
+
+.ps-button:active::after,
+.ps-button[data-pressed='true']::after {
+  transform: translateY(-0.2em);
+}
+
+.ps-button:disabled,
+.ps-button[aria-disabled='true'] {
+  cursor: default;
+  filter: saturate(0.25);
+  opacity: 0.62;
+  transform: none;
+}
+
+.ps-button:disabled::after,
+.ps-button[aria-disabled='true']::after {
+  transform: none;
+}
+
+.ps-button[aria-busy='true'] {
+  cursor: progress;
+}
+
+.ps-button--sun {
+  --face: var(--ps-sun);
+  --lip: var(--ps-sun-deep);
+  --label: var(--ps-ink);
+}
+
+.ps-button--paper {
+  --face: var(--ps-card);
+  --lip: var(--ps-line-strong);
+  --label: var(--ps-ink);
+}
+
+.ps-button--coral {
+  --face: var(--ps-coral);
+  --lip: var(--ps-coral-deep);
+  --label: var(--ps-ink);
+}
+
+.ps-button--accent {
+  --face: var(--ps-accent, var(--ps-primary));
+  --lip: var(--ps-accent-deep, var(--ps-primary-deep));
+  --label: var(--ps-on-accent, var(--ps-card));
+}
+
+.ps-button--big {
+  font-size: min(1.5rem, 7vw);
+  padding: 0.38em 1.3em 0.44em;
+  border-radius: 1.2em;
+}
+
+.ps-button--small {
+  font-size: 0.85rem;
+  padding: 0.3em 0.75em 0.36em;
+  border-radius: 0.95em;
+}
+
+.ps-button--icon {
+  padding-inline: 0.45em;
+}
+
+/* Text-only action for low-emphasis grown-up choices. */
+.ps-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  min-height: var(--ps-target);
+  min-width: var(--ps-target);
+  padding: 0.2em 0.4em;
+  border: 0;
+  border-radius: 0.6em;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+a.ps-link-button {
+  color: var(--ps-primary-deep);
+}
+
+/* ---- Hold-to-open (grown-ups' gate) ------------------------------------------------------ */
+
+.ps-hold {
+  --progress: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 0.3em;
+  width: min(9em, 70vw);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border: 0.14em solid var(--ps-primary-deep);
+  border-radius: 50%;
+  overflow: hidden;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  font-weight: 700;
+  box-shadow: 0 0.3em 0 var(--ps-primary-deep);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: none;
+}
+
+/* The water level rises while the lock is held. */
+.ps-hold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ps-primary-soft);
+  transform-origin: 50% 100%;
+  transform: scaleY(var(--progress));
+}
+
+.ps-hold > * {
+  position: relative;
+}
+
+.ps-hold svg {
+  width: 2.2em;
+  height: 2.2em;
+}
+
+.ps-hold[data-state='holding'] {
+  transform: translateY(0.12em);
+  box-shadow: 0 0.18em 0 var(--ps-primary-deep);
+}
+
+.ps-gate__question {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---- Cards and layout ------------------------------------------------------------------- */
+
+.ps-card {
+  position: relative;
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  border: 0.08em solid var(--ps-line);
+  border-radius: 1.1em;
+  padding: clamp(14px, 2vw, 24px);
+  box-shadow: 0 0.35em 1em color-mix(in srgb, var(--ps-shadow) 16%, transparent);
+}
+
+.ps-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.ps-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em;
+}
+
+/* ---- Top bar ---------------------------------------------------------------------------- */
+
+.ps-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.ps-topbar__title {
+  flex: 1 1 8em;
+  min-width: 0;
+}
+
+.ps-topbar__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5em;
+}
+
+/* ---- Save status ------------------------------------------------------------------------ */
+
+.ps-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: var(--ps-target);
+  padding: 0.2em 0.75em;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 0.1em solid transparent;
+}
+
+.ps-save svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
+.ps-save[data-state='none'] {
+  display: none;
+}
+
+.ps-save[data-state='saved'] {
+  color: var(--ps-success-deep);
+  background: var(--ps-success-soft);
+  border-color: color-mix(in srgb, var(--ps-success) 40%, transparent);
+}
+
+.ps-save[data-state='saving'] {
+  color: var(--ps-info-deep);
+  background: var(--ps-info-soft);
+  border-color: color-mix(in srgb, var(--ps-info) 40%, transparent);
+}
+
+.ps-save[data-state='failed'],
+.ps-save[data-state='conflict'],
+.ps-save[data-state='unavailable'] {
+  color: var(--ps-miss-deep);
+  background: var(--ps-miss-soft);
+  border-color: var(--ps-miss);
+  padding-inline-end: 0.3em;
+}
+
+/* Retry is the one thing the child is told to tap: a full-size target. */
+.ps-save .ps-button {
+  font-size: 0.85rem;
+  min-height: var(--ps-target);
+}
+
+.ps-save__dots {
+  display: inline-flex;
+  gap: 0.15em;
+}
+
+.ps-save__dots i {
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: currentColor;
+  animation: ps-ui-dot 900ms ease-in-out infinite;
+}
+
+.ps-save__dots i:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.ps-save__dots i:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes ps-ui-dot {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---- Choice tiles ----------------------------------------------------------------------- */
+
+/* Tiles share a row while their labels fit and wrap onto more rows when they do not (big text,
+   long words): a tile is never narrower than its label. */
+.ps-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(10px, 1.8vw, 20px);
+  width: min(100%, 26em);
+  margin-inline: auto;
+}
+
+.ps-tiles > .ps-tile {
+  flex: 1 1 4.2em;
+}
+
+/* Four choices sit two by two, so none is left alone on a row. */
+.ps-tiles:has(> :nth-child(4):last-child) {
+  width: min(100%, 18em);
+}
+
+.ps-tiles:has(> :nth-child(4):last-child) > .ps-tile {
+  flex-basis: 40%;
+}
+
+.ps-tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: max(var(--ps-target), 3.2em);
+  padding: 0.3em 0.5em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 0.9em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow:
+    0 0.18em 0 var(--ps-line-strong),
+    0 0.3em 0.6em color-mix(in srgb, var(--ps-shadow) 14%, transparent);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    transform 110ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 110ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ps-tile:hover {
+  transform: translateY(-0.04em);
+}
+
+.ps-tile:hover::after {
+  transform: translateY(0.04em);
+}
+
+.ps-tile:active {
+  transform: translateY(0.14em);
+  box-shadow: 0 0.04em 0 var(--ps-line-strong);
+}
+
+.ps-tile:active::after {
+  transform: translateY(-0.14em);
+}
+
+.ps-tile[aria-pressed='true'] {
+  border-color: var(--ps-primary);
+  background: var(--ps-primary-soft);
+  box-shadow: 0 0.18em 0 var(--ps-primary-deep);
+}
+
+.ps-tile[data-state='correct'] {
+  border-color: var(--ps-success);
+  background: var(--ps-success-soft);
+  color: var(--ps-success-deep);
+  box-shadow: 0 0.18em 0 var(--ps-success-deep);
+}
+
+.ps-tile[data-state='miss'] {
+  border-color: var(--ps-miss);
+  background: var(--ps-miss-soft);
+  color: var(--ps-miss-deep);
+  box-shadow: 0 0.18em 0 var(--ps-miss-deep);
+}
+
+.ps-tile:disabled {
+  cursor: default;
+}
+
+.ps-tile:disabled:not([data-state]) {
+  opacity: 0.55;
+}
+
+/* Letter tiles (i, í, y, ý): the letters are what the game is about, so they are drawn big. */
+.ps-tile__glyph {
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.ps-badge {
+  position: absolute;
+  top: -0.5em;
+  right: -0.5em;
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 1rem;
+  filter: drop-shadow(0 0.08em 0.12em color-mix(in srgb, var(--ps-shadow) 30%, transparent));
+}
+
+.ps-badge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ps-badge-art__mark {
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ps-badge-art--correct .ps-badge-art__disc {
+  fill: var(--ps-success);
+}
+
+.ps-badge-art--correct .ps-badge-art__mark {
+  stroke: var(--ps-card);
+}
+
+.ps-badge-art--almost .ps-badge-art__disc {
+  fill: var(--ps-miss);
+}
+
+.ps-badge-art--almost .ps-badge-art__mark {
+  stroke: var(--ps-ink);
+}
+
+/* ---- Number pad ------------------------------------------------------------------------- */
+
+.ps-answer {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ps-answer__field {
+  display: grid;
+  place-items: center;
+  min-width: 4.2em;
+  min-height: max(var(--ps-target), 1.7em);
+  padding: 0.1em 0.35em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 0.5em;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+}
+
+.ps-answer__field[data-empty='true']::before {
+  content: '?';
+  color: var(--ps-ink-muted);
+}
+
+.ps-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(var(--ps-target), 1fr));
+  gap: clamp(8px, 1.4vw, 14px);
+  width: min(100%, 13em);
+  margin-inline: auto;
+}
+
+.ps-key {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: max(var(--ps-target), 2.1em);
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 0.75em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.16em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition: transform 90ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ps-key svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.ps-key:active,
+.ps-key[data-flash='true'] {
+  transform: translateY(0.12em);
+  box-shadow: 0 0.04em 0 var(--ps-line-strong);
+}
+
+.ps-key:active::after,
+.ps-key[data-flash='true']::after {
+  transform: translateY(-0.12em);
+}
+
+.ps-key--ok {
+  color: var(--ps-card);
+  background: var(--ps-primary);
+  border-color: var(--ps-primary-deep);
+  box-shadow: 0 0.16em 0 var(--ps-primary-deep);
+}
+
+.ps-key--ok:active,
+.ps-key--ok[data-flash='true'] {
+  box-shadow: 0 0.04em 0 var(--ps-primary-deep);
+}
+
+/* ---- Fields, switches and choices for grown-ups ----------------------------------------- */
+
+.ps-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.ps-field__label {
+  font-weight: 700;
+}
+
+.ps-field__hint {
+  color: var(--ps-ink-soft);
+  font-size: 0.85rem;
+}
+
+.ps-input {
+  min-height: max(var(--ps-target), 2em);
+  width: 100%;
+  padding: 0.25em 0.55em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 0.6em;
+  background: var(--ps-card);
+  color: var(--ps-ink);
+}
+
+.ps-input:focus-visible {
+  border-color: var(--ps-primary);
+}
+
+.ps-input[aria-invalid='true'] {
+  border-color: var(--ps-miss-deep);
+}
+
+.ps-error-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  color: var(--ps-miss-deep);
+  font-weight: 700;
+}
+
+.ps-error-text svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
+/* Segmented choice: a row of toggle buttons, one pressed. */
+.ps-segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+
+.ps-segment {
+  min-height: var(--ps-target);
+  min-width: var(--ps-target);
+  padding: 0.2em 0.8em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 999px;
+  background: var(--ps-card);
+  color: var(--ps-ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Pressed is also a check-shaped ring, not only a colour. */
+.ps-segment[aria-pressed='true'] {
+  color: var(--ps-card);
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary);
+  box-shadow: inset 0 0 0 0.12em var(--ps-primary-deep);
+}
+
+/* Tabs over a long collection: arrows at the ends, the tabs between them wrap. */
+.ps-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  width: min(100%, 60em);
+  margin-inline: auto;
+}
+
+.ps-tabs--arrows {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+@media (max-width: 599px) {
+  .ps-tabs--arrows {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ps-tabs--arrows .ps-tabs__list {
+    grid-row: 1;
+    grid-column: 1 / -1;
+  }
+
+  .ps-tabs--arrows .ps-tabs__arrow {
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .ps-tabs--arrows .ps-tabs__arrow:last-child {
+    justify-self: end;
+  }
+}
+
+.ps-tabs__list {
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 0;
+}
+
+.ps-tabs__arrow {
+  flex: 0 0 auto;
+}
+
+.ps-tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.ps-tabs__list--icons .ps-tabs__tab {
+  width: calc(var(--ps-target) + 8px);
+  height: calc(var(--ps-target) + 8px);
+  padding: 0;
+  border-radius: 50%;
+}
+
+.ps-tabs__list--icons .ps-tabs__tab[aria-pressed='true'] {
+  background: var(--ps-sun);
+  outline: 3px solid var(--ps-primary-deep);
+  outline-offset: 2px;
+}
+
+.ps-tabs__done {
+  width: 1em;
+  height: 1em;
+}
+
+.ps-tabs__list--icons .ps-tabs__done {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--ps-card);
+  background: var(--ps-success-deep);
+}
+
+.ps-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8em;
+  min-height: var(--ps-target);
+  cursor: pointer;
+}
+
+.ps-switch input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex: none;
+  width: 2.4em;
+  height: 1.35em;
+  min-height: 0;
+  margin: 0;
+  border-radius: 999px;
+  border: 0.1em solid var(--ps-ink-soft);
+  background: var(--ps-paper-deep);
+  cursor: pointer;
+}
+
+.ps-switch input::before {
+  content: '';
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  width: 0.95em;
+  height: 0.95em;
+  border-radius: 50%;
+  background: var(--ps-ink-soft);
+  transition: transform 140ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ps-switch input:checked {
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary);
+}
+
+.ps-switch input:checked::before {
+  background: var(--ps-card);
+  transform: translateX(1.05em);
+}
+
+.ps-range {
+  width: 100%;
+  min-height: var(--ps-target);
+  accent-color: var(--ps-primary);
+}
+
+.ps-select {
+  flex: 1 1 12em;
+  min-width: 0;
+  min-height: var(--ps-target);
+  max-width: 100%;
+  padding: 0.2em 0.5em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 0.6em;
+  background: var(--ps-card);
+  /* WebKit counts the longest option's text in the page's width; paint containment keeps it
+     inside the list's own box. */
+  contain: paint;
+}
+
+/* ---- Meter ------------------------------------------------------------------------------ */
+
+.ps-meter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25em;
+  width: min(100%, 16em);
+}
+
+/* The name and the value share a line while they fit, and wrap with big text. */
+.ps-meter__label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 0.5em;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.ps-meter__track {
+  position: relative;
+  height: 0.75em;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--ps-paper-deep);
+  box-shadow: inset 0 0.1em 0.2em color-mix(in srgb, var(--ps-shadow) 22%, transparent);
+}
+
+.ps-meter__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ps-sea-shallow), var(--ps-sea-surface));
+  transform-origin: 0 50%;
+  transform: scaleX(var(--value, 0));
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Stars ------------------------------------------------------------------------------ */
+
+.ps-stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.ps-star {
+  width: 2.6em;
+  height: 2.6em;
+}
+
+.ps-star__shape {
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.ps-star--earned .ps-star__shape {
+  fill: var(--ps-sun);
+  stroke: var(--ps-sun-deep);
+}
+
+.ps-star--empty .ps-star__shape {
+  fill: none;
+  stroke: var(--ps-line-strong);
+  stroke-dasharray: 2 2;
+}
+
+/* ---- Coins ------------------------------------------------------------------------------ */
+
+.ps-coins {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-height: var(--ps-target);
+  padding: 0.15em 0.7em 0.15em 0.3em;
+  border-radius: 999px;
+  border: 0.1em solid color-mix(in srgb, var(--ps-sun-deep) 35%, transparent);
+  background: var(--ps-paper);
+  color: var(--ps-sun-deep);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ps-coins svg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.ps-coin__rim {
+  fill: var(--ps-sun-deep);
+}
+
+.ps-coin__face {
+  fill: var(--ps-sun);
+}
+
+.ps-coin__mark {
+  fill: none;
+  stroke: var(--ps-sun-deep);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* Overlay for flying coins, bubbles and confetti; never intercepts input. */
+.ps-fx-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ps-flyer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--size, 48px);
+  height: var(--size, 48px);
+  will-change: transform;
+}
+
+.ps-flyer > * {
+  width: 100%;
+  height: 100%;
+}
+
+.ps-flying-coin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  will-change: transform, opacity;
+}
+
+.ps-confetti-piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.45rem;
+  height: 0.8rem;
+  border-radius: 0.12rem;
+  will-change: transform, opacity;
+}
+
+/* ---- Dialogs ---------------------------------------------------------------------------- */
+
+.ps-dialog {
+  width: min(32em, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: clamp(16px, 2.6vw, 28px);
+  border: 0.1em solid var(--ps-line);
+  border-radius: 1.2em;
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  box-shadow: 0 0.8em 2.2em color-mix(in srgb, var(--ps-shadow) 34%, transparent);
+}
+
+.ps-dialog[open] {
+  animation: ps-ui-dialog-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ::backdrop does not inherit custom properties in every engine; this is --ps-abyss at 60%. */
+.ps-dialog::backdrop {
+  background: rgb(7 47 79 / 0.6);
+}
+
+@keyframes ps-ui-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ps-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
+
+.ps-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6em;
+  margin-top: 0.4em;
+}
+
+.ps-dialog[data-tone='warning'] {
+  border-color: var(--ps-miss);
+}
+
+/* ---- Toasts ----------------------------------------------------------------------------- */
+
+.ps-toasts {
+  position: fixed;
+  z-index: 50;
+  top: max(12px, env(safe-area-inset-top));
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(30em, calc(100vw - 24px));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.ps-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.45em 0.6em 0.45em 0.9em;
+  border-radius: 1em;
+  border: 0.1em solid var(--ps-line);
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  box-shadow: 0 0.4em 1em color-mix(in srgb, var(--ps-shadow) 24%, transparent);
+  font-weight: 700;
+  pointer-events: auto;
+  animation: ps-ui-toast-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ps-toast svg {
+  width: 1.2em;
+  height: 1.2em;
+  flex: none;
+}
+
+.ps-toast[data-tone='warning'] {
+  border-color: var(--ps-miss);
+  color: var(--ps-miss-deep);
+  background: var(--ps-miss-soft);
+}
+
+.ps-toast[data-tone='success'] {
+  border-color: var(--ps-success);
+  color: var(--ps-success-deep);
+  background: var(--ps-success-soft);
+}
+
+.ps-toast[data-leaving='true'] {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+@keyframes ps-ui-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- A child's badge -------------------------------------------------------------------- */
+
+.ps-diver-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 700;
+}
+
+.ps-diver-badge__initial {
+  display: grid;
+  place-items: center;
+  width: 2.2em;
+  height: 2.2em;
+  flex: none;
+  border-radius: 50%;
+  color: var(--ps-ink);
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 18%,
+    var(--ps-pearl) 45%,
+    var(--ps-primary-soft) 100%
+  );
+  box-shadow:
+    0 0 0 0.1em var(--ps-line-strong),
+    0 0.2em 0.5em color-mix(in srgb, var(--ps-shadow) 20%, transparent);
+}
+
+/* ---- Speaker (read-aloud) ---------------------------------------------------------------- */
+
+.ps-speaker[data-speaking='true'] {
+  --face: var(--ps-sun);
+  --lip: var(--ps-sun-deep);
+  --label: var(--ps-ink);
+}

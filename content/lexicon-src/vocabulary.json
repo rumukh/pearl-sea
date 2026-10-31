@@ -1,0 +1,161 @@
+{
+  "alphabet": [
+    "a", "á", "b", "c", "č", "d", "ď", "e", "é", "ě", "f", "g", "h", "ch", "i", "í", "j", "k", "l", "m", "n",
+    "ň", "o", "ó", "p", "q", "r", "ř", "s", "š", "t", "ť", "u", "ú", "ů", "v", "w", "x", "y", "ý", "z", "ž"
+  ],
+  "collation": {
+    "primary": [
+      "a", "b", "c", "č", "d", "e", "f", "g", "h", "ch", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "ř",
+      "s", "š", "t", "u", "v", "w", "x", "y", "z", "ž"
+    ],
+    "fold": {
+      "á": "a",
+      "é": "e",
+      "ě": "e",
+      "í": "i",
+      "ó": "o",
+      "ú": "u",
+      "ů": "u",
+      "ý": "y",
+      "ď": "d",
+      "ť": "t",
+      "ň": "n"
+    }
+  },
+  "vowels": {
+    "short": ["a", "e", "i", "o", "u", "y"],
+    "long": ["á", "é", "í", "ó", "ú", "ů", "ý"],
+    "lengthPairs": [
+      ["a", "á"],
+      ["e", "é"],
+      ["i", "í"],
+      ["o", "ó"],
+      ["u", "ú"],
+      ["u", "ů"],
+      ["y", "ý"]
+    ],
+    "diphthongs": ["ou", "au", "eu"]
+  },
+  "consonants": {
+    "hard": ["h", "ch", "k", "r", "d", "t", "n"],
+    "soft": ["ž", "š", "č", "ř", "c", "j", "ď", "ť", "ň"],
+    "bothWay": ["b", "f", "l", "m", "p", "s", "v", "z"]
+  },
+  "pairedConsonants": [
+    ["b", "p"],
+    ["d", "t"],
+    ["ď", "ť"],
+    ["z", "s"],
+    ["ž", "š"],
+    ["v", "f"],
+    ["h", "ch"],
+    ["g", "k"]
+  ],
+  "partsOfSpeech": [
+    { "id": "noun", "n": 1, "cs": "podstatné jméno", "inflected": true },
+    { "id": "adj", "n": 2, "cs": "přídavné jméno", "inflected": true },
+    { "id": "pron", "n": 3, "cs": "zájmeno", "inflected": true },
+    { "id": "num", "n": 4, "cs": "číslovka", "inflected": true },
+    { "id": "verb", "n": 5, "cs": "sloveso", "inflected": true },
+    { "id": "adv", "n": 6, "cs": "příslovce", "inflected": false },
+    { "id": "prep", "n": 7, "cs": "předložka", "inflected": false },
+    { "id": "conj", "n": 8, "cs": "spojka", "inflected": false },
+    { "id": "part", "n": 9, "cs": "částice", "inflected": false },
+    { "id": "interj", "n": 10, "cs": "citoslovce", "inflected": false }
+  ],
+  "genders": [
+    { "id": "m", "cs": "rod mužský", "test": "ten" },
+    { "id": "f", "cs": "rod ženský", "test": "ta" },
+    { "id": "n", "cs": "rod střední", "test": "to" }
+  ],
+  "numbers": [
+    { "id": "sg", "cs": "číslo jednotné" },
+    { "id": "pl", "cs": "číslo množné" }
+  ],
+  "cases": [
+    { "n": 1, "questions": ["kdo?", "co?"] },
+    { "n": 2, "questions": ["koho?", "čeho?"], "helper": "bez" },
+    { "n": 3, "questions": ["komu?", "čemu?"], "helper": "k" },
+    { "n": 4, "questions": ["koho?", "co?"], "helper": "vidím" },
+    { "n": 5, "questions": [], "cs": "oslovujeme, voláme" },
+    { "n": 6, "questions": ["o kom?", "o čem?"], "helper": "o" },
+    { "n": 7, "questions": ["s kým?", "s čím?"], "helper": "s" }
+  ],
+  "patterns": [
+    { "id": "pan", "word": "pán", "gender": "m", "animate": true, "nominative": "consonant" },
+    { "id": "muz", "word": "muž", "gender": "m", "animate": true, "nominative": "consonant" },
+    { "id": "predseda", "word": "předseda", "gender": "m", "animate": true, "nominative": "a" },
+    { "id": "soudce", "word": "soudce", "gender": "m", "animate": true, "nominative": "e" },
+    { "id": "hrad", "word": "hrad", "gender": "m", "animate": false, "nominative": "consonant" },
+    { "id": "stroj", "word": "stroj", "gender": "m", "animate": false, "nominative": "consonant" },
+    { "id": "zena", "word": "žena", "gender": "f", "nominative": "a" },
+    { "id": "ruze", "word": "růže", "gender": "f", "nominative": "e" },
+    { "id": "pisen", "word": "píseň", "gender": "f", "nominative": "consonant" },
+    { "id": "kost", "word": "kost", "gender": "f", "nominative": "consonant" },
+    { "id": "mesto", "word": "město", "gender": "n", "nominative": "o" },
+    { "id": "more", "word": "moře", "gender": "n", "nominative": "e" },
+    { "id": "kure", "word": "kuře", "gender": "n", "nominative": "e" },
+    { "id": "staveni", "word": "stavení", "gender": "n", "nominative": "í" }
+  ],
+  "persons": [1, 2, 3],
+  "tenses": [
+    { "id": "past", "cs": "čas minulý" },
+    { "id": "present", "cs": "čas přítomný" },
+    { "id": "future", "cs": "čas budoucí" }
+  ],
+  "moods": [
+    { "id": "indicative", "cs": "způsob oznamovací" },
+    { "id": "imperative", "cs": "způsob rozkazovací" },
+    { "id": "conditional", "cs": "způsob podmiňovací" }
+  ],
+  "aspects": [
+    { "id": "impf", "cs": "nedokonavé" },
+    { "id": "pf", "cs": "dokonavé" }
+  ],
+  "registers": [
+    { "id": "standard", "cs": "spisovné" },
+    { "id": "colloquial", "cs": "nespisovné" }
+  ],
+  "segments": [
+    { "id": "prefix", "cs": "předpona" },
+    { "id": "root", "cs": "kořen" },
+    { "id": "suffix", "cs": "přípona" },
+    { "id": "ending", "cs": "koncovka" }
+  ],
+  "properKinds": ["person", "animal", "character", "town", "place", "river", "lake", "mountain", "country", "sea"],
+  "setKinds": ["alphabet", "synonyms", "antonyms", "hyponyms", "sound-alikes", "minimal-length"],
+  "rules": [
+    { "id": "vyjm", "grade": 3, "cs": "vyjmenované slovo nebo slovo příbuzné: y, ý" },
+    { "id": "vyjm-prefix", "grade": 3, "cs": "předpona vy-, vý-" },
+    { "id": "obojetna-i", "grade": 3, "cs": "obojetná souhláska ve slově, které není vyjmenované: i, í" },
+    { "id": "tvrda", "grade": 3, "cs": "po tvrdé souhlásce píšeme y, ý" },
+    { "id": "mekka", "grade": 3, "cs": "po měkké souhlásce píšeme i, í" },
+    { "id": "dtn-mekke", "grade": 3, "cs": "di, ti, ni čteme měkce [ďi, ťi, ňi]" },
+    { "id": "delka", "grade": 3, "cs": "krátká, nebo dlouhá samohláska" },
+    { "id": "de-te-ne", "grade": 3, "cs": "dě, tě, ně čteme [ďe, ťe, ňe]" },
+    { "id": "be-pe-ve-me", "grade": 3, "cs": "bě, pě, vě, mě čteme [bje, pje, vje, mňe]" },
+    { "id": "bje-vje", "grade": 4, "cs": "předpona ob-, v- a slovo, které začíná na je" },
+    { "id": "mne", "grade": 4, "cs": "mně tam, kde je ve slově skupina mn" },
+    { "id": "mne-zajmeno", "grade": 4, "cs": "zájmeno já: mě ve 2. a 4. pádě, mně ve 3. a 6. pádě" },
+    { "id": "u-zacatek", "grade": 3, "cs": "ú na začátku slova" },
+    { "id": "u-predpona", "grade": 3, "cs": "ú po předponě nebo na začátku druhé části slova" },
+    { "id": "u-uprostred", "grade": 3, "cs": "ů uprostřed a na konci slova" },
+    { "id": "u-prejate", "grade": 3, "cs": "ú v přejatém slově" },
+    { "id": "parova", "grade": 3, "cs": "párová souhláska: ověříme ji jiným tvarem nebo příbuzným slovem" },
+    { "id": "velke-pismeno", "grade": 3, "cs": "vlastní jméno píšeme s velkým písmenem" },
+    { "id": "predpona-predlozka", "grade": 4, "cs": "předponu píšeme dohromady se slovem, předložku zvlášť" },
+    { "id": "predpona-souhlaska", "grade": 4, "cs": "předpony od-, nad-, pod-, před-, roz-, bez- píšeme vždy stejně" },
+    { "id": "shoda", "grade": 4, "cs": "shoda přísudku s podmětem v čase minulém: -i, -y, -a" },
+    { "id": "vzor", "grade": 4, "cs": "koncovka podstatného jména podle vzoru" }
+  ],
+  "schoolLists": {
+    "b": ["být", "bydlit", "obyvatel", "byt", "příbytek", "nábytek", "dobytek", "obyčej", "bystrý", "bylina", "kobyla", "býk", "Přibyslav"],
+    "l": ["slyšet", "mlýn", "blýskat se", "polykat", "plynout", "plýtvat", "vzlykat", "lysý", "lýtko", "lýko", "lyže", "pelyněk", "plyš"],
+    "m": ["my", "mýt", "myslit", "mýlit se", "hmyz", "myš", "hlemýžď", "mýtit", "zamykat", "smýkat", "dmýchat", "chmýří", "nachomýtnout se", "Litomyšl"],
+    "p": ["pýcha", "pytel", "pysk", "netopýr", "slepýš", "pyl", "kopyto", "klopýtat", "třpytit se", "zpytovat", "pykat", "pýr", "pýřit se", "čepýřit se"],
+    "s": ["syn", "sytý", "sýr", "syrový", "sychravý", "usychat", "sýkora", "sýček", "sysel", "syčet", "sypat"],
+    "v": ["vy", "vysoký", "výt", "výskat", "zvykat", "žvýkat", "vydra", "výr", "vyžle", "povyk", "výheň"],
+    "z": ["brzy", "jazyk", "nazývat", "Ruzyně"]
+  },
+  "schoolListTies": [["lýtko", "lýko"]]
+}

@@ -1,0 +1,50 @@
+{
+  "topic": "vyjmenovana-z",
+  "title": "Vyjmenovaná slova po Z",
+  "grade": 3,
+  "src": ["ijp-100", "ijp-103", "school-list"],
+  "families": [
+    { "id": "vyjm-z.brzy", "letter": "z", "head": "brzy", "order": 1, "core": true, "root": "brzy", "src": ["ijp-100"] },
+    { "id": "vyjm-z.jazyk", "letter": "z", "head": "jazyk", "order": 2, "core": true, "root": "jazyk/jazýč/jazyč", "src": ["ijp-100"] },
+    { "id": "vyjm-z.nazyyvat", "letter": "z", "head": "nazyyvat", "order": 3, "core": true, "root": "zýv", "src": ["ijp-100"] },
+    { "id": "vyjm-z.ruzynex", "letter": "z", "head": "ruzynex", "order": 4, "core": true, "root": "Ruzyn", "src": ["ijp-100"] }
+  ],
+  "words": [
+    { "id": "brzy", "lemma": "brzy", "pos": "adv", "family": "vyjm-z.brzy", "role": "head", "spell": "brz{y|i}", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
+    {
+      "id": "jazyk", "lemma": "jazyk", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-z.jazyk", "role": "head",
+      "spell": "jaz{y|i}k", "rules": ["vyjm"],
+      "senses": ["část těla v ústech", "řeč, kterou mluví lidé", "plochá mořská ryba"],
+      "note": "rod a vzor platí pro jazyk v ústech a pro řeč; ryba jazyk je životná",
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    { "id": "jazyycxek", "lemma": "jazýček", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-z.jazyk", "role": "member", "spell": "jaz{ý|í}ček", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
+    { "id": "jazykovyy", "lemma": "jazykový", "pos": "adj", "family": "vyjm-z.jazyk", "role": "member", "spell": "jaz{y|i}kový", "rules": ["vyjm"], "src": ["derinet", "morfflex"] },
+    { "id": "dvojjazycxnyy", "lemma": "dvojjazyčný", "pos": "adj", "grade": 4, "family": "vyjm-z.jazyk", "role": "member", "spell": "dvojjaz{y|i}čný", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
+    { "id": "nazyyvat", "lemma": "nazývat", "pos": "verb", "aspect": "impf", "family": "vyjm-z.nazyyvat", "role": "head", "spell": "naz{ý|í}vat", "rules": ["vyjm"], "forms": ["nazývá"], "note": "i nazývat se", "src": ["ijp-100", "school-list", "morfflex"] },
+    { "id": "vyzyyvat", "lemma": "vyzývat", "pos": "verb", "aspect": "impf", "family": "vyjm-z.nazyyvat", "role": "member", "spell": "v{y|i}z{ý|í}vat", "rules": ["vyjm-prefix", "vyjm"], "forms": ["vyzývá"], "src": ["ijp-100", "morfflex"] },
+    { "id": "ozyyvat-se", "lemma": "ozývat se", "pos": "verb", "aspect": "impf", "reflexive": "se", "family": "vyjm-z.nazyyvat", "role": "member", "spell": "oz{ý|í}vat se", "rules": ["vyjm"], "forms": ["ozývá", "ozýval"], "src": ["ijp-100", "morfflex"] },
+    { "id": "ruzynex", "lemma": "Ruzyně", "pos": "noun", "gender": "f", "proper": "place", "family": "vyjm-z.ruzynex", "role": "head", "spell": "Ruz{y|i}ně", "rules": ["vyjm"], "forms": ["Ruzyni"], "note": "část Prahy s letištěm", "src": ["ijp-100", "school-list", "morfflex"] },
+    { "id": "zima", "lemma": "zima", "pos": "noun", "gender": "f", "pattern": "zena", "spell": "z{i|y}ma", "rules": ["obojetna-i"], "forms": ["zimě", "zimu"], "src": ["ijp-103", "morfflex"] },
+    { "id": "ziitra", "lemma": "zítra", "pos": "adv", "spell": "z{í|ý}tra", "rules": ["obojetna-i"], "src": ["ijp-103", "morfflex"] },
+    { "id": "ziivat", "lemma": "zívat", "pos": "verb", "aspect": "impf", "spell": "z{í|ý}vat", "rules": ["obojetna-i"], "forms": ["zívá"], "src": ["ijp-103", "morfflex"] },
+    { "id": "jeziirko", "lemma": "jezírko", "pos": "noun", "gender": "n", "pattern": "mesto", "spell": "jez{í|ý}rko", "rules": ["obojetna-i"], "forms": ["jezírku"], "src": ["ijp-103", "morfflex"] },
+    { "id": "voziik", "lemma": "vozík", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "voz{í|ý}k", "rules": ["obojetna-i"], "forms": ["vozíku"], "src": ["ijp-103", "morfflex"] }
+  ],
+  "sentences": [
+    { "id": "vyjm-z.01", "text": "Z{í|ý}tra vstaneme brz{y|i} ráno.", "gaps": [{ "rule": "obojetna-i", "word": "ziitra" }, { "rule": "vyjm", "word": "brzy" }] },
+    { "id": "vyjm-z.02", "text": "Mořský had vyplazuje jaz{y|i}k.", "gaps": [{ "rule": "vyjm", "word": "jazyk" }] },
+    { "id": "vyjm-z.03", "text": "Jaz{y|i}k je plochá mořská ryba.", "gaps": [{ "rule": "vyjm", "word": "jazyk" }] },
+    { "id": "vyjm-z.04", "text": "Jak se naz{ý|í}vá tahle ryba?", "gaps": [{ "rule": "vyjm", "word": "nazyyvat" }] },
+    { "id": "vyjm-z.05", "text": "Z hlubiny se oz{ý|í}vá zpěv velryb.", "gaps": [{ "rule": "vyjm", "word": "ozyyvat-se" }] },
+    { "id": "vyjm-z.06", "text": "Letadlo přistálo v Ruz{y|i}ni.", "gaps": [{ "rule": "vyjm", "word": "ruzynex" }] },
+    { "id": "vyjm-z.07", "text": "Kočka má růžový jaz{ý|í}ček.", "gaps": [{ "rule": "vyjm", "word": "jazyycxek" }] },
+    { "id": "vyjm-z.08", "text": "Kapitán v{y|i}z{ý|í}vá námořníky k práci.", "gaps": [{ "rule": "vyjm-prefix", "word": "vyzyyvat" }, { "rule": "vyjm", "word": "vyzyyvat" }] },
+    { "id": "vyjm-z.09", "text": "Brz{y|i} začne příliv.", "gaps": [{ "rule": "vyjm", "word": "brzy" }] },
+    { "id": "vyjm-z.10", "text": "Učíme se cizí jaz{y|i}k.", "gaps": [{ "rule": "vyjm", "word": "jazyk" }] },
+    { "id": "vyjm-z.11", "text": "V z{i|y}mě je moře studené.", "gaps": [{ "rule": "obojetna-i", "word": "zima" }] },
+    { "id": "vyjm-z.12", "text": "Tuleň z{í|ý}vá na ledové kře.", "gaps": [{ "rule": "obojetna-i", "word": "ziivat" }] },
+    { "id": "vyjm-z.13", "text": "V jez{í|ý}rku plavou zlaté rybky.", "gaps": [{ "rule": "obojetna-i", "word": "jeziirko" }] },
+    { "id": "vyjm-z.14", "text": "Rybář veze ryby na voz{í|ý}ku.", "gaps": [{ "rule": "obojetna-i", "word": "voziik" }] }
+  ]
+}

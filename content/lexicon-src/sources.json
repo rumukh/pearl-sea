@@ -1,0 +1,77 @@
+{
+  "sources": [
+    {
+      "id": "ijp",
+      "title": "Internetová jazyková příručka, slovníková část (ÚJČ AV ČR), heslo slova",
+      "url": "https://prirucka.ujc.cas.cz/"
+    },
+    {
+      "id": "ijp-100",
+      "title": "Internetová jazyková příručka: Vyjmenovaná slova (podle PČP 1993)",
+      "url": "https://prirucka.ujc.cas.cz/?id=100"
+    },
+    {
+      "id": "ijp-101",
+      "title": "Internetová jazyková příručka: Předponová slovesa odvozená od být – bít",
+      "url": "https://prirucka.ujc.cas.cz/?id=101"
+    },
+    {
+      "id": "ijp-103",
+      "title": "Internetová jazyková příručka: Psaní i, í – y, ý",
+      "url": "https://prirucka.ujc.cas.cz/?id=103"
+    },
+    {
+      "id": "ijp-126",
+      "title": "Internetová jazyková příručka: Písmeno ě",
+      "url": "https://prirucka.ujc.cas.cz/?id=126"
+    },
+    {
+      "id": "ijp-127",
+      "title": "Internetová jazyková příručka: Psaní ú – ů",
+      "url": "https://prirucka.ujc.cas.cz/?id=127"
+    },
+    {
+      "id": "ijp-181",
+      "title": "Internetová jazyková příručka: Velká písmena – jména živých bytostí",
+      "url": "https://prirucka.ujc.cas.cz/?id=181"
+    },
+    {
+      "id": "ijp-601",
+      "title": "Internetová jazyková příručka: Shoda přísudku s podmětem několikanásobným",
+      "url": "https://prirucka.ujc.cas.cz/?id=601"
+    },
+    {
+      "id": "ijp-650",
+      "title": "Internetová jazyková příručka: Tvary zájmena já (mě, mně)",
+      "url": "https://prirucka.ujc.cas.cz/?id=650"
+    },
+    {
+      "id": "pcp-1993",
+      "title": "Pravidla českého pravopisu, Academia 1993 (s Dodatkem 1994)"
+    },
+    {
+      "id": "ssjc",
+      "title": "Slovník spisovného jazyka českého (ÚJČ AV ČR)",
+      "url": "https://ssjc.ujc.cas.cz/"
+    },
+    {
+      "id": "ssc",
+      "title": "Slovník spisovné češtiny pro školu a veřejnost (heslo v IJP)",
+      "url": "https://prirucka.ujc.cas.cz/"
+    },
+    {
+      "id": "school-list",
+      "title": "Školní řady vyjmenovaných slov v běžných učebnicích pro 3. ročník (jádro řady z PČP 1993)"
+    },
+    {
+      "id": "morfflex",
+      "title": "MorfFlex CZ 2.0 (ÚFAL MFF UK), ověřeno nástrojem MorphoDiTa 1.11: tvary, rod, životnost, vid",
+      "url": "http://hdl.handle.net/11234/1-4794"
+    },
+    {
+      "id": "derinet",
+      "title": "DeriNet 2.1 (ÚFAL MFF UK): slovotvorné vztahy, pomocná kontrola slovních rodin",
+      "url": "http://hdl.handle.net/11234/1-3765"
+    }
+  ]
+}

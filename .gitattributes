@@ -1,0 +1,19 @@
+# New repository policy: LF everywhere in the working tree, on every OS.
+# Prettier, content digests and offline resource graphs then see identical bytes on Windows and Linux.
+* text=auto eol=lf
+
+# Binary assets and vendored SDK tarballs must never be normalised.
+*.tgz binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary

@@ -1,0 +1,53 @@
+{
+  "purpose": "Style tests shown in docs/plan.md. Documentation only; never shipped in the game.",
+  "generator": {
+    "tool": "WanGP (local, offline)",
+    "model": "Qwen Image Edit Plus (2511) 20B, Quanto BF16/INT8 transformer, Qwen2.5-VL 7B INT8 encoder",
+    "steps": 50,
+    "trueCfg": 4,
+    "sampler": "FlowMatch Euler",
+    "date": "2026-10-31",
+    "machine": "local RTX 4070 Ti SUPER; no cloud service"
+  },
+  "previews": [
+    {
+      "file": "lagoon-test.jpg",
+      "sha256": "a882b1c96972f4fae7b2dec7402222da5cbc404d6850d30b628a8d53769d9126",
+      "derivedFrom": {
+        "resolution": "1664x928",
+        "sha256": "0fe7c9b23b358fa6921e795c099fb47bc4429e0c83568d97635ca99a498cb7db",
+        "seed": 41001,
+        "referenceMode": "Scene",
+        "reference": "a procedurally drawn colour-blocking sketch (gradient water, sand, coral blobs), 1664x928",
+        "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted illustration for a cheerful children's learning game set under the sea. Keep the same composition and camera: a sunny, shallow tropical lagoon seen from inside the water, bright sunbeams slanting down from the shimmering surface at the top, a soft sandy sea floor along the bottom, lush coral gardens and swaying kelp on the left and right edges, and wide open calm turquoise water in the centre left empty for game text and buttons. Replace the flat shapes with rich detail: branching pink and orange corals, purple sea fans, round brain corals, sea anemones, scattered seashells and pebbles on the sand, a smooth grey rock, tiny bubbles rising, gentle caustic light ripples on the sand. Style: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua blue, coral pink, sunny yellow and sand beige, gentle depth haze toward the back. Calm, magical and inviting, never dark or scary. No fish, no animals, no people, no characters, no text, no letters, no logo, no watermark, no border."
+      },
+      "processing": "downscaled with Pillow, re-encoded as JPEG quality 85 (no metadata)"
+    },
+    {
+      "file": "otter-test.jpg",
+      "sha256": "48b13b8598a86b4f6213107849564726007ea2ce0555b0aa3744726b994c1bab",
+      "derivedFrom": {
+        "resolution": "1328x1328",
+        "sha256": "77e95a201c9b7bf21fa71315f24032d3cc1dbd66481c69243ca9e43acfa71a16",
+        "seed": 52001,
+        "referenceMode": "Subjects (raw prompt, reference background kept)",
+        "reference": "a plain grey 1328x1328 canvas",
+        "prompt": "Use the grey reference only as a blank canvas. Paint one original cute cartoon character for a cheerful children's learning game set under the sea: Vydra Výskalka, a playful young sea otter floating upright, waving one front paw and laughing with joy. Rounded, chubby, friendly shapes; big shiny dark eyes with white highlights; a small pink nose; fluffy chocolate-brown fur with a cream-coloured face, chest and belly; long whiskers; a thick tail. Storybook gouache and watercolour painting with soft shading and a clean, confident dark-brown outline around the whole character, like a premium picture-book sticker. The whole character is centred and fully inside the frame, head to tail occupying about 80 percent of the image height, nothing cropped. Plain flat light grey background. No environment, no water surface, no bubbles, no other animals, no text, no watermark."
+      },
+      "processing": "downscaled with Pillow, re-encoded as JPEG quality 85 (no metadata)"
+    },
+    {
+      "file": "moray-test.jpg",
+      "sha256": "004cb803cd42df9026fa290b18734a9a0a0bdd38dae8dbb7e6b05a3fc75d6e2b",
+      "derivedFrom": {
+        "resolution": "1328x1328",
+        "sha256": "c69849753f150a8238358ea25d95cb253bf0e15a709823d17e1855650d809d21",
+        "seed": 63001,
+        "referenceMode": "Subjects (raw prompt, reference background kept)",
+        "reference": "a plain grey 1328x1328 canvas",
+        "prompt": "Use the grey reference only as a blank canvas. Paint one original cartoon sea monster for a cheerful children's learning game set under the sea: Murena Mumla, a grumpy moray eel soaked in magic black ink. Long, thick, curvy S-shaped body coiled so the whole eel fits in the frame; a big round head with a wide grumbling mouth showing small blunt rounded teeth, heavy sulky eyebrows and big yellow eyes; olive-green skin with leopard-like spots, half covered in glossy dripping black and dark-violet ink blots. Funny and a little spooky for an 8-year-old, never gory, never truly frightening. Storybook gouache and watercolour painting with soft shading and a clean, confident dark outline around the whole character, like a premium picture-book sticker. The whole monster centred and fully inside the frame, occupying about 80 percent of the image, nothing cropped. Plain flat light grey background. No environment, no water, no bubbles, no other animals, no text, no watermark."
+      },
+      "processing": "downscaled with Pillow, re-encoded as JPEG quality 85 (no metadata)"
+    }
+  ]
+}

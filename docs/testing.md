@@ -30,7 +30,7 @@ after one fails, and records each step in `.verify-report.json` (never committed
    catalog ([architecture.md](architecture.md) §3);
 6. **lexicon**: `scripts/lexicon/check.mjs`: the word bank's linguistic checks
    ([lexicon.md](lexicon.md) §1);
-7. **test**: Vitest (unit and tooling now; trace, simulation and migration later). The run is
+7. **test**: Vitest (unit, trace, migration and tooling; simulation checks later). The run is
    audited: every `*.test.ts` file under `test/` outside `test/e2e/` must have run, nothing may be
    skipped or left as todo, every test must pass and at least one must;
 8. **lockfile**: every registry URL in `package-lock.json` is `https://registry.npmjs.org/`.
@@ -54,11 +54,11 @@ suite (§5) on Chromium, Firefox and WebKit, one job per engine.
    Czech problem's expected answer is written by hand or taken from the reviewed lexicon entry,
    never computed by the code under test.
 3. **Goldens are literals.** `GOLDEN_HASH` and `GOLDEN_TRAJECTORY` (a digest of every commit hash)
-   are captured once from a green run and pinned with a comment on their provenance (S2's traces,
-   planned). ESLint rejects `toBe(run.hash)`, `toBe(host.hash())` and `expectedHash: host.hash()`.
+   are captured once from a green run and pinned with a comment on their provenance (S2's traces). ESLint rejects `toBe(run.hash)`, `toBe(host.hash())` and `expectedHash: host.hash()`.
 4. **Mutation-check.** Break the capability, watch the named assertion go red, put it back. The PR
-   that adds a test lists its mutations. S2's golden traces will also carry automated mutation
-   checks (every answer graded as wrong, another seed), as Dragon Valley's do.
+   that adds a test lists its mutations. S2's golden traces also carry automated mutation checks
+   (every answer graded as wrong, answers that cost no turns, a missing capability, another seed),
+   as Dragon Valley's do.
 5. **Determinism in tests too.** Tests under `test/**` except `test/e2e/**` follow the rules'
    determinism lint: no `Date`, `performance`, `Intl` or global `crypto`, no `Math.random` or
    transcendental `Math`, no locale functions.
@@ -79,9 +79,9 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
 | Folder            | Runner     | What belongs there                                                                         |
 | ----------------- | ---------- | ------------------------------------------------------------------------------------------ |
 | `test/unit/`      | Vitest     | modules in isolation: the contract, rules modules, the shell's logic (happy-dom installed) |
-| `test/traces/`    | Vitest     | command traces through the real runtime with literal goldens (S2, planned)                 |
+| `test/traces/`    | Vitest     | command traces through the real runtime with literal goldens (S2)                          |
 | `test/sim/`       | Vitest     | the learner-simulation bots' model and checks (§4; S2, planned)                            |
-| `test/migration/` | Vitest     | saves restored across content revisions (S2 with S3's history, planned)                    |
+| `test/migration/` | Vitest     | saves restored mid-round and across content revisions (S2; S3's history later)             |
 | `test/tooling/`   | Vitest     | the build, the scripts, the SDK pin and the lockfile                                       |
 | `test/e2e/`       | Playwright | the built site in real browsers (§5); `support/` holds its helpers                         |
 
@@ -155,17 +155,47 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   names, survive this game's boots unchanged; every database, cache and worker scope belongs to one
   of the two games, and localStorage stays empty.
 
+### The rules' tests (S2)
+
+On the rules' lagoon fixture (`test/fixtures/rules/lagoon-pack.ts`: Slunná laguna and the first
+cave lesson with real Czech words, forms and sentences) and the contract's mini pack, until S3's
+pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexicon's raw letters and
+`{correct|alt}` sentences and plays boards from the typed view, never from the code under test.
+
+- `test/unit/learning/`: response buckets, Leitner boxes, the effort path and mastery; every
+  servable item of every problem skill gives schema-valid problems whose expected answer is the
+  oracle's, with unique options that include it once and only real alternatives besides, and keys
+  for every letter; ambiguous points asked in sentences; selection without repeats.
+- `test/unit/minigames/`: the three custom adapters (validation, moves, never punishing,
+  completion) and the five board makers, typed views and credits.
+- `test/unit/progression/`: battles (no wash or refill on a miss, the kindness cap frees the
+  monster, splashes, joke cadence and cycling, arms, spaced review, the view after a reload);
+  ambushes (never change a problem, only after Murena, eligible activities and problems, at most one
+  a round, the bonus coin); the placement ladder (passing, three misses, a failed step, leaving,
+  floored percentages, unaskable steps, never a first lesson or a monster); Svačinka (size, first
+  tastes, the review guarantee); steps (one turn a gap, Lov chyb's credit, re-asks, hints, input).
+- `test/unit/rules/adapter.test.ts`: every rejection code changes nothing; U Mrože, outfits, the
+  grotto, quests, the chest and settings.
+- `test/unit/contract/events.test.ts`: event names, and docs/contract.md §13 lists exactly them.
+- `test/traces/`: golden traces with named checks and automated mutation checks: a 3rd grader's
+  first session with each lagoon egg (the egg hatches in lesson 1, re-ask timing, stars, the first
+  hat); a 4th grader's first sessions (the placement check, Kořínek hatching in the first session,
+  the chosen lagoon egg in a later Svačinka, before the other lagoon eggs); the lagoon end to end
+  with Murena's battle and the first Inkoustíci.
+- `test/migration/next-revision.test.ts`: a mid-round save restored in a new process goes on with
+  the same commits; the next content revision activates only at a safe boundary and keeps all
+  progress; old saves keep their revision; a revision is never reused.
+
 ### Planned evidence
 
-- **Generators and distractors** (S2): exhaustive over the lexicon: every word and skill yields a
-  valid problem; distractors are unique and never the answer.
+- **Generators and distractors on the real pack** (S2): the exhaustive generator tests above run
+  over S3's lexicon too; the `classify`, `odd-one-out` and `relation` generators join them.
 - **Lexicon** (S3): each linguistic check of the content gate rejects a planted mistake.
-- **Command traces** (S2): `runCommandTrace` scenarios with named checks, literal goldens and
-  trajectory digests.
+- **Command traces** (S2): Ledana's and the Krakatice's finales, on the real pack.
 - **Learner simulation** (S2): §4.
-- **Saves and migration** (S2, S3): mid-round restore; a failed checkpoint retried without a double
-  reward; a shipped save restored with its archived pack and moved to the current pack at the hub;
-  every revision's content hash pinned.
+- **Saves and migration** (S2, S3): a failed checkpoint retried without a double reward; a shipped
+  save restored with its archived pack and moved to the current pack at the hub; every revision's
+  content hash pinned.
 - **Shell logic** (S4): profiles, preferences and recovery; Czech plural forms (1 mince, 3 mince,
   5 mincí) and praise by form of address, checked against hand-written Czech; read-aloud chooses
   only local Czech voices.

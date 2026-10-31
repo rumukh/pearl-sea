@@ -1,0 +1,9 @@
+{
+  // The offline service worker entry (bundled to sw.js by scripts/build.mjs).
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "WebWorker"],
+    "types": []
+  },
+  "files": ["sw.ts"]
+}

@@ -1,0 +1,143 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows is the development host; Ubuntu proves the rules, digests and golden hashes are
+        # byte-identical across operating systems.
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    # A guard against a hang, not a performance assertion (a healthy run takes a few minutes).
+    timeout-minutes: 30
+
+    # The committed .npmrc pins the corporate npm proxy, which is correct on the development
+    # machine and unreachable from a hosted runner. An environment variable outranks a project
+    # .npmrc, so this selects the public registry for every npm invocation in the job, including
+    # npm started from inside `npm run verify`. The other half: package-lock.json keeps canonical
+    # https://registry.npmjs.org/ URLs (npm ci fetches the lockfile's own URLs).
+    # test/tooling/lockfile-registry.test.ts enforces both; `npm run lockfile:fix` repairs it.
+    env:
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # The one gate, exactly as run locally: build, typecheck (rules, app, worker, tests), lint,
+      # format check, content validation, unit and tooling tests and the lockfile check.
+      - name: Verify
+        run: npm run verify
+
+      # A second, independent path to red. scripts/verify.mjs records every step it ran; this
+      # step re-reads that record outside npm, so a lost exit code cannot turn a failure green.
+      - name: Audit that every verify step ran and passed
+        if: always()
+        run: node scripts/verify.mjs --audit .verify-report.json
+
+  e2e:
+    name: e2e (${{ matrix.engine }})
+    runs-on: ubuntu-latest
+    # Room for a slow package mirror on a cache miss; the test step has its own limit, the guard
+    # against a hang.
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, firefox, webkit]
+    env:
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Hosted runners download Playwright's own engines; the development machine uses the system
+      # Edge/Chrome channel instead (see playwright.config.ts). The engine download takes seconds;
+      # the system packages (fonts, codecs, GTK) come from Ubuntu's mirror, which is at times very
+      # slow, so the .deb files are cached per engine, runner image and Playwright version and apt
+      # installs them without downloading (the same scheme as Dragon Valley's CI).
+      - name: Key for ${{ matrix.engine }}'s system packages
+        id: debs-key
+        run: |
+          playwright=$(node -p "require('playwright-core/package.json').version")
+          echo "key=debs-${{ matrix.engine }}-${ImageOS}-${ImageVersion}-playwright-${playwright}" >> "$GITHUB_OUTPUT"
+
+      - name: Restore ${{ matrix.engine }}'s system packages
+        id: debs
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/ps-debs
+          key: ${{ steps.debs-key.outputs.key }}
+          restore-keys: debs-${{ matrix.engine }}-
+
+      - name: Install ${{ matrix.engine }}
+        run: |
+          echo 'APT::Keep-Downloaded-Packages "true";' |
+            sudo tee /etc/apt/apt.conf.d/99ps-keep-debs > /dev/null
+          if compgen -G "$HOME/.cache/ps-debs/*.deb" > /dev/null; then
+            sudo cp "$HOME"/.cache/ps-debs/*.deb /var/cache/apt/archives/
+          fi
+          npx playwright install --with-deps ${{ matrix.engine }}
+          sudo apt-get autoclean -qq
+          rm -rf "$HOME/.cache/ps-debs" && mkdir -p "$HOME/.cache/ps-debs"
+          if compgen -G "/var/cache/apt/archives/*.deb" > /dev/null; then
+            cp /var/cache/apt/archives/*.deb "$HOME/.cache/ps-debs/"
+          fi
+
+      - name: Save ${{ matrix.engine }}'s system packages
+        if: steps.debs.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/ps-debs
+          key: ${{ steps.debs-key.outputs.key }}
+
+      - name: End-to-end on ${{ matrix.engine }}
+        timeout-minutes: 15
+        run: npx playwright test --project=${{ matrix.engine }}
+
+      - name: Upload the Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.engine }}
+          path: |
+            playwright-report/
+            test-results/results.json
+          retention-days: 14
+
+      - name: Upload failure traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces-${{ matrix.engine }}
+          path: test-results/
+          retention-days: 14

@@ -1,0 +1,74 @@
+name: Pages
+
+# Publish the game as a static, offline-installable site at https://<owner>.github.io/pearl-sea/.
+# There is no backend: the build emits a closed same-origin resource graph and an offline worker.
+# CI (ci.yml) remains the gate; this workflow builds and re-checks the exact bytes it uploads.
+# The base path is this game's own folder: Dragon Valley shares the origin under /dragon-valley/,
+# and the offline worker's scope is the base (src/rules/contract/persistence.ts, DEPLOYMENT_BASE).
+
+on:
+  push:
+    branches: [main]
+  # Re-run a deployment without an empty commit (for example after enabling Pages).
+  workflow_dispatch:
+
+# Read the code, write the Pages deployment, and mint the OIDC token deploy-pages exchanges.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and never cancel one in flight: a cancelled deploy can leave the site
+# serving a half-uploaded artifact.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build the static site
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # The committed .npmrc pins the corporate proxy, unreachable from a hosted runner; see ci.yml.
+    env:
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build for the Pages base path
+        run: node scripts/build.mjs --base /pearl-sea/ --out dist-site
+
+      # Stated separately from the build because this is the copy that is uploaded: every file is
+      # re-read, every digest re-checked, and the graph re-validated with the SDK's own validator.
+      - name: Check the artifact before uploading it
+        run: node scripts/check-site.mjs dist-site --base /pearl-sea/
+
+      # Turns Pages on with "GitHub Actions" as the source if it is not already.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-site
+
+  deploy:
+    name: deploy to github-pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

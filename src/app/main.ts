@@ -1,21 +1,29 @@
 /**
- * Boot of the foundations shell. It reads the deployment base and offline revision from the page,
- * loads the reading font and the Czech UI catalog, and shows the title screen. Readiness is real:
- * the boot status turns "ready" only after the catalog was loaded and validated, the font loaded
- * (or its short wait ran out), and the title screen is mounted and painted. Nothing is exposed on
- * `window`, nothing is written to the console, and no browser storage is touched.
+ * Boot. Readiness is real: the boot status turns "ready" only after the family record was read
+ * (or found unreadable, which shows the recovery screen), the reading font loaded (or its short
+ * wait ran out), and the first screen is mounted and painted. The audio manifest is read first
+ * (a missing or broken one means a silent game, never a failed boot). Nothing is exposed on
+ * `window`, nothing is written to the console, and uncaught errors land on the error screen.
  *
- * S4 (app) replaces this with the full shell ported from Dragon Valley: router, family profiles,
- * saves, the grown-ups' area and offline installation.
+ * The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
+ * (`loading`, `ready`, `failed`), `data-screen` (the current screen), `data-font` and
+ * `data-base` (the deployment base).
  */
+import { applyPresentationPreferences } from '@aegis/browser/ui';
 import { requireValue, schema } from '@aegis/runtime';
+import { loadAudioMap } from './audio/manifest';
 import { loadFonts } from './design/fonts';
-import type { FontStatus } from './design/fonts';
-import { loadCatalog, text } from './i18n/catalog';
-import type { Catalog } from './i18n/catalog';
-import { keepOneLetterWordsWithNext } from './i18n/typography';
+import { applyTokens } from './design/tokens';
+import { DEFAULT_PRESENTATION } from './persistence/preferences';
+import { RecoveryRequired } from './persistence/recovery';
+import type { ScreenEntry } from './router/router';
+import { createScreens } from './screens';
+import { createApp, STARTUP_FAILURE } from './shell/app';
+import type { AppEnvironment } from './shell/app';
+import { afterPaint, h } from './ui/dom';
 import './styles/base.css';
-import './styles/title.css';
+import './styles/components.css';
+import './styles/screens.css';
 
 const basePath = schema.string({
   minLength: 1,
@@ -23,20 +31,7 @@ const basePath = schema.string({
   pattern: /^\/(?:[A-Za-z0-9_-]+\/)*$/,
 });
 
-/** Shown when nothing else can be: the catalog may be what failed, so these strings are built in. */
-const STARTUP_FAILURE = {
-  heading: 'Hra se nespustila',
-  body: 'Zkus to prosím znovu. Když to nepůjde, zavolej dospělého.',
-  retry: 'Zkusit znovu',
-} as const;
-
-interface Environment {
-  readonly base: string;
-  readonly baseUrl: string;
-  readonly revision: string;
-}
-
-function readEnvironment(): Environment {
+function readEnvironment(): AppEnvironment {
   const base = document.querySelector<HTMLMetaElement>('meta[name="ps-base"]')?.content;
   const revision = document.querySelector<HTMLMetaElement>(
     'meta[name="ps-offline-revision"]',
@@ -46,119 +41,71 @@ function readEnvironment(): Environment {
   return { base: valid, baseUrl: new URL(valid, location.origin).href, revision };
 }
 
-function element<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  options: { className?: string; text?: string; testId?: string; hidden?: boolean } = {},
-  ...children: Node[]
-): HTMLElementTagNameMap[K] {
-  const node = document.createElement(tag);
-  if (options.className) node.className = options.className;
-  if (options.text !== undefined) node.textContent = keepOneLetterWordsWithNext(options.text);
-  if (options.testId) node.dataset['testid'] = options.testId;
-  if (options.hidden) node.hidden = true;
-  node.append(...children);
-  return node;
-}
-
-/** One frame after the next paint, so "ready" means the screen is really on the glass. */
-function afterPaint(): Promise<void> {
-  return new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
-}
-
-function bootStatus(): HTMLElement {
-  const status = element('div', { testId: 'boot-status', hidden: true });
-  status.dataset['state'] = 'loading';
+function createBootStatus(): HTMLElement {
+  const status = h('div', { testId: 'boot-status', dataset: { state: 'loading' } });
+  status.hidden = true;
   document.body.append(status);
   return status;
 }
 
-function titleScreen(catalog: Catalog): HTMLElement {
-  const pearls = element(
-    'ul',
-    { className: 'ps-title__pearls' },
-    ...['i', 'í', 'y', 'ý'].map((letter) => element('li', { className: 'ps-pearl', text: letter })),
-  );
-  pearls.setAttribute('aria-hidden', 'true');
-  const bubbles = element(
-    'div',
-    { className: 'ps-title__bubbles' },
-    ...Array.from({ length: 12 }, () => element('span', { className: 'ps-bubble' })),
-  );
-  bubbles.setAttribute('aria-hidden', 'true');
-  return element(
-    'main',
-    { className: 'ps-screen ps-title', testId: 'title-screen' },
-    bubbles,
-    element(
-      'div',
-      { className: 'ps-title__card' },
-      element('h1', { className: 'ps-title__name', text: text(catalog, 'app.title') }),
-      element('p', { className: 'ps-title__subtitle', text: text(catalog, 'title.subtitle') }),
-      pearls,
-      element('p', { className: 'ps-title__tagline', text: text(catalog, 'title.tagline') }),
-      element('p', { className: 'ps-title__soon', text: text(catalog, 'title.soon') }),
-    ),
-  );
-}
-
-function startupFailure(root: HTMLElement): void {
-  const retry = element('button', {
-    className: 'ps-button',
+/** Without a working shell there is no router; show one calm line and a retry. */
+function showStartupFailure(root: HTMLElement, status: HTMLElement): void {
+  const retry = h('button', {
+    className: 'ps-button ps-button--sun',
     text: STARTUP_FAILURE.retry,
     testId: 'startup-retry',
+    attributes: { type: 'button' },
   });
-  retry.type = 'button';
   retry.addEventListener('click', () => location.reload());
   root.replaceChildren(
-    element(
+    h(
       'main',
-      { className: 'ps-screen ps-failure', testId: 'startup-failure' },
-      element(
+      { className: 'ps-screen ps-field-abyss ps-recovery', testId: 'startup-failure' },
+      h(
         'div',
-        { className: 'ps-title__card' },
-        element('h1', { text: STARTUP_FAILURE.heading }),
-        element('p', { text: STARTUP_FAILURE.body }),
+        { className: 'ps-card ps-recovery__card' },
+        h('h1', { text: STARTUP_FAILURE.heading }),
+        h('p', { text: STARTUP_FAILURE.body }),
         retry,
       ),
     ),
   );
   root.removeAttribute('aria-busy');
+  status.dataset['state'] = 'failed';
 }
 
-async function boot(status: HTMLElement): Promise<void> {
-  const root = document.querySelector<HTMLElement>('#app');
-  if (!root) return;
-  let env: Environment;
+async function boot(root: HTMLElement, status: HTMLElement): Promise<void> {
+  applyTokens(document.documentElement);
+  applyPresentationPreferences(document.documentElement, DEFAULT_PRESENTATION);
+  let env: AppEnvironment;
   try {
     env = readEnvironment();
   } catch {
-    startupFailure(root);
-    status.dataset['state'] = 'failed';
+    showStartupFailure(root, status);
     return;
   }
-  const fonts: Promise<FontStatus> = loadFonts(env.baseUrl);
-  let catalog: Catalog;
+  const fonts = loadFonts(env.baseUrl);
+  const audioMap = await loadAudioMap(env.baseUrl);
+  const app = createApp({ env, root, bootStatus: status, audioMap });
+  app.screens = createScreens(app);
+  let first: ScreenEntry;
   try {
-    catalog = await loadCatalog(env.baseUrl, 'cs');
-  } catch {
-    await fonts;
-    startupFailure(root);
-    status.dataset['state'] = 'failed';
-    return;
+    await app.family.open();
+    first = app.screens.title();
+  } catch (error) {
+    // An unreadable family record asks a grown-up; nothing is replaced by itself.
+    first =
+      error instanceof RecoveryRequired ? app.screens.recovery(error) : app.screens.error(error);
   }
-  const font = await fonts;
-  root.replaceChildren(titleScreen(catalog));
-  root.removeAttribute('aria-busy');
+  status.dataset['font'] = await fonts;
+  await app.router.reset(first);
   await afterPaint();
-  status.dataset['font'] = font;
-  status.dataset['screen'] = 'title';
   status.dataset['base'] = env.base;
-  status.dataset['state'] = 'ready';
+  app.setBootState('ready');
 }
 
-const status = bootStatus();
-void boot(status).catch(() => {
-  const root = document.querySelector<HTMLElement>('#app');
-  if (root) startupFailure(root);
-  status.dataset['state'] = 'failed';
-});
+const status = createBootStatus();
+const root = document.querySelector<HTMLElement>('#app');
+if (root) {
+  void boot(root, status).catch(() => showStartupFailure(root, status));
+}

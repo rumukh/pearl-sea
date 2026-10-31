@@ -1,8 +1,8 @@
 /**
- * Czech typesetting and catalog parsing used by every screen.
+ * Czech typesetting used by every screen: a one-letter preposition or conjunction never ends a
+ * line, so the space after it becomes a no-break space.
  */
 import { describe, expect, it } from 'vitest';
-import { parseCatalog, text } from '../../../src/app/i18n/catalog';
 import { keepOneLetterWordsWithNext } from '../../../src/app/i18n/typography';
 
 const NBSP = '\u00a0';
@@ -28,20 +28,5 @@ describe('keepOneLetterWordsWithNext', () => {
     for (const unchanged of ['Krab Tvrďák', 'i', 'pes a', 'ryby y', 'x y']) {
       expect(keepOneLetterWordsWithNext(unchanged)).toBe(unchanged);
     }
-  });
-});
-
-describe('catalogs', () => {
-  it('accepts a flat map of non-empty strings and freezes it', () => {
-    const catalog = parseCatalog({ 'app.title': 'Perlové moře' }, 'cs.ui.json');
-    expect(text(catalog, 'app.title')).toBe('Perlové moře');
-    expect(Object.isFrozen(catalog)).toBe(true);
-  });
-
-  it('refuses anything else, and never shows a raw key', () => {
-    for (const bad of [null, [], 'text', { a: 1 }, { a: '' }, { a: { b: 'c' } }]) {
-      expect(() => parseCatalog(bad, 'cs.ui.json'), JSON.stringify(bad)).toThrow(/cs\.ui\.json/);
-    }
-    expect(() => text(parseCatalog({}, 'cs.ui.json'), 'missing.key')).toThrow(/missing\.key/);
   });
 });

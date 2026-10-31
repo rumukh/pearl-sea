@@ -65,8 +65,8 @@ export const STEPS = [
   },
   {
     id: 'content',
-    label: 'Validate catalogs, Czech typography and reading-font coverage',
-    args: ['scripts/validate-content.mjs'],
+    label: 'Validate catalogs, typography, font coverage, content pack and curriculum coverage',
+    args: ['scripts/validate-content.mjs', '--strict-coverage'],
   },
   {
     id: 'test',

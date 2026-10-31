@@ -10,7 +10,7 @@
  *
  * A word matches only whole: never inside a longer word, so an inflected form keeps its ending.
  */
-import { pluralCategory } from '../i18n/messages';
+import { czechPlural, splitCatalogKey } from '../../rules/contract';
 
 export interface SpeechAlias {
   readonly word: string;
@@ -28,11 +28,9 @@ export function speechAliases(catalog: Readonly<Record<string, string>>): Speech
   const forms = new Map<string, Forms>();
   for (const [key, value] of Object.entries(catalog)) {
     if (!key.startsWith(PREFIX)) continue;
-    const rest = key.slice(PREFIX.length);
-    const plural = /^(.+)\.(one|few|other)$/u.exec(rest);
-    const word = plural ? plural[1]! : rest;
+    const { base: word, plural } = splitCatalogKey(key.slice(PREFIX.length));
     const entry = forms.get(word) ?? {};
-    if (plural) entry[plural[2] as 'one' | 'few' | 'other'] = value;
+    if (plural) entry[plural] = value;
     else entry.plain = value;
     forms.set(word, entry);
   }
@@ -62,9 +60,7 @@ export function applyAliases(text: string, aliases: readonly SpeechAlias[]): str
       'gu',
     );
     spoken = spoken.replace(pattern, (_match, count?: string, space?: string) =>
-      count === undefined
-        ? alias.other
-        : `${count}${space}${alias[pluralCategory('cs', Number(count))]}`,
+      count === undefined ? alias.other : `${count}${space}${alias[czechPlural(Number(count))]}`,
     );
   }
   return spoken;

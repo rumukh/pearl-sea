@@ -11,6 +11,7 @@
  * two children) therefore both stay, in order.
  */
 import type { SaveStorage } from '@aegis/browser/save';
+import type { Grade } from '../../rules/contract';
 import type { Language } from '../i18n/messages';
 import {
   addDiver,
@@ -21,7 +22,7 @@ import {
   updateDiver,
   withGrownUpsLanguage,
 } from './family';
-import type { Diver, DiverInput, FamilyResult, FamilyState, Grade } from './family';
+import type { Diver, DiverInput, FamilyResult, FamilyState } from './family';
 import { DEFAULT_PREFERENCES, preferencesRecord, withPreferences } from './preferences';
 import type { ChildPreferences } from './preferences';
 import { RecordStore } from './records';

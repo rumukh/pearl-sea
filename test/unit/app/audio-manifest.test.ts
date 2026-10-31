@@ -6,41 +6,60 @@
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import {
-  loadAudioMap,
-  MANIFEST_PATH,
-  MANIFEST_SCHEMA,
-  parseAudioManifest,
-} from '../../../src/app/audio/manifest';
+import { loadAudioMap, parseAudioManifest } from '../../../src/app/audio/manifest';
 import { STUB_AUDIO_MAP } from '../../../src/app/audio/stub-map';
 import type { Fetcher } from '../../../src/app/content/site';
+import { AUDIO_MANIFEST_PATH, AUDIO_MANIFEST_SCHEMA } from '../../../src/rules/contract';
 
-const shipped = JSON.parse(readFileSync(MANIFEST_PATH, 'utf8')) as Record<string, unknown>;
+const shipped = JSON.parse(readFileSync(AUDIO_MANIFEST_PATH, 'utf8')) as Record<string, unknown>;
 
 /** A manifest in the schema S5's pack writes (Dragon Valley's, under this game's name). */
 const SAMPLE = {
-  schema: MANIFEST_SCHEMA,
+  schema: AUDIO_MANIFEST_SCHEMA,
   packId: 'pearl-sea-audio',
   revision: 'r1',
   sounds: [
-    { id: 'chime-1', src: 'assets/audio/sfx/chime-1.wav', bus: 'effects', durationSeconds: 0.4 },
-    { id: 'chime-2', src: 'assets/audio/sfx/chime-2.wav', bus: 'effects', durationSeconds: 0.4 },
-    { id: 'coin', src: 'assets/audio/sfx/coin.wav', bus: 'effects', durationSeconds: 0.3 },
-    { id: 'coin-shower', src: 'assets/audio/sfx/shower.wav', bus: 'effects', durationSeconds: 0.9 },
-    { id: 'fanfare', src: 'assets/audio/sfx/fanfare.wav', bus: 'effects', durationSeconds: 1.5 },
-    { id: 'splash', src: 'assets/audio/sfx/splash.wav', bus: 'effects', durationSeconds: 0.5 },
-    { id: 'grotto', src: 'assets/audio/music/grotto.wav', bus: 'music', durationSeconds: 32 },
+    {
+      id: 'sfx/chime-1',
+      src: 'assets/audio/sfx/chime-1.ogg',
+      bus: 'effects',
+      durationSeconds: 0.4,
+    },
+    {
+      id: 'sfx/chime-2',
+      src: 'assets/audio/sfx/chime-2.ogg',
+      bus: 'effects',
+      durationSeconds: 0.4,
+    },
+    { id: 'sfx/coin', src: 'assets/audio/sfx/coin.ogg', bus: 'effects', durationSeconds: 0.3 },
+    {
+      id: 'sfx/coin-shower',
+      src: 'assets/audio/sfx/coin-shower.ogg',
+      bus: 'effects',
+      durationSeconds: 0.9,
+    },
+    {
+      id: 'sfx/fanfare',
+      src: 'assets/audio/sfx/fanfare.ogg',
+      bus: 'effects',
+      durationSeconds: 1.5,
+    },
+    { id: 'sfx/splash', src: 'assets/audio/sfx/splash.ogg', bus: 'effects', durationSeconds: 0.5 },
+    { id: 'music/grotto', src: 'assets/audio/music/grotto.ogg', bus: 'music', durationSeconds: 32 },
   ],
   events: {
-    'answer.correct': { sounds: ['chime-1', 'chime-2'], select: 'streak' },
-    'answer.incorrect': { sounds: ['splash'] },
-    'coins.earned': { sounds: ['coin', 'coin-shower'], select: 'amount' },
-    'level.completed': { sounds: ['fanfare', 'chime-1'], select: 'sequence' },
+    'answer.correct': { sounds: ['sfx/chime-1', 'sfx/chime-2'], select: 'streak' },
+    'answer.incorrect': { sounds: ['sfx/splash'] },
+    'coins.earned': { sounds: ['sfx/coin', 'sfx/coin-shower'], select: 'amount' },
+    'level.completed': { sounds: ['sfx/fanfare', 'sfx/chime-1'], select: 'sequence' },
   },
-  music: { states: { grotto: 'grotto', title: 'grotto', grownups: null }, crossfadeSeconds: 1.2 },
+  music: {
+    states: { grotto: 'music/grotto', title: 'music/grotto', grownups: null },
+    crossfadeSeconds: 1.2,
+  },
   voices: {
     throttle: {
-      coin: { minIntervalMs: 70, maxConcurrent: 3 },
+      'sfx/coin': { minIntervalMs: 70, maxConcurrent: 3 },
       'bubble-family': { minIntervalMs: 40, maxConcurrent: 2 },
     },
   },
@@ -66,15 +85,15 @@ describe('reading a manifest', () => {
 
   it('keeps the sounds on their buses, in milliseconds', () => {
     expect(map.effects.map((asset) => asset.id)).toEqual([
-      'chime-1',
-      'chime-2',
-      'coin',
-      'coin-shower',
-      'fanfare',
-      'splash',
+      'sfx/chime-1',
+      'sfx/chime-2',
+      'sfx/coin',
+      'sfx/coin-shower',
+      'sfx/fanfare',
+      'sfx/splash',
     ]);
     expect(map.music).toEqual([
-      { id: 'grotto', src: 'assets/audio/music/grotto.wav', durationMs: 32_000 },
+      { id: 'music/grotto', src: 'assets/audio/music/grotto.ogg', durationMs: 32_000 },
     ]);
   });
 
@@ -83,18 +102,22 @@ describe('reading a manifest', () => {
     expect(map.events['coins.earned']?.pick).toBe('amount');
     expect(map.events['level.completed']?.pick).toBe('sequence');
     expect(map.events['answer.incorrect']?.pick).toBe('first');
-    expect(map.musicStates).toEqual({ grotto: 'grotto', title: 'grotto', grownups: null });
+    expect(map.musicStates).toEqual({
+      grotto: 'music/grotto',
+      title: 'music/grotto',
+      grownups: null,
+    });
   });
 
   it('keeps per-sound throttles and skips advice that names no sound', () => {
-    expect(map.throttle['coin']).toEqual({ minIntervalMs: 70, maxConcurrent: 3 });
+    expect(map.throttle['sfx/coin']).toEqual({ minIntervalMs: 70, maxConcurrent: 3 });
     expect(map.throttle).not.toHaveProperty('bubble-family');
   });
 
   it('refuses another schema and malformed entries', () => {
     expect(() =>
       parseAudioManifest({ ...SAMPLE, schema: 'dragon-valley-audio-manifest/1' }),
-    ).toThrow(MANIFEST_SCHEMA);
+    ).toThrow(AUDIO_MANIFEST_SCHEMA);
     expect(() => parseAudioManifest({ ...SAMPLE, sounds: {} })).toThrow();
     expect(() =>
       parseAudioManifest({
@@ -105,12 +128,28 @@ describe('reading a manifest', () => {
     expect(() =>
       parseAudioManifest({
         ...SAMPLE,
-        events: { 'answer.correct': { sounds: ['chime-1'], select: 'shuffle' } },
+        events: { 'answer.correct': { sounds: ['sfx/chime-1'], select: 'shuffle' } },
       }),
     ).toThrow();
     expect(() =>
       parseAudioManifest({ ...SAMPLE, events: { x: { sounds: ['not-a-sound'] } } }),
     ).toThrow();
+  });
+
+  it('refuses sounds not named by the contract: sfx/<name> effects, music/<loop> music', () => {
+    const effect = SAMPLE.sounds[0]!;
+    const loop = SAMPLE.sounds[SAMPLE.sounds.length - 1]!;
+    for (const sound of [
+      { ...effect, id: 'chime-1' },
+      { ...effect, id: 'sfx/Chime 1' },
+      { ...effect, id: 'music/chime-1' },
+      { ...loop, id: 'sfx/grotto' },
+    ]) {
+      expect(
+        () => parseAudioManifest({ ...SAMPLE, sounds: [sound], events: {}, music: { states: {} } }),
+        sound.id,
+      ).toThrow(`Invalid sound ${sound.id}.`);
+    }
   });
 
   it('loads the manifest below the deployment base', async () => {
@@ -119,7 +158,7 @@ describe('reading a manifest', () => {
       requested.push(url);
       return serve(200, JSON.stringify(SAMPLE))(url);
     });
-    expect(requested).toEqual([`https://example.test/pearl-sea/${MANIFEST_PATH}`]);
+    expect(requested).toEqual([`https://example.test/pearl-sea/${AUDIO_MANIFEST_PATH}`]);
     expect(loaded.packId).toBe('pearl-sea-audio');
   });
 

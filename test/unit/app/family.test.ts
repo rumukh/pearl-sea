@@ -6,11 +6,9 @@
 import { describe, expect, it } from 'vitest';
 import {
   addDiver,
-  DIVER_AVATARS,
   EMPTY_FAMILY,
   FAMILY_RECORD,
   findDiver,
-  GRADES,
   isFamilyState,
   MAX_DIVERS,
   MAX_NAME_LENGTH,
@@ -20,15 +18,19 @@ import {
   updateDiver,
   withGrownUpsLanguage,
 } from '../../../src/app/persistence/family';
-import type { DiverAvatar, FamilyState, Grade } from '../../../src/app/persistence/family';
-import type { Address, Language } from '../../../src/app/i18n/messages';
+import type { FamilyState } from '../../../src/app/persistence/family';
+import type { Language } from '../../../src/app/i18n/messages';
 import {
+  DIVER_AVATARS,
   FAMILY_GAME_ID,
   FAMILY_PROFILE_ID,
+  FORMS_OF_ADDRESS,
+  GRADES,
   MAX_PROFILE_NAME_LENGTH,
   MAX_PROFILES,
   PROFILE_IDS,
 } from '../../../src/rules/contract';
+import type { DiverAvatar, FormOfAddress, Grade } from '../../../src/rules/contract';
 
 function family(...names: string[]): FamilyState {
   let state = EMPTY_FAMILY;
@@ -117,8 +119,17 @@ describe('children on the device', () => {
       address: 'neutral',
     });
     expect(changed.ok && changed.value.diver.address).toBe('neutral');
+    for (const address of FORMS_OF_ADDRESS) {
+      expect(addDiver(EMPTY_FAMILY, { name: 'Ema', avatar: 'diver-1', address }).ok, address).toBe(
+        true,
+      );
+    }
     expect(
-      addDiver(EMPTY_FAMILY, { name: 'Ema', avatar: 'diver-1', address: 'other' as Address }),
+      addDiver(EMPTY_FAMILY, {
+        name: 'Ema',
+        avatar: 'diver-1',
+        address: 'other' as FormOfAddress,
+      }),
     ).toEqual({ ok: false, problem: 'address' });
   });
 
@@ -148,8 +159,12 @@ describe('children on the device', () => {
     ).toEqual({ ok: false, problem: 'missing' });
   });
 
-  it('choose from the eight diver pictures only', () => {
-    expect(DIVER_AVATARS).toHaveLength(8);
+  it('choose from the contract’s diver pictures only', () => {
+    for (const avatar of DIVER_AVATARS) {
+      expect(addDiver(EMPTY_FAMILY, { name: 'Ema', avatar, address: 'girl' }).ok, avatar).toBe(
+        true,
+      );
+    }
     expect(
       addDiver(EMPTY_FAMILY, {
         name: 'Ema',
@@ -160,7 +175,12 @@ describe('children on the device', () => {
   });
 
   it('carry the editor’s grade, 3 or 4, until the game takes it', () => {
-    expect(GRADES).toEqual([3, 4]);
+    for (const grade of GRADES) {
+      expect(
+        addDiver(EMPTY_FAMILY, { name: 'Ema', avatar: 'diver-1', address: 'girl', grade }).ok,
+        String(grade),
+      ).toBe(true);
+    }
     const added = addDiver(EMPTY_FAMILY, {
       name: 'Ema',
       avatar: 'diver-1',

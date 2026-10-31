@@ -2,9 +2,10 @@
  * Event-to-sound mapping and throttling, independent of Web Audio so it is unit-testable.
  *
  * The map is built from S5's `assets/audio/manifest.json` (`manifest.ts`): the event map, music
- * states and per-sound throttles. Game events (`answer.correct`, `coins.earned`, …) arrive from
- * live runtime commits only, never from replayed history; shell cues use the manifest's `ui.*`
- * and `fx.*` names.
+ * states and per-sound throttles. Game events (the contract's `EVENTS`: `answer.correct`,
+ * `coins.earned`, …) arrive from live runtime commits only, never from replayed history; shell
+ * cues use the manifest's `ui.*` and `fx.*` names. Sounds are named by the contract's
+ * `AUDIO_ID_PATTERN`: effects `sfx/<name>`, music loops `music/<loop>`.
  *
  * Selection policies: `first`; `streak` (chime n for the n-th correct answer in a row, holding
  * at the last); `amount` (coin for 1-4 coins, coin shower for 5 or more); `sequence` (all in
@@ -13,9 +14,12 @@
  * actually starts: each sound's minimum interval and concurrency from the manifest, and a global
  * burst cap.
  */
+import { AUDIO_ID_PATTERN } from '../../rules/contract';
+
 export interface SoundAsset {
+  /** `sfx/<name>` for an effect, `music/<loop>` for music. */
   readonly id: string;
-  /** Path relative to the deployment base, e.g. `assets/audio/sfx/bubble-1.wav`. */
+  /** Path relative to the deployment base, e.g. `assets/audio/sfx/bubble.ogg`. */
   readonly src: string;
   readonly durationMs: number;
 }
@@ -38,7 +42,7 @@ export interface AudioMap {
   readonly effects: readonly SoundAsset[];
   readonly music: readonly SoundAsset[];
   readonly events: Readonly<Record<string, EventSound>>;
-  /** Music state (`title`, `grotto`, `round`, `battle`, …) to a music asset, or null for silence. */
+  /** Music state (`title`, `grotto`, `map`, `battle`, …) to a `music/<loop>`, or null for silence. */
   readonly musicStates: Readonly<Record<string, string | null>>;
   readonly throttle: Readonly<Record<string, SoundThrottle>>;
   readonly crossfadeSeconds: number;
@@ -56,6 +60,7 @@ export interface PlannedSound {
   readonly delayMs: number;
 }
 
+/** A pack ID or revision. */
 const ID = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
 const SRC = /^(?!\/)(?!.*\.\.)[A-Za-z0-9._/-]+\.(wav|ogg|mp3|m4a|opus)$/;
 
@@ -91,12 +96,18 @@ export function validateAudioMap(map: AudioMap): AudioMap {
   }
   const effects = new Set<string>();
   const music = new Set<string>();
-  for (const [list, ids] of [
-    [map.effects, effects],
-    [map.music, music],
+  for (const [list, ids, prefix] of [
+    [map.effects, effects, 'sfx/'],
+    [map.music, music, 'music/'],
   ] as const) {
     for (const asset of list) {
-      if (!ID.test(asset.id) || !SRC.test(asset.src)) throw new Error(`Invalid sound ${asset.id}.`);
+      if (
+        !AUDIO_ID_PATTERN.test(asset.id) ||
+        !asset.id.startsWith(prefix) ||
+        !SRC.test(asset.src)
+      ) {
+        throw new Error(`Invalid sound ${asset.id}.`);
+      }
       if (!(asset.durationMs > 0)) throw new Error(`Sound ${asset.id} has no duration.`);
       if (effects.has(asset.id) || music.has(asset.id)) {
         throw new Error(`Duplicate sound ${asset.id}.`);

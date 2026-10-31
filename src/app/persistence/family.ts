@@ -6,44 +6,29 @@
  * into a reused slot. Names, pictures and how the game addresses a child live only here, never in
  * game state.
  *
- * - `address`: kluk (`boy`), holka (`girl`) or neither (`neutral`), for grammatical praise
- *   (i18n/messages.ts). It is presentation: it never enters a game hash.
+ * - `address`: kluk (`boy`), holka (`girl`) or neither (`neutral`), the contract's
+ *   `FORMS_OF_ADDRESS`, for grammatical praise (i18n/messages.ts). It is presentation: it never
+ *   enters a game hash.
+ * - `avatar`: one of the contract's `DIVER_AVATARS` (S5 paints them as `avatar/<diver-n>`).
  * - `grade`: the class chosen in the editor before the child's game save exists. The game takes
  *   it at the first session and the profile drops it, so the save stays the only lasting home of
  *   a child's grade.
  * - `grownUpsLanguage`: Czech or English for the grown-ups' area. The child's game is Czech.
  */
 import {
+  DIVER_AVATARS,
   FAMILY_GAME_ID,
   FAMILY_PROFILE_ID,
+  FORMS_OF_ADDRESS,
+  GRADES,
   MAX_PROFILE_NAME_LENGTH,
   MAX_PROFILES,
   PROFILE_IDS,
 } from '../../rules/contract';
-import type { ProfileId } from '../../rules/contract';
-import { isAddress, isLanguage } from '../i18n/messages';
-import type { Address, Language } from '../i18n/messages';
+import type { DiverAvatar, FormOfAddress, Grade, ProfileId } from '../../rules/contract';
+import { isLanguage } from '../i18n/messages';
+import type { Language } from '../i18n/messages';
 import type { RecordDefinition } from './records';
-
-/**
- * The divers a child can choose as their picture (S5 paints them). The shell names them until the
- * contract lists its art IDs (docs/app.md §4).
- */
-export const DIVER_AVATARS = [
-  'diver-1',
-  'diver-2',
-  'diver-3',
-  'diver-4',
-  'diver-5',
-  'diver-6',
-  'diver-7',
-  'diver-8',
-] as const;
-export type DiverAvatar = (typeof DIVER_AVATARS)[number];
-
-/** The school grades the game teaches: 3 starts in the lagoon, 4 in the Moon Caves. */
-export const GRADES = [3, 4] as const;
-export type Grade = (typeof GRADES)[number];
 
 export const MAX_DIVERS = MAX_PROFILES;
 export const MAX_NAME_LENGTH = MAX_PROFILE_NAME_LENGTH;
@@ -54,7 +39,7 @@ export interface Diver {
   readonly name: string;
   readonly avatar: DiverAvatar;
   /** How the game addresses this child: as a boy, a girl, or in neutral phrasing. */
-  readonly address: Address;
+  readonly address: FormOfAddress;
   /** The grade chosen before the game save exists; handed to the game at the first session. */
   readonly grade?: Grade;
 }
@@ -96,6 +81,10 @@ export function isDiverAvatar(value: unknown): value is DiverAvatar {
   return typeof value === 'string' && (DIVER_AVATARS as readonly string[]).includes(value);
 }
 
+export function isFormOfAddress(value: unknown): value is FormOfAddress {
+  return typeof value === 'string' && (FORMS_OF_ADDRESS as readonly string[]).includes(value);
+}
+
 export function isGrade(value: unknown): value is Grade {
   return typeof value === 'number' && (GRADES as readonly number[]).includes(value);
 }
@@ -132,7 +121,7 @@ export function isFamilyState(value: unknown): value is FamilyState {
     const normalized = normalizeName(name);
     if (!normalized.ok || normalized.name !== name) return false;
     if (names.some((other) => sameName(other, name))) return false;
-    if (!isDiverAvatar(avatar) || !isAddress(address)) return false;
+    if (!isDiverAvatar(avatar) || !isFormOfAddress(address)) return false;
     ids.add(id);
     names.push(name);
   }
@@ -151,7 +140,7 @@ function ordered(profiles: readonly Diver[]): Diver[] {
 export interface DiverInput {
   readonly name: string;
   readonly avatar: DiverAvatar;
-  readonly address: Address;
+  readonly address: FormOfAddress;
 }
 
 function checkInput(
@@ -165,7 +154,7 @@ function checkInput(
     return { ok: false, problem: 'taken' };
   }
   if (!isDiverAvatar(input.avatar)) return { ok: false, problem: 'avatar' };
-  if (!isAddress(input.address)) return { ok: false, problem: 'address' };
+  if (!isFormOfAddress(input.address)) return { ok: false, problem: 'address' };
   return { ok: true, value: { name: normalized.name } };
 }
 

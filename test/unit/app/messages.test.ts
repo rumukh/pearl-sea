@@ -1,50 +1,56 @@
 /**
- * The translator (src/app/i18n/messages.ts): Czech plural forms, grammatical address with a
- * neutral fallback, Czech typesetting, and the grown-ups' translator in Czech or English.
+ * The translator (src/app/i18n/messages.ts): the contract's Czech plural forms and grammatical
+ * address with a neutral fallback, Czech typesetting, and the grown-ups' translator in Czech or
+ * English.
  */
 import { describe, expect, it } from 'vitest';
 import {
   createGrownUpTranslator,
   createTranslator,
   hasMessage,
-  placeholders,
-  pluralCategory,
 } from '../../../src/app/i18n/messages';
-import type { Address } from '../../../src/app/i18n/messages';
+import type { FormOfAddress } from '../../../src/rules/contract';
 
 const NBSP = '\u00a0';
 
+/** A translator over a catalog that names each plural form, to see which one is chosen. */
+function forms(language: 'cs' | 'en'): (count: number) => string {
+  const catalog = {
+    'n.one': '{count} one',
+    ...(language === 'cs' ? { 'n.few': '{count} few' } : {}),
+    'n.other': '{count} other',
+  };
+  const t = createTranslator({ catalog, language });
+  return (count) => (t.plural as unknown as (key: string, count: number) => string)('n', count);
+}
+
 describe('Czech plural forms', () => {
   it('are one for 1, few for 2-4 and other for 0, 5 and more', () => {
-    const forms = [0, 1, 2, 3, 4, 5, 11, 12, 21, 22, 100, 101].map((count) =>
-      pluralCategory('cs', count),
-    );
-    expect(forms).toEqual([
-      'other',
-      'one',
-      'few',
-      'few',
-      'few',
-      'other',
-      'other',
-      'other',
-      'other',
-      'other',
-      'other',
-      'other',
+    const czech = forms('cs');
+    expect([0, 1, 2, 3, 4, 5, 11, 12, 21, 22, 100, 101].map(czech)).toEqual([
+      '0 other',
+      '1 one',
+      '2 few',
+      '3 few',
+      '4 few',
+      '5 other',
+      '11 other',
+      '12 other',
+      '21 other',
+      // Unlike some languages, Czech does not go back to "few" for 22, 23, 24.
+      '22 other',
+      '100 other',
+      '101 other',
     ]);
-    // Unlike some languages, Czech does not go back to "few" for 22, 23, 24.
-    expect(pluralCategory('cs', -3)).toBe('few');
-    expect(pluralCategory('cs', 1.5)).toBe('other');
   });
 
   it('are one and other in English', () => {
-    expect([0, 1, 2, 4, 5].map((count) => pluralCategory('en', count))).toEqual([
-      'other',
-      'one',
-      'other',
-      'other',
-      'other',
+    expect([0, 1, 2, 4, 5].map(forms('en'))).toEqual([
+      '0 other',
+      '1 one',
+      '2 other',
+      '4 other',
+      '5 other',
     ]);
   });
 
@@ -73,7 +79,7 @@ describe('grammatical address', () => {
     'hello.plain': 'Ahoj!',
   };
 
-  function speaking(address: Address) {
+  function speaking(address: FormOfAddress) {
     return createTranslator({ catalog, address: () => address }) as unknown as (
       key: string,
     ) => string;
@@ -90,7 +96,7 @@ describe('grammatical address', () => {
   });
 
   it('follows the child playing now', () => {
-    let address: Address = 'boy';
+    let address: FormOfAddress = 'boy';
     const t = createTranslator({ catalog, address: () => address }) as unknown as (
       key: string,
     ) => string;
@@ -100,7 +106,7 @@ describe('grammatical address', () => {
   });
 
   it('combines with plural forms as <key>.<plural>.<address>', () => {
-    let address: Address = 'girl';
+    let address: FormOfAddress = 'girl';
     const t = createTranslator({ catalog, address: () => address });
     const plural = t.plural as unknown as (key: string, count: number) => string;
     expect(plural('pearls.found', 1)).toBe('Našla jsi 1 perlu!');
@@ -132,7 +138,6 @@ describe('the translator', () => {
     );
     expect(() => t('error.code')).toThrow();
     expect(() => (t as unknown as (key: string) => string)('no.such.key')).toThrow();
-    expect(placeholders('Stahuji soubory: {completed} z {total}…')).toEqual(['completed', 'total']);
     expect(hasMessage('toast.failed')).toBe(true);
     expect(hasMessage('error.no-such-code')).toBe(false);
   });

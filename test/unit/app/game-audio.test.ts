@@ -14,19 +14,19 @@ const MAP: AudioMap = {
   packId: 'ps-audio',
   revision: 'r1',
   effects: [
-    { id: 'chime', src: 'assets/audio/sfx/chime.wav', durationMs: 300 },
-    { id: 'coin', src: 'assets/audio/sfx/coin.wav', durationMs: 300 },
-    { id: 'fanfare', src: 'assets/audio/sfx/fanfare.wav', durationMs: 500 },
-    { id: 'star-1', src: 'assets/audio/sfx/star-1.wav', durationMs: 400 },
+    { id: 'sfx/chime', src: 'assets/audio/sfx/chime.wav', durationMs: 300 },
+    { id: 'sfx/coin', src: 'assets/audio/sfx/coin.wav', durationMs: 300 },
+    { id: 'sfx/fanfare', src: 'assets/audio/sfx/fanfare.wav', durationMs: 500 },
+    { id: 'sfx/star-1', src: 'assets/audio/sfx/star-1.wav', durationMs: 400 },
   ],
-  music: [{ id: 'grotto-loop', src: 'assets/audio/music/grotto.wav', durationMs: 30_000 }],
+  music: [{ id: 'music/grotto', src: 'assets/audio/music/grotto.wav', durationMs: 30_000 }],
   events: {
-    'answer.correct': { sounds: ['chime'], pick: 'first' },
-    'coins.earned': { sounds: ['coin'], pick: 'first' },
-    'level.completed': { sounds: ['fanfare', 'star-1'], pick: 'sequence' },
+    'answer.correct': { sounds: ['sfx/chime'], pick: 'first' },
+    'coins.earned': { sounds: ['sfx/coin'], pick: 'first' },
+    'level.completed': { sounds: ['sfx/fanfare', 'sfx/star-1'], pick: 'sequence' },
   },
-  musicStates: { grotto: 'grotto-loop', round: 'grotto-loop', battle: null },
-  throttle: { coin: { minIntervalMs: 100, maxConcurrent: 3 } },
+  musicStates: { grotto: 'music/grotto', round: 'music/grotto', battle: null },
+  throttle: { 'sfx/coin': { minIntervalMs: 100, maxConcurrent: 3 } },
   crossfadeSeconds: 1.2,
 };
 
@@ -111,10 +111,10 @@ describe('game audio', () => {
     fake.finishUnlock();
     await flush();
     expect(audio.status()).toBe('ready');
-    expect(fake.calls).toEqual(['music grotto-loop']);
+    expect(fake.calls).toEqual(['music music/grotto']);
     expect(fake.controller.setAtmosphere).toHaveBeenCalledWith({
       packId: 'ps-audio',
-      asset: 'grotto-loop',
+      asset: 'music/grotto',
       fadeSeconds: 1.2,
     });
 
@@ -125,7 +125,12 @@ describe('game audio', () => {
     audio.cue('coins.earned');
     audio.cue('monster.freed');
     await flush();
-    expect(fake.calls).toEqual(['music grotto-loop', 'effect chime', 'effect coin', 'effect coin']);
+    expect(fake.calls).toEqual([
+      'music music/grotto',
+      'effect sfx/chime',
+      'effect sfx/coin',
+      'effect sfx/coin',
+    ]);
     expect(fake.controller.registerPack).toHaveBeenCalledWith(
       expect.objectContaining({ id: 'ps-audio', lines: [] }),
     );
@@ -139,7 +144,7 @@ describe('game audio', () => {
     audio.setMusic('battle');
     audio.setMusic('unknown-state');
     await flush();
-    expect(fake.calls).toEqual(['music grotto-loop', 'music silence']);
+    expect(fake.calls).toEqual(['music music/grotto', 'music silence']);
   });
 
   it('plays a sequence on time and drops its rest when cleared', async () => {
@@ -149,18 +154,23 @@ describe('game audio', () => {
     const audio = await ready(fake, () => now);
     audio.cue('level.completed', { count: 1 });
     await flush();
-    expect(fake.calls).toEqual(['effect fanfare']);
+    expect(fake.calls).toEqual(['effect sfx/fanfare']);
     now += 500;
     vi.advanceTimersByTime(500);
     await flush();
-    expect(fake.calls).toEqual(['effect fanfare', 'effect star-1']);
+    expect(fake.calls).toEqual(['effect sfx/fanfare', 'effect sfx/star-1']);
 
     audio.cue('level.completed', { count: 1 });
     audio.clear();
     now += 1000;
     vi.advanceTimersByTime(1000);
     await flush();
-    expect(fake.calls).toEqual(['effect fanfare', 'effect star-1', 'effect fanfare', 'clear']);
+    expect(fake.calls).toEqual([
+      'effect sfx/fanfare',
+      'effect sfx/star-1',
+      'effect sfx/fanfare',
+      'clear',
+    ]);
   });
 
   it('is silent while paused, follows music changes made meanwhile, and clears on a switch', async () => {
@@ -173,7 +183,7 @@ describe('game audio', () => {
     audio.resume();
     audio.clear();
     await flush();
-    expect(fake.calls).toEqual(['music grotto-loop', 'pause', 'resume', 'music silence', 'clear']);
+    expect(fake.calls).toEqual(['music music/grotto', 'pause', 'resume', 'music silence', 'clear']);
   });
 
   it('applies bus volumes from preferences and lowers the music while read-aloud speaks', async () => {

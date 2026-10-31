@@ -4,32 +4,35 @@
  * a compile-time type, and read through the SDK's `createMessages`, which refuses missing keys
  * and missing placeholder values instead of inventing text.
  *
- * Czech grammar is part of the catalog format (docs/app.md §13):
+ * Czech grammar is part of the catalog format: the contract's convention (docs/contract.md §7.4,
+ * `catalogs.ts`, checked by `catalogProblems` in `npm run verify`):
  *
  * - **Plurals.** A message about a count has the keys `<key>.one` (1), `<key>.few` (2-4) and
- *   `<key>.other` (0, 5 and more): "1 mince", "3 mince", "5 mincí". English, for grown-ups only,
- *   has `.one` and `.other`. `t.plural(key, count)` picks the form and passes the count as
- *   `{count}`.
- * - **Address.** A child's profile says kluk (boy), holka (girl) or neither. A message that
- *   addresses the child in a gendered form keeps a neutral phrasing under its bare key and may
- *   add `<key>.boy` and `<key>.girl` ("Dokázal jsi to!", "Dokázala jsi to!"). The translator
- *   picks the form for the child playing now, and the neutral phrasing for anyone else. Plural
- *   and address combine as `<key>.<plural>.<address>`.
+ *   `<key>.other` (0, 5 and more): "1 mince", "3 mince", "5 mincí" (`czechPlural`). English, for
+ *   grown-ups only, has `.one` and `.other` (`englishPlural`). `t.plural(key, count)` picks the
+ *   form and passes the count as `{count}`. Counts are whole numbers.
+ * - **Address.** A child's profile says kluk (boy), holka (girl) or neither (`FORMS_OF_ADDRESS`).
+ *   A message that addresses the child in a gendered form keeps a neutral phrasing under its bare
+ *   key and may add the pair `<key>.boy` and `<key>.girl` ("Dokázal jsi to!", "Dokázala jsi
+ *   to!"). The translator picks the form for the child playing now, and the neutral phrasing for
+ *   anyone else. Plural and address combine as `<key>.<plural>.<address>`.
  * - **Typography.** A one-letter preposition or conjunction is bound to the next word with a
  *   no-break space in every Czech string the translator returns (typography.ts).
  */
 import { createMessages } from '@aegis/browser/ui';
 import cs from '../../../content/catalogs/cs.ui.json' with { type: 'json' };
 import en from '../../../content/catalogs/en.ui.json' with { type: 'json' };
+import { czechPlural, englishPlural } from '../../rules/contract';
+import type { FormOfAddress, GROWN_UPS_KEY_PREFIX } from '../../rules/contract';
 import { keepOneLetterWordsWithNext } from './typography';
 
 export type MessageKey = keyof typeof cs;
 /** Keys of the grown-ups' area, the only part of the game that can be shown in English. */
-export type GrownUpKey = Extract<MessageKey, `grownups.${string}`>;
+export type GrownUpKey = Extract<MessageKey, `${typeof GROWN_UPS_KEY_PREFIX}${string}`>;
 type PluralBase<K> = K extends `${infer Base}.other` ? Base : never;
 /** Bases of messages about a count (`coins.label` for `coins.label.one`, `.few`, `.other`). */
 export type PluralKey = PluralBase<MessageKey>;
-export type GrownUpPluralKey = Extract<PluralKey, `grownups.${string}`>;
+export type GrownUpPluralKey = Extract<PluralKey, `${typeof GROWN_UPS_KEY_PREFIX}${string}`>;
 
 export type Catalog = Readonly<Record<string, string>>;
 export type MessageValues = Readonly<Record<string, string | number>>;
@@ -40,25 +43,6 @@ export const EN_UI: Catalog = en;
 /** The child's game is always Czech; the grown-ups' area is Czech or English. */
 export const LANGUAGES = ['cs', 'en'] as const;
 export type Language = (typeof LANGUAGES)[number];
-
-/** How the game addresses a child: as a boy (kluk), a girl (holka), or neither. */
-export const ADDRESSES = ['boy', 'girl', 'neutral'] as const;
-export type Address = (typeof ADDRESSES)[number];
-
-export const PLURAL_CATEGORIES = ['one', 'few', 'other'] as const;
-export type PluralCategory = (typeof PLURAL_CATEGORIES)[number];
-
-/**
- * The plural form for a count: Czech `one` for 1, `few` for 2-4 and `other` for 0, 5 and more
- * (also for a fraction, which the game never counts); English `one` and `other`.
- */
-export function pluralCategory(language: Language, count: number): PluralCategory {
-  const size = Math.abs(count);
-  if (!Number.isInteger(size)) return 'other';
-  if (size === 1) return 'one';
-  if (language === 'cs' && size >= 2 && size <= 4) return 'few';
-  return 'other';
-}
 
 export interface Translator<K extends string, P extends string> {
   (key: K, values?: MessageValues): string;
@@ -76,7 +60,7 @@ export interface TranslatorOptions {
   readonly catalog?: Catalog;
   readonly language?: Language;
   /** Whom the messages address now; neutral when nobody is playing. */
-  readonly address?: () => Address;
+  readonly address?: () => FormOfAddress;
   /** Where a key the catalog lacks is looked up instead (English falls back to Czech). */
   readonly fallback?: { readonly catalog: Catalog; readonly language: Language };
 }
@@ -92,7 +76,7 @@ function translator<K extends string, P extends string>(
 ): Translator<K, P> {
   const catalog = options.catalog ?? CS_UI;
   const language = options.language ?? 'cs';
-  const address = options.address ?? ((): Address => 'neutral');
+  const address = options.address ?? ((): FormOfAddress => 'neutral');
   const sources = [
     { catalog, language, message: createMessages(catalog) },
     ...(options.fallback
@@ -110,13 +94,11 @@ function translator<K extends string, P extends string>(
     return source.language === 'cs' ? keepOneLetterWordsWithNext(text) : text;
   };
 
-  const plural = (key: P, count: number, values: MessageValues = {}): string => {
-    let form: PluralCategory = pluralCategory(language, count);
-    if (form === 'few' && !sources.some((source) => Object.hasOwn(source.catalog, `${key}.few`))) {
-      form = 'other';
-    }
-    return lookup(`${key}.${form}`, { ...values, count });
-  };
+  const plural = (key: P, count: number, values: MessageValues = {}): string =>
+    lookup(`${key}.${language === 'cs' ? czechPlural(count) : englishPlural(count)}`, {
+      ...values,
+      count,
+    });
 
   return Object.assign((key: K, values?: MessageValues) => lookup(key, values), {
     plural,
@@ -136,11 +118,6 @@ export function createGrownUpTranslator(language: Language): GrownUpTranslate {
   );
 }
 
-/** Placeholder names a message expects, in order of appearance. */
-export function placeholders(text: string): string[] {
-  return [...text.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]!);
-}
-
 /** Whether a key built at runtime (for example `error.<code>`) is in the Czech catalog. */
 export function hasMessage(key: string): key is MessageKey {
   return Object.hasOwn(CS_UI, key);
@@ -148,8 +125,4 @@ export function hasMessage(key: string): key is MessageKey {
 
 export function isLanguage(value: unknown): value is Language {
   return typeof value === 'string' && (LANGUAGES as readonly string[]).includes(value);
-}
-
-export function isAddress(value: unknown): value is Address {
-  return typeof value === 'string' && (ADDRESSES as readonly string[]).includes(value);
 }

@@ -9,10 +9,8 @@
  */
 import { parseBoundedJson } from '@aegis/browser/save';
 import { BACKUP_FORMAT } from '../../rules/contract';
-import { isAddress } from '../i18n/messages';
-import type { Address } from '../i18n/messages';
-import { isDiverAvatar } from './family';
-import type { DiverAvatar } from './family';
+import type { DiverAvatar, FormOfAddress } from '../../rules/contract';
+import { isDiverAvatar, isFormOfAddress } from './family';
 
 export const BACKUP_VERSION = 1;
 export const BACKUP_MAX_BYTES = 4 * 1024 * 1024;
@@ -20,7 +18,7 @@ export const BACKUP_MAX_BYTES = 4 * 1024 * 1024;
 export interface BackupDiver {
   readonly name: string;
   readonly avatar: DiverAvatar;
-  readonly address: Address;
+  readonly address: FormOfAddress;
 }
 
 export interface BackupFile {
@@ -78,7 +76,7 @@ export function readBackup(text: string): BackupFile {
     !isRecord(diver) ||
     typeof diver['name'] !== 'string' ||
     !isDiverAvatar(diver['avatar']) ||
-    !isAddress(diver['address'])
+    !isFormOfAddress(diver['address'])
   ) {
     throw new BackupError('not-a-backup');
   }

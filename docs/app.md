@@ -8,7 +8,9 @@ reference implementation; the modules that are not about arithmetic are ported h
 kept under test.
 
 **Status: Phase A** (the shell infrastructure). Everything below runs and is tested; the game
-screens join it in Phase B, once the domain contract (`docs/contract.md`) is merged (§16).
+screens join it in Phase B (§16). The shell takes its vocabularies from the domain contract
+(`src/rules/contract`, `docs/contract.md`): diver avatars, forms of address, grades, the catalog
+convention, the audio manifest path, schema and sound IDs, and the storage names.
 
 ## 1. Layout
 
@@ -77,12 +79,13 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
 
 - **Family** (`family.ts`): up to four children ("divers") in the fixed slots `profile-1` …
   `profile-4`; a new child takes the first free slot. Each has a name (NFC, single-spaced, 1-16
-  characters, Czech letters welcome, unique ignoring case), a picture `diver-1` … `diver-8` (S5
-  paints them; the shell names them until the contract lists its art IDs), an **address**
-  (`boy`, `girl` or `neutral`: kluk, holka or neither, for grammatical praise, §12) and, until the
-  game save has it, the **grade** (3 or 4) chosen in the editor. The record also holds
-  `grownUpsLanguage` (`cs` or `en`). Removing a child erases that slot's game, preferences and day
-  records **before** the list drops them. None of this enters game state or a hash.
+  characters, Czech letters welcome, unique ignoring case), a picture from the contract's
+  `DIVER_AVATARS` (`diver-1` … `diver-8`; S5 paints them as `avatar/<diver-n>`), an **address**
+  from `FORMS_OF_ADDRESS` (`boy`, `girl` or `neutral`: kluk, holka or neither, for grammatical
+  praise, §12) and, until the game save has it, the **grade** from `GRADES` (3 or 4) chosen in the
+  editor. The record also holds `grownUpsLanguage` (`cs` or `en`). Removing a child erases that
+  slot's game, preferences and day records **before** the list drops them. None of this enters
+  game state or a hash.
 - **Preferences** (`preferences.ts`): `presentation` (the SDK's `PresentationPreferences`: locale
   `cs`, text 100/125/150/200 %, less motion, volumes for narration/music/effects, all 1.0 by
   default), `readAloud`, `autoRead`, `voice` (a local voice URI or null) and `timeLimit` (null or
@@ -194,14 +197,18 @@ browser allows it, unlocked by the first tap or key. Music and effects volumes c
 preferences; music is lowered to 35 % while read-aloud speaks. Nothing plays while paused or hidden;
 `clear()` drops pending sounds at a restore or a change of child. Every failure is contained.
 
-S5's manifest is `assets/audio/manifest.json`, schema **`pearl-sea-audio-manifest/1`** (Dragon
-Valley's `dragon-valley-audio-manifest/1` under this game's name; `audio/manifest.ts` documents its
-fields): sounds on the `effects` or `music` bus with their durations, an event map (`select`:
-`streak`, `amount`, `sequence`, `cycle`, `random`, or the first sound), music states with a
-crossfade, and per-sound throttles. Until S5's pack lands the repository ships an **empty
-placeholder** in that schema, so the game is silent without a missing file; S5's generator
-overwrites it. With no sounds, no `AudioContext` is ever created. Shell cues: `ui.tap`,
-`ui.keypad`, `ui.navigate`, `ui.blocked`. Screens name music states (`title`, …).
+S5's manifest is the contract's `AUDIO_MANIFEST_PATH` (`assets/audio/manifest.json`), schema
+`AUDIO_MANIFEST_SCHEMA` (**`pearl-sea-audio-manifest/1`**, Dragon Valley's format under this game's
+name; `audio/manifest.ts` documents its fields): sounds on the `effects` or `music` bus with their
+durations, an event map (`select`: `streak`, `amount`, `sequence`, `cycle`, `random`, or the first
+sound), music states with a crossfade, and per-sound throttles. Sound IDs follow the contract's
+`AUDIO_ID_PATTERN`: effects are `sfx/<name>` and music loops `music/<loop>` (`music/grotto`,
+`music/map`, `music/practice`, `music/battle`, `music/victory`, `music/finale`); a manifest that
+names a sound otherwise is refused as a whole. The event map is keyed by the contract's `EVENTS`
+(`answer.correct`, `coins.earned`, …) and the shell cues `ui.tap`, `ui.keypad`, `ui.navigate`,
+`ui.blocked`. Until S5's pack lands the repository ships an **empty placeholder** in that schema,
+so the game is silent without a missing file; S5's generator overwrites it. With no sounds, no
+`AudioContext` is ever created. Screens name music states (`title`, …).
 
 ## 10. Read-aloud
 
@@ -231,20 +238,24 @@ opened. There is no forced reload.
 ## 12. Messages
 
 All text lives in `content/catalogs/cs.ui.json` (every string) and `en.ui.json` (the grown-ups'
-area only: keys `grownups.*`, checked by `scripts/validate-content.mjs`), bundled at build time so
-each key is a compile-time type, and read through the SDK's `createMessages`, which refuses missing
-keys and placeholder values. Czech typography (quotation marks, the ellipsis, the dash) and the
-reading font's coverage are checked by the content gate.
+area only: keys `grownups.*`), bundled at build time so each key is a compile-time type, and read
+through the SDK's `createMessages`, which refuses missing keys and placeholder values. The content
+gate (`scripts/validate-content.mjs`) checks the catalog convention, English for every grown-ups'
+key, Czech typography (quotation marks, the ellipsis, the dash) and the reading font's coverage.
 
-The catalog format carries Czech grammar; S3's content strings follow it too:
+The catalog format carries Czech grammar. It is the contract's convention (docs/contract.md §7.4,
+`src/rules/contract/catalogs.ts`: `catalogProblems`, `splitCatalogKey`, `czechPlural`,
+`englishPlural`), shared with S3's content strings:
 
 - **Plurals**: a message about a count has `<key>.one` (1), `<key>.few` (2-4) and `<key>.other`
   (0, 5 and more) with `{count}`: "1 mince", "3 mince", "5 mincí". `t.plural(key, count)` picks
-  the form. English has `.one` and `.other`.
+  the form with `czechPlural` (English: `englishPlural`, `.one` and `.other`). Counts are whole
+  numbers.
 - **Address**: the bare key is a neutral phrasing and is required; `<key>.boy` and `<key>.girl`
-  are optional and come in pairs ("Dokázal jsi to!", "Dokázala jsi to!"). The translator picks the
-  form for the child playing now (`app.setAddress`) and the neutral phrasing for a child who chose
-  neither, or when nobody is playing. Plural and address combine as `<key>.<plural>.<address>`.
+  are optional and come in pairs with the same placeholders ("Dokázal jsi to!", "Dokázala jsi
+  to!"). The translator picks the form for the child playing now (`app.setAddress`, a
+  `FormOfAddress`) and the neutral phrasing for a child who chose neither, or when nobody is
+  playing. Plural and address combine as `<key>.<plural>.<address>`.
 - **Typography**: every Czech string the translator returns binds a one-letter preposition or
   conjunction to the next word with a no-break space (`i18n/typography.ts`), so "s ponorkou" never
   breaks after "s".
@@ -252,8 +263,9 @@ The catalog format carries Czech grammar; S3's content strings follow it too:
   on request), falling back to Czech for any key English lacks.
 
 Child-facing sentences keep to the narrative toolkit's child profile (at most ten words); a unit
-test checks sentence length, placeholders, plural and address completeness, the English
-translation of the whole grown-ups' area, and that every key is used.
+test runs `catalogProblems` on both catalogs and checks sentence length, placeholders, `{count}` in
+every plural form, the English translation of the whole grown-ups' area, and that every key is
+used.
 
 ## 13. Printables
 

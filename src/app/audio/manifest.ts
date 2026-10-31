@@ -1,30 +1,29 @@
 /**
- * Reads S5's audio manifest (`assets/audio/manifest.json`, schema `pearl-sea-audio-manifest/1`,
- * Dragon Valley's `dragon-valley-audio-manifest/1` under this game's name) into the shell's
- * `AudioMap`. Only the fields the shell needs are read; anything malformed is refused, and the
- * game then runs silently rather than half-wired.
+ * Reads S5's audio manifest (the contract's `AUDIO_MANIFEST_PATH`, `assets/audio/manifest.json`,
+ * schema `AUDIO_MANIFEST_SCHEMA`, `pearl-sea-audio-manifest/1`: Dragon Valley's format under this
+ * game's name) into the shell's `AudioMap`. Only the fields the shell needs are read; anything
+ * malformed is refused, and the game then runs silently rather than half-wired. Sound IDs follow
+ * the contract (`AUDIO_ID_PATTERN`): effects are `sfx/<name>`, music loops `music/<loop>`.
  *
  * The manifest:
  *
  * ```json
  * {
  *   "schema": "pearl-sea-audio-manifest/1", "packId": "…", "revision": "…",
- *   "sounds": [{ "id": "bubble-1", "src": "assets/audio/sfx/bubble-1.wav", "bus": "effects",
+ *   "sounds": [{ "id": "sfx/bubble", "src": "assets/audio/sfx/bubble.ogg", "bus": "effects",
  *                "durationSeconds": 0.31 }],
- *   "events": { "answer.correct": { "sounds": ["chime-1", "chime-2"], "select": "streak" } },
- *   "music": { "states": { "grotto": "grotto-loop", "title": null }, "crossfadeSeconds": 1.2 },
- *   "voices": { "throttle": { "coin": { "minIntervalMs": 70, "maxConcurrent": 3 } } }
+ *   "events": { "answer.correct": { "sounds": ["sfx/chime-1", "sfx/chime-2"], "select": "streak" } },
+ *   "music": { "states": { "grotto": "music/grotto", "title": null }, "crossfadeSeconds": 1.2 },
+ *   "voices": { "throttle": { "sfx/coin": { "minIntervalMs": 70, "maxConcurrent": 3 } } }
  * }
  * ```
  */
+import { AUDIO_MANIFEST_PATH, AUDIO_MANIFEST_SCHEMA } from '../../rules/contract';
 import { fetchSiteText } from '../content/site';
 import type { Fetcher } from '../content/site';
 import { validateAudioMap } from './sound-map';
 import { STUB_AUDIO_MAP } from './stub-map';
 import type { AudioMap, EventSound, PickPolicy, SoundAsset, SoundThrottle } from './sound-map';
-
-export const MANIFEST_SCHEMA = 'pearl-sea-audio-manifest/1';
-export const MANIFEST_PATH = 'assets/audio/manifest.json';
 
 const SELECT_POLICIES: Readonly<Record<string, PickPolicy>> = {
   streak: 'streak',
@@ -57,8 +56,8 @@ function count(value: unknown, what: string): number {
 
 export function parseAudioManifest(input: unknown): AudioMap {
   const manifest = record(input, 'the manifest');
-  if (manifest['schema'] !== MANIFEST_SCHEMA) {
-    throw new Error(`Audio manifest: expected schema ${MANIFEST_SCHEMA}.`);
+  if (manifest['schema'] !== AUDIO_MANIFEST_SCHEMA) {
+    throw new Error(`Audio manifest: expected schema ${AUDIO_MANIFEST_SCHEMA}.`);
   }
   if (!Array.isArray(manifest['sounds'])) throw new Error('Audio manifest: sounds must be a list.');
   const effects: SoundAsset[] = [];
@@ -131,7 +130,7 @@ export function parseAudioManifest(input: unknown): AudioMap {
 /** S5's manifest as the shell's map, or the silent stub when it cannot be read or trusted. */
 export async function loadAudioMap(baseUrl: string, fetcher?: Fetcher): Promise<AudioMap> {
   try {
-    const body = await fetchSiteText(baseUrl, MANIFEST_PATH, fetcher);
+    const body = await fetchSiteText(baseUrl, AUDIO_MANIFEST_PATH, fetcher);
     return parseAudioManifest(JSON.parse(body) as unknown);
   } catch {
     return STUB_AUDIO_MAP;

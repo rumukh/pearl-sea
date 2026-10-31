@@ -18,7 +18,7 @@ import { CommandRejectedError, StaleCommandError } from '../controller/commands'
 import { createOfflineInstaller } from '../grownups/offline';
 import type { OfflineInstaller } from '../grownups/offline';
 import { createGrownUpTranslator, createTranslator, CS_UI, hasMessage } from '../i18n/messages';
-import type { Address, GrownUpTranslate, Language } from '../i18n/messages';
+import type { GrownUpTranslate, Language } from '../i18n/messages';
 import { DEFAULT_PREFERENCES } from '../persistence/preferences';
 import type { ChildPreferences } from '../persistence/preferences';
 import type { ProfileData } from '../persistence/profile-data';
@@ -36,6 +36,7 @@ import { createKeyboard } from '../ui/keyboard';
 import type { UiKit } from '../ui/kit';
 import { createToaster } from '../ui/toast';
 import { SAVE_DATABASE } from '../../rules/contract';
+import type { FormOfAddress } from '../../rules/contract';
 
 /** Shown when nothing else can be: the catalog may be what failed, so these are built in. */
 export const STARTUP_FAILURE = {
@@ -81,7 +82,7 @@ export interface App {
   /** The grown-ups' messages, in the language the family chose for their area. */
   grownUps(language?: Language): GrownUpTranslate;
   /** Address the children's messages to a boy, a girl, or neutrally (nobody playing). */
-  setAddress(address: Address): void;
+  setAddress(address: FormOfAddress): void;
   /** Apply a child's presentation preferences, or the defaults with null. */
   applyPresentation(preferences: ChildPreferences | null): void;
   /** Read Czech text aloud with a child's voice settings, if a local Czech voice exists. */
@@ -104,7 +105,7 @@ export interface AppOptions {
 
 export function createApp(options: AppOptions): App {
   const { env, root, bootStatus } = options;
-  let address: Address = 'neutral';
+  let address: FormOfAddress = 'neutral';
   const t = createTranslator({ address: () => address });
   const announcer = createAnnouncer();
   const toasts = createToaster(announcer);

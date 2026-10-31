@@ -1,29 +1,55 @@
 /**
  * The application shell: the persistent chrome around screens (live regions, toasts, dialog
- * host, effects layer), the shared services, and the error boundary that turns any failure into
- * a calm screen instead of console noise.
+ * host, effects layer), the shared services, the active child's game session, and the error
+ * boundary that turns any failure into a calm screen instead of console noise.
  *
  * Children see Czech, addressed as the child playing (`setAddress`); the grown-ups' area speaks
  * the language the family chose (`grownUps()`). Presentation preferences (text size, less
- * motion, volumes) are applied to the whole page. The game screens add the active child's game
- * session on top of this shell (docs/app.md §16).
+ * motion, volumes) are applied to the whole page.
+ *
+ * One child plays at a time. Opening a child (`openDiver`) loads their preferences, day record
+ * and game session, addresses the messages to them, applies their presentation preferences,
+ * binds the visibility pause, routes live commit events to sounds and keeps them briefly for the
+ * screens that celebrate them. Closing undoes all of it. Without rules and content (`useContent`
+ * at boot) no child's game opens.
  */
 import { IndexedDbSaveStorage } from '@aegis/browser/indexeddb';
 import type { SaveStorage } from '@aegis/browser/save';
-import { applyPresentationPreferences, CHILD_SAFE_PRESET } from '@aegis/browser/ui';
+import {
+  applyPresentationPreferences,
+  bindVisibilityPause,
+  CHILD_SAFE_PRESET,
+} from '@aegis/browser/ui';
+import type { ArtLibrary } from '../art/library';
 import { createGameAudio } from '../audio/game-audio';
 import type { GameAudio } from '../audio/game-audio';
+import { eventCueContext } from '../audio/sound-map';
 import type { AudioMap } from '../audio/sound-map';
-import { CommandRejectedError, StaleCommandError } from '../controller/commands';
+import { createContentText, createGrownUpContentText } from '../content/text';
+import type { ContentCatalogs, ContentText } from '../content/text';
+import {
+  CommandRejectedError,
+  createCommandController,
+  StaleCommandError,
+} from '../controller/commands';
+import type { CommandController } from '../controller/commands';
+import type { PearlSeaGame, PearlSeaSession } from '../game/definition';
+import { createPlayClock } from '../game/timer';
+import type { PlayClock } from '../game/timer';
 import { createOfflineInstaller } from '../grownups/offline';
 import type { OfflineInstaller } from '../grownups/offline';
 import { createGrownUpTranslator, createTranslator, CS_UI, hasMessage } from '../i18n/messages';
 import type { GrownUpTranslate, Language } from '../i18n/messages';
+import { DayStore } from '../persistence/day';
+import { findDiver } from '../persistence/family';
+import type { Diver } from '../persistence/family';
+import { openGameSession } from '../persistence/game-session';
 import { DEFAULT_PREFERENCES } from '../persistence/preferences';
 import type { ChildPreferences } from '../persistence/preferences';
+import { gameRecords } from '../persistence/profile-data';
 import type { ProfileData } from '../persistence/profile-data';
 import { RecoveryRequired } from '../persistence/recovery';
-import { FamilyStore } from '../persistence/stores';
+import { FamilyStore, PreferencesStore } from '../persistence/stores';
 import { createRouter } from '../router/router';
 import type { Router, ScreenEntry } from '../router/router';
 import type { PrintRequest } from '../screens/print';
@@ -35,8 +61,8 @@ import { h } from '../ui/dom';
 import { createKeyboard } from '../ui/keyboard';
 import type { UiKit } from '../ui/kit';
 import { createToaster } from '../ui/toast';
-import { SAVE_DATABASE } from '../../rules/contract';
-import type { FormOfAddress } from '../../rules/contract';
+import { profileSeed, SAVE_DATABASE } from '../../rules/contract';
+import type { FormOfAddress, GameAction, GameEvent } from '../../rules/contract';
 
 /** Shown when nothing else can be: the catalog may be what failed, so these are built in. */
 export const STARTUP_FAILURE = {
@@ -44,6 +70,20 @@ export const STARTUP_FAILURE = {
   body: 'Zkus to prosím znovu. Když to nepůjde, zavolej dospělého.',
   retry: 'Zkusit znovu',
 } as const;
+
+/** Live events kept for screens; older ones fall off (they only drive one-shot celebrations). */
+const MAX_INBOX = 64;
+
+/**
+ * Events whose sounds belong to a celebration screen, which cues them in time with its picture
+ * (the hatch fanfare lands when the egg cracks), instead of when the answer is committed.
+ */
+const CELEBRATION_SOUNDS: ReadonlySet<string> = new Set(['friend.hatched', 'monster.freed']);
+
+/** The router key of a child's play screen. */
+export function playKey(diverId: string): string {
+  return `play:${diverId}`;
+}
 
 export interface AppEnvironment {
   /** Deployment base path, e.g. `/pearl-sea/`. */
@@ -54,11 +94,64 @@ export interface AppEnvironment {
   readonly revision: string;
 }
 
+/**
+ * Live game events since a screen last took them, oldest first. Events are one-shots: a restore
+ * empties the inbox, and screens rebuild from the view.
+ */
+export interface EventInbox {
+  take(types?: readonly string[]): GameEvent[];
+}
+
+export interface ActiveDiver {
+  readonly diver: Diver;
+  readonly game: PearlSeaSession;
+  readonly commands: CommandController<GameAction>;
+  readonly preferences: PreferencesStore;
+  /** How the child's day began, for the diary card at goodbye. */
+  readonly day: DayStore;
+  readonly events: EventInbox;
+  /** Time played in this page (hidden time excluded), for the grown-ups' time limit. */
+  readonly clock: PlayClock;
+  /** True once the child's time limit (if any) is used up. */
+  timeIsUp(): boolean;
+}
+
+/** The game and its strings, set once at boot (`useContent`). */
+export interface GameContent {
+  readonly game: PearlSeaGame;
+  readonly catalogs: ContentCatalogs;
+  /** Content strings for the child, addressed to the child playing. */
+  readonly text: ContentText;
+}
+
 export type GrownUpsTab = 'settings' | 'data' | 'offline' | 'about';
 export const GROWN_UPS_TABS: readonly GrownUpsTab[] = ['settings', 'data', 'offline', 'about'];
 
 export interface Screens {
   title(): ScreenEntry;
+  /** The children on this device: choose who plays, or add one. */
+  divers(): ScreenEntry;
+  /** The editor of a new child (`null`) or of a child on this device. */
+  editor(diverId: string | null): ScreenEntry;
+  /** The game: whatever the view requires now (story, round, results), else the grotto. */
+  play(diverId: string): ScreenEntry;
+  /** The sea map: the shallows or the deep, with the regions. */
+  map(diverId: string): ScreenEntry;
+  /** A region's scene with its level nodes. */
+  region(diverId: string, regionId: string): ScreenEntry;
+  /** A level's intro. */
+  level(diverId: string, levelId: string): ScreenEntry;
+  /** U Mrože, the shop. */
+  shop(diverId: string): ScreenEntry;
+  /** The sea friends, the wardrobe and the grotto's decorations. */
+  friends(diverId: string): ScreenEntry;
+  /** The friends' gallery of freed monsters. */
+  gallery(diverId: string): ScreenEntry;
+  album(diverId: string): ScreenEntry;
+  /** The Great Shell (Velká lastura). */
+  shell(diverId: string): ScreenEntry;
+  /** Goodbye, with the diary card of the child's day. */
+  goodbye(diverId: string): ScreenEntry;
   /** The grown-ups' area, behind the gate. */
   grownUps(tab?: GrownUpsTab, diverId?: string): ScreenEntry;
   /** The print preview of a printable from the grown-ups' area. */
@@ -76,17 +169,33 @@ export interface App {
   readonly audio: GameAudio;
   readonly speech: ReadAloud;
   readonly offline: OfflineInstaller;
+  /** S5's art by art ID (placeholders for what is not published yet). */
+  readonly art: ArtLibrary;
   /** Backups and erasing of a child's stored records. */
   readonly profiles: ProfileData;
   screens: Screens;
+  /** The game and its content strings, or null while the shell has no rules or content. */
+  content(): GameContent | null;
+  useContent(game: PearlSeaGame, catalogs: ContentCatalogs): void;
+  /** Content strings for the grown-ups' area, in its language. */
+  grownUpText(language?: Language): ContentText;
+  active(): ActiveDiver | null;
+  /** Open a child's game (closing any other); throws `RecoveryRequired`. */
+  openDiver(diverId: string): Promise<ActiveDiver>;
+  closeDiver(): Promise<void>;
+  /** Show what the game needs next: back to the child's play screen, rebuilt from the view. */
+  continueGame(diverId: string): Promise<void>;
   /** The grown-ups' messages, in the language the family chose for their area. */
   grownUps(language?: Language): GrownUpTranslate;
   /** Address the children's messages to a boy, a girl, or neutrally (nobody playing). */
   setAddress(address: FormOfAddress): void;
   /** Apply a child's presentation preferences, or the defaults with null. */
   applyPresentation(preferences: ChildPreferences | null): void;
-  /** Read Czech text aloud with a child's voice settings, if a local Czech voice exists. */
-  speak(text: string, preferences: ChildPreferences): boolean;
+  /**
+   * Read Czech text aloud with a child's voice settings (the active child's by default), if a
+   * local Czech voice exists and read-aloud is on.
+   */
+  speak(text: string, preferences?: ChildPreferences): boolean;
   /** Stop reading aloud (and bring the music back up). */
   stopSpeaking(): void;
   reportError(error: unknown): void;
@@ -100,6 +209,7 @@ export interface AppOptions {
   /** The hidden readiness signal for tests and tools (`data-state`, `data-screen`). */
   readonly bootStatus: HTMLElement;
   readonly audioMap: AudioMap;
+  readonly art: ArtLibrary;
   readonly storage?: SaveStorage;
 }
 
@@ -239,9 +349,138 @@ export function createApp(options: AppOptions): App {
     audio.setVolumes(chosen.presentation.volumes);
   };
 
+  let content: GameContent | null = null;
+  const requireContent = (): GameContent => {
+    if (!content) throw new Error('The game content is not loaded.');
+    return content;
+  };
+
+  type OpenDiver = ActiveDiver & { release(): Promise<void> };
+  const clocks = new Map<string, PlayClock>();
+  let active: OpenDiver | null = null;
+  let opening: Promise<OpenDiver> | null = null;
+
+  const closeDiver = async (): Promise<void> => {
+    const closing = active;
+    active = null;
+    if (!closing) return;
+    await closing.release();
+    address = 'neutral';
+    applyPresentation(null);
+  };
+
+  const openDiver = async (diverId: string): Promise<ActiveDiver> => {
+    if (active?.diver.id === diverId) return active;
+    if (opening) await opening.catch(() => undefined);
+    if (active?.diver.id === diverId) return active;
+    await closeDiver();
+    const diver = findDiver(family.state(), diverId);
+    if (!diver) throw new Error('That child is not on this device.');
+    const task = (async (): Promise<OpenDiver> => {
+      const preferences = new PreferencesStore(storage, diver.id);
+      await preferences.open();
+      const day = new DayStore(storage, diver.id);
+      await day.open();
+      const game = await openGameSession(storage, requireContent().game, {
+        id: diver.id,
+        seed: profileSeed(diver.id),
+      });
+      const commands = createCommandController(
+        game.host,
+        (error) => app.reportError(error),
+        (listener) => game.subscribe((change) => listener(change.reason)),
+      );
+      // One clock per child and page, so closing and reopening a child keeps counting.
+      const clock = clocks.get(diver.id) ?? createPlayClock();
+      clocks.set(diver.id, clock);
+      clock.resume();
+      const unbindVisibility = bindVisibilityPause(
+        document,
+        (reason) => {
+          game.host.pause(reason);
+          clock.pause();
+          audio.pause();
+          stopSpeech();
+        },
+        (reason) => {
+          audio.resume();
+          clock.resume();
+          void commands.resume(reason).catch((error) => app.reportError(error));
+        },
+      );
+      const inbox: GameEvent[] = [];
+      const events: EventInbox = {
+        take(types) {
+          const wanted = (event: GameEvent): boolean => !types || types.includes(event.type);
+          const taken = inbox.filter(wanted);
+          for (let index = inbox.length - 1; index >= 0; index--) {
+            if (wanted(inbox[index]!)) inbox.splice(index, 1);
+          }
+          return taken;
+        },
+      };
+      // Everything the shell does with a commit hangs off the session's one host listener.
+      const unsubscribeChanges = game.subscribe((change) => {
+        if (change.reason === 'restore') {
+          audio.clear();
+          stopSpeech();
+          inbox.length = 0;
+          // The play screen shows what the restored game needs, never what it showed before.
+          if (router.currentKey() === playKey(diver.id)) void router.refresh();
+          return;
+        }
+        // A new round starts a new results story: what came before it (the first egg chosen in
+        // the story, an earlier round's sticker) is not celebrated again at this round's end.
+        if (change.events.some((event) => event.type === 'round.started')) inbox.length = 0;
+        for (const event of change.events) {
+          if (!CELEBRATION_SOUNDS.has(event.type))
+            audio.cue(event.type, eventCueContext(event.data));
+          inbox.push(event as unknown as GameEvent);
+          if (inbox.length > MAX_INBOX) inbox.shift();
+        }
+      });
+      const unsubscribePreferences = preferences.subscribe((value) => applyPresentation(value));
+      address = diver.address;
+      applyPresentation(preferences.current());
+      return {
+        diver,
+        game,
+        commands,
+        preferences,
+        day,
+        events,
+        clock,
+        timeIsUp() {
+          const limit = preferences.current().timeLimit;
+          return limit !== null && clock.elapsed() >= limit * 60_000;
+        },
+        async release() {
+          clock.pause();
+          unsubscribePreferences();
+          unsubscribeChanges();
+          unbindVisibility();
+          commands.dispose();
+          audio.clear();
+          stopSpeech();
+          await game.close();
+        },
+      };
+    })();
+    opening = task;
+    try {
+      const opened = await task;
+      active = opened;
+      return opened;
+    } finally {
+      if (opening === task) opening = null;
+    }
+  };
+
   const reportError = (error: unknown): void => {
     if (error instanceof RecoveryRequired) {
-      void router.reset(app.screens.recovery(error));
+      void closeDiver()
+        .catch(() => undefined)
+        .then(() => router.reset(app.screens.recovery(error)));
       return;
     }
     if (error instanceof StaleCommandError) {
@@ -260,9 +499,12 @@ export function createApp(options: AppOptions): App {
       }
       return;
     }
-    void router.reset(app.screens.error(error));
+    void closeDiver()
+      .catch(() => undefined)
+      .then(() => router.reset(app.screens.error(error)));
   };
 
+  const grownUpTexts = new Map<Language, ContentText>();
   const app: App = {
     env,
     kit,
@@ -272,8 +514,37 @@ export function createApp(options: AppOptions): App {
     audio,
     speech,
     offline,
-    profiles: { storage, games: null, closeIfOpen: async () => undefined },
+    art: options.art,
+    get profiles(): ProfileData {
+      return {
+        storage,
+        games: content ? gameRecords(content.game) : null,
+        closeIfOpen: async (profileId) => {
+          if (active?.diver.id === profileId) await closeDiver();
+        },
+      };
+    },
     screens: undefined as unknown as Screens,
+    content: () => content,
+    useContent(game, catalogs) {
+      content = { game, catalogs, text: createContentText(catalogs, () => address) };
+      grownUpTexts.clear();
+    },
+    grownUpText(language) {
+      const chosen = language ?? family.state().grownUpsLanguage;
+      let text = grownUpTexts.get(chosen);
+      if (!text) {
+        text = createGrownUpContentText(requireContent().catalogs, chosen);
+        grownUpTexts.set(chosen, text);
+      }
+      return text;
+    },
+    active: () => active,
+    openDiver,
+    closeDiver,
+    async continueGame(diverId) {
+      if (!(await router.backTo(playKey(diverId)))) await router.push(app.screens.play(diverId));
+    },
     grownUps(language) {
       const chosen = language ?? family.state().grownUpsLanguage;
       let translator = grownUpTranslators.get(chosen);
@@ -288,11 +559,12 @@ export function createApp(options: AppOptions): App {
     },
     applyPresentation,
     speak(text, preferences) {
-      if (!preferences.readAloud || !speech.available()) return false;
+      const current = preferences ?? active?.preferences.current();
+      if (!current?.readAloud || !speech.available()) return false;
       const own = ++utterance;
       const started = speech.speak(text, {
-        voice: preferences.voice,
-        volume: preferences.presentation.volumes.narration,
+        voice: current.voice,
+        volume: current.presentation.volumes.narration,
         onEnd: () => {
           if (own === utterance) audio.duck(false);
         },

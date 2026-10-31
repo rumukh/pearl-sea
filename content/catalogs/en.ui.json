@@ -112,5 +112,9 @@
   "grownups.print.pages.one": "{count} page",
   "grownups.print.pages.other": "{count} pages",
   "grownups.print.guidance.duplex": "Print on both sides, flipping on the long edge, at actual size (100%) and without the browser’s headers and footers. Try one sheet first.",
-  "grownups.print.guidance.single": "Print at actual size (100%) without the browser’s headers and footers."
+  "grownups.print.guidance.single": "Print at actual size (100%) without the browser’s headers and footers.",
+  "grownups.divers.removeTitle": "Remove {name}’s profile?",
+  "grownups.divers.removeBody": "This erases the child’s whole game progress and settings. It cannot be undone.",
+  "grownups.divers.removeConfirm": "Remove",
+  "grownups.divers.removed": "{name}’s profile was removed."
 }

@@ -383,7 +383,16 @@
       "generator": "alphabet",
       "params": {
         "words": {
-          "tags": ["abc"],
+          "words": [
+            "ciil",
+            "cxlun",
+            "hvexzdice",
+            "chobotnice",
+            "racek",
+            "rxasa",
+            "zaatoka",
+            "zxelva"
+          ],
           "grades": [3]
         },
         "order": "alphabet",
@@ -824,7 +833,7 @@
       "nameKey": "friend.zelva-obojka",
       "mnemonicKey": "friend.zelva-obojka.mnemonic",
       "region": "sunny-lagoon",
-      "skills": ["sk.lagoon.letters-both", "sk.lagoon.bpvm", "sk.lagoon.capitals"],
+      "skills": ["sk.lagoon.letters-both", "sk.lagoon.abc", "sk.lagoon.bpvm", "sk.lagoon.capitals"],
       "monster": "murena-mumla"
     }
   ],

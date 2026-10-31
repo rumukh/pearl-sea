@@ -63,10 +63,14 @@ shows the grammar keys of its rules and values: `grammar.rule.<rule>` (the strat
 and `grammar.<dimension>.<value>` (contract §7.4).
 
 **Czech.** The child is addressed with _ty_; a bare key is neutral (no _naučil(a)_), with optional
-`.boy`/`.girl` pairs (design §10). Monsters and friends agree in gender with their names (_Murena
-je umazaná_). Story lines are at most 10 words a sentence and written to be read aloud. Standard
-Czech only (_děkuji, nejraději, příliš_), and a joke or story line never contains a misspelled
-word. Typography: „…“, …, –, no space before punctuation.
+`.boy`/`.girl` pairs (design §10). Monsters and friends agree in gender with their names (_Muréna
+je umazaná_). In running text a species noun before a name, a role noun and a kind of creature
+are written small, as the capitals lesson teaches (lexicon.md §3.1): _muréna Mumla, obří
+krakatice, lovče perel_; a title or label starts with a capital (_Muréna Mumla_). The species
+keeps its codified spelling even in a name (_muréna_, not _murena_). Story lines are at most 10
+words a sentence and written to be read aloud. Standard Czech only (_děkuji, nejraději, příliš, a
+proto_ rather than _tak_), and a joke or story line never contains a misspelled word. Typography:
+„…“, …, –, no space before punctuation.
 
 **Skills.** A spelling skill lists its words or sentences by ID and keeps to one grade. The tests
 check that:
@@ -86,8 +90,10 @@ chosen for growth, not only for practice:
 - At least 45 % of a friend's set must be items that problems (not boards) serve in its region's
   lessons after lesson 1, so an egg a 4th grader chose warms through Svačinka's first tastes and
   the placement check (S2).
-- Board-only items (`abc:` necklace words, `seg:`, `pair:`, `fam:`) never come up in Svačinka, so a
-  friend holds them only on purpose, listed in `BOARD_ITEMS_ON_PURPOSE` in the test.
+- Board-only items (`abc:` necklace words, `seg:`, `pair:`, `fam:`) never come up in Svačinka; they
+  are reviewed when the daily adventure replays a finished board with due items. A friend holds
+  them only on purpose, listed in `BOARD_ITEMS_ON_PURPOSE` in the test (Želva's necklace words). A
+  board right at the first check credits its items as fast answers, so they can reach gold.
 - A consonant skill can keep to one friend's letters (`consonants`); one-class skills share an
   activity with the other classes' skills, so the answer varies within a round.
 
@@ -107,38 +113,39 @@ words and sentences by ID.
 | `sunny-lagoon.4`       | Krmení 10 (`dtn`, `bpvm`), ink sentence 5 (`e-sentences`), Lov chyb 4 (`e-mistakes`)                    | de-te-ne, be-pe-ve-me |
 | `sunny-lagoon.5`       | Krmení 10 (`u`, `parova`), Pexeso 1 (`plural-pairs`), ink sentence 5 (`u-paired-sentences`)             | u-ring, paired        |
 | `sunny-lagoon.6`       | Krmení 10 (`capitals`), Lov chyb 5 (`capital-mistakes`)                                                 | capitals              |
-| `sunny-lagoon.monster` | battle with Murena Mumla: meter 15, cap 20, 20 % review; the word skills and four sentence skills       | all eight             |
+| `sunny-lagoon.monster` | battle with Muréna Mumla: meter 15, cap 20, 20 % review; the word skills and four sentence skills       | all eight             |
 
 Skills (`sk.lagoon.*`) and their items:
 
-| Skill                                          | Generator                         | Selects                                                                              | Items   |
-| ---------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------ | ------- |
-| `abc`, `abc-pairs`                             | `alphabet`, 4 and 3 pearls        | the words of the alphabet sets; `abc-pairs` the sets with _h/ch, c/č, r/ř, s/š, z/ž_ | 34, 17  |
-| `consonants`                                   | `sort` consonant, 12 fish         | all 24 consonants                                                                    | 24      |
-| `letters-hard`, `letters-soft`, `letters-both` | `classify` consonant              | each friend's letters: _h ch k r d t n_; _ž š č ř c j ď ť ň_; _b f l m p s v z_      | 7, 9, 8 |
-| `tvrda`                                        | `spell.word`, 2 choices           | _ryba, rybář, chytat, rychlý, chytrý, chyba, kytara, tygr_                           | 8       |
-| `mekka`                                        | `spell.word`                      | _číslo, čistý, jídlo, jiskra, křídlo, šipka, široký, žízeň_                          | 8       |
-| `bpvm`                                         | `spell.word`                      | _oběd, pěna, pět, pěkný, věc, hvězda, medvěd, město, měsíc_                          | 9       |
-| `delka`                                        | `spell.word`                      | _delfín, maják, pláž, přístav, zátoka, korál, víla, vila_                            | 8       |
-| `dtn`                                          | `spell.word`                      | _děti, tělo, těžký, někdo, kotě, divadlo, ticho, dívka_                              | 9       |
-| `u`                                            | `spell.word`                      | _útes, úhoř, úkol, úsměv, neúspěch, dům, kůň, sůl_                                   | 8       |
-| `parova`                                       | `spell.word`                      | _hrad, had, led, krab, dub, zub, sníh, mráz_                                         | 8       |
-| `capitals`                                     | `spell.word`                      | _Petr, Eva, Alík, Ferda, Bublinka, Osmička, Vltava, Praha, Česko, Sněžka_            | 10      |
-| `delka-sentences`                              | `spell.sentence`                  | 8 sentences on the `delka` words                                                     | 8       |
-| `tvrda-mekka-sentences`                        | `spell.sentence`                  | 14 sentences on the `tvrda` and `mekka` words                                        | 16      |
-| `e-sentences`, `e-mistakes`                    | `spell.sentence`, `spell.mistake` | 18 sentences on the `dtn` and `bpvm` words                                           | 18      |
-| `u-paired-sentences`                           | `spell.sentence`                  | 16 sentences on the `u` and `parova` words                                           | 16      |
-| `capital-mistakes`                             | `spell.mistake`                   | 7 sentences on the names                                                             | 10      |
-| `plural-pairs`                                 | `pairs` plural, 6 pairs           | _hrad, had, led, krab, dub, zub, plot, holub_                                        | 8       |
+| Skill                                          | Generator                         | Selects                                                                                                          | Items   |
+| ---------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| `abc`                                          | `alphabet`, 4 pearls              | Želva's words, one per letter of the tricky pairs: _cíl, člun, hvězdice, chobotnice, racek, řasa, zátoka, želva_ | 8       |
+| `abc-pairs`                                    | `alphabet`, 3 pearls              | the words of the alphabet sets that tell _h/ch, c/č, r/ř, s/š, z/ž_ apart                                        | 17      |
+| `consonants`                                   | `sort` consonant, 12 fish         | all 24 consonants                                                                                                | 24      |
+| `letters-hard`, `letters-soft`, `letters-both` | `classify` consonant              | each friend's letters: _h ch k r d t n_; _ž š č ř c j ď ť ň_; _b f l m p s v z_                                  | 7, 9, 8 |
+| `tvrda`                                        | `spell.word`, 2 choices           | _ryba, rybář, chytat, rychlý, chytrý, chyba, kytara, tygr_                                                       | 8       |
+| `mekka`                                        | `spell.word`                      | _číslo, čistý, jídlo, jiskra, křídlo, šipka, široký, žízeň_                                                      | 8       |
+| `bpvm`                                         | `spell.word`                      | _oběd, pěna, pět, pěkný, věc, hvězda, medvěd, město, měsíc_                                                      | 9       |
+| `delka`                                        | `spell.word`                      | _delfín, maják, pláž, přístav, zátoka, korál, víla, vila_                                                        | 8       |
+| `dtn`                                          | `spell.word`                      | _děti, tělo, těžký, někdo, kotě, divadlo, ticho, dívka_                                                          | 9       |
+| `u`                                            | `spell.word`                      | _útes, úhoř, úkol, úsměv, neúspěch, dům, kůň, sůl_                                                               | 8       |
+| `parova`                                       | `spell.word`                      | _hrad, had, led, krab, dub, zub, sníh, mráz_                                                                     | 8       |
+| `capitals`                                     | `spell.word`                      | _Petr, Eva, Alík, Ferda, Bublinka, Osmička, Vltava, Praha, Česko, Sněžka_                                        | 10      |
+| `delka-sentences`                              | `spell.sentence`                  | 8 sentences on the `delka` words                                                                                 | 8       |
+| `tvrda-mekka-sentences`                        | `spell.sentence`                  | 14 sentences on the `tvrda` and `mekka` words                                                                    | 16      |
+| `e-sentences`, `e-mistakes`                    | `spell.sentence`, `spell.mistake` | 18 sentences on the `dtn` and `bpvm` words                                                                       | 18      |
+| `u-paired-sentences`                           | `spell.sentence`                  | 16 sentences on the `u` and `parova` words                                                                       | 16      |
+| `capital-mistakes`                             | `spell.mistake`                   | 7 sentences on the names                                                                                         | 10      |
+| `plural-pairs`                                 | `pairs` plural, 6 pairs           | _hrad, had, led, krab, dub, zub, plot, holub_                                                                    | 8       |
 
 Friends (design §2.2) and their sets: **Krab Tvrďák** 32 (his 7 letters, `tvrda`, `dtn`, `parova`),
-**Medúzka Měkulka** 33 (her 9 letters, `mekka`, `delka`, `u`), **Želva Obojka** 27 (her 8 letters,
-`bpvm`, `capitals`). Every item is one that problems serve in lessons 2-6. Želva's set leaves out
-the necklace's 34 `abc:` words that design §2.2 gives her as a topic: board-only, they would hold
-her growth and crowning on necklace replays and double her set; lesson 1 still feeds her through
-the nets (her letters) and the Krmení (_bě pě vě mě_). The child chooses the first egg
-(`chooseFirstFriend`); `beat.sunny-lagoon-eggs` brings the other two as lesson 3 starts, and
-lesson 3 and the monster level give all three eggs as rewards (an owned egg is never given twice).
+**Medúzka Měkulka** 33 (her 9 letters, `mekka`, `delka`, `u`), **Želva Obojka** 35 (her 8 letters,
+her 8 necklace words, `bpvm`, `capitals`). Problems serve every item in lessons 2-6, except Želva's
+necklace words: she knows the alphabet (design §2.2), so they are in her set on purpose (§3), and
+lesson 1's necklace, nets and Krmení all feed her. Any 4 of her 8 necklace words hold a whole pair
+(_c, č_ or _h, ch_ …) three times in four. The child chooses the first egg (`chooseFirstFriend`);
+`beat.sunny-lagoon-eggs` brings the other two as lesson 3 starts, and lesson 3 and the monster
+level give all three eggs as rewards (an owned egg is never given twice).
 
 Story: `beat.prologue` (design §2.1's five lines, the last with `.boy`/`.girl`), `beat.first-egg`
 (not skippable), `beat.sunny-lagoon-welcome`, `beat.sunny-lagoon-eggs`, `beat.murena-mumla`,

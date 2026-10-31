@@ -38,7 +38,7 @@ const fresh = (): Pack => JSON.parse(packText);
  * archives the deployed pack, then pin the new revision here.
  */
 const REVISIONS: Readonly<Record<string, string>> = {
-  '1.0.0': 'a43ba63d18c134d6', // Slunná laguna, the vertical slice
+  '1.0.0': 'd100ffcbca348be3', // Slunná laguna, the vertical slice
 };
 
 /** Generators that make boards, not problems: their items are trained only by minigames. */
@@ -46,10 +46,13 @@ const BOARD_GENERATORS: readonly GeneratorId[] = ['alphabet', 'pairs', 'sort', '
 
 /**
  * Friends whose set holds board-only items on purpose (S2: they never come up in Svačinka and are
- * reviewed only when a minigame is replayed), with the item kinds allowed. None yet: Želva's set
- * leaves out the necklace's `abc:` words (docs/content.md §4).
+ * reviewed when the daily adventure replays a minigame), with the item kinds allowed. Želva knows
+ * the alphabet (design §2.2): her 8 necklace words, which right-first-time necklaces credit as
+ * fast answers, so they can reach gold (docs/content.md §4).
  */
-const BOARD_ITEMS_ON_PURPOSE: Readonly<Record<string, readonly string[]>> = {};
+const BOARD_ITEMS_ON_PURPOSE: Readonly<Record<string, readonly string[]>> = {
+  'zelva-obojka': ['abc'],
+};
 
 describe('the content pack', () => {
   it('validates under the registration and is a pinned revision of the pearl-sea pack', () => {

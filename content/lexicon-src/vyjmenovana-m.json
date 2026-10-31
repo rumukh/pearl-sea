@@ -4,99 +4,860 @@
   "grade": 3,
   "src": ["ijp-100", "ijp-103", "school-list"],
   "families": [
-    { "id": "vyjm-m.my", "letter": "m", "head": "my", "order": 1, "core": true, "root": "my", "src": ["ijp-100"] },
-    { "id": "vyjm-m.myyt", "letter": "m", "head": "myyt", "order": 2, "core": true, "root": "mý/my", "kin": "m-myt", "src": ["ijp-100"] },
-    { "id": "vyjm-m.myslit", "letter": "m", "head": "myslit", "order": 3, "core": true, "root": "mysl/myšl", "src": ["ijp-100"] },
-    { "id": "vyjm-m.myylit-se", "letter": "m", "head": "myylit-se", "order": 4, "core": true, "root": "mýl/myl", "src": ["ijp-100"] },
-    { "id": "vyjm-m.hmyz", "letter": "m", "head": "hmyz", "order": 5, "core": true, "root": "hmyz", "src": ["ijp-100"] },
-    { "id": "vyjm-m.mysx", "letter": "m", "head": "mysx", "order": 6, "core": true, "root": "myš", "src": ["ijp-100"] },
-    { "id": "vyjm-m.hlemyyzxdx", "letter": "m", "head": "hlemyyzxdx", "order": 7, "core": true, "root": "hlemýžď/hlemýžd", "src": ["ijp-100"] },
-    { "id": "vyjm-m.myytit", "letter": "m", "head": "myytit", "order": 8, "core": true, "root": "mýt", "kin": "m-myt", "src": ["ijp-100"] },
-    { "id": "vyjm-m.zamykat", "letter": "m", "head": "zamykat", "order": 9, "core": true, "root": "myk", "kin": "m-myk", "src": ["ijp-100"] },
-    { "id": "vyjm-m.smyykat", "letter": "m", "head": "smyykat", "order": 10, "core": true, "root": "smýk/smyk", "kin": "m-myk", "src": ["ijp-100"] },
-    { "id": "vyjm-m.dmyychat", "letter": "m", "head": "dmyychat", "order": 11, "core": true, "root": "dmých", "src": ["ijp-100"] },
-    { "id": "vyjm-m.chmyyrxii", "letter": "m", "head": "chmyyrxii", "order": 12, "core": true, "root": "chmýř", "src": ["ijp-100"] },
-    { "id": "vyjm-m.nachomyytnout-se", "letter": "m", "head": "nachomyytnout-se", "order": 13, "core": true, "root": "chomýt", "src": ["ijp-100"] },
-    { "id": "vyjm-m.litomysxl", "letter": "m", "head": "litomysxl", "order": 14, "core": true, "root": "myšl", "src": ["ijp-100"] },
-    { "id": "fam.miit", "letter": null, "head": "miit", "root": "mí/m", "soundAlikeOf": "vyjm-m.myyt", "src": ["ijp-103"] }
+    {
+      "id": "vyjm-m.my",
+      "letter": "m",
+      "head": "my",
+      "order": 1,
+      "core": true,
+      "root": "my",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.myyt",
+      "letter": "m",
+      "head": "myyt",
+      "order": 2,
+      "core": true,
+      "root": "mý/my",
+      "kin": "m-myt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.myslit",
+      "letter": "m",
+      "head": "myslit",
+      "order": 3,
+      "core": true,
+      "root": "mysl/myšl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.myylit-se",
+      "letter": "m",
+      "head": "myylit-se",
+      "order": 4,
+      "core": true,
+      "root": "mýl/myl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.hmyz",
+      "letter": "m",
+      "head": "hmyz",
+      "order": 5,
+      "core": true,
+      "root": "hmyz",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.mysx",
+      "letter": "m",
+      "head": "mysx",
+      "order": 6,
+      "core": true,
+      "root": "myš",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.hlemyyzxdx",
+      "letter": "m",
+      "head": "hlemyyzxdx",
+      "order": 7,
+      "core": true,
+      "root": "hlemýžď/hlemýžd",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.myytit",
+      "letter": "m",
+      "head": "myytit",
+      "order": 8,
+      "core": true,
+      "root": "mýt",
+      "kin": "m-myt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.zamykat",
+      "letter": "m",
+      "head": "zamykat",
+      "order": 9,
+      "core": true,
+      "root": "myk",
+      "kin": "m-myk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.smyykat",
+      "letter": "m",
+      "head": "smyykat",
+      "order": 10,
+      "core": true,
+      "root": "smýk/smyk",
+      "kin": "m-myk",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.dmyychat",
+      "letter": "m",
+      "head": "dmyychat",
+      "order": 11,
+      "core": true,
+      "root": "dmých",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.chmyyrxii",
+      "letter": "m",
+      "head": "chmyyrxii",
+      "order": 12,
+      "core": true,
+      "root": "chmýř",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.nachomyytnout-se",
+      "letter": "m",
+      "head": "nachomyytnout-se",
+      "order": 13,
+      "core": true,
+      "root": "chomýt",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "vyjm-m.litomysxl",
+      "letter": "m",
+      "head": "litomysxl",
+      "order": 14,
+      "core": true,
+      "root": "myšl",
+      "src": ["ijp-100"]
+    },
+    {
+      "id": "fam.miit",
+      "letter": null,
+      "head": "miit",
+      "root": "mí/m",
+      "soundAlikeOf": "vyjm-m.myyt",
+      "src": ["ijp-103"]
+    }
   ],
   "words": [
-    { "id": "my", "lemma": "my", "pos": "pron", "family": "vyjm-m.my", "role": "head", "spell": "m{y|i}", "rules": ["vyjm"], "note": "zájmeno 1. osoby množného čísla; jiné je mi (dej mi)", "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "myyt", "lemma": "mýt", "pos": "verb", "aspect": "impf", "family": "vyjm-m.myyt", "role": "head", "spell": "m{ý|í}t", "rules": ["vyjm"], "forms": ["myje", "myju", "myji", "myjí", "myl", "myla"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "umyyt", "lemma": "umýt", "pos": "verb", "aspect": "pf", "family": "vyjm-m.myyt", "role": "member", "spell": "um{ý|í}t", "rules": ["vyjm"], "forms": ["umyj", "umyjte", "umyl", "umyla", "umyje"], "src": ["ijp-100", "morfflex"] },
-    { "id": "umyyvat", "lemma": "umývat", "pos": "verb", "aspect": "impf", "family": "vyjm-m.myyt", "role": "member", "spell": "um{ý|í}vat", "rules": ["vyjm"], "forms": ["umývá"], "src": ["ijp-100", "morfflex"] },
-    { "id": "mytii", "lemma": "mytí", "pos": "noun", "gender": "n", "pattern": "staveni", "family": "vyjm-m.myyt", "role": "member", "spell": "m{y|i}tí", "rules": ["vyjm"], "src": ["derinet", "morfflex"] },
-    { "id": "mycxka", "lemma": "myčka", "pos": "noun", "gender": "f", "pattern": "zena", "family": "vyjm-m.myyt", "role": "member", "spell": "m{y|i}čka", "rules": ["vyjm"], "forms": ["myčky"], "src": ["ijp-100", "morfflex"] },
-    { "id": "umyvadlo", "lemma": "umyvadlo", "pos": "noun", "gender": "n", "pattern": "mesto", "family": "vyjm-m.myyt", "role": "member", "spell": "um{y|i}vadlo", "rules": ["vyjm"], "note": "i umývadlo", "src": ["ijp-100", "morfflex"] },
-    { "id": "myydlo", "lemma": "mýdlo", "pos": "noun", "gender": "n", "pattern": "mesto", "family": "vyjm-m.myyt", "role": "member", "spell": "m{ý|í}dlo", "rules": ["vyjm"], "forms": ["mýdla"], "src": ["ijp-100", "morfflex"] },
-    { "id": "myydlovyy", "lemma": "mýdlový", "pos": "adj", "family": "vyjm-m.myyt", "role": "member", "spell": "m{ý|í}dlový", "rules": ["vyjm"], "forms": ["mýdlové"], "src": ["derinet", "morfflex"] },
-    { "id": "myyval", "lemma": "mýval", "pos": "noun", "gender": "m", "animate": true, "pattern": "pan", "family": "vyjm-m.myyt", "role": "member", "spell": "m{ý|í}val", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "myslit", "lemma": "myslit", "pos": "verb", "aspect": "impf", "family": "vyjm-m.myslit", "role": "head", "spell": "m{y|i}slit", "rules": ["vyjm"], "forms": ["myslím", "myslíš", "myslí", "myslíme", "myslíte"], "note": "i myslet", "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "mysxlenka", "lemma": "myšlenka", "pos": "noun", "gender": "f", "pattern": "zena", "family": "vyjm-m.myslit", "role": "member", "spell": "m{y|i}šlenka", "rules": ["vyjm"], "forms": ["myšlenku"], "src": ["ijp-100", "morfflex"] },
-    { "id": "vymyslet", "lemma": "vymyslet", "pos": "verb", "aspect": "pf", "family": "vyjm-m.myslit", "role": "member", "spell": "v{y|i}m{y|i}slet", "rules": ["vyjm-prefix", "vyjm"], "forms": ["vymyslel", "vymyslela", "vymysleli"], "src": ["ijp-100", "morfflex"] },
-    { "id": "prxemyysxlet", "lemma": "přemýšlet", "pos": "verb", "aspect": "impf", "family": "vyjm-m.myslit", "role": "member", "spell": "přem{ý|í}šlet", "rules": ["vyjm"], "forms": ["přemýšlí"], "src": ["ijp-100", "morfflex"] },
-    { "id": "myslivec", "lemma": "myslivec", "pos": "noun", "gender": "m", "animate": true, "pattern": "muz", "family": "vyjm-m.myslit", "role": "member", "spell": "m{y|i}slivec", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "smysl", "lemma": "smysl", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-m.myslit", "role": "member", "spell": "sm{y|i}sl", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "nesmysl", "lemma": "nesmysl", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-m.myslit", "role": "member", "spell": "nesm{y|i}sl", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "uumysl", "lemma": "úmysl", "pos": "noun", "grade": 4, "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-m.myslit", "role": "member", "spell": "{ú|ů}m{y|i}sl", "rules": ["u-zacatek", "vyjm"], "src": ["ijp-100", "ijp-127", "morfflex"] },
-    { "id": "myylit-se", "lemma": "mýlit se", "pos": "verb", "aspect": "impf", "reflexive": "se", "family": "vyjm-m.myylit-se", "role": "head", "spell": "m{ý|í}lit se", "rules": ["vyjm"], "forms": ["mýlil", "mýlí"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "omyl", "lemma": "omyl", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-m.myylit-se", "role": "member", "spell": "om{y|i}l", "rules": ["vyjm"], "forms": ["omylem"], "src": ["ijp-100", "morfflex"] },
-    { "id": "mylnyy", "lemma": "mylný", "pos": "adj", "family": "vyjm-m.myylit-se", "role": "member", "spell": "m{y|i}lný", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "hmyz", "lemma": "hmyz", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-m.hmyz", "role": "head", "spell": "hm{y|i}z", "rules": ["vyjm"], "forms": ["hmyzu"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "hmyzii", "lemma": "hmyzí", "pos": "adj", "family": "vyjm-m.hmyz", "role": "member", "spell": "hm{y|i}zí", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "mysx", "lemma": "myš", "pos": "noun", "gender": "f", "pattern": "kost", "family": "vyjm-m.mysx", "role": "head", "spell": "m{y|i}š", "rules": ["vyjm"], "senses": ["malé zvíře s dlouhým ocasem", "ovladač k počítači"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "mysxka", "lemma": "myška", "pos": "noun", "gender": "f", "pattern": "zena", "family": "vyjm-m.mysx", "role": "member", "spell": "m{y|i}ška", "rules": ["vyjm"], "src": ["derinet", "morfflex"] },
-    { "id": "mysxii", "lemma": "myší", "pos": "adj", "family": "vyjm-m.mysx", "role": "member", "spell": "m{y|i}ší", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "mysxaak", "lemma": "myšák", "pos": "noun", "gender": "m", "animate": true, "pattern": "pan", "family": "vyjm-m.mysx", "role": "member", "spell": "m{y|i}šák", "rules": ["vyjm"], "forms": ["myšáka"], "src": ["derinet", "morfflex"] },
-    { "id": "hlemyyzxdx", "lemma": "hlemýžď", "pos": "noun", "gender": "m", "animate": true, "pattern": "muz", "family": "vyjm-m.hlemyyzxdx", "role": "head", "spell": "hlem{ý|í}žď", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "hlemyyzxdii", "lemma": "hlemýždí", "pos": "adj", "family": "vyjm-m.hlemyyzxdx", "role": "member", "spell": "hlem{ý|í}ždí", "rules": ["vyjm"], "src": ["derinet", "morfflex"] },
-    { "id": "myytit", "lemma": "mýtit", "pos": "verb", "aspect": "impf", "family": "vyjm-m.myytit", "role": "head", "spell": "m{ý|í}tit", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "myytina", "lemma": "mýtina", "pos": "noun", "gender": "f", "pattern": "zena", "family": "vyjm-m.myytit", "role": "member", "spell": "m{ý|í}tina", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "vymyytit", "lemma": "vymýtit", "pos": "verb", "aspect": "pf", "grade": 4, "family": "vyjm-m.myytit", "role": "member", "spell": "v{y|i}m{ý|í}tit", "rules": ["vyjm-prefix", "vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "zamykat", "lemma": "zamykat", "pos": "verb", "aspect": "impf", "family": "vyjm-m.zamykat", "role": "head", "spell": "zam{y|i}kat", "rules": ["vyjm"], "forms": ["zamyká"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "odemykat", "lemma": "odemykat", "pos": "verb", "aspect": "impf", "family": "vyjm-m.zamykat", "role": "member", "spell": "odem{y|i}kat", "rules": ["vyjm"], "forms": ["odemyká"], "src": ["ijp-100", "morfflex"] },
-    { "id": "smyykat", "lemma": "smýkat", "pos": "verb", "aspect": "impf", "family": "vyjm-m.smyykat", "role": "head", "spell": "sm{ý|í}kat", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "smyk", "lemma": "smyk", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "family": "vyjm-m.smyykat", "role": "member", "spell": "sm{y|i}k", "rules": ["vyjm"], "src": ["ijp-100", "morfflex"] },
-    { "id": "dmyychat", "lemma": "dmýchat", "pos": "verb", "aspect": "impf", "family": "vyjm-m.dmyychat", "role": "head", "spell": "dm{ý|í}chat", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "rozdmyychat", "lemma": "rozdmýchat", "pos": "verb", "aspect": "pf", "family": "vyjm-m.dmyychat", "role": "member", "spell": "rozdm{ý|í}chat", "rules": ["vyjm"], "forms": ["rozdmýchal"], "src": ["ijp-100", "morfflex"] },
-    { "id": "chmyyrxii", "lemma": "chmýří", "pos": "noun", "gender": "n", "pattern": "staveni", "family": "vyjm-m.chmyyrxii", "role": "head", "spell": "chm{ý|í}ří", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "nachomyytnout-se", "lemma": "nachomýtnout se", "pos": "verb", "aspect": "pf", "reflexive": "se", "family": "vyjm-m.nachomyytnout-se", "role": "head", "spell": "nachom{ý|í}tnout se", "rules": ["vyjm"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "litomysxl", "lemma": "Litomyšl", "pos": "noun", "gender": "f", "proper": "town", "family": "vyjm-m.litomysxl", "role": "head", "spell": "Litom{y|i}šl", "rules": ["vyjm"], "forms": ["Litomyšli"], "src": ["ijp-100", "school-list", "morfflex"] },
-    { "id": "miit", "lemma": "mít", "pos": "verb", "aspect": "impf", "family": "fam.miit", "role": "head", "spell": "m{í|ý}t", "rules": ["obojetna-i"], "forms": ["mám", "máš", "má", "máme", "máte", "mají"], "src": ["ijp-103", "morfflex"] },
-    { "id": "milyy", "lemma": "milý", "pos": "adj", "spell": "m{i|y}lý", "rules": ["obojetna-i"], "forms": ["milá"], "src": ["ijp-103", "morfflex"] },
-    { "id": "miicx", "lemma": "míč", "pos": "noun", "gender": "m", "animate": false, "pattern": "stroj", "spell": "m{í|ý}č", "rules": ["obojetna-i"], "src": ["ijp-103", "morfflex"] },
-    { "id": "miisto", "lemma": "místo", "pos": "noun", "gender": "n", "pattern": "mesto", "spell": "m{í|ý}sto", "rules": ["obojetna-i"], "src": ["ijp-103", "morfflex"] },
-    { "id": "smiich", "lemma": "smích", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "sm{í|ý}ch", "rules": ["obojetna-i"], "src": ["ijp-103", "morfflex"] },
-    { "id": "mince", "lemma": "mince", "pos": "noun", "gender": "f", "pattern": "ruze", "spell": "m{i|y}nce", "rules": ["obojetna-i"], "src": ["ijp-103", "morfflex"] }
+    {
+      "id": "my",
+      "lemma": "my",
+      "pos": "pron",
+      "family": "vyjm-m.my",
+      "role": "head",
+      "spell": "m{y|i}",
+      "rules": ["vyjm"],
+      "note": "zájmeno 1. osoby množného čísla; jiné je mi (dej mi)",
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "myyt",
+      "lemma": "mýt",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.myyt",
+      "role": "head",
+      "spell": "m{ý|í}t",
+      "rules": ["vyjm"],
+      "forms": ["myje", "myju", "myji", "myjí", "myl", "myla"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "umyyt",
+      "lemma": "umýt",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "um{ý|í}t",
+      "rules": ["vyjm"],
+      "forms": ["umyj", "umyjte", "umyl", "umyla", "umyje"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "umyyvat",
+      "lemma": "umývat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "um{ý|í}vat",
+      "rules": ["vyjm"],
+      "forms": ["umývá"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "mytii",
+      "lemma": "mytí",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "m{y|i}tí",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "mycxka",
+      "lemma": "myčka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "m{y|i}čka",
+      "rules": ["vyjm"],
+      "forms": ["myčky"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "umyvadlo",
+      "lemma": "umyvadlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "um{y|i}vadlo",
+      "rules": ["vyjm"],
+      "note": "i umývadlo",
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "myydlo",
+      "lemma": "mýdlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "m{ý|í}dlo",
+      "rules": ["vyjm"],
+      "forms": ["mýdla"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "myydlovyy",
+      "lemma": "mýdlový",
+      "pos": "adj",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "m{ý|í}dlový",
+      "rules": ["vyjm"],
+      "forms": ["mýdlové"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "myyval",
+      "lemma": "mýval",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-m.myyt",
+      "role": "member",
+      "spell": "m{ý|í}val",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "myslit",
+      "lemma": "myslit",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.myslit",
+      "role": "head",
+      "spell": "m{y|i}slit",
+      "rules": ["vyjm"],
+      "forms": ["myslím", "myslíš", "myslí", "myslíme", "myslíte"],
+      "note": "i myslet",
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "mysxlenka",
+      "lemma": "myšlenka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "m{y|i}šlenka",
+      "rules": ["vyjm"],
+      "forms": ["myšlenku"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vymyslet",
+      "lemma": "vymyslet",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "v{y|i}m{y|i}slet",
+      "rules": ["vyjm-prefix", "vyjm"],
+      "forms": ["vymyslel", "vymyslela", "vymysleli"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "prxemyysxlet",
+      "lemma": "přemýšlet",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "přem{ý|í}šlet",
+      "rules": ["vyjm"],
+      "forms": ["přemýšlí"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "myslivec",
+      "lemma": "myslivec",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "m{y|i}slivec",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "smysl",
+      "lemma": "smysl",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "sm{y|i}sl",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "nesmysl",
+      "lemma": "nesmysl",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "nesm{y|i}sl",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "uumysl",
+      "lemma": "úmysl",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-m.myslit",
+      "role": "member",
+      "spell": "{ú|ů}m{y|i}sl",
+      "rules": ["u-zacatek", "vyjm"],
+      "src": ["ijp-100", "ijp-127", "morfflex"]
+    },
+    {
+      "id": "myylit-se",
+      "lemma": "mýlit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "family": "vyjm-m.myylit-se",
+      "role": "head",
+      "spell": "m{ý|í}lit se",
+      "rules": ["vyjm"],
+      "forms": ["mýlil", "mýlí"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "omyl",
+      "lemma": "omyl",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-m.myylit-se",
+      "role": "member",
+      "spell": "om{y|i}l",
+      "rules": ["vyjm"],
+      "forms": ["omylem"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "mylnyy",
+      "lemma": "mylný",
+      "pos": "adj",
+      "family": "vyjm-m.myylit-se",
+      "role": "member",
+      "spell": "m{y|i}lný",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "hmyz",
+      "lemma": "hmyz",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-m.hmyz",
+      "role": "head",
+      "spell": "hm{y|i}z",
+      "rules": ["vyjm"],
+      "forms": ["hmyzu"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "hmyzii",
+      "lemma": "hmyzí",
+      "pos": "adj",
+      "family": "vyjm-m.hmyz",
+      "role": "member",
+      "spell": "hm{y|i}zí",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "mysx",
+      "lemma": "myš",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "kost",
+      "family": "vyjm-m.mysx",
+      "role": "head",
+      "spell": "m{y|i}š",
+      "rules": ["vyjm"],
+      "senses": ["malé zvíře s dlouhým ocasem", "ovladač k počítači"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "mysxka",
+      "lemma": "myška",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-m.mysx",
+      "role": "member",
+      "spell": "m{y|i}ška",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "mysxii",
+      "lemma": "myší",
+      "pos": "adj",
+      "family": "vyjm-m.mysx",
+      "role": "member",
+      "spell": "m{y|i}ší",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "mysxaak",
+      "lemma": "myšák",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "family": "vyjm-m.mysx",
+      "role": "member",
+      "spell": "m{y|i}šák",
+      "rules": ["vyjm"],
+      "forms": ["myšáka"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "hlemyyzxdx",
+      "lemma": "hlemýžď",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "family": "vyjm-m.hlemyyzxdx",
+      "role": "head",
+      "spell": "hlem{ý|í}žď",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "hlemyyzxdii",
+      "lemma": "hlemýždí",
+      "pos": "adj",
+      "family": "vyjm-m.hlemyyzxdx",
+      "role": "member",
+      "spell": "hlem{ý|í}ždí",
+      "rules": ["vyjm"],
+      "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "myytit",
+      "lemma": "mýtit",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.myytit",
+      "role": "head",
+      "spell": "m{ý|í}tit",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "myytina",
+      "lemma": "mýtina",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "family": "vyjm-m.myytit",
+      "role": "member",
+      "spell": "m{ý|í}tina",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "vymyytit",
+      "lemma": "vymýtit",
+      "pos": "verb",
+      "aspect": "pf",
+      "grade": 4,
+      "family": "vyjm-m.myytit",
+      "role": "member",
+      "spell": "v{y|i}m{ý|í}tit",
+      "rules": ["vyjm-prefix", "vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "zamykat",
+      "lemma": "zamykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.zamykat",
+      "role": "head",
+      "spell": "zam{y|i}kat",
+      "rules": ["vyjm"],
+      "forms": ["zamyká"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "odemykat",
+      "lemma": "odemykat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.zamykat",
+      "role": "member",
+      "spell": "odem{y|i}kat",
+      "rules": ["vyjm"],
+      "forms": ["odemyká"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "smyykat",
+      "lemma": "smýkat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.smyykat",
+      "role": "head",
+      "spell": "sm{ý|í}kat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "smyk",
+      "lemma": "smyk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "family": "vyjm-m.smyykat",
+      "role": "member",
+      "spell": "sm{y|i}k",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "dmyychat",
+      "lemma": "dmýchat",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "vyjm-m.dmyychat",
+      "role": "head",
+      "spell": "dm{ý|í}chat",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "rozdmyychat",
+      "lemma": "rozdmýchat",
+      "pos": "verb",
+      "aspect": "pf",
+      "family": "vyjm-m.dmyychat",
+      "role": "member",
+      "spell": "rozdm{ý|í}chat",
+      "rules": ["vyjm"],
+      "forms": ["rozdmýchal"],
+      "src": ["ijp-100", "morfflex"]
+    },
+    {
+      "id": "chmyyrxii",
+      "lemma": "chmýří",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "family": "vyjm-m.chmyyrxii",
+      "role": "head",
+      "spell": "chm{ý|í}ří",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "nachomyytnout-se",
+      "lemma": "nachomýtnout se",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "se",
+      "family": "vyjm-m.nachomyytnout-se",
+      "role": "head",
+      "spell": "nachom{ý|í}tnout se",
+      "rules": ["vyjm"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "litomysxl",
+      "lemma": "Litomyšl",
+      "pos": "noun",
+      "gender": "f",
+      "proper": "town",
+      "family": "vyjm-m.litomysxl",
+      "role": "head",
+      "spell": "Litom{y|i}šl",
+      "rules": ["vyjm"],
+      "forms": ["Litomyšli"],
+      "src": ["ijp-100", "school-list", "morfflex"]
+    },
+    {
+      "id": "miit",
+      "lemma": "mít",
+      "pos": "verb",
+      "aspect": "impf",
+      "family": "fam.miit",
+      "role": "head",
+      "spell": "m{í|ý}t",
+      "rules": ["obojetna-i"],
+      "forms": ["mám", "máš", "má", "máme", "máte", "mají"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "milyy",
+      "lemma": "milý",
+      "pos": "adj",
+      "spell": "m{i|y}lý",
+      "rules": ["obojetna-i"],
+      "forms": ["milá"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "miicx",
+      "lemma": "míč",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "spell": "m{í|ý}č",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "miisto",
+      "lemma": "místo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "m{í|ý}sto",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "smiich",
+      "lemma": "smích",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "sm{í|ý}ch",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "mince",
+      "lemma": "mince",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "spell": "m{i|y}nce",
+      "rules": ["obojetna-i"],
+      "src": ["ijp-103", "morfflex"]
+    }
   ],
   "sentences": [
-    { "id": "vyjm-m.01", "text": "M{y|i} plaveme k ostrovu.", "gaps": [{ "rule": "vyjm", "word": "my" }] },
-    { "id": "vyjm-m.02", "text": "M{ý|í}val si m{y|i}je tlapky u vody.", "gaps": [{ "rule": "vyjm", "word": "myyval" }, { "rule": "vyjm", "word": "myyt" }] },
-    { "id": "vyjm-m.03", "text": "Koník fouká bubliny z m{ý|í}dla.", "gaps": [{ "rule": "vyjm", "word": "myydlo" }] },
-    { "id": "vyjm-m.04", "text": "Po potápění si um{y|i}j ruce.", "gaps": [{ "rule": "vyjm", "word": "umyyt" }] },
-    { "id": "vyjm-m.05", "text": "Maminka dala nádobí do m{y|i}čky.", "gaps": [{ "rule": "vyjm", "word": "mycxka" }] },
-    { "id": "vyjm-m.06", "text": "Chobotnice m{y|i}slí na svou maminku.", "gaps": [{ "rule": "vyjm", "word": "myslit" }] },
-    { "id": "vyjm-m.07", "text": "Profesorka má skvělou m{y|i}šlenku.", "gaps": [{ "rule": "vyjm", "word": "mysxlenka" }] },
-    { "id": "vyjm-m.08", "text": "Delfín v{y|i}m{y|i}slel novou hru.", "gaps": [{ "rule": "vyjm-prefix", "word": "vymyslet" }, { "rule": "vyjm", "word": "vymyslet" }] },
-    { "id": "vyjm-m.09", "text": "Želva dlouho přem{ý|í}šlí.", "gaps": [{ "rule": "vyjm", "word": "prxemyysxlet" }] },
-    { "id": "vyjm-m.10", "text": "To je ale nesm{y|i}sl, žraloci neumí zpívat!", "gaps": [{ "rule": "vyjm", "word": "nesmysl" }] },
-    { "id": "vyjm-m.11", "text": "Krab se m{ý|í}lil, perla nebyla jeho.", "gaps": [{ "rule": "vyjm", "word": "myylit-se" }] },
-    { "id": "vyjm-m.12", "text": "Om{y|i}lem jsem šlápl na mušli.", "gaps": [{ "rule": "vyjm", "word": "omyl" }] },
-    { "id": "vyjm-m.13", "text": "Na ostrově žije spousta hm{y|i}zu.", "gaps": [{ "rule": "vyjm", "word": "hmyz" }] },
-    { "id": "vyjm-m.14", "text": "Na lodi se schovává malá m{y|i}š.", "gaps": [{ "rule": "vyjm", "word": "mysx" }] },
-    { "id": "vyjm-m.15", "text": "Hlem{ý|í}žď leze pomalu po kameni.", "gaps": [{ "rule": "vyjm", "word": "hlemyyzxdx" }] },
-    { "id": "vyjm-m.16", "text": "Námořník zam{y|i}ká truhlu s pokladem.", "gaps": [{ "rule": "vyjm", "word": "zamykat" }] },
-    { "id": "vyjm-m.17", "text": "Kapitán odem{y|i}ká dveře kajuty.", "gaps": [{ "rule": "vyjm", "word": "odemykat" }] },
-    { "id": "vyjm-m.18", "text": "Vítr rozdm{ý|í}chal oheň na pláži.", "gaps": [{ "rule": "vyjm", "word": "rozdmyychat" }] },
-    { "id": "vyjm-m.19", "text": "Chm{ý|í}ří pampelišky letí nad mořem.", "gaps": [{ "rule": "vyjm", "word": "chmyyrxii" }] },
-    { "id": "vyjm-m.20", "text": "Na kluzkém ledu dostal tuleň sm{y|i}k.", "gaps": [{ "rule": "vyjm", "word": "smyk" }] },
-    { "id": "vyjm-m.21", "text": "V Litom{y|i}šli je krásný zámek.", "gaps": [{ "rule": "vyjm", "word": "litomysxl" }] },
-    { "id": "vyjm-m.22", "text": "V lese u moře je m{ý|í}tina.", "gaps": [{ "rule": "vyjm", "word": "myytina" }] },
-    { "id": "vyjm-m.23", "text": "Delfín má rád m{í|ý}č.", "gaps": [{ "rule": "obojetna-i", "word": "miicx" }] },
-    { "id": "vyjm-m.24", "text": "Na pláži není volné m{í|ý}sto.", "gaps": [{ "rule": "obojetna-i", "word": "miisto" }] },
-    { "id": "vyjm-m.25", "text": "Sbírám zlaté m{i|y}nce z vraku.", "gaps": [{ "rule": "obojetna-i", "word": "mince" }] },
-    { "id": "vyjm-m.26", "text": "Ze člunu se ozýval veselý sm{í|ý}ch.", "gaps": [{ "rule": "obojetna-i", "word": "smiich" }] },
-    { "id": "vyjm-m.27", "text": "Velryba je m{i|y}lá a klidná.", "gaps": [{ "rule": "obojetna-i", "word": "milyy" }] },
-    { "id": "vyjm-m.28", "text": "M{y|i}slivec viděl u lesa m{y|i}šáka.", "gaps": [{ "rule": "vyjm", "word": "myslivec" }, { "rule": "vyjm", "word": "mysxaak" }] }
+    {
+      "id": "vyjm-m.01",
+      "text": "M{y|i} plaveme k ostrovu.",
+      "gaps": [{ "rule": "vyjm", "word": "my" }]
+    },
+    {
+      "id": "vyjm-m.02",
+      "text": "M{ý|í}val si m{y|i}je tlapky u vody.",
+      "gaps": [
+        { "rule": "vyjm", "word": "myyval" },
+        { "rule": "vyjm", "word": "myyt" }
+      ]
+    },
+    {
+      "id": "vyjm-m.03",
+      "text": "Koník fouká bubliny z m{ý|í}dla.",
+      "gaps": [{ "rule": "vyjm", "word": "myydlo" }]
+    },
+    {
+      "id": "vyjm-m.04",
+      "text": "Po potápění si um{y|i}j ruce.",
+      "gaps": [{ "rule": "vyjm", "word": "umyyt" }]
+    },
+    {
+      "id": "vyjm-m.05",
+      "text": "Maminka dala nádobí do m{y|i}čky.",
+      "gaps": [{ "rule": "vyjm", "word": "mycxka" }]
+    },
+    {
+      "id": "vyjm-m.06",
+      "text": "Chobotnice m{y|i}slí na svou maminku.",
+      "gaps": [{ "rule": "vyjm", "word": "myslit" }]
+    },
+    {
+      "id": "vyjm-m.07",
+      "text": "Profesorka má skvělou m{y|i}šlenku.",
+      "gaps": [{ "rule": "vyjm", "word": "mysxlenka" }]
+    },
+    {
+      "id": "vyjm-m.08",
+      "text": "Delfín v{y|i}m{y|i}slel novou hru.",
+      "gaps": [
+        { "rule": "vyjm-prefix", "word": "vymyslet" },
+        { "rule": "vyjm", "word": "vymyslet" }
+      ]
+    },
+    {
+      "id": "vyjm-m.09",
+      "text": "Želva dlouho přem{ý|í}šlí.",
+      "gaps": [{ "rule": "vyjm", "word": "prxemyysxlet" }]
+    },
+    {
+      "id": "vyjm-m.10",
+      "text": "To je ale nesm{y|i}sl, žraloci neumí zpívat!",
+      "gaps": [{ "rule": "vyjm", "word": "nesmysl" }]
+    },
+    {
+      "id": "vyjm-m.11",
+      "text": "Krab se m{ý|í}lil, perla nebyla jeho.",
+      "gaps": [{ "rule": "vyjm", "word": "myylit-se" }]
+    },
+    {
+      "id": "vyjm-m.12",
+      "text": "Om{y|i}lem jsem šlápl na mušli.",
+      "gaps": [{ "rule": "vyjm", "word": "omyl" }]
+    },
+    {
+      "id": "vyjm-m.13",
+      "text": "Na ostrově žije spousta hm{y|i}zu.",
+      "gaps": [{ "rule": "vyjm", "word": "hmyz" }]
+    },
+    {
+      "id": "vyjm-m.14",
+      "text": "Na lodi se schovává malá m{y|i}š.",
+      "gaps": [{ "rule": "vyjm", "word": "mysx" }]
+    },
+    {
+      "id": "vyjm-m.15",
+      "text": "Hlem{ý|í}žď leze pomalu po kameni.",
+      "gaps": [{ "rule": "vyjm", "word": "hlemyyzxdx" }]
+    },
+    {
+      "id": "vyjm-m.16",
+      "text": "Námořník zam{y|i}ká truhlu s pokladem.",
+      "gaps": [{ "rule": "vyjm", "word": "zamykat" }]
+    },
+    {
+      "id": "vyjm-m.17",
+      "text": "Kapitán odem{y|i}ká dveře kajuty.",
+      "gaps": [{ "rule": "vyjm", "word": "odemykat" }]
+    },
+    {
+      "id": "vyjm-m.18",
+      "text": "Vítr rozdm{ý|í}chal oheň na pláži.",
+      "gaps": [{ "rule": "vyjm", "word": "rozdmyychat" }]
+    },
+    {
+      "id": "vyjm-m.19",
+      "text": "Chm{ý|í}ří pampelišky letí nad mořem.",
+      "gaps": [{ "rule": "vyjm", "word": "chmyyrxii" }]
+    },
+    {
+      "id": "vyjm-m.20",
+      "text": "Na kluzkém ledu dostal tuleň sm{y|i}k.",
+      "gaps": [{ "rule": "vyjm", "word": "smyk" }]
+    },
+    {
+      "id": "vyjm-m.21",
+      "text": "V Litom{y|i}šli je krásný zámek.",
+      "gaps": [{ "rule": "vyjm", "word": "litomysxl" }]
+    },
+    {
+      "id": "vyjm-m.22",
+      "text": "V lese u moře je m{ý|í}tina.",
+      "gaps": [{ "rule": "vyjm", "word": "myytina" }]
+    },
+    {
+      "id": "vyjm-m.23",
+      "text": "Delfín má rád m{í|ý}č.",
+      "gaps": [{ "rule": "obojetna-i", "word": "miicx" }]
+    },
+    {
+      "id": "vyjm-m.24",
+      "text": "Na pláži není volné m{í|ý}sto.",
+      "gaps": [{ "rule": "obojetna-i", "word": "miisto" }]
+    },
+    {
+      "id": "vyjm-m.25",
+      "text": "Sbírám zlaté m{i|y}nce z vraku.",
+      "gaps": [{ "rule": "obojetna-i", "word": "mince" }]
+    },
+    {
+      "id": "vyjm-m.26",
+      "text": "Ze člunu se ozýval veselý sm{í|ý}ch.",
+      "gaps": [{ "rule": "obojetna-i", "word": "smiich" }]
+    },
+    {
+      "id": "vyjm-m.27",
+      "text": "Velryba je m{i|y}lá a klidná.",
+      "gaps": [{ "rule": "obojetna-i", "word": "milyy" }]
+    },
+    {
+      "id": "vyjm-m.28",
+      "text": "M{y|i}slivec viděl u lesa m{y|i}šáka.",
+      "gaps": [
+        { "rule": "vyjm", "word": "myslivec" },
+        { "rule": "vyjm", "word": "mysxaak" }
+      ]
+    }
   ]
 }

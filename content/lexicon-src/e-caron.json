@@ -4,90 +4,651 @@
   "grade": 3,
   "src": ["ijp-126", "ijp-650"],
   "words": [
-    { "id": "dexti", "lemma": "děti", "pos": "noun", "gender": "f", "numbers": "pl", "pattern": "kost", "spell": "d{ě|e}t{i|y}", "rules": ["de-te-ne", "dtn-mekke"], "note": "množné číslo slova dítě; skloňuje se jako kost, v čase minulém děti si hrály", "src": ["ijp-126", "morfflex"] },
-    { "id": "dexlat", "lemma": "dělat", "pos": "verb", "aspect": "impf", "spell": "d{ě|e}lat", "rules": ["de-te-ne"], "forms": ["dělá", "dělají"], "src": ["ijp-126", "morfflex"] },
-    { "id": "dexkovat", "lemma": "děkovat", "pos": "verb", "aspect": "impf", "spell": "d{ě|e}kovat", "rules": ["de-te-ne"], "forms": ["děkuje", "děkujeme"], "src": ["ijp-126", "morfflex"] },
-    { "id": "texlo", "lemma": "tělo", "pos": "noun", "gender": "n", "pattern": "mesto", "spell": "t{ě|e}lo", "rules": ["de-te-ne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "texzxkyy", "lemma": "těžký", "pos": "adj", "spell": "t{ě|e}žký", "rules": ["de-te-ne"], "forms": ["těžká", "těžkou"], "src": ["ijp-126", "morfflex"] },
-    { "id": "texsxit-se", "lemma": "těšit se", "pos": "verb", "aspect": "impf", "reflexive": "se", "spell": "t{ě|e}šit se", "rules": ["de-te-ne"], "forms": ["těší", "těšíme"], "src": ["ijp-126", "morfflex"] },
-    { "id": "nexco", "lemma": "něco", "pos": "pron", "spell": "n{ě|e}co", "rules": ["de-te-ne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "nexkdo", "lemma": "někdo", "pos": "pron", "spell": "n{ě|e}kdo", "rules": ["de-te-ne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "kotex", "lemma": "kotě", "pos": "noun", "gender": "n", "pattern": "kure", "spell": "kot{ě|e}", "rules": ["de-te-ne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "sxtexnex", "lemma": "štěně", "pos": "noun", "gender": "n", "pattern": "kure", "spell": "št{ě|e}n{ě|e}", "rules": ["de-te-ne", "de-te-ne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "mlaadex", "lemma": "mládě", "pos": "noun", "gender": "n", "pattern": "kure", "spell": "mlád{ě|e}", "rules": ["de-te-ne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "bexhat", "lemma": "běhat", "pos": "verb", "aspect": "impf", "spell": "b{ě|je}hat", "rules": ["be-pe-ve-me"], "forms": ["běhá", "běhají"], "src": ["ijp-126", "morfflex"] },
-    { "id": "obexd", "lemma": "oběd", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "ob{ě|je}d", "rules": ["be-pe-ve-me"], "forms": ["obědu"], "src": ["ijp-126", "morfflex"] },
-    { "id": "pext", "lemma": "pět", "pos": "num", "spell": "p{ě|je}t", "rules": ["be-pe-ve-me"], "src": ["ijp-126", "morfflex"] },
-    { "id": "pexna", "lemma": "pěna", "pos": "noun", "gender": "f", "pattern": "zena", "spell": "p{ě|je}na", "rules": ["be-pe-ve-me"], "tags": ["sea"], "src": ["ijp-126", "morfflex"] },
-    { "id": "pexknyy", "lemma": "pěkný", "pos": "adj", "spell": "p{ě|je}kný", "rules": ["be-pe-ve-me"], "forms": ["pěkná", "pěkné"], "src": ["ijp-126", "morfflex"] },
-    { "id": "vexc", "lemma": "věc", "pos": "noun", "gender": "f", "pattern": "kost", "spell": "v{ě|je}c", "rules": ["be-pe-ve-me"], "src": ["ijp-126", "morfflex"] },
-    { "id": "svext", "lemma": "svět", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "sv{ě|je}t", "rules": ["be-pe-ve-me"], "forms": ["světě"], "src": ["ijp-126", "morfflex"] },
-    { "id": "hvexzda", "lemma": "hvězda", "pos": "noun", "gender": "f", "pattern": "zena", "spell": "hv{ě|je}zda", "rules": ["be-pe-ve-me"], "forms": ["hvězdy"], "src": ["ijp-126", "morfflex"] },
-    { "id": "hvexzdice", "lemma": "hvězdice", "pos": "noun", "gender": "f", "pattern": "ruze", "spell": "hv{ě|je}zdice", "rules": ["be-pe-ve-me"], "src": ["ijp-126", "morfflex"] },
-    { "id": "medvexd", "lemma": "medvěd", "pos": "noun", "gender": "m", "animate": true, "pattern": "pan", "spell": "medv{ě|je}d", "rules": ["be-pe-ve-me"], "src": ["ijp-126", "morfflex"] },
-    { "id": "mexsto", "lemma": "město", "pos": "noun", "gender": "n", "pattern": "mesto", "spell": "m{ě|ně}sto", "rules": ["be-pe-ve-me"], "src": ["ijp-126", "morfflex"] },
-    { "id": "mexsiic", "lemma": "měsíc", "pos": "noun", "gender": "m", "animate": false, "pattern": "stroj", "spell": "m{ě|ně}s{í|ý}c", "rules": ["be-pe-ve-me", "obojetna-i"], "src": ["ijp-126", "ijp-103", "morfflex"] },
-    { "id": "mexkkyy", "lemma": "měkký", "pos": "adj", "spell": "m{ě|ně}kký", "rules": ["be-pe-ve-me"], "forms": ["měkká", "měkké"], "src": ["ijp-126", "morfflex"] },
-    { "id": "mexlkyy", "lemma": "mělký", "pos": "adj", "spell": "m{ě|ně}lký", "rules": ["be-pe-ve-me"], "forms": ["mělká", "mělké"], "tags": ["sea"], "src": ["ijp-126", "morfflex"] },
-    { "id": "mexnit", "lemma": "měnit", "pos": "verb", "aspect": "impf", "spell": "m{ě|ně}nit", "rules": ["be-pe-ve-me"], "forms": ["mění"], "src": ["ijp-126", "morfflex"] },
-    { "id": "objev", "lemma": "objev", "pos": "noun", "grade": 4, "gender": "m", "animate": false, "pattern": "hrad", "spell": "ob{je|ě}v", "rules": ["bje-vje"], "src": ["ijp-126", "morfflex"] },
-    { "id": "objevit", "lemma": "objevit", "pos": "verb", "grade": 4, "aspect": "pf", "spell": "ob{je|ě}vit", "rules": ["bje-vje"], "forms": ["objevil", "objevila", "objevili"], "src": ["ijp-126", "morfflex"] },
-    { "id": "objem", "lemma": "objem", "pos": "noun", "grade": 4, "gender": "m", "animate": false, "pattern": "hrad", "spell": "ob{je|ě}m", "rules": ["bje-vje"], "src": ["ijp-126", "morfflex"] },
-    { "id": "objet", "lemma": "objet", "pos": "verb", "grade": 4, "aspect": "pf", "spell": "ob{je|ě}t", "rules": ["bje-vje"], "forms": ["objela", "objel"], "src": ["ijp-126", "morfflex"] },
-    { "id": "objednat", "lemma": "objednat", "pos": "verb", "grade": 4, "aspect": "pf", "spell": "ob{je|ě}dnat", "rules": ["bje-vje"], "forms": ["objednali", "objednal"], "src": ["ijp-126", "morfflex"] },
-    { "id": "vjet", "lemma": "vjet", "pos": "verb", "grade": 4, "aspect": "pf", "spell": "v{je|ě}t", "rules": ["bje-vje"], "forms": ["vjelo", "vjel"], "src": ["ijp-126", "morfflex"] },
-    { "id": "vjezd", "lemma": "vjezd", "pos": "noun", "grade": 4, "gender": "m", "animate": false, "pattern": "hrad", "spell": "v{je|ě}zd", "rules": ["bje-vje"], "src": ["ijp-126", "morfflex"] },
-    { "id": "zapomenout", "lemma": "zapomenout", "pos": "verb", "grade": 4, "aspect": "pf", "forms": ["zapomněl", "zapomněla", "zapomněli"], "src": ["ijp-126", "morfflex"] },
-    { "id": "vzpomenout-si", "lemma": "vzpomenout si", "pos": "verb", "grade": 4, "aspect": "pf", "reflexive": "si", "forms": ["vzpomněl", "vzpomněla"], "src": ["ijp-126", "morfflex"] },
-    { "id": "prxipomenout", "lemma": "připomenout", "pos": "verb", "grade": 4, "aspect": "pf", "forms": ["připomněl", "připomněla"], "src": ["ijp-126", "morfflex"] },
-    { "id": "pomnexnka", "lemma": "pomněnka", "pos": "noun", "grade": 4, "gender": "f", "pattern": "zena", "spell": "pom{ně|ě}nka", "rules": ["mne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "jemnex", "lemma": "jemně", "pos": "adv", "grade": 4, "spell": "jem{ně|ě}", "rules": ["mne"], "src": ["ijp-126", "morfflex"] },
-    { "id": "jaa", "lemma": "já", "pos": "pron", "forms": ["mě", "mne", "mně", "mi", "mnou"], "src": ["ijp-650", "morfflex"] }
+    {
+      "id": "dexti",
+      "lemma": "děti",
+      "pos": "noun",
+      "gender": "f",
+      "numbers": "pl",
+      "pattern": "kost",
+      "spell": "d{ě|e}t{i|y}",
+      "rules": ["de-te-ne", "dtn-mekke"],
+      "note": "množné číslo slova dítě; skloňuje se jako kost, v čase minulém děti si hrály",
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "dexlat",
+      "lemma": "dělat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "d{ě|e}lat",
+      "rules": ["de-te-ne"],
+      "forms": ["dělá", "dělají"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "dexkovat",
+      "lemma": "děkovat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "d{ě|e}kovat",
+      "rules": ["de-te-ne"],
+      "forms": ["děkuje", "děkujeme"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "texlo",
+      "lemma": "tělo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "t{ě|e}lo",
+      "rules": ["de-te-ne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "texzxkyy",
+      "lemma": "těžký",
+      "pos": "adj",
+      "spell": "t{ě|e}žký",
+      "rules": ["de-te-ne"],
+      "forms": ["těžká", "těžkou"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "texsxit-se",
+      "lemma": "těšit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "spell": "t{ě|e}šit se",
+      "rules": ["de-te-ne"],
+      "forms": ["těší", "těšíme"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "nexco",
+      "lemma": "něco",
+      "pos": "pron",
+      "spell": "n{ě|e}co",
+      "rules": ["de-te-ne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "nexkdo",
+      "lemma": "někdo",
+      "pos": "pron",
+      "spell": "n{ě|e}kdo",
+      "rules": ["de-te-ne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "kotex",
+      "lemma": "kotě",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "spell": "kot{ě|e}",
+      "rules": ["de-te-ne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "sxtexnex",
+      "lemma": "štěně",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "spell": "št{ě|e}n{ě|e}",
+      "rules": ["de-te-ne", "de-te-ne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "mlaadex",
+      "lemma": "mládě",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "kure",
+      "spell": "mlád{ě|e}",
+      "rules": ["de-te-ne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "bexhat",
+      "lemma": "běhat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "b{ě|je}hat",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["běhá", "běhají"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "obexd",
+      "lemma": "oběd",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "ob{ě|je}d",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["obědu"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "pext",
+      "lemma": "pět",
+      "pos": "num",
+      "spell": "p{ě|je}t",
+      "rules": ["be-pe-ve-me"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "pexna",
+      "lemma": "pěna",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "p{ě|je}na",
+      "rules": ["be-pe-ve-me"],
+      "tags": ["sea"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "pexknyy",
+      "lemma": "pěkný",
+      "pos": "adj",
+      "spell": "p{ě|je}kný",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["pěkná", "pěkné"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "vexc",
+      "lemma": "věc",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "kost",
+      "spell": "v{ě|je}c",
+      "rules": ["be-pe-ve-me"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "svext",
+      "lemma": "svět",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "sv{ě|je}t",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["světě"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "hvexzda",
+      "lemma": "hvězda",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "hv{ě|je}zda",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["hvězdy"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "hvexzdice",
+      "lemma": "hvězdice",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "ruze",
+      "spell": "hv{ě|je}zdice",
+      "rules": ["be-pe-ve-me"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "medvexd",
+      "lemma": "medvěd",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "spell": "medv{ě|je}d",
+      "rules": ["be-pe-ve-me"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "mexsto",
+      "lemma": "město",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "m{ě|ně}sto",
+      "rules": ["be-pe-ve-me"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "mexsiic",
+      "lemma": "měsíc",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "stroj",
+      "spell": "m{ě|ně}s{í|ý}c",
+      "rules": ["be-pe-ve-me", "obojetna-i"],
+      "src": ["ijp-126", "ijp-103", "morfflex"]
+    },
+    {
+      "id": "mexkkyy",
+      "lemma": "měkký",
+      "pos": "adj",
+      "spell": "m{ě|ně}kký",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["měkká", "měkké"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "mexlkyy",
+      "lemma": "mělký",
+      "pos": "adj",
+      "spell": "m{ě|ně}lký",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["mělká", "mělké"],
+      "tags": ["sea"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "mexnit",
+      "lemma": "měnit",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "m{ě|ně}nit",
+      "rules": ["be-pe-ve-me"],
+      "forms": ["mění"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "objev",
+      "lemma": "objev",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "ob{je|ě}v",
+      "rules": ["bje-vje"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "objevit",
+      "lemma": "objevit",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "spell": "ob{je|ě}vit",
+      "rules": ["bje-vje"],
+      "forms": ["objevil", "objevila", "objevili"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "objem",
+      "lemma": "objem",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "ob{je|ě}m",
+      "rules": ["bje-vje"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "objet",
+      "lemma": "objet",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "spell": "ob{je|ě}t",
+      "rules": ["bje-vje"],
+      "forms": ["objela", "objel"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "objednat",
+      "lemma": "objednat",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "spell": "ob{je|ě}dnat",
+      "rules": ["bje-vje"],
+      "forms": ["objednali", "objednal"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "vjet",
+      "lemma": "vjet",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "spell": "v{je|ě}t",
+      "rules": ["bje-vje"],
+      "forms": ["vjelo", "vjel"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "vjezd",
+      "lemma": "vjezd",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "v{je|ě}zd",
+      "rules": ["bje-vje"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "zapomenout",
+      "lemma": "zapomenout",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "forms": ["zapomněl", "zapomněla", "zapomněli"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "vzpomenout-si",
+      "lemma": "vzpomenout si",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "reflexive": "si",
+      "forms": ["vzpomněl", "vzpomněla"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "prxipomenout",
+      "lemma": "připomenout",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "forms": ["připomněl", "připomněla"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "pomnexnka",
+      "lemma": "pomněnka",
+      "pos": "noun",
+      "grade": 4,
+      "gender": "f",
+      "pattern": "zena",
+      "spell": "pom{ně|ě}nka",
+      "rules": ["mne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "jemnex",
+      "lemma": "jemně",
+      "pos": "adv",
+      "grade": 4,
+      "spell": "jem{ně|ě}",
+      "rules": ["mne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "jaa",
+      "lemma": "já",
+      "pos": "pron",
+      "forms": ["mě", "mne", "mně", "mi", "mnou"],
+      "src": ["ijp-650", "morfflex"]
+    }
   ],
   "sentences": [
-    { "id": "e-caron.01", "text": "D{ě|e}ti si hrají na pláži.", "gaps": [{ "rule": "de-te-ne", "word": "dexti" }] },
-    { "id": "e-caron.02", "text": "Delfín má štíhlé t{ě|e}lo.", "gaps": [{ "rule": "de-te-ne", "word": "texlo" }] },
-    { "id": "e-caron.03", "text": "Kotva je velmi t{ě|e}žká.", "gaps": [{ "rule": "de-te-ne", "word": "texzxkyy" }] },
-    { "id": "e-caron.04", "text": "N{ě|e}kdo plave u útesu.", "gaps": [{ "rule": "de-te-ne", "word": "nexkdo" }] },
-    { "id": "e-caron.05", "text": "Želva našla na dně n{ě|e}co lesklého.", "gaps": [{ "rule": "de-te-ne", "word": "nexco" }] },
-    { "id": "e-caron.06", "text": "Malé kot{ě|e} se bojí vody.", "gaps": [{ "rule": "de-te-ne", "word": "kotex" }] },
-    { "id": "e-caron.07", "text": "Tuleň má roztomilé mlád{ě|e}.", "gaps": [{ "rule": "de-te-ne", "word": "mlaadex" }] },
-    { "id": "e-caron.08", "text": "Št{ě|e}n{ě|e} běhá po pláži.", "gaps": [{ "rule": "de-te-ne", "word": "sxtexnex" }, { "rule": "de-te-ne", "word": "sxtexnex" }] },
-    { "id": "e-caron.09", "text": "D{ě|e}kujeme za krásný výlet!", "gaps": [{ "rule": "de-te-ne", "word": "dexkovat" }] },
-    { "id": "e-caron.10", "text": "Ryby se t{ě|e}ší na jaro.", "gaps": [{ "rule": "de-te-ne", "word": "texsxit-se" }] },
-    { "id": "e-caron.11", "text": "Racci b{ě|je}hají po pláži.", "gaps": [{ "rule": "be-pe-ve-me", "word": "bexhat" }] },
-    { "id": "e-caron.12", "text": "K ob{ě|je}du máme rybu.", "gaps": [{ "rule": "be-pe-ve-me", "word": "obexd" }] },
-    { "id": "e-caron.13", "text": "Na vlnách je bílá p{ě|je}na.", "gaps": [{ "rule": "be-pe-ve-me", "word": "pexna" }] },
-    { "id": "e-caron.14", "text": "V moři plave p{ě|je}t delfínů.", "gaps": [{ "rule": "be-pe-ve-me", "word": "pext" }] },
-    { "id": "e-caron.15", "text": "To je p{ě|je}kná mušle!", "gaps": [{ "rule": "be-pe-ve-me", "word": "pexknyy" }] },
-    { "id": "e-caron.16", "text": "Na pláži jsem našel zvláštní v{ě|je}c.", "gaps": [{ "rule": "be-pe-ve-me", "word": "vexc" }] },
-    { "id": "e-caron.17", "text": "Na nebi svítí první hv{ě|je}zdy.", "gaps": [{ "rule": "be-pe-ve-me", "word": "hvexzda" }] },
-    { "id": "e-caron.18", "text": "Hv{ě|je}zdice má pět ramen.", "gaps": [{ "rule": "be-pe-ve-me", "word": "hvexzdice" }] },
-    { "id": "e-caron.19", "text": "Lední medv{ě|je}d loví tuleně.", "gaps": [{ "rule": "be-pe-ve-me", "word": "medvexd" }] },
-    { "id": "e-caron.20", "text": "U moře leží malé m{ě|ně}sto.", "gaps": [{ "rule": "be-pe-ve-me", "word": "mexsto" }] },
-    { "id": "e-caron.21", "text": "Nad mořem svítí m{ě|ně}síc.", "gaps": [{ "rule": "be-pe-ve-me", "word": "mexsiic" }] },
-    { "id": "e-caron.22", "text": "Medúzka má m{ě|ně}kké tělo.", "gaps": [{ "rule": "be-pe-ve-me", "word": "mexkkyy" }] },
-    { "id": "e-caron.23", "text": "U břehu je moře m{ě|ně}lké.", "gaps": [{ "rule": "be-pe-ve-me", "word": "mexlkyy" }] },
-    { "id": "e-caron.24", "text": "Chobotnice m{ě|ně}ní barvy.", "gaps": [{ "rule": "be-pe-ve-me", "word": "mexnit" }] },
-    { "id": "e-caron.25", "text": "V zim{ě|ně} tuleni odpočívají na ledu.", "gaps": [{ "rule": "be-pe-ve-me", "word": "zima" }] },
-    { "id": "e-caron.26", "text": "Na celém sv{ě|je}t{ě|e} je jen jedno Perlové moře.", "gaps": [{ "rule": "be-pe-ve-me", "word": "svext" }, { "rule": "de-te-ne", "word": "svext" }] },
-    { "id": "e-caron.27", "grade": 4, "text": "Potápěč ob{je|ě}vil starou loď.", "gaps": [{ "rule": "bje-vje", "word": "objevit" }] },
-    { "id": "e-caron.28", "grade": 4, "text": "Velryba má obrovský ob{je|ě}m plic.", "gaps": [{ "rule": "bje-vje", "word": "objem" }] },
-    { "id": "e-caron.29", "grade": 4, "text": "Loď ob{je|ě}la ostrov dokola.", "gaps": [{ "rule": "bje-vje", "word": "objet" }] },
-    { "id": "e-caron.30", "grade": 4, "text": "Ob{je|ě}dnali jsme si rybu k ob{ě|je}du.", "gaps": [{ "rule": "bje-vje", "word": "objednat" }, { "rule": "be-pe-ve-me", "word": "obexd" }] },
-    { "id": "e-caron.31", "grade": 4, "text": "Auto v{je|ě}lo do přístavu.", "gaps": [{ "rule": "bje-vje", "word": "vjet" }] },
-    { "id": "e-caron.32", "grade": 4, "text": "V{je|ě}zd do přístavu je volný.", "gaps": [{ "rule": "bje-vje", "word": "vjezd" }] },
-    { "id": "e-caron.33", "grade": 4, "text": "Krab zapom{ně|ě}l, kde schoval perlu.", "gaps": [{ "rule": "mne", "word": "zapomenout" }] },
-    { "id": "e-caron.34", "grade": 4, "text": "Želva si vzpom{ně|ě}la na svůj ostrov.", "gaps": [{ "rule": "mne", "word": "vzpomenout-si" }] },
-    { "id": "e-caron.35", "grade": 4, "text": "Na břehu kvete modrá pom{ně|ě}nka.", "gaps": [{ "rule": "mne", "word": "pomnexnka" }] },
-    { "id": "e-caron.36", "grade": 4, "text": "Vlny jem{ně|ě} šplouchají.", "gaps": [{ "rule": "mne", "word": "jemnex" }] },
-    { "id": "e-caron.37", "grade": 4, "text": "Dej {mně|mě} tu mušli, prosím.", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }] },
-    { "id": "e-caron.38", "grade": 4, "text": "Pojď ke {mně|mě} do vody!", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }] },
-    { "id": "e-caron.39", "grade": 4, "text": "Kamarádi o {mně|mě} mluvili.", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 6 }] },
-    { "id": "e-caron.40", "grade": 4, "text": "Bez {mě|mně} nikam neplav.", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 2 }] },
-    { "id": "e-caron.41", "grade": 4, "text": "Vidíš {mě|mně} pod vodou?", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }] },
-    { "id": "e-caron.42", "grade": 4, "text": "Krab {mě|mně} štípl do prstu.", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }] },
-    { "id": "e-caron.43", "grade": 4, "text": "Delfín {mně|mě} pomohl.", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }] },
-    { "id": "e-caron.44", "grade": 4, "text": "Ta perla je pro {mě|mně}?", "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }] }
+    {
+      "id": "e-caron.01",
+      "text": "D{ě|e}ti si hrají na pláži.",
+      "gaps": [{ "rule": "de-te-ne", "word": "dexti" }]
+    },
+    {
+      "id": "e-caron.02",
+      "text": "Delfín má štíhlé t{ě|e}lo.",
+      "gaps": [{ "rule": "de-te-ne", "word": "texlo" }]
+    },
+    {
+      "id": "e-caron.03",
+      "text": "Kotva je velmi t{ě|e}žká.",
+      "gaps": [{ "rule": "de-te-ne", "word": "texzxkyy" }]
+    },
+    {
+      "id": "e-caron.04",
+      "text": "N{ě|e}kdo plave u útesu.",
+      "gaps": [{ "rule": "de-te-ne", "word": "nexkdo" }]
+    },
+    {
+      "id": "e-caron.05",
+      "text": "Želva našla na dně n{ě|e}co lesklého.",
+      "gaps": [{ "rule": "de-te-ne", "word": "nexco" }]
+    },
+    {
+      "id": "e-caron.06",
+      "text": "Malé kot{ě|e} se bojí vody.",
+      "gaps": [{ "rule": "de-te-ne", "word": "kotex" }]
+    },
+    {
+      "id": "e-caron.07",
+      "text": "Tuleň má roztomilé mlád{ě|e}.",
+      "gaps": [{ "rule": "de-te-ne", "word": "mlaadex" }]
+    },
+    {
+      "id": "e-caron.08",
+      "text": "Št{ě|e}n{ě|e} běhá po pláži.",
+      "gaps": [
+        { "rule": "de-te-ne", "word": "sxtexnex" },
+        { "rule": "de-te-ne", "word": "sxtexnex" }
+      ]
+    },
+    {
+      "id": "e-caron.09",
+      "text": "D{ě|e}kujeme za krásný výlet!",
+      "gaps": [{ "rule": "de-te-ne", "word": "dexkovat" }]
+    },
+    {
+      "id": "e-caron.10",
+      "text": "Ryby se t{ě|e}ší na jaro.",
+      "gaps": [{ "rule": "de-te-ne", "word": "texsxit-se" }]
+    },
+    {
+      "id": "e-caron.11",
+      "text": "Racci b{ě|je}hají po pláži.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "bexhat" }]
+    },
+    {
+      "id": "e-caron.12",
+      "text": "K ob{ě|je}du máme rybu.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "obexd" }]
+    },
+    {
+      "id": "e-caron.13",
+      "text": "Na vlnách je bílá p{ě|je}na.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "pexna" }]
+    },
+    {
+      "id": "e-caron.14",
+      "text": "V moři plave p{ě|je}t delfínů.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "pext" }]
+    },
+    {
+      "id": "e-caron.15",
+      "text": "To je p{ě|je}kná mušle!",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "pexknyy" }]
+    },
+    {
+      "id": "e-caron.16",
+      "text": "Na pláži jsem našel zvláštní v{ě|je}c.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "vexc" }]
+    },
+    {
+      "id": "e-caron.17",
+      "text": "Na nebi svítí první hv{ě|je}zdy.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "hvexzda" }]
+    },
+    {
+      "id": "e-caron.18",
+      "text": "Hv{ě|je}zdice má pět ramen.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "hvexzdice" }]
+    },
+    {
+      "id": "e-caron.19",
+      "text": "Lední medv{ě|je}d loví tuleně.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "medvexd" }]
+    },
+    {
+      "id": "e-caron.20",
+      "text": "U moře leží malé m{ě|ně}sto.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "mexsto" }]
+    },
+    {
+      "id": "e-caron.21",
+      "text": "Nad mořem svítí m{ě|ně}síc.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "mexsiic" }]
+    },
+    {
+      "id": "e-caron.22",
+      "text": "Medúzka má m{ě|ně}kké tělo.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "mexkkyy" }]
+    },
+    {
+      "id": "e-caron.23",
+      "text": "U břehu je moře m{ě|ně}lké.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "mexlkyy" }]
+    },
+    {
+      "id": "e-caron.24",
+      "text": "Chobotnice m{ě|ně}ní barvy.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "mexnit" }]
+    },
+    {
+      "id": "e-caron.25",
+      "text": "V zim{ě|ně} tuleni odpočívají na ledu.",
+      "gaps": [{ "rule": "be-pe-ve-me", "word": "zima" }]
+    },
+    {
+      "id": "e-caron.26",
+      "text": "Na celém sv{ě|je}t{ě|e} je jen jedno Perlové moře.",
+      "gaps": [
+        { "rule": "be-pe-ve-me", "word": "svext" },
+        { "rule": "de-te-ne", "word": "svext" }
+      ]
+    },
+    {
+      "id": "e-caron.27",
+      "grade": 4,
+      "text": "Potápěč ob{je|ě}vil starou loď.",
+      "gaps": [{ "rule": "bje-vje", "word": "objevit" }]
+    },
+    {
+      "id": "e-caron.28",
+      "grade": 4,
+      "text": "Velryba má obrovský ob{je|ě}m plic.",
+      "gaps": [{ "rule": "bje-vje", "word": "objem" }]
+    },
+    {
+      "id": "e-caron.29",
+      "grade": 4,
+      "text": "Autobus ob{je|ě}l celou zátoku.",
+      "gaps": [{ "rule": "bje-vje", "word": "objet" }]
+    },
+    {
+      "id": "e-caron.30",
+      "grade": 4,
+      "text": "Ob{je|ě}dnali jsme si rybu k ob{ě|je}du.",
+      "gaps": [
+        { "rule": "bje-vje", "word": "objednat" },
+        { "rule": "be-pe-ve-me", "word": "obexd" }
+      ]
+    },
+    {
+      "id": "e-caron.31",
+      "grade": 4,
+      "text": "Auto v{je|ě}lo do přístavu.",
+      "gaps": [{ "rule": "bje-vje", "word": "vjet" }]
+    },
+    {
+      "id": "e-caron.32",
+      "grade": 4,
+      "text": "V{je|ě}zd do přístavu je volný.",
+      "gaps": [{ "rule": "bje-vje", "word": "vjezd" }]
+    },
+    {
+      "id": "e-caron.33",
+      "grade": 4,
+      "text": "Krab zapom{ně|ě}l, kde schoval perlu.",
+      "gaps": [{ "rule": "mne", "word": "zapomenout" }]
+    },
+    {
+      "id": "e-caron.34",
+      "grade": 4,
+      "text": "Želva si vzpom{ně|ě}la na svůj ostrov.",
+      "gaps": [{ "rule": "mne", "word": "vzpomenout-si" }]
+    },
+    {
+      "id": "e-caron.35",
+      "grade": 4,
+      "text": "Na břehu kvete modrá pom{ně|ě}nka.",
+      "gaps": [{ "rule": "mne", "word": "pomnexnka" }]
+    },
+    {
+      "id": "e-caron.36",
+      "grade": 4,
+      "text": "Vlny jem{ně|ě} šplouchají.",
+      "gaps": [{ "rule": "mne", "word": "jemnex" }]
+    },
+    {
+      "id": "e-caron.37",
+      "grade": 4,
+      "text": "Dej {mně|mě} tu mušli, prosím.",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }]
+    },
+    {
+      "id": "e-caron.38",
+      "grade": 4,
+      "text": "Pojď ke {mně|mě} do vody!",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }]
+    },
+    {
+      "id": "e-caron.39",
+      "grade": 4,
+      "text": "Kamarádi o {mně|mě} mluvili.",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 6 }]
+    },
+    {
+      "id": "e-caron.40",
+      "grade": 4,
+      "text": "Bez {mě|mně} nikam neplav.",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 2 }]
+    },
+    {
+      "id": "e-caron.41",
+      "grade": 4,
+      "text": "Vidíš {mě|mně} pod vodou?",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }]
+    },
+    {
+      "id": "e-caron.42",
+      "grade": 4,
+      "text": "Krab {mě|mně} štípl do prstu.",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }]
+    },
+    {
+      "id": "e-caron.43",
+      "grade": 4,
+      "text": "Delfín {mně|mě} pomohl.",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }]
+    },
+    {
+      "id": "e-caron.44",
+      "grade": 4,
+      "text": "Ta perla je pro {mě|mně}?",
+      "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 4 }]
+    }
   ]
 }

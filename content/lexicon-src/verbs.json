@@ -6,308 +6,1055 @@
   "src": ["ijp", "pcp-1993"],
   "words": [
     {
-      "id": "plavat", "lemma": "plavat", "pos": "verb", "aspect": "impf", "tags": ["sea"],
+      "id": "plavat",
+      "lemma": "plavat",
+      "pos": "verb",
+      "aspect": "impf",
+      "tags": ["sea"],
       "paradigm": {
         "inf": "plavat",
         "pres": ["plavu", "plaveš", "plave", "plaveme", "plavete", "plavou"],
-        "imp": [["plav", "plavej"], ["plavme", "plavejme"], ["plavte", "plavejte"]],
-        "past": { "m": "plaval", "f": "plavala", "n": "plavalo", "ma": "plavali", "mi": "plavaly", "fpl": "plavaly", "npl": "plavala" }
+        "imp": [
+          ["plav", "plavej"],
+          ["plavme", "plavejme"],
+          ["plavte", "plavejte"]
+        ],
+        "past": {
+          "m": "plaval",
+          "f": "plavala",
+          "n": "plavalo",
+          "ma": "plavali",
+          "mi": "plavaly",
+          "fpl": "plavaly",
+          "npl": "plavala"
+        }
       },
       "src": ["ijp", "morfflex"]
     },
     {
-      "id": "skaakat", "lemma": "skákat", "pos": "verb", "aspect": "impf",
+      "id": "skaakat",
+      "lemma": "skákat",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "skákat",
         "pres": ["skáču", "skáčeš", "skáče", "skáčeme", "skáčete", "skáčou"],
         "imp": ["skákej", "skákejme", "skákejte"],
-        "past": { "m": "skákal", "f": "skákala", "n": "skákalo", "ma": "skákali", "mi": "skákaly", "fpl": "skákaly", "npl": "skákala" }
+        "past": {
+          "m": "skákal",
+          "f": "skákala",
+          "n": "skákalo",
+          "ma": "skákali",
+          "mi": "skákaly",
+          "fpl": "skákaly",
+          "npl": "skákala"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "hraat", "lemma": "hrát", "pos": "verb", "aspect": "impf",
+      "id": "hraat",
+      "lemma": "hrát",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "hrát",
         "pres": [["hraju", "hraji"], "hraješ", "hraje", "hrajeme", "hrajete", ["hrají", "hrajou"]],
         "imp": ["hraj", "hrajme", "hrajte"],
-        "past": { "m": "hrál", "f": "hrála", "n": "hrálo", "ma": "hráli", "mi": "hrály", "fpl": "hrály", "npl": "hrála" }
+        "past": {
+          "m": "hrál",
+          "f": "hrála",
+          "n": "hrálo",
+          "ma": "hráli",
+          "mi": "hrály",
+          "fpl": "hrály",
+          "npl": "hrála"
+        }
       },
       "src": ["ijp", "morfflex"]
     },
     {
-      "id": "hraat-si", "lemma": "hrát si", "pos": "verb", "aspect": "impf", "reflexive": "si",
+      "id": "hraat-si",
+      "lemma": "hrát si",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "si",
       "paradigm": {
         "inf": "hrát",
         "pres": [["hraju", "hraji"], "hraješ", "hraje", "hrajeme", "hrajete", ["hrají", "hrajou"]],
         "imp": ["hraj", "hrajme", "hrajte"],
-        "past": { "m": "hrál", "f": "hrála", "n": "hrálo", "ma": "hráli", "mi": "hrály", "fpl": "hrály", "npl": "hrála" }
+        "past": {
+          "m": "hrál",
+          "f": "hrála",
+          "n": "hrálo",
+          "ma": "hráli",
+          "mi": "hrály",
+          "fpl": "hrály",
+          "npl": "hrála"
+        }
       },
       "src": ["ijp", "morfflex"]
     },
     {
-      "id": "chytat", "lemma": "chytat", "pos": "verb", "aspect": "impf",
+      "id": "chytat",
+      "lemma": "chytat",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "chytat",
         "pres": ["chytám", "chytáš", "chytá", "chytáme", "chytáte", "chytají"],
         "imp": ["chytej", "chytejme", "chytejte"],
-        "past": { "m": "chytal", "f": "chytala", "n": "chytalo", "ma": "chytali", "mi": "chytaly", "fpl": "chytaly", "npl": "chytala" }
+        "past": {
+          "m": "chytal",
+          "f": "chytala",
+          "n": "chytalo",
+          "ma": "chytali",
+          "mi": "chytaly",
+          "fpl": "chytaly",
+          "npl": "chytala"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "lovit", "lemma": "lovit", "pos": "verb", "aspect": "impf",
+      "id": "lovit",
+      "lemma": "lovit",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "lovit",
         "pres": ["lovím", "lovíš", "loví", "lovíme", "lovíte", "loví"],
         "imp": ["lov", "lovme", "lovte"],
-        "past": { "m": "lovil", "f": "lovila", "n": "lovilo", "ma": "lovili", "mi": "lovily", "fpl": "lovily", "npl": "lovila" }
+        "past": {
+          "m": "lovil",
+          "f": "lovila",
+          "n": "lovilo",
+          "ma": "lovili",
+          "mi": "lovily",
+          "fpl": "lovily",
+          "npl": "lovila"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "dyychat", "lemma": "dýchat", "pos": "verb", "aspect": "impf",
+      "id": "dyychat",
+      "lemma": "dýchat",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "dýchat",
         "pres": ["dýchám", "dýcháš", "dýchá", "dýcháme", "dýcháte", "dýchají"],
         "imp": ["dýchej", "dýchejme", "dýchejte"],
-        "past": { "m": "dýchal", "f": "dýchala", "n": "dýchalo", "ma": "dýchali", "mi": "dýchaly", "fpl": "dýchaly", "npl": "dýchala" }
+        "past": {
+          "m": "dýchal",
+          "f": "dýchala",
+          "n": "dýchalo",
+          "ma": "dýchali",
+          "mi": "dýchaly",
+          "fpl": "dýchaly",
+          "npl": "dýchala"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "sviitit", "lemma": "svítit", "pos": "verb", "aspect": "impf",
+      "id": "sviitit",
+      "lemma": "svítit",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "svítit",
         "pres": ["svítím", "svítíš", "svítí", "svítíme", "svítíte", "svítí"],
         "imp": ["sviť", "sviťme", "sviťte"],
-        "past": { "m": "svítil", "f": "svítila", "n": "svítilo", "ma": "svítili", "mi": "svítily", "fpl": "svítily", "npl": "svítila" }
+        "past": {
+          "m": "svítil",
+          "f": "svítila",
+          "n": "svítilo",
+          "ma": "svítili",
+          "mi": "svítily",
+          "fpl": "svítily",
+          "npl": "svítila"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "kreslit", "lemma": "kreslit", "pos": "verb", "aspect": "impf",
+      "id": "kreslit",
+      "lemma": "kreslit",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "kreslit",
         "pres": ["kreslím", "kreslíš", "kreslí", "kreslíme", "kreslíte", "kreslí"],
         "imp": ["kresli", "kresleme", "kreslete"],
-        "past": { "m": "kreslil", "f": "kreslila", "n": "kreslilo", "ma": "kreslili", "mi": "kreslily", "fpl": "kreslily", "npl": "kreslila" }
+        "past": {
+          "m": "kreslil",
+          "f": "kreslila",
+          "n": "kreslilo",
+          "ma": "kreslili",
+          "mi": "kreslily",
+          "fpl": "kreslily",
+          "npl": "kreslila"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "hledat", "lemma": "hledat", "pos": "verb", "aspect": "impf",
+      "id": "hledat",
+      "lemma": "hledat",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "hledat",
         "pres": ["hledám", "hledáš", "hledá", "hledáme", "hledáte", "hledají"],
         "imp": ["hledej", "hledejme", "hledejte"],
-        "past": { "m": "hledal", "f": "hledala", "n": "hledalo", "ma": "hledali", "mi": "hledaly", "fpl": "hledaly", "npl": "hledala" }
+        "past": {
+          "m": "hledal",
+          "f": "hledala",
+          "n": "hledalo",
+          "ma": "hledali",
+          "mi": "hledaly",
+          "fpl": "hledaly",
+          "npl": "hledala"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "zpiivat", "lemma": "zpívat", "pos": "verb", "aspect": "impf",
+      "id": "zpiivat",
+      "lemma": "zpívat",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "zpívat",
         "pres": ["zpívám", "zpíváš", "zpívá", "zpíváme", "zpíváte", "zpívají"],
         "imp": ["zpívej", "zpívejme", "zpívejte"],
-        "past": { "m": "zpíval", "f": "zpívala", "n": "zpívalo", "ma": "zpívali", "mi": "zpívaly", "fpl": "zpívaly", "npl": "zpívala" }
+        "past": {
+          "m": "zpíval",
+          "f": "zpívala",
+          "n": "zpívalo",
+          "ma": "zpívali",
+          "mi": "zpívaly",
+          "fpl": "zpívaly",
+          "npl": "zpívala"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "neest", "lemma": "nést", "pos": "verb", "aspect": "impf",
+      "id": "neest",
+      "lemma": "nést",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "nést",
         "pres": ["nesu", "neseš", "nese", "neseme", "nesete", "nesou"],
         "imp": ["nes", "nesme", "neste"],
-        "past": { "m": "nesl", "f": "nesla", "n": "neslo", "ma": "nesli", "mi": "nesly", "fpl": "nesly", "npl": "nesla" }
+        "past": {
+          "m": "nesl",
+          "f": "nesla",
+          "n": "neslo",
+          "ma": "nesli",
+          "mi": "nesly",
+          "fpl": "nesly",
+          "npl": "nesla"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "cxiist", "lemma": "číst", "pos": "verb", "aspect": "impf",
+      "id": "cxiist",
+      "lemma": "číst",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "číst",
         "pres": ["čtu", "čteš", "čte", "čteme", "čtete", "čtou"],
         "imp": ["čti", "čtěme", "čtěte"],
-        "past": { "m": "četl", "f": "četla", "n": "četlo", "ma": "četli", "mi": "četly", "fpl": "četly", "npl": "četla" }
+        "past": {
+          "m": "četl",
+          "f": "četla",
+          "n": "četlo",
+          "ma": "četli",
+          "mi": "četly",
+          "fpl": "četly",
+          "npl": "četla"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "psaat", "lemma": "psát", "pos": "verb", "aspect": "impf",
+      "id": "psaat",
+      "lemma": "psát",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "psát",
         "pres": [["píšu", "píši"], "píšeš", "píše", "píšeme", "píšete", ["píšou", "píší"]],
         "imp": ["piš", "pišme", "pište"],
-        "past": { "m": "psal", "f": "psala", "n": "psalo", "ma": "psali", "mi": "psaly", "fpl": "psaly", "npl": "psala" }
+        "past": {
+          "m": "psal",
+          "f": "psala",
+          "n": "psalo",
+          "ma": "psali",
+          "mi": "psaly",
+          "fpl": "psaly",
+          "npl": "psala"
+        }
       },
       "src": ["ijp", "morfflex"]
     },
     {
-      "id": "miit", "lemma": "mít", "pos": "verb", "aspect": "impf",
+      "id": "miit",
+      "lemma": "mít",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "mít",
         "pres": ["mám", "máš", "má", "máme", "máte", "mají"],
         "imp": ["měj", "mějme", "mějte"],
-        "past": { "m": "měl", "f": "měla", "n": "mělo", "ma": "měli", "mi": "měly", "fpl": "měly", "npl": "měla" }
+        "past": {
+          "m": "měl",
+          "f": "měla",
+          "n": "mělo",
+          "ma": "měli",
+          "mi": "měly",
+          "fpl": "měly",
+          "npl": "měla"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "jiit", "lemma": "jít", "pos": "verb", "aspect": "impf",
+      "id": "jiit",
+      "lemma": "jít",
+      "pos": "verb",
+      "aspect": "impf",
       "paradigm": {
         "inf": "jít",
         "pres": ["jdu", "jdeš", "jde", "jdeme", "jdete", "jdou"],
         "imp": ["jdi", "jděme", "jděte"],
-        "past": { "m": "šel", "f": "šla", "n": "šlo", "ma": "šli", "mi": "šly", "fpl": "šly", "npl": "šla" }
+        "past": {
+          "m": "šel",
+          "f": "šla",
+          "n": "šlo",
+          "ma": "šli",
+          "mi": "šly",
+          "fpl": "šly",
+          "npl": "šla"
+        }
       },
       "forms": ["půjdu", "půjdeš", "půjde", "půjdeme", "půjdete", "půjdou"],
       "note": "budoucí čas půjdu",
       "src": ["morfflex"]
     },
     {
-      "id": "potaapext-se", "lemma": "potápět se", "pos": "verb", "aspect": "impf", "reflexive": "se", "tags": ["sea"],
+      "id": "potaapext-se",
+      "lemma": "potápět se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
+      "tags": ["sea"],
       "paradigm": {
         "inf": "potápět",
         "pres": ["potápím", "potápíš", "potápí", "potápíme", "potápíte", ["potápějí", "potápí"]],
         "imp": ["potápěj", "potápějme", "potápějte"],
-        "past": { "m": "potápěl", "f": "potápěla", "n": "potápělo", "ma": "potápěli", "mi": "potápěly", "fpl": "potápěly", "npl": "potápěla" }
+        "past": {
+          "m": "potápěl",
+          "f": "potápěla",
+          "n": "potápělo",
+          "ma": "potápěli",
+          "mi": "potápěly",
+          "fpl": "potápěly",
+          "npl": "potápěla"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "koupat-se", "lemma": "koupat se", "pos": "verb", "aspect": "impf", "reflexive": "se",
+      "id": "koupat-se",
+      "lemma": "koupat se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
       "paradigm": {
         "inf": "koupat",
-        "pres": [["koupu", "koupám"], ["koupeš", "koupáš"], ["koupe", "koupá"], ["koupeme", "koupáme"], ["koupete", "koupáte"], ["koupou", "koupají"]],
+        "pres": [
+          ["koupu", "koupám"],
+          ["koupeš", "koupáš"],
+          ["koupe", "koupá"],
+          ["koupeme", "koupáme"],
+          ["koupete", "koupáte"],
+          ["koupou", "koupají"]
+        ],
         "imp": ["koupej", "koupejme", "koupejte"],
-        "past": { "m": "koupal", "f": "koupala", "n": "koupalo", "ma": "koupali", "mi": "koupaly", "fpl": "koupaly", "npl": "koupala" }
+        "past": {
+          "m": "koupal",
+          "f": "koupala",
+          "n": "koupalo",
+          "ma": "koupali",
+          "mi": "koupaly",
+          "fpl": "koupaly",
+          "npl": "koupala"
+        }
       },
       "src": ["ijp", "morfflex"]
     },
     {
-      "id": "smaat-se", "lemma": "smát se", "pos": "verb", "aspect": "impf", "reflexive": "se",
+      "id": "smaat-se",
+      "lemma": "smát se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
       "paradigm": {
         "inf": "smát",
         "pres": [["směju", "směji"], "směješ", "směje", "smějeme", "smějete", ["smějí", "smějou"]],
         "imp": ["směj", "smějme", "smějte"],
-        "past": { "m": "smál", "f": "smála", "n": "smálo", "ma": "smáli", "mi": "smály", "fpl": "smály", "npl": "smála" }
+        "past": {
+          "m": "smál",
+          "f": "smála",
+          "n": "smálo",
+          "ma": "smáli",
+          "mi": "smály",
+          "fpl": "smály",
+          "npl": "smála"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "diivat-se", "lemma": "dívat se", "pos": "verb", "aspect": "impf", "reflexive": "se",
+      "id": "diivat-se",
+      "lemma": "dívat se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
       "paradigm": {
         "inf": "dívat",
         "pres": ["dívám", "díváš", "dívá", "díváme", "díváte", "dívají"],
         "imp": ["dívej", "dívejme", "dívejte"],
-        "past": { "m": "díval", "f": "dívala", "n": "dívalo", "ma": "dívali", "mi": "dívaly", "fpl": "dívaly", "npl": "dívala" }
+        "past": {
+          "m": "díval",
+          "f": "dívala",
+          "n": "dívalo",
+          "ma": "dívali",
+          "mi": "dívaly",
+          "fpl": "dívaly",
+          "npl": "dívala"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "ucxit-se", "lemma": "učit se", "pos": "verb", "aspect": "impf", "reflexive": "se",
+      "id": "ucxit-se",
+      "lemma": "učit se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
       "paradigm": {
         "inf": "učit",
         "pres": ["učím", "učíš", "učí", "učíme", "učíte", "učí"],
         "imp": ["uč", "učme", "učte"],
-        "past": { "m": "učil", "f": "učila", "n": "učilo", "ma": "učili", "mi": "učily", "fpl": "učily", "npl": "učila" }
+        "past": {
+          "m": "učil",
+          "f": "učila",
+          "n": "učilo",
+          "ma": "učili",
+          "mi": "učily",
+          "fpl": "učily",
+          "npl": "učila"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "baat-se", "lemma": "bát se", "pos": "verb", "aspect": "impf", "reflexive": "se",
+      "id": "baat-se",
+      "lemma": "bát se",
+      "pos": "verb",
+      "aspect": "impf",
+      "reflexive": "se",
       "paradigm": {
         "inf": "bát",
         "pres": ["bojím", "bojíš", "bojí", "bojíme", "bojíte", "bojí"],
         "imp": ["boj", "bojme", "bojte"],
-        "past": { "m": "bál", "f": "bála", "n": "bálo", "ma": "báli", "mi": "bály", "fpl": "bály", "npl": "bála" }
+        "past": {
+          "m": "bál",
+          "f": "bála",
+          "n": "bálo",
+          "ma": "báli",
+          "mi": "bály",
+          "fpl": "bály",
+          "npl": "bála"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "skocxit", "lemma": "skočit", "pos": "verb", "aspect": "pf",
+      "id": "skocxit",
+      "lemma": "skočit",
+      "pos": "verb",
+      "aspect": "pf",
       "paradigm": {
         "inf": "skočit",
         "pres": ["skočím", "skočíš", "skočí", "skočíme", "skočíte", "skočí"],
         "imp": ["skoč", "skočme", "skočte"],
-        "past": { "m": "skočil", "f": "skočila", "n": "skočilo", "ma": "skočili", "mi": "skočily", "fpl": "skočily", "npl": "skočila" }
+        "past": {
+          "m": "skočil",
+          "f": "skočila",
+          "n": "skočilo",
+          "ma": "skočili",
+          "mi": "skočily",
+          "fpl": "skočily",
+          "npl": "skočila"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "najiit", "lemma": "najít", "pos": "verb", "aspect": "pf",
+      "id": "najiit",
+      "lemma": "najít",
+      "pos": "verb",
+      "aspect": "pf",
       "paradigm": {
         "inf": "najít",
         "pres": ["najdu", "najdeš", "najde", "najdeme", "najdete", "najdou"],
         "imp": ["najdi", "najděme", "najděte"],
-        "past": { "m": "našel", "f": "našla", "n": "našlo", "ma": "našli", "mi": "našly", "fpl": "našly", "npl": "našla" }
+        "past": {
+          "m": "našel",
+          "f": "našla",
+          "n": "našlo",
+          "ma": "našli",
+          "mi": "našly",
+          "fpl": "našly",
+          "npl": "našla"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "plout", "lemma": "plout", "pos": "verb", "aspect": "impf", "tags": ["sea"],
+      "id": "plout",
+      "lemma": "plout",
+      "pos": "verb",
+      "aspect": "impf",
+      "tags": ["sea"],
       "paradigm": {
         "inf": "plout",
         "pres": [["pluji", "pluju"], "pluješ", "pluje", "plujeme", "plujete", ["plují", "plujou"]],
         "imp": ["pluj", "plujme", "plujte"],
-        "past": { "m": "plul", "f": "plula", "n": "plulo", "ma": "pluli", "mi": "pluly", "fpl": "pluly", "npl": "plula" }
+        "past": {
+          "m": "plul",
+          "f": "plula",
+          "n": "plulo",
+          "ma": "pluli",
+          "mi": "pluly",
+          "fpl": "pluly",
+          "npl": "plula"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "vynorxit-se", "lemma": "vynořit se", "pos": "verb", "aspect": "pf", "reflexive": "se",
+      "id": "vynorxit-se",
+      "lemma": "vynořit se",
+      "pos": "verb",
+      "aspect": "pf",
+      "reflexive": "se",
       "paradigm": {
         "inf": "vynořit",
         "pres": ["vynořím", "vynoříš", "vynoří", "vynoříme", "vynoříte", "vynoří"],
         "imp": ["vynoř", "vynořme", "vynořte"],
-        "past": { "m": "vynořil", "f": "vynořila", "n": "vynořilo", "ma": "vynořili", "mi": "vynořily", "fpl": "vynořily", "npl": "vynořila" }
+        "past": {
+          "m": "vynořil",
+          "f": "vynořila",
+          "n": "vynořilo",
+          "ma": "vynořili",
+          "mi": "vynořily",
+          "fpl": "vynořily",
+          "npl": "vynořila"
+        }
       },
       "src": ["morfflex"]
     },
     {
-      "id": "doplavat", "lemma": "doplavat", "pos": "verb", "aspect": "pf", "tags": ["sea"],
+      "id": "doplavat",
+      "lemma": "doplavat",
+      "pos": "verb",
+      "aspect": "pf",
+      "tags": ["sea"],
       "paradigm": {
         "inf": "doplavat",
         "pres": ["doplavu", "doplaveš", "doplave", "doplaveme", "doplavete", "doplavou"],
         "imp": ["doplav", "doplavme", "doplavte"],
-        "past": { "m": "doplaval", "f": "doplavala", "n": "doplavalo", "ma": "doplavali", "mi": "doplavaly", "fpl": "doplavaly", "npl": "doplavala" }
+        "past": {
+          "m": "doplaval",
+          "f": "doplavala",
+          "n": "doplavalo",
+          "ma": "doplavali",
+          "mi": "doplavaly",
+          "fpl": "doplavaly",
+          "npl": "doplavala"
+        }
       },
       "src": ["morfflex"]
     }
   ],
   "sentences": [
-    { "id": "verbs.01", "text": "Plavu k ostrovu.", "marks": [{ "t": "Plavu", "word": "plavat", "person": 1, "number": "sg", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.02", "text": "Plaveš rychle jako delfín.", "marks": [{ "t": "Plaveš", "word": "plavat", "person": 2, "number": "sg", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.03", "text": "Želva plave pomalu.", "marks": [{ "t": "plave", "word": "plavat", "person": 3, "number": "sg", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.04", "text": "Plaveme spolu k útesu.", "marks": [{ "t": "Plaveme", "word": "plavat", "person": 1, "number": "pl", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.05", "text": "Plavete až k majáku?", "marks": [{ "t": "Plavete", "word": "plavat", "person": 2, "number": "pl", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.06", "text": "Rybky plavou v hejnu.", "marks": [{ "t": "plavou", "word": "plavat", "person": 3, "number": "pl", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.07", "text": "Včera jsme plavali v zátoce.", "marks": [{ "t": "plavali", "word": "plavat", "person": 1, "number": "pl", "tense": "past", "mood": "indicative", "compound": true }] },
-    { "id": "verbs.08", "text": "Zítra budeme plavat s delfíny.", "marks": [{ "t": "plavat", "word": "plavat", "person": 1, "number": "pl", "tense": "future", "mood": "indicative", "compound": true }] },
-    { "id": "verbs.09", "text": "Delfín skákal přes vlny.", "marks": [{ "t": "skákal", "word": "skaakat", "person": 3, "number": "sg", "tense": "past", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.10", "text": "Racci budou lovit ryby.", "marks": [{ "t": "lovit", "word": "lovit", "person": 3, "number": "pl", "tense": "future", "mood": "indicative", "compound": true }] },
-    { "id": "verbs.11", "text": "Lovíte ryby ráno?", "marks": [{ "t": "Lovíte", "word": "lovit", "person": 2, "number": "pl", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.12", "text": "Maják svítil celou noc.", "marks": [{ "t": "svítil", "word": "sviitit", "person": 3, "number": "sg", "tense": "past", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.13", "text": "Hledám zlatou mušli.", "marks": [{ "t": "Hledám", "word": "hledat", "person": 1, "number": "sg", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.14", "text": "Zpívali jste u ohně?", "marks": [{ "t": "Zpívali", "word": "zpiivat", "person": 2, "number": "pl", "tense": "past", "mood": "indicative", "compound": true }] },
-    { "id": "verbs.15", "text": "Ponorka pluje k vraku.", "marks": [{ "t": "pluje", "word": "plout", "person": 3, "number": "sg", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.16", "text": "Nesu kbelík s vodou.", "marks": [{ "t": "Nesu", "word": "neest", "person": 1, "number": "sg", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.17", "grade": 4, "text": "Plav rychleji, žralok se blíží!", "marks": [{ "t": "Plav", "word": "plavat", "person": 2, "number": "sg", "mood": "imperative", "compound": false }] },
-    { "id": "verbs.18", "grade": 4, "text": "Plavali bychom, kdyby nebyla bouře.", "marks": [{ "t": "Plavali", "word": "plavat", "person": 1, "number": "pl", "mood": "conditional", "compound": true }] },
-    { "id": "verbs.19", "grade": 4, "text": "Potápěj se opatrně!", "marks": [{ "t": "Potápěj", "word": "potaapext-se", "person": 2, "number": "sg", "mood": "imperative", "compound": false }] },
-    { "id": "verbs.20", "grade": 4, "text": "Želva by plavala v teplém moři.", "marks": [{ "t": "plavala", "word": "plavat", "person": 3, "number": "sg", "mood": "conditional", "compound": true }] },
-    { "id": "verbs.21", "grade": 4, "text": "Delfíni se smějí.", "marks": [{ "t": "smějí", "word": "smaat-se", "person": 3, "number": "pl", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.22", "grade": 4, "text": "Děti si hrají na pláži.", "marks": [{ "t": "hrají", "word": "hraat-si", "person": 3, "number": "pl", "tense": "present", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.23", "grade": 4, "text": "Koupal jsem se v moři.", "marks": [{ "t": "Koupal", "word": "koupat-se", "person": 1, "number": "sg", "tense": "past", "mood": "indicative", "compound": true }] },
-    { "id": "verbs.24", "grade": 4, "text": "Kreslete mořské koníky!", "marks": [{ "t": "Kreslete", "word": "kreslit", "person": 2, "number": "pl", "mood": "imperative", "compound": false }] },
-    { "id": "verbs.25", "grade": 4, "text": "Krab by rád našel perlu.", "marks": [{ "t": "našel", "word": "najiit", "person": 3, "number": "sg", "mood": "conditional", "compound": true }] },
-    { "id": "verbs.26", "grade": 4, "text": "Najdu poklad!", "marks": [{ "t": "Najdu", "word": "najiit", "person": 1, "number": "sg", "tense": "future", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.27", "grade": 4, "text": "Delfín skočí do vody.", "marks": [{ "t": "skočí", "word": "skocxit", "person": 3, "number": "sg", "tense": "future", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.28", "grade": 4, "text": "Čtěte si o velrybách.", "marks": [{ "t": "Čtěte", "word": "cxiist", "person": 2, "number": "pl", "mood": "imperative", "compound": false }] },
-    { "id": "verbs.29", "grade": 4, "text": "Tuleň se bál ledního medvěda.", "marks": [{ "t": "bál", "word": "baat-se", "person": 3, "number": "sg", "tense": "past", "mood": "indicative", "compound": false }] },
-    { "id": "verbs.30", "grade": 4, "text": "Učili jsme se plavat.", "marks": [{ "t": "Učili", "word": "ucxit-se", "person": 1, "number": "pl", "tense": "past", "mood": "indicative", "compound": true }] }
+    {
+      "id": "verbs.01",
+      "text": "Plavu k ostrovu.",
+      "marks": [
+        {
+          "t": "Plavu",
+          "word": "plavat",
+          "person": 1,
+          "number": "sg",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.02",
+      "text": "Plaveš rychle jako delfín.",
+      "marks": [
+        {
+          "t": "Plaveš",
+          "word": "plavat",
+          "person": 2,
+          "number": "sg",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.03",
+      "text": "Želva plave pomalu.",
+      "marks": [
+        {
+          "t": "plave",
+          "word": "plavat",
+          "person": 3,
+          "number": "sg",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.04",
+      "text": "Plaveme spolu k útesu.",
+      "marks": [
+        {
+          "t": "Plaveme",
+          "word": "plavat",
+          "person": 1,
+          "number": "pl",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.05",
+      "text": "Plavete až k majáku?",
+      "marks": [
+        {
+          "t": "Plavete",
+          "word": "plavat",
+          "person": 2,
+          "number": "pl",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.06",
+      "text": "Rybky plavou v hejnu.",
+      "marks": [
+        {
+          "t": "plavou",
+          "word": "plavat",
+          "person": 3,
+          "number": "pl",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.07",
+      "text": "Včera jsme plavali v zátoce.",
+      "marks": [
+        {
+          "t": "plavali",
+          "word": "plavat",
+          "person": 1,
+          "number": "pl",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.08",
+      "text": "Zítra budeme plavat s delfíny.",
+      "marks": [
+        {
+          "t": "plavat",
+          "word": "plavat",
+          "person": 1,
+          "number": "pl",
+          "tense": "future",
+          "mood": "indicative",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.09",
+      "text": "Delfín skákal přes vlny.",
+      "marks": [
+        {
+          "t": "skákal",
+          "word": "skaakat",
+          "person": 3,
+          "number": "sg",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.10",
+      "text": "Racci budou lovit ryby.",
+      "marks": [
+        {
+          "t": "lovit",
+          "word": "lovit",
+          "person": 3,
+          "number": "pl",
+          "tense": "future",
+          "mood": "indicative",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.11",
+      "text": "Lovíte ryby ráno?",
+      "marks": [
+        {
+          "t": "Lovíte",
+          "word": "lovit",
+          "person": 2,
+          "number": "pl",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.12",
+      "text": "Maják svítil celou noc.",
+      "marks": [
+        {
+          "t": "svítil",
+          "word": "sviitit",
+          "person": 3,
+          "number": "sg",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.13",
+      "text": "Hledám zlatou mušli.",
+      "marks": [
+        {
+          "t": "Hledám",
+          "word": "hledat",
+          "person": 1,
+          "number": "sg",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.14",
+      "text": "Zpívali jste u ohně?",
+      "marks": [
+        {
+          "t": "Zpívali",
+          "word": "zpiivat",
+          "person": 2,
+          "number": "pl",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.15",
+      "text": "Ponorka pluje k vraku.",
+      "marks": [
+        {
+          "t": "pluje",
+          "word": "plout",
+          "person": 3,
+          "number": "sg",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.16",
+      "text": "Nesu kbelík s vodou.",
+      "marks": [
+        {
+          "t": "Nesu",
+          "word": "neest",
+          "person": 1,
+          "number": "sg",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.17",
+      "grade": 4,
+      "text": "Plav rychleji, delfíni už čekají!",
+      "marks": [
+        {
+          "t": "Plav",
+          "word": "plavat",
+          "person": 2,
+          "number": "sg",
+          "mood": "imperative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.18",
+      "grade": 4,
+      "text": "Plavali bychom, kdyby nebyla bouře.",
+      "marks": [
+        {
+          "t": "Plavali",
+          "word": "plavat",
+          "person": 1,
+          "number": "pl",
+          "mood": "conditional",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.19",
+      "grade": 4,
+      "text": "Potápěj se opatrně!",
+      "marks": [
+        {
+          "t": "Potápěj",
+          "word": "potaapext-se",
+          "person": 2,
+          "number": "sg",
+          "mood": "imperative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.20",
+      "grade": 4,
+      "text": "Želva by plavala v teplém moři.",
+      "marks": [
+        {
+          "t": "plavala",
+          "word": "plavat",
+          "person": 3,
+          "number": "sg",
+          "mood": "conditional",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.21",
+      "grade": 4,
+      "text": "Delfíni se smějí.",
+      "marks": [
+        {
+          "t": "smějí",
+          "word": "smaat-se",
+          "person": 3,
+          "number": "pl",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.22",
+      "grade": 4,
+      "text": "Děti si hrají na pláži.",
+      "marks": [
+        {
+          "t": "hrají",
+          "word": "hraat-si",
+          "person": 3,
+          "number": "pl",
+          "tense": "present",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.23",
+      "grade": 4,
+      "text": "Koupal jsem se v moři.",
+      "marks": [
+        {
+          "t": "Koupal",
+          "word": "koupat-se",
+          "person": 1,
+          "number": "sg",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.24",
+      "grade": 4,
+      "text": "Kreslete mořské koníky!",
+      "marks": [
+        {
+          "t": "Kreslete",
+          "word": "kreslit",
+          "person": 2,
+          "number": "pl",
+          "mood": "imperative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.25",
+      "grade": 4,
+      "text": "Krab by rád našel perlu.",
+      "marks": [
+        {
+          "t": "našel",
+          "word": "najiit",
+          "person": 3,
+          "number": "sg",
+          "mood": "conditional",
+          "compound": true
+        }
+      ]
+    },
+    {
+      "id": "verbs.26",
+      "grade": 4,
+      "text": "Najdu poklad!",
+      "marks": [
+        {
+          "t": "Najdu",
+          "word": "najiit",
+          "person": 1,
+          "number": "sg",
+          "tense": "future",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.27",
+      "grade": 4,
+      "text": "Delfín skočí do vody.",
+      "marks": [
+        {
+          "t": "skočí",
+          "word": "skocxit",
+          "person": 3,
+          "number": "sg",
+          "tense": "future",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.28",
+      "grade": 4,
+      "text": "Čtěte si o velrybách.",
+      "marks": [
+        {
+          "t": "Čtěte",
+          "word": "cxiist",
+          "person": 2,
+          "number": "pl",
+          "mood": "imperative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.29",
+      "grade": 4,
+      "text": "Tuleň se bál ledního medvěda.",
+      "marks": [
+        {
+          "t": "bál",
+          "word": "baat-se",
+          "person": 3,
+          "number": "sg",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.30",
+      "grade": 4,
+      "text": "Učili jsme se plavat.",
+      "marks": [
+        {
+          "t": "Učili",
+          "word": "ucxit-se",
+          "person": 1,
+          "number": "pl",
+          "tense": "past",
+          "mood": "indicative",
+          "compound": true
+        }
+      ]
+    }
   ]
 }

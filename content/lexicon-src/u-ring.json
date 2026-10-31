@@ -4,47 +4,332 @@
   "grade": 3,
   "src": ["ijp-127"],
   "words": [
-    { "id": "uuhorx", "lemma": "úhoř", "pos": "noun", "gender": "m", "animate": true, "pattern": "muz", "spell": "{ú|ů}hoř", "rules": ["u-zacatek"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uutes", "lemma": "útes", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}tes", "rules": ["u-zacatek"], "forms": ["útesu", "útesech"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uukol", "lemma": "úkol", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}kol", "rules": ["u-zacatek"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uulovek", "lemma": "úlovek", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}lovek", "rules": ["u-zacatek"], "tags": ["sea"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uukryt", "lemma": "úkryt", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}kryt", "rules": ["u-zacatek"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uunor", "lemma": "únor", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}nor", "rules": ["u-zacatek"], "forms": ["únoru"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uustii", "lemma": "ústí", "pos": "noun", "gender": "n", "pattern": "staveni", "spell": "{ú|ů}stí", "rules": ["u-zacatek"], "tags": ["sea"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uuplnexk", "lemma": "úplněk", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}plněk", "rules": ["u-zacatek"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uuzkyy", "lemma": "úzký", "pos": "adj", "spell": "{ú|ů}zký", "rules": ["u-zacatek"], "src": ["ijp-127", "morfflex"] },
-    { "id": "uusmexv", "lemma": "úsměv", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "{ú|ů}směv", "rules": ["u-zacatek"], "src": ["ijp-127", "morfflex"] },
-    { "id": "neuuspexch", "lemma": "neúspěch", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "ne{ú|ů}spěch", "rules": [{ "rule": "u-predpona", "test": "úspěch" }], "forms": ["neúspěchu"], "src": ["ijp-127", "morfflex"] },
-    { "id": "trojuuhelniik", "lemma": "trojúhelník", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "troj{ú|ů}helník", "rules": [{ "rule": "u-predpona", "test": "úhel" }], "forms": ["trojúhelníku"], "src": ["ijp-127", "morfflex"] },
-    { "id": "neuuplnyy", "lemma": "neúplný", "pos": "adj", "spell": "ne{ú|ů}plný", "rules": [{ "rule": "u-predpona", "test": "úplný" }], "src": ["ijp-127", "morfflex"] },
-    { "id": "suol", "lemma": "sůl", "pos": "noun", "gender": "f", "pattern": "kost", "spell": "s{ů|ú}l", "rules": ["u-uprostred"], "note": "ověříme: soli", "tags": ["sea"], "src": ["ijp-127", "morfflex"] },
-    { "id": "doluo", "lemma": "dolů", "pos": "adv", "spell": "dol{ů|ú}", "rules": ["u-uprostred"], "src": ["ijp-127", "morfflex"] },
-    { "id": "domuo", "lemma": "domů", "pos": "adv", "spell": "dom{ů|ú}", "rules": ["u-uprostred"], "src": ["ijp-127", "morfflex"] },
-    { "id": "duom", "lemma": "dům", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "d{ů|ú}m", "rules": ["u-uprostred"], "note": "ověříme: domy", "src": ["ijp-127", "morfflex"] },
-    { "id": "kuonx", "lemma": "kůň", "pos": "noun", "gender": "m", "animate": true, "spell": "k{ů|ú}ň", "rules": ["u-uprostred"], "note": "ověříme: koně", "src": ["ijp-127", "morfflex"] },
-    { "id": "pruoliv", "lemma": "průliv", "pos": "noun", "gender": "m", "animate": false, "pattern": "hrad", "spell": "pr{ů|ú}liv", "rules": ["u-uprostred"], "tags": ["sea"], "src": ["ijp-127", "morfflex"] },
-    { "id": "krab", "lemma": "krab", "pos": "noun", "gender": "m", "animate": true, "pattern": "pan", "forms": ["krabů", "krabi"], "src": ["morfflex"] },
-    { "id": "meduuza", "lemma": "medúza", "pos": "noun", "gender": "f", "pattern": "zena", "loan": true, "spell": "med{ú|ů}za", "rules": ["u-prejate"], "note": "přejaté slovo, výjimka: ú uprostřed slova", "src": ["ijp-127", "morfflex"] }
+    {
+      "id": "uuhorx",
+      "lemma": "úhoř",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "muz",
+      "spell": "{ú|ů}hoř",
+      "rules": ["u-zacatek"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uutes",
+      "lemma": "útes",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}tes",
+      "rules": ["u-zacatek"],
+      "forms": ["útesu", "útesech"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uukol",
+      "lemma": "úkol",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}kol",
+      "rules": ["u-zacatek"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uulovek",
+      "lemma": "úlovek",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}lovek",
+      "rules": ["u-zacatek"],
+      "tags": ["sea"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uukryt",
+      "lemma": "úkryt",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}kryt",
+      "rules": ["u-zacatek"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uunor",
+      "lemma": "únor",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}nor",
+      "rules": ["u-zacatek"],
+      "forms": ["únoru"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uustii",
+      "lemma": "ústí",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "staveni",
+      "spell": "{ú|ů}stí",
+      "rules": ["u-zacatek"],
+      "tags": ["sea"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uuplnexk",
+      "lemma": "úplněk",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}plněk",
+      "rules": ["u-zacatek"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uuzkyy",
+      "lemma": "úzký",
+      "pos": "adj",
+      "spell": "{ú|ů}zký",
+      "rules": ["u-zacatek"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "uusmexv",
+      "lemma": "úsměv",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "{ú|ů}směv",
+      "rules": ["u-zacatek"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "neuuspexch",
+      "lemma": "neúspěch",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "ne{ú|ů}spěch",
+      "rules": [{ "rule": "u-predpona", "test": "úspěch" }],
+      "forms": ["neúspěchu"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "trojuuhelniik",
+      "lemma": "trojúhelník",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "troj{ú|ů}helník",
+      "rules": [{ "rule": "u-predpona", "test": "úhel" }],
+      "forms": ["trojúhelníku"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "neuuplnyy",
+      "lemma": "neúplný",
+      "pos": "adj",
+      "spell": "ne{ú|ů}plný",
+      "rules": [{ "rule": "u-predpona", "test": "úplný" }],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "suol",
+      "lemma": "sůl",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "kost",
+      "spell": "s{ů|ú}l",
+      "rules": ["u-uprostred"],
+      "note": "ověříme: soli",
+      "tags": ["sea"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "doluo",
+      "lemma": "dolů",
+      "pos": "adv",
+      "spell": "dol{ů|ú}",
+      "rules": ["u-uprostred"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "domuo",
+      "lemma": "domů",
+      "pos": "adv",
+      "spell": "dom{ů|ú}",
+      "rules": ["u-uprostred"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "duom",
+      "lemma": "dům",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "d{ů|ú}m",
+      "rules": ["u-uprostred"],
+      "note": "ověříme: domy",
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "kuonx",
+      "lemma": "kůň",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "spell": "k{ů|ú}ň",
+      "rules": ["u-uprostred"],
+      "note": "ověříme: koně",
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "pruoliv",
+      "lemma": "průliv",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "spell": "pr{ů|ú}liv",
+      "rules": ["u-uprostred"],
+      "tags": ["sea"],
+      "src": ["ijp-127", "morfflex"]
+    },
+    {
+      "id": "krab",
+      "lemma": "krab",
+      "pos": "noun",
+      "gender": "m",
+      "animate": true,
+      "pattern": "pan",
+      "forms": ["krabů", "krabi"],
+      "src": ["morfflex"]
+    },
+    {
+      "id": "meduuza",
+      "lemma": "medúza",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "loan": true,
+      "spell": "med{ú|ů}za",
+      "rules": ["u-prejate"],
+      "note": "přejaté slovo, výjimka: ú uprostřed slova",
+      "src": ["ijp-127", "morfflex"]
+    }
   ],
   "sentences": [
-    { "id": "u-ring.01", "text": "{Ú|Ů}hoř se schovává mezi kameny.", "gaps": [{ "rule": "u-zacatek", "word": "uuhorx" }] },
-    { "id": "u-ring.02", "text": "Na {ú|ů}tesu sedí racek.", "gaps": [{ "rule": "u-zacatek", "word": "uutes" }] },
-    { "id": "u-ring.03", "text": "Dnes nemám žádný {ú|ů}kol.", "gaps": [{ "rule": "u-zacatek", "word": "uukol" }] },
-    { "id": "u-ring.04", "text": "Rybáři mají velký {ú|ů}lovek.", "gaps": [{ "rule": "u-zacatek", "word": "uulovek" }] },
-    { "id": "u-ring.05", "text": "Chobotnice má {ú|ů}kryt ve skále.", "gaps": [{ "rule": "u-zacatek", "word": "uukryt" }] },
-    { "id": "u-ring.06", "text": "V {ú|ů}noru je moře studené.", "gaps": [{ "rule": "u-zacatek", "word": "uunor" }] },
-    { "id": "u-ring.07", "text": "V {ú|ů}stí řeky žijí ryby.", "gaps": [{ "rule": "u-zacatek", "word": "uustii" }] },
-    { "id": "u-ring.08", "text": "Dnes v noci je {ú|ů}plněk.", "gaps": [{ "rule": "u-zacatek", "word": "uuplnexk" }] },
-    { "id": "u-ring.09", "text": "V mořské vodě je s{ů|ú}l.", "gaps": [{ "rule": "u-uprostred", "word": "suol" }] },
-    { "id": "u-ring.10", "text": "Delfíni plavou dol{ů|ú} ke dnu.", "gaps": [{ "rule": "u-uprostred", "word": "doluo" }] },
-    { "id": "u-ring.11", "text": "Po potápění jdeme dom{ů|ú}.", "gaps": [{ "rule": "u-uprostred", "word": "domuo" }] },
-    { "id": "u-ring.12", "text": "U moře stojí bílý d{ů|ú}m.", "gaps": [{ "rule": "u-uprostred", "word": "duom" }] },
-    { "id": "u-ring.13", "text": "Na pláži cválá k{ů|ú}ň.", "gaps": [{ "rule": "u-uprostred", "word": "kuonx" }] },
-    { "id": "u-ring.14", "text": "Po ne{ú|ů}spěchu to delfín zkusil znovu.", "gaps": [{ "rule": "u-predpona", "word": "neuuspexch", "test": "úspěch" }] },
-    { "id": "u-ring.15", "text": "Plachta má tvar troj{ú|ů}helníku.", "gaps": [{ "rule": "u-predpona", "word": "trojuuhelniik", "test": "úhel" }] },
-    { "id": "u-ring.16", "text": "Med{ú|ů}za se vznáší ve vodě.", "gaps": [{ "rule": "u-prejate", "word": "meduuza" }] },
-    { "id": "u-ring.17", "text": "Kolem krab{ů|ú} plavou malé rybky.", "gaps": [{ "rule": "u-uprostred", "word": "krab" }] },
-    { "id": "u-ring.18", "text": "Do zátoky vede {ú|ů}zký pr{ů|ú}liv.", "gaps": [{ "rule": "u-zacatek", "word": "uuzkyy" }, { "rule": "u-uprostred", "word": "pruoliv" }] },
-    { "id": "u-ring.19", "text": "Delfín má na tváři {ú|ů}směv.", "gaps": [{ "rule": "u-zacatek", "word": "uusmexv" }] }
+    {
+      "id": "u-ring.01",
+      "text": "{Ú|Ů}hoř se schovává mezi kameny.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uuhorx" }]
+    },
+    {
+      "id": "u-ring.02",
+      "text": "Na {ú|ů}tesu sedí racek.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uutes" }]
+    },
+    {
+      "id": "u-ring.03",
+      "text": "Dnes nemám žádný {ú|ů}kol.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uukol" }]
+    },
+    {
+      "id": "u-ring.04",
+      "text": "Rybáři mají velký {ú|ů}lovek.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uulovek" }]
+    },
+    {
+      "id": "u-ring.05",
+      "text": "Chobotnice má {ú|ů}kryt ve skále.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uukryt" }]
+    },
+    {
+      "id": "u-ring.06",
+      "text": "V {ú|ů}noru je moře studené.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uunor" }]
+    },
+    {
+      "id": "u-ring.07",
+      "text": "V {ú|ů}stí řeky žijí ryby.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uustii" }]
+    },
+    {
+      "id": "u-ring.08",
+      "text": "Dnes v noci je {ú|ů}plněk.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uuplnexk" }]
+    },
+    {
+      "id": "u-ring.09",
+      "text": "V mořské vodě je s{ů|ú}l.",
+      "gaps": [{ "rule": "u-uprostred", "word": "suol" }]
+    },
+    {
+      "id": "u-ring.10",
+      "text": "Delfíni plavou dol{ů|ú} ke dnu.",
+      "gaps": [{ "rule": "u-uprostred", "word": "doluo" }]
+    },
+    {
+      "id": "u-ring.11",
+      "text": "Po potápění jdeme dom{ů|ú}.",
+      "gaps": [{ "rule": "u-uprostred", "word": "domuo" }]
+    },
+    {
+      "id": "u-ring.12",
+      "text": "U moře stojí bílý d{ů|ú}m.",
+      "gaps": [{ "rule": "u-uprostred", "word": "duom" }]
+    },
+    {
+      "id": "u-ring.13",
+      "text": "Na pláži cválá k{ů|ú}ň.",
+      "gaps": [{ "rule": "u-uprostred", "word": "kuonx" }]
+    },
+    {
+      "id": "u-ring.14",
+      "text": "Po ne{ú|ů}spěchu to delfín zkusil znovu.",
+      "gaps": [{ "rule": "u-predpona", "word": "neuuspexch", "test": "úspěch" }]
+    },
+    {
+      "id": "u-ring.15",
+      "text": "Plachta má tvar troj{ú|ů}helníku.",
+      "gaps": [{ "rule": "u-predpona", "word": "trojuuhelniik", "test": "úhel" }]
+    },
+    {
+      "id": "u-ring.16",
+      "text": "Med{ú|ů}za se vznáší ve vodě.",
+      "gaps": [{ "rule": "u-prejate", "word": "meduuza" }]
+    },
+    {
+      "id": "u-ring.17",
+      "text": "Kolem krab{ů|ú} plavou malé rybky.",
+      "gaps": [{ "rule": "u-uprostred", "word": "krab" }]
+    },
+    {
+      "id": "u-ring.18",
+      "text": "Do zátoky vede {ú|ů}zký pr{ů|ú}liv.",
+      "gaps": [
+        { "rule": "u-zacatek", "word": "uuzkyy" },
+        { "rule": "u-uprostred", "word": "pruoliv" }
+      ]
+    },
+    {
+      "id": "u-ring.19",
+      "text": "Delfín má na tváři {ú|ů}směv.",
+      "gaps": [{ "rule": "u-zacatek", "word": "uusmexv" }]
+    }
   ]
 }

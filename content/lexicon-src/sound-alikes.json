@@ -5,37 +5,186 @@
   "note": "Obě podoby jsou skutečná slova; rozhoduje význam ve větě.",
   "src": ["ijp-100", "ijp-101"],
   "words": [
-    { "id": "biit", "lemma": "bít", "pos": "verb", "forms": ["bily", "bije"], "src": ["ijp-101", "morfflex"] },
-    { "id": "viit", "lemma": "vít", "pos": "verb", "aspect": "impf", "spell": "v{í|ý}t", "rules": ["obojetna-i"], "forms": ["vije"], "note": "vít věnec; jiné je výt jako vlk", "src": ["ijp-103", "morfflex"] }
+    {
+      "id": "biit",
+      "lemma": "bít",
+      "pos": "verb",
+      "forms": ["bily", "bije"],
+      "src": ["ijp-101", "morfflex"]
+    },
+    {
+      "id": "viit",
+      "lemma": "vít",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "v{í|ý}t",
+      "rules": ["obojetna-i"],
+      "forms": ["vije"],
+      "note": "vít věnec; jiné je výt jako vlk",
+      "src": ["ijp-103", "morfflex"]
+    }
   ],
   "sets": [
-    { "id": "alike.byt-bit", "kind": "sound-alikes", "forms": [{ "form": "být", "word": "byyt" }, { "form": "bít", "word": "biit" }] },
-    { "id": "alike.byl-bil", "kind": "sound-alikes", "forms": [{ "form": "byl", "word": "byyt" }, { "form": "bil", "word": "biit" }] },
-    { "id": "alike.byli-bili", "kind": "sound-alikes", "forms": [{ "form": "byli", "word": "byyt" }, { "form": "bili", "word": "biit" }] },
-    { "id": "alike.myt-mit", "kind": "sound-alikes", "forms": [{ "form": "mýt", "word": "myyt" }, { "form": "mít", "word": "miit" }] },
-    { "id": "alike.vyr-vir", "kind": "sound-alikes", "forms": [{ "form": "výr", "word": "vyyr" }, { "form": "vír", "word": "viir" }] },
-    { "id": "alike.pyl-pil", "kind": "sound-alikes", "forms": [{ "form": "pyl", "word": "pyl" }, { "form": "pil", "word": "piit" }] },
-    { "id": "alike.my-mi", "kind": "sound-alikes", "forms": [{ "form": "my", "word": "my" }, { "form": "mi", "word": "jaa" }] },
-    { "id": "alike.vyt-vit", "kind": "sound-alikes", "forms": [{ "form": "výt", "word": "vyyt" }, { "form": "vít", "word": "viit" }] },
-    { "id": "alike.dobyt-dobit", "kind": "sound-alikes", "forms": [{ "form": "dobýt", "word": "dobyyt" }, { "form": "dobít", "word": "dobiit" }] }
+    {
+      "id": "alike.byt-bit",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "být", "word": "byyt" },
+        { "form": "bít", "word": "biit" }
+      ]
+    },
+    {
+      "id": "alike.byl-bil",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "byl", "word": "byyt" },
+        { "form": "bil", "word": "biit" }
+      ]
+    },
+    {
+      "id": "alike.byli-bili",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "byli", "word": "byyt" },
+        { "form": "bili", "word": "biit" }
+      ]
+    },
+    {
+      "id": "alike.myt-mit",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "mýt", "word": "myyt" },
+        { "form": "mít", "word": "miit" }
+      ]
+    },
+    {
+      "id": "alike.vyr-vir",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "výr", "word": "vyyr" },
+        { "form": "vír", "word": "viir" }
+      ]
+    },
+    {
+      "id": "alike.pyl-pil",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "pyl", "word": "pyl" },
+        { "form": "pil", "word": "piit" }
+      ]
+    },
+    {
+      "id": "alike.my-mi",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "my", "word": "my" },
+        { "form": "mi", "word": "jaa" }
+      ]
+    },
+    {
+      "id": "alike.vyt-vit",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "výt", "word": "vyyt" },
+        { "form": "vít", "word": "viit" }
+      ]
+    },
+    {
+      "id": "alike.dobyt-dobit",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "dobýt", "word": "dobyyt" },
+        { "form": "dobít", "word": "dobiit" }
+      ]
+    }
   ],
   "sentences": [
-    { "id": "alike.01", "text": "Chci b{ý|í}t potápěčem.", "gaps": [{ "rule": "vyjm", "word": "byyt" }] },
-    { "id": "alike.02", "text": "Hodiny na majáku b{i|y}ly poledne.", "gaps": [{ "rule": "obojetna-i", "word": "biit" }] },
-    { "id": "alike.03", "text": "Srdce mu b{i|y}lo radostí.", "gaps": [{ "rule": "obojetna-i", "word": "biit" }] },
-    { "id": "alike.04", "text": "Delfíni b{y|i}li po závodě unavení.", "gaps": [{ "rule": "vyjm", "word": "byyt" }] },
-    { "id": "alike.05", "text": "Kovář b{i|y}l kladivem do železa.", "gaps": [{ "rule": "obojetna-i", "word": "biit" }] },
-    { "id": "alike.06", "text": "Musíme m{ý|í}t ruce před jídlem.", "gaps": [{ "rule": "vyjm", "word": "myyt" }] },
-    { "id": "alike.07", "text": "Chtěl bych m{í|ý}t vlastní ponorku.", "gaps": [{ "rule": "obojetna-i", "word": "miit" }] },
-    { "id": "alike.08", "text": "V lese u moře houká v{ý|í}r.", "gaps": [{ "rule": "vyjm", "word": "vyyr" }] },
-    { "id": "alike.09", "text": "Malou loďku strhl silný v{í|ý}r.", "gaps": [{ "rule": "obojetna-i", "word": "viir" }] },
-    { "id": "alike.10", "text": "Včely sbírají p{y|i}l.", "gaps": [{ "rule": "vyjm", "word": "pyl" }] },
-    { "id": "alike.11", "text": "Námořník p{i|y}l čaj z hrnku.", "gaps": [{ "rule": "obojetna-i", "word": "piit" }] },
-    { "id": "alike.12", "text": "M{y|i} jsme kamarádi delfínů.", "gaps": [{ "rule": "vyjm", "word": "my" }] },
-    { "id": "alike.13", "text": "Podej m{i|y} prosím tu mušli.", "gaps": [{ "rule": "obojetna-i", "word": "jaa" }] },
-    { "id": "alike.14", "text": "V noci v{y|i}jí vlci.", "gaps": [{ "rule": "vyjm", "word": "vyyt" }] },
-    { "id": "alike.15", "text": "Babička v{i|y}je věnec z květin.", "gaps": [{ "rule": "obojetna-i", "word": "viit" }] },
-    { "id": "alike.16", "grade": 4, "text": "Piráti dob{y|i}li starý hrad.", "gaps": [{ "rule": "vyjm", "word": "dobyyt" }] },
-    { "id": "alike.17", "grade": 4, "text": "Ponorka musí dob{í|ý}t baterie.", "gaps": [{ "rule": "obojetna-i", "word": "dobiit" }] }
+    {
+      "id": "alike.01",
+      "text": "Chci b{ý|í}t potápěčem.",
+      "gaps": [{ "rule": "vyjm", "word": "byyt" }]
+    },
+    {
+      "id": "alike.02",
+      "text": "Hodiny na majáku b{i|y}ly poledne.",
+      "gaps": [{ "rule": "obojetna-i", "word": "biit" }]
+    },
+    {
+      "id": "alike.03",
+      "text": "Srdce mu b{i|y}lo radostí.",
+      "gaps": [{ "rule": "obojetna-i", "word": "biit" }]
+    },
+    {
+      "id": "alike.04",
+      "text": "Delfíni b{y|i}li po závodě unavení.",
+      "gaps": [{ "rule": "vyjm", "word": "byyt" }]
+    },
+    {
+      "id": "alike.05",
+      "text": "Kovář b{i|y}l kladivem do železa.",
+      "gaps": [{ "rule": "obojetna-i", "word": "biit" }]
+    },
+    {
+      "id": "alike.06",
+      "text": "Před jídlem si musíme m{ý|í}t ruce.",
+      "gaps": [{ "rule": "vyjm", "word": "myyt" }]
+    },
+    {
+      "id": "alike.07",
+      "text": "Chtěl bych m{í|ý}t odvahu jako kapitán.",
+      "gaps": [{ "rule": "obojetna-i", "word": "miit" }]
+    },
+    {
+      "id": "alike.08",
+      "text": "V lese u moře houká v{ý|í}r.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyr" }]
+    },
+    {
+      "id": "alike.09",
+      "text": "Malou loďku strhl silný v{í|ý}r.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viir" }]
+    },
+    {
+      "id": "alike.10",
+      "text": "Včely sbírají p{y|i}l.",
+      "gaps": [{ "rule": "vyjm", "word": "pyl" }]
+    },
+    {
+      "id": "alike.11",
+      "text": "Námořník p{i|y}l čaj z hrnku.",
+      "gaps": [{ "rule": "obojetna-i", "word": "piit" }]
+    },
+    {
+      "id": "alike.12",
+      "text": "M{y|i} jsme kamarádi delfínů.",
+      "gaps": [{ "rule": "vyjm", "word": "my" }]
+    },
+    {
+      "id": "alike.13",
+      "text": "Podej m{i|y} prosím tu mušli.",
+      "gaps": [{ "rule": "obojetna-i", "word": "jaa" }]
+    },
+    {
+      "id": "alike.14",
+      "text": "V noci v{y|i}jí vlci.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyt" }]
+    },
+    {
+      "id": "alike.15",
+      "text": "Babička v{i|y}je věnec z květin.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viit" }]
+    },
+    {
+      "id": "alike.16",
+      "grade": 4,
+      "text": "Piráti dob{y|i}li starý hrad.",
+      "gaps": [{ "rule": "vyjm", "word": "dobyyt" }]
+    },
+    {
+      "id": "alike.17",
+      "grade": 4,
+      "text": "Ponorka musí dob{í|ý}t baterie.",
+      "gaps": [{ "rule": "obojetna-i", "word": "dobiit" }]
+    }
   ]
 }

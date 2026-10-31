@@ -1,16 +1,17 @@
 /**
  * Small records (family, preferences): stored through the SDK save service, re-read after a
- * failed write, and explicit recovery when a stored record cannot be opened.
+ * failed write, quick changes applied in turn from the last saved state, and explicit recovery
+ * when a stored record cannot be opened.
  */
 import { MemorySaveStorage } from '@aegis/browser/save';
-import { describe, expect, it } from 'vitest';
-import { FAMILY_RECORD } from '../../../src/app/persistence/family';
+import { describe, expect, it, vi } from 'vitest';
+import { EMPTY_FAMILY, FAMILY_RECORD } from '../../../src/app/persistence/family';
 import type { Diver } from '../../../src/app/persistence/family';
 import { DEFAULT_PREFERENCES } from '../../../src/app/persistence/preferences';
 import { RecordStore, recordPolicy } from '../../../src/app/persistence/records';
 import { eraseRecord, RecoveryRequired } from '../../../src/app/persistence/recovery';
 import { FamilyStore, PreferencesStore } from '../../../src/app/persistence/stores';
-import { FlakyStorage } from './fixtures';
+import { FlakyStorage, SlowStorage } from './fixtures';
 
 const EMA: Diver = { id: 'profile-1', name: 'Ema', avatar: 'diver-1', address: 'girl' };
 
@@ -84,6 +85,28 @@ describe('family store', () => {
     await family.setGrownUpsLanguage('en');
     expect(heard).toEqual(['cs', 'en']);
   });
+
+  it('applies quick changes in turn, each from the last saved state', async () => {
+    const storage = new SlowStorage();
+    const family = new FamilyStore(storage);
+    await family.open();
+    storage.held = true;
+    const ema = family.add({ name: 'Ema', avatar: 'diver-1', address: 'girl' });
+    const tom = family.add({ name: 'Tom', avatar: 'diver-2', address: 'boy' });
+    const english = family.setGrownUpsLanguage('en');
+    const czech = family.setGrownUpsLanguage('cs');
+    await vi.waitFor(() => expect(storage.waitingWrites).toBe(1));
+    expect(family.state(), 'nothing counts before the disk has it').toEqual(EMPTY_FAMILY);
+    storage.release();
+    expect(await ema).toMatchObject({ ok: true, value: { id: 'profile-1', name: 'Ema' } });
+    expect(await tom).toMatchObject({ ok: true, value: { id: 'profile-2', name: 'Tom' } });
+    await english;
+    await czech;
+    const stored = await new FamilyStore(storage).open();
+    expect(stored.profiles.map((diver) => diver.name)).toEqual(['Ema', 'Tom']);
+    expect(stored.grownUpsLanguage, 'the last choice wins').toBe('cs');
+    expect(family.state()).toEqual(stored);
+  });
 });
 
 describe('preferences store', () => {
@@ -97,6 +120,52 @@ describe('preferences store', () => {
     const reopened = new PreferencesStore(storage, 'profile-1');
     expect((await reopened.open()).readAloud).toBe(false);
     expect((await new PreferencesStore(storage, 'profile-2').open()).readAloud).toBe(true);
+  });
+
+  it('keeps every one of several quick changes, in order', async () => {
+    const storage = new SlowStorage();
+    const store = new PreferencesStore(storage, 'profile-1');
+    await store.open();
+    storage.held = true;
+    const changes = [
+      store.change((draft) => {
+        draft.readAloud = false;
+      }),
+      store.change((draft) => {
+        draft.autoRead = true;
+      }),
+      store.change((draft) => {
+        draft.timeLimit = 20;
+      }),
+      store.change((draft) => {
+        draft.timeLimit = 30;
+      }),
+    ];
+    await vi.waitFor(() => expect(storage.waitingWrites).toBe(1));
+    storage.release();
+    await Promise.all(changes);
+    const stored = await new PreferencesStore(storage, 'profile-1').open();
+    expect(stored).toMatchObject({ readAloud: false, autoRead: true, timeLimit: 30 });
+    expect(store.current()).toEqual(stored);
+  });
+
+  it('runs the next change after one that failed, from what storage holds', async () => {
+    const storage = new FlakyStorage();
+    const store = new PreferencesStore(storage, 'profile-1');
+    await store.open();
+    storage.failures = 1;
+    const failed = store.change((draft) => {
+      draft.readAloud = false;
+    });
+    const next = store.change((draft) => {
+      draft.autoRead = true;
+    });
+    await expect(failed).rejects.toThrow();
+    expect(await next).toMatchObject({ readAloud: true, autoRead: true });
+    expect(await new PreferencesStore(storage, 'profile-1').open()).toMatchObject({
+      readAloud: true,
+      autoRead: true,
+    });
   });
 });
 

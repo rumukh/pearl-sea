@@ -24,7 +24,7 @@ import { formatBytes, requestPersistence, storageReport } from '../persistence/s
 import { PreferencesStore } from '../persistence/stores';
 import { candyButton, linkButton } from '../ui/button';
 import { confirmDialog } from '../ui/dialog';
-import { h } from '../ui/dom';
+import { h, replaceKeepingFocus } from '../ui/dom';
 import type { ScreenEntry } from '../router/router';
 import { GROWN_UPS_TABS } from '../shell/app';
 import type { App, GrownUpsTab } from '../shell/app';
@@ -38,6 +38,16 @@ export function grownUpsScreen(
   // Kept by the entry, so coming back from the print preview finds the same tab and child.
   let tab: GrownUpsTab = initialTab;
   let selected: string | undefined = diverId;
+  // One store per child while the area lives, so each change to a child's settings takes its
+  // turn after the one before, even when the panel was rebuilt in between.
+  const preferenceStores = new Map<string, PreferencesStore>();
+  const preferencesOf = (id: string): PreferencesStore => {
+    const known = preferenceStores.get(id);
+    if (known) return known;
+    const store = new PreferencesStore(app.storage, id);
+    preferenceStores.set(id, store);
+    return store;
+  };
   return {
     key: 'grownups',
     async build(context) {
@@ -88,7 +98,8 @@ export function grownUpsScreen(
         attributes: { 'aria-label': g('grownups.heading') },
       });
       const renderTabs = (): void => {
-        tabBar.replaceChildren(
+        replaceKeepingFocus(
+          tabBar,
           segmented(
             g('grownups.heading'),
             GROWN_UPS_TABS,
@@ -184,7 +195,7 @@ export function grownUpsScreen(
         );
 
       const childSettings = async (diver: Diver): Promise<HTMLElement> => {
-        const store = new PreferencesStore(app.storage, diver.id);
+        const store = preferencesOf(diver.id);
         try {
           await store.open();
         } catch (error) {
@@ -644,8 +655,10 @@ export function grownUpsScreen(
           }),
         );
 
+      let renders = 0;
       const render = async (): Promise<void> => {
         if (disposed) return;
+        const token = ++renders;
         let content: HTMLElement;
         try {
           content =
@@ -660,10 +673,11 @@ export function grownUpsScreen(
           if (!(error instanceof RecoveryRequired)) app.kit.onError(error);
           return;
         }
-        if (disposed) return;
+        // Only the newest render is shown: an older one can finish later, with older settings.
+        if (disposed || token !== renders) return;
         assertChildSafeView(content, app.kit.baseUrl);
         panel.dataset['tab'] = tab;
-        panel.replaceChildren(content);
+        replaceKeepingFocus(panel, content);
       };
 
       renderTabs();

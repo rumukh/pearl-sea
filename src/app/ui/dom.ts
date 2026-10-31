@@ -37,6 +37,25 @@ export function append(parent: Node, ...children: Child[]): void {
   }
 }
 
+/**
+ * Replace what `container` shows and keep the keyboard on the control that had it, when the new
+ * content builds that control again (matched by `data-testid`, which every control of a rebuilt
+ * panel carries). Otherwise focus would fall back to the page with the removed control.
+ */
+export function replaceKeepingFocus(container: HTMLElement, ...children: Child[]): void {
+  const active = document.activeElement;
+  const key =
+    active instanceof HTMLElement && container.contains(active)
+      ? active.dataset['testid']
+      : undefined;
+  container.replaceChildren();
+  append(container, ...children);
+  if (key === undefined) return;
+  Array.from(container.querySelectorAll<HTMLElement>('[data-testid]'))
+    .find((element) => element.dataset['testid'] === key)
+    ?.focus({ preventScroll: true });
+}
+
 const SVG = 'http://www.w3.org/2000/svg';
 
 export function svg<K extends keyof SVGElementTagNameMap>(

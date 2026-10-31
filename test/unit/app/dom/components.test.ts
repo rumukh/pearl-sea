@@ -2,9 +2,11 @@
 /**
  * Small pieces of the UI kit: tabs turn with the arrows and around the ends, meters and the coin
  * counter say their value in words (Czech plural forms), stars differ in shape as well as colour,
- * toasts reach screen readers, and every icon is a decorative SVG.
+ * toasts reach screen readers, every icon is a decorative SVG, and a rebuilt panel keeps the
+ * keyboard on the control that had it.
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { h, replaceKeepingFocus } from '../../../../src/app/ui/dom';
 import { ICON_NAMES, icon, starIcon } from '../../../../src/app/ui/icons';
 import { createCoinCounter, createMeter, createStars } from '../../../../src/app/ui/meters';
 import { createTabs, stepTab } from '../../../../src/app/ui/tabs';
@@ -130,6 +132,38 @@ describe('icons', () => {
         expect(path.getAttribute('stroke'), name).toBe('currentColor');
         expect(path.getAttribute('d'), name).toMatch(/^M[\d.]/);
       }
+    }
+  });
+});
+
+describe('a rebuilt panel', () => {
+  const controls = (): HTMLElement[] => [
+    h('button', { testId: 'setting-a', text: 'A' }),
+    h('input', { testId: 'setting-b', attributes: { type: 'checkbox' } }),
+  ];
+
+  it('keeps the keyboard on the control that had it', () => {
+    const panel = h('section', {}, ...controls());
+    const outside = h('button', { testId: 'outside', text: 'Zpět' });
+    document.body.append(outside, panel);
+    try {
+      panel.querySelector<HTMLElement>('[data-testid="setting-b"]')!.focus();
+      const old = document.activeElement;
+      replaceKeepingFocus(panel, ...controls());
+      expect(document.activeElement).not.toBe(old);
+      expect(document.activeElement?.getAttribute('data-testid')).toBe('setting-b');
+
+      outside.focus();
+      replaceKeepingFocus(panel, ...controls());
+      expect(document.activeElement, 'focus elsewhere stays where it is').toBe(outside);
+
+      panel.querySelector<HTMLElement>('[data-testid="setting-a"]')!.focus();
+      replaceKeepingFocus(panel, h('p', { text: 'Žádné děti.' }));
+      expect(panel.textContent).toBe('Žádné děti.');
+      expect(panel.contains(document.activeElement)).toBe(false);
+    } finally {
+      outside.remove();
+      panel.remove();
     }
   });
 });

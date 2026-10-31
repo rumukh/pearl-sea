@@ -129,6 +129,10 @@ export class SlowStorage extends MemorySaveStorage {
     this.held = false;
     for (const resolve of this.waiting.splice(0)) resolve();
   }
+  /** How many writes are waiting for `release`. */
+  get waitingWrites(): number {
+    return this.waiting.length;
+  }
 }
 
 export const PROFILE_A = { id: 'profile-1', seed: profileSeed('profile-1') } as const;

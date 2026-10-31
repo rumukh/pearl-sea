@@ -87,6 +87,12 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   `cs`, text 100/125/150/200 %, less motion, volumes for narration/music/effects, all 1.0 by
   default), `readAloud`, `autoRead`, `voice` (a local voice URI or null) and `timeLimit` (null or
   5-120 minutes). Validated strictly on load and on every edit.
+- **Live stores** (`stores.ts`): the family record and each child's preferences. A write either
+  becomes the new state or fails without changing it (then the store re-reads storage). Opens and
+  changes take turns in the order they were asked for, and each change is worked out from the
+  last saved state when its turn comes: two quick changes (two switches tapped before the first
+  is on disk, two children added, English then Czech) both stay, in order, and a failed change
+  does not stop the next one.
 - **Game sessions** (`game-session.ts`, generic over the adapter): `createSaveCheckpoint` and
   `createRuntimeHost` with the seed `profileSeed(id)`. A stored envelope is validated by the codec,
   restored into a throwaway probe host with the content revision it pinned, and only then into the
@@ -270,23 +276,29 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
 - **O hře / About**: the build id, privacy (nothing is sent anywhere), the font's licence and the
   licences file.
 
+Each saved change rebuilds the panel from storage through one preferences store per child (kept
+while the area lives). Only the newest rebuild is shown, and the keyboard stays on the control
+that had it (`replaceKeepingFocus` in `ui/dom.ts`, matched by `data-testid`).
+
 ## 15. Testing
 
 - **Unit** (`test/unit/app/`, Vitest): messages (Czech plurals, address, typography, grown-ups'
   English) and the catalogs; tokens and measured contrast; the router stack; family, preferences,
-  records and recovery; game sessions and the command controller on a tiny counting game
-  (`fixtures.ts`: checkpoints, retry without repeating the action, stale views, pause, restore,
-  content activation, backups); profile data (backup, load, erase); backups; save status; the day
-  record; storage sizes; the gate; moves; the number pad's state; the sound map, game audio and the
-  audio manifest; voices and read-aloud; aliases; print layouts; the About build id.
+  records (quick changes taken in turn on a slow disk) and recovery; game sessions and the command
+  controller on a tiny counting game (`fixtures.ts`: checkpoints, retry without repeating the
+  action, stale views, pause, restore, content activation, backups); profile data (backup, load,
+  erase); backups; save status; the day record; storage sizes; the gate; moves; the number pad's
+  state; the sound map, game audio and the audio manifest; voices and read-aloud; aliases; print
+  layouts; the About build id.
 - **DOM** (`test/unit/app/dom/`, happy-dom): the router, the announcer, choice tiles (letters and
   digits), the number pad, the whole gate dialog, tabs, meters, stars and the coin counter, toasts,
-  icons, print sheets, the save status pill and the read-aloud button.
+  icons, a rebuilt panel keeping focus, print sheets, the save status pill and the read-aloud
+  button.
 - **Browser** (`test/e2e/grownups.spec.ts`, Playwright): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
-  settings kept and carried by a backup download, offline installation into this game's caches and
-  scope, and the recovery screen for an unreadable family record; axe WCAG 2.1 A and AA on every
-  screen. The spec runs with reduced motion (axe would otherwise measure a half-faded toast) and
+  settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
+  download, offline installation into this game's caches and scope, and the recovery screen for
+  an unreadable family record; axe WCAG 2.1 A and AA on every screen. The spec runs with reduced motion (axe would otherwise measure a half-faded toast) and
   waits up to 20 s for readiness: boot opens the family record, and Firefox's first IndexedDB open
   in a new browser context takes about 1 to 5 s. `smoke.spec.ts` and `isolation.spec.ts` stay
   green. Locally the default project is the installed Edge; set `PS_E2E_PORT` to a free port when

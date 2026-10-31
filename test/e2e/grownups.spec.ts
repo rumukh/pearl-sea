@@ -192,8 +192,14 @@ test('a child’s settings are kept for that child, and a backup carries them', 
   await expect(settings).toContainText('Ema');
   await page.getByTestId('setting-text-200').click();
   await expect(page.getByTestId('setting-text-200')).toHaveAttribute('aria-pressed', 'true');
-  await page.getByTestId('setting-read-aloud').uncheck();
-  await expect(page.getByTestId('setting-read-aloud')).not.toBeChecked();
+  // From the keyboard: the panel is rebuilt after the save, and the keyboard stays on the switch.
+  const readAloud = page.getByTestId('setting-read-aloud');
+  await readAloud.focus();
+  await readAloud.evaluate((element) => element.setAttribute('data-before-save', ''));
+  await page.keyboard.press('Space');
+  const rebuilt = page.locator('[data-testid="setting-read-aloud"]:not([data-before-save])');
+  await expect(rebuilt).not.toBeChecked();
+  await expect(rebuilt).toBeFocused();
   await noViolations(page, 'a child’s settings');
 
   await page.reload();

@@ -46,6 +46,7 @@ import type {
   Aspect,
   ListedLetter,
   PartOfSpeech,
+  Register,
   SegmentRole,
   SpellingRule,
   WordRelation,
@@ -111,7 +112,11 @@ export const DIMENSION_VALUES: Readonly<Record<Dimension, readonly string[]>> = 
 // ---------------------------------------------------------------------------------------------
 // Filters
 
-/** Selects lexicon words. Every present field narrows the selection; absent fields allow all. */
+/**
+ * Selects lexicon words. Every present field narrows the selection; absent fields allow all,
+ * except `registers`: absent, it selects standard words only (`DEFAULT_REGISTERS`), so a colloquial
+ * word (dobrej, mlíko) reaches only the register skills that ask for it.
+ */
 export interface WordFilter {
   words?: string[];
   topics?: string[];
@@ -123,10 +128,18 @@ export interface WordFilter {
   grades?: Grade[];
   /** Only verbs of these aspects (a 3rd-grade tense skill keeps to imperfective verbs). */
   aspects?: Aspect[];
+  /**
+   * Words of these registers (default: standard only). Only register skills (`isRegisterSkill`)
+   * may name `colloquial`, and they must.
+   */
+  registers?: Register[];
   /** Only words of core (school-list) families. */
   core?: boolean;
   exclude?: string[];
 }
+
+/** The registers a word filter selects when it names none: standard Czech only. */
+export const DEFAULT_REGISTERS: readonly Register[] = ['standard'];
 
 /** Selects lexicon sentences. */
 export interface SentenceFilter {
@@ -155,6 +168,7 @@ export function matchesWordFilter(
     (filter.grades === undefined || filter.grades.includes(word.grade)) &&
     (filter.aspects === undefined ||
       (word.verb !== undefined && filter.aspects.includes(word.verb.aspect))) &&
+    (filter.registers ?? DEFAULT_REGISTERS).includes(word.register ?? 'standard') &&
     (filter.core === undefined || (family !== undefined && family.core === filter.core)) &&
     (filter.exclude === undefined || !filter.exclude.includes(word.id))
   );
@@ -327,6 +341,7 @@ export const wordFilterSchema: Schema<WordFilter> = objectWithOptional(
     letters: uniqueArray(oneOf(LISTED_LETTERS), { min: 1, max: 7 }),
     grades: uniqueArray(gradeSchema, { min: 1, max: 2 }),
     aspects: uniqueArray(oneOf(ASPECTS), { min: 1, max: 2 }),
+    registers: uniqueArray(oneOf(REGISTERS), { min: 1, max: 2 }),
     core: schema.boolean,
     exclude: ids,
   },
@@ -422,8 +437,37 @@ export const skillSchema: Schema<Skill> = {
   },
 };
 
+/**
+ * Whether a skill teaches the register (spisovná × nespisovná čeština): it asks the `register`
+ * dimension or pairs a colloquial word with its standard twin. Only these skills select
+ * colloquial words, and they must (`words.registers`).
+ */
+export function isRegisterSkill(skill: Read<Skill>): boolean {
+  switch (skill.generator) {
+    case 'classify':
+    case 'sort':
+      return skill.params.dimension === 'register';
+    case 'odd-one-out':
+      return skill.params.basis === 'register';
+    case 'pairs':
+      return skill.params.pair === 'standard';
+    default:
+      return false;
+  }
+}
+
 /** Cross-field checks of a skill's parameters. */
 function paramProblem(skill: Skill): string | null {
+  const filter = (skill.params as { words?: WordFilter }).words;
+  if (filter !== undefined) {
+    const colloquial = (filter.registers ?? DEFAULT_REGISTERS).includes('colloquial');
+    if (isRegisterSkill(skill) && !colloquial) {
+      return 'A register skill selects colloquial words too: name them in words.registers.';
+    }
+    if (!isRegisterSkill(skill) && colloquial) {
+      return 'Only register skills (the register dimension, standard pairs) select colloquial words.';
+    }
+  }
   const valuesOf = (dimension: Dimension, values: readonly string[] | null) => {
     const allowed = DIMENSION_VALUES[dimension];
     const bad = (values ?? []).find((value) => !allowed.includes(value));
@@ -501,7 +545,7 @@ function relationPartners(lexicon: Read<Lexicon>, relation: WordRelation | PairK
     case 'plural':
       return new Set(
         lexicon.words
-          .filter((word) => word.noun?.numbers === 'both' && word.noun.paradigm.pl)
+          .filter((word) => word.noun?.numbers === 'both' && word.noun.paradigm?.pl)
           .map((word) => word.id),
       );
     case 'pattern':

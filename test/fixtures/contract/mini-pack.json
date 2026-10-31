@@ -674,6 +674,30 @@
           "src": ["ujc"],
           "register": "colloquial",
           "standard": "dobryy"
+        },
+        {
+          "id": "mlejn",
+          "lemma": "mlejn",
+          "pos": "noun",
+          "grade": 4,
+          "topics": ["spisovnost"],
+          "tags": [],
+          "src": ["ujc"],
+          "noun": { "gender": "m", "animate": false, "numbers": "both", "pattern": "hrad" },
+          "register": "colloquial",
+          "standard": "mlyyn"
+        },
+        {
+          "id": "bejt",
+          "lemma": "bejt",
+          "pos": "verb",
+          "grade": 4,
+          "topics": ["spisovnost"],
+          "tags": [],
+          "src": ["ujc"],
+          "verb": { "aspect": "impf", "reflexive": null },
+          "register": "colloquial",
+          "standard": "byyt"
         }
       ],
       "families": [
@@ -776,6 +800,13 @@
           "subjects": [0],
           "predicates": [1],
           "clauses": 1
+        },
+        {
+          "id": "s.mlyn-2",
+          "grade": 4,
+          "topics": ["spisovnost"],
+          "text": "Na útesu stojí starý {mlýn|mlejn}.",
+          "gaps": [{ "rule": "spisovne", "word": "mlyyn" }]
         }
       ],
       "relations": {

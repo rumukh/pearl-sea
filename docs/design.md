@@ -321,14 +321,14 @@ No new friend: **Delfín Skokánek grows up here**. His skills include the 4th-g
 `monster` is Vír Časoplet, so he grows up when it is freed (§6.5). Monster Vír Časoplet. Accent
 storm slate.
 
-| Level               | Czech title                                 | English                       | Activities                                       | Practises                                                        | Feeds   |
-| ------------------- | ------------------------------------------- | ----------------------------- | ------------------------------------------------ | ---------------------------------------------------------------- | ------- |
-| `storm-sea.1`       | Osoba, číslo a čas sloves                   | Person, number, tense         | `analysis` 12                                    | `classify` person, number, tense of forms (_napíšu_ is future)   | Delfín  |
-| `storm-sea.2`       | Tvary jednoduché a složené                  | Simple and compound forms     | `analysis` 10                                    | `classify` verb-form of forms (_psal jsem, bude psát_)           | Delfín  |
-| `storm-sea.3`       | Způsob oznamovací, rozkazovací, podmiňovací | The three moods               | `analysis` 12                                    | `classify` mood of forms (_píše, piš, psal by_)                  | Delfín  |
-| `storm-sea.4`       | Zvratná slovesa (se, si)                    | Reflexive verbs               | `fishing-nets` 1, `analysis` 10                  | `sort`, `classify` reflexive (_se, si_, none)                    | Delfín  |
-| `storm-sea.5`       | Spisovná a nespisovná čeština               | Standard and colloquial Czech | `memory-match` 1, `fishing-nets` 1, `analysis` 8 | `pairs` standard (_dobrej ↔ dobrý_); `sort`, `classify` register | _košík_ |
-| `storm-sea.monster` | Vír Časoplet                                | Monster battle                | `battle` meter 18, cap 23                        | the storm, 20 % review                                           | Delfín  |
+| Level               | Czech title                                 | English                       | Activities                                                     | Practises                                                                                                                      | Feeds   |
+| ------------------- | ------------------------------------------- | ----------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| `storm-sea.1`       | Osoba, číslo a čas sloves                   | Person, number, tense         | `analysis` 12                                                  | `classify` person, number, tense of forms (_napíšu_ is future)                                                                 | Delfín  |
+| `storm-sea.2`       | Tvary jednoduché a složené                  | Simple and compound forms     | `analysis` 10                                                  | `classify` verb-form of forms (_psal jsem, bude psát_)                                                                         | Delfín  |
+| `storm-sea.3`       | Způsob oznamovací, rozkazovací, podmiňovací | The three moods               | `analysis` 12                                                  | `classify` mood of forms (_píše, piš, psal by_)                                                                                | Delfín  |
+| `storm-sea.4`       | Zvratná slovesa (se, si)                    | Reflexive verbs               | `fishing-nets` 1, `analysis` 10                                | `sort`, `classify` reflexive (_se, si_, none)                                                                                  | Delfín  |
+| `storm-sea.5`       | Spisovná a nespisovná čeština               | Standard and colloquial Czech | `memory-match` 1, `fishing-nets` 1, `analysis` 8, `bug-hunt` 4 | `pairs` standard (_dobrej ↔ dobrý_); `sort`, `classify` register; `spell.mistake` spisovne (_Ke snídani mám mlíko._ → _mléko_) | _košík_ |
+| `storm-sea.monster` | Vír Časoplet                                | Monster battle                | `battle` meter 18, cap 23                                      | the storm, 20 % review                                                                                                         | Delfín  |
 
 ### 3.12 Krakatičí propast (`kraken-abyss`): the sentence and the grand finale
 
@@ -469,9 +469,10 @@ joins two clauses (`Krab chtěl plavat, _ voda byla studená.`). 4-8 sentences; 
 
 The ink hid one mistake in a sentence: tap the wrong word, then fix it (a gap, by any input). Both
 steps train the fix's item. The mistake is always one of the sentence's annotated alternatives
-(`{correct|alt}`), a plausible slip, never a random typo. A tap on a right word says _Tohle slovo
-je v pořádku._, counts as a miss and the fix follows (as Dragon Valley's wrong operation pick). 4-6
-sentences; `spell.mistake`.
+(`{correct|alt}`), a plausible slip, never a random typo. In Bouřlivé moře the slip can be a
+colloquial word in a standard sentence (`spisovne`: _Ke snídani mám mlíko._ → _mléko_). A tap on a
+right word says _Tohle slovo je v pořádku._, counts as a miss and the fix follows (as Dragon
+Valley's wrong operation pick). 4-6 sentences; `spell.mistake`.
 
 ### 5.7 Určování (`analysis`)
 
@@ -577,6 +578,9 @@ ASCII (_být_ `byyt`, _bít_ `biit`, _mlýn_ `mlyyn`). Item IDs per word and ski
 `class:case:<sentence>:<index>`), `rel:<relation>:<word>` (a sound-alike form
 `rel:sound-alike:piit:pil`), `pair:<kind>:<word>`, `abc:<word>`, `seg:<word>`, `fam:<word>`. A
 spelling point is **one item wherever it appears**, so a sentence gap reviews its word.
+**Colloquial words** (_dobrej, mlíko, bejt_) appear only where the register is taught: word
+filters select standard words unless a register skill names `registers` (contract §6), such a word
+may have no paradigm, and in a sentence it is only the wrong option of a `spisovne` gap.
 
 ### 6.2 Leitner boxes and response times
 
@@ -619,8 +623,8 @@ _(`reask.maxPerRound`)_, strategy first, in a fresh problem (the word alone wher
 the round cancels it. **Teach, then ask** (`teach`; not in the race or the placement check): the
 first problem of each listed family (its rhyme line first), of each classification (_ten, ta, to_
 before the first gender, a case's question before that case), of each 4th-grade rule (`bje-vje`,
-`mne`, `mne-zajmeno`, `predpona-predlozka`, `predpona-souhlaska`, `shoda`, `vzor`) and of each
-sentence rule (`interpunkce`, `spojka`); an item a board credited has been met. The 2nd-grade
+`mne`, `mne-zajmeno`, `predpona-predlozka`, `predpona-souhlaska`, `shoda`, `vzor`, `spisovne`) and
+of each sentence rule (`interpunkce`, `spojka`); an item a board credited has been met. The 2nd-grade
 review rules are never taught first, as Dragon Valley never teaches small-table facts first. An item
 missed twice in a row is shown with its strategy first.
 
@@ -680,7 +684,8 @@ family. **Distractors** are plausible mistakes, a signature one first (as in Dra
 - `shoda`: the other gender's ending (_psi štěkaly_); `vzor`: the sibling pattern's ending (_se
   strojy_); a sound-alike gap: the other member (_bít_ for _být_);
 - `interpunkce`: the end mark of another kind of sentence (`.` for `?`), or no comma; `spojka`: a
-  conjunction of another meaning (_a_ for _ale_);
+  conjunction of another meaning (_a_ for _ale_); `spisovne`: the standard word's colloquial twin
+  (_mlíko_ for _mléko_);
 - classifications: the **sibling category** (_ma↔mi_ in `gender-class`; _hrad↔stroj, pán↔muž,
   žena↔růže, město↔moře_; 1st↔4th case; adjective↔adverb; preposition↔conjunction; past↔present);
   relations: the opposite relation (an antonym offered for a synonym).
@@ -689,8 +694,9 @@ A gap's options are unique, include the answer, number 2-4 and come in seeded or
 classification's options keep the dimension's school order (§5.7). A word with a sound-alike twin is
 asked only in a sentence or with its gloss or picture, never bare. Board and odd-one-out words are
 real lexicon words; **kin families never distract each other**; sound-alike families sit side by
-side on purpose. **Only verified sound-alikes**: _být × bít, bydlo × bidlo, mýt × mít, my × mi, pyl
-× pil, sýrový × syrový × sírový, výr × vír, výskat × vískat, vysel × visel_; a side may be a word
+side on purpose. **Only verified sound-alikes**: _být × bít, bydlo × bidlo, dobýt × dobít, mýt ×
+mít, my × mi, pyl × pil, sýrový × syrový × sírový, výr × vír, výskat × vískat, vysel × visel, výt ×
+vít_; a side may be a word
 form (`{ word, form }`: _pil_ of _pít_, _mi_ of _já_, _vysel_ of _vysít_, _visel_ of _viset_;
 contract §8.5). Never _pýřit se_ / "pířit" or _zvykat_ / "zvikat".
 

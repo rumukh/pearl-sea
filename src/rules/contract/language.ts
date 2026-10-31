@@ -394,6 +394,8 @@ export const SPELLING_RULES = [
   // sentences
   'interpunkce', // the end mark by the kind of sentence (. ? !), a comma between clauses
   'spojka', // the conjunction that joins clauses (a, ale, protože, když)
+  // register
+  'spisovne', // the standard word in a sentence, not its colloquial twin (mléko, not mlíko)
 ] as const;
 export type SpellingRule = (typeof SPELLING_RULES)[number];
 

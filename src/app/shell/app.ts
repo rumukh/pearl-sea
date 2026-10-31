@@ -32,7 +32,7 @@ import {
   createCommandController,
   StaleCommandError,
 } from '../controller/commands';
-import type { CommandController } from '../controller/commands';
+import type { CommandController, Dispatch } from '../controller/commands';
 import type { PearlSeaGame, PearlSeaSession } from '../game/definition';
 import { createPlayClock } from '../game/timer';
 import type { PlayClock } from '../game/timer';
@@ -124,8 +124,14 @@ export interface GameContent {
   readonly text: ContentText;
 }
 
-export type GrownUpsTab = 'settings' | 'data' | 'offline' | 'about';
-export const GROWN_UPS_TABS: readonly GrownUpsTab[] = ['settings', 'data', 'offline', 'about'];
+export type GrownUpsTab = 'settings' | 'progress' | 'data' | 'offline' | 'about';
+export const GROWN_UPS_TABS: readonly GrownUpsTab[] = [
+  'settings',
+  'progress',
+  'data',
+  'offline',
+  'about',
+];
 
 export interface Screens {
   title(): ScreenEntry;
@@ -183,6 +189,16 @@ export interface App {
   /** Open a child's game (closing any other); throws `RecoveryRequired`. */
   openDiver(diverId: string): Promise<ActiveDiver>;
   closeDiver(): Promise<void>;
+  /**
+   * A child's game for the grown-ups' area, without making the child the one playing: the open
+   * game when it is that child's, else the save opened for `use` and closed after it. No session
+   * starts, no play time counts and the page keeps its presentation. Calls take turns, and a
+   * child opened for play waits for them.
+   */
+  withGame<T>(
+    diverId: string,
+    use: (game: PearlSeaSession, dispatch: Dispatch<GameAction>) => Promise<T>,
+  ): Promise<T>;
   /** Show what the game needs next: back to the child's play screen, rebuilt from the view. */
   continueGame(diverId: string): Promise<void>;
   /** The grown-ups' messages, in the language the family chose for their area. */
@@ -370,6 +386,8 @@ export function createApp(options: AppOptions): App {
   };
 
   const openDiver = async (diverId: string): Promise<ActiveDiver> => {
+    // A save the grown-ups' area has open is closed before the child plays on it.
+    await borrowing;
     if (active?.diver.id === diverId) return active;
     if (opening) await opening.catch(() => undefined);
     if (active?.diver.id === diverId) return active;
@@ -476,6 +494,36 @@ export function createApp(options: AppOptions): App {
     }
   };
 
+  let borrowing: Promise<unknown> = Promise.resolve();
+  const withGame = <T>(
+    diverId: string,
+    use: (game: PearlSeaSession, dispatch: Dispatch<GameAction>) => Promise<T>,
+  ): Promise<T> => {
+    const run = borrowing.then(async (): Promise<T> => {
+      if (opening) await opening.catch(() => undefined);
+      if (active?.diver.id === diverId) return use(active.game, active.commands.capture());
+      const diver = findDiver(family.state(), diverId);
+      if (!diver) throw new Error('That child is not on this device.');
+      const game = await openGameSession(storage, requireContent().game, {
+        id: diver.id,
+        seed: profileSeed(diver.id),
+      });
+      const commands = createCommandController(
+        game.host,
+        (error) => app.reportError(error),
+        (listener) => game.subscribe((change) => listener(change.reason)),
+      );
+      try {
+        return await use(game, commands.capture());
+      } finally {
+        commands.dispose();
+        await game.close();
+      }
+    });
+    borrowing = run.catch(() => undefined);
+    return run;
+  };
+
   const reportError = (error: unknown): void => {
     if (error instanceof RecoveryRequired) {
       void closeDiver()
@@ -542,6 +590,7 @@ export function createApp(options: AppOptions): App {
     active: () => active,
     openDiver,
     closeDiver,
+    withGame,
     async continueGame(diverId) {
       if (!(await router.backTo(playKey(diverId)))) await router.push(app.screens.play(diverId));
     },

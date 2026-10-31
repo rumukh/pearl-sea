@@ -7,46 +7,52 @@ installation, printables and the grown-ups' area, on the packed Aegis SDK's **pu
 reference implementation; the modules that are not about arithmetic are ported here, renamed and
 kept under test.
 
-**Status: Phase A** (the shell infrastructure). Everything below runs and is tested; the game
-screens join it in Phase B (§16). The shell takes its vocabularies from the domain contract
-(`src/rules/contract`, `docs/contract.md`): diver avatars, forms of address, grades, the catalog
-convention, the audio manifest path, schema and sound IDs, and the storage names.
+**Status: Phase B, the slice** (Slunná laguna end to end). Everything below runs and is tested; the
+game itself opens once the rules adapter is wired (`game/rules.ts`, §16). The shell takes its
+vocabularies from the domain contract (`src/rules/contract`, `docs/contract.md`): diver avatars,
+forms of address, grades, the catalog convention, the audio manifest, the art catalog and IDs, the
+views and actions, and the storage names.
 
 ## 1. Layout
 
-| Path                    | What it holds                                                                     |
-| ----------------------- | --------------------------------------------------------------------------------- |
-| `main.ts`, `index.html` | Boot (§2) and the static splash; the CSP is filled in by `scripts/build.mjs`      |
-| `shell/app.ts`          | The persistent chrome, shared services, presentation, the error boundary          |
-| `router/`               | Screen stack and router (§3)                                                      |
-| `screens/`              | Title, recovery and error, the grown-ups' area, print preview, shared pieces      |
-| `persistence/`          | Family, preferences, game sessions, save status, recovery, backups, day (§4)      |
-| `controller/`           | The command controller and the move queue (§5)                                    |
-| `content/site.ts`       | Same-origin static files below the deployment base                                |
-| `design/`, `styles/`    | The interface palette and tokens, the reading font, CSS (§7)                      |
-| `ui/`                   | DOM kit: buttons, tiles, number pad, dialogs, toasts, tabs, meters, icons, motion |
-| `audio/`                | Game audio over `createNarration`, S5's manifest, event-to-sound mapping (§9)     |
-| `speech/`               | Read-aloud with local Czech voices, spoken aliases (§10)                          |
-| `grownups/`             | The gate (§6), offline installation (§11), the About build id                     |
-| `print/`                | Flashcards and diplomas laid out by the narrative toolkit, drawn as sheets (§13)  |
-| `i18n/`                 | Typed Czech and English messages with plurals and address (§12), typography       |
-| `sw.ts`                 | The offline worker, built by `scripts/build.mjs`                                  |
+| Path                    | What it holds                                                                          |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| `main.ts`, `index.html` | Boot (§2) and the static splash; the CSP is filled in by `scripts/build.mjs`           |
+| `shell/app.ts`          | The chrome, shared services, the active child's game, presentation, the error boundary |
+| `router/`               | Screen stack and router (§3)                                                           |
+| `screens/`              | Every screen: title, profiles, the game's screens (§16), grown-ups, print, recovery    |
+| `game/`                 | The game definition, the rules hook, view readings, map spots, timers, the grade       |
+| `content/`              | The content pack, its strings (`text.ts`) and older packs; same-origin static files    |
+| `art/`                  | S5's art catalog and pictures by art ID, with labelled dev placeholders (§16)          |
+| `persistence/`          | Family, preferences, game sessions, save status, recovery, backups, day (§4)           |
+| `controller/`           | The command controller and the move queue (§5)                                         |
+| `design/`, `styles/`    | The interface palette and tokens, the reading font, CSS (§7)                           |
+| `ui/`                   | DOM kit: buttons, tiles, number pad, Czech keyboard, dialogs, toasts, tabs, meters     |
+| `audio/`                | Game audio over `createNarration`, S5's manifest, event-to-sound mapping (§9)          |
+| `speech/`               | Read-aloud with local Czech voices, spoken aliases (§10)                               |
+| `grownups/`             | The gate (§6), offline installation (§11), progress (§14), the About build id          |
+| `print/`                | Flashcards and diplomas laid out by the narrative toolkit, drawn as sheets (§13)       |
+| `i18n/`                 | Typed Czech and English messages with plurals and address (§12), typography, dates     |
+| `sw.ts`                 | The offline worker, built by `scripts/build.mjs`                                       |
 
 ## 2. Boot and readiness
 
 `main.ts` applies the design tokens and the default presentation (Czech, 100 % text), reads the
 deployment base and offline revision from `<meta name="ps-base">` and
 `<meta name="ps-offline-revision">`, starts loading the reading font (waiting at most 2.5 s),
-reads S5's audio manifest (a missing or broken one means a silent game, never a failed boot), and
-opens the family record. The first screen is the title, or the recovery screen when the family
-record cannot be read.
+reads S5's audio manifest and art catalog (a missing or broken one means a silent game or
+placeholder art, never a failed boot), and opens the family record. With the rules wired
+(`game/rules.ts`) it also loads and validates the content pack and its strings (every key the pack
+uses must resolve) before the first screen. The first screen is the title, or the recovery screen
+when the family record cannot be read.
 
 The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
 (`loading`, `ready`, `failed`), `data-screen` (the current screen: `title`, `grownups`, `print`,
-`recovery`, `error`), `data-font` (`loaded`, `timeout`, `failed`, `unsupported`) and `data-base`.
-`ready` only after the first screen is mounted and painted. Nothing is put on `window`; nothing is
-written to the console. Uncaught errors and rejections land on the error screen. When even the
-shell cannot start, a built-in Czech line and a retry button remain.
+`recovery`, `error`), `data-font` (`loaded`, `timeout`, `failed`, `unsupported`), `data-base` and
+`data-content` (the content pack's revision, once there is one). `ready` only after the first
+screen is mounted and painted. Nothing is put on `window`; nothing is written to the console.
+Uncaught errors and rejections land on the error screen. When even the shell cannot start, a
+built-in Czech line and a retry button remain.
 
 ## 3. Router and screens
 
@@ -187,8 +193,12 @@ game is saved.
   so Enter always submits. Its words come from the caller (the grown-ups' language).
 - Keyboard handling is a stack of handlers (`ui/keyboard.ts`) that ignores text fields and leaves
   Enter and Space on a focused button to the browser, so one press is one action.
-- The big letter pad (i í y ý, d t, ú ů …) and the Czech on-screen keyboard come with the problem
-  views (Phase B).
+- **The big letter pad** is choice tiles drawn big with the gap's keys (i í y ý, d t, ú ů …), typed
+  letters picking them. **The Czech on-screen keyboard** (`ui/czech-keyboard.ts`) types into a
+  field that a physical keyboard (Czech dead keys included) types into too: a row of every letter
+  with a diacritic, QWERTZ, Shift for capitals, space, Backspace and OK; keys insert at the caret
+  and stay out of the Tab order, the field asks the device not to open its own keyboard, and
+  Enter is OK. Pearls and fish on the boards move with the arrow keys or by tapping (§16).
 
 ## 9. Audio
 
@@ -285,15 +295,27 @@ flipped on the long edge, backs mirrored) and diplomas (one per page) with the n
 layout in the app (the reading font, Czech typography, `lang="cs"`, pictures on diplomas), and the
 print preview (`screens/print.ts`) prints it with `window.print()` and print CSS (only the pages)
 or saves `renderPrintHtml`'s script-free file, with the printing advice in the grown-ups' language.
-What to print (the hardest words, freed monsters) comes with the game's views in Phase B.
+
+What to print comes from the child's progress (`print/printables.ts`, offered on the Progress
+tab): **flashcards** of the words the child gets wrong most, the word with its spelling point
+left blank on the front (`ml_n`) and the whole word on the back, made only from words' spelling
+points (`spell:<word>:<at>` items); and **diplomas** for each monster freed (dated the day it was
+freed, with its freed painting) and for each whole grade (dated the day of printing). Printed
+pages are Czech whatever the grown-ups' language.
 
 ## 14. The grown-ups' area
 
 Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy desk:
 
 - **Nastavení / Settings**: the language of the area; reading aloud (available voices, or why there
-  are none and how to add one); each child's settings: read-aloud, auto-read, voice with a test
-  line, music and effects volumes, text size, less motion, a time limit for one sitting.
+  are none and how to add one); each child's settings: the game's grade (3 or 4: where the child
+  starts and what the game suggests; content that does not serve a grade, or a placement round,
+  keeps the old one and says why), daily goal and the dolphin race; read-aloud, auto-read, voice
+  with a test line, music and effects volumes, text size, less motion, a time limit for one sitting.
+- **Pokrok / Progress** (`grownups/progress.ts`), per child: days practised, answers, monsters
+  freed and the grade; the last 14 days of practice (right answers of all); each goal of the 3rd
+  and 4th grade (pearls mastered, silver and gold, of the goal's items, and the success rate);
+  where the child goes wrong most, with printable flashcards; diplomas to print.
 - **Zálohy / Backups**: per child, save a backup, load one (after a confirmation), erase progress;
   browser storage with usage and a request to keep the data.
 - **Bez internetu / Offline**: install for offline play, check for a new version.
@@ -302,22 +324,29 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
 
 Each saved change rebuilds the panel from storage through one preferences store per child (kept
 while the area lives). Only the newest rebuild is shown, and the keyboard stays on the control
-that had it (`replaceKeepingFocus` in `ui/dom.ts`, matched by `data-testid`).
+that had it (`replaceKeepingFocus` in `ui/dom.ts`, matched by `data-testid`). A child's game is
+read or changed through `App.withGame`: the open game when it is that child's, else the save opened
+for the moment and closed again, so the area never starts a session, counts no play time and keeps
+its own presentation; calls take turns, and a child opened for play waits for them.
 
 ## 15. Testing
 
 - **Unit** (`test/unit/app/`, Vitest): messages (Czech plurals, address, typography, grown-ups'
-  English) and the catalogs; tokens and measured contrast; the router stack; family, preferences,
-  records (quick changes taken in turn on a slow disk) and recovery; game sessions and the command
-  controller on a tiny counting game (`fixtures.ts`: checkpoints, retry without repeating the
-  action, stale views, pause, restore, content activation, backups); profile data (backup, load,
-  erase); backups; save status; the day record; storage sizes; the gate; moves; the number pad's
-  state; the sound map, game audio and the audio manifest; voices and read-aloud; aliases; print
-  layouts; the About build id.
+  English) and the catalogs (a message for every value of the contract's vocabularies the screens
+  name); tokens and measured contrast; the router stack; family, preferences, records (quick
+  changes taken in turn on a slow disk) and recovery; game sessions and the command controller on a
+  tiny counting game (`fixtures.ts`: checkpoints, retry without repeating the action, stale views,
+  pause, restore, content activation, backups); profile data (backup, load, erase); backups; save
+  status; the day record; storage sizes; the gate; moves; the number pad's state; the sound map,
+  game audio (moods and the grotto fallback) and the audio manifest; voices and read-aloud;
+  aliases; print layouts and printables; the About build id. The game screens' logic runs on
+  contract-typed view fixtures (`game-views.ts`): problem views (steps, prompts, ink-blot gaps,
+  read-aloud, hints), view readings and the adventure, map spots, timers, art and the art catalog,
+  content strings and the diary card.
 - **DOM** (`test/unit/app/dom/`, happy-dom): the router, the announcer, choice tiles (letters and
-  digits), the number pad, the whole gate dialog, tabs, meters, stars and the coin counter, toasts,
-  icons, a rebuilt panel keeping focus, print sheets, the save status pill and the read-aloud
-  button.
+  digits), the number pad, the Czech keyboard, the whole gate dialog, tabs, meters, stars and the
+  coin counter, toasts, icons, a rebuilt panel keeping focus, print sheets, the save status pill
+  and the read-aloud button.
 - **Browser** (`test/e2e/grownups.spec.ts`, Playwright): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
@@ -330,15 +359,83 @@ that had it (`replaceKeepingFocus` in `ui/dom.ts`, matched by `data-testid`).
   about 1 to 5 s. `smoke.spec.ts` and `isolation.spec.ts` stay green. Locally the default project
   is the installed Edge; set `PS_E2E_PORT` to a free port when another checkout serves 4331.
 
-## 16. Phase B
+## 16. The game (Phase B)
 
-The game screens from the contract's views, the slice (Slunná laguna) first: title with profiles,
-the profile editor (grade, kluk/holka/neither, diver picture), story beats, the grotto, the sea
-map, level intro and results, the language problem views (letter pad, Czech keyboard), the
-minigame boards, the monster battle, the Inkoustíci ambush, snack time, placement, the Great Shell,
-U Mrože, the sticker album, the treasure chest, the diary card and goodbye; then the active child's
-game session in the shell (preferences, day, visibility pause, event inbox, time limit), the
-game definition and content loading, `GameRecords` for backups, and the Progress and Print tabs.
+### 16.1 The child's game
+
+Choosing a child on the title (`screens/divers.ts`; the first child goes straight to the profile
+editor) opens their game (`App.openDiver`): preferences, the day record, the game session over
+the rules adapter (`persistence/game-session.ts`, strict checkpoints) and the command controller,
+a play clock for the time limit, the visibility pause, and an **event inbox**: every live commit's
+events land there (sounds play at once; hatching and freeing wait for their big moment) and
+screens take the ones they show (results their celebrations, a battle its ink blots). Replayed
+history never reaches it. One child is open at a time; the form of address and the presentation
+are the child's while they play.
+
+`screens/play.ts` shows what the game needs now, from the view alone: on the first visit of a day
+it hands the editor's grade to the game (`game/grade.ts`) and starts the session with the local
+date; then a story beat, the first egg, a round or a board, results, or the grotto. Every other
+screen goes back through it (`App.continueGame`), so a reload, a restore or Back always lands where
+the game is. `game/rules.ts` is the one place that names S2's adapter; `game/definition.ts` makes
+the game from it, the content pack and the save migrations.
+
+### 16.2 Art and placeholders
+
+Pictures are drawn by art ID (`ART` in media.ts) from S5's catalog (`assets/art/catalog.json`,
+`pearl-sea-art-catalog/1`): WebP paintings and SVGs with their pixel size, painted friends with
+anchors where SVG cosmetics sit (`art/picture.ts`: `dressedFriend` puts what a friend wears on
+`head`, `eyes` and `neck`, and the golden shell crown on a crowned friend). An ID the catalog lacks
+is drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
+marked "DEV <art id>" (`data-placeholder`). The repository ships an empty catalog until S5's
+assets land, so their files drop in without code changes. A catalog file outside `assets/art/` is
+ignored, and an unreadable catalog means placeholders everywhere.
+
+### 16.3 The screens
+
+| Screen                                                                                                                                   | Module                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| Children and the profile editor (name, picture, kluk/holka/nechci říct, 3. or 4. třída)                                                  | `divers.ts`, `editor.ts`          |
+| Story beats with read-aloud, the first egg                                                                                               | `story.ts`, `eggs.ts`             |
+| The grotto: the featured friend and its growth, Dnešní výprava, today (goal, week, quests, chest), the places                            | `hub.ts`                          |
+| The sea map (shallows, deep), a region's levels, a level's intro                                                                         | `map.ts`, `region.ts`, `level.ts` |
+| Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`     |
+| Boards: Pexeso, Perlový náhrdelník, Rybářské sítě                                                                                        | `boards.ts`                       |
+| Results with the big moments (hatching, a monster freed, a grade done)                                                                   | `results.ts`                      |
+| U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                  |
+| Goodbye with the diary card                                                                                                              | `goodbye.ts`                      |
+
+A problem is shown as the rules structure it, one step at a time: a word or sentence with its gaps
+as ink blots (the current one glows, answered ones show their letters, and after a miss the right
+letters stand in the gap), answered with choice tiles, the big letter pad or the Czech on-screen
+keyboard (`ui/czech-keyboard.ts`: the letters with diacritics, QWERTZ, Shift, space; keys never
+take focus, so a physical keyboard works the same), a category, or a word to pick (the sentence of
+a Lov chyb, an odd one out, a related word). Read-aloud says a gap as a pause, never the spelling.
+A miss is "Skoro!" with the right answer and the strategy that helps; nothing is ever lost.
+
+In a battle Bublinka's bubbles wash the monster: the ink meter fills, the freed form shows through
+as the ink fades, the monster's harmless ink blots wait on the screen until the child wipes them
+away, and its jokes (`BattleView.jokeKey`) appear in a speech bubble; at the end the inked painting
+washes off in the results and the freed monster tells its last joke. A board sends each move as
+`minigameMove` and redraws from the view; pearls and fish move by tapping or with the keyboard,
+fish also by dragging.
+
+Layouts are touch-first for a landscape tablet. Each game screen is a size container, so a layout
+that needs room asks for it in `em` (`styles/game.css`): at 200 % text, as on a phone, the grotto
+and rounds become one column, the painted map becomes a list of region cards and a region's level
+nodes wrap in rows. Text on open water always sits on paper, targets are at least 48 px, and every
+state shows a shape or a word as well as a colour.
+
+### 16.4 Music and the painted maps
+
+Screens name a mood (§9): `grotto`, `map`, `practice`, `battle`. Region markers on the painted sea
+maps and level nodes on a region's scene sit at spots the shell defines in thousandths of the
+picture (`game/map.ts`): S5 paints open water there.
+
+### 16.5 Still to come
+
+The remaining activities (Ulita slov, Slovní rodinka, the dolphin race and the snack basket's
+details), the finale and the 4th grade's flow join in the next pull request; until S2's adapter is
+wired, the title says the game is still being built.
 
 ## 17. SDK notes
 

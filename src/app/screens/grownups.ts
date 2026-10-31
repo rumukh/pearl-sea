@@ -1,15 +1,21 @@
 /**
  * The grown-ups' area, behind the gate, in Czech or English (the family's choice): the language
- * switch, reading aloud and each child's settings (read-aloud, voice, volumes, text size, less
- * motion, time limit), backups and erasing, storage persistence, offline installation and
- * updates, and what the game does and does not do.
+ * switch, reading aloud and each child's settings (the game's grade, daily goal and dolphin race;
+ * read-aloud, voice, volumes, text size, less motion, time limit), each child's progress with
+ * printable flashcards and diplomas (grownups/progress.ts), backups and erasing, storage
+ * persistence, offline installation and updates, and what the game does and does not do.
  *
  * It is an operating surface: calm, plain and complete. Nothing here plays sounds, and no
- * child's game is open while it is shown.
+ * child's game is played while it is shown: a child's save is only read or changed in passing
+ * (`App.withGame`), which starts no session and counts no play time.
  */
 import { assertChildSafeView } from '@aegis/browser/ui';
+import type { Dispatch } from '../controller/commands';
+import { requestGrade } from '../game/grade';
+import type { GradeRefusal } from '../game/grade';
 import { shortRevision } from '../grownups/about';
 import type { OfflineState } from '../grownups/offline';
+import { progressSections } from '../grownups/progress';
 import { LANGUAGES } from '../i18n/messages';
 import type { GrownUpKey, GrownUpTranslate } from '../i18n/messages';
 import { BACKUP_MAX_BYTES, readBackup } from '../persistence/backup';
@@ -28,7 +34,12 @@ import { h, replaceKeepingFocus } from '../ui/dom';
 import type { ScreenEntry } from '../router/router';
 import { GROWN_UPS_TABS } from '../shell/app';
 import type { App, GrownUpsTab } from '../shell/app';
+import { GRADES } from '../../rules/contract';
+import type { GameAction, GameView, Grade, SettingChange } from '../../rules/contract';
 import { diverBadge, downloadText, fileSlug, pickTextFile, topBar } from './common';
+
+/** Daily goals offered to grown-ups, in right answers (the game's own goal is kept too). */
+export const DAILY_GOALS = [10, 20, 30, 40, 50] as const;
 
 export function grownUpsScreen(
   app: App,
@@ -136,13 +147,13 @@ export function grownUpsScreen(
           hint ? h('span', { className: 'ps-field__hint', text: hint }) : null,
         );
 
-      const diverPicker = (): HTMLElement | null => {
+      const diverPicker = (label: GrownUpKey = 'grownups.settings.for'): HTMLElement | null => {
         const divers = app.family.state().profiles;
         if (divers.length < 2) return null;
         return field(
-          g('grownups.settings.for'),
+          g(label),
           segmented(
-            g('grownups.settings.for'),
+            g(label),
             divers.map((diver) => diver.id),
             selected ?? '',
             (id) => findDiver(app.family.state(), id)?.name ?? id,
@@ -193,6 +204,93 @@ export function grownUpsScreen(
             : h('p', { testId: 'voice-none', text: g('grownups.voice.none') }),
           app.speech.available() ? null : h('p', { text: g('grownups.voice.howTo') }),
         );
+
+      // ---- A child's game: grade, daily goal, the dolphin race ------------------------------
+      const gameSettings = async (diver: Diver): Promise<HTMLElement | null> => {
+        if (!app.content()) return null;
+        const settings = await app.withGame(diver.id, async (game) => game.view().settings);
+        /** Change the game's settings; the game may keep its grade and say why. */
+        const changeGame = async (
+          change: (view: GameView, dispatch: Dispatch<GameAction>) => Promise<GradeRefusal | null>,
+        ): Promise<void> => {
+          try {
+            const refused = await app.withGame(diver.id, (game, dispatch) =>
+              change(game.view(), dispatch),
+            );
+            if (refused) {
+              app.kit.toasts.show(
+                g(
+                  refused === 'not-served'
+                    ? 'grownups.game.gradeNotServed'
+                    : 'grownups.game.gradeBusy',
+                ),
+                { tone: 'warning' },
+              );
+            } else {
+              toastSaved();
+            }
+          } catch (error) {
+            if (error instanceof RecoveryRequired) {
+              app.reportError(error);
+              return;
+            }
+            app.kit.toasts.show(g('grownups.settings.failed'), { tone: 'warning' });
+          }
+          await render();
+        };
+        const setting =
+          (next: SettingChange) =>
+          async (_view: GameView, dispatch: Dispatch<GameAction>): Promise<null> => {
+            await dispatch({ type: 'setSetting', setting: next });
+            return null;
+          };
+        const goals = [...new Set([...DAILY_GOALS, settings.dailyGoal])].sort((a, b) => a - b);
+        const race = h('input', {
+          testId: 'setting-race',
+          attributes: { type: 'checkbox', role: 'switch' },
+        });
+        race.checked = settings.race;
+        race.addEventListener('change', () => {
+          void changeGame(setting({ key: 'race', value: race.checked })).catch(app.kit.onError);
+        });
+        return h(
+          'div',
+          { className: 'ps-stack', testId: 'grownups-game-settings' },
+          h('h3', { text: g('grownups.game.heading') }),
+          field(
+            g('grownups.game.grade'),
+            segmented(
+              g('grownups.game.grade'),
+              GRADES.map(String),
+              String(settings.grade),
+              (value) => g('grownups.game.gradeValue', { grade: value }),
+              (value) => `setting-grade-${value}`,
+              (value) =>
+                changeGame((view, dispatch) =>
+                  requestGrade(view, dispatch, Number(value) as Grade),
+                ),
+            ),
+            g('grownups.game.gradeNote'),
+          ),
+          field(
+            g('grownups.game.dailyGoal'),
+            segmented(
+              g('grownups.game.dailyGoal'),
+              goals.map(String),
+              String(settings.dailyGoal),
+              (value) => value,
+              (value) => `setting-goal-${value}`,
+              (value) => changeGame(setting({ key: 'dailyGoal', value: Number(value) })),
+            ),
+          ),
+          h(
+            'label',
+            { className: 'ps-switch' },
+            h('span', { text: g('grownups.game.race') }),
+            race,
+          ),
+        );
+      };
 
       const childSettings = async (diver: Diver): Promise<HTMLElement> => {
         const store = preferencesOf(diver.id);
@@ -330,6 +428,7 @@ export function grownUpsScreen(
           { className: 'ps-stack', testId: 'grownups-child-settings' },
           diverPicker(),
           h('div', { className: 'ps-grownups__diver' }, diverBadge(diver)),
+          await gameSettings(diver),
           switchRow(
             g('grownups.settings.readAloud'),
             prefs.readAloud,
@@ -416,6 +515,25 @@ export function grownUpsScreen(
               ? await childSettings(diver)
               : h('p', { testId: 'settings-none', text: g('grownups.settings.none') }),
           ),
+        );
+      };
+
+      // ---- Progress -----------------------------------------------------------------------
+      const progressPanel = async (): Promise<HTMLElement> => {
+        const diver = selected ? findDiver(app.family.state(), selected) : undefined;
+        if (!diver) {
+          return section(
+            g('grownups.tab.progress'),
+            'grownups-progress',
+            h('p', { testId: 'progress-none', text: g('grownups.progress.none') }),
+          );
+        }
+        return h(
+          'div',
+          { className: 'ps-stack', testId: 'grownups-progress' },
+          diverPicker('grownups.progress.for'),
+          h('div', { className: 'ps-grownups__diver' }, diverBadge(diver)),
+          ...(await progressSections(app, g, diver)),
         );
       };
 
@@ -664,11 +782,13 @@ export function grownUpsScreen(
           content =
             tab === 'settings'
               ? await settingsPanel()
-              : tab === 'data'
-                ? await dataPanel()
-                : tab === 'offline'
-                  ? await offlinePanel()
-                  : aboutPanel();
+              : tab === 'progress'
+                ? await progressPanel()
+                : tab === 'data'
+                  ? await dataPanel()
+                  : tab === 'offline'
+                    ? await offlinePanel()
+                    : aboutPanel();
         } catch (error) {
           if (!(error instanceof RecoveryRequired)) app.kit.onError(error);
           return;

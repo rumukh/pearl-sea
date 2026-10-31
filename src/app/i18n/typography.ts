@@ -10,3 +10,9 @@ const ONE_LETTER_WORD = /(?<=^|[\s(„‚"'\u00a0])([AIKOSUVZaikosuvz]) /g;
 export function keepOneLetterWordsWithNext(text: string): string {
   return text.replace(ONE_LETTER_WORD, '$1\u00a0');
 }
+
+/** An ISO day (`2026-10-31`) as a Czech date: `31. 10. 2026`. */
+export function czechDate(day: string): string {
+  const [year, month, date] = day.split('-');
+  return `${Number(date)}. ${Number(month)}. ${year}`;
+}

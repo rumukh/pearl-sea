@@ -14,6 +14,7 @@ import { dressedFriend, picture } from '../art/picture';
 import { taken } from '../controller/commands';
 import { growthOf } from '../game/view';
 import type { MessageKey } from '../i18n/messages';
+import { czechDate } from '../i18n/typography';
 import type { Screen, ScreenEntry } from '../router/router';
 import type { ActiveDiver, App } from '../shell/app';
 import { candyButton } from '../ui/button';
@@ -405,12 +406,6 @@ export function galleryScreen(app: App, diverId: string): ScreenEntry {
       dispose: chrome.dispose,
     };
   });
-}
-
-/** `2026-10-31` as a Czech date, `31. 10. 2026`. */
-export function czechDate(day: string): string {
-  const [year, month, date] = day.split('-');
-  return `${Number(date)}. ${Number(month)}. ${year}`;
 }
 
 // ---- Album samolepek ---------------------------------------------------------------------------------

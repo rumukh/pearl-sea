@@ -1,0 +1,101 @@
+/*
+ * Base tokens and the page frame. Sizes are in rem so the grown-ups' text size setting (up to
+ * 200 %) scales everything; motion stops under prefers-reduced-motion.
+ */
+:root {
+  --ps-font: 'Pearl Reading', 'Segoe UI', system-ui, sans-serif;
+  --ps-sea-surface: #7fe0e6;
+  --ps-sea-shallow: #1aa6b7;
+  --ps-sea-deep: #0b4f7c;
+  --ps-sea-abyss: #072f4f;
+  --ps-sand: #f6e3b4;
+  --ps-coral: #ff7f6b;
+  --ps-sun: #ffd45c;
+  --ps-pearl: #fdf8f0;
+  --ps-ink: #12324a;
+  /* Text colours keep at least 4.5:1 contrast on the light card. */
+  --ps-teal-ink: #0b7285;
+  --ps-coral-ink: #b5402b;
+  --ps-card: rgb(255 255 255 / 0.9);
+  --ps-radius: 1.5rem;
+  --ps-focus: 0 0 0 0.25rem #ffd45c, 0 0 0 0.45rem #12324a;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--ps-font);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--ps-ink);
+  background: linear-gradient(
+    180deg,
+    var(--ps-sea-surface) 0%,
+    var(--ps-sea-shallow) 35%,
+    var(--ps-sea-deep) 80%,
+    var(--ps-sea-abyss) 100%
+  );
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#app {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.ps-splash {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.ps-splash-pearl {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0 18%, var(--ps-pearl) 40%, #d9cfe6 100%);
+  box-shadow: 0 0.5rem 1.5rem rgb(7 47 79 / 0.35);
+}
+
+.ps-splash-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ps-pearl);
+}
+
+.ps-button {
+  font: inherit;
+  font-weight: 700;
+  min-height: 3rem;
+  min-width: 3rem;
+  padding: 0.6rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ps-ink);
+  background: var(--ps-sun);
+  box-shadow: 0 0.3rem 0 #d9a520;
+  cursor: pointer;
+}
+
+.ps-button:focus-visible {
+  outline: none;
+  box-shadow: var(--ps-focus);
+}

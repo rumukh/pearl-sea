@@ -1,0 +1,13 @@
+{
+  // Unit, trace, tooling and end-to-end tests plus the test runner configs.
+  // Node types are available here (tests read files and spawn scripts); DOM types are available
+  // for Playwright page callbacks. Production rules stay ES2022-only (src/rules/tsconfig.json).
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "include": ["**/*.ts", "../vitest.config.ts", "../playwright.config.ts"]
+}

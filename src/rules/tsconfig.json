@@ -1,0 +1,10 @@
+{
+  // Deterministic rules: ES2022 only. No DOM, no Node types, no browser SDK entry points.
+  // A reference to `document`, `setTimeout`, `process` or `node:*` is a type error here.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": []
+  },
+  "include": ["**/*.ts"]
+}

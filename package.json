@@ -1,0 +1,54 @@
+{
+  "name": "pearl-sea",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Perlové moře: dobrodružství s češtinou. An offline-capable Czech-language game for Czech 3rd and 4th graders, built on the Aegis action-driven SDK.",
+  "license": "MIT",
+  "engines": {
+    "node": "^24.0.0 || ^25.0.0",
+    "npm": "^11.0.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs --clean",
+    "serve": "node scripts/serve.mjs",
+    "typecheck": "node scripts/verify.mjs --only typecheck",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "validate:content": "node scripts/validate-content.mjs",
+    "content:bump": "node scripts/content-bump.mjs",
+    "fonts:subset": "node scripts/fonts/subset-andika.mjs",
+    "lockfile:check": "node scripts/canonicalise-lockfile.mjs",
+    "lockfile:fix": "node scripts/canonicalise-lockfile.mjs --write",
+    "verify": "node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "@aegis/browser": "file:vendor/aegis/0.0.0-local.r0abd61b5a679.da726c53afdf74c5f/aegis-browser-0.0.0-local.r0abd61b5a679.da726c53afdf74c5f.tgz",
+    "@aegis/core": "file:vendor/aegis/0.0.0-local.r0abd61b5a679.da726c53afdf74c5f/aegis-core-0.0.0-local.r0abd61b5a679.da726c53afdf74c5f.tgz",
+    "@aegis/narrative": "file:vendor/aegis/0.0.0-local.r0abd61b5a679.da726c53afdf74c5f/aegis-narrative-0.0.0-local.r0abd61b5a679.da726c53afdf74c5f.tgz",
+    "@aegis/runtime": "file:vendor/aegis/0.0.0-local.r0abd61b5a679.da726c53afdf74c5f/aegis-runtime-0.0.0-local.r0abd61b5a679.da726c53afdf74c5f.tgz"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.19.0",
+    "esbuild": "0.27.7",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.12.0",
+    "happy-dom": "20.14.5",
+    "prettier": "^3.9.9",
+    "subset-font": "2.9.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^3.2.7"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true
+  }
+}

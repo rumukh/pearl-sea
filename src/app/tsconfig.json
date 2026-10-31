@@ -1,0 +1,11 @@
+{
+  // Browser shell (DOM + SVG). The offline worker entry is checked separately with the
+  // WebWorker library by tsconfig.worker.json, because DOM and WebWorker globals conflict.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": []
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["sw.ts"]
+}

@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
+  CONSONANT_IDS,
   CONTEXT_DIMENSIONS,
   DIMENSIONS,
   isRegisterSkill,
@@ -137,6 +138,54 @@ describe('skill items', () => {
       'class:sentence-kind:s.mlyn-1',
       'class:sentence-kind:s.ryby-1',
     ]);
+  });
+
+  it('consonant skills: all 24 letters, or only the listed ones', () => {
+    expect([...CONSONANT_IDS]).toEqual(
+      'h ch k r d t n zx sx cx rx c j dx tx nx b f l m p s v z'.split(' '),
+    );
+    const consonantItems = (ids: string) => ids.split(' ').map((id) => `class:consonant:${id}`);
+    expect(
+      items({
+        generator: 'classify',
+        params: {
+          dimension: 'consonant',
+          context: 'word',
+          words: {},
+          sentences: {},
+          values: null,
+          cells: null,
+        },
+      }),
+    ).toHaveLength(24);
+    expect(
+      items({
+        generator: 'classify',
+        params: {
+          dimension: 'consonant',
+          context: 'word',
+          words: {},
+          sentences: {},
+          values: ['hard', 'soft', 'both-way'],
+          cells: null,
+          consonants: ['h', 'ch', 'k', 'r', 'd', 't', 'n'],
+        },
+      }),
+    ).toEqual(consonantItems('ch d h k n r t'));
+    expect(
+      items({
+        generator: 'sort',
+        params: {
+          dimension: 'consonant',
+          context: 'word',
+          values: ['hard', 'soft'],
+          words: {},
+          fish: 6,
+          cells: null,
+          consonants: ['zx', 'sx', 'cx', 'h'],
+        },
+      }),
+    ).toEqual(consonantItems('cx h sx zx'));
   });
 
   it('odd-one-out, relation, alphabet, pairs, sort, segment and family', () => {
@@ -313,6 +362,48 @@ describe('skill records', () => {
     expect(wordFilterSchema.parse({ aspects: ['perfect'] }).ok).toBe(false);
     expect(wordFilterSchema.parse({ registers: ['colloquial'] }).ok).toBe(true);
     expect(wordFilterSchema.parse({ registers: ['slang'] }).ok).toBe(false);
+  });
+
+  it('narrow a consonant skill only to letters of the classes it offers', () => {
+    const problem = (generator: string, params: Record<string, unknown>) => {
+      const outcome = skillSchema.parse(skill({ generator, params }));
+      return outcome.ok ? null : (outcome.error.diagnostics[0]?.message ?? 'invalid');
+    };
+    const classify = (values: string[] | null, consonants: unknown, dimension = 'consonant') =>
+      problem('classify', {
+        dimension,
+        context: 'word',
+        words: {},
+        sentences: {},
+        values,
+        cells: null,
+        consonants,
+      });
+    const all = ['hard', 'soft', 'both-way'];
+    expect(classify(all, ['h', 'ch', 'k', 'r', 'd', 't', 'n'])).toBeNull();
+    expect(classify(null, ['cx', 'zx'])).toBeNull();
+    expect(classify(['hard', 'soft'], ['h', 'b'])).toBe(
+      '"b" is a both-way consonant, which the skill\'s values leave out.',
+    );
+    expect(classify(null, ['h'], 'pos')).toBe('Only a consonant skill lists consonants.');
+    expect(classify(all, ['č'])).not.toBeNull();
+    expect(classify(all, ['x'])).not.toBeNull();
+    expect(classify(all, [])).not.toBeNull();
+    expect(classify(all, ['h', 'h'])).not.toBeNull();
+    const sort = (values: string[], consonants: string[]) =>
+      problem('sort', {
+        dimension: 'consonant',
+        context: 'word',
+        values,
+        words: {},
+        fish: 6,
+        cells: null,
+        consonants,
+      });
+    expect(sort(['hard', 'soft'], ['h', 'ch', 'cx', 'sx'])).toBeNull();
+    expect(sort(['hard', 'soft'], ['h', 'ch', 'v'])).toBe(
+      '"v" is a both-way consonant, which the skill\'s values leave out.',
+    );
   });
 
   it('keep colloquial words to register skills, which must select them', () => {

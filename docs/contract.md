@@ -292,19 +292,19 @@ forms or its spelling.
 
 ### 6.1 Generators
 
-| Generator        | Parameters                                                                                                                         | Problems or boards                                           | Items                        |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| `spell.word`     | `words`, `rules`, `maxGaps` (1-3), `choices` (2-4)                                                                                 | a word with 1-3 letter gaps (`gaps`)                         | `spell:` points of the rules |
-| `spell.sentence` | `sentences`, `rules`                                                                                                               | a sentence with 1-3 gaps, one by one (`gaps`)                | `spell:` or `gap:`           |
-| `spell.mistake`  | `sentences`, `rules`                                                                                                               | a sentence with one mistake: find, then fix (`mistake`)      | `spell:` or `gap:`           |
-| `classify`       | `dimension`, `context` (`word`, `form`, `sentence`), `words`, `sentences`, `values` (or null: all), `cells` (form groups, or null) | name a dimension (`classify`)                                | `class:`                     |
-| `odd-one-out`    | `basis` (a word dimension, `family`, `listed`), `words`, `size` (3-6)                                                              | which word does not belong (`odd`)                           | `class:` or `fam:`           |
-| `relation`       | `relations`, `words`                                                                                                               | pick the related word (`relation`)                           | `rel:`                       |
-| `alphabet`       | `words`, `order` (`alphabet`, `rhyme`), `size` (3-10)                                                                              | Perlový náhrdelník: order the pearls                         | `abc:`                       |
-| `pairs`          | `pair` (a pair kind), `words`, `pairs` (3-8)                                                                                       | Pexeso                                                       | `pair:`                      |
-| `sort`           | `dimension`, `context` (`word`, `form`), `values` (2-4 nets), `words`, `fish` (4-12), `cells` (form groups, or null)               | Rybářské sítě                                                | `class:`                     |
-| `segment`        | `words`, `roles`                                                                                                                   | Ulita slov: cut and name the parts                           | `seg:`                       |
-| `family`         | `words`, `families` (or null), `pick` (2-8), `distractors` (1-6)                                                                   | Slovní rodinka: pick the family among sound-alike neighbours | `fam:`                       |
+| Generator        | Parameters                                                                                                                                        | Problems or boards                                           | Items                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| `spell.word`     | `words`, `rules`, `maxGaps` (1-3), `choices` (2-4)                                                                                                | a word with 1-3 letter gaps (`gaps`)                         | `spell:` points of the rules |
+| `spell.sentence` | `sentences`, `rules`                                                                                                                              | a sentence with 1-3 gaps, one by one (`gaps`)                | `spell:` or `gap:`           |
+| `spell.mistake`  | `sentences`, `rules`                                                                                                                              | a sentence with one mistake: find, then fix (`mistake`)      | `spell:` or `gap:`           |
+| `classify`       | `dimension`, `context` (`word`, `form`, `sentence`), `words`, `sentences`, `values` (or null: all), `cells` (form groups, or null); `consonants?` | name a dimension (`classify`)                                | `class:`                     |
+| `odd-one-out`    | `basis` (a word dimension, `family`, `listed`), `words`, `size` (3-6)                                                                             | which word does not belong (`odd`)                           | `class:` or `fam:`           |
+| `relation`       | `relations`, `words`                                                                                                                              | pick the related word (`relation`)                           | `rel:`                       |
+| `alphabet`       | `words`, `order` (`alphabet`, `rhyme`), `size` (3-10)                                                                                             | Perlový náhrdelník: order the pearls                         | `abc:`                       |
+| `pairs`          | `pair` (a pair kind), `words`, `pairs` (3-8)                                                                                                      | Pexeso                                                       | `pair:`                      |
+| `sort`           | `dimension`, `context` (`word`, `form`), `values` (2-4 nets), `words`, `fish` (4-12), `cells` (form groups, or null); `consonants?`               | Rybářské sítě                                                | `class:`                     |
+| `segment`        | `words`, `roles`                                                                                                                                  | Ulita slov: cut and name the parts                           | `seg:`                       |
+| `family`         | `words`, `families` (or null), `pick` (2-8), `distractors` (1-6)                                                                                  | Slovní rodinka: pick the family among sound-alike neighbours | `fam:`                       |
 
 The bounds of each skill per level are in [curriculum.md](curriculum.md) (generator bounds). A
 sentence gap with a `word` and a `point` trains that word's spelling item, so the word list and
@@ -332,6 +332,15 @@ it never shows an imperative or a conditional, which the 4th grade names. Odd-on
 in a word dimension (`WORD_VALUE_DIMENSIONS`), their family or being a listed word; fishing nets
 sort words by a word dimension or consonant letters by class (`SORT_DIMENSIONS.word`), or forms by
 a form dimension (`SORT_DIMENSIONS.form`).
+
+A **consonant skill** (`classify` or `sort` with `dimension: 'consonant'`; items
+`class:consonant:<id>`) serves all 24 consonant letters, or only those its optional `consonants`
+lists (`CONSONANT_IDS`, the letters' `lexiconId`s in school order: `h`, `ch`, `k`, …, `cx` for č,
+…), so a friend's set can hold just its own letters (Krab Tvrďák's seven hard consonants: `h`,
+`ch`, `k`, `r`, `d`, `t`, `n`). `values` still lists the classes offered as options or nets, and
+every listed letter's class must be among them. A skill of one class's letters shares its activity
+with the other classes' skills, so a round never has the same answer every time; a board of all
+24 letters credits each letter's item to whichever friend's set holds it.
 
 ### 6.3 Activities and generators
 

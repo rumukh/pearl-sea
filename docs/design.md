@@ -356,9 +356,10 @@ of address, grade; §10.2) → prologue (about 30 s, skippable) → **choose the
 Slunná laguna 1 (necklace, nets, Krmení) → **the egg hatches** → first sticker and coins → a hat at
 U Mrože → the map makes the next level glow. The hatch is designed in: a baby needs 30 % of its
 set answered right once (§6.5); the content keeps a lagoon friend's set to about 30-40 items (its
-7-9 consonant letters and short words of its two topics); the nets credit letters, and the focus
-egg (§6.3) makes the first Krmení of 10 meet about 9 of its items. A golden trace checks all three
-choices.
+7-9 consonant letters, through a letter skill narrowed to them with `consonants`, contract §6.2,
+and short words of its two topics); the nets of all 24 letters credit each friend's own, and the
+focus egg (§6.3) makes the first Krmení of 10 meet about 9 of its items. A golden trace checks all
+three choices.
 
 A 4th grader: profile (grade 4) → prologue → the same egg choice → **Ukaž, co umíš** (§9.2; its
 letters step serves the chosen egg's items on every other problem) → `beat.the-deep` → Měsíční

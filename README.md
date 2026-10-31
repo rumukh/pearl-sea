@@ -12,8 +12,8 @@ tarballs. Every image and music track is made with **local AI models only** (no 
 with recorded provenance.
 
 **Status:** planning approved; the foundations (toolchain, SDK, build, offline worker, reading
-font, CI and Pages) are in place and the game is being built. The approved design and delivery
-plan is [`docs/plan.md`](docs/plan.md). The site is published at
+font, CI and Pages) and the design and domain contract are in place, and the game is being built.
+The approved design and delivery plan is [`docs/plan.md`](docs/plan.md). The site is published at
 <https://rumukh.github.io/pearl-sea/>.
 
 ## Develop
@@ -55,7 +55,20 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 | `scripts/`      | Node tooling: build, serve, verify, check-site, content validation, lockfile, fonts |
 | `test/`         | Vitest unit and tooling tests, Playwright end-to-end tests (`e2e/`)                 |
 | `vendor/aegis/` | The pinned SDK tarball set and its artifact manifest                                |
-| `docs/`         | The approved plan                                                                   |
+| `docs/`         | The approved plan and the documentation below                                       |
+
+## Documentation
+
+| Document                                | What                                                                                  |
+| --------------------------------------- | ------------------------------------------------------------------------------------- |
+| [plan.md](docs/plan.md)                 | The approved plan: setting, regions, activities, delivery                             |
+| [design.md](docs/design.md)             | The full game design: story, regions and levels, activities, learning engine, economy |
+| [curriculum.md](docs/curriculum.md)     | Czech-language objectives for grades 3 and 4, RVP ZV outcomes, the level mapping      |
+| [contract.md](docs/contract.md)         | The domain contract every session builds on, and who owns what                        |
+| [architecture.md](docs/architecture.md) | Layers, the command loop, persistence and same-origin isolation, offline, the build   |
+| [testing.md](docs/testing.md)           | The gate and the testing discipline                                                   |
+| [assets.md](docs/assets.md)             | Art, audio and fonts: local models only, provenance                                   |
+| [sdk-update.md](docs/sdk-update.md)     | Updating the pinned Aegis SDK                                                         |
 
 ## License
 

@@ -3,10 +3,12 @@
  * string maps, English is limited to the grown-ups' area, Czech typography holds, and every
  * character is in the reading font.
  */
-import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { collectArtIds, collectCatalogKeys } from '../../src/rules/contract';
+import type { ContentData } from '../../src/rules/contract';
 import {
   czechTypographyProblems,
   FONT_PROVENANCE,
@@ -70,11 +72,54 @@ describe('scripts/validate-content.mjs', () => {
   });
 
   it('translates only the grown-ups’ area, and only keys Czech has', async () => {
-    catalog('en.ui.json', { 'app.title': 'Pearl Sea', 'grownups.help': 'Help' });
+    catalog('en.ui.json', {
+      'app.title': 'Pearl Sea',
+      'grownups.help': 'Help',
+      'grownups.title': 'For grown-ups',
+    });
     const { errors } = await validateContentTree({ root });
     expect(errors).toEqual([
-      'catalogs/en.ui.json "app.title": only the grown-ups\' area is translated (keys start with "grownups.")',
+      'catalogs/en.ui.json "app.title": English exists only for keys starting "grownups.".',
       'catalogs/en.ui.json "grownups.help": missing from catalogs/cs.ui.json',
+    ]);
+  });
+
+  it('requires English for every grown-ups’ string, plural sets by their base', async () => {
+    const czech = {
+      'app.title': 'Perlové moře',
+      'grownups.title': 'Pro dospělé',
+      'grownups.days.one': '{n} den',
+      'grownups.days.few': '{n} dny',
+      'grownups.days.other': '{n} dní',
+    };
+    catalog('cs.ui.json', czech);
+    expect((await validateContentTree({ root })).errors).toEqual([
+      'catalogs/cs.ui.json "grownups.title": no English in catalogs/en.ui.json (the grown-ups\' area has an English switch)',
+      'catalogs/cs.ui.json "grownups.days": no English in catalogs/en.ui.json (the grown-ups\' area has an English switch)',
+    ]);
+    catalog('en.ui.json', {
+      'grownups.title': 'For grown-ups',
+      'grownups.days.one': '{n} day',
+      'grownups.days.other': '{n} days',
+    });
+    expect((await validateContentTree({ root })).errors).toEqual([]);
+  });
+
+  it('enforces the address and plural convention, and one Czech scope per key', async () => {
+    catalog('cs.ui.json', {
+      'app.title': 'Perlové moře',
+      'praise.done.boy': 'Dokázal jsi to!',
+      'coins.one': 'mince',
+      'coins.other': 'mincí',
+    });
+    catalog('cs.content.json', { 'app.title': 'Perlové moře' });
+    const { errors } = await validateContentTree({ root });
+    expect(errors).toEqual([
+      'catalogs/cs.ui.json "app.title": also in catalogs/cs.content.json',
+      'catalogs/cs.ui.json "praise.done.boy": needs its pair "praise.done.girl".',
+      'catalogs/cs.ui.json "praise.done.boy": needs the neutral form "praise.done".',
+      'catalogs/cs.ui.json "coins.one": the plural set needs "coins.few".',
+      'catalogs/cs.ui.json "coins.other": the plural set needs "coins.few".',
     ]);
   });
 
@@ -111,5 +156,135 @@ describe('scripts/validate-content.mjs', () => {
     expect(czechTypographyProblems("it's")).toEqual([
       'a straight single quote: use ‚…‘ or the apostrophe ’',
     ]);
+  });
+});
+
+describe('scripts/validate-content.mjs with a content pack', () => {
+  const fixture = readFileSync(
+    join(repository, 'test', 'fixtures', 'contract', 'mini-pack.json'),
+    'utf8',
+  );
+  const pack = (): { revision: string; data: ContentData } => JSON.parse(fixture);
+  const writePack = (value: unknown, name = 'pearl-sea.content.json') =>
+    writeFileSync(join(root, 'content', name), JSON.stringify(value));
+  const strings = (keys: readonly string[]) => Object.fromEntries(keys.map((key) => [key, 'Text']));
+  const keysOf = (value: { data: ContentData }) =>
+    collectCatalogKeys(value.data).map(({ key }) => key);
+  const curriculum = (monsterLevels: string) =>
+    [
+      '# Curriculum',
+      '',
+      '## 2. Objectives',
+      '',
+      '| ID | Strand | Grade | RVP |',
+      '|---|---|---|---|',
+      '| `obj.letters.hard-soft` | letters-sounds | 3 | ČJL-3-2-08 |',
+      '| `obj.structure.root` | word-structure | 4 | ČJL-5-2-02 |',
+      '',
+      '## 3. Objectives by level and monster',
+      '',
+      '| Objective | Lessons | Monster levels |',
+      '|---|---|---|',
+      '| `obj.letters.hard-soft` | `sunny-lagoon.1` | `sunny-lagoon.monster` |',
+      `| \`obj.structure.root\` | \`moon-caves.1\` | ${monsterLevels} |`,
+      '',
+      '## 4. Generator bounds',
+      '',
+    ].join('\n');
+
+  beforeEach(() => {
+    mkdirSync(join(root, 'docs'), { recursive: true });
+    writePack(pack());
+    catalog('cs.content.json', strings(keysOf(pack())));
+    catalog('en.ui.json', { 'grownups.title': 'For grown-ups' });
+    catalog(
+      'en.content.json',
+      strings(keysOf(pack()).filter((key) => key.startsWith('grownups.'))),
+    );
+    writeFileSync(join(root, 'docs', 'curriculum.md'), curriculum('`moon-caves.monster`'));
+  });
+
+  it('accepts a valid pack whose strings, history and curriculum agree', async () => {
+    mkdirSync(join(root, 'content', 'history'));
+    writePack(pack(), 'history/0.0.1.json');
+    const { errors, warnings, summary } = await validateContentTree({ root, strictCoverage: true });
+    expect(errors).toEqual([]);
+    expect(warnings).toEqual([
+      'assets/art/catalog.json is not published yet: art references were not checked',
+    ]);
+    expect(summary?.pack).toMatchObject({
+      revision: '0.0.1',
+      levels: 4,
+      objectives: 2,
+      uncovered: 0,
+      history: 1,
+    });
+    expect(summary?.curriculum).toEqual({ objectives: 2, uncovered: 0 });
+  });
+
+  it('keeps story lines to the child profile: at most 10 words a sentence', async () => {
+    const keys = keysOf(pack());
+    const czech = strings(keys);
+    czech['story.prologue.2'] =
+      'Osmička plave s Bublinkou daleko za útes, kde spí velká stará murena. Ahoj!';
+    catalog('cs.content.json', czech);
+    expect((await validateContentTree({ root })).errors).toEqual([
+      'story.prologue.2: "Osmička plave s Bublinkou daleko za útes, kde spí velká stará murena" has 12 words (max 10)',
+    ]);
+  });
+
+  it('reports pack diagnostics, missing strings and a wrongly named archive', async () => {
+    const broken = pack();
+    broken.data.levels[0]!.activities[0]!.skills = ['sk.nowhere'];
+    writePack(broken);
+    expect((await validateContentTree({ root })).errors.join('\n')).toMatch(
+      /\[missing-reference\] Unknown skill "sk\.nowhere"/,
+    );
+
+    writePack(pack());
+    const keys = keysOf(pack()).filter((key) => key !== 'region.moon-caves');
+    catalog('cs.content.json', strings(keys));
+    mkdirSync(join(root, 'content', 'history'));
+    writePack(pack(), 'history/0.0.0.json');
+    expect((await validateContentTree({ root })).errors).toEqual([
+      'catalogs: no Czech "region.moon-caves" (region moon-caves)',
+      'history/0.0.0.json: file name must be its revision',
+      'history/0.0.0.json: the catalogs lost "region.moon-caves" (region moon-caves), which a save restored with this pack still shows',
+    ]);
+  });
+
+  it('gates curriculum coverage and the level mapping with --strict-coverage', async () => {
+    writeFileSync(join(root, 'docs', 'curriculum.md'), curriculum(' '));
+    const relaxed = await validateContentTree({ root });
+    expect(relaxed.warnings).toContain('curriculum: obj.structure.root has no monster level');
+    expect(relaxed.errors).toEqual([
+      'level moon-caves.monster teaches [obj.structure.root] but docs/curriculum.md §3 maps []',
+    ]);
+    const strict = await validateContentTree({ root, strictCoverage: true });
+    expect(strict.errors).toContain('curriculum: obj.structure.root has no monster level');
+
+    const uncovered = pack();
+    uncovered.data.levels.find((l) => l.id === 'moon-caves.monster')!.objectives = [];
+    writePack(uncovered);
+    const gaps = await validateContentTree({ root, strictCoverage: true });
+    expect(gaps.errors).toContain('content: obj.structure.root has no monster level');
+  });
+
+  it('checks art references against the published art catalog, strictly with --strict-art', async () => {
+    const ids = collectArtIds(pack().data).map(({ id }) => id);
+    mkdirSync(join(root, 'assets', 'art'), { recursive: true });
+    const entries = [...new Set(ids)]
+      .filter((id) => id !== 'monster/humr-nuzkar/freed')
+      .map((id) => ({ id, kind: 'svg', file: `${id}.svg`, width: 512, height: 512 }));
+    writeFileSync(
+      join(root, 'assets', 'art', 'catalog.json'),
+      JSON.stringify({ format: 'pearl-sea-art-catalog/1', entries }),
+    );
+    const message =
+      'Art ID "monster/humr-nuzkar/freed" (monster humr-nuzkar) is not in assets/art/catalog.json.';
+    const relaxed = await validateContentTree({ root });
+    expect(relaxed.errors).toEqual([]);
+    expect(relaxed.warnings).toContain(message);
+    expect((await validateContentTree({ root, strictArt: true })).errors).toEqual([message]);
   });
 });

@@ -1,0 +1,789 @@
+{
+  "id": "pearl-sea",
+  "revision": "0.0.1",
+  "schemaVersion": 1,
+  "data": {
+    "grades": [
+      { "grade": 3, "start": "sunny-lagoon" },
+      { "grade": 4, "start": "moon-caves" }
+    ],
+    "objectives": [
+      {
+        "id": "obj.letters.hard-soft",
+        "strand": "letters-sounds",
+        "grade": 3,
+        "titleKey": "grownups.objective.letters.hard-soft",
+        "rvp": ["ČJL-3-2-08"]
+      },
+      {
+        "id": "obj.structure.root",
+        "strand": "word-structure",
+        "grade": 4,
+        "titleKey": "grownups.objective.structure.root",
+        "rvp": ["ČJL-5-2-02"]
+      }
+    ],
+    "regions": [
+      {
+        "id": "sunny-lagoon",
+        "order": 1,
+        "titleKey": "region.sunny-lagoon",
+        "unlock": { "after": [] },
+        "monster": "murena-mumla",
+        "map": "shallows",
+        "grade": 3
+      },
+      {
+        "id": "moon-caves",
+        "order": 2,
+        "titleKey": "region.moon-caves",
+        "unlock": { "after": ["sunny-lagoon.monster"] },
+        "monster": "humr-nuzkar",
+        "map": "deep",
+        "grade": 4
+      }
+    ],
+    "levels": [
+      {
+        "id": "sunny-lagoon.1",
+        "region": "sunny-lagoon",
+        "order": 1,
+        "titleKey": "level.sunny-lagoon.1",
+        "kind": "lesson",
+        "unlock": { "after": [] },
+        "activities": [
+          {
+            "kind": "feeding",
+            "skills": ["sk.hard-soft"],
+            "count": 8,
+            "input": "auto",
+            "options": {}
+          },
+          {
+            "kind": "memory-match",
+            "skills": ["sk.family-pairs"],
+            "count": 1,
+            "input": "auto",
+            "options": {}
+          }
+        ],
+        "stars": null,
+        "rewards": { "coins": [5, 8, 10], "eggs": ["krab-tvrdak"], "cosmetics": [] },
+        "monster": null,
+        "storyBeat": null,
+        "objectives": ["obj.letters.hard-soft"]
+      },
+      {
+        "id": "sunny-lagoon.monster",
+        "region": "sunny-lagoon",
+        "order": 2,
+        "titleKey": "level.sunny-lagoon.monster",
+        "kind": "monster",
+        "unlock": { "after": ["sunny-lagoon.1"] },
+        "activities": [
+          {
+            "kind": "battle",
+            "skills": ["sk.hard-soft", "sk.listed-l"],
+            "count": 12,
+            "input": "auto",
+            "options": {}
+          }
+        ],
+        "stars": null,
+        "rewards": { "coins": [10, 15, 20], "eggs": [], "cosmetics": [] },
+        "monster": "murena-mumla",
+        "storyBeat": null,
+        "objectives": ["obj.letters.hard-soft"]
+      },
+      {
+        "id": "moon-caves.1",
+        "region": "moon-caves",
+        "order": 1,
+        "titleKey": "level.moon-caves.1",
+        "kind": "lesson",
+        "unlock": { "after": [] },
+        "activities": [
+          {
+            "kind": "word-shell",
+            "skills": ["sk.segment"],
+            "count": 3,
+            "input": "auto",
+            "options": {}
+          },
+          { "kind": "analysis", "skills": ["sk.pos"], "count": 8, "input": "choice", "options": {} }
+        ],
+        "stars": null,
+        "rewards": { "coins": [5, 8, 10], "eggs": ["rak-korinek"], "cosmetics": [] },
+        "monster": null,
+        "storyBeat": null,
+        "objectives": ["obj.structure.root"]
+      },
+      {
+        "id": "moon-caves.monster",
+        "region": "moon-caves",
+        "order": 2,
+        "titleKey": "level.moon-caves.monster",
+        "kind": "monster",
+        "unlock": { "after": ["moon-caves.1"] },
+        "activities": [
+          {
+            "kind": "battle",
+            "skills": ["sk.pos", "sk.agreement"],
+            "count": 12,
+            "input": "auto",
+            "options": {}
+          }
+        ],
+        "stars": null,
+        "rewards": { "coins": [10, 15, 20], "eggs": [], "cosmetics": [] },
+        "monster": "humr-nuzkar",
+        "storyBeat": null,
+        "objectives": ["obj.structure.root"]
+      }
+    ],
+    "skills": [
+      {
+        "id": "sk.hard-soft",
+        "titleKey": "skill.hard-soft",
+        "strand": "letters-sounds",
+        "generator": "spell.word",
+        "params": { "words": {}, "rules": ["tvrda", "mekka"], "maxGaps": 1, "choices": 2 }
+      },
+      {
+        "id": "sk.listed-l",
+        "titleKey": "skill.listed-l",
+        "strand": "listed-words",
+        "generator": "spell.word",
+        "params": { "words": { "letters": ["l"] }, "rules": ["vyjm"], "maxGaps": 1, "choices": 2 }
+      },
+      {
+        "id": "sk.pos",
+        "titleKey": "skill.pos",
+        "strand": "parts-of-speech",
+        "generator": "classify",
+        "params": {
+          "dimension": "pos",
+          "context": "word",
+          "words": {},
+          "sentences": {},
+          "values": null,
+          "cells": null
+        }
+      },
+      {
+        "id": "sk.family-pairs",
+        "titleKey": "skill.family-pairs",
+        "strand": "word-meaning",
+        "generator": "pairs",
+        "params": { "pair": "family", "words": {}, "pairs": 3 }
+      },
+      {
+        "id": "sk.segment",
+        "titleKey": "skill.segment",
+        "strand": "word-structure",
+        "generator": "segment",
+        "params": { "words": {}, "roles": ["prefix", "root", "suffix", "ending"] }
+      },
+      {
+        "id": "sk.agreement",
+        "titleKey": "skill.agreement",
+        "strand": "sentences",
+        "generator": "spell.sentence",
+        "params": { "sentences": {}, "rules": ["shoda"] }
+      }
+    ],
+    "friends": [
+      {
+        "id": "krab-tvrdak",
+        "nameKey": "friend.krab-tvrdak",
+        "mnemonicKey": "friend.krab-tvrdak.mnemonic",
+        "region": "sunny-lagoon",
+        "skills": ["sk.hard-soft"],
+        "monster": "murena-mumla"
+      },
+      {
+        "id": "rak-korinek",
+        "nameKey": "friend.rak-korinek",
+        "mnemonicKey": "friend.rak-korinek.mnemonic",
+        "region": "moon-caves",
+        "skills": ["sk.segment"],
+        "monster": "humr-nuzkar"
+      }
+    ],
+    "monsters": [
+      {
+        "id": "murena-mumla",
+        "region": "sunny-lagoon",
+        "nameKey": "monster.murena-mumla",
+        "mood": "grumpy",
+        "meter": 10,
+        "reviewShare": 20,
+        "jokes": ["monster.murena-mumla.joke.1"]
+      },
+      {
+        "id": "humr-nuzkar",
+        "region": "moon-caves",
+        "nameKey": "monster.humr-nuzkar",
+        "mood": "sulky",
+        "meter": 10,
+        "reviewShare": 20,
+        "jokes": []
+      }
+    ],
+    "inkoustici": [{ "id": "inkoustik-kanka", "nameKey": "inkoustik.kanka" }],
+    "cosmetics": [
+      {
+        "id": "hat-captain",
+        "slot": "head",
+        "assetId": "cosmetic/hat-captain",
+        "nameKey": "cosmetic.hat-captain",
+        "price": 20,
+        "unlock": null
+      }
+    ],
+    "stickers": [
+      {
+        "id": "sticker.first-pearl",
+        "nameKey": "sticker.first-pearl",
+        "page": "sunny-lagoon",
+        "criteria": { "kind": "level-complete", "level": "sunny-lagoon.1", "stars": 1 },
+        "icon": "sticker/pearl",
+        "color": "#ffd45c",
+        "frame": "sticker/frame-shell"
+      }
+    ],
+    "quests": [
+      {
+        "id": "quest.answers",
+        "titleKey": "quest.answers",
+        "goal": "correct-answers",
+        "target": 10,
+        "coins": 3,
+        "weight": 1,
+        "unlock": null
+      }
+    ],
+    "placement": {
+      "steps": [
+        {
+          "skill": "sk.hard-soft",
+          "problems": 3,
+          "passAccuracy": 67,
+          "levels": ["sunny-lagoon.1"],
+          "grades": [4]
+        }
+      ],
+      "minProblems": 3,
+      "maxProblems": 20,
+      "stopAfterMisses": 3
+    },
+    "story": {
+      "beats": [
+        {
+          "id": "beat.prologue",
+          "trigger": { "kind": "first-session" },
+          "skippable": true,
+          "graph": {
+            "schema": 1,
+            "id": "story.prologue",
+            "revision": "1",
+            "start": "prologue-1",
+            "catalogs": {
+              "scene": ["scene/sunny-lagoon"],
+              "text": ["story.prologue.1", "story.next", "story.prologue.2"],
+              "asset": [],
+              "clue": [],
+              "fact": [],
+              "glossary": [],
+              "reward": [],
+              "completion": []
+            },
+            "flags": [],
+            "items": [],
+            "data": [],
+            "effects": [],
+            "nodes": [
+              {
+                "id": "prologue-1",
+                "scene": "scene/sunny-lagoon",
+                "text": "story.prologue.1",
+                "narration": null,
+                "revisit": "allow",
+                "entryEffects": [],
+                "choices": [
+                  {
+                    "id": "next",
+                    "text": "story.next",
+                    "to": "prologue-2",
+                    "guard": null,
+                    "effects": []
+                  }
+                ],
+                "automatic": [],
+                "resolveEnding": false
+              },
+              {
+                "id": "prologue-2",
+                "scene": "scene/sunny-lagoon",
+                "text": "story.prologue.2",
+                "narration": null,
+                "revisit": "allow",
+                "entryEffects": [],
+                "choices": [],
+                "automatic": [],
+                "resolveEnding": false
+              }
+            ],
+            "maxAutomaticSteps": 4,
+            "endings": []
+          }
+        }
+      ],
+      "rewards": []
+    },
+    "balance": {
+      "leitner": { "intervals": [0, 1, 2, 4, 8, 16] },
+      "response": {
+        "choice": { "fastMs": 2500, "okMs": 6000 },
+        "letters": { "fastMs": 3500, "okMs": 8000 },
+        "typed": { "fastMs": 5000, "okMs": 12000, "perExtraLetterMs": 1000 },
+        "perSentenceWordMs": 1000
+      },
+      "input": { "lettersFromBox": 2, "typedFromBox": 4, "choices": 4 },
+      "mix": {
+        "successTarget": 82,
+        "knownShare": 70,
+        "minLearningShare": 10,
+        "maxLearningShare": 50,
+        "window": 20,
+        "noRepeatWithin": 2
+      },
+      "reask": { "delay": 3, "maxPerRound": 2 },
+      "coins": {
+        "correct": 1,
+        "streakEvery": 5,
+        "streakBonus": 1,
+        "monsterFreed": 15,
+        "placementDone": 10,
+        "ambush": 1
+      },
+      "stars": {
+        "twoStars": { "accuracy": 80 },
+        "threeStars": { "accuracy": 95, "fastShare": 60 }
+      },
+      "mastery": {
+        "goldBox": 5,
+        "goldFast": 2,
+        "goldOfLast": 3,
+        "effort": { "bronzeDays": 2, "silverDays": 4, "gapDays": 2 }
+      },
+      "growth": [
+        { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+        { "stage": "grown", "share": 80, "mastery": "silver", "monster": true },
+        { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+      ],
+      "daily": { "goalAnswers": 30, "goalMin": 10, "goalMax": 100, "quests": 3, "historyDays": 60 },
+      "chest": { "coinsMin": 2, "coinsMax": 6, "cosmeticWeight": 0, "coinsWeight": 1 },
+      "race": { "unlockAfter": "sunny-lagoon.monster", "maxProblems": 60, "seconds": 60 },
+      "hungry": { "minDue": 1 },
+      "ambush": {
+        "unlockAfter": "sunny-lagoon.monster",
+        "chance": 10,
+        "minIndex": 3,
+        "maxPerRound": 1
+      },
+      "battle": { "splashEvery": 4 }
+    },
+    "lexicon": {
+      "sources": [
+        {
+          "id": "ujc",
+          "title": "Internetová jazyková příručka (Ústav pro jazyk český AV ČR)",
+          "url": "https://prirucka.ujc.cas.cz/"
+        }
+      ],
+      "words": [
+        {
+          "id": "mlyyn",
+          "lemma": "mlýn",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["vyjmenovana-l"],
+          "tags": [],
+          "src": ["ujc"],
+          "noun": {
+            "gender": "m",
+            "animate": false,
+            "numbers": "both",
+            "pattern": "hrad",
+            "paradigm": {
+              "sg": ["mlýn", "mlýna", "mlýnu", "mlýn", "mlýne", ["mlýně", "mlýnu"], "mlýnem"],
+              "pl": ["mlýny", "mlýnů", "mlýnům", "mlýny", "mlýny", "mlýnech", "mlýny"]
+            }
+          },
+          "family": { "id": "mlyyn", "role": "head" },
+          "segments": [
+            ["root", "mlýn"],
+            ["ending", ""]
+          ],
+          "spelling": [
+            { "at": 2, "correct": "ý", "alt": ["í", "y", "i"], "rule": "vyjm", "test": "mlynář" }
+          ]
+        },
+        {
+          "id": "mlynaarx",
+          "lemma": "mlynář",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["vyjmenovana-l"],
+          "tags": [],
+          "src": ["ujc"],
+          "noun": {
+            "gender": "m",
+            "animate": true,
+            "numbers": "both",
+            "pattern": "muz",
+            "paradigm": {
+              "sg": ["mlynář", "mlynáře", "mlynáři", "mlynáře", "mlynáři", "mlynáři", "mlynářem"],
+              "pl": [
+                ["mlynáři", "mlynářové"],
+                "mlynářů",
+                "mlynářům",
+                "mlynáře",
+                "mlynáři",
+                "mlynářích",
+                "mlynáři"
+              ]
+            }
+          },
+          "family": { "id": "mlyyn", "role": "related" },
+          "segments": [
+            ["root", "mlyn"],
+            ["suffix", "ář"],
+            ["ending", ""]
+          ],
+          "spelling": [{ "at": 2, "correct": "y", "alt": ["i"], "rule": "vyjm", "test": "mlýn" }]
+        },
+        {
+          "id": "ryba",
+          "lemma": "ryba",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["more"],
+          "tags": ["sea"],
+          "src": ["ujc"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": ["ryba", "ryby", "rybě", "rybu", "rybo", "rybě", "rybou"],
+              "pl": ["ryby", "ryb", "rybám", "ryby", "ryby", "rybách", "rybami"]
+            }
+          },
+          "spelling": [{ "at": 1, "correct": "y", "alt": ["i"], "rule": "tvrda" }]
+        },
+        {
+          "id": "pes",
+          "lemma": "pes",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["zvirata"],
+          "tags": [],
+          "src": ["ujc"],
+          "noun": {
+            "gender": "m",
+            "animate": true,
+            "numbers": "both",
+            "pattern": "pan",
+            "paradigm": {
+              "sg": ["pes", "psa", "psovi", "psa", "pse", ["psovi", "psu"], "psem"],
+              "pl": ["psi", "psů", "psům", "psy", "psi", "psech", "psy"]
+            }
+          },
+          "spelling": [{ "at": 2, "correct": "s", "alt": ["z"], "rule": "parova", "test": "psa" }]
+        },
+        {
+          "id": "zviirxe",
+          "lemma": "zvíře",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["zvirata"],
+          "tags": [],
+          "src": ["ujc"],
+          "noun": {
+            "gender": "n",
+            "numbers": "both",
+            "pattern": "kure",
+            "paradigm": {
+              "sg": ["zvíře", "zvířete", "zvířeti", "zvíře", "zvíře", "zvířeti", "zvířetem"],
+              "pl": ["zvířata", "zvířat", "zvířatům", "zvířata", "zvířata", "zvířatech", "zvířaty"]
+            }
+          }
+        },
+        {
+          "id": "vltava",
+          "lemma": "Vltava",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["vlastni-jmena"],
+          "tags": [],
+          "src": ["ujc"],
+          "noun": {
+            "gender": "f",
+            "numbers": "sg",
+            "pattern": "zena",
+            "proper": "river",
+            "paradigm": {
+              "sg": ["Vltava", "Vltavy", "Vltavě", "Vltavu", "Vltavo", "Vltavě", "Vltavou"]
+            }
+          },
+          "spelling": [{ "at": 0, "correct": "V", "alt": ["v"], "rule": "velke-pismeno" }]
+        },
+        {
+          "id": "byyt",
+          "lemma": "být",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-b"],
+          "tags": [],
+          "src": ["ujc"],
+          "verb": {
+            "aspect": "impf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "být",
+              "pres": ["jsem", "jsi", "je", "jsme", "jste", "jsou"],
+              "imp": ["buď", "buďme", "buďte"],
+              "past": {
+                "m": "byl",
+                "f": "byla",
+                "n": "bylo",
+                "ma": "byli",
+                "mi": "byly",
+                "fpl": "byly",
+                "npl": "byla"
+              },
+              "fut": ["budu", "budeš", "bude", "budeme", "budete", "budou"]
+            }
+          },
+          "family": { "id": "byyt", "role": "head" },
+          "spelling": [{ "at": 1, "correct": "ý", "alt": ["í"], "rule": "vyjm" }]
+        },
+        {
+          "id": "biit",
+          "lemma": "bít",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-b"],
+          "tags": [],
+          "src": ["ujc"],
+          "verb": {
+            "aspect": "impf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "bít",
+              "pres": ["biju", "biješ", "bije", "bijeme", "bijete", "bijí"],
+              "imp": ["bij", "bijme", "bijte"],
+              "past": {
+                "m": "bil",
+                "f": "bila",
+                "n": "bilo",
+                "ma": "bili",
+                "mi": "bily",
+                "fpl": "bily",
+                "npl": "bila"
+              }
+            }
+          },
+          "family": { "id": "biit", "role": "head" },
+          "spelling": [{ "at": 1, "correct": "í", "alt": ["ý"], "rule": "obojetna-i" }]
+        },
+        {
+          "id": "vyletext",
+          "lemma": "vyletět",
+          "pos": "verb",
+          "grade": 4,
+          "topics": ["predpony"],
+          "tags": [],
+          "src": ["ujc"],
+          "verb": {
+            "aspect": "pf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "vyletět",
+              "pres": ["vyletím", "vyletíš", "vyletí", "vyletíme", "vyletíte", "vyletí"],
+              "imp": ["vyleť", "vyleťme", "vyleťte"],
+              "past": {
+                "m": "vyletěl",
+                "f": "vyletěla",
+                "n": "vyletělo",
+                "ma": "vyletěli",
+                "mi": "vyletěly",
+                "fpl": "vyletěly",
+                "npl": "vyletěla"
+              }
+            }
+          },
+          "segments": [
+            ["prefix", "vy"],
+            ["root", "let"],
+            ["suffix", "ět"]
+          ],
+          "spelling": [
+            { "at": 1, "correct": "y", "alt": ["i"], "rule": "vyjm-prefix" },
+            { "at": 5, "correct": "ě", "alt": ["e", "je"], "rule": "de-te-ne" }
+          ]
+        },
+        {
+          "id": "velkyy",
+          "lemma": "velký",
+          "pos": "adj",
+          "grade": 3,
+          "topics": ["protiklady"],
+          "tags": [],
+          "src": ["ujc"],
+          "spelling": [{ "at": 4, "correct": "ý", "alt": ["í"], "rule": "tvrda" }]
+        },
+        {
+          "id": "malyy",
+          "lemma": "malý",
+          "pos": "adj",
+          "grade": 3,
+          "topics": ["protiklady"],
+          "tags": [],
+          "src": ["ujc"]
+        },
+        {
+          "id": "dobryy",
+          "lemma": "dobrý",
+          "pos": "adj",
+          "grade": 4,
+          "topics": ["spisovnost"],
+          "tags": [],
+          "src": ["ujc"],
+          "register": "standard"
+        },
+        {
+          "id": "dobrej",
+          "lemma": "dobrej",
+          "pos": "adj",
+          "grade": 4,
+          "topics": ["spisovnost"],
+          "tags": [],
+          "src": ["ujc"],
+          "register": "colloquial",
+          "standard": "dobryy"
+        }
+      ],
+      "families": [
+        {
+          "id": "mlyyn",
+          "letter": "l",
+          "head": "mlyyn",
+          "order": 2,
+          "core": true,
+          "root": "mlýn",
+          "kin": [],
+          "src": ["ujc"]
+        },
+        {
+          "id": "byyt",
+          "letter": "b",
+          "head": "byyt",
+          "order": 1,
+          "core": true,
+          "root": "bý",
+          "kin": [],
+          "soundAlike": "biit",
+          "src": ["ujc"]
+        },
+        {
+          "id": "biit",
+          "letter": null,
+          "head": "biit",
+          "order": null,
+          "core": false,
+          "root": "bí",
+          "kin": [],
+          "soundAlike": "byyt",
+          "src": ["ujc"]
+        }
+      ],
+      "sentences": [
+        {
+          "id": "s.mlyn-1",
+          "grade": 3,
+          "topics": ["vyjmenovana-l"],
+          "text": "Ml{ý|í}n stojí u moře.",
+          "gaps": [{ "rule": "vyjm", "word": "mlyyn", "point": 2 }],
+          "tokens": [
+            {
+              "t": "Mlýn",
+              "word": "mlyyn",
+              "pos": "noun",
+              "case": 1,
+              "number": "sg",
+              "gender": "mi",
+              "member": "subject"
+            },
+            {
+              "t": "stojí",
+              "pos": "verb",
+              "person": 3,
+              "number": "sg",
+              "tense": "present",
+              "mood": "indicative",
+              "member": "predicate"
+            },
+            { "t": "u", "pos": "prep" },
+            { "t": "moře", "pos": "noun", "case": 2, "number": "sg", "gender": "n" }
+          ],
+          "kind": "statement",
+          "subjects": [0],
+          "predicates": [1],
+          "clauses": 1
+        },
+        {
+          "id": "s.ryby-1",
+          "grade": 4,
+          "topics": ["shoda"],
+          "text": "Ryby plaval{y|i} u útesu.",
+          "gaps": [{ "rule": "shoda", "word": null, "subjects": [0] }],
+          "tokens": [
+            {
+              "t": "Ryby",
+              "word": "ryba",
+              "pos": "noun",
+              "case": 1,
+              "number": "pl",
+              "gender": "f",
+              "member": "subject"
+            },
+            {
+              "t": "plavaly",
+              "pos": "verb",
+              "person": 3,
+              "number": "pl",
+              "tense": "past",
+              "mood": "indicative",
+              "member": "predicate"
+            },
+            { "t": "u", "pos": "prep" },
+            { "t": "útesu", "pos": "noun", "case": 2, "number": "sg", "gender": "mi" }
+          ],
+          "kind": "statement",
+          "subjects": [0],
+          "predicates": [1],
+          "clauses": 1
+        }
+      ],
+      "relations": {
+        "synonyms": [],
+        "antonyms": [["velkyy", "malyy"]],
+        "hierarchies": [{ "general": "zviirxe", "specific": ["ryba", "pes"] }],
+        "soundAlikes": [["byyt", "biit"]]
+      }
+    }
+  }
+}

@@ -252,3 +252,14 @@ request.
   works fully without read-aloud.
 - Out of scope for v1: reading comprehension and literature, handwriting, recorded voice-over,
   accounts and sync, classroom dashboards, 5th grade.
+
+## 10. Changes since approval
+
+Recorded by the coordinator with their reasons. None changes the game the user approved.
+
+| Date       | Change                                                                                                                                                                                                                       | Reason                                                                                                                       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 2026-10-31 | S3 started its verified word bank (`content/lexicon-src/`, PR #3) before S1's contract, and adopted the contract's lexicon schema afterwards; S4 started porting the shell infrastructure after PR #1 rather than after PR #2. | The word bank is pure language data and the longest, riskiest work; the shell infrastructure does not depend on the domain. |
+| 2026-10-31 | Sound effects moved from S4 to **S5**, who owns the whole audio pack (`assets/audio/**`, `scripts/audio/**`, `docs/audio.md`, the manifest). S4 owns only the runtime map from events to sounds.                       | One owner for the pack and its manifest; S5 has time between GPU renders.                                                   |
+| 2026-10-31 | Audio format: the AudioContext runs at 48 kHz; the ACE-Step music ships as **mono** 48 kHz Ogg, the effects as 48 kHz mono. The approved victory take is a 9-second one-shot `sfx/victory-sting`, not a loop; results and the finale fall back to the grotto loop. | Decoded audio is held at the context rate; stereo would exceed the SDK's 64 MiB decoded-audio budget, and mono keeps the full bandwidth. |
+| 2026-10-31 | The user chose art style **B (clean outline: a medium plum-brown line, no sticker border)** and the slice music takes (grotto, practice, battle, victory). Counted mnemonics (Krab's 7 spikes, Medúzka's 9 tentacles) are drawn from anatomy sketches. | User gates 1 and the music audition; text-only prompts kept miscounting spikes and tentacles.                                  |

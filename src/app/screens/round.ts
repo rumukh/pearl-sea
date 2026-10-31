@@ -7,8 +7,9 @@
  * A right answer sends a snack to the friend being fed (an egg glows instead), or, in a battle,
  * a bubble from Bublinka that washes ink off the monster; the ink meter shows how much is left.
  * The monster's harmless ink blots (`ink.splashed`) wait on the screen until the child wipes
- * them away with a tap, and its little jokes (`monster.joked`) appear in a speech bubble. An
- * Inkoustík smudging a problem is splashed away by the right answer.
+ * them away with a tap, and its little jokes (`BattleView.jokeKey`, told with `monster.joked`)
+ * appear in a speech bubble. An Inkoustík smudging a problem is splashed away by the right
+ * answer.
  *
  * A miss is never punished (docs/design.md §14): an orange "?", "Skoro! Správně je …", the
  * strategy that helps, and the child goes on when ready. Response time excludes pauses. Every
@@ -182,6 +183,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     const round = problemRound(view);
     if (round?.battle) {
       const left = round.battle.target > 0 ? 1 - round.battle.washed / round.battle.target : 0;
+      // The freed form shows through as the ink washes off; the last of it goes in the results.
       const monster = h(
         'div',
         {
@@ -189,11 +191,16 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
           testId: 'battle-monster',
           dataset: { monster: round.battle.monster, washed: String(round.battle.washed) },
         },
+        picture(app.art, ART.monster(round.battle.monster, 'freed'), {
+          className: 'ps-round__monster-freed',
+        }),
         picture(app.art, ART.monster(round.battle.monster, 'inked'), {
+          className: 'ps-round__monster-inked',
           alt: text(round.battle.nameKey),
         }),
       );
-      monster.style.setProperty('--ps-ink-left', String(Math.max(0, Math.min(1, left))));
+      monster.style.setProperty('--ink-left', String(Math.max(0, Math.min(1, left))));
+      showJoke(round.battle.jokeKey);
       companion.replaceChildren(
         h(
           'div',
@@ -255,7 +262,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     for (let index = 0; index < count; index++) {
       const spot = blots.childElementCount;
       const blot = h('button', {
-        className: 'ps-splash',
+        className: 'ps-ink-blot',
         testId: 'ink-splash',
         attributes: { type: 'button', 'aria-label': t('battle.wipe') },
       });
@@ -270,21 +277,23 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     }
     if (count > 0) app.kit.announcer.announce(t('battle.splashed'));
   };
-  const joke = (key: string): void => {
-    if (!text.has(key)) return;
-    jokeBubble.textContent = text(key);
-    jokeBubble.hidden = false;
+  /**
+   * The monster's joke on screen (`BattleView.jokeKey`): told at the battle's start, after every
+   * fifth right answer and when it is washed clean, and gone again after the next answer. It
+   * comes from the view, so a reload shows the same joke; `aria-live` reads a new one out.
+   */
+  const showJoke = (key: string | null): void => {
+    const line = key !== null && text.has(key) ? text(key) : '';
+    if (jokeBubble.textContent !== line) jokeBubble.textContent = line;
+    jokeBubble.hidden = line === '';
   };
-  /** Live battle events since the last look: ink blots to wipe and jokes to show. */
+  /** Live battle events since the last look: ink blots to wipe away. */
   const takeBattleEvents = (): void => {
     for (const event of active.events.take([
       'ink.splashed',
       'monster.joked',
     ]) as unknown as RawEvent[]) {
       if (event.type === 'ink.splashed') splash(Number(event.data['blots'] ?? 0));
-      else if (event.type === 'monster.joked' && typeof event.data['joke'] === 'string') {
-        joke(event.data['joke']);
-      }
     }
   };
 
@@ -539,6 +548,15 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
   const onMiss = (asked: ProblemView, result: Feedback, after: GameView): void => {
     tiles?.setState(answerId(result.given), 'miss');
     markPick(result.given, 'miss');
+    // The word spelled right, where the gap was.
+    displaySlot.replaceChildren(
+      problemDisplay(
+        asked,
+        t,
+        true,
+        result.expected.kind === 'text' ? result.expected.value : undefined,
+      ),
+    );
     const hint = stepHint(asked.problem, asked.step);
     setFeedback(
       'miss',

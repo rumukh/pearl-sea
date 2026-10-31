@@ -20,6 +20,11 @@ export interface ButtonOptions {
   /** Show only the icon; the label stays as the accessible name. */
   iconOnly?: boolean;
   /**
+   * A fuller accessible name than the visible label, which it must contain (WCAG 2.5.3): a
+   * short "Koupit" on a card that already shows the item and its price.
+   */
+  ariaLabel?: string;
+  /**
    * A tool beside an answer (Read aloud, Show me): pressing it with a pointer leaves keyboard
    * focus where it was, so Enter still sends the answer being typed.
    */
@@ -53,6 +58,7 @@ export function candyButton(options: ButtonOptions): HTMLButtonElement {
     button.replaceChildren(h('span', { text: options.label }));
   }
   if (options.testId) button.dataset['testid'] = options.testId;
+  if (options.ariaLabel) button.setAttribute('aria-label', options.ariaLabel);
   if (options.keepsFocus) button.addEventListener('mousedown', (event) => event.preventDefault());
   return button;
 }

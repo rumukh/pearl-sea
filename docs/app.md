@@ -192,10 +192,11 @@ game is saved.
 
 ## 9. Audio
 
-One `createNarration` instance (`audio/game-audio.ts`) with an `AudioContext` at 22 050 Hz where the
-browser allows it, unlocked by the first tap or key. Music and effects volumes come from the child's
-preferences; music is lowered to 35 % while read-aloud speaks. Nothing plays while paused or hidden;
-`clear()` drops pending sounds at a restore or a change of child. Every failure is contained.
+One `createNarration` instance (`audio/game-audio.ts`) with an `AudioContext` at 48 kHz (S5's pack is
+mono 48 kHz Ogg) where the browser allows it, unlocked by the first tap or key. Music and effects
+volumes come from the child's preferences; music is lowered to 35 % while read-aloud speaks. Nothing
+plays while paused or hidden; `clear()` drops pending sounds at a restore or a change of child.
+Every failure is contained.
 
 S5's manifest is the contract's `AUDIO_MANIFEST_PATH` (`assets/audio/manifest.json`), schema
 `AUDIO_MANIFEST_SCHEMA` (**`pearl-sea-audio-manifest/1`**, Dragon Valley's format under this game's
@@ -210,7 +211,14 @@ contract's `EVENTS`
 (`answer.correct`, `coins.earned`, …) and the shell cues `ui.tap`, `ui.keypad`, `ui.navigate`,
 `ui.blocked`. Until S5's pack lands the repository ships an **empty placeholder** in that schema,
 so the game is silent without a missing file; S5's generator overwrites it. With no sounds, no
-`AudioContext` is ever created. Screens name music states (`title`, …).
+`AudioContext` is ever created.
+
+Screens name a **mood** for their music, and the manifest's `music.states` maps each mood to a loop
+(or `null` for silence): `grotto` (title, profiles, story, hub, collections, results, goodbye),
+`map` (map, region, level intro), `practice` (problem rounds and boards) and `battle` (monster
+battles). A mood the pack does not list plays the `grotto` loop (`musicFor`), so S5's slice loops
+(grotto, practice, battle) cover every screen; the 9-second victory take is the one-shot effect
+`sfx/victory-sting` on a round's events, not a music state.
 
 ## 10. Read-aloud
 

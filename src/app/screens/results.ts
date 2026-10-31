@@ -202,6 +202,8 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
       );
     } else if (event.type === 'monster.freed') {
       const monster = event.data.monster;
+      // The joke it tells once washed clean stays on the finished round's battle.
+      const joke = round.type === 'problems' ? (round.battle?.jokeKey ?? null) : null;
       moments.push(() =>
         h(
           'section',
@@ -216,6 +218,9 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
             }),
           ),
           h('h2', { text: t('results.freed', { name: name(data.monsters, monster) }) }),
+          joke !== null && text.has(joke)
+            ? h('p', { className: 'ps-moment__joke', testId: 'moment-joke', text: text(joke) })
+            : null,
           h('p', { text: t('results.gallery') }),
         ),
       );
@@ -276,7 +281,8 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     title: heading.textContent ?? '',
     field: 'sea',
     region: null,
-    music: 'victory',
+    // The victory sting is a one-shot effect of the round's events; the grotto loop plays on.
+    music: 'grotto',
     focusTarget: () => stage.querySelector<HTMLElement>('button') ?? heading,
     mounted: () => {
       const shown = stage.firstElementChild as HTMLElement | null;

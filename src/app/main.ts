@@ -32,6 +32,7 @@ import { afterPaint, h } from './ui/dom';
 import './styles/base.css';
 import './styles/components.css';
 import './styles/screens.css';
+import './styles/game.css';
 
 const basePath = schema.string({
   minLength: 1,

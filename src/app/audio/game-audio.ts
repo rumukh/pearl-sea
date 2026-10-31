@@ -5,7 +5,7 @@
  *
  * - `unlock()` must run inside a trusted gesture (the first tap or key anywhere); the SDK
  *   creates and resumes the AudioContext before any asynchronous step. The context runs at the
- *   pack's own 22 050 Hz where the browser allows it (exact loop seams), else at the default.
+ *   pack's own 48 kHz where the browser allows it (exact loop seams), else at the default.
  * - Nothing plays while paused (visibility or game pause); music returns on resume.
  * - `clear()` at restore and profile switches drops pending and playing sounds, so no one-shot
  *   from a previous child or session can sound later.
@@ -25,7 +25,10 @@ export interface GameAudio {
   status(): AudioStatus;
   setVolumes(volumes: { readonly music: number; readonly effects: number }): void;
   cue(event: string, context?: CueContext): void;
-  /** Select the music for a screen state (`title`, `grotto`, `round`, …), or null for silence. */
+  /**
+   * Select the music for a screen's mood (`grotto`, `map`, `practice`, `battle`, …), or null for
+   * silence. A mood the pack does not list plays the grotto's loop (`musicFor`).
+   */
   setMusic(state: string | null): void;
   /** Lower the music while read-aloud speaks. */
   duck(active: boolean): void;
@@ -46,7 +49,22 @@ export interface GameAudioOptions {
 
 /** Music level while the device speaks, as a share of the chosen music volume. */
 export const DUCK_LEVEL = 0.35;
-export const PACK_SAMPLE_RATE = 22_050;
+/** S5's pack is mono 48 kHz Ogg (docs/plan.md §10); decoded audio is held at the context rate. */
+export const PACK_SAMPLE_RATE = 48_000;
+/** The mood whose loop plays for a mood the pack does not list: the home grotto's. */
+export const HOME_MUSIC_STATE = 'grotto';
+
+/**
+ * The loop for a screen's mood: the pack's own choice (a loop, or null for silence), else the
+ * home grotto's loop. S5's slice has grotto, practice and battle loops, and victory is a one-shot
+ * sting, so the map, the results and the finale play the grotto until the pack names their own.
+ */
+export function musicFor(map: AudioMap, state: string): string | null {
+  if (Object.hasOwn(map.musicStates, state)) return map.musicStates[state] ?? null;
+  return Object.hasOwn(map.musicStates, HOME_MUSIC_STATE)
+    ? (map.musicStates[HOME_MUSIC_STATE] ?? null)
+    : null;
+}
 
 function createContext(): AudioContext {
   try {
@@ -168,7 +186,7 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
       }
     },
     setMusic(state) {
-      const next = state === null ? null : (map.musicStates[state] ?? null);
+      const next = state === null ? null : musicFor(map, state);
       if (next === music) return;
       music = next;
       applyMusic();

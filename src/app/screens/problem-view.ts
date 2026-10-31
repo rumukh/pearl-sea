@@ -77,20 +77,40 @@ export function promptKey(problem: Problem, step: number): MessageKey {
   }
 }
 
-function blot(gap: Gap, index: number, step: number, answered: boolean): HTMLElement {
-  const state = index < step ? 'done' : index === step && !answered ? 'current' : 'later';
+function blot(
+  gap: Gap,
+  index: number,
+  step: number,
+  answered: boolean,
+  reveal: string | undefined,
+): HTMLElement {
+  const current = index === step;
+  const state =
+    index < step
+      ? 'done'
+      : current && reveal !== undefined
+        ? 'revealed'
+        : current && !answered
+          ? 'current'
+          : 'later';
   return h('span', {
     className: 'ps-blot',
     dataset: { state, gap: String(index) },
-    text: state === 'done' ? gap.correct : '\u00a0',
+    text: state === 'done' ? gap.correct : state === 'revealed' ? reveal! : '\u00a0',
   });
 }
 
 /**
  * The problem's text with its gaps. `answered` marks the current step as answered (its feedback
- * is showing), so its blot no longer glows.
+ * is showing), so its blot no longer glows; `reveal` writes the right letters into it after a
+ * miss, so the child sees the word spelled right.
  */
-export function problemDisplay(view: ProblemView, t: Translate, answered = false): HTMLElement {
+export function problemDisplay(
+  view: ProblemView,
+  t: Translate,
+  answered = false,
+  reveal?: string,
+): HTMLElement {
   const { problem, step } = view;
   switch (problem.kind) {
     case 'gaps': {
@@ -105,7 +125,7 @@ export function problemDisplay(view: ProblemView, t: Translate, answered = false
         ...problem.parts.map((part) =>
           part.kind === 'text'
             ? document.createTextNode(part.text)
-            : blot(problem.gaps[part.gap]!, part.gap, step, answered),
+            : blot(problem.gaps[part.gap]!, part.gap, step, answered, reveal),
         ),
       );
     }
@@ -128,7 +148,7 @@ export function problemDisplay(view: ProblemView, t: Translate, answered = false
               'mark',
               { className: 'ps-problem__fix' },
               problem.around[0],
-              blot(problem.fix, 1, step, answered),
+              blot(problem.fix, 1, step, answered, reveal),
               problem.around[1],
             ),
           );

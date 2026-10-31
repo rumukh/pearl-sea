@@ -195,6 +195,10 @@ function placeholderDrawing(id: string, width: number, height: number): SVGSVGEl
     {
       class: 'ps-art__drawing',
       viewBox: `0 0 ${width} ${height}`,
+      // Scenes fill a backdrop of any shape, as a painting does with object-fit: cover.
+      ...(artKind(id) === 'scene' || artKind(id) === 'map'
+        ? { preserveAspectRatio: 'xMidYMid slice' }
+        : {}),
       'aria-hidden': 'true',
       focusable: 'false',
     },

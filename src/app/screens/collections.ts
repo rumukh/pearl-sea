@@ -111,7 +111,8 @@ export function shopScreen(app: App, diverId: string): ScreenEntry {
         card.append(h('span', { className: 'ps-shop__owned', text: t('shop.owned') }));
       } else {
         const price = candyButton({
-          label: t.plural('shop.buy', item.price, { name: text(item.nameKey) }),
+          label: t('shop.buyShort'),
+          ariaLabel: t.plural('shop.buy', item.price, { name: text(item.nameKey) }),
           icon: 'bag',
           variant: item.affordable ? 'sun' : 'paper',
           size: 'small',
@@ -523,31 +524,34 @@ export function shellScreen(app: App, diverId: string): ScreenEntry {
           ),
         ),
       );
-    const strands = view.shell.strands.map((strand) =>
-      h(
-        'section',
-        { className: 'ps-card ps-shell__strand', testId: `strand-${strand.strand}` },
-        h('h2', { text: t(`strand.${strand.strand}` as MessageKey) }),
+    const strands = view.shell.strands
+      // A strand with no skills in this pack yet has nothing to show.
+      .filter((strand) => strand.skills.length > 0)
+      .map((strand) =>
         h(
-          'ul',
-          { className: 'ps-shell__skills' },
-          ...strand.skills.map((skill) =>
-            h(
-              'li',
-              { className: 'ps-shell__skill', testId: `skill-${skill.skill}` },
-              h('span', { className: 'ps-shell__skill-name', text: text(skill.titleKey) }),
-              levels(skill.counts),
-              skill.dull > 0
-                ? h('span', {
-                    className: 'ps-shell__dull',
-                    text: t.plural('shell.dull', skill.dull),
-                  })
-                : null,
+          'section',
+          { className: 'ps-card ps-shell__strand', testId: `strand-${strand.strand}` },
+          h('h2', { text: t(`strand.${strand.strand}` as MessageKey) }),
+          h(
+            'ul',
+            { className: 'ps-shell__skills' },
+            ...strand.skills.map((skill) =>
+              h(
+                'li',
+                { className: 'ps-shell__skill', testId: `skill-${skill.skill}` },
+                h('span', { className: 'ps-shell__skill-name', text: text(skill.titleKey) }),
+                levels(skill.counts),
+                skill.dull > 0
+                  ? h('span', {
+                      className: 'ps-shell__dull',
+                      text: t.plural('shell.dull', skill.dull),
+                    })
+                  : null,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
     const element = h(
       'main',
       { className: 'ps-shell-screen', testId: 'screen-shell' },

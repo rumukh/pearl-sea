@@ -1,0 +1,2325 @@
+/*
+ * The child's game: art and its dev placeholders, profiles, story, the grotto hub, the sea map,
+ * regions and levels, problem rounds and battles, the boards, results, the places of the grotto
+ * (U Mrože, friends, gallery, album, the Great Shell) and goodbye.
+ *
+ * Touch-first for a landscape tablet. Each game screen is a size container, so a layout that
+ * needs room (two columns, a painted map with markers on it) asks for room in em: the same
+ * screen at 200 % text gets the one-column layout and the list instead of the picture. Text on
+ * open water always sits on paper. Every state shows a shape or a word as well as a colour.
+ */
+
+/* ---- Art -------------------------------------------------------------------------------- */
+
+/* A picture keeps its painting's aspect ratio (set inline) and fills the width it is given. */
+.ps-art {
+  position: relative;
+  display: block;
+  width: 100%;
+  flex: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ps-art__image,
+.ps-art__drawing {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ps-art__image {
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+
+/* Until S5's paintings land, a placeholder says which art ID it stands for. */
+.ps-art__dev {
+  position: absolute;
+  left: 0.25em;
+  bottom: 0.25em;
+  max-width: calc(100% - 0.5em);
+  padding: 0.05em 0.4em;
+  border: 0.08em dashed var(--ps-coral-deep);
+  border-radius: 0.4em;
+  overflow: hidden;
+  font-size: 0.55rem;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--ps-coral-deep);
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
+  pointer-events: none;
+}
+
+/* Cosmetics on a friend's anchors and the shell crown (art/picture.ts places them inline). */
+.ps-art__worn {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.ps-art__worn > .ps-art,
+.ps-crown {
+  width: 100%;
+}
+
+/* Screens drawn over a scene: the picture fills the screen behind everything else. */
+.ps-hub,
+.ps-story,
+.ps-round,
+.ps-board,
+.ps-results,
+.ps-goodbye {
+  isolation: isolate;
+}
+
+.ps-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ps-backdrop > .ps-art {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto !important;
+}
+
+.ps-backdrop .ps-art__image {
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+/* A placeholder scene stays quiet behind the play, and its label keeps out of the way. */
+.ps-backdrop > .ps-art[data-placeholder] {
+  opacity: 0.45;
+}
+
+.ps-backdrop .ps-art__dev {
+  left: auto;
+  right: 0.6em;
+  bottom: 0.6em;
+}
+
+.ps-avatar {
+  width: 2.6em;
+  border-radius: 50%;
+}
+
+.ps-avatar--large {
+  width: min(6.5em, 100%);
+}
+
+/* ---- Shared ----------------------------------------------------------------------------- */
+
+.ps-hub,
+.ps-map,
+.ps-region,
+.ps-level,
+.ps-round,
+.ps-board,
+.ps-results,
+.ps-story,
+.ps-goodbye,
+.ps-divers,
+.ps-editor,
+.ps-shop,
+.ps-friends-screen,
+.ps-gallery,
+.ps-album,
+.ps-shell-screen {
+  container-type: inline-size;
+}
+
+.ps-row--center {
+  justify-content: center;
+}
+
+.ps-row--end {
+  justify-content: flex-end;
+}
+
+/* A list in a column field keeps its own height (its flex basis is meant for rows). */
+.ps-field > .ps-select {
+  flex: none;
+  width: 100%;
+}
+
+/* A note on open water sits on a paper plate, so it reads at the bottom of the deep too. */
+.ps-screen.ps-field-sea > .ps-note {
+  align-self: center;
+  max-width: min(100%, 34em);
+  padding: 0.35em 0.9em;
+  border-radius: 1em;
+  color: var(--ps-ink-soft);
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
+  text-align: center;
+}
+
+/* A gentle pulse around what to do next. */
+@keyframes ps-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0.16em var(--ps-sun),
+      0 0.2em 0.6em color-mix(in srgb, var(--ps-shadow) 25%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 0.34em color-mix(in srgb, var(--ps-sun) 55%, transparent),
+      0 0.2em 0.6em color-mix(in srgb, var(--ps-shadow) 25%, transparent);
+  }
+}
+
+/* A check badge in a corner: chosen, without relying on the colour. */
+.ps-choice:has(.ps-choice__input:checked)::before,
+.ps-egg-choice[data-chosen='true']::before,
+.ps-friends__friend[aria-pressed='true']::before {
+  content: '';
+  position: absolute;
+  top: -0.45em;
+  right: -0.45em;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+  background: var(--ps-primary-deep);
+  box-shadow: 0 0 0 0.12em var(--ps-card);
+}
+
+.ps-choice:has(.ps-choice__input:checked)::after,
+.ps-egg-choice[data-chosen='true']::after,
+.ps-friends__friend[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  top: -0.17em;
+  right: -0.02em;
+  width: 0.32em;
+  height: 0.6em;
+  border: solid var(--ps-card);
+  border-width: 0 0.13em 0.13em 0;
+  transform: rotate(45deg);
+}
+
+/* ---- Profiles --------------------------------------------------------------------------- */
+
+.ps-diver-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9.5em, 100%), 1fr));
+  gap: clamp(12px, 2.4vw, 28px);
+  width: min(100%, 52em);
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-diver-card {
+  position: relative;
+  display: flex;
+}
+
+.ps-diver-card__play {
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.5em;
+  min-height: 9em;
+  padding: 1em 0.8em 0.9em;
+  border: 0.12em solid var(--ps-line);
+  border-radius: 1.3em;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  box-shadow:
+    0 0.26em 0 var(--ps-line-strong),
+    0 0.5em 1em color-mix(in srgb, var(--ps-shadow) 18%, transparent);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 110ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ps-diver-card__play:active {
+  transform: translateY(0.18em);
+  box-shadow: 0 0.08em 0 var(--ps-line-strong);
+}
+
+.ps-diver-card__name {
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.ps-diver-card > .ps-button {
+  position: absolute;
+  top: 0.4em;
+  right: 0.4em;
+}
+
+.ps-diver-card__play--add {
+  border-style: dashed;
+  border-color: var(--ps-line-strong);
+  background: color-mix(in srgb, var(--ps-paper) 82%, transparent);
+}
+
+.ps-diver-card__plus {
+  display: grid;
+  place-items: center;
+  width: 3.2em;
+  height: 3.2em;
+  border-radius: 50%;
+  color: var(--ps-primary-deep);
+  background: var(--ps-primary-soft);
+}
+
+.ps-diver-card__plus svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.ps-editor__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  width: min(100%, 40em);
+  margin-inline: auto;
+}
+
+.ps-input--name {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.ps-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ps-picker__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+.ps-picker--avatars .ps-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.2em, 1fr));
+}
+
+.ps-choice {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  min-width: var(--ps-target);
+  min-height: var(--ps-target);
+  padding: 0.3em 0.9em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 1em;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.16em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* The radio stays in the page for the keyboard and screen readers; the label is the target. */
+.ps-choice__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ps-choice:has(.ps-choice__input:checked) {
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary-soft);
+  box-shadow:
+    inset 0 0 0 0.1em var(--ps-primary-deep),
+    0 0.16em 0 var(--ps-primary-deep);
+}
+
+.ps-choice:has(.ps-choice__input:focus-visible),
+.ps-picker[data-keys='true'] .ps-choice:has(.ps-choice__input:focus) {
+  outline: 0.16em solid var(--ps-ink);
+  outline-offset: 0.14em;
+}
+
+.ps-choice--avatar {
+  padding: 0.3em;
+  border-radius: 50%;
+  aspect-ratio: 1;
+}
+
+.ps-choice--avatar .ps-avatar {
+  width: 100%;
+}
+
+.ps-choice--grade {
+  flex-direction: column;
+  gap: 0;
+  min-width: 5.5em;
+  padding: 0.35em 1em 0.45em;
+}
+
+.ps-choice__number {
+  font-size: 1.8rem;
+  line-height: 1.05;
+}
+
+.ps-choice--grade .ps-choice__label {
+  font-size: 0.85rem;
+}
+
+/* ---- Story and the first egg ------------------------------------------------------------ */
+
+.ps-story {
+  justify-content: flex-end;
+}
+
+.ps-story__stage {
+  display: grid;
+  align-items: end;
+  gap: clamp(8px, 2vw, 24px);
+  width: min(100%, 64em);
+  margin: auto auto 0;
+}
+
+.ps-story__figure {
+  justify-self: center;
+  width: min(17rem, 34vh, 70vw);
+}
+
+.ps-story__card {
+  display: grid;
+  gap: 0.9em;
+}
+
+.ps-story__heading {
+  color: var(--ps-primary-deep);
+}
+
+.ps-story__text {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+.ps-story__line {
+  flex: 1;
+  max-width: none;
+  font-size: min(1.4rem, 6vw);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ps-story__speaker:empty {
+  display: none;
+}
+
+.ps-story__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7em;
+}
+
+@container (min-width: 40em) {
+  .ps-story__stage {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+}
+
+/* Three eggs side by side even on a phone; one under another only with big text. */
+.ps-egg-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(4.3em, 100%), 1fr));
+  gap: clamp(8px, 1.6vw, 18px);
+}
+
+.ps-egg-choice {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: end;
+  gap: 0.4em;
+  min-height: var(--ps-target);
+  padding: 0.6em 0.3em 0.7em;
+  border: 0.12em solid var(--ps-line);
+  border-radius: 1.3em;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.26em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 110ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ps-egg-choice .ps-art {
+  width: min(100%, 5.5rem);
+  transition: transform 160ms ease-out;
+}
+
+.ps-egg-choice:hover:not(:disabled) .ps-art {
+  transform: rotate(-5deg);
+}
+
+.ps-egg-choice:active:not(:disabled) {
+  transform: translateY(0.18em);
+  box-shadow: 0 0.08em 0 var(--ps-line-strong);
+}
+
+.ps-egg-choice:disabled {
+  cursor: default;
+}
+
+.ps-egg-choice:disabled:not([data-chosen='true']) {
+  opacity: 0.6;
+}
+
+.ps-egg-choice[data-chosen='true'] {
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary-soft);
+}
+
+.ps-egg-choice__label {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ---- The grotto hub --------------------------------------------------------------------- */
+
+.ps-hub__layout {
+  flex: 1;
+  display: grid;
+  grid-template-areas: 'friend' 'adventure' 'today' 'places';
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  gap: clamp(10px, 1.8vh, 24px) clamp(12px, 2.4vw, 32px);
+  width: min(100%, 64em);
+  margin-inline: auto;
+}
+
+@container (min-width: 42em) {
+  .ps-hub__layout {
+    grid-template-areas: 'friend today' 'adventure today' 'places places';
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.ps-hub__friend {
+  grid-area: friend;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.45em;
+  padding: clamp(12px, 2vw, 22px);
+  border-radius: 1.4em;
+  background: color-mix(in srgb, var(--ps-paper) 88%, transparent);
+  box-shadow: 0 0.35em 1em color-mix(in srgb, var(--ps-shadow) 16%, transparent);
+}
+
+.ps-hub__featured {
+  width: min(13rem, 30vh, 60vw);
+}
+
+.ps-hub__friend-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.ps-hub__friend .ps-meter {
+  width: min(100%, 14em);
+}
+
+.ps-hub__friends {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em 0.6em;
+  min-height: var(--ps-target);
+  padding: 0.3em 0.9em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 1.2em;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.16em 0 var(--ps-line-strong);
+  cursor: pointer;
+}
+
+.ps-hub__friends-art {
+  display: flex;
+  padding-inline-end: 0.5em;
+}
+
+.ps-hub__small-friend {
+  width: 2.3em;
+  margin-inline-end: -0.5em;
+}
+
+.ps-hub__friends-more {
+  font-size: 0.85rem;
+  color: var(--ps-ink-soft);
+}
+
+.ps-hub__adventure {
+  grid-area: adventure;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.5em;
+}
+
+.ps-hub__adventure .ps-button {
+  animation: ps-glow 2.4s ease-in-out infinite;
+}
+
+.ps-hub__next {
+  max-width: min(100%, 30em);
+  padding: 0.3em 0.9em;
+  border-radius: 1em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
+}
+
+.ps-hub__today {
+  grid-area: today;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+
+.ps-hub__today h2 {
+  color: var(--ps-primary-deep);
+}
+
+.ps-hub__today h3 {
+  font-size: 1rem;
+}
+
+.ps-hub__places {
+  grid-area: places;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em;
+}
+
+/* The week's seven days share one row while they fit. */
+.ps-week {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1.9em, 1fr));
+  gap: 0.3em;
+  max-width: 17em;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  list-style: none;
+}
+
+.ps-week__day {
+  display: grid;
+  justify-items: center;
+  gap: 0.15em;
+  font-weight: 700;
+}
+
+/* A day practised is a whole pearl; a day not yet is a dashed ring. */
+.ps-week__dot {
+  width: 1.5em;
+  height: 1.5em;
+  border: 0.12em dashed var(--ps-line-strong);
+  border-radius: 50%;
+  background: var(--ps-card);
+}
+
+.ps-week__day[data-practised='true'] .ps-week__dot {
+  border-style: solid;
+  border-color: var(--ps-primary-deep);
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 15%,
+    var(--ps-pearl) 45%,
+    var(--ps-mastery-silver) 100%
+  );
+}
+
+.ps-quests {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-quest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em 0.6em;
+  padding: 0.4em 0.6em;
+  border: 0.08em solid var(--ps-line);
+  border-radius: 0.8em;
+  background: var(--ps-card);
+}
+
+.ps-quest__mark {
+  display: grid;
+  place-items: center;
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 50%;
+}
+
+.ps-quest__mark svg {
+  width: 0.9em;
+  height: 0.9em;
+}
+
+.ps-quest__title {
+  flex: 1 1 9em;
+  font-size: 0.9rem;
+}
+
+.ps-quest__progress {
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ps-ink-soft);
+}
+
+.ps-quest[data-done='true'] {
+  border-color: var(--ps-success);
+  background: var(--ps-success-soft);
+}
+
+.ps-quest[data-done='true'] .ps-quest__mark {
+  border-color: var(--ps-success-deep);
+  color: var(--ps-card);
+  background: var(--ps-success-deep);
+}
+
+/* ---- The sea map ------------------------------------------------------------------------ */
+
+.ps-map__board,
+.ps-region__board {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 64em);
+  margin-inline: auto;
+  border-radius: 1.4em;
+  overflow: hidden;
+  box-shadow: 0 0.5em 1.4em color-mix(in srgb, var(--ps-shadow) 30%, transparent);
+}
+
+.ps-map__board {
+  width: min(100%, 64em, calc((100dvh - 9.5rem) * 1.6));
+}
+
+.ps-region__board {
+  width: min(100%, 64em, calc((100dvh - 6rem) * 1.78));
+}
+
+.ps-map__region {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.1em;
+  min-width: var(--ps-target);
+  min-height: var(--ps-target);
+  max-width: 8.5em;
+  padding: 0.3em 0.6em 0.35em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 1em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  box-shadow: 0 0.2em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-map__region:disabled {
+  cursor: default;
+  border-style: dashed;
+  color: var(--ps-ink-muted);
+  background: color-mix(in srgb, var(--ps-paper) 82%, transparent);
+  box-shadow: none;
+}
+
+.ps-map__region[data-glowing='true'] {
+  border-color: var(--ps-sun-deep);
+  animation: ps-glow 2.4s ease-in-out infinite;
+}
+
+.ps-map__monster {
+  width: 2.8em;
+}
+
+.ps-map__region-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  color: var(--ps-ink-soft);
+}
+
+.ps-map__region-status svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* Without room for the painted map, the regions are a list of cards. */
+@container (max-width: 34em) {
+  .ps-map__board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(9em, 100%), 1fr));
+    gap: 0.7em;
+    width: 100%;
+    overflow: visible;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .ps-map__picture {
+    display: none;
+  }
+
+  .ps-map__region {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---- A region and its levels ------------------------------------------------------------ */
+
+.ps-region__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ps-region__path polyline {
+  stroke: color-mix(in srgb, var(--ps-paper) 85%, transparent);
+  stroke-width: 6px;
+  stroke-dasharray: 2px 16px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ps-level-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.1em;
+  padding: 0;
+  border: 0;
+  border-radius: 1em;
+  color: var(--ps-ink);
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-level-node__pearl {
+  display: grid;
+  place-items: center;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 50%;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 16%,
+    var(--ps-pearl) 46%,
+    var(--ps-mastery-silver) 100%
+  );
+  box-shadow: 0 0.2em 0.5em color-mix(in srgb, var(--ps-shadow) 30%, transparent);
+}
+
+.ps-level-node__pearl svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.ps-level-node__pearl .ps-art {
+  width: 92%;
+}
+
+.ps-level-node[data-kind='monster'] .ps-level-node__pearl {
+  width: 3.4em;
+  height: 3.4em;
+  border-color: var(--ps-accent-deep);
+  background: var(--ps-card);
+}
+
+.ps-level-node:disabled {
+  cursor: default;
+}
+
+.ps-level-node:disabled .ps-level-node__pearl {
+  border-style: dashed;
+  color: var(--ps-ink-muted);
+  background: color-mix(in srgb, var(--ps-paper) 75%, transparent);
+  box-shadow: none;
+}
+
+.ps-level-node[data-status='completed'] .ps-level-node__pearl {
+  border-color: var(--ps-sun-deep);
+}
+
+.ps-level-node[data-glowing='true'] .ps-level-node__pearl {
+  border-color: var(--ps-sun-deep);
+  animation: ps-glow 2.4s ease-in-out infinite;
+}
+
+.ps-level-node__stars {
+  display: flex;
+  padding: 0.05em 0.25em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
+}
+
+.ps-level-node__stars .ps-star,
+.ps-level__stars .ps-star {
+  width: 0.95em;
+  height: 0.95em;
+}
+
+.ps-level__stars .ps-star {
+  width: 1.8em;
+  height: 1.8em;
+}
+
+@container (max-width: 34em) {
+  .ps-region__board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 1em 0.8em;
+    width: 100%;
+    min-height: 60dvh;
+    padding: 1.2em 0.8em;
+  }
+
+  .ps-region__picture {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    height: 100%;
+    aspect-ratio: auto !important;
+  }
+
+  .ps-region__picture .ps-art__image {
+    object-fit: cover;
+  }
+
+  .ps-region__path {
+    display: none;
+  }
+
+  .ps-level-node {
+    position: static;
+    transform: none;
+  }
+}
+
+/* ---- Level intro ------------------------------------------------------------------------ */
+
+.ps-level__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  width: min(100%, 36em);
+  margin: auto;
+}
+
+.ps-level__region {
+  font-weight: 700;
+  color: var(--ps-accent-deep);
+}
+
+.ps-level__monster {
+  align-self: center;
+  width: min(11rem, 28vh, 60vw);
+}
+
+.ps-level__stars > span[aria-hidden] {
+  display: flex;
+  justify-content: center;
+}
+
+.ps-activities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-activity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em 0.6em;
+  min-height: var(--ps-target);
+  padding: 0.3em 0.7em;
+  border: 0.08em solid var(--ps-line);
+  border-radius: 0.9em;
+  background: var(--ps-card);
+}
+
+.ps-activity > .ps-icon {
+  width: 1.3em;
+  height: 1.3em;
+  color: var(--ps-accent-deep);
+}
+
+.ps-activity > span:not(.ps-visually-hidden) {
+  flex: 1 1 8em;
+  font-weight: 700;
+}
+
+.ps-activity[data-done='true'] {
+  border-color: var(--ps-success);
+  background: var(--ps-success-soft);
+}
+
+.ps-activity[data-done='true'] > .ps-icon {
+  color: var(--ps-success-deep);
+}
+
+/* ---- Problem rounds --------------------------------------------------------------------- */
+
+.ps-round__header {
+  display: grid;
+  gap: 0.25em;
+  min-width: 0;
+}
+
+.ps-round__title {
+  font-size: min(1.4rem, 7vw);
+}
+
+.ps-round__header .ps-meter {
+  width: min(100%, 15em);
+}
+
+.ps-round__streak {
+  padding: 0.15em 0.7em;
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--ps-sun-deep);
+  background: var(--ps-paper);
+}
+
+.ps-round__streak:empty {
+  display: none;
+}
+
+.ps-round__stage {
+  flex: 1;
+  display: grid;
+  align-content: center;
+  align-items: center;
+  gap: clamp(10px, 2vw, 24px);
+  width: min(100%, 64em);
+  margin-inline: auto;
+}
+
+@container (min-width: 44em) {
+  .ps-round__stage {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  }
+}
+
+.ps-round__companion {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+.ps-round__friend {
+  width: min(13rem, 26vh, 44vw);
+}
+
+.ps-round__bublinka {
+  width: min(6rem, 14vh, 22vw);
+  align-self: flex-end;
+}
+
+.ps-round__monster {
+  display: grid;
+  width: min(15rem, 30vh, 52vw);
+}
+
+.ps-round__monster > .ps-art {
+  grid-area: 1 / 1;
+}
+
+/* The ink washes off as the meter fills, leaving a trace for the freeing in the results. */
+.ps-round__monster-inked {
+  opacity: calc(0.25 + 0.75 * var(--ink-left, 1));
+  transition: opacity 600ms ease-out;
+}
+
+.ps-round__joke {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  max-width: min(14em, 70%);
+  padding: 0.5em 0.8em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 1.1em 1.1em 0.3em 1.1em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.3em 0.8em color-mix(in srgb, var(--ps-shadow) 22%, transparent);
+}
+
+.ps-round__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  min-width: 0;
+}
+
+.ps-round__card > :empty:not(.ps-feedback) {
+  display: none;
+}
+
+.ps-round__note {
+  font-weight: 700;
+  color: var(--ps-info-deep);
+}
+
+.ps-round__ask {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.ps-round__prompt {
+  flex: 1 1 12em;
+  font-weight: 700;
+}
+
+.ps-round__tools {
+  display: flex;
+  gap: 0.4em;
+}
+
+.ps-round__display {
+  display: flex;
+  justify-content: center;
+}
+
+.ps-round__hint {
+  padding: 0.5em 0.8em;
+  border-left: 0.3em solid var(--ps-info);
+  border-radius: 0.8em;
+  color: var(--ps-ink);
+  background: var(--ps-info-soft);
+}
+
+.ps-round__next {
+  display: flex;
+  justify-content: center;
+}
+
+/* The word or sentence: big, with its gaps as ink blots. */
+.ps-problem__text {
+  max-width: none;
+  font-size: min(1.7rem, 7.5vw);
+  font-weight: 700;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.ps-problem__text--word {
+  font-size: min(2.6rem, 11vw);
+  letter-spacing: 0.02em;
+}
+
+.ps-blot {
+  display: inline-block;
+  min-width: 1em;
+  margin: 0 0.04em;
+  padding: 0 0.1em;
+  border-radius: 0.5em 0.62em 0.46em 0.58em;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--ps-ink-inverse);
+  background: var(--ps-ink);
+}
+
+/* The gap to fill now glows; one filled in shows its letters on a green ground, underlined. */
+.ps-blot[data-state='current'] {
+  box-shadow: 0 0 0 0.12em var(--ps-sun);
+  animation: ps-glow 2.4s ease-in-out infinite;
+}
+
+.ps-blot[data-state='later'] {
+  background: color-mix(in srgb, var(--ps-ink) 55%, var(--ps-paper));
+}
+
+.ps-blot[data-state='done'] {
+  color: var(--ps-success-deep);
+  background: var(--ps-success-soft);
+  box-shadow: inset 0 -0.1em 0 var(--ps-success);
+}
+
+/* After a miss the right letters stand in the gap, orange in a dashed frame. */
+.ps-blot[data-state='revealed'] {
+  color: var(--ps-miss-deep);
+  background: var(--ps-miss-soft);
+  outline: 0.07em dashed var(--ps-miss-deep);
+  outline-offset: 0.02em;
+}
+
+.ps-problem__mark {
+  padding: 0 0.15em;
+  border-radius: 0.3em;
+  color: var(--ps-ink);
+  background: var(--ps-sun);
+}
+
+.ps-problem__fix {
+  padding: 0 0.1em;
+  border-radius: 0.3em;
+  color: inherit;
+  background: var(--ps-miss-soft);
+  box-shadow: inset 0 -0.1em 0 var(--ps-miss-deep);
+}
+
+/* Feedback: a green check or an orange "?", always with words. The empty live region stays
+   in the accessibility tree but takes no room. */
+.ps-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em 0.6em;
+  padding: 0.5em 0.8em;
+  border: 0.1em solid transparent;
+  border-radius: 0.9em;
+  font-weight: 700;
+}
+
+.ps-feedback:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.ps-feedback > svg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.ps-feedback[data-kind='correct'] {
+  color: var(--ps-success-deep);
+  border-color: var(--ps-success);
+  background: var(--ps-success-soft);
+}
+
+.ps-feedback[data-kind='miss'] {
+  color: var(--ps-miss-deep);
+  border-color: var(--ps-miss);
+  background: var(--ps-miss-soft);
+}
+
+.ps-feedback[data-kind='info'] {
+  color: var(--ps-info-deep);
+  border-color: var(--ps-info);
+  background: var(--ps-info-soft);
+}
+
+.ps-feedback__badge {
+  display: grid;
+  place-items: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  color: var(--ps-ink);
+  background: var(--ps-miss);
+}
+
+.ps-feedback__text {
+  flex: 1 1 12em;
+}
+
+.ps-feedback__hint {
+  flex-basis: 100%;
+  font-weight: 400;
+  color: var(--ps-ink);
+}
+
+/* Words to pick: the sentence of a Lov chyb, or the words of an odd-one-out. */
+.ps-word-picks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em;
+}
+
+.ps-word-picks--sentence {
+  display: block;
+  max-width: none;
+  font-size: min(1.5rem, 7vw);
+  line-height: 2.5;
+  text-align: center;
+}
+
+.ps-word-pick {
+  min-width: var(--ps-target);
+  min-height: var(--ps-target);
+  padding: 0.15em 0.55em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 0.7em;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.16em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-word-picks--sentence .ps-word-pick {
+  font-size: inherit;
+}
+
+.ps-word-pick:disabled {
+  cursor: default;
+}
+
+.ps-word-pick[data-state='correct'] {
+  border-width: 0.18em;
+  border-color: var(--ps-success-deep);
+  color: var(--ps-success-deep);
+  background: var(--ps-success-soft);
+}
+
+.ps-word-pick[data-state='miss'] {
+  border-style: dashed;
+  border-color: var(--ps-miss-deep);
+  color: var(--ps-miss-deep);
+  background: var(--ps-miss-soft);
+}
+
+/* The big letter pad: few keys, drawn big. */
+.ps-round__answer[data-input='letters'] .ps-tile {
+  min-height: max(var(--ps-target), 3.6em);
+}
+
+/* An Inkoustík smudging the problem, splashed away by the right answer. */
+.ps-ambush {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.4em 0.7em;
+  border: 0.1em dashed var(--ps-ink-soft);
+  border-radius: 0.9em;
+  background: color-mix(in srgb, var(--ps-abyss-soft) 10%, var(--ps-paper));
+  transition:
+    opacity 400ms ease-out,
+    filter 400ms ease-out;
+}
+
+.ps-ambush > .ps-art {
+  width: 3.4em;
+}
+
+.ps-ambush__line {
+  font-weight: 700;
+}
+
+.ps-ambush[data-splashed='true'] {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+/* The monster's harmless ink blots: tap one to wipe it away. */
+.ps-round__splashes {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ps-ink-blot {
+  position: absolute;
+  width: clamp(3.5rem, 11vw, 6.5rem);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 47% 53% 42% 58% / 52% 45% 55% 48%;
+  background:
+    radial-gradient(circle at 30% 28%, var(--ps-abyss-soft) 0 18%, transparent 19%),
+    radial-gradient(circle at 70% 70%, var(--ps-abyss-soft) 0 12%, transparent 13%), var(--ps-abyss);
+  opacity: 0.92;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0.3em 0.8em color-mix(in srgb, var(--ps-shadow) 30%, transparent);
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+/* Things flying from the answer: a snack to the friend, a bubble at the monster. */
+.ps-flyer__snack,
+.ps-flyer__bubble {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.ps-flyer__snack {
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 14%,
+    var(--ps-sand) 48%,
+    var(--ps-sun-deep) 100%
+  );
+}
+
+.ps-flyer__bubble {
+  border: 3px solid var(--ps-card);
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 16%,
+    color-mix(in srgb, var(--ps-sea-surface) 45%, transparent) 60%
+  );
+}
+
+/* ---- The Czech keyboard ----------------------------------------------------------------- */
+
+.ps-typed {
+  display: grid;
+  gap: 0.6em;
+  width: min(100%, 40em);
+  margin-inline: auto;
+}
+
+.ps-typed__entry {
+  display: flex;
+  gap: 0.5em;
+}
+
+.ps-typed__field {
+  flex: 1;
+  min-width: 0;
+  min-height: max(var(--ps-target), 1.9em);
+  padding: 0.1em 0.5em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 0.6em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+}
+
+.ps-typed__field:focus-visible {
+  border-color: var(--ps-primary);
+}
+
+.ps-typed__entry .ps-key--ok {
+  display: inline-flex;
+  gap: 0.3em;
+  padding: 0 0.9em;
+  font-size: 1.1rem;
+}
+
+.ps-typed__keys {
+  display: grid;
+  gap: 0.35em;
+}
+
+.ps-typed__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35em;
+}
+
+.ps-typed__keys .ps-key {
+  flex: 1 1 0;
+  min-width: var(--ps-target);
+  max-width: 3em;
+  min-height: var(--ps-target);
+  font-size: 1.1rem;
+}
+
+.ps-typed__row--accents .ps-key {
+  background: var(--ps-primary-soft);
+}
+
+.ps-key--space {
+  flex-grow: 5 !important;
+  max-width: none !important;
+  font-size: 0.85rem !important;
+}
+
+.ps-key--shift svg {
+  transform: rotate(-90deg);
+}
+
+.ps-key--shift[aria-pressed='true'] {
+  border-color: var(--ps-sun-deep);
+  background: var(--ps-sun);
+  box-shadow: inset 0 0 0 0.1em var(--ps-sun-deep);
+}
+
+/* ---- Boards ----------------------------------------------------------------------------- */
+
+.ps-board__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  width: min(100%, 56em);
+  margin: auto;
+}
+
+.ps-board__message {
+  min-height: 1.45em;
+  max-width: none;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ps-ink-soft);
+}
+
+.ps-board__task {
+  margin-inline: auto;
+  font-weight: 700;
+  text-align: center;
+}
+
+.ps-board__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em;
+}
+
+.ps-board__actions:empty {
+  display: none;
+}
+
+/* Pexeso: the backs are sea blue with a pearl; a card turned up is paper. */
+.ps-memory {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(6.5em, 100%), 1fr));
+  gap: clamp(8px, 1.4vw, 14px);
+}
+
+.ps-card-tile {
+  display: grid;
+  place-items: center;
+  min-height: max(var(--ps-target), 3.6em);
+  padding: 0.3em;
+  border: 0.12em solid var(--ps-primary-deep);
+  border-radius: 0.9em;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ps-card);
+  background: linear-gradient(160deg, var(--ps-sea-shallow), var(--ps-sea-deep));
+  box-shadow: 0 0.18em 0 var(--ps-primary-deep);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 120ms ease-out;
+}
+
+.ps-card-tile:active:not(:disabled) {
+  transform: translateY(0.12em);
+}
+
+.ps-card-tile:disabled {
+  cursor: default;
+}
+
+.ps-card-tile[data-up='true'] {
+  border-color: var(--ps-primary);
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  box-shadow: 0 0.18em 0 var(--ps-line-strong);
+}
+
+.ps-card-tile[data-matched='true'] {
+  border-style: double;
+  border-width: 0.24em;
+  border-color: var(--ps-success-deep);
+  color: var(--ps-success-deep);
+  background: var(--ps-success-soft);
+}
+
+.ps-card-tile__face {
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.ps-card-tile__back svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+/* Perlový náhrdelník: word pearls on a golden string. */
+.ps-necklace {
+  display: grid;
+  gap: 0.8em;
+}
+
+.ps-necklace__string {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.9em 0;
+  margin: 0;
+  padding: 0.4em 0;
+  list-style: none;
+}
+
+.ps-necklace__place {
+  display: flex;
+  align-items: center;
+}
+
+.ps-necklace__place + .ps-necklace__place::before {
+  content: '';
+  width: 0.8em;
+  height: 0.16em;
+  border-radius: 999px;
+  background: var(--ps-sun-deep);
+}
+
+.ps-pearl-bead {
+  display: grid;
+  place-items: center;
+  min-width: 4.4em;
+  min-height: max(var(--ps-target), 3.4em);
+  padding: 0.3em 0.75em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: radial-gradient(
+    circle at 35% 28%,
+    var(--ps-card) 0 18%,
+    var(--ps-pearl) 50%,
+    var(--ps-mastery-silver) 100%
+  );
+  box-shadow: 0 0.2em 0.5em color-mix(in srgb, var(--ps-shadow) 22%, transparent);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 140ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A pearl picked up rises, with a sun ring. */
+.ps-pearl-bead[data-held='true'] {
+  border-color: var(--ps-primary-deep);
+  transform: translateY(-0.45em);
+  box-shadow:
+    0 0 0 0.2em var(--ps-sun),
+    0 0.6em 0.8em color-mix(in srgb, var(--ps-shadow) 28%, transparent);
+}
+
+/* Rybářské sítě: fish-words swim in the pool and are caught in the nets. */
+.ps-nets {
+  display: grid;
+  gap: 0.8em;
+}
+
+.ps-nets__pool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 0.6em;
+  min-height: 3.6em;
+  padding: 0.6em;
+  border: 0.1em dashed var(--ps-sea-shallow);
+  border-radius: 1em;
+  background: color-mix(in srgb, var(--ps-sea-surface) 35%, var(--ps-card));
+}
+
+.ps-nets__nets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(10em, 100%), 1fr));
+  gap: 0.8em;
+}
+
+.ps-net-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em;
+  border: 0.14em solid var(--ps-line-strong);
+  border-radius: 1em;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 0.9em,
+      color-mix(in srgb, var(--ps-line-strong) 40%, transparent) 0.9em 1em
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 0.9em,
+      color-mix(in srgb, var(--ps-line-strong) 40%, transparent) 0.9em 1em
+    ),
+    var(--ps-card);
+}
+
+.ps-net {
+  min-height: var(--ps-target);
+  padding: 0.25em 0.6em;
+  border: 0;
+  border-radius: 0.7em;
+  font-weight: 700;
+  color: var(--ps-card);
+  background: var(--ps-primary);
+  box-shadow: 0 0.18em 0 var(--ps-primary-deep);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-net__catch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  min-height: 3em;
+}
+
+.ps-fish {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-height: var(--ps-target);
+  margin-inline-end: 0.7em;
+  padding: 0.2em 0.7em 0.2em 0.9em;
+  border: 0.12em solid var(--ps-sea-deep);
+  border-radius: 55% 45% 45% 55% / 50%;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: color-mix(in srgb, var(--ps-sun) 55%, var(--ps-card));
+  box-shadow: 0 0.16em 0 var(--ps-sea-deep);
+  cursor: grab;
+  touch-action: none;
+}
+
+/* The tail. */
+.ps-fish::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -0.75em;
+  width: 0.9em;
+  height: 1.1em;
+  background: var(--ps-sea-deep);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  transform: translateY(-50%);
+}
+
+.ps-fish[data-chosen='true'] {
+  border-color: var(--ps-primary-deep);
+  box-shadow:
+    0 0 0 0.2em var(--ps-sun),
+    0 0.16em 0 var(--ps-sea-deep);
+}
+
+.ps-fish[data-dragging='true'] {
+  z-index: 10;
+  cursor: grabbing;
+  box-shadow: 0 0.6em 1em color-mix(in srgb, var(--ps-shadow) 35%, transparent);
+}
+
+.ps-fish[data-wrong='true'] {
+  border-style: dashed;
+  border-color: var(--ps-miss-deep);
+  background: var(--ps-miss-soft);
+}
+
+.ps-fish__wrong {
+  display: grid;
+  place-items: center;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  color: var(--ps-ink);
+  background: var(--ps-miss);
+}
+
+/* ---- Results and the big moments -------------------------------------------------------- */
+
+.ps-results__stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+
+.ps-results__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  width: min(100%, 34em);
+  text-align: center;
+}
+
+.ps-results__score {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.ps-results__coins {
+  font-weight: 700;
+  color: var(--ps-sun-deep);
+}
+
+.ps-results__news {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 100%;
+}
+
+.ps-celebrate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  max-width: none;
+  padding: 0.45em 0.8em;
+  border-radius: 0.9em;
+  font-weight: 700;
+  background: var(--ps-primary-soft);
+}
+
+.ps-celebrate__art {
+  width: 3.4em;
+}
+
+.ps-moment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  width: min(100%, 36em);
+  padding: clamp(16px, 3vw, 32px);
+  border-radius: 1.4em;
+  text-align: center;
+  background: color-mix(in srgb, var(--ps-paper) 94%, transparent);
+  box-shadow: 0 0.5em 1.4em color-mix(in srgb, var(--ps-shadow) 26%, transparent);
+}
+
+.ps-moment > p {
+  margin-inline: auto;
+}
+
+.ps-moment__art {
+  width: min(16rem, 36vh, 64vw);
+}
+
+.ps-moment--hatch .ps-moment__art {
+  animation: ps-hatch 900ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes ps-hatch {
+  from {
+    opacity: 0.4;
+    transform: scale(0.6) rotate(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The inked painting washes away and the freed one is left. */
+.ps-moment__wash {
+  display: grid;
+}
+
+.ps-moment__wash > .ps-art {
+  grid-area: 1 / 1;
+}
+
+.ps-moment__inked {
+  animation: ps-wash 2.4s ease-in 0.5s both;
+}
+
+@keyframes ps-wash {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+.ps-moment__joke {
+  padding: 0.5em 0.9em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 1.1em;
+  font-weight: 700;
+  background: var(--ps-card);
+}
+
+/* ---- Goodbye and the diary card --------------------------------------------------------- */
+
+.ps-goodbye__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: min(100%, 34em);
+  margin: auto;
+}
+
+.ps-goodbye__stage > h1 {
+  padding: 0.25em 0.8em;
+  border-radius: 1em;
+  text-align: center;
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
+}
+
+.ps-diary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  width: 100%;
+}
+
+.ps-diary h2 {
+  color: var(--ps-primary-deep);
+}
+
+.ps-diary__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+/* ---- U Mrože ---------------------------------------------------------------------------- */
+
+.ps-shop__counter {
+  display: flex;
+  align-items: flex-end;
+  gap: 1em;
+  width: min(100%, 56em);
+  margin-inline: auto;
+}
+
+.ps-shop__keeper {
+  width: min(8rem, 24vw);
+  flex: none;
+}
+
+.ps-shop__line {
+  padding: 0.6em 0.9em;
+  border: 0.1em solid var(--ps-line);
+  border-radius: 1.1em 1.1em 1.1em 0.3em;
+  font-weight: 700;
+  background: var(--ps-paper);
+  box-shadow: 0 0.3em 0.8em color-mix(in srgb, var(--ps-shadow) 16%, transparent);
+}
+
+.ps-shop__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(7em, 100%), 1fr));
+  gap: clamp(10px, 1.8vw, 20px);
+  width: min(100%, 56em);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-shop__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.8em;
+  border: 0.1em solid var(--ps-line);
+  border-radius: 1.1em;
+  text-align: center;
+  background: var(--ps-paper);
+  box-shadow: 0 0.3em 0.8em color-mix(in srgb, var(--ps-shadow) 14%, transparent);
+}
+
+.ps-shop__art {
+  width: min(5em, 100%);
+}
+
+.ps-shop__name {
+  font-weight: 700;
+}
+
+.ps-shop__price {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  font-weight: 700;
+  color: var(--ps-sun-deep);
+}
+
+.ps-shop__price svg {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.ps-shop__owned {
+  font-weight: 700;
+  color: var(--ps-success-deep);
+}
+
+.ps-shop__item[data-owned='true'] {
+  border-color: var(--ps-success);
+}
+
+/* ---- Friends, wardrobe and the grotto --------------------------------------------------- */
+
+.ps-friends-screen > :not(.ps-topbar),
+.ps-shell-screen > :not(.ps-topbar) {
+  width: min(100%, 56em);
+  margin-inline: auto;
+}
+
+.ps-friends {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-friends__friend {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.2em;
+  width: 7em;
+  min-height: var(--ps-target);
+  padding: 0.5em;
+  border: 0.12em solid var(--ps-line);
+  border-radius: 1.1em;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  box-shadow: 0 0.2em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-friends__friend[aria-pressed='true'] {
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary-soft);
+}
+
+.ps-friends__friend > .ps-art {
+  width: 4.5em;
+}
+
+.ps-friends__name {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.ps-friends__hungry {
+  font-size: 0.75rem;
+  color: var(--ps-coral-deep);
+}
+
+.ps-wardrobe {
+  display: grid;
+  gap: 0.7em;
+}
+
+.ps-wardrobe__friend {
+  justify-self: center;
+  width: min(13rem, 50vw);
+}
+
+.ps-wardrobe__hook {
+  font-weight: 700;
+  color: var(--ps-ink-soft);
+}
+
+.ps-wardrobe__slots,
+.ps-grotto-decor__spots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11em, 100%), 1fr));
+  gap: 0.7em;
+}
+
+.ps-grotto-decor {
+  display: grid;
+  gap: 0.6em;
+}
+
+/* ---- The friends' gallery and the sticker album ----------------------------------------- */
+
+.ps-gallery__frames {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(10em, 100%), 1fr));
+  gap: clamp(12px, 2vw, 24px);
+  width: min(100%, 60em);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-gallery__frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.7em;
+  border: 0.4em solid var(--ps-sand);
+  border-radius: 0.6em;
+  text-align: center;
+  background: var(--ps-paper);
+  box-shadow: 0 0.35em 0.9em color-mix(in srgb, var(--ps-shadow) 20%, transparent);
+}
+
+/* A monster still inked waits as a dark silhouette. */
+.ps-gallery__art--waiting {
+  filter: grayscale(1) brightness(0.35);
+  opacity: 0.55;
+}
+
+.ps-gallery__name {
+  font-weight: 700;
+}
+
+.ps-gallery__frame[data-freed='false'] .ps-gallery__name {
+  font-weight: 400;
+  color: var(--ps-ink-muted);
+}
+
+.ps-gallery__day {
+  font-size: 0.8rem;
+  color: var(--ps-ink-muted);
+}
+
+.ps-album__page {
+  width: min(100%, 56em);
+  margin-inline: auto;
+  padding: clamp(14px, 2.4vw, 28px);
+  border-radius: 1.2em;
+  background: var(--ps-paper);
+  box-shadow: 0 0.35em 1em color-mix(in srgb, var(--ps-shadow) 18%, transparent);
+}
+
+.ps-album__stickers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(7em, 100%), 1fr));
+  gap: 0.9em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-album__sticker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+  text-align: center;
+}
+
+.ps-album__sticker > .ps-art,
+.ps-album__empty {
+  width: 5em;
+}
+
+.ps-album__empty {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 0.14em dashed var(--ps-line-strong);
+  border-radius: 50%;
+  color: var(--ps-ink-muted);
+}
+
+.ps-album__empty svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.ps-album__name {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ps-album__sticker[data-earned='false'] .ps-album__name {
+  font-weight: 400;
+  color: var(--ps-ink-muted);
+}
+
+.ps-album__day {
+  font-size: 0.75rem;
+  color: var(--ps-ink-muted);
+}
+
+/* ---- The Great Shell -------------------------------------------------------------------- */
+
+.ps-shell__total,
+.ps-shell__strand {
+  display: grid;
+  gap: 0.6em;
+}
+
+.ps-shell__total h2,
+.ps-shell__strand h2 {
+  color: var(--ps-primary-deep);
+}
+
+.ps-shell__skills {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-shell__skill {
+  display: grid;
+  gap: 0.25em;
+  padding: 0.5em 0.7em;
+  border: 0.08em solid var(--ps-line);
+  border-radius: 0.9em;
+  background: var(--ps-card);
+}
+
+.ps-shell__skill-name {
+  font-weight: 700;
+}
+
+.ps-shell__pearls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1em;
+}
+
+.ps-shell__level {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ps-shell__pearl {
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.08em solid var(--ps-ink-soft);
+  border-radius: 50%;
+}
+
+.ps-shell__level[data-level='cloudy'] .ps-shell__pearl {
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 15%,
+    var(--ps-mastery-cloudy) 70%
+  );
+}
+
+.ps-shell__level[data-level='bronze'] .ps-shell__pearl {
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 15%,
+    var(--ps-mastery-bronze) 70%
+  );
+}
+
+.ps-shell__level[data-level='silver'] .ps-shell__pearl {
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--ps-card) 0 15%,
+    var(--ps-mastery-silver) 70%
+  );
+}
+
+.ps-shell__level[data-level='gold'] .ps-shell__pearl {
+  background: radial-gradient(circle at 35% 30%, var(--ps-card) 0 15%, var(--ps-mastery-gold) 70%);
+}
+
+.ps-shell__dull {
+  font-size: 0.8rem;
+  color: var(--ps-coral-deep);
+}
+
+/* ---- Less motion ------------------------------------------------------------------------ */
+
+/* Entrances that start faint do not run at all, and the wash ends washed. */
+:root[data-reduced-motion='true'] .ps-moment__art,
+:root[data-reduced-motion='true'] .ps-moment__inked {
+  animation: none !important;
+}
+
+:root[data-reduced-motion='true'] .ps-moment__inked {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-moment__art,
+  .ps-moment__inked {
+    animation: none !important;
+  }
+
+  .ps-moment__inked {
+    opacity: 0;
+  }
+}

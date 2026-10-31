@@ -6,7 +6,7 @@
  * "Dnešní výprava" button that does what the game suggests next. The places of the sea are one
  * tap away: the map, U Mrože, the friends, the gallery, the album and the Great Shell.
  */
-import { dressedFriend } from '../art/picture';
+import { dressedFriend, picture } from '../art/picture';
 import { taken } from '../controller/commands';
 import { adventureFor, featuredFriend, findLevel, growthOf } from '../game/view';
 import type { MessageKey } from '../i18n/messages';
@@ -15,8 +15,10 @@ import type { ActiveDiver, App } from '../shell/app';
 import { candyButton } from '../ui/button';
 import { openModal } from '../ui/dialog';
 import { h } from '../ui/dom';
+import { icon } from '../ui/icons';
 import type { IconName } from '../ui/icons';
 import { createCoinCounter, createMeter } from '../ui/meters';
+import { ART } from '../../rules/contract';
 import type { FriendView, GameView, Grant } from '../../rules/contract';
 import { diverSaveStatus, topBar } from './common';
 import { friendStageName, toastStickers } from './celebrate';
@@ -153,8 +155,13 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
           ? t('adventure.level', { title: text(found.level.titleKey) })
           : t('adventure.go');
       }
-      case 'minigame':
-        return t('adventure.minigame');
+      case 'minigame': {
+        // An activity of a level again: a board for fun, or a low day's review.
+        const found = findLevel(current, next.level);
+        return found
+          ? t('adventure.replay', { title: text(found.level.titleKey) })
+          : t('adventure.replayPlain');
+      }
       case 'snack':
         return t('adventure.snack');
       case 'placement':
@@ -233,6 +240,11 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
             className: 'ps-quest',
             dataset: { done: String(quest.done), claimed: String(quest.claimed) },
           },
+          h(
+            'span',
+            { className: 'ps-quest__mark', attributes: { 'aria-hidden': 'true' } },
+            quest.done ? icon('check') : null,
+          ),
           h('span', {
             className: 'ps-quest__title',
             text: text.counted(quest.titleKey, quest.target),
@@ -384,6 +396,7 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
   const element = h(
     'main',
     { className: 'ps-hub', testId: 'screen-hub' },
+    h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene('grotto'))),
     topBar({
       title: heading,
       tools: [coins.element, saveStatus.element, goodbye],

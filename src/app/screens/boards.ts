@@ -324,6 +324,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
         }
         const fish = chosenFish;
         chosenFish = null;
+        message.textContent = '';
         void move({ type: 'net', fish, net: index }).catch(app.kit.onError);
       });
       const caught = board.fish.filter((fish) => fish.net === index).map(fishButton);
@@ -392,6 +393,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
         const net = area ? Number(area.dataset['net']) : null;
         chosenFish = null;
         if (net !== null && Number.isInteger(net)) {
+          message.textContent = '';
           void move({ type: 'net', fish, net }).catch(app.kit.onError);
         }
         // The click that follows a drag is not a tap.

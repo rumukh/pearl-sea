@@ -6,7 +6,7 @@
  */
 import type { NarrationController, NarrationState } from '@aegis/browser/audio';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createGameAudio, DUCK_LEVEL } from '../../../src/app/audio/game-audio';
+import { createGameAudio, DUCK_LEVEL, musicFor } from '../../../src/app/audio/game-audio';
 import type { AudioMap } from '../../../src/app/audio/sound-map';
 import { STUB_AUDIO_MAP } from '../../../src/app/audio/stub-map';
 
@@ -142,9 +142,22 @@ describe('game audio', () => {
     audio.setMusic('grotto');
     audio.setMusic('round');
     audio.setMusic('battle');
-    audio.setMusic('unknown-state');
     await flush();
     expect(fake.calls).toEqual(['music music/grotto', 'music silence']);
+  });
+
+  it('plays the grotto loop for a mood the pack does not list, and silence only when asked', async () => {
+    const fake = fakeNarration();
+    const audio = await ready(fake);
+    audio.setMusic('battle');
+    audio.setMusic('map');
+    audio.setMusic('victory');
+    audio.setMusic(null);
+    await flush();
+    expect(fake.calls).toEqual(['music music/grotto', 'music silence']);
+    const base = { ...MAP, musicStates: { battle: 'music/grotto' } };
+    expect(musicFor(base, 'map')).toBeNull();
+    expect(musicFor(MAP, 'toString')).toBe('music/grotto');
   });
 
   it('plays a sequence on time and drops its rest when cleared', async () => {

@@ -41,9 +41,13 @@ the 14 patterns, persons, tenses, moods, rules, the school lists of the vyjmenov
 | `register.json`                             | 4     | standard and colloquial words                                                               |
 
 `node scripts/lexicon/check.mjs` checks every invariant below and exits non-zero on a problem;
-`--summary` prints coverage counts. It is dependency-free; once the toolchain lands it is one step
-of `scripts/verify.mjs`, so `npm run verify` fails on any problem. `node --test scripts/lexicon/check.test.mjs` proves the checker:
-it injects 17 kinds of fault into a copy of the word bank and expects each to be reported.
+`--summary` prints coverage counts and `--dir <path>` checks another copy. It uses Node built-ins
+only and runs as the `lexicon` step of `npm run verify`, so the gate fails on any problem; it also
+confirms that the reading font (`assets/fonts/pearl-reading/provenance.json`) draws every character
+a text may contain. `test/tooling/lexicon-check.test.ts`, in the gate's Vitest step, proves the
+checker: it injects each kind of fault into a copy of the word bank (a vyjmenované word with _i_, a
+wrong pattern or case, a wrong agreement ending, a sentence over ten words, a text that is not NFC,
+a broken file, …) and expects it to be reported, and it checks the exit codes.
 
 ## 2. Words
 

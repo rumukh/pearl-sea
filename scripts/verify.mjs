@@ -69,6 +69,11 @@ export const STEPS = [
     args: ['scripts/validate-content.mjs', '--strict-coverage'],
   },
   {
+    id: 'lexicon',
+    label: 'Check the Czech word bank (spelling points, families, forms, sentences)',
+    args: ['scripts/lexicon/check.mjs'],
+  },
+  {
     id: 'test',
     label: 'Unit, trace and tooling tests (Vitest)',
     args: [

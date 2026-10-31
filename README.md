@@ -24,7 +24,7 @@ Requirements: Node 24 or 25 and npm 11. On the development machine npm goes thro
 ```powershell
 npm ci
 npm run serve        # build, watch and serve at http://127.0.0.1:4330/ (refresh after "rebuilt")
-npm run verify       # the gate: build, typecheck, lint, format, content, tests, lockfile
+npm run verify       # the gate: build, typecheck, lint, format, content, lexicon, tests, lockfile
 npm run test:e2e     # browser tests at the Pages base through the system Edge (or Chrome:
                      # PS_BROWSER_CHANNEL=chrome); they serve on 4331
 npm run build -- --base /pearl-sea/   # the GitHub Pages build in dist-site/
@@ -46,16 +46,16 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 
 ## Layout
 
-| Path            | What                                                                                |
-| --------------- | ----------------------------------------------------------------------------------- |
-| `src/rules/`    | Deterministic, DOM-free game rules and the domain contract (`contract/`)            |
-| `src/app/`      | Browser shell: DOM/SVG screens, styles, the offline worker (`sw.ts`)                |
-| `content/`      | Data: catalogs now; the content pack and its history follow                         |
-| `assets/`       | Runtime fonts (and later art and audio) with provenance                             |
-| `scripts/`      | Node tooling: build, serve, verify, check-site, content validation, lockfile, fonts |
-| `test/`         | Vitest unit and tooling tests, Playwright end-to-end tests (`e2e/`)                 |
-| `vendor/aegis/` | The pinned SDK tarball set and its artifact manifest                                |
-| `docs/`         | The approved plan and the documentation below                                       |
+| Path            | What                                                                                                |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| `src/rules/`    | Deterministic, DOM-free game rules and the domain contract (`contract/`)                            |
+| `src/app/`      | Browser shell: DOM/SVG screens, styles, the offline worker (`sw.ts`)                                |
+| `content/`      | Data: catalogs and the Czech word bank (`lexicon-src/`); the content pack and its history follow    |
+| `assets/`       | Runtime fonts (and later art and audio) with provenance                                             |
+| `scripts/`      | Node tooling: build, serve, verify, check-site, content validation, lexicon checks, lockfile, fonts |
+| `test/`         | Vitest unit and tooling tests, Playwright end-to-end tests (`e2e/`)                                 |
+| `vendor/aegis/` | The pinned SDK tarball set and its artifact manifest                                                |
+| `docs/`         | The approved plan and the documentation below                                                       |
 
 ## Documentation
 
@@ -65,6 +65,7 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 | [design.md](docs/design.md)             | The full game design: story, regions and levels, activities, learning engine, economy |
 | [curriculum.md](docs/curriculum.md)     | Czech-language objectives for grades 3 and 4, RVP ZV outcomes, the level mapping      |
 | [contract.md](docs/contract.md)         | The domain contract every session builds on, and who owns what                        |
+| [lexicon.md](docs/lexicon.md)           | The verified Czech word bank: fields, school conventions, sources, coverage           |
 | [architecture.md](docs/architecture.md) | Layers, the command loop, persistence and same-origin isolation, offline, the build   |
 | [testing.md](docs/testing.md)           | The gate and the testing discipline                                                   |
 | [assets.md](docs/assets.md)             | Art, audio and fonts: local models only, provenance                                   |

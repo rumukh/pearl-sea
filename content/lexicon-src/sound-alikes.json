@@ -96,6 +96,38 @@
         { "form": "dobýt", "word": "dobyyt" },
         { "form": "dobít", "word": "dobiit" }
       ]
+    },
+    {
+      "id": "alike.bydlo-bidlo",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "bydlo", "word": "bydlo" },
+        { "form": "bidlo", "word": "bidlo" }
+      ]
+    },
+    {
+      "id": "alike.syyrovyy-siirovyy",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "sýrový", "word": "syyrovyy" },
+        { "form": "sírový", "word": "siirovyy" }
+      ]
+    },
+    {
+      "id": "alike.vyyskat-viiskat",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "výskat", "word": "vyyskat" },
+        { "form": "vískat", "word": "viiskat" }
+      ]
+    },
+    {
+      "id": "alike.vysel-visel",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "vysel", "word": "vysiit" },
+        { "form": "visel", "word": "viset" }
+      ]
     }
   ],
   "sentences": [
@@ -195,6 +227,36 @@
       "id": "alike.19",
       "text": "Na pláži budeme v{í|ý}t věnečky z řas.",
       "gaps": [{ "rule": "obojetna-i", "word": "viit" }]
+    },
+    {
+      "id": "alike.20",
+      "text": "Rak poustevník si v ulitě našel nové b{y|i}dlo.",
+      "gaps": [{ "rule": "vyjm", "word": "bydlo" }]
+    },
+    {
+      "id": "alike.21",
+      "text": "Rybář odstrčil loďku od mola dlouhým b{i|y}dlem.",
+      "gaps": [{ "rule": "obojetna-i", "word": "bidlo" }]
+    },
+    {
+      "id": "alike.22",
+      "text": "U sopky jsou horké s{í|ý}rové prameny.",
+      "gaps": [{ "rule": "obojetna-i", "word": "siirovyy" }]
+    },
+    {
+      "id": "alike.23",
+      "text": "Babička mě v{í|ý}ská ve vlasech.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viiskat" }]
+    },
+    {
+      "id": "alike.24",
+      "text": "Rybář v{y|i}sel na zahrádce mrkev.",
+      "gaps": [{ "rule": "vyjm-prefix", "word": "vysiit" }]
+    },
+    {
+      "id": "alike.25",
+      "text": "Na stožáru v{i|y}sela pirátská vlajka.",
+      "gaps": [{ "rule": "obojetna-i", "word": "viset" }]
     }
   ]
 }

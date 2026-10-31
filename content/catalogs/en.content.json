@@ -6,5 +6,22 @@
   "grownups.objective.letters.be-pe-ve-me": "Writing bě, pě, vě, mě (not at a prefix seam)",
   "grownups.objective.letters.u-ring": "Writing ú or ů",
   "grownups.objective.letters.paired": "Paired consonants inside and at the end of a word",
-  "grownups.objective.letters.capitals": "Capital letters at the start of a sentence and in names"
+  "grownups.objective.letters.capitals": "Capital letters at the start of a sentence and in names",
+  "grownups.objective.listed.both-way": "The both-way consonants b, f, l, m, p, s, v, z: inside a word, y only in the listed words and their related words",
+  "grownups.objective.listed.b": "The listed words after b",
+  "grownups.objective.listed.l": "The listed words after l",
+  "grownups.objective.listed.related": "Words related to the listed words keep their y (bydliště, býček, mlynář)",
+  "grownups.objective.listed.sound-alikes": "Homophones: a listed word or not (být × bít, mýt × mít, výr × vír)",
+  "grownups.objective.listed.m": "The listed words after m",
+  "grownups.objective.listed.p": "The listed words after p",
+  "grownups.objective.listed.s": "The listed words after s",
+  "grownups.objective.listed.v": "The listed words after v, with the prefix vy-/vý-",
+  "grownups.objective.listed.z": "The listed words after z",
+  "grownups.objective.listed.all": "All the listed words together",
+  "grownups.objective.meaning.families": "Word families: finding the related words",
+  "grownups.objective.meaning.synonyms-antonyms": "Synonyms and antonyms",
+  "grownups.objective.meaning.general-specific": "General, specific and coordinate words",
+  "grownups.objective.pos.ten": "The ten parts of speech, in the basic form",
+  "grownups.objective.pos.inflected": "Inflected and uninflected parts of speech",
+  "grownups.objective.pos.meaning-class": "Sorting words by their generalised meaning: action, thing, circumstance, property"
 }

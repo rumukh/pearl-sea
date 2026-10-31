@@ -39,6 +39,7 @@ const fresh = (): Pack => JSON.parse(packText);
  */
 const REVISIONS: Readonly<Record<string, string>> = {
   '1.0.0': 'd100ffcbca348be3', // Slunná laguna, the vertical slice
+  '1.1.0': 'fe165b25e4728f31', // regions 2-6: the listed words, meanings and parts of speech
 };
 
 /** Generators that make boards, not problems: their items are trained only by minigames. */
@@ -46,12 +47,36 @@ const BOARD_GENERATORS: readonly GeneratorId[] = ['alphabet', 'pairs', 'sort', '
 
 /**
  * Friends whose set holds board-only items on purpose (S2: they never come up in Svačinka and are
- * reviewed when the daily adventure replays a minigame), with the item kinds allowed. Želva knows
- * the alphabet (design §2.2): her 8 necklace words, which right-first-time necklaces credit as
- * fast answers, so they can reach gold (docs/content.md §4).
+ * reviewed when the daily adventure replays a minigame), with the item kinds allowed. A board right
+ * at the first check credits its items as fast answers, so they can reach gold. Želva knows the
+ * alphabet (design §2.2); a listed-word friend knows its letter's school rhyme, and Jazýček also
+ * the two families of his short list (docs/content.md §3).
  */
 const BOARD_ITEMS_ON_PURPOSE: Readonly<Record<string, readonly string[]>> = {
   'zelva-obojka': ['abc'],
+  'barakuda-bystrinka': ['abc'],
+  'lachtan-lyzar': ['abc'],
+  'konik-mydlinek': ['abc'],
+  'pyskoun-pysny': ['abc'],
+  'jezik-sycik': ['abc'],
+  'vydra-vyskalka': ['abc'],
+  'jazyk-jazycek': ['abc', 'fam'],
+};
+
+/** The lesson each friend hatches in (design §3; the first lagoon egg in lesson 1, §4.1). */
+const HATCH: Readonly<Record<string, string>> = {
+  'krab-tvrdak': 'sunny-lagoon.1',
+  'meduzka-mekulka': 'sunny-lagoon.1',
+  'zelva-obojka': 'sunny-lagoon.1',
+  'barakuda-bystrinka': 'coral-reef.2',
+  'lachtan-lyzar': 'coral-reef.4',
+  'konik-mydlinek': 'kelp-forest.1',
+  'pyskoun-pysny': 'kelp-forest.3',
+  'jezik-sycik': 'pirate-wreck.1',
+  'vydra-vyskalka': 'pirate-wreck.3',
+  'jazyk-jazycek': 'pirate-wreck.5',
+  'hvezdice-rodinka': 'pearl-bay.2',
+  'kalmar-desetiruky': 'volcanic-vents.1',
 };
 
 describe('the content pack', () => {
@@ -101,7 +126,9 @@ describe('the content', () => {
         string,
         { words?: string[]; sentences?: string[] } | undefined
       >;
-      for (const id of params['words']?.words ?? []) {
+      // An odd-one-out set also needs the odd words, which are no items (bílý among bystrý, býk).
+      const words = skill.generator === 'odd-one-out' ? [] : (params['words']?.words ?? []);
+      for (const id of words) {
         if (skillItems(only(skill, 'words', id), data.lexicon).length === 0) {
           idle.push(`${skill.id}: word ${id}`);
         }
@@ -195,11 +222,56 @@ describe('the content', () => {
     }
   });
 
-  it('keeps each lagoon friend’s set small enough to hatch in lesson 1 (design §4.1)', () => {
+  it('keeps each lagoon friend’s set to about 30-40 items (design §4.1)', () => {
     for (const friend of data.friends.filter((f) => f.region === 'sunny-lagoon')) {
       const size = friendSet(friend.skills).size;
       expect(size, friend.id).toBeGreaterThanOrEqual(25);
       expect(size, friend.id).toBeLessThanOrEqual(40);
+    }
+  });
+
+  it('lets every friend hatch in its lesson: its region offers 30 % of its set by then', () => {
+    const levelById = new Map(data.levels.map((l) => [l.id, l]));
+    const skillById = new Map(data.skills.map((s) => [s.id, s]));
+    const sentences = new Map(data.lexicon.sentences.map((s) => [s.id, s]));
+    /** Items one problem or board of a skill can credit at most. */
+    const perUnit = (skill: Skill): number => {
+      switch (skill.generator) {
+        case 'alphabet':
+          return skill.params.size;
+        case 'pairs':
+          return skill.params.pairs * 2;
+        case 'sort':
+          return skill.params.fish;
+        case 'family':
+          return skill.params.pick;
+        case 'spell.sentence': {
+          const ids = skill.params.sentences.sentences ?? [];
+          const gaps = ids.map((id) => sentences.get(id)?.gaps.length ?? 1);
+          return gaps.length ? gaps.reduce((a, b) => a + b, 0) / gaps.length : 1;
+        }
+        default:
+          return 1;
+      }
+    };
+    expect(Object.keys(HATCH).sort()).toEqual(data.friends.map((f) => f.id).sort());
+    for (const friend of data.friends) {
+      const set = friendSet(friend.skills);
+      const hatch = levelById.get(HATCH[friend.id]!)!;
+      let offered = 0;
+      for (const level of data.levels) {
+        if (level.region !== hatch.region || level.order > hatch.order) continue;
+        for (const activity of level.activities) {
+          const skills = activity.skills.map((id) => skillById.get(id)!);
+          const capacity =
+            (activity.count * skills.reduce((sum, s) => sum + perUnit(s), 0)) / skills.length;
+          const reach = new Set(
+            activity.skills.flatMap((id) => items.get(id) ?? []).filter((i) => set.has(i)),
+          );
+          offered += Math.min(Math.floor(capacity), reach.size);
+        }
+      }
+      expect(offered, friend.id).toBeGreaterThanOrEqual(Math.ceil(set.size * 0.3));
     }
   });
 });

@@ -137,7 +137,8 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   every level (one monster level per region, lessons numbered 1..n) and, once the pack exists, with
   the pack on every level's objectives.
 - `test/unit/content/pack.test.ts`: the content pack validates, is the build of its sources
-  (`content/pack-src/pack.json` and the word bank) and is pinned by content hash (`REVISIONS`, as
+  (`content/pack-src/pack.json`, the region files and the word bank) and is pinned by content hash
+  (`REVISIONS`, as
   Dragon Valley's `content.test.ts`); every archived revision stays unchanged, valid and with its
   catalog keys; the authoring rules of [content.md](content.md) §3 hold (listed words and sentences
   serve their skills, sentence gaps keep to the skill's rules, every skill is practised, ambiguous

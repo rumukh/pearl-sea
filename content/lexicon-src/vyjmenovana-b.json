@@ -855,6 +855,31 @@
       "spell": "ob{i|y}lí",
       "rules": ["obojetna-i"],
       "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "bydlo",
+      "lemma": "bydlo",
+      "pos": "noun",
+      "gender": "n",
+      "numbers": "sg",
+      "pattern": "mesto",
+      "family": "vyjm-b.bydlit",
+      "role": "member",
+      "spell": "b{y|i}dlo",
+      "rules": ["vyjm"],
+      "note": "bydlo je příbytek; jiné je bidlo, na kterém sedí pták",
+      "src": ["ijp-100", "ssjc", "morfflex"]
+    },
+    {
+      "id": "bidlo",
+      "lemma": "bidlo",
+      "pos": "noun",
+      "gender": "n",
+      "pattern": "mesto",
+      "spell": "b{i|y}dlo",
+      "rules": ["obojetna-i"],
+      "note": "bidlo je tyč, na které sedí pták; jiné je bydlo",
+      "src": ["ijp-103", "ssjc", "morfflex"]
     }
   ],
   "sentences": [

@@ -1,0 +1,1502 @@
+{
+  "objectives": [
+    {
+      "id": "obj.letters.alphabet",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.alphabet",
+      "rvp": ["ČJL-3-2-01"]
+    },
+    {
+      "id": "obj.letters.vowel-length",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.vowel-length",
+      "rvp": ["ČJL-3-2-01"]
+    },
+    {
+      "id": "obj.letters.hard-soft",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.hard-soft",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.letters.de-te-ne",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.de-te-ne",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.letters.be-pe-ve-me",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.be-pe-ve-me",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.letters.u-ring",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.u-ring",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.letters.paired",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.paired",
+      "rvp": ["ČJL-3-2-01", "ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.letters.capitals",
+      "strand": "letters-sounds",
+      "grade": 3,
+      "titleKey": "grownups.objective.letters.capitals",
+      "rvp": ["ČJL-3-2-08"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "sunny-lagoon",
+      "order": 1,
+      "titleKey": "region.sunny-lagoon",
+      "unlock": {
+        "after": []
+      },
+      "monster": "murena-mumla",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "sunny-lagoon.1",
+      "region": "sunny-lagoon",
+      "order": 1,
+      "titleKey": "level.sunny-lagoon.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.lagoon.abc", "sk.lagoon.abc-pairs"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.lagoon.consonants"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.lagoon.tvrda", "sk.lagoon.mekka", "sk.lagoon.bpvm"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.sunny-lagoon-welcome",
+      "objectives": ["obj.letters.alphabet"]
+    },
+    {
+      "id": "sunny-lagoon.2",
+      "region": "sunny-lagoon",
+      "order": 2,
+      "titleKey": "level.sunny-lagoon.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunny-lagoon.1"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.lagoon.delka"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.lagoon.delka-sentences"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.letters.vowel-length"]
+    },
+    {
+      "id": "sunny-lagoon.3",
+      "region": "sunny-lagoon",
+      "order": 3,
+      "titleKey": "level.sunny-lagoon.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunny-lagoon.2"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.lagoon.consonants"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": [
+            "sk.lagoon.tvrda",
+            "sk.lagoon.mekka",
+            "sk.lagoon.letters-hard",
+            "sk.lagoon.letters-soft",
+            "sk.lagoon.letters-both"
+          ],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.lagoon.tvrda-mekka-sentences"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["krab-tvrdak", "meduzka-mekulka", "zelva-obojka"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.sunny-lagoon-eggs",
+      "objectives": ["obj.letters.hard-soft"]
+    },
+    {
+      "id": "sunny-lagoon.4",
+      "region": "sunny-lagoon",
+      "order": 4,
+      "titleKey": "level.sunny-lagoon.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunny-lagoon.3"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.lagoon.dtn", "sk.lagoon.bpvm"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.lagoon.e-sentences"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.lagoon.e-mistakes"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": ["scarf-waves"]
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.letters.de-te-ne", "obj.letters.be-pe-ve-me"]
+    },
+    {
+      "id": "sunny-lagoon.5",
+      "region": "sunny-lagoon",
+      "order": 5,
+      "titleKey": "level.sunny-lagoon.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunny-lagoon.4"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.lagoon.u", "sk.lagoon.parova"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.lagoon.plural-pairs"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.lagoon.u-paired-sentences"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.letters.u-ring", "obj.letters.paired"]
+    },
+    {
+      "id": "sunny-lagoon.6",
+      "region": "sunny-lagoon",
+      "order": 6,
+      "titleKey": "level.sunny-lagoon.6",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunny-lagoon.5"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.lagoon.capitals"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.lagoon.capital-mistakes"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.letters.capitals"]
+    },
+    {
+      "id": "sunny-lagoon.monster",
+      "region": "sunny-lagoon",
+      "order": 7,
+      "titleKey": "level.sunny-lagoon.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["sunny-lagoon.6"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.lagoon.tvrda",
+            "sk.lagoon.mekka",
+            "sk.lagoon.letters-hard",
+            "sk.lagoon.letters-soft",
+            "sk.lagoon.letters-both",
+            "sk.lagoon.delka",
+            "sk.lagoon.dtn",
+            "sk.lagoon.bpvm",
+            "sk.lagoon.u",
+            "sk.lagoon.parova",
+            "sk.lagoon.capitals",
+            "sk.lagoon.tvrda-mekka-sentences",
+            "sk.lagoon.delka-sentences",
+            "sk.lagoon.e-sentences",
+            "sk.lagoon.u-paired-sentences"
+          ],
+          "count": 20,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["krab-tvrdak", "meduzka-mekulka", "zelva-obojka"],
+        "cosmetics": ["bow-shell"]
+      },
+      "monster": "murena-mumla",
+      "storyBeat": "beat.murena-mumla",
+      "objectives": [
+        "obj.letters.alphabet",
+        "obj.letters.vowel-length",
+        "obj.letters.hard-soft",
+        "obj.letters.de-te-ne",
+        "obj.letters.be-pe-ve-me",
+        "obj.letters.u-ring",
+        "obj.letters.paired",
+        "obj.letters.capitals"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.lagoon.abc",
+      "titleKey": "skill.lagoon.abc",
+      "strand": "letters-sounds",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "ciil",
+            "cxlun",
+            "hvexzdice",
+            "chobotnice",
+            "racek",
+            "rxasa",
+            "zaatoka",
+            "zxelva"
+          ],
+          "grades": [3]
+        },
+        "order": "alphabet",
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.lagoon.abc-pairs",
+      "titleKey": "skill.lagoon.abc-pairs",
+      "strand": "letters-sounds",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "tags": ["abc-pairs"],
+          "grades": [3]
+        },
+        "order": "alphabet",
+        "size": 3
+      }
+    },
+    {
+      "id": "sk.lagoon.consonants",
+      "titleKey": "skill.lagoon.consonants",
+      "strand": "letters-sounds",
+      "generator": "sort",
+      "params": {
+        "dimension": "consonant",
+        "context": "word",
+        "values": ["hard", "soft", "both-way"],
+        "words": {},
+        "fish": 12,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.lagoon.letters-hard",
+      "titleKey": "skill.lagoon.letters-hard",
+      "strand": "letters-sounds",
+      "generator": "classify",
+      "params": {
+        "dimension": "consonant",
+        "context": "word",
+        "words": {},
+        "sentences": {},
+        "values": ["hard", "soft", "both-way"],
+        "cells": null,
+        "consonants": ["h", "ch", "k", "r", "d", "t", "n"]
+      }
+    },
+    {
+      "id": "sk.lagoon.letters-soft",
+      "titleKey": "skill.lagoon.letters-soft",
+      "strand": "letters-sounds",
+      "generator": "classify",
+      "params": {
+        "dimension": "consonant",
+        "context": "word",
+        "words": {},
+        "sentences": {},
+        "values": ["hard", "soft", "both-way"],
+        "cells": null,
+        "consonants": ["zx", "sx", "cx", "rx", "c", "j", "dx", "tx", "nx"]
+      }
+    },
+    {
+      "id": "sk.lagoon.letters-both",
+      "titleKey": "skill.lagoon.letters-both",
+      "strand": "letters-sounds",
+      "generator": "classify",
+      "params": {
+        "dimension": "consonant",
+        "context": "word",
+        "words": {},
+        "sentences": {},
+        "values": ["hard", "soft", "both-way"],
+        "cells": null,
+        "consonants": ["b", "f", "l", "m", "p", "s", "v", "z"]
+      }
+    },
+    {
+      "id": "sk.lagoon.tvrda",
+      "titleKey": "skill.lagoon.tvrda",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["ryba", "rybaarx", "chytat", "rychlyy", "chytryy", "chyba", "kytara", "tygr"],
+          "grades": [3]
+        },
+        "rules": ["tvrda"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.mekka",
+      "titleKey": "skill.lagoon.mekka",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "cxiislo",
+            "cxistyy",
+            "jiidlo",
+            "jiskra",
+            "krxiidlo",
+            "sxipka",
+            "sxirokyy",
+            "zxiizenx"
+          ],
+          "grades": [3]
+        },
+        "rules": ["mekka"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.bpvm",
+      "titleKey": "skill.lagoon.bpvm",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "obexd",
+            "pexna",
+            "pext",
+            "pexknyy",
+            "vexc",
+            "hvexzda",
+            "medvexd",
+            "mexsto",
+            "mexsiic"
+          ],
+          "grades": [3]
+        },
+        "rules": ["be-pe-ve-me"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.delka",
+      "titleKey": "skill.lagoon.delka",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "delfiin",
+            "majaak",
+            "plaazx",
+            "prxiistav",
+            "zaatoka",
+            "koraal",
+            "viila",
+            "vila"
+          ],
+          "grades": [3]
+        },
+        "rules": ["delka"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.dtn",
+      "titleKey": "skill.lagoon.dtn",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["dexti", "texlo", "texzxkyy", "nexkdo", "kotex", "divadlo", "ticho", "diivka"],
+          "grades": [3]
+        },
+        "rules": ["de-te-ne", "dtn-mekke"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.u",
+      "titleKey": "skill.lagoon.u",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["uutes", "uuhorx", "uukol", "uusmexv", "neuuspexch", "duom", "kuonx", "suol"],
+          "grades": [3]
+        },
+        "rules": ["u-zacatek", "u-predpona", "u-uprostred"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.parova",
+      "titleKey": "skill.lagoon.parova",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["hrad", "had", "led", "krab", "dub", "zub", "sniih", "mraaz"],
+          "grades": [3]
+        },
+        "rules": ["parova"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.capitals",
+      "titleKey": "skill.lagoon.capitals",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "petr",
+            "eva",
+            "aliik",
+            "ferda",
+            "bublinka.ponorka",
+            "osmicxka.profesorka",
+            "vltava",
+            "praha",
+            "cxesko",
+            "snexzxka"
+          ],
+          "grades": [3]
+        },
+        "rules": ["velke-pismeno"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.lagoon.delka-sentences",
+      "titleKey": "skill.lagoon.delka-sentences",
+      "strand": "letters-sounds",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vowels.02",
+            "vowels.03",
+            "vowels.05",
+            "vowels.06",
+            "vowels.07",
+            "vowels.08",
+            "vowels.13",
+            "vowels.14"
+          ],
+          "grades": [3]
+        },
+        "rules": ["delka"]
+      }
+    },
+    {
+      "id": "sk.lagoon.tvrda-mekka-sentences",
+      "titleKey": "skill.lagoon.tvrda-mekka-sentences",
+      "strand": "letters-sounds",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "hard-soft.01",
+            "hard-soft.04",
+            "hard-soft.05",
+            "hard-soft.06",
+            "hard-soft.07",
+            "hard-soft.33",
+            "hard-soft.10",
+            "hard-soft.11",
+            "hard-soft.12",
+            "hard-soft.14",
+            "hard-soft.16",
+            "hard-soft.19",
+            "hard-soft.20",
+            "hard-soft.37"
+          ],
+          "grades": [3]
+        },
+        "rules": ["tvrda", "mekka"]
+      }
+    },
+    {
+      "id": "sk.lagoon.e-sentences",
+      "titleKey": "skill.lagoon.e-sentences",
+      "strand": "letters-sounds",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "e-caron.01",
+            "e-caron.45",
+            "e-caron.02",
+            "e-caron.03",
+            "e-caron.04",
+            "e-caron.06",
+            "hard-soft.21",
+            "hard-soft.23",
+            "hard-soft.36",
+            "e-caron.12",
+            "e-caron.13",
+            "e-caron.14",
+            "e-caron.15",
+            "e-caron.16",
+            "e-caron.17",
+            "e-caron.19",
+            "e-caron.20",
+            "e-caron.21"
+          ],
+          "grades": [3]
+        },
+        "rules": ["de-te-ne", "dtn-mekke", "be-pe-ve-me"]
+      }
+    },
+    {
+      "id": "sk.lagoon.e-mistakes",
+      "titleKey": "skill.lagoon.e-mistakes",
+      "strand": "letters-sounds",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "e-caron.01",
+            "e-caron.45",
+            "e-caron.02",
+            "e-caron.03",
+            "e-caron.04",
+            "e-caron.06",
+            "hard-soft.21",
+            "hard-soft.23",
+            "hard-soft.36",
+            "e-caron.12",
+            "e-caron.13",
+            "e-caron.14",
+            "e-caron.15",
+            "e-caron.16",
+            "e-caron.17",
+            "e-caron.19",
+            "e-caron.20",
+            "e-caron.21"
+          ],
+          "grades": [3]
+        },
+        "rules": ["de-te-ne", "dtn-mekke", "be-pe-ve-me"]
+      }
+    },
+    {
+      "id": "sk.lagoon.u-paired-sentences",
+      "titleKey": "skill.lagoon.u-paired-sentences",
+      "strand": "letters-sounds",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "u-ring.01",
+            "u-ring.02",
+            "u-ring.03",
+            "u-ring.19",
+            "u-ring.12",
+            "u-ring.13",
+            "u-ring.09",
+            "u-ring.14",
+            "paired.01",
+            "paired.02",
+            "paired.03",
+            "paired.04",
+            "paired.05",
+            "paired.06",
+            "paired.07",
+            "paired.09"
+          ],
+          "grades": [3]
+        },
+        "rules": ["u-zacatek", "u-predpona", "u-uprostred", "parova"]
+      }
+    },
+    {
+      "id": "sk.lagoon.capital-mistakes",
+      "titleKey": "skill.lagoon.capital-mistakes",
+      "strand": "letters-sounds",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "capitals.01",
+            "capitals.02",
+            "capitals.03",
+            "capitals.04",
+            "capitals.05",
+            "capitals.06",
+            "capitals.08"
+          ],
+          "grades": [3]
+        },
+        "rules": ["velke-pismeno"]
+      }
+    },
+    {
+      "id": "sk.lagoon.plural-pairs",
+      "titleKey": "skill.lagoon.plural-pairs",
+      "strand": "letters-sounds",
+      "generator": "pairs",
+      "params": {
+        "pair": "plural",
+        "words": {
+          "words": ["hrad", "had", "led", "krab", "dub", "zub", "plot", "holub"],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "krab-tvrdak",
+      "nameKey": "friend.krab-tvrdak",
+      "mnemonicKey": "friend.krab-tvrdak.mnemonic",
+      "region": "sunny-lagoon",
+      "skills": ["sk.lagoon.letters-hard", "sk.lagoon.tvrda", "sk.lagoon.dtn", "sk.lagoon.parova"],
+      "monster": "murena-mumla"
+    },
+    {
+      "id": "meduzka-mekulka",
+      "nameKey": "friend.meduzka-mekulka",
+      "mnemonicKey": "friend.meduzka-mekulka.mnemonic",
+      "region": "sunny-lagoon",
+      "skills": ["sk.lagoon.letters-soft", "sk.lagoon.mekka", "sk.lagoon.delka", "sk.lagoon.u"],
+      "monster": "murena-mumla"
+    },
+    {
+      "id": "zelva-obojka",
+      "nameKey": "friend.zelva-obojka",
+      "mnemonicKey": "friend.zelva-obojka.mnemonic",
+      "region": "sunny-lagoon",
+      "skills": ["sk.lagoon.letters-both", "sk.lagoon.abc", "sk.lagoon.bpvm", "sk.lagoon.capitals"],
+      "monster": "murena-mumla"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "murena-mumla",
+      "region": "sunny-lagoon",
+      "nameKey": "monster.murena-mumla",
+      "mood": "grumpy",
+      "meter": 15,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.murena-mumla.joke.1",
+        "monster.murena-mumla.joke.2",
+        "monster.murena-mumla.joke.3",
+        "monster.murena-mumla.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "hat-straw",
+      "slot": "head",
+      "assetId": "cosmetic/hat-straw",
+      "nameKey": "cosmetic.hat-straw",
+      "price": 175,
+      "unlock": "sunny-lagoon.2"
+    },
+    {
+      "id": "scarf-waves",
+      "slot": "neck",
+      "assetId": "cosmetic/scarf-waves",
+      "nameKey": "cosmetic.scarf-waves",
+      "price": 175,
+      "unlock": "sunny-lagoon.4"
+    },
+    {
+      "id": "glasses-sun",
+      "slot": "eyes",
+      "assetId": "cosmetic/glasses-sun",
+      "nameKey": "cosmetic.glasses-sun",
+      "price": 200,
+      "unlock": "sunny-lagoon.3"
+    },
+    {
+      "id": "bow-shell",
+      "slot": "neck",
+      "assetId": "cosmetic/bow-shell",
+      "nameKey": "cosmetic.bow-shell",
+      "price": 200,
+      "unlock": "sunny-lagoon.monster"
+    },
+    {
+      "id": "necklace-shells",
+      "slot": "neck",
+      "assetId": "cosmetic/necklace-shells",
+      "nameKey": "cosmetic.necklace-shells",
+      "price": 250,
+      "unlock": "sunny-lagoon.4"
+    },
+    {
+      "id": "lamp-anemone",
+      "slot": "grotto",
+      "assetId": "cosmetic/lamp-anemone",
+      "nameKey": "cosmetic.lamp-anemone",
+      "price": 275,
+      "unlock": "sunny-lagoon.5"
+    },
+    {
+      "id": "headband-coral",
+      "slot": "head",
+      "assetId": "cosmetic/headband-coral",
+      "nameKey": "cosmetic.headband-coral",
+      "price": 300,
+      "unlock": "sunny-lagoon.6"
+    },
+    {
+      "id": "swing-shell",
+      "slot": "grotto",
+      "assetId": "cosmetic/swing-shell",
+      "nameKey": "cosmetic.swing-shell",
+      "price": 325,
+      "unlock": "sunny-lagoon.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "first-hatch",
+      "nameKey": "sticker.first-hatch",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": null,
+        "stage": "baby"
+      },
+      "icon": "sticker/egg-hatching",
+      "color": "#ffd45c",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "lagoon-first-dive",
+      "nameKey": "sticker.lagoon-first-dive",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "level-complete",
+        "level": "sunny-lagoon.1",
+        "stars": 1
+      },
+      "icon": "sticker/emblem-sunny-lagoon",
+      "color": "#47c1d1",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "three-friends",
+      "nameKey": "sticker.three-friends",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "friends-stage",
+        "stage": "baby",
+        "count": 3
+      },
+      "icon": "sticker/three-shells",
+      "color": "#ff9e7a",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "murena-sings",
+      "nameKey": "sticker.murena-sings",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "murena-mumla"
+      },
+      "icon": "sticker/music-notes",
+      "color": "#8f7ad6",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "lagoon-stars",
+      "nameKey": "sticker.lagoon-stars",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "level-complete",
+        "level": "sunny-lagoon.monster",
+        "stars": 3
+      },
+      "icon": "sticker/star-shell",
+      "color": "#f2c94c",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "first-outfit",
+      "nameKey": "sticker.first-outfit",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "friends-dressed",
+        "count": 1
+      },
+      "icon": "sticker/bow",
+      "color": "#f58bb0",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "five-inkoustici",
+      "nameKey": "sticker.five-inkoustici",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "inkoustici-splashed",
+        "count": 5
+      },
+      "icon": "sticker/ink-drops",
+      "color": "#5b6bd6",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "whole-week",
+      "nameKey": "sticker.whole-week",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "week-days",
+        "count": 7
+      },
+      "icon": "sticker/sun-week",
+      "color": "#ffb347",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "hundred-coins",
+      "nameKey": "sticker.hundred-coins",
+      "page": "sunny-lagoon",
+      "criteria": {
+        "kind": "coins-earned",
+        "count": 100
+      },
+      "icon": "sticker/coins",
+      "color": "#e0b23c",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.sunny-lagoon-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "sunny-lagoon.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.sunny-lagoon-welcome",
+          "revision": "1",
+          "start": "sunny-lagoon-welcome-1",
+          "catalogs": {
+            "scene": ["scene/sunny-lagoon"],
+            "text": [
+              "story.sunny-lagoon-welcome.1",
+              "story.sunny-lagoon-welcome.2",
+              "story.sunny-lagoon-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "sunny-lagoon-welcome-1",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.sunny-lagoon-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "sunny-lagoon-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "sunny-lagoon-welcome-2",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.sunny-lagoon-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "sunny-lagoon-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "sunny-lagoon-welcome-3",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.sunny-lagoon-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.sunny-lagoon-eggs",
+        "trigger": {
+          "kind": "level-start",
+          "level": "sunny-lagoon.3"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.sunny-lagoon-eggs",
+          "revision": "1",
+          "start": "sunny-lagoon-eggs-1",
+          "catalogs": {
+            "scene": ["scene/sunny-lagoon"],
+            "text": ["story.sunny-lagoon-eggs.1", "story.sunny-lagoon-eggs.2", "story.next"],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.krab-tvrdak", "egg.meduzka-mekulka", "egg.zelva-obojka"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-krab-tvrdak",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.krab-tvrdak"
+            },
+            {
+              "id": "claim-meduzka-mekulka",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.meduzka-mekulka"
+            },
+            {
+              "id": "claim-zelva-obojka",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.zelva-obojka"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "sunny-lagoon-eggs-1",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.sunny-lagoon-eggs.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-krab-tvrdak", "claim-meduzka-mekulka", "claim-zelva-obojka"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "sunny-lagoon-eggs-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "sunny-lagoon-eggs-2",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.sunny-lagoon-eggs.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.murena-mumla",
+        "trigger": {
+          "kind": "level-start",
+          "level": "sunny-lagoon.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.murena-mumla",
+          "revision": "1",
+          "start": "murena-mumla-1",
+          "catalogs": {
+            "scene": ["scene/sunny-lagoon"],
+            "text": [
+              "story.murena-mumla.1",
+              "story.murena-mumla.2",
+              "story.murena-mumla.3",
+              "story.murena-mumla.4",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "murena-mumla-1",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "murena-mumla-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "murena-mumla-2",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "murena-mumla-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "murena-mumla-3",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "murena-mumla-4",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "murena-mumla-4",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla.4",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.murena-mumla-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "murena-mumla"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.murena-mumla-freed",
+          "revision": "1",
+          "start": "murena-mumla-freed-1",
+          "catalogs": {
+            "scene": ["scene/sunny-lagoon"],
+            "text": [
+              "story.murena-mumla-freed.1",
+              "story.murena-mumla-freed.2",
+              "story.murena-mumla-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "murena-mumla-freed-1",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "murena-mumla-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "murena-mumla-freed-2",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "murena-mumla-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "murena-mumla-freed-3",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.murena-mumla-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.inkoustici",
+        "trigger": {
+          "kind": "after-beat",
+          "beat": "beat.murena-mumla-freed"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.inkoustici",
+          "revision": "1",
+          "start": "inkoustici-1",
+          "catalogs": {
+            "scene": ["scene/sunny-lagoon"],
+            "text": [
+              "story.inkoustici.1",
+              "story.inkoustici.2",
+              "story.inkoustici.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "inkoustici-1",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.inkoustici.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "inkoustici-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "inkoustici-2",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.inkoustici.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "inkoustici-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "inkoustici-3",
+              "scene": "scene/sunny-lagoon",
+              "text": "story.inkoustici.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.krab-tvrdak",
+        "grant": {
+          "kind": "egg",
+          "friend": "krab-tvrdak"
+        }
+      },
+      {
+        "reward": "egg.meduzka-mekulka",
+        "grant": {
+          "kind": "egg",
+          "friend": "meduzka-mekulka"
+        }
+      },
+      {
+        "reward": "egg.zelva-obojka",
+        "grant": {
+          "kind": "egg",
+          "friend": "zelva-obojka"
+        }
+      }
+    ]
+  }
+}

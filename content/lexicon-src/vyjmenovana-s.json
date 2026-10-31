@@ -493,6 +493,16 @@
       "rules": ["obojetna-i"],
       "forms": ["prosil", "prosí"],
       "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "siirovyy",
+      "lemma": "sírový",
+      "pos": "adj",
+      "spell": "s{í|ý}rový",
+      "rules": ["obojetna-i"],
+      "forms": ["sírové"],
+      "note": "ze síry; jiné je sýrový ze sýra a syrový jako nevařený",
+      "src": ["ijp-103", "morfflex"]
     }
   ],
   "sentences": [

@@ -638,6 +638,36 @@
       "rules": ["obojetna-i"],
       "forms": ["zvířila", "zvířil", "zvířily"],
       "src": ["derinet", "morfflex"]
+    },
+    {
+      "id": "viiskat",
+      "lemma": "vískat",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "v{í|ý}skat",
+      "rules": ["obojetna-i"],
+      "note": "vískat ve vlasech; jiné je výskat radostí",
+      "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "vysiit",
+      "lemma": "vysít",
+      "pos": "verb",
+      "aspect": "pf",
+      "spell": "v{y|i}sít",
+      "rules": ["vyjm-prefix"],
+      "note": "vysít mrkev (vysel); jiné je viset na zdi (visel)",
+      "src": ["ijp", "morfflex"]
+    },
+    {
+      "id": "viset",
+      "lemma": "viset",
+      "pos": "verb",
+      "aspect": "impf",
+      "spell": "v{i|y}set",
+      "rules": ["obojetna-i"],
+      "note": "viset na stožáru (visel); jiné je vysít mrkev (vysel)",
+      "src": ["ijp-103", "morfflex"]
     }
   ],
   "sentences": [

@@ -1,0 +1,1127 @@
+{
+  "objectives": [
+    {
+      "id": "obj.pos.ten",
+      "strand": "parts-of-speech",
+      "grade": 3,
+      "titleKey": "grownups.objective.pos.ten",
+      "rvp": ["ČJL-3-2-04"]
+    },
+    {
+      "id": "obj.pos.inflected",
+      "strand": "parts-of-speech",
+      "grade": 3,
+      "titleKey": "grownups.objective.pos.inflected",
+      "rvp": ["ČJL-3-2-04"]
+    },
+    {
+      "id": "obj.pos.meaning-class",
+      "strand": "parts-of-speech",
+      "grade": 3,
+      "titleKey": "grownups.objective.pos.meaning-class",
+      "rvp": ["ČJL-3-2-03"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "volcanic-vents",
+      "order": 6,
+      "titleKey": "region.volcanic-vents",
+      "unlock": {
+        "after": ["pearl-bay.monster"]
+      },
+      "monster": "uhor-zhavak",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "volcanic-vents.1",
+      "region": "volcanic-vents",
+      "order": 1,
+      "titleKey": "level.volcanic-vents.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.vents.nets-noun-verb"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.vents.pos-noun-verb"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["kalmar-desetiruky"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.volcanic-vents-welcome",
+      "objectives": ["obj.pos.ten"]
+    },
+    {
+      "id": "volcanic-vents.2",
+      "region": "volcanic-vents",
+      "order": 2,
+      "titleKey": "level.volcanic-vents.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["volcanic-vents.1"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.vents.nets-adj-adv"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.vents.pos-adj-adv"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.pos.ten"]
+    },
+    {
+      "id": "volcanic-vents.3",
+      "region": "volcanic-vents",
+      "order": 3,
+      "titleKey": "level.volcanic-vents.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["volcanic-vents.2"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.vents.nets-pron-num"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.vents.pos-pron-num"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.pos.ten"]
+    },
+    {
+      "id": "volcanic-vents.4",
+      "region": "volcanic-vents",
+      "order": 4,
+      "titleKey": "level.volcanic-vents.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["volcanic-vents.3"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.vents.nets-small"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.vents.pos-small"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.pos.ten"]
+    },
+    {
+      "id": "volcanic-vents.5",
+      "region": "volcanic-vents",
+      "order": 5,
+      "titleKey": "level.volcanic-vents.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["volcanic-vents.4"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.vents.nets-inflection", "sk.vents.nets-meaning-class"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": [
+            "sk.vents.pos-all",
+            "sk.vents.inflection",
+            "sk.vents.meaning-class",
+            "sk.vents.odd-pos"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.pos.ten", "obj.pos.inflected", "obj.pos.meaning-class"]
+    },
+    {
+      "id": "volcanic-vents.monster",
+      "region": "volcanic-vents",
+      "order": 6,
+      "titleKey": "level.volcanic-vents.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["volcanic-vents.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.vents.pos-noun-verb",
+            "sk.vents.pos-adj-adv",
+            "sk.vents.pos-pron-num",
+            "sk.vents.pos-small",
+            "sk.vents.pos-all",
+            "sk.vents.inflection",
+            "sk.vents.meaning-class",
+            "sk.vents.odd-pos"
+          ],
+          "count": 23,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["kalmar-desetiruky"],
+        "cosmetics": ["stones-warm"]
+      },
+      "monster": "uhor-zhavak",
+      "storyBeat": "beat.uhor-zhavak",
+      "objectives": ["obj.pos.ten", "obj.pos.inflected", "obj.pos.meaning-class"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.vents.pos-noun-verb",
+      "titleKey": "skill.vents.pos-noun-verb",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "words": {
+          "words": [
+            "velryba",
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "hladina",
+            "kamaraad",
+            "rybka",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "sedext",
+            "zxiit",
+            "zborxit",
+            "chytat"
+          ],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": ["noun", "verb"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.pos-adj-adv",
+      "titleKey": "skill.vents.pos-adj-adv",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "words": {
+          "words": ["kraasnyy", "modryy", "teplyy", "slanyy", "daleko", "dnes", "pomalu", "tady"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": ["noun", "adj", "verb", "adv"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.pos-pron-num",
+      "titleKey": "skill.vents.pos-pron-num",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "words": {
+          "words": ["kdo", "muoj", "on", "trxi", "deset", "prvnii"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": ["noun", "adj", "pron", "num", "verb", "adv"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.pos-small",
+      "titleKey": "skill.vents.pos-small",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "words": {
+          "words": ["na", "pod", "s", "a", "ale", "protozxe", "ano", "pryy", "fuj", "baac"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": ["prep", "conj", "part", "interj"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.pos-all",
+      "titleKey": "skill.vents.pos-all",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "words": {
+          "words": [
+            "velryba",
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "hladina",
+            "kamaraad",
+            "rybka",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "sedext",
+            "zxiit",
+            "zborxit",
+            "chytat",
+            "kraasnyy",
+            "modryy",
+            "teplyy",
+            "slanyy",
+            "daleko",
+            "dnes",
+            "pomalu",
+            "tady",
+            "kdo",
+            "muoj",
+            "on",
+            "trxi",
+            "deset",
+            "prvnii",
+            "na",
+            "pod",
+            "s",
+            "a",
+            "ale",
+            "protozxe",
+            "ano",
+            "pryy",
+            "fuj",
+            "baac"
+          ],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.inflection",
+      "titleKey": "skill.vents.inflection",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "inflection",
+        "context": "word",
+        "words": {
+          "words": [
+            "velryba",
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "hladina",
+            "kamaraad",
+            "rybka",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "sedext",
+            "zxiit",
+            "zborxit",
+            "chytat",
+            "kraasnyy",
+            "modryy",
+            "teplyy",
+            "slanyy",
+            "daleko",
+            "dnes",
+            "pomalu",
+            "tady",
+            "kdo",
+            "muoj",
+            "on",
+            "trxi",
+            "deset",
+            "prvnii",
+            "na",
+            "pod",
+            "s",
+            "a",
+            "ale",
+            "protozxe",
+            "ano",
+            "pryy",
+            "fuj",
+            "baac"
+          ],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.meaning-class",
+      "titleKey": "skill.vents.meaning-class",
+      "strand": "parts-of-speech",
+      "generator": "classify",
+      "params": {
+        "dimension": "meaning-class",
+        "context": "word",
+        "words": {
+          "words": [
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "kraasnyy",
+            "modryy",
+            "teplyy",
+            "slanyy",
+            "daleko",
+            "dnes",
+            "pomalu",
+            "tady"
+          ],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.odd-pos",
+      "titleKey": "skill.vents.odd-pos",
+      "strand": "parts-of-speech",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "pos",
+        "words": {
+          "words": [
+            "velryba",
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "hladina",
+            "kamaraad",
+            "rybka",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "sedext",
+            "zxiit",
+            "zborxit",
+            "chytat",
+            "kraasnyy",
+            "modryy",
+            "teplyy",
+            "slanyy",
+            "daleko",
+            "dnes",
+            "pomalu",
+            "tady",
+            "kdo",
+            "muoj",
+            "on",
+            "trxi",
+            "deset",
+            "prvnii",
+            "na",
+            "pod",
+            "s",
+            "a",
+            "ale",
+            "protozxe",
+            "ano",
+            "pryy",
+            "fuj",
+            "baac"
+          ],
+          "grades": [3]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.vents.nets-noun-verb",
+      "titleKey": "skill.vents.nets-noun-verb",
+      "strand": "parts-of-speech",
+      "generator": "sort",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "values": ["noun", "verb"],
+        "words": {
+          "words": [
+            "velryba",
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "hladina",
+            "kamaraad",
+            "rybka",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "sedext",
+            "zxiit",
+            "zborxit",
+            "chytat"
+          ],
+          "grades": [3]
+        },
+        "fish": 8,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.nets-adj-adv",
+      "titleKey": "skill.vents.nets-adj-adv",
+      "strand": "parts-of-speech",
+      "generator": "sort",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "values": ["adj", "adv"],
+        "words": {
+          "words": ["kraasnyy", "modryy", "teplyy", "slanyy", "daleko", "dnes", "pomalu", "tady"],
+          "grades": [3]
+        },
+        "fish": 8,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.nets-pron-num",
+      "titleKey": "skill.vents.nets-pron-num",
+      "strand": "parts-of-speech",
+      "generator": "sort",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "values": ["pron", "num"],
+        "words": {
+          "words": ["kdo", "muoj", "on", "trxi", "deset", "prvnii"],
+          "grades": [3]
+        },
+        "fish": 6,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.nets-small",
+      "titleKey": "skill.vents.nets-small",
+      "strand": "parts-of-speech",
+      "generator": "sort",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "values": ["prep", "conj", "part", "interj"],
+        "words": {
+          "words": ["na", "pod", "s", "a", "ale", "protozxe", "ano", "pryy", "fuj", "baac"],
+          "grades": [3]
+        },
+        "fish": 10,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.nets-inflection",
+      "titleKey": "skill.vents.nets-inflection",
+      "strand": "parts-of-speech",
+      "generator": "sort",
+      "params": {
+        "dimension": "inflection",
+        "context": "word",
+        "values": ["inflected", "uninflected"],
+        "words": {
+          "words": [
+            "velryba",
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "hladina",
+            "kamaraad",
+            "rybka",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "sedext",
+            "zxiit",
+            "zborxit",
+            "chytat",
+            "kraasnyy",
+            "modryy",
+            "teplyy",
+            "slanyy",
+            "daleko",
+            "dnes",
+            "pomalu",
+            "tady",
+            "kdo",
+            "muoj",
+            "on",
+            "trxi",
+            "deset",
+            "prvnii",
+            "na",
+            "pod",
+            "s",
+            "a",
+            "ale",
+            "protozxe",
+            "ano",
+            "pryy",
+            "fuj",
+            "baac"
+          ],
+          "grades": [3]
+        },
+        "fish": 10,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.vents.nets-meaning-class",
+      "titleKey": "skill.vents.nets-meaning-class",
+      "strand": "parts-of-speech",
+      "generator": "sort",
+      "params": {
+        "dimension": "meaning-class",
+        "context": "word",
+        "values": ["action", "thing", "circumstance", "property"],
+        "words": {
+          "words": [
+            "voda",
+            "piisek",
+            "poklad",
+            "stozxaar",
+            "plavat",
+            "skaakat",
+            "spaat",
+            "lovit",
+            "kraasnyy",
+            "modryy",
+            "teplyy",
+            "slanyy",
+            "daleko",
+            "dnes",
+            "pomalu",
+            "tady"
+          ],
+          "grades": [3]
+        },
+        "fish": 12,
+        "cells": null
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "kalmar-desetiruky",
+      "nameKey": "friend.kalmar-desetiruky",
+      "mnemonicKey": "friend.kalmar-desetiruky.mnemonic",
+      "region": "volcanic-vents",
+      "skills": [
+        "sk.vents.pos-all",
+        "sk.vents.pos-noun-verb",
+        "sk.vents.pos-adj-adv",
+        "sk.vents.pos-pron-num",
+        "sk.vents.pos-small",
+        "sk.vents.odd-pos"
+      ],
+      "monster": "uhor-zhavak"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "uhor-zhavak",
+      "region": "volcanic-vents",
+      "nameKey": "monster.uhor-zhavak",
+      "mood": "grumpy",
+      "meter": 18,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.uhor-zhavak.joke.1",
+        "monster.uhor-zhavak.joke.2",
+        "monster.uhor-zhavak.joke.3",
+        "monster.uhor-zhavak.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "cap-flames",
+      "slot": "head",
+      "assetId": "cosmetic/cap-flames",
+      "nameKey": "cosmetic.cap-flames",
+      "price": 525,
+      "unlock": "volcanic-vents.1"
+    },
+    {
+      "id": "goggles-steam",
+      "slot": "eyes",
+      "assetId": "cosmetic/goggles-steam",
+      "nameKey": "cosmetic.goggles-steam",
+      "price": 550,
+      "unlock": "volcanic-vents.3"
+    },
+    {
+      "id": "stones-warm",
+      "slot": "grotto",
+      "assetId": "cosmetic/stones-warm",
+      "nameKey": "cosmetic.stones-warm",
+      "price": 575,
+      "unlock": "volcanic-vents.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "kalmar-hatched",
+      "nameKey": "sticker.kalmar-hatched",
+      "page": "volcanic-vents",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "kalmar-desetiruky",
+        "stage": "baby"
+      },
+      "icon": "sticker/squid",
+      "color": "#ff9f68",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "eel-cooled",
+      "nameKey": "sticker.eel-cooled",
+      "page": "volcanic-vents",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "uhor-zhavak"
+      },
+      "icon": "sticker/cool-eel",
+      "color": "#f26b3a",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ten-parts",
+      "nameKey": "sticker.ten-parts",
+      "page": "volcanic-vents",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.vents.pos-all",
+        "level": "silver",
+        "share": 100
+      },
+      "icon": "sticker/ten-arms",
+      "color": "#ffc15e",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "streak-twenty",
+      "nameKey": "sticker.streak-twenty",
+      "page": "volcanic-vents",
+      "criteria": {
+        "kind": "streak",
+        "count": 20
+      },
+      "icon": "sticker/flame-row",
+      "color": "#e85d3a",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "streak-12",
+      "titleKey": "quest.streak-12",
+      "goal": "best-streak",
+      "target": 12,
+      "coins": 5,
+      "weight": 4,
+      "unlock": "volcanic-vents.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.volcanic-vents-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "volcanic-vents.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.volcanic-vents-welcome",
+          "revision": "1",
+          "start": "volcanic-vents-welcome-1",
+          "catalogs": {
+            "scene": ["scene/volcanic-vents"],
+            "text": [
+              "story.volcanic-vents-welcome.1",
+              "story.volcanic-vents-welcome.2",
+              "story.volcanic-vents-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.kalmar-desetiruky"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-kalmar-desetiruky",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.kalmar-desetiruky"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "volcanic-vents-welcome-1",
+              "scene": "scene/volcanic-vents",
+              "text": "story.volcanic-vents-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-kalmar-desetiruky"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "volcanic-vents-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "volcanic-vents-welcome-2",
+              "scene": "scene/volcanic-vents",
+              "text": "story.volcanic-vents-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "volcanic-vents-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "volcanic-vents-welcome-3",
+              "scene": "scene/volcanic-vents",
+              "text": "story.volcanic-vents-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.uhor-zhavak",
+        "trigger": {
+          "kind": "level-start",
+          "level": "volcanic-vents.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.uhor-zhavak",
+          "revision": "1",
+          "start": "uhor-zhavak-1",
+          "catalogs": {
+            "scene": ["scene/volcanic-vents"],
+            "text": [
+              "story.uhor-zhavak.1",
+              "story.uhor-zhavak.2",
+              "story.uhor-zhavak.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "uhor-zhavak-1",
+              "scene": "scene/volcanic-vents",
+              "text": "story.uhor-zhavak.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "uhor-zhavak-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "uhor-zhavak-2",
+              "scene": "scene/volcanic-vents",
+              "text": "story.uhor-zhavak.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "uhor-zhavak-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "uhor-zhavak-3",
+              "scene": "scene/volcanic-vents",
+              "text": "story.uhor-zhavak.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.uhor-zhavak-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "uhor-zhavak"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.uhor-zhavak-freed",
+          "revision": "1",
+          "start": "uhor-zhavak-freed-1",
+          "catalogs": {
+            "scene": ["scene/volcanic-vents"],
+            "text": [
+              "story.uhor-zhavak-freed.1",
+              "story.uhor-zhavak-freed.2",
+              "story.uhor-zhavak-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "uhor-zhavak-freed-1",
+              "scene": "scene/volcanic-vents",
+              "text": "story.uhor-zhavak-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "uhor-zhavak-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "uhor-zhavak-freed-2",
+              "scene": "scene/volcanic-vents",
+              "text": "story.uhor-zhavak-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "uhor-zhavak-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "uhor-zhavak-freed-3",
+              "scene": "scene/volcanic-vents",
+              "text": "story.uhor-zhavak-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.kalmar-desetiruky",
+        "grant": {
+          "kind": "egg",
+          "friend": "kalmar-desetiruky"
+        }
+      }
+    ]
+  }
+}

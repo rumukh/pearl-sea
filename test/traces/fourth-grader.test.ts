@@ -23,9 +23,13 @@ import type { Adapter } from './support';
 
 vi.setConfig({ testTimeout: 300_000 });
 
-/** Pinned literals (docs/testing.md, "When a golden moves"). */
+/**
+ * Pinned literals (docs/testing.md, "When a golden moves"). The trajectory was re-pinned when hints
+ * took their examples from other families (7f5244ab2c0888bb before; with every hint neutralized,
+ * the old and the new rules both give 3afcf347fff8792e).
+ */
 const GOLDEN_HASH = '1cdbe9207ad8b207';
-const GOLDEN_TRAJECTORY = '7f5244ab2c0888bb';
+const GOLDEN_TRAJECTORY = 'cee91e57b6e49a00';
 
 const SEED = 'golden-fourth-grader';
 const EGG = 'zelva-obojka';

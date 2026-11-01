@@ -193,7 +193,12 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
   for every letter, over the fixtures and the game's pack; the choice generators (`classify`,
   `odd-one-out`, `relation`) over the three packs and test skills of every dimension, basis and
   relation, with the targets, school-order options, sets, audience and tempting options of design
-  §5.7 and §6.6; ambiguous points asked in sentences; selection without repeats.
+  §5.7 and §6.6; ambiguous points asked in sentences; selection without repeats. Both surveys
+  check every hint against `hint-oracle.ts`, which restates from the raw lexicon how an example of
+  another family is chosen (design §5.3); `hint-giveaways.test.ts` renders every hint of every
+  problem the three packs serve as the child reads it (the shell's `hintText`, the game's
+  catalogs) and fails on any that shows the answer or a form of an asked word, its family, its kin
+  or its sound-alikes, the giveaways S6 measured (docs/qa/defects.md).
 - `test/unit/minigames/`: the three custom adapters (validation, moves, never punishing,
   completion) and the five board makers (each board of its own skill's words), typed views and
   credits; every minigame activity of the game's pack makes boards.

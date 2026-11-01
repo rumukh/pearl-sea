@@ -1,6 +1,6 @@
 /**
  * Game views for the screens' and helpers' tests: the contract's view types filled with small,
- * valid lagoon data (a region with three levels and Murena Mumla, Krab Tvrďák as the first
+ * valid lagoon data (a region with three levels and Muréna Mumla, Krab Tvrďák as the first
  * friend), each part overridable per test. Type-checked against the contract, so a view change
  * fails here first.
  */

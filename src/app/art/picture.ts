@@ -47,6 +47,15 @@ export const DEFAULT_ANCHORS: Readonly<Record<ArtAnchor, AnchorPoint>> = {
   neck: { x: 500, y: 640, scale: 100, rotate: 0 },
 };
 
+/**
+ * A cosmetic's natural size on a painted friend, the size an anchor's `scale` is a percentage of:
+ * S5 draws each cosmetic in a 100×100 SVG viewBox with its attachment point at the centre, and at
+ * scale 100 it is 250/1000 of the painting's width, its centre on the anchor.
+ */
+export const COSMETIC_WIDTH = 250;
+/** The shell crown's width on the `head` anchor at scale 100, in thousandths of the painting. */
+export const CROWN_WIDTH = 300;
+
 export function pictureSize(art: ArtLibrary, id: string): readonly [number, number] {
   const entry = art.entry(id);
   return entry ? [entry.width, entry.height] : (DEFAULT_SIZES[artKind(id)] ?? [1000, 1000]);
@@ -290,20 +299,21 @@ export function dressedFriend(
   const id = friendArtId(look.friend, look.stage);
   const base = picture(art, id, options);
   if (look.stage === 'egg') return base;
+  /** Put `element` on an anchor, `width` thousandths of the painting wide at scale 100. */
   const place = (element: Element, anchor: ArtAnchor, width: number): void => {
     const point = anchorOf(art, id, anchor);
     const holder = h('span', { className: 'ps-art__worn', dataset: { anchor } });
     holder.style.left = `${point.x / 10}%`;
     holder.style.top = `${point.y / 10}%`;
-    holder.style.width = `${(width * point.scale) / 100}%`;
+    holder.style.width = `${(width * point.scale) / 1000}%`;
     holder.style.transform = `translate(-50%, -50%) rotate(${point.rotate}deg)`;
     holder.append(element);
     base.append(holder);
   };
   for (const anchor of ['neck', 'eyes', 'head'] as const) {
     const item = look.outfit?.[anchor];
-    if (item) place(picture(art, ART.cosmetic(item)), anchor, 34);
+    if (item) place(picture(art, ART.cosmetic(item)), anchor, COSMETIC_WIDTH);
   }
-  if (look.stage === 'crowned') place(shellCrown(), 'head', 30);
+  if (look.stage === 'crowned') place(shellCrown(), 'head', CROWN_WIDTH);
   return base;
 }

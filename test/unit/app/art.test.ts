@@ -10,6 +10,8 @@ import { createArtLibrary, loadArtLibrary } from '../../../src/app/art/library';
 import {
   anchorOf,
   artKind,
+  COSMETIC_WIDTH,
+  CROWN_WIDTH,
   DEFAULT_ANCHORS,
   dressedFriend,
   friendArtId,
@@ -97,7 +99,10 @@ describe('dressed friends', () => {
     const head = worn.find((holder) => holder.dataset['anchor'] === 'head')!;
     expect(head.style.left).toBe('40%');
     expect(head.style.top).toBe('10%');
+    // 250/1000 of the painting at scale 100; this anchor's scale is 80.
+    expect(head.style.width).toBe('20%');
     expect(head.style.transform).toBe('translate(-50%, -50%) rotate(-10deg)');
+    expect(worn.find((holder) => holder.dataset['anchor'] === 'neck')!.style.width).toBe('22.5%');
     expect(head.querySelector('[data-art-id]')?.getAttribute('data-art-id')).toBe(
       ART.cosmetic('namornicka-cepice'),
     );
@@ -107,6 +112,9 @@ describe('dressed friends', () => {
     const shown = dressedFriend(art, { friend: 'krab-tvrdak', stage: 'crowned' });
     expect(shown.querySelector('.ps-crown')).not.toBeNull();
     expect(shown.dataset['artId']).toBe(ART.friend('krab-tvrdak', 'grown'));
+    expect(COSMETIC_WIDTH).toBe(250);
+    const crown = shown.querySelector<HTMLElement>('.ps-art__worn')!;
+    expect(crown.style.width).toBe(`${CROWN_WIDTH / 10}%`);
   });
 
   it('dresses no egg, and uses default anchors on a placeholder', () => {

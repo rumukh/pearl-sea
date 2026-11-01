@@ -43,7 +43,7 @@ describe('print sheets', () => {
       'Diplom',
       {
         id: 'certificate:monster:murena-mumla',
-        heading: 'Murena Mumla je zase veselá!',
+        heading: 'Muréna Mumla je zase veselá!',
         body: ['Ema', 'umyla inkoust z Murenky a v laguně je klid.'],
       },
       'diplom',

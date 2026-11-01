@@ -397,9 +397,12 @@ the game from it, the content pack and the save migrations.
 ### 16.2 Art and placeholders
 
 Pictures are drawn by art ID (`ART` in media.ts) from S5's catalog (`assets/art/catalog.json`,
-`pearl-sea-art-catalog/1`): WebP paintings and SVGs with their pixel size, painted friends with
-anchors where SVG cosmetics sit (`art/picture.ts`: `dressedFriend` puts what a friend wears on
-`head`, `eyes` and `neck`, and the golden shell crown on a crowned friend). An ID the catalog lacks
+`pearl-sea-art-catalog/1`): WebP paintings and static SVGs (eggs, cosmetics, stickers) with their
+pixel size, painted friends with anchors where SVG cosmetics sit (`art/picture.ts`: `dressedFriend`
+puts what a friend wears on `head`, `eyes` and `neck`, and the golden shell crown on a crowned
+friend). A cosmetic is drawn in a 100×100 viewBox with its attachment point at the centre; at an
+anchor's `scale` 100 it is 250/1000 of the painting's width (`COSMETIC_WIDTH`), centred on the
+anchor and turned by its `rotate`. An ID the catalog lacks
 is drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
 marked "DEV <art id>" (`data-placeholder`). The repository ships an empty catalog until S5's
 assets land, so their files drop in without code changes. A catalog file outside `assets/art/` is

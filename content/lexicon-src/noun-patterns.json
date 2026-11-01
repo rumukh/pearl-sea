@@ -1015,6 +1015,8 @@
       "id": "hrxisxtex",
       "lemma": "hřiště",
       "pos": "noun",
+      "family": "fam.hraat",
+      "role": "member",
       "gender": "n",
       "pattern": "more",
       "paradigm": {

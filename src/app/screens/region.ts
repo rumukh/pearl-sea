@@ -103,7 +103,7 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
         ...nodes,
       );
       const [width, height] = pictureSize(app.art, ART.scene(region.id));
-      board.style.setProperty('--ps-picture-ratio', String(width / height));
+      board.style.setProperty('--picture-ratio', String(width / height));
       const element = h(
         'main',
         { className: 'ps-region', testId: 'screen-region', dataset: { region: region.id } },

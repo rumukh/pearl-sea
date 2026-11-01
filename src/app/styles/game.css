@@ -804,13 +804,13 @@
   box-shadow: 0 0.5em 1.4em color-mix(in srgb, var(--ps-shadow) 30%, transparent);
 }
 
-/* A board as wide as fits the screen at its painting's ratio (`--ps-picture-ratio`). */
+/* A board as wide as fits the screen at its painting's ratio (`--picture-ratio`). */
 .ps-map__board {
-  width: min(100%, 64em, calc((100dvh - 9.5rem) * var(--ps-picture-ratio, 1.79)));
+  width: min(100%, 64em, calc((100dvh - 9.5rem) * var(--picture-ratio, 1.79)));
 }
 
 .ps-region__board {
-  width: min(100%, 64em, calc((100dvh - 6rem) * var(--ps-picture-ratio, 1.79)));
+  width: min(100%, 64em, calc((100dvh - 6rem) * var(--picture-ratio, 1.79)));
 }
 
 .ps-map__region {

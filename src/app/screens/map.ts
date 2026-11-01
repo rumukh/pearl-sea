@@ -107,7 +107,7 @@ function mapView(
     board.dataset['sea'] = sea;
     // The board is as tall as the painting is for its width, and fits the screen by that ratio.
     const [width, height] = pictureSize(app.art, ART.map(sea));
-    board.style.setProperty('--ps-picture-ratio', String(width / height));
+    board.style.setProperty('--picture-ratio', String(width / height));
     board.replaceChildren(
       picture(app.art, ART.map(sea), { className: 'ps-map__picture' }),
       ...regions.map((region, index) => marker(region, index, regions.length)),

@@ -456,7 +456,7 @@ What the shell does so that real paintings drop in:
   not the palette's and the deep regions are dark: the grotto's greeting, a round's or a board's
   title and meter, locked regions on the map, every card and label.
 - **The map and a region's scene** are boards as tall as their painting is for its width, sized to
-  the screen by the painting's own ratio (`--ps-picture-ratio`); markers and level nodes sit in
+  the screen by the painting's own ratio (`--picture-ratio`); markers and level nodes sit in
   thousandths of the painting (`game/map.ts`), so they stay on the open water S5 paints there.
 - **A monster's two forms** (`monsterForms`): S5 trims each cut-out to its own box, so the battle
   and the freeing draw both in the inked painting's box, the freed one under the inked one, each

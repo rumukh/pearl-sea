@@ -29,6 +29,7 @@ const LOCAL = new Set([
   '--progress',
   '--size',
   '--ink-left',
+  '--picture-ratio',
   '--x',
   '--y',
   '--w',

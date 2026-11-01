@@ -97,8 +97,9 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       testId: 'round-progress',
     });
   } else if (first.placement) {
+    // The placement check counts its parts, not problems.
     progress = createMeter({
-      label: t('round.progress'),
+      label: t('round.placementProgress'),
       max: Math.max(1, first.placement.steps),
       value: first.placement.step,
       valueText: (value, max) => t('round.progressValue', { value, max }),
@@ -147,7 +148,6 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
   const problemCard = h(
     'div',
     { className: 'ps-card ps-round__card', testId: 'problem' },
-    ambushSlot,
     note,
     h('div', { className: 'ps-round__ask' }, prompt, tools),
     displaySlot,
@@ -626,6 +626,11 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       ),
       hintLine === null ? null : h('span', { className: 'ps-feedback__hint', text: hintLine }),
     );
+    // The feedback carries the hint's line, so a hint shown before the miss is not said twice.
+    if (hintLine !== null) {
+      hintSlot.hidden = true;
+      hintSlot.textContent = '';
+    }
     if (result.ambush && !result.ambush.splashed) {
       app.kit.announcer.announce(t('ambush.stayed'));
     }
@@ -784,7 +789,14 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       tools: [streak, coins.element, saveStatus.element, pauseButton],
       onError: app.kit.onError,
     }),
-    h('section', { className: 'ps-round__stage' }, companion, problemCard),
+    h(
+      'section',
+      { className: 'ps-round__stage' },
+      // The Inkoustík smudging the problem stands by the companion: beside the card on a landscape
+      // screen, where it costs the card no room, and above it on a phone.
+      h('div', { className: 'ps-round__side' }, companion, ambushSlot),
+      problemCard,
+    ),
     blots,
   );
   return {

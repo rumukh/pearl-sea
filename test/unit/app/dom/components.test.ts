@@ -1,11 +1,12 @@
 // @vitest-environment happy-dom
 /**
- * Small pieces of the UI kit: tabs turn with the arrows and around the ends, meters and the coin
- * counter say their value in words (Czech plural forms), stars differ in shape as well as colour,
- * toasts reach screen readers, every icon is a decorative SVG, and a rebuilt panel keeps the
- * keyboard on the control that had it.
+ * Small pieces of the UI kit: a busy button says so and keeps focus, tabs turn with the arrows
+ * and around the ends, meters and the coin counter say their value in words (Czech plural
+ * forms), stars differ in shape as well as colour, toasts reach screen readers, every icon is a
+ * decorative SVG, and a rebuilt panel keeps the keyboard on the control that had it.
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { candyButton, showBusy } from '../../../../src/app/ui/button';
 import { h, replaceKeepingFocus } from '../../../../src/app/ui/dom';
 import { ICON_NAMES, icon, starIcon } from '../../../../src/app/ui/icons';
 import { createCoinCounter, createMeter, createStars } from '../../../../src/app/ui/meters';
@@ -57,6 +58,44 @@ describe('tabs', () => {
     expect(chosen).toEqual(['kelp', 'lagoon', 'kelp']);
     expect(tab('reef').querySelector('.ps-tabs__done')).not.toBeNull();
     expect(kit.cue).toHaveBeenCalledWith('ui.tap');
+  });
+});
+
+describe('a busy button', () => {
+  it('says it is busy, takes no second press and keeps focus, then is itself again', async () => {
+    let finish: () => void = () => undefined;
+    const presses: number[] = [];
+    const button = candyButton({
+      label: 'Ponořit se!',
+      icon: 'play',
+      variant: 'sun',
+      onPress: () =>
+        new Promise<void>((done) => {
+          presses.push(presses.length);
+          finish = done;
+        }),
+      onError: (error) => {
+        throw error;
+      },
+    });
+    document.body.append(button);
+    button.focus();
+    button.click();
+    const ready = showBusy(button, 'Chvilku…');
+    expect(button.textContent).toBe('Chvilku…');
+    expect(button.getAttribute('aria-disabled')).toBe('true');
+    expect(button.dataset['busy']).toBe('true');
+    expect(button.querySelector('svg')).not.toBeNull();
+    expect(document.activeElement).toBe(button);
+    button.click();
+    expect(presses).toEqual([0]);
+    finish();
+    await settle();
+    ready();
+    expect(button.textContent).toBe('Ponořit se!');
+    expect(button.hasAttribute('aria-disabled')).toBe(false);
+    expect(button.dataset['busy']).toBeUndefined();
+    button.remove();
   });
 });
 

@@ -353,11 +353,11 @@ describe('answers and hints in words', () => {
     );
     expect(hintText({ kind: 'method', method: 'mood' }, t, text, lemmaOf)).toBeNull();
     expect(hintText({ kind: 'ten-ta-to', gender: 'f', plural: true }, t, text, lemmaOf)).toBe(
-      'Řekni si: ti, ty, nebo ta?',
+      'Řekni si před podmět: ti, ty, nebo ta?',
     );
     // The word that is not listed is shown with its gap blanked: spelled out, it is the answer.
     expect(hintText({ kind: 'not-listed', word: 'biilyy', span: [1, 2] }, t, text, lemmaOf)).toBe(
-      'Slovo b_lý mezi vyjmenovanými není.',
+      'Slovo b_lý není vyjmenované ani příbuzné s\u00a0vyjmenovaným.',
     );
     expect(
       hintText({ kind: 'not-listed', word: 'neznamy', span: [1, 2] }, t, text, lemmaOf),

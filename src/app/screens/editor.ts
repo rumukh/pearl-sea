@@ -13,7 +13,7 @@ import type { FamilyProblem } from '../persistence/family';
 import { eraseDiverData } from '../persistence/profile-data';
 import type { ScreenEntry } from '../router/router';
 import type { App } from '../shell/app';
-import { candyButton, linkButton } from '../ui/button';
+import { candyButton, linkButton, showBusy } from '../ui/button';
 import { confirmDialog } from '../ui/dialog';
 import { h } from '../ui/dom';
 import { icon } from '../ui/icons';
@@ -199,23 +199,31 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
           showProblem('editor.problem.avatar');
           return;
         }
+        // Saving the child and opening the game takes a moment on a first visit: say so.
+        const ready = showBusy(save, t('editor.busy'));
         let result;
         try {
           result = existing
             ? await app.family.update(existing.id, { name: nameInput.value, avatar, address })
             : await app.family.add({ name: nameInput.value, avatar, address, grade });
         } catch {
+          ready();
           showProblem('editor.problem.save');
           return;
         }
         if (!result.ok) {
+          ready();
           showProblem(PROBLEM_KEYS[result.problem]);
           if (['empty', 'long', 'chars', 'taken'].includes(result.problem)) nameInput.focus();
           return;
         }
         showProblem(null);
-        if (existing) await app.router.back();
-        else await app.router.replace(app.screens.play(result.value.id));
+        try {
+          if (existing) await app.router.back();
+          else await app.router.replace(app.screens.play(result.value.id));
+        } finally {
+          ready();
+        }
       };
 
       const save = candyButton({
@@ -246,12 +254,17 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
           }),
         ),
         fieldset(t('editor.avatarLabel'), 'ps-picker--avatars', 'diver-avatar', avatars),
-        fieldset(t('editor.addressLabel'), 'ps-picker--words', 'diver-address', addresses),
-        existing
-          ? null
-          : fieldset(t('editor.gradeLabel'), 'ps-picker--grades', 'diver-grade', grades),
+        // Kluk/holka, the grade and the button share a row while it has room, and wrap.
+        h(
+          'div',
+          { className: 'ps-editor__choices' },
+          fieldset(t('editor.addressLabel'), 'ps-picker--words', 'diver-address', addresses),
+          existing
+            ? null
+            : fieldset(t('editor.gradeLabel'), 'ps-picker--grades', 'diver-grade', grades),
+          h('div', { className: 'ps-row ps-row--end ps-editor__save' }, save),
+        ),
         problem,
-        h('div', { className: 'ps-row ps-row--end' }, save),
       );
       form.addEventListener('submit', (event) => {
         event.preventDefault();

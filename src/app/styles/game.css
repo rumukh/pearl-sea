@@ -356,6 +356,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.6em;
+  /* A chosen choice's check badge stands out above it, clear of the legend. */
+  padding-top: 0.2em;
 }
 
 .ps-picker--avatars .ps-picker__grid {
@@ -430,6 +432,58 @@
 
 .ps-choice--grade .ps-choice__label {
   font-size: 0.85rem;
+}
+
+/* Kluk/holka, the grade and "Ponořit se!" share a row while it has room; the button wraps to its
+   own line, at its end, when it has not. A wrapping row rather than grid placement, so a change
+   of size never leaves an engine with a stale placement. */
+.ps-editor__choices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.1em 2em;
+}
+
+.ps-editor__save {
+  flex: 1 1 auto;
+}
+
+/* On a landscape window the editor's card widens and the eight pictures stand in one row, so
+   "Ponořit se!" is in view without scrolling. */
+@media (orientation: landscape) and (min-width: 900px) {
+  @container (min-width: 36em) {
+    .ps-editor__card {
+      width: min(100%, 52em);
+    }
+
+    .ps-picker--avatars .ps-picker__grid {
+      grid-template-columns: repeat(8, minmax(0, 4.6em));
+    }
+  }
+}
+
+/* The empty problem line stays in the accessibility tree (a live region) but takes no room. */
+.ps-editor__card > .ps-error-text:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+@media (orientation: landscape) and (min-width: 900px) and (max-height: 860px) {
+  .ps-editor__card,
+  .ps-editor__choices {
+    row-gap: 0.7em;
+  }
+
+  .ps-picker--avatars .ps-picker__grid {
+    grid-template-columns: repeat(auto-fill, minmax(3.6em, 4em));
+  }
+
+  .ps-choice__number {
+    font-size: 1.5rem;
+  }
 }
 
 /* ---- Story and the first egg ------------------------------------------------------------ */
@@ -799,6 +853,132 @@
   background: var(--ps-success-deep);
 }
 
+/* On a landscape window the friend and today's card stand side by side, the places go down the
+   right and the day's adventure runs along the bottom: the whole grotto fits the window at every
+   landscape tablet and laptop size (PS-QA-04). The room is asked in em, so big text keeps the
+   one column and may scroll. The friends' strip gives way to the "Kamarádi" place beside it,
+   which opens the same screen. */
+@media (orientation: landscape) and (min-width: 900px) {
+  @container (min-width: 36em) {
+    .ps-hub__layout {
+      grid-template-areas:
+        'friend today places'
+        'adventure adventure adventure';
+      grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr) auto;
+      grid-template-rows: auto auto;
+      align-items: center;
+      width: min(100%, 72em);
+    }
+
+    .ps-hub__friend {
+      align-self: stretch;
+      align-content: center;
+    }
+
+    .ps-hub__friend > .ps-hub__friends {
+      display: none;
+    }
+
+    .ps-hub__today {
+      align-self: stretch;
+      justify-content: center;
+    }
+
+    .ps-hub__adventure {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4em 0.9em;
+    }
+
+    .ps-hub__places {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 0.5em;
+    }
+
+    .ps-hub__places .ps-button {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* A short landscape window draws the grotto's pictures and words a little smaller, never a
+   button: the greeting and the diver's name share the top line, and today's card loses only
+   its visible heading ("Dnešní cíl" says it). */
+@media (orientation: landscape) and (min-width: 900px) and (max-height: 860px) {
+  .ps-hub__greeting {
+    font-size: min(1.1rem, 7vw);
+  }
+
+  .ps-hub__diver {
+    padding-block: 0;
+  }
+
+  .ps-hub__diver .ps-avatar {
+    width: 1.6em;
+  }
+
+  .ps-hub__featured {
+    width: min(13rem, 21vh, 60vw);
+  }
+
+  .ps-hub__friend {
+    gap: 0.3em;
+  }
+
+  .ps-hub__friend .ps-note {
+    font-size: 0.85rem;
+  }
+
+  .ps-hub__today {
+    gap: 0.4em;
+  }
+
+  .ps-hub__today > h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ps-hub__today h3 {
+    font-size: 0.9rem;
+  }
+
+  .ps-quests {
+    gap: 0.3em;
+  }
+
+  .ps-quest {
+    padding: 0.2em 0.5em;
+  }
+
+  .ps-quest__title {
+    font-size: 0.8rem;
+  }
+
+  .ps-quest__progress {
+    font-size: 0.75rem;
+  }
+}
+
+/* On the shortest windows the quests keep their list and lose only their visible title. */
+@media (orientation: landscape) and (min-width: 900px) and (max-height: 700px) {
+  .ps-hub__today h3 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 /* ---- The sea map ------------------------------------------------------------------------ */
 
 .ps-map__board,
@@ -1162,6 +1342,19 @@
   gap: 0.4em;
 }
 
+/* The companion with, now and then, an Inkoustík smudging the problem under it. */
+.ps-round__side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6em;
+  min-width: 0;
+}
+
+.ps-round__ambush:empty {
+  display: none;
+}
+
 .ps-round__friend {
   width: min(13rem, 26vh, 44vw);
 }
@@ -1227,7 +1420,9 @@
 
 .ps-round__tools {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4em;
+  max-width: 100%;
 }
 
 .ps-round__display {
@@ -1518,6 +1713,82 @@
   );
 }
 
+/* On a landscape window the companion stands beside the problem card and a round's title shares
+   a line with its meter, so a problem with its hint, a miss and "Dál" fit the window (PS-QA-05).
+   The room is asked in em: big text keeps one column. */
+@media (orientation: landscape) and (min-width: 900px) {
+  @container (min-width: 36em) {
+    .ps-round__stage {
+      grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+    }
+
+    .ps-round__header {
+      grid-auto-flow: column;
+      align-items: center;
+      column-gap: 0.9em;
+    }
+
+    .ps-round__header .ps-meter {
+      width: min(100%, 11em);
+    }
+
+    /* Beside the card, the Inkoustík stands over its line. */
+    .ps-round__side .ps-ambush {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}
+
+/* A short landscape window draws the problem's words and the letter pad a little smaller, never
+   under the 48 px target. */
+@media (orientation: landscape) and (min-width: 900px) and (max-height: 860px) {
+  .ps-round__header {
+    padding: 0.2em 0.7em 0.3em;
+  }
+
+  .ps-round__title {
+    font-size: min(1.2rem, 7vw);
+  }
+
+  .ps-round__header .ps-meter__label {
+    font-size: 0.8rem;
+  }
+
+  .ps-round__card {
+    gap: 0.55em;
+  }
+
+  .ps-feedback {
+    padding: 0.35em 0.7em;
+  }
+
+  .ps-problem__text {
+    font-size: min(1.7rem, 7.5vw, 4.4vh);
+    line-height: 1.6;
+  }
+
+  .ps-problem__text--word {
+    font-size: min(2.6rem, 11vw, 7vh);
+    line-height: 1.4;
+  }
+
+  .ps-round__answer .ps-tile {
+    min-height: max(var(--ps-target), 2.6em);
+  }
+
+  .ps-round__answer[data-input='letters'] .ps-tile {
+    min-height: max(var(--ps-target), 2.8em);
+  }
+
+  .ps-round__friend {
+    width: min(13rem, 24vh, 44vw);
+  }
+
+  .ps-round__monster {
+    width: min(15rem, 28vh, 52vw);
+  }
+}
 /* ---- The Czech keyboard ----------------------------------------------------------------- */
 
 .ps-typed {
@@ -1632,6 +1903,11 @@
 }
 
 /* Pexeso: the backs are sea blue with a pearl; a card turned up is paper. */
+.ps-memory-board {
+  display: grid;
+  gap: 0.7em;
+}
+
 .ps-memory {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(6.5em, 100%), 1fr));
@@ -1848,6 +2124,34 @@
   min-height: 3em;
 }
 
+/* A short landscape window draws the fish and the nets a little tighter, never a fish under the
+   48 px target, so the pool keeps to fewer rows. */
+@media (orientation: landscape) and (min-width: 900px) and (max-height: 860px) {
+  .ps-nets {
+    gap: 0.6em;
+  }
+
+  .ps-nets__pool {
+    gap: 0.45em;
+    min-height: 3.2em;
+    padding: 0.45em;
+  }
+
+  .ps-net-area {
+    gap: 0.4em;
+    padding: 0.4em;
+  }
+
+  .ps-net__catch {
+    min-height: 2.6em;
+  }
+
+  .ps-fish {
+    font-size: 0.95rem;
+    padding: 0.15em 0.6em 0.15em 0.8em;
+  }
+}
+
 .ps-fish {
   position: relative;
   display: inline-flex;
@@ -1936,11 +2240,17 @@
   background: var(--ps-card);
 }
 
-/* A cut is a thin gap that becomes a bold coral line: at least 48 px tall, wider to the touch. */
+/*
+ * A cut is a thin gap that becomes a bold coral line. Its box is at least 48 px wide and tall:
+ * negative margins keep the word's spacing to the visible gap (`--gap`), so the box reaches over
+ * the letters' edges (they take no taps) and is drawn above them (PS-QA-01).
+ */
 .ps-shell-word__cut {
+  --gap: 0.55em;
   position: relative;
-  width: 0.55em;
+  width: max(var(--ps-target), var(--gap));
   min-height: max(var(--ps-target), 1.5em);
+  margin-inline: calc((var(--gap) - max(var(--ps-target), var(--gap))) / 2);
   padding: 0;
   border: 0;
   background: none;
@@ -1955,14 +2265,8 @@
   border-left: 0.08em dashed var(--ps-line-strong);
 }
 
-.ps-shell-word__cut::after {
-  content: '';
-  position: absolute;
-  inset: 0 -0.25em;
-}
-
 .ps-shell-word__cut[aria-pressed='true'] {
-  width: 0.9em;
+  --gap: 0.9em;
 }
 
 .ps-shell-word__cut[aria-pressed='true']::before {
@@ -2156,6 +2460,31 @@
   width: 100%;
 }
 
+/* On a landscape window the card never runs past the screen: a big day's news scroll inside it,
+   with the button onward in view (PS-QA-05). */
+@media (orientation: landscape) and (min-width: 900px) {
+  .ps-results__card {
+    max-height: calc(100vh - 2 * clamp(12px, min(2.5vw, 3vh), 32px));
+    max-height: calc(100dvh - 2 * clamp(12px, min(2.5vw, 3vh), 32px));
+  }
+
+  .ps-results__card > * {
+    flex: none;
+  }
+
+  .ps-results__card > .ps-results__news {
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.2em;
+  }
+}
+
+.ps-moment__title {
+  font-size: min(1.5rem, 7vw);
+}
+
 .ps-celebrate {
   display: flex;
   align-items: center;
@@ -2267,8 +2596,10 @@
 
 /* ---- U Mrože ---------------------------------------------------------------------------- */
 
+/* U Mrože's line stands beside him while it has room, else under him (200 % text on a phone). */
 .ps-shop__counter {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   gap: 1em;
   width: min(100%, 56em);
@@ -2281,6 +2612,8 @@
 }
 
 .ps-shop__line {
+  flex: 1 1 12em;
+  min-width: 0;
   padding: 0.6em 0.9em;
   border: 0.1em solid var(--ps-line);
   border-radius: 1.1em 1.1em 1.1em 0.3em;

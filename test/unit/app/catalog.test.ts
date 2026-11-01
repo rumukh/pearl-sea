@@ -18,6 +18,7 @@ import {
   FRIEND_STAGES,
   GROWN_UPS_KEY_PREFIX,
   MASTERY_LEVELS,
+  PAIR_KINDS,
   placeholders,
   SEA_MAPS,
   splitCatalogKey,
@@ -35,6 +36,7 @@ const DYNAMIC_PREFIXES = ['grownups.tab.', 'grownups.language.cs', 'grownups.lan
  */
 const FAMILIES: Readonly<Record<string, readonly string[]>> = {
   'activity.': ACTIVITY_KINDS,
+  'board.pairTask.': PAIR_KINDS,
   'round.classify.': DIMENSIONS,
   'round.relation.': WORD_RELATIONS,
   'stage.': FRIEND_STAGES,

@@ -30,6 +30,7 @@ const LOCAL = new Set([
   '--size',
   '--ink-left',
   '--picture-ratio',
+  '--gap',
   '--x',
   '--y',
   '--w',

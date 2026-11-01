@@ -1030,6 +1030,18 @@
       "icon": "sticker/star-coral",
       "color": "#f2c94c",
       "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "race-ten",
+      "nameKey": "sticker.race-ten",
+      "page": "coral-reef",
+      "criteria": {
+        "kind": "race-best",
+        "count": 10
+      },
+      "icon": "sticker/stopwatch",
+      "color": "#4fc3f7",
+      "frame": "sticker/frame-shell"
     }
   ],
   "quests": [

@@ -40,6 +40,7 @@ const fresh = (): Pack => JSON.parse(packText);
 const REVISIONS: Readonly<Record<string, string>> = {
   '1.0.0': 'd100ffcbca348be3', // Slunná laguna, the vertical slice
   '1.1.0': 'fe165b25e4728f31', // regions 2-6: the listed words, meanings and parts of speech
+  '1.2.0': '7ed523b6d8a3ad19', // regions 7-12: the 3rd grade's finale, the 4th grade's deep, placement
 };
 
 /** Generators that make boards, not problems: their items are trained only by minigames. */
@@ -50,7 +51,8 @@ const BOARD_GENERATORS: readonly GeneratorId[] = ['alphabet', 'pairs', 'sort', '
  * reviewed when the daily adventure replays a minigame), with the item kinds allowed. A board right
  * at the first check credits its items as fast answers, so they can reach gold. Želva knows the
  * alphabet (design §2.2); a listed-word friend knows its letter's school rhyme, and Jazýček also
- * the two families of his short list (docs/content.md §3).
+ * the two families of his short list; Tuleň plays the plural Pexeso of his first lesson, and
+ * Kořínek cuts words in his own shell (docs/content.md §3).
  */
 const BOARD_ITEMS_ON_PURPOSE: Readonly<Record<string, readonly string[]>> = {
   'zelva-obojka': ['abc'],
@@ -61,9 +63,15 @@ const BOARD_ITEMS_ON_PURPOSE: Readonly<Record<string, readonly string[]>> = {
   'jezik-sycik': ['abc'],
   'vydra-vyskalka': ['abc'],
   'jazyk-jazycek': ['abc', 'fam'],
+  'tulen-padik': ['pair'],
+  'rak-korinek': ['seg'],
 };
 
-/** The lesson each friend hatches in (design §3; the first lagoon egg in lesson 1, §4.1). */
+/**
+ * The lesson each friend hatches in (design §3; the first lagoon egg in lesson 1, §4.1). Delfín
+ * and the Klauni hatch one lesson later than design §3 says, since their sets hold the lessons
+ * after it too (docs/content.md §6).
+ */
 const HATCH: Readonly<Record<string, string>> = {
   'krab-tvrdak': 'sunny-lagoon.1',
   'meduzka-mekulka': 'sunny-lagoon.1',
@@ -77,7 +85,61 @@ const HATCH: Readonly<Record<string, string>> = {
   'jazyk-jazycek': 'pirate-wreck.5',
   'hvezdice-rodinka': 'pearl-bay.2',
   'kalmar-desetiruky': 'volcanic-vents.1',
+  'tulen-padik': 'ice-sea.1',
+  'delfin-skokanek': 'ice-sea.4',
+  'rak-korinek': 'moon-caves.1',
+  'stitovec-prisavka': 'sunken-city.1',
+  'klipka-vzorna': 'dark-trench.1',
+  'klauni-dvojcata': 'kraken-abyss.2',
 };
+
+/**
+ * Problem skills whose items no friend eats, on purpose: they wait in Osmiččin košík (design
+ * §5.15), which serves them with the friends' due items. A friend's set stays small enough to
+ * hatch in its lesson, so these skills practise without feeding growth (docs/content.md §3).
+ */
+const BASKET: readonly string[] = [
+  // More of the listed words: odd ones out and relations (regions 2-5).
+  'sk.reef.odd-listed',
+  'sk.reef.relation-alike',
+  'sk.kelp.odd-listed',
+  'sk.bay.odd-listed-all',
+  'sk.bay.relation-alike',
+  'sk.bay.relation-coordinate',
+  'sk.vents.inflection',
+  // The placement check's first step reaches two points no lagoon friend holds.
+  'sk.place.vowels',
+  // Ledové moře: the number of verbs, tense forms and the 3rd grade's sentences.
+  'sk.ice.verb-number',
+  'sk.ice.tense-forms',
+  'sk.ice.kinds',
+  'sk.ice.clauses',
+  'sk.ice.end-marks',
+  'sk.ice.conjunctions',
+  // Měsíční jeskyně: naming the parts of a word.
+  'sk.moon.segment-suffix',
+  'sk.moon.segment-ending',
+  'sk.moon.segment-all',
+  // Potopené město: the pronoun mě/mně.
+  'sk.city.mne-sentences',
+  'sk.city.mne-mistakes',
+  'sk.city.mistakes-all',
+  // Bouřlivé moře: verb forms and moods, and standard Czech (design §3.11).
+  'sk.storm.tense-forms',
+  'sk.storm.person',
+  'sk.storm.verb-form',
+  'sk.storm.mood-forms',
+  'sk.storm.mood',
+  'sk.storm.register',
+  'sk.storm.spisovne',
+  // Krakatičí propast: subjects' genders, clauses and the great review.
+  'sk.kraken.gender-class',
+  'sk.kraken.clauses',
+  'sk.kraken.listed-grade4',
+  'sk.kraken.review-spelling',
+  'sk.kraken.review-sentences',
+  'sk.kraken.review-mistakes',
+];
 
 describe('the content pack', () => {
   it('validates under the registration and is a pinned revision of the pearl-sea pack', () => {
@@ -126,8 +188,12 @@ describe('the content', () => {
         string,
         { words?: string[]; sentences?: string[] } | undefined
       >;
-      // An odd-one-out set also needs the odd words, which are no items (bílý among bystrý, býk).
-      const words = skill.generator === 'odd-one-out' ? [] : (params['words']?.words ?? []);
+      // An odd-one-out set also needs the odd words, which are no items (bílý among bystrý, býk),
+      // and a family board its distractors (rybíz beside the fish family).
+      const distractors =
+        skill.generator === 'odd-one-out' ||
+        (skill.generator === 'family' && skill.params.families !== null);
+      const words = distractors ? [] : (params['words']?.words ?? []);
       for (const id of words) {
         if (skillItems(only(skill, 'words', id), data.lexicon).length === 0) {
           idle.push(`${skill.id}: word ${id}`);
@@ -157,8 +223,11 @@ describe('the content', () => {
     expect(stray).toEqual([]);
   });
 
-  it('practises every skill in a level', () => {
-    const practised = new Set(data.levels.flatMap((l) => l.activities.flatMap((a) => a.skills)));
+  it('practises every skill in a level or a placement step', () => {
+    const practised = new Set([
+      ...data.levels.flatMap((l) => l.activities.flatMap((a) => a.skills)),
+      ...data.placement.steps.map((step) => step.skill),
+    ]);
     expect(data.skills.map((s) => s.id).filter((id) => !practised.has(id))).toEqual([]);
   });
 
@@ -179,16 +248,21 @@ describe('the content', () => {
     expect(bare).toEqual([]);
   });
 
-  it('feeds a friend with every item a sentence teaches', () => {
+  it('feeds a friend with every item a problem teaches, but the basket’s skills', () => {
     const fed = new Set(data.friends.flatMap((f) => [...friendSet(f.skills)]));
     const hungry: string[] = [];
+    const listedButFed: string[] = [];
     for (const skill of data.skills) {
-      if (skill.generator !== 'spell.sentence' && skill.generator !== 'spell.mistake') continue;
-      for (const item of items.get(skill.id) ?? []) {
-        if (!fed.has(item)) hungry.push(`${skill.id}: ${item}`);
+      if (BOARD_GENERATORS.includes(skill.generator)) continue;
+      const unfed = (items.get(skill.id) ?? []).filter((item) => !fed.has(item));
+      if (BASKET.includes(skill.id)) {
+        if (unfed.length === 0) listedButFed.push(skill.id);
+      } else {
+        hungry.push(...unfed.map((item) => `${skill.id}: ${item}`));
       }
     }
     expect(hungry).toEqual([]);
+    expect(listedButFed, 'BASKET lists a skill whose items friends eat').toEqual([]);
   });
 
   it('keeps board-only items out of friends’ sets unless listed on purpose', () => {
@@ -204,8 +278,9 @@ describe('the content', () => {
     expect(boardOnly).toEqual([]);
   });
 
-  it('lets an egg warm from problems its region teaches after lesson 1 (S2: at least 45 %)', () => {
-    for (const friend of data.friends) {
+  it('lets a lagoon egg warm from problems the lagoon teaches after lesson 1 (S2: at least 45 %)', () => {
+    // A 4th grader's chosen egg warms only through the placed lagoon lessons 2-6 (design §4.1).
+    for (const friend of data.friends.filter((f) => f.region === 'sunny-lagoon')) {
       const taught = new Set(
         data.levels
           .filter((l) => l.region === friend.region && l.kind === 'lesson' && l.order > 1)

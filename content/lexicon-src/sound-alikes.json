@@ -257,6 +257,12 @@
       "id": "alike.25",
       "text": "Na stožáru v{i|y}sela pirátská vlajka.",
       "gaps": [{ "rule": "obojetna-i", "word": "viset" }]
+    },
+    {
+      "id": "alike.26",
+      "grade": 4,
+      "text": "Piráti chtěli dob{ý|í}t starý hrad.",
+      "gaps": [{ "rule": "vyjm", "word": "dobyyt" }]
     }
   ]
 }

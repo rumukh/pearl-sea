@@ -1,0 +1,1262 @@
+{
+  "objectives": [
+    {
+      "id": "obj.sentences.subject-predicate",
+      "strand": "sentences",
+      "grade": 4,
+      "titleKey": "grownups.objective.sentences.subject-predicate",
+      "rvp": ["ČJL-5-2-05"]
+    },
+    {
+      "id": "obj.sentences.agreement",
+      "strand": "sentences",
+      "grade": 4,
+      "titleKey": "grownups.objective.sentences.agreement",
+      "rvp": ["ČJL-5-2-09"]
+    },
+    {
+      "id": "obj.sentences.compound-4",
+      "strand": "sentences",
+      "grade": 4,
+      "titleKey": "grownups.objective.sentences.compound-4",
+      "rvp": ["ČJL-5-2-06", "ČJL-5-2-07"]
+    },
+    {
+      "id": "obj.listed.grade4",
+      "strand": "listed-words",
+      "grade": 4,
+      "titleKey": "grownups.objective.listed.grade4",
+      "rvp": ["ČJL-5-2-08"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "kraken-abyss",
+      "order": 12,
+      "titleKey": "region.kraken-abyss",
+      "unlock": {
+        "after": ["storm-sea.monster"]
+      },
+      "monster": "krakatice-inkoustova",
+      "map": "deep",
+      "grade": 4
+    }
+  ],
+  "levels": [
+    {
+      "id": "kraken-abyss.1",
+      "region": "kraken-abyss",
+      "order": 1,
+      "titleKey": "level.kraken-abyss.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.kraken.member"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["klauni-dvojcata"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.kraken-abyss-welcome",
+      "objectives": ["obj.sentences.subject-predicate"]
+    },
+    {
+      "id": "kraken-abyss.2",
+      "region": "kraken-abyss",
+      "order": 2,
+      "titleKey": "level.kraken-abyss.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kraken-abyss.1"]
+      },
+      "activities": [
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.kraken.agreement"],
+          "count": 6,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.kraken.agreement-mistakes"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.kraken.gender-class"],
+          "count": 6,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["klauni-dvojcata"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.sentences.agreement"]
+    },
+    {
+      "id": "kraken-abyss.3",
+      "region": "kraken-abyss",
+      "order": 3,
+      "titleKey": "level.kraken-abyss.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kraken-abyss.2"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.kraken.clauses"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.ice.conjunctions", "sk.ice.end-marks"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.kraken.nets-conjunctions"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.sentences.compound-4"]
+    },
+    {
+      "id": "kraken-abyss.4",
+      "region": "kraken-abyss",
+      "order": 4,
+      "titleKey": "level.kraken-abyss.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kraken-abyss.3"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.kraken.listed-grade4", "sk.kraken.review-spelling"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.kraken.review-sentences"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.kraken.review-mistakes"],
+          "count": 6,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": [
+        "obj.prefixes.vs-prepositions",
+        "obj.prefixes.bje-vje",
+        "obj.prefixes.pe-me-mne",
+        "obj.listed.grade4",
+        "obj.sentences.agreement"
+      ]
+    },
+    {
+      "id": "kraken-abyss.5",
+      "region": "kraken-abyss",
+      "order": 5,
+      "titleKey": "level.kraken-abyss.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kraken-abyss.4"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": [
+            "sk.trench.pattern-all",
+            "sk.storm.verb-form",
+            "sk.storm.mood",
+            "sk.kraken.clauses"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "word-shell",
+          "skills": ["sk.moon.shell-all"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.trench.pairs-all"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": [
+        "obj.nouns.patterns",
+        "obj.verbs.tense-forms",
+        "obj.verbs.mood",
+        "obj.sentences.compound-4"
+      ]
+    },
+    {
+      "id": "kraken-abyss.monster",
+      "region": "kraken-abyss",
+      "order": 6,
+      "titleKey": "level.kraken-abyss.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["kraken-abyss.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.ice.review-hard-soft",
+            "sk.kraken.listed-grade4",
+            "sk.bay.relation-synonym-antonym",
+            "sk.moon.segment-all",
+            "sk.city.prefix-consonant",
+            "sk.vents.pos-all",
+            "sk.trench.pattern-all",
+            "sk.storm.verb-form",
+            "sk.storm.register",
+            "sk.kraken.member"
+          ],
+          "count": 30,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["klauni-dvojcata"],
+        "cosmetics": ["throne-pearl"]
+      },
+      "monster": "krakatice-inkoustova",
+      "storyBeat": "beat.krakatice-inkoustova",
+      "objectives": [
+        "obj.letters.hard-soft",
+        "obj.meaning.synonyms-antonyms",
+        "obj.pos.ten",
+        "obj.structure.root",
+        "obj.prefixes.vs-prepositions",
+        "obj.listed.grade4",
+        "obj.nouns.patterns",
+        "obj.verbs.tense-forms",
+        "obj.standard.register",
+        "obj.sentences.subject-predicate",
+        "obj.sentences.agreement",
+        "obj.sentences.compound-4"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.kraken.member",
+      "titleKey": "skill.kraken.member",
+      "strand": "sentences",
+      "generator": "classify",
+      "params": {
+        "dimension": "member",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "subj.01",
+            "subj.02",
+            "subj.03",
+            "subj.04",
+            "subj.05",
+            "subj.06",
+            "subj.07",
+            "subj.08",
+            "subj.09",
+            "subj.10",
+            "subj.11",
+            "subj.12",
+            "subj.13",
+            "subj.14",
+            "subj.15"
+          ],
+          "grades": [3, 4]
+        },
+        "values": ["subject", "predicate"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.kraken.agreement",
+      "titleKey": "skill.kraken.agreement",
+      "strand": "sentences",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "agree.01",
+            "agree.02",
+            "agree.03",
+            "agree.04",
+            "agree.05",
+            "agree.06",
+            "agree.07",
+            "agree.08",
+            "agree.09",
+            "agree.10",
+            "agree.11",
+            "agree.12",
+            "agree.13",
+            "agree.14",
+            "agree.15",
+            "agree.16",
+            "agree.17",
+            "agree.18"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["shoda"]
+      }
+    },
+    {
+      "id": "sk.kraken.agreement-mistakes",
+      "titleKey": "skill.kraken.agreement-mistakes",
+      "strand": "sentences",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "agree.01",
+            "agree.02",
+            "agree.03",
+            "agree.04",
+            "agree.05",
+            "agree.06",
+            "agree.07",
+            "agree.08",
+            "agree.09",
+            "agree.10",
+            "agree.11",
+            "agree.12",
+            "agree.13",
+            "agree.14",
+            "agree.15",
+            "agree.16",
+            "agree.17",
+            "agree.18"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["shoda"]
+      }
+    },
+    {
+      "id": "sk.kraken.gender-class",
+      "titleKey": "skill.kraken.gender-class",
+      "strand": "sentences",
+      "generator": "classify",
+      "params": {
+        "dimension": "gender-class",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "agree.01",
+            "agree.02",
+            "agree.03",
+            "agree.04",
+            "agree.05",
+            "agree.06",
+            "agree.07",
+            "agree.08",
+            "agree.09",
+            "agree.10",
+            "agree.11",
+            "agree.12",
+            "agree.13",
+            "agree.14",
+            "agree.15",
+            "agree.16",
+            "agree.17",
+            "agree.18"
+          ],
+          "grades": [3, 4]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.kraken.clauses",
+      "titleKey": "skill.kraken.clauses",
+      "strand": "sentences",
+      "generator": "classify",
+      "params": {
+        "dimension": "clauses",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "clause.01",
+            "clause.02",
+            "clause.03",
+            "clause.04",
+            "clause.05",
+            "clause.06",
+            "clause.07",
+            "clause.08",
+            "clause.09",
+            "clause.10",
+            "clause.11",
+            "clause.12",
+            "clause.13",
+            "conj.01",
+            "conj.02",
+            "conj.03",
+            "conj.04",
+            "conj.05",
+            "conj.06",
+            "conj.07",
+            "conj.08",
+            "subj.01",
+            "subj.02",
+            "subj.03",
+            "subj.04",
+            "subj.05",
+            "subj.06",
+            "subj.07",
+            "subj.08",
+            "subj.09",
+            "subj.10",
+            "subj.11",
+            "subj.12",
+            "subj.13",
+            "subj.14",
+            "subj.15"
+          ],
+          "grades": [3, 4]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.kraken.nets-conjunctions",
+      "titleKey": "skill.kraken.nets-conjunctions",
+      "strand": "sentences",
+      "generator": "sort",
+      "params": {
+        "dimension": "pos",
+        "context": "word",
+        "values": ["prep", "conj"],
+        "words": {
+          "words": [
+            "a",
+            "ale",
+            "nebo",
+            "protozxe",
+            "kdyzx",
+            "zxe",
+            "aby",
+            "na",
+            "pod",
+            "od",
+            "do",
+            "z",
+            "k",
+            "s"
+          ],
+          "grades": [3, 4]
+        },
+        "fish": 10,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.kraken.listed-grade4",
+      "titleKey": "skill.kraken.listed-grade4",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "obyvatel",
+            "byt",
+            "prxiibytek",
+            "naabytek",
+            "dobytek",
+            "obycxej",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "prxibyslav",
+            "slysxet",
+            "mlyyn",
+            "blyyskat-se",
+            "polykat",
+            "plynout",
+            "plyytvat",
+            "vzlykat",
+            "lysyy",
+            "lyytko",
+            "lyyko",
+            "lyzxe",
+            "pelynexk",
+            "plysx",
+            "my",
+            "myyt",
+            "myslit",
+            "myylit-se",
+            "hmyz",
+            "mysx",
+            "hlemyyzxdx",
+            "myytit",
+            "zamykat",
+            "smyykat",
+            "dmyychat",
+            "chmyyrxii",
+            "nachomyytnout-se",
+            "litomysxl",
+            "pyycha",
+            "pytel",
+            "pysk",
+            "netopyyr",
+            "slepyysx",
+            "pyl",
+            "kopyto",
+            "klopyytat",
+            "trxpytit-se",
+            "zpytovat",
+            "pykat",
+            "pyyr",
+            "pyyrxit-se",
+            "cxepyyrxit-se",
+            "syn",
+            "sytyy",
+            "syyr",
+            "syrovyy",
+            "sychravyy",
+            "usychat",
+            "syykora",
+            "syycxek",
+            "sysel",
+            "sycxet",
+            "sypat",
+            "vy",
+            "vysokyy",
+            "vyyt",
+            "vyyskat",
+            "zvykat",
+            "zxvyykat",
+            "vydra",
+            "vyyr",
+            "vyzxle",
+            "povyk",
+            "vyyhenx",
+            "brzy",
+            "jazyk",
+            "nazyyvat",
+            "ruzynex",
+            "dobyyt",
+            "dvojjazycxnyy",
+            "lyytkovyy",
+            "naavyk",
+            "nedoslyychavyy",
+            "prxepych",
+            "prxepychovyy",
+            "prxezxvyykavec",
+            "pytlaak",
+            "slysxitelnyy",
+            "syyraarna",
+            "uumysl",
+            "vymyytit"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kraken.review-spelling",
+      "titleKey": "skill.kraken.review-spelling",
+      "strand": "prefixes",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "dobyyt",
+            "dvojjazycxnyy",
+            "lyytkovyy",
+            "naavyk",
+            "nedoslyychavyy",
+            "prxepych",
+            "prxepychovyy",
+            "prxezxvyykavec",
+            "pytlaak",
+            "slysxitelnyy",
+            "syyraarna",
+            "uumysl",
+            "vymyytit",
+            "odpovexdx",
+            "podpis",
+            "nadpis",
+            "rozkaz",
+            "bezpecxii",
+            "objet",
+            "objednat",
+            "objem",
+            "objevit",
+            "vjezd",
+            "pomnexnka",
+            "jemnex"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["vyjm", "predpona-souhlaska", "bje-vje", "mne"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kraken.review-sentences",
+      "titleKey": "skill.kraken.review-sentences",
+      "strand": "sentences",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "prefix.01",
+            "prefix.02",
+            "prefix.03",
+            "prefix.04",
+            "prefix.05",
+            "prefix.06",
+            "prefix.07",
+            "prefix.08",
+            "prefix.09",
+            "prefix.10",
+            "prefix.11",
+            "e-caron.37",
+            "e-caron.38",
+            "e-caron.39",
+            "e-caron.40",
+            "e-caron.41",
+            "e-caron.42",
+            "e-caron.43",
+            "e-caron.44",
+            "agree.01",
+            "agree.02",
+            "agree.03",
+            "agree.04",
+            "agree.05",
+            "agree.06",
+            "agree.07",
+            "agree.08",
+            "agree.09",
+            "agree.10",
+            "agree.11",
+            "agree.12",
+            "agree.13",
+            "agree.14",
+            "agree.15",
+            "agree.16",
+            "agree.17",
+            "agree.18",
+            "alike.16",
+            "alike.17",
+            "alike.26"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["predpona-predlozka", "mne-zajmeno", "shoda", "vyjm", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.kraken.review-mistakes",
+      "titleKey": "skill.kraken.review-mistakes",
+      "strand": "sentences",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "prefix.01",
+            "prefix.02",
+            "prefix.03",
+            "prefix.04",
+            "prefix.05",
+            "prefix.06",
+            "prefix.07",
+            "prefix.08",
+            "prefix.09",
+            "prefix.10",
+            "prefix.11",
+            "prefix.12",
+            "prefix.13",
+            "prefix.14",
+            "prefix.15",
+            "prefix.16",
+            "prefix.17",
+            "prefix.18",
+            "prefix.19",
+            "prefix.20",
+            "e-caron.27",
+            "e-caron.28",
+            "e-caron.29",
+            "e-caron.30",
+            "e-caron.31",
+            "e-caron.32",
+            "e-caron.33",
+            "e-caron.34",
+            "e-caron.35",
+            "e-caron.36",
+            "e-caron.37",
+            "e-caron.38",
+            "e-caron.39",
+            "e-caron.40",
+            "e-caron.41",
+            "e-caron.42",
+            "e-caron.43",
+            "e-caron.44",
+            "agree.01",
+            "agree.02",
+            "agree.03",
+            "agree.04",
+            "agree.05",
+            "agree.06",
+            "agree.07",
+            "agree.08",
+            "agree.09",
+            "agree.10",
+            "agree.11",
+            "agree.12",
+            "agree.13",
+            "agree.14",
+            "agree.15",
+            "agree.16",
+            "agree.17",
+            "agree.18"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": [
+          "predpona-predlozka",
+          "predpona-souhlaska",
+          "bje-vje",
+          "be-pe-ve-me",
+          "mne",
+          "mne-zajmeno",
+          "shoda"
+        ]
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "klauni-dvojcata",
+      "nameKey": "friend.klauni-dvojcata",
+      "mnemonicKey": "friend.klauni-dvojcata.mnemonic",
+      "region": "kraken-abyss",
+      "skills": ["sk.kraken.member", "sk.kraken.agreement"],
+      "monster": "krakatice-inkoustova"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "krakatice-inkoustova",
+      "region": "kraken-abyss",
+      "nameKey": "monster.krakatice-inkoustova",
+      "mood": "sulky",
+      "meter": 30,
+      "reviewShare": 0,
+      "jokes": [
+        "monster.krakatice-inkoustova.joke.1",
+        "monster.krakatice-inkoustova.joke.2",
+        "monster.krakatice-inkoustova.joke.3",
+        "monster.krakatice-inkoustova.joke.4"
+      ],
+      "arms": 10,
+      "finale": true
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "cap-captain",
+      "slot": "head",
+      "assetId": "cosmetic/cap-captain",
+      "nameKey": "cosmetic.cap-captain",
+      "price": 590,
+      "unlock": "kraken-abyss.1"
+    },
+    {
+      "id": "glasses-heart",
+      "slot": "eyes",
+      "assetId": "cosmetic/glasses-heart",
+      "nameKey": "cosmetic.glasses-heart",
+      "price": 595,
+      "unlock": "kraken-abyss.3"
+    },
+    {
+      "id": "throne-pearl",
+      "slot": "grotto",
+      "assetId": "cosmetic/throne-pearl",
+      "nameKey": "cosmetic.throne-pearl",
+      "price": 600,
+      "unlock": "kraken-abyss.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "klauni-hatched",
+      "nameKey": "sticker.klauni-hatched",
+      "page": "kraken-abyss",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "klauni-dvojcata",
+        "stage": "baby"
+      },
+      "icon": "sticker/clownfish-twins",
+      "color": "#ab47bc",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ten-arms",
+      "nameKey": "sticker.ten-arms",
+      "page": "kraken-abyss",
+      "criteria": {
+        "kind": "finale"
+      },
+      "icon": "sticker/ten-clean-arms",
+      "color": "#8e24aa",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "first-crown",
+      "nameKey": "sticker.first-crown",
+      "page": "kraken-abyss",
+      "criteria": {
+        "kind": "friends-stage",
+        "stage": "crowned",
+        "count": 1
+      },
+      "icon": "sticker/golden-crown",
+      "color": "#ffd54f",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "all-friends",
+      "nameKey": "sticker.all-friends",
+      "page": "kraken-abyss",
+      "criteria": {
+        "kind": "friends-stage",
+        "stage": "baby",
+        "count": null
+      },
+      "icon": "sticker/all-friends",
+      "color": "#ce93d8",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "gold-hundred",
+      "nameKey": "sticker.gold-hundred",
+      "page": "kraken-abyss",
+      "criteria": {
+        "kind": "items-mastered",
+        "level": "gold",
+        "count": 100
+      },
+      "icon": "sticker/golden-pearls",
+      "color": "#ffca28",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "streak-15",
+      "titleKey": "quest.streak-15",
+      "goal": "best-streak",
+      "target": 15,
+      "coins": 5,
+      "weight": 4,
+      "unlock": "kraken-abyss.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.kraken-abyss-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "kraken-abyss.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.kraken-abyss-welcome",
+          "revision": "1",
+          "start": "kraken-abyss-welcome-1",
+          "catalogs": {
+            "scene": ["scene/kraken-abyss"],
+            "text": [
+              "story.kraken-abyss-welcome.1",
+              "story.kraken-abyss-welcome.2",
+              "story.kraken-abyss-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.klauni-dvojcata"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-klauni-dvojcata",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.klauni-dvojcata"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "kraken-abyss-welcome-1",
+              "scene": "scene/kraken-abyss",
+              "text": "story.kraken-abyss-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-klauni-dvojcata"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "kraken-abyss-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "kraken-abyss-welcome-2",
+              "scene": "scene/kraken-abyss",
+              "text": "story.kraken-abyss-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "kraken-abyss-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "kraken-abyss-welcome-3",
+              "scene": "scene/kraken-abyss",
+              "text": "story.kraken-abyss-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.krakatice-inkoustova",
+        "trigger": {
+          "kind": "level-start",
+          "level": "kraken-abyss.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.krakatice-inkoustova",
+          "revision": "1",
+          "start": "krakatice-inkoustova-1",
+          "catalogs": {
+            "scene": ["scene/kraken-abyss"],
+            "text": [
+              "story.krakatice-inkoustova.1",
+              "story.krakatice-inkoustova.2",
+              "story.krakatice-inkoustova.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "krakatice-inkoustova-1",
+              "scene": "scene/kraken-abyss",
+              "text": "story.krakatice-inkoustova.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "krakatice-inkoustova-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "krakatice-inkoustova-2",
+              "scene": "scene/kraken-abyss",
+              "text": "story.krakatice-inkoustova.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "krakatice-inkoustova-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "krakatice-inkoustova-3",
+              "scene": "scene/kraken-abyss",
+              "text": "story.krakatice-inkoustova.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.finale",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "krakatice-inkoustova"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.finale",
+          "revision": "1",
+          "start": "finale-1",
+          "catalogs": {
+            "scene": ["scene/kraken-abyss"],
+            "text": [
+              "story.finale.1",
+              "story.finale.2",
+              "story.finale.3",
+              "story.finale.4",
+              "story.finale.5",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "finale-1",
+              "scene": "scene/kraken-abyss",
+              "text": "story.finale.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "finale-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "finale-2",
+              "scene": "scene/kraken-abyss",
+              "text": "story.finale.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "finale-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "finale-3",
+              "scene": "scene/kraken-abyss",
+              "text": "story.finale.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "finale-4",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "finale-4",
+              "scene": "scene/kraken-abyss",
+              "text": "story.finale.4",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "finale-5",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "finale-5",
+              "scene": "scene/kraken-abyss",
+              "text": "story.finale.5",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.klauni-dvojcata",
+        "grant": {
+          "kind": "egg",
+          "friend": "klauni-dvojcata"
+        }
+      }
+    ]
+  }
+}

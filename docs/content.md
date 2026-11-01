@@ -8,15 +8,15 @@ design in [design.md](design.md) and the word bank in [lexicon.md](lexicon.md).
 
 ## 1. Files and the build
 
-| File                                          | What                                                                                                                                               | Edited         |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `content/pack-src/pack.json`                  | what the regions share: grades, Inkoustíci, the starter cosmetics, quest templates, placement, the prologue and first-egg beats, balance           | by hand        |
-| `content/pack-src/regions/<nn>-<region>.json` | one region each (`01-sunny-lagoon.json`, …): its objectives, region, levels, skills, friends, monster, cosmetics, stickers, quests and story beats | by hand        |
-| `content/lexicon-src/*.json`                  | the verified word bank ([lexicon.md](lexicon.md))                                                                                                  | by hand        |
-| `content/pearl-sea.content.json`              | the pack `{ id, revision, schemaVersion, data }`: the game data with `lexicon` built from the word bank                                            | never: built   |
-| `content/catalogs/cs.content.json`            | every Czech string the pack refers to                                                                                                              | by hand        |
-| `content/catalogs/en.content.json`            | the English twins of its grown-ups' keys (the objective titles)                                                                                    | by hand        |
-| `content/history/<revision>.json`             | every deployed revision, byte for byte                                                                                                             | `content:bump` |
+| File                                          | What                                                                                                                                                              | Edited         |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `content/pack-src/pack.json`                  | what the regions share: grades, Inkoustíci, the starter cosmetics, quest templates, the placement check and its skills, the prologue and first-egg beats, balance | by hand        |
+| `content/pack-src/regions/<nn>-<region>.json` | one region each (`01-sunny-lagoon.json`, …): its objectives, region, levels, skills, friends, monster, cosmetics, stickers, quests and story beats                | by hand        |
+| `content/lexicon-src/*.json`                  | the verified word bank ([lexicon.md](lexicon.md))                                                                                                                 | by hand        |
+| `content/pearl-sea.content.json`              | the pack `{ id, revision, schemaVersion, data }`: the game data with `lexicon` built from the word bank                                                           | never: built   |
+| `content/catalogs/cs.content.json`            | every Czech string the pack refers to                                                                                                                             | by hand        |
+| `content/catalogs/en.content.json`            | the English twins of its grown-ups' keys (the objective titles)                                                                                                   | by hand        |
+| `content/history/<revision>.json`             | every deployed revision, byte for byte                                                                                                                            | `content:bump` |
 
 ```sh
 node scripts/lexicon/check.mjs          # the word bank's linguistic checks (lexicon.md §1)
@@ -41,7 +41,8 @@ sources and checks the authoring rules of §3.
 A save pins the exact pack it was played with (ID, revision and content hash), and `main` deploys,
 so **every content change merged to `main` gets a new revision** (MAJOR.MINOR.PATCH: patch for
 balance or text, minor for new levels or regions; contract §7.6). The vertical slice, Slunná laguna,
-is `1.0.0`; regions 2-6 are `1.1.0`. To change content:
+is `1.0.0`; regions 2-6 are `1.1.0`; regions 7-12, the 4th grade's start and the placement check
+are `1.2.0`. To change content:
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from
@@ -57,8 +58,9 @@ friend, cosmetic, sticker, word or sentence is never renamed or deleted.
 ## 3. Authoring rules
 
 **IDs and keys.** Levels are `<region>.<n>` and `<region>.monster`; skills `sk.<area>.<topic>`,
-where the area is a region's short name (`lagoon`, `reef`, `kelp`, `wreck`, `bay`, `vents`:
-`sk.lagoon.tvrda`, `sk.reef.vyjm-b`); beats `beat.<region>-welcome`, `beat.<monster>`,
+where the area is a region's short name (`lagoon`, `reef`, `kelp`, `wreck`, `bay`, `vents`, `ice`,
+`moon`, `city`, `trench`, `storm`, `kraken`: `sk.lagoon.tvrda`, `sk.reef.vyjm-b`) or `place` for
+the placement check's own skills; beats `beat.<region>-welcome`, `beat.<monster>`,
 `beat.<monster>-freed`. Every
 record names its strings by catalog key: `region.<id>`, `level.<id>`, `skill.<region>.<topic>`,
 `friend.<id>` and `friend.<id>.mnemonic`, `monster.<id>` and `monster.<id>.joke.<n>`,
@@ -71,7 +73,7 @@ and `grammar.<dimension>.<value>` (contract §7.4).
 `.boy`/`.girl` pairs (design §10). Monsters and friends agree in gender with their names (_Muréna
 je umazaná_). In running text a species noun before a name, a role noun and a kind of creature
 are written small, as the capitals lesson teaches (lexicon.md §3.1): _muréna Mumla, obří
-krakatice, lovče perel_; a title or label starts with a capital (_Muréna Mumla_). The species
+krakatice, lovče perel, inkoustíci_; a title or label starts with a capital (_Muréna Mumla_). The species
 keeps its codified spelling even in a name (_muréna_, not _murena_). Story lines are at most 10
 words a sentence and written to be read aloud. Standard Czech only (_děkuji, nejraději, příliš, a
 proto_ rather than _tak_), and a joke or story line never contains a misspelled word. Typography:
@@ -81,10 +83,10 @@ proto_ rather than _tak_), and a joke or story line never contains a misspelled 
 check that:
 
 - every listed word or sentence serves its skill (a word has a point of the skill's rules; an
-  odd-one-out set also names its odd words, which are no items);
+  odd-one-out set also names its odd words and a family board its distractors, which are no items);
 - a listed sentence has no gap of another rule, so every gap the child sees is asked;
-- every skill is practised in some level;
-- every item a sentence skill teaches is in a friend's set, so ink sentences feed friends;
+- every skill is practised in some level or placement step;
+- every item a problem teaches is in a friend's set, except the skills listed in `BASKET` (below);
 - a word whose point the word alone cannot decide (lexicon.md §2.2) has a sentence with a gap on
   it, and its skill's sentences list one (the generator asks such points only in sentences).
 
@@ -95,19 +97,21 @@ chosen for growth, not only for practice:
   that one must be able to credit 30 % of its set, counting for each activity the smaller of its
   places (problems, pearls, fish, cards) and the set's items it reaches. The chosen lagoon egg
   hatches in lesson 1 (design §4.1), so a lagoon friend's set holds about 30-40 items: its own
-  consonant letters and the short words of its topics.
-- At least 45 % of a friend's set must be items that problems (not boards) serve in its region's
-  lessons after lesson 1, so an egg a 4th grader chose warms through Svačinka's first tastes and
-  the placement check (S2).
+  consonant letters and the short words of its topics. Delfín and the Klauni hatch one lesson
+  later than design §3 says (§6).
+- At least 45 % of a lagoon friend's set must be items that problems (not boards) serve in the
+  lagoon's lessons after lesson 1, so an egg a 4th grader chose warms through Svačinka's first
+  tastes and the placement check (S2).
 - Board-only items (`abc:` necklace words, `seg:`, `pair:`, `fam:`) never come up in Svačinka; they
   are reviewed when the daily adventure replays a finished board with due items. A friend holds
   them only on purpose, listed in `BOARD_ITEMS_ON_PURPOSE` in the test: Želva's necklace words,
-  each listed-word friend's rhyme (its letter's listed words in school order) and Jazýček's
-  families (the Z list is short). A board right at the first check credits its items as fast
-  answers, so they can reach gold.
-- Every level feeds the friends design §3 names, but a few problem skills stay out of every
-  friend's set, so the sets stay small enough to hatch: their items wait in Osmiččin košík (design
-  §5.15), which serves them with the friends' due items (§5).
+  each listed-word friend's rhyme (its letter's listed words in school order), Jazýček's families
+  (the Z list is short), Tuleň's plural Pexeso and Kořínek's word shells. A board right at the
+  first check credits its items as fast answers, so they can reach gold.
+- Every level feeds the friends design §3 names, but some problem skills stay out of every friend's
+  set, so the sets stay small enough to hatch: their items wait in Osmiččin košík (design §5.15),
+  which serves them with the friends' due items. The test lists these skills in `BASKET` and fails
+  when another skill leaves an item to nobody (§5, §6).
 - A consonant skill can keep to one friend's letters (`consonants`); one-class skills share an
   activity with the other classes' skills, so the answer varies within a round.
 
@@ -216,7 +220,8 @@ them `meaning-class`.
 **Friends.** Each listed-word friend holds its letter's `rhyme`, `vyjm`, `sentences`, `contrast` and
 `alike` skills; Vydra also the prefix _vy-/vý-_, Jazýček also `family-z`. Hvězdice holds
 `relation-related`, `odd-family`, `relation-synonym-antonym` and `relation-general`; Kalmar the five
-part-of-speech `classify` skills and `odd-pos` (the nets credit the same items).
+part-of-speech `classify` skills and `odd-pos` (the nets credit the same items) and, from 1.2.0,
+`meaning-class` (56 items).
 
 | Friend             | Hatches            | Set | Necklace words   | 30 % | Lessons up to the hatch can credit |
 | ------------------ | ------------------ | --- | ---------------- | ---- | ---------------------------------- |
@@ -228,15 +233,15 @@ part-of-speech `classify` skills and `odd-pos` (the nets credit the same items).
 | Vydra Výskalka     | `pirate-wreck.3`   | 50  | 11               | 15   | 20                                 |
 | Jazyk Jazýček      | `pirate-wreck.5`   | 23  | 4 (and 6 `fam:`) | 7    | 15                                 |
 | Hvězdice Rodinka   | `pearl-bay.2`      | 39  | 0                | 12   | 16                                 |
-| Kalmar Desetiruký  | `volcanic-vents.1` | 40  | 0                | 12   | 26                                 |
+| Kalmar Desetiruký  | `volcanic-vents.1` | 56  | 0                | 17   | 26                                 |
 
 A region's first friend's egg is claimed in its welcome beat; a later egg is the reward of the
 lesson before the friend's topic, and every egg is also a reward of its hatching lesson and of the
 monster level. The problems that stay out of every set and wait in Osmiččin košík (§3) are the
 odd-one-out sets `sk.reef.odd-listed`, `sk.kelp.odd-listed` and `sk.bay.odd-listed-all`, the
 relations `sk.reef.relation-alike`, `sk.bay.relation-alike` and `sk.bay.relation-coordinate`, and
-`sk.vents.inflection` and `sk.vents.meaning-class`. With them, Kalmar's set would be 96 items, and
-his first lesson can credit 26 of the 29 he would need.
+`sk.vents.inflection`. With it, Kalmar's set would be 96 items, and his first lesson can credit 26
+of the 29 he would need.
 
 **Monsters, story and economy.** Žralok Žrout and Mořský had Zamotal have meter 15 and cap 20; Ďas
 Lucerník, Zéva Lakomá and Lávový úhoř Žhavák meter 18 and cap 23; all with 20 % review. Each region
@@ -245,3 +250,113 @@ has a welcome beat, its monster's beat and a freed beat (three lines each); four
 (_correct-30_ and _splash-3_ on the reef, then _snack-10, minigame-2, fast-20, streak-12_); and three
 cosmetics: 375-475 coins on the reef and in the kelp forest, 475-575 further on, the last a grotto
 piece that the monster level gives.
+
+## 6. Regions 7-12, content 1.2.0
+
+Ledové moře closes the 3rd grade (design §3.7); Měsíční jeskyně, Potopené město, Temný příkop,
+Bouřlivé moře and Krakatičí propast are the 4th grade's deep (§3.8-3.12, map `deep`). The pack's
+`grades` start a 4th grader in Měsíční jeskyně after the placement check. Every level has design
+§3's activities, counts and objectives, with the exceptions named below.
+
+**Ledové moře.** Tuleň Pádík's lessons ask gender in word context, the number of forms (_delfín,
+vlna_), and the cases in sentences (1-4 first, then all seven) and of forms. Delfín Skokánek's ask
+person, number and tense where the sentence decides, and the infinitive against the finite forms
+of _plavat_ and _skákat_. Lesson 5 classifies the kinds of sentences and simple against compound
+sentences, and its ink sentences ask the end mark and the conjunction (lexicon.md §4.1). Lesson 6
+reviews the hard and soft consonants, all the listed words, the parts of speech, gender, cases and
+tense. Mořská saň Ledana has six icicles (`arms: 6`, `gradeFinale: 3`, meter 18, cap 24, no
+review), one skill per strand in order: letters, listed words, parts of speech, nouns, verbs,
+sentences. Her freed beat ends the 3rd grade.
+
+**Měsíční jeskyně.** Four families whose words the school cuts the same way (_ryba, voda, moře,
+hvězda_), with look-alikes (_rybíz, vodítko_) beside them on the family boards. Word shells ask the
+root, the prefix, the suffix, the ending, then all four; Krmení names a highlighted part, and only
+of words without an empty ending, since an empty part cannot be shown. `beat.the-deep` starts
+lesson 1, and the welcome beat after it gives Kořínek's egg.
+
+**Potopené město.** Prefix or preposition in ink sentences and Lov chyb. Krmení cannot ask a
+sentence gap, so lesson 1's asks the odd part of speech among prepositions and prefixed verbs
+(_od, pod, nad, odplavat_). Then the prefixes _od-, nad-, pod-, před-, roz-, bez-_ (words,
+sentences, and shells of _podpis, nadpis, rozkaz, bezpečí_), _bje, vje_ (the shells of _objem,
+objev, vjezd_ show the root's _j_), _mně_ in words and the pronoun _mě/mně_.
+
+**Temný příkop.** Each gender's lesson classifies three nouns of each pattern and sorts and pairs
+four, never the pattern word itself, which would answer its own question. A pattern Pexeso deals
+each pattern once, so a board has as many pairs as patterns (at least three): lesson 4's Pexeso
+pairs all six masculine patterns, _pán_ against _hrad_. Lesson 5 asks the endings
+by pattern (`vzor`) and the cases of pattern forms, lesson 6 all 14 patterns and gender with
+animacy. Chobotnice Napodobnice has meter 20 and cap 25.
+
+**Bouřlivé moře.** The tense of perfective verbs and listed futures (_skočí, půjdu_), person in
+sentences, simple and compound forms, mood of forms and in sentences, reflexive verbs, and standard
+and colloquial words (register skills name `words.registers`). The reflexive questions keep to
+verbs that never go without their pronoun (_bát se, všimnout si_) or never take one (_plavat_;
+curriculum §7.3). No new friend: Delfín's set adds the reflexive verbs, and freeing Vír Časoplet
+lets him grow up.
+
+**Krakatičí propast.** Subject and predicate, also with an unexpressed subject (_Plaveme spolu k
+majáku._); agreement (`shoda`) and the gender of subjects; simple and compound sentences; then the
+great reviews of spelling and grammar. The spelling review adds 13 grade-4 related words to the
+listed words, the prefixes, _bje, vje, mně_, agreement and _dobýt × dobít_. The Krakatice has ten
+arms, one skill per strand in order (`arms: 10`, `finale`, meter 30, no review). Her cap is 30, the
+contract's limit for an activity (design §7.1 says 40); the rules never end a battle before meter
+
+- 5. `beat.finale` takes the place of her freed beat.
+
+**Placement.** Eight steps of three problems for the 4th grade (design §9.2), each passed at 66 %
+(two of three, as the rules round down). In order:
+
+1. vowels, _ú/ů_ and paired consonants (lagoon 2, 5);
+2. hard and soft consonants, _ě_ and capitals (lagoon 3, 4, 6);
+3. the listed words after B and L;
+4. the listed words after M and P;
+5. the listed words after S, V and Z (steps 3-5 place their region's lessons 2 onwards);
+6. the sound-alikes (Perlová zátoka 2-5);
+7. the parts of speech (Sopečné prameny 2-5);
+8. the cases (Ledové moře 2-6).
+
+A step never places a region's lesson 1 or a monster level. Its skill is one of `sk.place.*` (in
+`pack.json`) or a region's own.
+
+**Friends.**
+
+| Friend                 | Hatches          | Set | 30 % | Lessons up to the hatch can credit | Holds                                                                                 |
+| ---------------------- | ---------------- | --- | ---- | ---------------------------------- | ------------------------------------------------------------------------------------- |
+| Tuleň Pádík            | `ice-sea.1`      | 102 | 31   | 36                                 | gender, number, the cases in sentences and forms (also Temný příkop 5), plural Pexeso |
+| Delfín Skokánek        | `ice-sea.4`      | 58  | 18   | 22                                 | person, tense, the infinitive, the reflexive verbs                                    |
+| Rak poustevník Kořínek | `moon-caves.1`   | 50  | 15   | 20                                 | family boards and odd ones out, root shells, prefix or root                           |
+| Štítovec Přísavka      | `sunken-city.1`  | 50  | 15   | 20                                 | prefix or preposition, the odd part of speech, the prefixes' consonants, bje/vje, mně |
+| Klipka Vzorná          | `dark-trench.1`  | 57  | 18   | 22                                 | the patterns, the endings by pattern                                                  |
+| Klauni Dvojčata        | `kraken-abyss.2` | 46  | 14   | 23                                 | subject and predicate, agreement                                                      |
+
+Delfín's and the Klauni's sets hold lessons after the design's hatching lesson (`ice-sea.3`,
+`kraken-abyss.1`), which alone cannot credit 30 % of them, so they hatch one lesson later.
+
+The basket (`BASKET`, §3) holds:
+
+- the number of verbs and tense forms;
+- the 3rd grade's sentence kinds, clauses, end marks and conjunctions (the Klauni's in design §3.7;
+  their set would not hatch with them);
+- naming a word's parts after the prefix;
+- the pronoun _mě/mně_;
+- Bouřlivé moře's verb forms, moods and standard Czech (design §3.11: _košík_);
+- Krakatičí propast's genders of subjects, clauses and reviews.
+
+**Story and economy.** Each region has a welcome, a monster and a freed beat. Ledana's freed beat
+ends the 3rd grade, `beat.the-deep` opens the deep, and `beat.finale` ends the game. There are four
+or five stickers a region (_Sedm pádů, Ledana roztála, 3. třída hotová, Čtrnáct vzorů, Skokánek
+dospěl, Deset umytých ramen, První korunka_), one quest template each (_level-2, correct-40,
+snack-15, minigame-3, fast-30, streak-15_), and cosmetics at 475-575 coins in Ledové moře and
+590-600 in the deep (design §8.2).
+
+**Stickers across the album.** 1.2.0 brings the album to 60 stickers (design §8.3). Besides each
+region's own, there are long-run stickers on the pages with fewer:
+
+- the race's bests (design §5.14): _Deset za minutu_ on the reef's page, next to where the race
+  opens, and _Dvacet za minutu_ in Temný příkop;
+- _Deset kamarádů_ in Perlová zátoka;
+- _Pět set mincí_, _Dvacet dní pod hladinou_ and _Dvacet inkoustíků_;
+- _Sto zlatých perel_ on the last page.
+
+_3. třída hotová_ is the Ledana battle completed. She is freed at the same moment, so the 3rd
+grade's end earns two stickers.

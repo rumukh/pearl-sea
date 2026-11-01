@@ -77,9 +77,10 @@
       "animate": false,
       "pattern": "hrad",
       "prefix": "pod",
+      "segments": { "prefix": "pod", "root": "pis", "suffix": "", "ending": "" },
       "spell": "po{d|t}pis",
       "rules": ["predpona-souhlaska"],
-      "src": ["pcp-1993", "morfflex"]
+      "src": ["pcp-1993", "morfflex", "derinet"]
     },
     {
       "id": "prxedpovexdx",
@@ -99,9 +100,10 @@
       "animate": false,
       "pattern": "hrad",
       "prefix": "nad",
+      "segments": { "prefix": "nad", "root": "pis", "suffix": "", "ending": "" },
       "spell": "na{d|t}pis",
       "rules": ["predpona-souhlaska"],
-      "src": ["pcp-1993", "morfflex"]
+      "src": ["pcp-1993", "morfflex", "derinet"]
     },
     {
       "id": "rozpustit",
@@ -122,9 +124,10 @@
       "numbers": "sg",
       "pattern": "staveni",
       "prefix": "bez",
+      "segments": { "prefix": "bez", "root": "peč", "suffix": "", "ending": "í" },
       "spell": "be{z|s}pečí",
       "rules": ["predpona-souhlaska"],
-      "src": ["pcp-1993", "morfflex"]
+      "src": ["pcp-1993", "morfflex", "derinet"]
     },
     {
       "id": "odpocxinek",
@@ -147,9 +150,10 @@
       "animate": false,
       "pattern": "hrad",
       "prefix": "roz",
+      "segments": { "prefix": "roz", "root": "kaz", "suffix": "", "ending": "" },
       "spell": "ro{z|s}kaz",
       "rules": ["predpona-souhlaska"],
-      "src": ["pcp-1993", "morfflex"]
+      "src": ["pcp-1993", "morfflex", "derinet"]
     },
     {
       "id": "odplout",

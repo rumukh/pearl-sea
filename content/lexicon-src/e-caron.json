@@ -274,9 +274,11 @@
       "gender": "m",
       "animate": false,
       "pattern": "hrad",
+      "prefix": "ob",
+      "segments": { "prefix": "ob", "root": "jev", "suffix": "", "ending": "" },
       "spell": "ob{je|ě}v",
       "rules": ["bje-vje"],
-      "src": ["ijp-126", "morfflex"]
+      "src": ["ijp-126", "morfflex", "derinet"]
     },
     {
       "id": "objevit",
@@ -297,9 +299,11 @@
       "gender": "m",
       "animate": false,
       "pattern": "hrad",
+      "prefix": "ob",
+      "segments": { "prefix": "ob", "root": "jem", "suffix": "", "ending": "" },
       "spell": "ob{je|ě}m",
       "rules": ["bje-vje"],
-      "src": ["ijp-126", "morfflex"]
+      "src": ["ijp-126", "morfflex", "derinet"]
     },
     {
       "id": "objet",
@@ -342,9 +346,11 @@
       "gender": "m",
       "animate": false,
       "pattern": "hrad",
+      "prefix": "v",
+      "segments": { "prefix": "v", "root": "jezd", "suffix": "", "ending": "" },
       "spell": "v{je|ě}zd",
       "rules": ["bje-vje"],
-      "src": ["ijp-126", "morfflex"]
+      "src": ["ijp-126", "morfflex", "derinet"]
     },
     {
       "id": "zapomenout",

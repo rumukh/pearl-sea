@@ -735,7 +735,8 @@
         "sk.vents.pos-adj-adv",
         "sk.vents.pos-pron-num",
         "sk.vents.pos-small",
-        "sk.vents.odd-pos"
+        "sk.vents.odd-pos",
+        "sk.vents.meaning-class"
       ],
       "monster": "uhor-zhavak"
     }

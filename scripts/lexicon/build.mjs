@@ -310,6 +310,7 @@ function convertSentence(s, topic, fileGrade, points, words) {
   const gapRecords = gaps.map((gap, i) => {
     const meta = s.gaps[i];
     const index = tokenAt(gap.start);
+    if (meta.rule === 'spojka' && index >= 0) conjunctions.push(index);
     /** @type {Record<string, unknown>} */
     const record = { rule: meta.rule, word: meta.word ?? null };
     const point = points[i];
@@ -351,19 +352,23 @@ function convertSentence(s, topic, fileGrade, points, words) {
     gaps: gapRecords,
     tokens,
   };
-  const kind = plain.endsWith('?')
-    ? 'question'
-    : moods.includes('imperative')
-      ? 'command'
-      : moods.length && moods.every((mood) => mood === 'indicative') && plain.endsWith('.')
-        ? 'statement'
-        : undefined;
+  // The kind the word bank gives (a wish needs it), else the one the end mark and moods show.
+  const kind =
+    s.kind ??
+    (plain.endsWith('?')
+      ? 'question'
+      : moods.includes('imperative')
+        ? 'command'
+        : moods.length && moods.every((mood) => mood === 'indicative') && plain.endsWith('.')
+          ? 'statement'
+          : undefined);
   if (kind) out.kind = kind;
   if (subjects.length) out.subjects = subjects;
   if (predicates.length) out.predicates = predicates;
   if (s.clauses !== undefined) {
     out.clauses = s.clauses;
-    if (s.clauses > 1 && conjunctions.length) out.conjunctions = conjunctions;
+    if (s.clauses > 1 && conjunctions.length)
+      out.conjunctions = [...new Set(conjunctions)].sort((a, b) => a - b);
   }
   return out;
 }

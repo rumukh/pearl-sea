@@ -64,7 +64,27 @@ const SENTENCE_ONLY_RULES = new Set([
   'vzor',
   'predpona-predlozka',
   'spisovne',
+  'interpunkce',
+  'spojka',
 ]);
+/** The kinds of sentences and the end marks each may have (curriculum §9.5). */
+const SENTENCE_KIND_ENDS = {
+  statement: ['.'],
+  question: ['?'],
+  command: ['!', '.'],
+  wish: ['!', '.'],
+};
+/**
+ * An end-mark gap asks only a sentence whose kind its words show, against the one wrong mark
+ * (curriculum §7.1): a statement may also be read as a question, and a command or a wish may
+ * also end with a full stop.
+ */
+const END_MARK_GAPS = { question: ['?', '.'], command: ['!', '?'], wish: ['!', '?'] };
+const QUESTION_WORDS = new Set(
+  'kdo co kde kdy kam odkud proč jak kolik který která které čí jaký jaká jaké'.split(' '),
+);
+/** Conjunctions that always take a comma between clauses (curriculum §7.1), unlike a and nebo. */
+const COMMA_CONJUNCTIONS = new Set(['ale', 'protože', 'když', 'že', 'aby', 'kdyby', 'než']);
 const PREFIXES_WITH_VOICED_END = ['od', 'nad', 'pod', 'před', 'roz', 'bez'];
 const VERB_FORM_KEYS = ['inf', 'pres', 'imp', 'past', 'fut'];
 /** Imperfective verbs whose future is not budu + infinitive: their paradigm lists `fut`. */
@@ -776,6 +796,8 @@ export function checkLexicon(options = {}) {
       case 'vzor':
       case 'predpona-predlozka':
       case 'spisovne':
+      case 'interpunkce':
+      case 'spojka':
         break;
       default:
         fail(where, `rule "${rule}" has no check`);
@@ -1131,7 +1153,11 @@ export function checkLexicon(options = {}) {
       if (sentenceIds.has(s.id)) fail(where, 'duplicate sentence ID');
       sentenceIds.add(s.id);
       for (const key of Object.keys(s)) {
-        if (!['id', 'text', 'grade', 'topics', 'gaps', 'marks', 'clauses', 'note'].includes(key))
+        if (
+          !['id', 'text', 'grade', 'topics', 'gaps', 'marks', 'clauses', 'kind', 'note'].includes(
+            key,
+          )
+        )
           fail(where, `unknown field "${key}"`);
       }
       let parsed;
@@ -1147,6 +1173,19 @@ export function checkLexicon(options = {}) {
       if (!(isUpper(plain[0]) || plain[0] === '„' || /\d/.test(plain.charAt(0))))
         fail(where, 'starts with a capital letter');
       if (!/[.!?]“?$/.test(plain)) fail(where, 'ends with . ! or ?');
+      if (s.kind !== undefined) {
+        const ends = SENTENCE_KIND_ENDS[/** @type {keyof typeof SENTENCE_KIND_ENDS} */ (s.kind)];
+        if (!ends) fail(where, `unknown kind "${s.kind}"`);
+        else if (!ends.includes(plain.replace(/“$/, '').slice(-1)))
+          fail(where, `a ${s.kind} ends with ${ends.join(' or ')}`);
+        if (s.kind === 'wish' && !/^(Kéž|Ať) /u.test(plain))
+          fail(where, 'a wish starts with Kéž or Ať');
+        if (
+          s.kind === 'command' &&
+          !(s.marks ?? []).some((/** @type {any} */ mk) => mk.mood === 'imperative')
+        )
+          fail(where, 'a command marks its imperative predicate');
+      }
       const toks = tokens(plain);
       if (toks.length > 10) fail(where, `has ${toks.length} words (at most 10)`);
       const meta = s.gaps ?? [];
@@ -1165,6 +1204,47 @@ export function checkLexicon(options = {}) {
         if (!RULES.has(m.rule)) return fail(gw, `unknown rule "${m.rule}"`);
         const word = m.word !== undefined ? words.get(m.word) : undefined;
         if (m.word !== undefined && !word) return fail(gw, `"${m.word}" is not a word`);
+        if (m.rule === 'interpunkce') {
+          if (m.word !== undefined) return fail(gw, 'an end-mark gap names no word');
+          const rest = plain.slice(gap.end);
+          if (rest !== '' && rest !== '“') return fail(gw, 'an end-mark gap is the last mark');
+          const want = END_MARK_GAPS[/** @type {keyof typeof END_MARK_GAPS} */ (s.kind)];
+          if (!want)
+            return fail(gw, 'an end mark is asked only in a question, a command or a wish');
+          if (gap.correct !== want[0] || gap.alts.some((a) => a !== want[1]))
+            return fail(gw, `a ${s.kind} ends with ${want[0]}, against ${want[1]}`);
+          if (
+            s.kind === 'question' &&
+            !toks.slice(0, 2).some((t) => QUESTION_WORDS.has(t.text.toLowerCase()))
+          )
+            return fail(gw, 'a question whose end mark is asked starts with a question word');
+          return;
+        }
+        if (m.rule === 'spojka') {
+          const tok = findToken(gap.start);
+          if (!tok || tok.start !== gap.start || tok.end !== gap.end)
+            return fail(gw, 'a conjunction gap is a whole word');
+          if (!word || word.pos !== 'conj' || word.lemma !== gap.correct.toLowerCase())
+            return fail(gw, 'a conjunction gap names its conjunction');
+          if (!(s.clauses >= 2))
+            fail(gw, 'a conjunction gap joins the clauses of a compound sentence');
+          const comma = (/** @type {string} */ c) => COMMA_CONJUNCTIONS.has(c.toLowerCase());
+          for (const a of gap.alts) {
+            if (![...words.values()].some((w) => w.pos === 'conj' && w.lemma === a.toLowerCase()))
+              fail(gw, `"${a}" is not a conjunction of the word bank`);
+            if (comma(a) !== comma(gap.correct))
+              fail(gw, `"${a}" takes the comma differently, which would give the answer away`);
+          }
+          if (
+            tok.start > 0 &&
+            comma(gap.correct) !== plain.slice(0, tok.start).trimEnd().endsWith(',')
+          )
+            fail(
+              gw,
+              `${comma(gap.correct) ? 'a comma goes' : 'no comma goes'} before "${gap.correct}"`,
+            );
+          return;
+        }
         if (m.rule === 'predpona-predlozka') {
           const apart = gap.correct.includes(' ');
           const ok = gap.alts.every(

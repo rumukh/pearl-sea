@@ -1,0 +1,1028 @@
+{
+  "objectives": [
+    {
+      "id": "obj.prefixes.vs-prepositions",
+      "strand": "prefixes",
+      "grade": 4,
+      "titleKey": "grownups.objective.prefixes.vs-prepositions",
+      "rvp": ["ČJL-5-2-02", "ČJL-5-2-09"]
+    },
+    {
+      "id": "obj.prefixes.consonants",
+      "strand": "prefixes",
+      "grade": 4,
+      "titleKey": "grownups.objective.prefixes.consonants",
+      "rvp": ["ČJL-5-2-02"]
+    },
+    {
+      "id": "obj.prefixes.bje-vje",
+      "strand": "prefixes",
+      "grade": 4,
+      "titleKey": "grownups.objective.prefixes.bje-vje",
+      "rvp": ["ČJL-5-2-02"]
+    },
+    {
+      "id": "obj.prefixes.pe-me-mne",
+      "strand": "prefixes",
+      "grade": 4,
+      "titleKey": "grownups.objective.prefixes.pe-me-mne",
+      "rvp": ["ČJL-5-2-02"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "sunken-city",
+      "order": 9,
+      "titleKey": "region.sunken-city",
+      "unlock": {
+        "after": ["moon-caves.monster"]
+      },
+      "monster": "meduza-lepka",
+      "map": "deep",
+      "grade": 4
+    }
+  ],
+  "levels": [
+    {
+      "id": "sunken-city.1",
+      "region": "sunken-city",
+      "order": 1,
+      "titleKey": "level.sunken-city.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.city.together-apart"],
+          "count": 6,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.city.together-apart-mistakes"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.city.prep-or-verb"],
+          "count": 8,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["stitovec-prisavka"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.sunken-city-welcome",
+      "objectives": ["obj.prefixes.vs-prepositions"]
+    },
+    {
+      "id": "sunken-city.2",
+      "region": "sunken-city",
+      "order": 2,
+      "titleKey": "level.sunken-city.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunken-city.1"]
+      },
+      "activities": [
+        {
+          "kind": "word-shell",
+          "skills": ["sk.city.shell-prefix"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.city.prefix-consonant"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.city.prefix-consonant-sentences"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.prefixes.consonants"]
+    },
+    {
+      "id": "sunken-city.3",
+      "region": "sunken-city",
+      "order": 3,
+      "titleKey": "level.sunken-city.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunken-city.2"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.city.bje-vje", "sk.lagoon.bpvm"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "word-shell",
+          "skills": ["sk.city.shell-bje"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.city.bje-vje-sentences"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.prefixes.bje-vje"]
+    },
+    {
+      "id": "sunken-city.4",
+      "region": "sunken-city",
+      "order": 4,
+      "titleKey": "level.sunken-city.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunken-city.3"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.city.mne", "sk.lagoon.bpvm"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.city.mne-sentences"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.city.mne-mistakes"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.prefixes.pe-me-mne"]
+    },
+    {
+      "id": "sunken-city.5",
+      "region": "sunken-city",
+      "order": 5,
+      "titleKey": "level.sunken-city.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["sunken-city.4"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": [
+            "sk.city.prefix-consonant",
+            "sk.city.bje-vje",
+            "sk.city.mne",
+            "sk.city.prep-or-verb"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.city.mistakes-all"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "word-shell",
+          "skills": ["sk.city.shell-prefix", "sk.city.shell-bje"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": [
+        "obj.prefixes.vs-prepositions",
+        "obj.prefixes.consonants",
+        "obj.prefixes.bje-vje",
+        "obj.prefixes.pe-me-mne"
+      ]
+    },
+    {
+      "id": "sunken-city.monster",
+      "region": "sunken-city",
+      "order": 6,
+      "titleKey": "level.sunken-city.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["sunken-city.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.city.prep-or-verb",
+            "sk.city.prefix-consonant",
+            "sk.city.bje-vje",
+            "sk.city.mne",
+            "sk.city.together-apart",
+            "sk.city.prefix-consonant-sentences",
+            "sk.city.bje-vje-sentences",
+            "sk.city.mne-sentences",
+            "sk.city.mistakes-all"
+          ],
+          "count": 23,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["stitovec-prisavka"],
+        "cosmetics": ["statue-city"]
+      },
+      "monster": "meduza-lepka",
+      "storyBeat": "beat.meduza-lepka",
+      "objectives": [
+        "obj.prefixes.vs-prepositions",
+        "obj.prefixes.consonants",
+        "obj.prefixes.bje-vje",
+        "obj.prefixes.pe-me-mne"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.city.together-apart",
+      "titleKey": "skill.city.together-apart",
+      "strand": "prefixes",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "prefix.01",
+            "prefix.02",
+            "prefix.03",
+            "prefix.04",
+            "prefix.05",
+            "prefix.06",
+            "prefix.07",
+            "prefix.08",
+            "prefix.09",
+            "prefix.10",
+            "prefix.11"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["predpona-predlozka"]
+      }
+    },
+    {
+      "id": "sk.city.together-apart-mistakes",
+      "titleKey": "skill.city.together-apart-mistakes",
+      "strand": "prefixes",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "prefix.01",
+            "prefix.02",
+            "prefix.03",
+            "prefix.04",
+            "prefix.05",
+            "prefix.06",
+            "prefix.07",
+            "prefix.08",
+            "prefix.09",
+            "prefix.10",
+            "prefix.11"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["predpona-predlozka"]
+      }
+    },
+    {
+      "id": "sk.city.prep-or-verb",
+      "titleKey": "skill.city.prep-or-verb",
+      "strand": "prefixes",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "pos",
+        "words": {
+          "words": [
+            "od",
+            "do",
+            "nad",
+            "pod",
+            "prxed",
+            "z",
+            "na",
+            "k",
+            "odplavat",
+            "doplavat",
+            "podplout",
+            "nadskocxit",
+            "prxedbexhnout",
+            "nastoupit",
+            "prxiplavat",
+            "odplout"
+          ],
+          "grades": [3, 4]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.city.prefix-consonant",
+      "titleKey": "skill.city.prefix-consonant",
+      "strand": "prefixes",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "odpovexdx",
+            "podpis",
+            "nadpis",
+            "prxedpovexdx",
+            "rozpustit",
+            "bezpecxii",
+            "odpocxinek",
+            "rozkaz",
+            "odplout"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["predpona-souhlaska"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.city.prefix-consonant-sentences",
+      "titleKey": "skill.city.prefix-consonant-sentences",
+      "strand": "prefixes",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "prefix.12",
+            "prefix.13",
+            "prefix.14",
+            "prefix.15",
+            "prefix.16",
+            "prefix.17",
+            "prefix.18",
+            "prefix.19",
+            "prefix.20"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["predpona-souhlaska"]
+      }
+    },
+    {
+      "id": "sk.city.shell-prefix",
+      "titleKey": "skill.city.shell-prefix",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": ["podpis", "nadpis", "rozkaz", "bezpecxii", "podvodnii", "podmorxskyy"],
+          "grades": [3, 4]
+        },
+        "roles": ["prefix"]
+      }
+    },
+    {
+      "id": "sk.city.shell-bje",
+      "titleKey": "skill.city.shell-bje",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": ["objem", "objev", "vjezd"],
+          "grades": [3, 4]
+        },
+        "roles": ["prefix", "root"]
+      }
+    },
+    {
+      "id": "sk.city.bje-vje",
+      "titleKey": "skill.city.bje-vje",
+      "strand": "prefixes",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["objet", "objednat", "objem", "objev", "objevit", "vjet", "vjezd"],
+          "grades": [3, 4]
+        },
+        "rules": ["bje-vje"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.city.bje-vje-sentences",
+      "titleKey": "skill.city.bje-vje-sentences",
+      "strand": "prefixes",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "e-caron.27",
+            "e-caron.28",
+            "e-caron.29",
+            "e-caron.30",
+            "e-caron.31",
+            "e-caron.32"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["bje-vje", "be-pe-ve-me"]
+      }
+    },
+    {
+      "id": "sk.city.mne",
+      "titleKey": "skill.city.mne",
+      "strand": "prefixes",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["pomnexnka", "jemnex"],
+          "grades": [3, 4]
+        },
+        "rules": ["mne"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.city.mne-sentences",
+      "titleKey": "skill.city.mne-sentences",
+      "strand": "prefixes",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "e-caron.33",
+            "e-caron.34",
+            "e-caron.35",
+            "e-caron.36",
+            "e-caron.37",
+            "e-caron.38",
+            "e-caron.39",
+            "e-caron.40",
+            "e-caron.41",
+            "e-caron.42",
+            "e-caron.43",
+            "e-caron.44"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["mne", "mne-zajmeno"]
+      }
+    },
+    {
+      "id": "sk.city.mne-mistakes",
+      "titleKey": "skill.city.mne-mistakes",
+      "strand": "prefixes",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "e-caron.33",
+            "e-caron.34",
+            "e-caron.35",
+            "e-caron.36",
+            "e-caron.37",
+            "e-caron.38",
+            "e-caron.39",
+            "e-caron.40",
+            "e-caron.41",
+            "e-caron.42",
+            "e-caron.43",
+            "e-caron.44"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["mne", "mne-zajmeno"]
+      }
+    },
+    {
+      "id": "sk.city.mistakes-all",
+      "titleKey": "skill.city.mistakes-all",
+      "strand": "prefixes",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "prefix.01",
+            "prefix.02",
+            "prefix.03",
+            "prefix.04",
+            "prefix.05",
+            "prefix.06",
+            "prefix.07",
+            "prefix.08",
+            "prefix.09",
+            "prefix.10",
+            "prefix.11",
+            "prefix.12",
+            "prefix.13",
+            "prefix.14",
+            "prefix.15",
+            "prefix.16",
+            "prefix.17",
+            "prefix.18",
+            "prefix.19",
+            "prefix.20",
+            "e-caron.27",
+            "e-caron.28",
+            "e-caron.29",
+            "e-caron.30",
+            "e-caron.31",
+            "e-caron.32",
+            "e-caron.33",
+            "e-caron.34",
+            "e-caron.35",
+            "e-caron.36",
+            "e-caron.37",
+            "e-caron.38",
+            "e-caron.39",
+            "e-caron.40",
+            "e-caron.41",
+            "e-caron.42",
+            "e-caron.43",
+            "e-caron.44"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": [
+          "predpona-predlozka",
+          "predpona-souhlaska",
+          "bje-vje",
+          "be-pe-ve-me",
+          "mne",
+          "mne-zajmeno"
+        ]
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "stitovec-prisavka",
+      "nameKey": "friend.stitovec-prisavka",
+      "mnemonicKey": "friend.stitovec-prisavka.mnemonic",
+      "region": "sunken-city",
+      "skills": [
+        "sk.city.together-apart",
+        "sk.city.prep-or-verb",
+        "sk.city.prefix-consonant",
+        "sk.city.bje-vje",
+        "sk.city.mne"
+      ],
+      "monster": "meduza-lepka"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "meduza-lepka",
+      "region": "sunken-city",
+      "nameKey": "monster.meduza-lepka",
+      "mood": "laughing",
+      "meter": 18,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.meduza-lepka.joke.1",
+        "monster.meduza-lepka.joke.2",
+        "monster.meduza-lepka.joke.3",
+        "monster.meduza-lepka.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "helmet-diver",
+      "slot": "head",
+      "assetId": "cosmetic/helmet-diver",
+      "nameKey": "cosmetic.helmet-diver",
+      "price": 590,
+      "unlock": "sunken-city.1"
+    },
+    {
+      "id": "monocle-gold",
+      "slot": "eyes",
+      "assetId": "cosmetic/monocle-gold",
+      "nameKey": "cosmetic.monocle-gold",
+      "price": 595,
+      "unlock": "sunken-city.3"
+    },
+    {
+      "id": "statue-city",
+      "slot": "grotto",
+      "assetId": "cosmetic/statue-city",
+      "nameKey": "cosmetic.statue-city",
+      "price": 600,
+      "unlock": "sunken-city.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "prisavka-hatched",
+      "nameKey": "sticker.prisavka-hatched",
+      "page": "sunken-city",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "stitovec-prisavka",
+        "stage": "baby"
+      },
+      "icon": "sticker/remora",
+      "color": "#4db6ac",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "jelly-unstuck",
+      "nameKey": "sticker.jelly-unstuck",
+      "page": "sunken-city",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "meduza-lepka"
+      },
+      "icon": "sticker/free-jellyfish",
+      "color": "#80cbc4",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "together-apart",
+      "nameKey": "sticker.together-apart",
+      "page": "sunken-city",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.city.together-apart",
+        "level": "silver",
+        "share": 100
+      },
+      "icon": "sticker/two-words",
+      "color": "#26a69a",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "twenty-days",
+      "nameKey": "sticker.twenty-days",
+      "page": "sunken-city",
+      "criteria": {
+        "kind": "days-practiced",
+        "count": 20
+      },
+      "icon": "sticker/calendar-shell",
+      "color": "#00897b",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "snack-15",
+      "titleKey": "quest.snack-15",
+      "goal": "feed-hungry",
+      "target": 15,
+      "coins": 5,
+      "weight": 6,
+      "unlock": "sunken-city.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.sunken-city-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "sunken-city.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.sunken-city-welcome",
+          "revision": "1",
+          "start": "sunken-city-welcome-1",
+          "catalogs": {
+            "scene": ["scene/sunken-city"],
+            "text": [
+              "story.sunken-city-welcome.1",
+              "story.sunken-city-welcome.2",
+              "story.sunken-city-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.stitovec-prisavka"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-stitovec-prisavka",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.stitovec-prisavka"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "sunken-city-welcome-1",
+              "scene": "scene/sunken-city",
+              "text": "story.sunken-city-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-stitovec-prisavka"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "sunken-city-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "sunken-city-welcome-2",
+              "scene": "scene/sunken-city",
+              "text": "story.sunken-city-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "sunken-city-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "sunken-city-welcome-3",
+              "scene": "scene/sunken-city",
+              "text": "story.sunken-city-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.meduza-lepka",
+        "trigger": {
+          "kind": "level-start",
+          "level": "sunken-city.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.meduza-lepka",
+          "revision": "1",
+          "start": "meduza-lepka-1",
+          "catalogs": {
+            "scene": ["scene/sunken-city"],
+            "text": [
+              "story.meduza-lepka.1",
+              "story.meduza-lepka.2",
+              "story.meduza-lepka.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "meduza-lepka-1",
+              "scene": "scene/sunken-city",
+              "text": "story.meduza-lepka.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "meduza-lepka-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "meduza-lepka-2",
+              "scene": "scene/sunken-city",
+              "text": "story.meduza-lepka.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "meduza-lepka-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "meduza-lepka-3",
+              "scene": "scene/sunken-city",
+              "text": "story.meduza-lepka.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.meduza-lepka-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "meduza-lepka"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.meduza-lepka-freed",
+          "revision": "1",
+          "start": "meduza-lepka-freed-1",
+          "catalogs": {
+            "scene": ["scene/sunken-city"],
+            "text": [
+              "story.meduza-lepka-freed.1",
+              "story.meduza-lepka-freed.2",
+              "story.meduza-lepka-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "meduza-lepka-freed-1",
+              "scene": "scene/sunken-city",
+              "text": "story.meduza-lepka-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "meduza-lepka-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "meduza-lepka-freed-2",
+              "scene": "scene/sunken-city",
+              "text": "story.meduza-lepka-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "meduza-lepka-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "meduza-lepka-freed-3",
+              "scene": "scene/sunken-city",
+              "text": "story.meduza-lepka-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.stitovec-prisavka",
+        "grant": {
+          "kind": "egg",
+          "friend": "stitovec-prisavka"
+        }
+      }
+    ]
+  }
+}

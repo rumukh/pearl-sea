@@ -1,0 +1,1350 @@
+{
+  "objectives": [
+    {
+      "id": "obj.nouns.gender-number",
+      "strand": "nouns",
+      "grade": 3,
+      "titleKey": "grownups.objective.nouns.gender-number",
+      "rvp": ["ČJL-3-2-05"]
+    },
+    {
+      "id": "obj.nouns.cases",
+      "strand": "nouns",
+      "grade": 3,
+      "titleKey": "grownups.objective.nouns.cases",
+      "rvp": ["ČJL-3-2-05"]
+    },
+    {
+      "id": "obj.verbs.person-number-tense",
+      "strand": "verbs",
+      "grade": 3,
+      "titleKey": "grownups.objective.verbs.person-number-tense",
+      "rvp": ["ČJL-3-2-05"]
+    },
+    {
+      "id": "obj.verbs.infinitive",
+      "strand": "verbs",
+      "grade": 3,
+      "titleKey": "grownups.objective.verbs.infinitive",
+      "rvp": ["ČJL-3-2-05"]
+    },
+    {
+      "id": "obj.sentences.kinds",
+      "strand": "sentences",
+      "grade": 3,
+      "titleKey": "grownups.objective.sentences.kinds",
+      "rvp": ["ČJL-3-2-07"]
+    },
+    {
+      "id": "obj.sentences.compound-3",
+      "strand": "sentences",
+      "grade": 3,
+      "titleKey": "grownups.objective.sentences.compound-3",
+      "rvp": ["ČJL-3-2-06"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "ice-sea",
+      "order": 7,
+      "titleKey": "region.ice-sea",
+      "unlock": {
+        "after": ["volcanic-vents.monster"]
+      },
+      "monster": "san-ledana",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "ice-sea.1",
+      "region": "ice-sea",
+      "order": 1,
+      "titleKey": "level.ice-sea.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.ice.nets-gender"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.ice.plural-pairs"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.ice.gender", "sk.ice.number"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["tulen-padik"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.ice-sea-welcome",
+      "objectives": ["obj.nouns.gender-number"]
+    },
+    {
+      "id": "ice-sea.2",
+      "region": "ice-sea",
+      "order": 2,
+      "titleKey": "level.ice-sea.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["ice-sea.1"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.ice.cases-first", "sk.ice.cases", "sk.ice.case-forms"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["delfin-skokanek"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.nouns.cases"]
+    },
+    {
+      "id": "ice-sea.3",
+      "region": "ice-sea",
+      "order": 3,
+      "titleKey": "level.ice-sea.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["ice-sea.2"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": [
+            "sk.ice.verb-person",
+            "sk.ice.verb-number",
+            "sk.ice.verb-tense",
+            "sk.ice.tense-forms"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["delfin-skokanek"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.verbs.person-number-tense"]
+    },
+    {
+      "id": "ice-sea.4",
+      "region": "ice-sea",
+      "order": 4,
+      "titleKey": "level.ice-sea.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["ice-sea.3"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.ice.finiteness"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.verbs.infinitive"]
+    },
+    {
+      "id": "ice-sea.5",
+      "region": "ice-sea",
+      "order": 5,
+      "titleKey": "level.ice-sea.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["ice-sea.4"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.ice.kinds", "sk.ice.clauses"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.ice.end-marks", "sk.ice.conjunctions"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.sentences.kinds", "obj.sentences.compound-3"]
+    },
+    {
+      "id": "ice-sea.6",
+      "region": "ice-sea",
+      "order": 6,
+      "titleKey": "level.ice-sea.6",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["ice-sea.5"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": ["sk.ice.review-hard-soft", "sk.ice.review-listed"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.vents.pos-all", "sk.ice.gender", "sk.ice.cases", "sk.ice.verb-tense"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.lagoon.e-mistakes", "sk.lagoon.capital-mistakes", "sk.bay.mistakes-all"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": [
+        "obj.letters.hard-soft",
+        "obj.listed.all",
+        "obj.pos.ten",
+        "obj.nouns.cases",
+        "obj.verbs.person-number-tense"
+      ]
+    },
+    {
+      "id": "ice-sea.monster",
+      "region": "ice-sea",
+      "order": 7,
+      "titleKey": "level.ice-sea.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["ice-sea.6"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.ice.review-hard-soft",
+            "sk.ice.review-listed",
+            "sk.vents.pos-all",
+            "sk.ice.cases",
+            "sk.ice.verb-tense",
+            "sk.ice.kinds"
+          ],
+          "count": 24,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["tulen-padik", "delfin-skokanek"],
+        "cosmetics": ["igloo"]
+      },
+      "monster": "san-ledana",
+      "storyBeat": "beat.san-ledana",
+      "objectives": [
+        "obj.letters.hard-soft",
+        "obj.listed.all",
+        "obj.pos.ten",
+        "obj.nouns.gender-number",
+        "obj.nouns.cases",
+        "obj.verbs.person-number-tense",
+        "obj.verbs.infinitive",
+        "obj.sentences.kinds",
+        "obj.sentences.compound-3"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.ice.gender",
+      "titleKey": "skill.ice.gender",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "gender",
+        "context": "word",
+        "words": {
+          "words": [
+            "delfiin",
+            "racek",
+            "ostrov",
+            "uutes",
+            "majaak",
+            "prxiistav",
+            "ryba",
+            "zxelva",
+            "musxle",
+            "chobotnice",
+            "perla",
+            "vlna",
+            "mexsto",
+            "kotex",
+            "mlaadex",
+            "texlo",
+            "svextlo",
+            "krxiidlo"
+          ],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": ["m", "f", "n"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.nets-gender",
+      "titleKey": "skill.ice.nets-gender",
+      "strand": "nouns",
+      "generator": "sort",
+      "params": {
+        "dimension": "gender",
+        "context": "word",
+        "values": ["m", "f", "n"],
+        "words": {
+          "words": [
+            "delfiin",
+            "racek",
+            "ostrov",
+            "uutes",
+            "majaak",
+            "prxiistav",
+            "ryba",
+            "zxelva",
+            "musxle",
+            "chobotnice",
+            "perla",
+            "vlna",
+            "mexsto",
+            "kotex",
+            "mlaadex",
+            "texlo",
+            "svextlo",
+            "krxiidlo"
+          ],
+          "grades": [3]
+        },
+        "fish": 9,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.plural-pairs",
+      "titleKey": "skill.ice.plural-pairs",
+      "strand": "nouns",
+      "generator": "pairs",
+      "params": {
+        "pair": "plural",
+        "words": {
+          "words": ["ryba", "zxelva", "delfiin", "racek", "musxle", "ostrov", "vlna", "perla"],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.ice.number",
+      "titleKey": "skill.ice.number",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "number",
+        "context": "form",
+        "words": {
+          "words": ["delfiin", "vlna"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["sg", "pl"]
+      }
+    },
+    {
+      "id": "sk.ice.cases-first",
+      "titleKey": "skill.ice.cases-first",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "case",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "case.01",
+            "case.02",
+            "case.03",
+            "case.04",
+            "case.05",
+            "case.06",
+            "case.07",
+            "case.08",
+            "case.09",
+            "case.10",
+            "case.11",
+            "case.12",
+            "case.13",
+            "case.14",
+            "case.15",
+            "case.16"
+          ],
+          "grades": [3]
+        },
+        "values": ["1", "2", "3", "4"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.cases",
+      "titleKey": "skill.ice.cases",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "case",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "case.01",
+            "case.02",
+            "case.03",
+            "case.04",
+            "case.05",
+            "case.06",
+            "case.07",
+            "case.08",
+            "case.09",
+            "case.10",
+            "case.11",
+            "case.12",
+            "case.13",
+            "case.14",
+            "case.15",
+            "case.16",
+            "case.17",
+            "case.18",
+            "case.19",
+            "case.20",
+            "case.21",
+            "case.22",
+            "case.23",
+            "case.24",
+            "case.25",
+            "case.26",
+            "case.27",
+            "case.28"
+          ],
+          "grades": [3]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.case-forms",
+      "titleKey": "skill.ice.case-forms",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "case",
+        "context": "form",
+        "words": {
+          "words": ["ryba", "delfiin"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["sg"]
+      }
+    },
+    {
+      "id": "sk.ice.verb-person",
+      "titleKey": "skill.ice.verb-person",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "person",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "verbs.01",
+            "verbs.02",
+            "verbs.03",
+            "verbs.04",
+            "verbs.05",
+            "verbs.06",
+            "verbs.07",
+            "verbs.08"
+          ],
+          "grades": [3]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.verb-number",
+      "titleKey": "skill.ice.verb-number",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "number",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "verbs.01",
+            "verbs.02",
+            "verbs.03",
+            "verbs.04",
+            "verbs.05",
+            "verbs.06",
+            "verbs.07",
+            "verbs.08",
+            "verbs.09",
+            "verbs.10",
+            "verbs.11",
+            "verbs.12",
+            "verbs.13",
+            "verbs.14",
+            "verbs.15",
+            "verbs.16"
+          ],
+          "grades": [3]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.verb-tense",
+      "titleKey": "skill.ice.verb-tense",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "tense",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "verbs.07",
+            "verbs.08",
+            "verbs.09",
+            "verbs.10",
+            "verbs.11",
+            "verbs.12",
+            "verbs.13",
+            "verbs.14",
+            "verbs.15",
+            "verbs.16"
+          ],
+          "grades": [3]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.tense-forms",
+      "titleKey": "skill.ice.tense-forms",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "tense",
+        "context": "form",
+        "words": {
+          "words": ["plavat"],
+          "aspects": ["impf"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["pres", "past", "fut"]
+      }
+    },
+    {
+      "id": "sk.ice.finiteness",
+      "titleKey": "skill.ice.finiteness",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "finiteness",
+        "context": "form",
+        "words": {
+          "words": ["plavat", "skaakat"],
+          "grades": [3]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["inf", "pres", "past"]
+      }
+    },
+    {
+      "id": "sk.ice.kinds",
+      "titleKey": "skill.ice.kinds",
+      "strand": "sentences",
+      "generator": "classify",
+      "params": {
+        "dimension": "sentence-kind",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "kind.01",
+            "kind.02",
+            "kind.03",
+            "kind.04",
+            "kind.05",
+            "kind.06",
+            "kind.07",
+            "kind.08",
+            "kind.09",
+            "kind.10",
+            "kind.11",
+            "kind.12",
+            "kind.13",
+            "kind.14",
+            "kind.15",
+            "kind.16",
+            "kind.17",
+            "kind.18",
+            "kind.19",
+            "kind.20"
+          ],
+          "grades": [3]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.clauses",
+      "titleKey": "skill.ice.clauses",
+      "strand": "sentences",
+      "generator": "classify",
+      "params": {
+        "dimension": "clauses",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "clause.01",
+            "clause.02",
+            "clause.03",
+            "clause.04",
+            "clause.05",
+            "clause.06",
+            "clause.07",
+            "clause.08",
+            "clause.09",
+            "clause.10",
+            "clause.11",
+            "clause.12",
+            "clause.13",
+            "conj.01",
+            "conj.02",
+            "conj.03",
+            "conj.04",
+            "conj.05",
+            "conj.06",
+            "conj.07",
+            "conj.08"
+          ],
+          "grades": [3]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.ice.end-marks",
+      "titleKey": "skill.ice.end-marks",
+      "strand": "sentences",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "kind.06",
+            "kind.07",
+            "kind.08",
+            "kind.09",
+            "kind.10",
+            "kind.12",
+            "kind.13",
+            "kind.14",
+            "kind.15",
+            "kind.16",
+            "kind.17",
+            "kind.18",
+            "kind.19",
+            "kind.20"
+          ],
+          "grades": [3]
+        },
+        "rules": ["interpunkce"]
+      }
+    },
+    {
+      "id": "sk.ice.conjunctions",
+      "titleKey": "skill.ice.conjunctions",
+      "strand": "sentences",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "conj.01",
+            "conj.02",
+            "conj.03",
+            "conj.04",
+            "conj.05",
+            "conj.06",
+            "conj.07",
+            "conj.08"
+          ],
+          "grades": [3]
+        },
+        "rules": ["spojka"]
+      }
+    },
+    {
+      "id": "sk.ice.review-hard-soft",
+      "titleKey": "skill.ice.review-hard-soft",
+      "strand": "letters-sounds",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "ryba",
+            "rybaarx",
+            "chytat",
+            "rychlyy",
+            "chytryy",
+            "chyba",
+            "kytara",
+            "tygr",
+            "cxiislo",
+            "cxistyy",
+            "jiidlo",
+            "jiskra",
+            "krxiidlo",
+            "sxipka",
+            "sxirokyy",
+            "zxiizenx"
+          ],
+          "grades": [3]
+        },
+        "rules": ["tvrda", "mekka"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.ice.review-listed",
+      "titleKey": "skill.ice.review-listed",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "obyvatel",
+            "byt",
+            "prxiibytek",
+            "naabytek",
+            "dobytek",
+            "obycxej",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "prxibyslav",
+            "slysxet",
+            "mlyyn",
+            "blyyskat-se",
+            "polykat",
+            "plynout",
+            "plyytvat",
+            "vzlykat",
+            "lysyy",
+            "lyytko",
+            "lyyko",
+            "lyzxe",
+            "pelynexk",
+            "plysx",
+            "my",
+            "myyt",
+            "myslit",
+            "myylit-se",
+            "hmyz",
+            "mysx",
+            "hlemyyzxdx",
+            "myytit",
+            "zamykat",
+            "smyykat",
+            "dmyychat",
+            "chmyyrxii",
+            "nachomyytnout-se",
+            "litomysxl",
+            "pyycha",
+            "pytel",
+            "pysk",
+            "netopyyr",
+            "slepyysx",
+            "pyl",
+            "kopyto",
+            "klopyytat",
+            "trxpytit-se",
+            "zpytovat",
+            "pykat",
+            "pyyr",
+            "pyyrxit-se",
+            "cxepyyrxit-se",
+            "syn",
+            "sytyy",
+            "syyr",
+            "syrovyy",
+            "sychravyy",
+            "usychat",
+            "syykora",
+            "syycxek",
+            "sysel",
+            "sycxet",
+            "sypat",
+            "vy",
+            "vysokyy",
+            "vyyt",
+            "vyyskat",
+            "zvykat",
+            "zxvyykat",
+            "vydra",
+            "vyyr",
+            "vyzxle",
+            "povyk",
+            "vyyhenx",
+            "brzy",
+            "jazyk",
+            "nazyyvat",
+            "ruzynex"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "tulen-padik",
+      "nameKey": "friend.tulen-padik",
+      "mnemonicKey": "friend.tulen-padik.mnemonic",
+      "region": "ice-sea",
+      "skills": [
+        "sk.ice.gender",
+        "sk.ice.number",
+        "sk.ice.cases",
+        "sk.ice.case-forms",
+        "sk.ice.plural-pairs",
+        "sk.trench.case-forms"
+      ],
+      "monster": "san-ledana"
+    },
+    {
+      "id": "delfin-skokanek",
+      "nameKey": "friend.delfin-skokanek",
+      "mnemonicKey": "friend.delfin-skokanek.mnemonic",
+      "region": "ice-sea",
+      "skills": [
+        "sk.ice.verb-person",
+        "sk.ice.verb-tense",
+        "sk.ice.finiteness",
+        "sk.storm.reflexive"
+      ],
+      "monster": "vir-casoplet"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "san-ledana",
+      "region": "ice-sea",
+      "nameKey": "monster.san-ledana",
+      "mood": "grumpy",
+      "meter": 18,
+      "reviewShare": 0,
+      "jokes": [
+        "monster.san-ledana.joke.1",
+        "monster.san-ledana.joke.2",
+        "monster.san-ledana.joke.3",
+        "monster.san-ledana.joke.4"
+      ],
+      "arms": 6,
+      "gradeFinale": 3
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "hat-knit",
+      "slot": "head",
+      "assetId": "cosmetic/hat-knit",
+      "nameKey": "cosmetic.hat-knit",
+      "price": 475,
+      "unlock": "ice-sea.1"
+    },
+    {
+      "id": "scarf-wool",
+      "slot": "neck",
+      "assetId": "cosmetic/scarf-wool",
+      "nameKey": "cosmetic.scarf-wool",
+      "price": 525,
+      "unlock": "ice-sea.3"
+    },
+    {
+      "id": "igloo",
+      "slot": "grotto",
+      "assetId": "cosmetic/igloo",
+      "nameKey": "cosmetic.igloo",
+      "price": 575,
+      "unlock": "ice-sea.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "tulen-hatched",
+      "nameKey": "sticker.tulen-hatched",
+      "page": "ice-sea",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "tulen-padik",
+        "stage": "baby"
+      },
+      "icon": "sticker/seal",
+      "color": "#9ad1f0",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "delfin-hatched",
+      "nameKey": "sticker.delfin-hatched",
+      "page": "ice-sea",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "delfin-skokanek",
+        "stage": "baby"
+      },
+      "icon": "sticker/dolphin",
+      "color": "#5fb6e8",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "seven-cases",
+      "nameKey": "sticker.seven-cases",
+      "page": "ice-sea",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.ice.cases",
+        "level": "silver",
+        "share": 100
+      },
+      "icon": "sticker/seven-steps",
+      "color": "#7fc8f8",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ice-melted",
+      "nameKey": "sticker.ice-melted",
+      "page": "ice-sea",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "san-ledana"
+      },
+      "icon": "sticker/melted-icicle",
+      "color": "#b8e3ff",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "third-grade-done",
+      "nameKey": "sticker.third-grade-done",
+      "page": "ice-sea",
+      "criteria": {
+        "kind": "level-complete",
+        "level": "ice-sea.monster",
+        "stars": 1
+      },
+      "icon": "sticker/certificate",
+      "color": "#64b5f6",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "level-2",
+      "titleKey": "quest.level-2",
+      "goal": "finish-level",
+      "target": 2,
+      "coins": 4,
+      "weight": 6,
+      "unlock": "ice-sea.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.ice-sea-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "ice-sea.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.ice-sea-welcome",
+          "revision": "1",
+          "start": "ice-sea-welcome-1",
+          "catalogs": {
+            "scene": ["scene/ice-sea"],
+            "text": [
+              "story.ice-sea-welcome.1",
+              "story.ice-sea-welcome.2",
+              "story.ice-sea-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.tulen-padik"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-tulen-padik",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.tulen-padik"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "ice-sea-welcome-1",
+              "scene": "scene/ice-sea",
+              "text": "story.ice-sea-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-tulen-padik"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "ice-sea-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "ice-sea-welcome-2",
+              "scene": "scene/ice-sea",
+              "text": "story.ice-sea-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "ice-sea-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "ice-sea-welcome-3",
+              "scene": "scene/ice-sea",
+              "text": "story.ice-sea-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.san-ledana",
+        "trigger": {
+          "kind": "level-start",
+          "level": "ice-sea.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.san-ledana",
+          "revision": "1",
+          "start": "san-ledana-1",
+          "catalogs": {
+            "scene": ["scene/ice-sea"],
+            "text": [
+              "story.san-ledana.1",
+              "story.san-ledana.2",
+              "story.san-ledana.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "san-ledana-1",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "san-ledana-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "san-ledana-2",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "san-ledana-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "san-ledana-3",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.san-ledana-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "san-ledana"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.san-ledana-freed",
+          "revision": "1",
+          "start": "san-ledana-freed-1",
+          "catalogs": {
+            "scene": ["scene/ice-sea"],
+            "text": [
+              "story.san-ledana-freed.1",
+              "story.san-ledana-freed.2",
+              "story.san-ledana-freed.3",
+              "story.san-ledana-freed.4",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "san-ledana-freed-1",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "san-ledana-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "san-ledana-freed-2",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "san-ledana-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "san-ledana-freed-3",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "san-ledana-freed-4",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "san-ledana-freed-4",
+              "scene": "scene/ice-sea",
+              "text": "story.san-ledana-freed.4",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.tulen-padik",
+        "grant": {
+          "kind": "egg",
+          "friend": "tulen-padik"
+        }
+      }
+    ]
+  }
+}

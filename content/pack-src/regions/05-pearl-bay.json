@@ -1029,6 +1029,19 @@
       "icon": "sticker/scroll",
       "color": "#d8b26e",
       "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ten-friends",
+      "nameKey": "sticker.ten-friends",
+      "page": "pearl-bay",
+      "criteria": {
+        "kind": "friends-stage",
+        "stage": "baby",
+        "count": 10
+      },
+      "icon": "sticker/ten-shells",
+      "color": "#b39ddb",
+      "frame": "sticker/frame-shell"
     }
   ],
   "quests": [

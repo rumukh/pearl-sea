@@ -820,7 +820,7 @@ color, frame }`). Names are Czech and never address the child with a gendered wo
 Muréna zpívá · Žrout je sytý · Mýt, nebo mít? · Sedm pádů · Ledana roztála · 3. třída hotová ·
 Čtrnáct vzorů · Skokánek dospěl · Deset umytých ramen · První korunka_. A sticker for something the
 child does needs a criterion only that action meets (_První ozdoba_ needs a friend wearing
-something); _Pět Inkoustíků_ adds the criterion `inkoustici-splashed`.
+something); _Pět inkoustíků_ adds the criterion `inkoustici-splashed`.
 
 ### 8.4 Daily quests and the treasure chest
 
@@ -861,7 +861,8 @@ suggestions.
 ### 9.2 The 4th grader's placement check
 
 Eight steps of 3 problems over 3rd-grade skills (`grades: [4]`), gaps on the letter pad, a step
-passed at 67 %; Dragon Valley's limits (4-24 problems, a stop after 3 misses in a row). Steps and
+passed at 66 % (two of three, as the rules round down); Dragon Valley's limits (4-24 problems, a
+stop after 3 misses in a row). Steps and
 the levels they place: vowel length, _ú/ů_, paired consonants (Slunná laguna 2, 5); consonants,
 _dě tě ně, bě pě vě mě_, capitals, with the chosen egg's items on every other problem (Slunná laguna
 3, 4, 6, giving the other lagoon eggs); listed words after B and L (Korálový útes 2-6), after M and

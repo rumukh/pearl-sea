@@ -390,7 +390,7 @@ export interface Balance {
   race: { unlockAfter: string; maxProblems: number; seconds: number };
   hungry: { minDue: number };
   /**
-   * Inkoustíci ambushes, once `unlockAfter` (a level: Murena Mumla's) is completed: from the
+   * Inkoustíci ambushes, once `unlockAfter` (a level: Muréna Mumla's) is completed: from the
    * problem `minIndex` of a round on, each next problem is ambushed with `chance` percent (drawn
    * from the `ambush` stream), at most `maxPerRound` times; never in a battle, the race or the
    * placement check.

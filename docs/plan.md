@@ -13,7 +13,7 @@ lagoon came from a rough composition sketch; the open water in the middle is lef
 
 ![Slunná laguna style test: a watercolour underwater lagoon with corals on both sides](images/style-tests/lagoon-test.jpg)
 
-| Sea friend test: Vydra Výskalka                          | Monster test: Murena Mumla (inked)                                             |
+| Sea friend test: Vydra Výskalka                          | Monster test: Muréna Mumla (inked)                                             |
 | -------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | ![A cheerful cartoon sea otter waving](images/style-tests/otter-test.jpg) | ![A grumpy ink-soaked eel, too snake-like on this first try](images/style-tests/moray-test.jpg) |
 | Works as is; the white sticker outline cuts out cleanly  | Style works; the anatomy came out as a snake, so monster briefs get real-animal features (a moray's fin crest, gill, no hood) |
@@ -66,7 +66,7 @@ deep for the 4th. Each region has 5-6 lessons and a **monster** at its end (abou
 
 | #   | Region (ID)                          | Grade | Curriculum                                                                                                                                                                                 | New sea friends                                          | Monster                                  |
 | --- | ------------------------------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------- |
-| 1   | Slunná laguna (`sunny-lagoon`)       | 3     | Review of 2nd grade: alphabet and alphabetical order (_ch_ after _h_), short/long vowels, hard and soft consonants, _dě tě ně_, _bě pě vě mě_, _ú/ů_, paired consonants, capital letters in names | Krab Tvrďák, Medúzka Měkulka, Želva Obojka (choose one first) | Murena Mumla (mumbles word endings)      |
+| 1   | Slunná laguna (`sunny-lagoon`)       | 3     | Review of 2nd grade: alphabet and alphabetical order (_ch_ after _h_), short/long vowels, hard and soft consonants, _dě tě ně_, _bě pě vě mě_, _ú/ů_, paired consonants, capital letters in names | Krab Tvrďák, Medúzka Měkulka, Želva Obojka (choose one first) | Muréna Mumla (mumbles word endings)      |
 | 2   | Korálový útes (`coral-reef`)         | 3     | Vyjmenovaná slova after **B, L** and related words                                                                                                                                        | Barakuda Bystřinka, Lachtan Lyžař                        | Žralok Žrout (eats the i's and y's)      |
 | 3   | Chaluhový les (`kelp-forest`)        | 3     | Vyjmenovaná slova after **M, P**                                                                                                                                                           | Koník Mýdlínek, Pyskoun Pyšný                            | Mořský had Zamotal (tangles words)       |
 | 4   | Pirátský vrak (`pirate-wreck`)       | 3     | Vyjmenovaná slova after **S, V, Z**                                                                                                                                                        | Ježík Syčík, Vydra Výskalka, Jazyk Jazýček               | Ďas Lucerník (lures with false spellings) |
@@ -238,7 +238,7 @@ request.
 | **S4 App**                     | screens, Czech UI, input, painted-art integration, SFX, read-aloud                          | after S1          |
 | **S6 QA & release**            | browser tests, accessibility, Czech copy review, release                                   | when the slice runs |
 
-1. **Vertical slice**: Slunná laguna complete (3 friends, Murena Mumla, map, grotto, Krmení,
+1. **Vertical slice**: Slunná laguna complete (3 friends, Muréna Mumla, map, grotto, Krmení,
    Pexeso, Rybářské sítě, the battle), profiles, saves, sound. **Playtest with your child.**
 2. **Scale** to all 12 regions after the playtest feedback.
 3. **Release**: v1 deployed to Pages, offline install, release checklist.

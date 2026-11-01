@@ -22,8 +22,9 @@
  *    Czech; story lines keep to the child profile (@aegis/narrative `CHILD_PROFILE`: at most 10
  *    words a sentence); every archived pack in content/history/ stays valid, is named by its
  *    revision and keeps its catalog keys.
- * 6. Art references are checked against assets/art/catalog.json once the art pipeline publishes
- *    it: reported, or failing the gate with --strict-art.
+ * 6. Art references (the pack's and the shell's, media.ts SHELL_ART_IDS) are checked against
+ *    assets/art/catalog.json once the art pipeline publishes it: reported, or failing the gate
+ *    with --strict-art.
  * 7. Curriculum coverage: docs/curriculum.md maps every objective to at least one lesson and one
  *    monster level, and so does the pack for the objectives it lists; the pack's levels teach
  *    exactly the objectives the document maps to them. Coverage gaps are reported, or fail the
@@ -346,6 +347,14 @@ export async function validateContentTree(options = {}) {
       const ids = parsed.value.entries.map((/** @type {{ id: string }} */ entry) => entry.id);
       for (const d of domain.checkArtCatalog(pack.data, ids))
         gate(options.strictArt === true, d.message);
+      for (const id of domain.SHELL_ART_IDS) {
+        if (!ids.includes(id)) {
+          gate(
+            options.strictArt === true,
+            `Art ID "${id}" (shown by the shell) is not in ${domain.ART_CATALOG_PATH}.`,
+          );
+        }
+      }
     }
   } else if (pack) {
     warnings.push(

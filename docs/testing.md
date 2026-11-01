@@ -117,10 +117,13 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   locale, English-key, scope and variant-convention mistakes and each Czech typography rule are
   rejected with a named message; characters the font cannot draw are named by code point; on the
   fixture pack, pack diagnostics, missing strings, an overlong story line, a wrongly named archive,
-  curriculum gaps, a level mapping that disagrees with curriculum.md and missing art are reported,
-  strictly with `--strict-coverage` and `--strict-art`.
+  curriculum gaps, a level mapping that disagrees with curriculum.md and missing art (the pack's
+  and the shell's) are reported, strictly with `--strict-coverage` and `--strict-art`; a cosmetic
+  that is not a 100 × 100 SVG fails the art catalog.
 - `test/unit/contract/*.test.ts` (the contract, on the fixture pack
-  `test/fixtures/contract/mini-pack.json`): canonical IDs and art IDs; the Czech alphabet, Czech
+  `test/fixtures/contract/mini-pack.json`): canonical IDs and art IDs; the character and shell art,
+  the cosmetic anchor scale (placement computed by hand) and the art catalog's cosmetic rule; the
+  music loops, their fallback and the victory sting; the Czech alphabet, Czech
   alphabetical order (ch after h, č after c, pila before píla), the consonant classes, the 14
   patterns by gender and the case questions; lexicon IDs, gapped text, forms (ambiguous forms keep
   only what they show; composed past, future and conditional; the reflexive pronoun after the
@@ -176,7 +179,7 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
   credits; every minigame activity of the game's pack makes boards.
 - `test/unit/progression/`: battles (no wash or refill on a miss, the kindness cap frees the
   monster, splashes, joke cadence and cycling, arms, spaced review, the view after a reload);
-  ambushes (never change a problem, only after Murena, eligible activities and problems, at most one
+  ambushes (never change a problem, only after Muréna, eligible activities and problems, at most one
   a round, the bonus coin); the placement ladder (passing, three misses, a failed step, leaving,
   floored percentages, unaskable steps, never a first lesson or a monster); Svačinka (size, first
   tastes, the review guarantee); steps (one turn a gap, Lov chyb's credit, re-asks, hints, input);
@@ -190,7 +193,7 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
   first session with each lagoon egg (the egg hatches in lesson 1, re-ask timing, stars, the first
   hat); a 4th grader's first sessions (the placement check, Kořínek hatching in the first session,
   the chosen lagoon egg in a later session after Svačinka's first tastes, before the other lagoon
-  eggs); the lagoon end to end with Murena's battle and the first Inkoustíci; the two finales on the
+  eggs); the lagoon end to end with Muréna's battle and the first Inkoustíci; the two finales on the
   finale fixture (`test/fixtures/rules/finale-pack.ts`): Ledana's six icicles completing the 3rd
   grade and opening the deep, the Krakatice's ten arms (arm _k_ asking only skill _k_) completing the
   finale once, and the kindness cap freeing her for a child who misses every answer.

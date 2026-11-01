@@ -202,9 +202,11 @@ S5's manifest is the contract's `AUDIO_MANIFEST_PATH` (`assets/audio/manifest.js
 name; `audio/manifest.ts` documents its fields): sounds on the `effects` or `music` bus with their
 durations, an event map (`select`: `streak`, `amount`, `sequence`, `cycle`, `random`, or the first
 sound), music states with a crossfade, and per-sound throttles. Sound IDs follow the contract's
-`AUDIO_ID_PATTERN`: effects are `sfx/<name>` and music loops `music/<loop>` (`music/grotto`,
-`music/map`, `music/practice`, `music/battle`, `music/victory`, `music/finale`); a manifest that
-names a sound otherwise is refused as a whole. The event map is keyed by the contract's `EVENTS`
+`AUDIO_ID_PATTERN`: effects are `sfx/<name>` and music loops `music/<loop>` (the contract's
+`MUSIC_IDS`: `music/grotto`, `music/map`, `music/practice`, `music/battle`, `music/finale`; results
+and missing moods play `music/grotto`, and a freed monster gets the one-shot `sfx/victory-sting`); a
+manifest that names a sound otherwise is refused as a whole. The event map is keyed by the
+contract's `EVENTS`
 (`answer.correct`, `coins.earned`, …) and the shell cues `ui.tap`, `ui.keypad`, `ui.navigate`,
 `ui.blocked`. Until S5's pack lands the repository ships an **empty placeholder** in that schema,
 so the game is silent without a missing file; S5's generator overwrites it. With no sounds, no

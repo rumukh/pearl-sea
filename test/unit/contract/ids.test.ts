@@ -76,12 +76,14 @@ describe('canonical v1 IDs', () => {
       ART.scene('sunny-lagoon'),
       ART.map('shallows'),
       ART.character('osmicka'),
+      ART.character('osmicka', 'happy'),
       ART.avatar('diver-1'),
       ART.cosmetic('hat-captain'),
       ART.sticker('first-pearl'),
     ];
     expect(ids).toContain('friend/krab-tvrdak/baby');
     expect(ids).toContain('monster/murena-mumla/freed');
+    expect(ids).toContain('character/osmicka/happy');
     for (const id of ids) expect(id, id).toMatch(ART_ID_PATTERN);
   });
 

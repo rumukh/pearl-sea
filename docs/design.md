@@ -63,15 +63,15 @@ Valley. An egg a beat gives is claimed in its first node, so skipping still give
 | `beat.<monster>-freed` (×11)  | a monster freed (all but the Krakatice)    | The ink runs off; thanks; the gallery; the way onward opens            |
 | `beat.san-ledana-freed`       | (one of the above)                         | The 3rd grade's finale: _3. třída hotová!_ and a certificate           |
 | `beat.the-deep`               | first start of the Moon Caves' lesson 1    | Bublinka lights her lamps and dives into the deep                      |
-| `beat.inkoustici`             | after Murena Mumla's freed beat (optional) | Introduces the Inkoustíci, who arrive with `ambush.unlockAfter` (§7.4) |
+| `beat.inkoustici`             | after Muréna Mumla's freed beat (optional) | Introduces the Inkoustíci, who arrive with `ambush.unlockAfter` (§7.4) |
 | `beat.finale`                 | the Krakatice freed                        | She was lonely; now the guardian; the shell shines; credits            |
 
 Triggers may carry `grades`; v1 gives both grades the same beats, and whether a 4th grader's
 first-egg beat should differ is an open point (§4.1). A 4th grader meets `beat.the-deep` in the
 first session (§9). The prologue's voice, one catalog key a line: _Hluboko pod vlnami leží Perlové
 moře. · Každé slovo tu žije jako perla ve Velké lastuře. · Jedné bouřlivé noci vystříkla obří
-Krakatice kouzelný inkoust. · Perly zmatněly, písmenka se rozmazala a vajíčka uplavala. · Pomůžeš
-mi je zachránit?_ (boy: _Pomůžeš mi, Lovče perel?_, girl: _Pomůžeš mi, Lovkyně perel?_).
+krakatice kouzelný inkoust. · Perly zmatněly, písmenka se rozmazala a vajíčka uplavala. · Pomůžeš
+mi je zachránit?_ (boy: _Pomůžeš mi, lovče perel?_, girl: _Pomůžeš mi, lovkyně perel?_).
 
 ### 2.2 Characters and sea friends
 
@@ -120,8 +120,8 @@ smiling), with real-animal anatomy (the plan's style test). Their jokes are cata
 
 | ID                       | Monster                | Inked: ink and mood                     | Joke style and sample                                        | Freed                        |
 | ------------------------ | ---------------------- | --------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| `murena-mumla`           | Murena Mumla           | sleepy, mumbles the ends of words       | half-words: _Proč mumlám? Inkoust mi slepil pusu!_           | sings every word to its end  |
-| `zralok-zrout`           | Žralok Žrout           | greedy, eats the _i_'s and _y_'s        | menus: _Mňam! Tvrdé y k snídani, měkké i k večeři!_          | full and friendly            |
+| `murena-mumla`           | Muréna Mumla           | sleepy, mumbles the ends of words       | half-words: _Proč mumlám? Inkoust mi slepil pusu!_           | sings every word to its end  |
+| `zralok-zrout`           | Žralok Žrout           | greedy, eats the _i_'s and _y_'s        | menus: _Mňam! Tvrdé y ke snídani, měkké i k večeři!_         | full and friendly            |
 | `had-zamotal`            | Mořský had Zamotal     | fidgety, tangles words into knots       | twisters: _Zamotám ti slova jako uzel na laně!_              | ties kelp into swings        |
 | `das-lucernik`           | Ďas Lucerník           | sly showman, lures with false spellings | tricks: _Pojď blíž! Moje lucerna svítí správně… nebo ne?_    | lights the wreck for all     |
 | `zeva-lakoma`            | Zéva Lakomá            | a greedy giant clam, snaps shut         | hoarding: _Moje perly! Moje slova! Nedám, nedám!_            | shares her pearls            |
@@ -177,7 +177,7 @@ sentences" (the `sentence` context; contract §6.2). Feeds: the friend whose set
 
 ### 3.1 Slunná laguna (`sunny-lagoon`): review of the 2nd grade
 
-Friends Krab Tvrďák, Medúzka Měkulka, Želva Obojka. Monster Murena Mumla. Accent sunny turquoise.
+Friends Krab Tvrďák, Medúzka Měkulka, Želva Obojka. Monster Muréna Mumla. Accent sunny turquoise.
 
 | Level                  | Czech title                     | English                        | Activities                                          | Practises                                                            | Feeds                 |
 | ---------------------- | ------------------------------- | ------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------- | --------------------- |
@@ -187,7 +187,7 @@ Friends Krab Tvrďák, Medúzka Měkulka, Želva Obojka. Monster Murena Mumla. A
 | `sunny-lagoon.4`       | dě tě ně, di ti ni, bě pě vě mě | _ě_ syllables; soft _di ti ni_ | `feeding` 10, `ink-sentence` 5, `bug-hunt` 4        | `spell.*` de-te-ne, dtn-mekke, be-pe-ve-me                           | Krab, Želva           |
 | `sunny-lagoon.5`       | ú/ů a párové souhlásky          | _ú/ů_; paired consonants       | `feeding` 10, `memory-match` 1, `ink-sentence` 5    | `spell.*` u-zacatek, u-predpona, u-uprostred, parova; `pairs` plural | Medúzka, Krab         |
 | `sunny-lagoon.6`       | Velká písmena ve jménech        | Capital letters in names       | `feeding` 10, `bug-hunt` 5                          | `spell.*` velke-pismeno (_Alík, Praha, Vltava_)                      | Želva                 |
-| `sunny-lagoon.monster` | Murena Mumla                    | Monster battle                 | `battle` meter 15, cap 20                           | the lagoon, 20 % review                                              | the lagoon trio       |
+| `sunny-lagoon.monster` | Muréna Mumla                    | Monster battle                 | `battle` meter 15, cap 20                           | the lagoon, 20 % review                                              | the lagoon trio       |
 
 ### 3.2 Korálový útes (`coral-reef`): listed words after B and L
 
@@ -261,7 +261,7 @@ Friend Kalmar Desetiruký (hatches in lesson 1). Monster Lávový úhoř Žhavá
 
 ### 3.7 Ledové moře (`ice-sea`): nouns, verbs and sentences; the 3rd-grade finale
 
-Friends Tuleň Pádík (hatches in lesson 1), Delfín Skokánek (egg for lesson 2, hatches in 3).
+Friends Tuleň Pádík (hatches in lesson 1), Delfín Skokánek (egg for lesson 2, hatches in 4).
 Monster Mořská saň Ledana, the 3rd grade's finale (§7.3). Accent ice blue.
 
 | Level             | Czech title                     | English                              | Activities                                        | Practises                                                                   | Feeds                             |
@@ -285,7 +285,7 @@ lesson 1). Monster Humr Nůžkař. Accent moonlight violet.
 | `moon-caves.2`       | Předpona               | The prefix             | `word-shell` 3, `feeding` 10c                  | `segment` prefix, root (_vý\|let_); `classify` segment    | Kořínek |
 | `moon-caves.3`       | Přípona                | The suffix             | `word-shell` 3, `feeding` 10c                  | `segment` root, suffix (_les\|ník_); `classify` segment   | Kořínek |
 | `moon-caves.4`       | Koncovka               | The ending             | `word-shell` 3, `memory-match` 1, `feeding` 10 | `segment` root, ending, zero ending; `pairs` plural       | Kořínek |
-| `moon-caves.5`       | Stavba slova celá      | The whole structure    | `word-shell` 4, `feeding` 12                   | `segment` all four (_za\|hrád\|k\|a_); `classify` segment | Kořínek |
+| `moon-caves.5`       | Celá stavba slova      | The whole structure    | `word-shell` 4, `feeding` 12                   | `segment` all four (_za\|hrád\|k\|a_); `classify` segment | Kořínek |
 | `moon-caves.monster` | Humr Nůžkař            | Monster battle         | `battle` meter 18, cap 23                      | the caves, 20 % review                                    | Kořínek |
 
 ### 3.9 Potopené město (`sunken-city`): prefixes and prepositions
@@ -298,7 +298,7 @@ Friend Štítovec Přísavka (hatches in lesson 1). Monster Medúza Lepka. Accen
 | `sunken-city.2`       | Předpony od-, nad-, pod-, před-, roz-, bez- | Six prefixes                 | `word-shell` 2, `feeding` 10, `ink-sentence` 4 | `segment`; `spell.*` predpona-souhlaska (_odtáhnout, rozzlobit_) | Přísavka |
 | `sunken-city.3`       | bě/bje, vě/vje                              | _bě_ or _bje_, _vě_ or _vje_ | `feeding` 10, `word-shell` 2, `ink-sentence` 4 | `spell.*` bje-vje, be-pe-ve-me (_oběd × objednat_); `segment`    | Přísavka |
 | `sunken-city.4`       | pě, mě/mně                                  | _pě_; _mě_ or _mně_          | `feeding` 10, `ink-sentence` 5, `bug-hunt` 4   | `spell.*` be-pe-ve-me, mne (_zapomněl_), mne-zajmeno             | Přísavka |
-| `sunken-city.5`       | Potopené město dohromady                    | The sunken city together     | `feeding` 12, `bug-hunt` 5, `word-shell` 2     | the region's rules; `segment`                                    | Přísavka |
+| `sunken-city.5`       | Potopené město: všechno dohromady           | The sunken city together     | `feeding` 12, `bug-hunt` 5, `word-shell` 2     | the region's rules; `segment`                                    | Přísavka |
 | `sunken-city.monster` | Medúza Lepka                                | Monster battle               | `battle` meter 18, cap 23                      | the city, 20 % review                                            | Přísavka |
 
 ### 3.10 Temný příkop (`dark-trench`): noun patterns
@@ -332,7 +332,7 @@ storm slate.
 
 ### 3.12 Krakatičí propast (`kraken-abyss`): the sentence and the grand finale
 
-Friend Klauni Dvojčata (hatches in lesson 1). Monster Krakatice Inkoustová, the grand finale (§7.2).
+Friend Klauni Dvojčata (hatches in lesson 2). Monster Krakatice Inkoustová, the grand finale (§7.2).
 Accent abyss violet.
 
 | Level                  | Czech title                       | English                     | Activities                                        | Practises                                                                 | Feeds               |
@@ -541,7 +541,7 @@ The monster battle that ends every region: §7.
 
 ### 5.14 Závod s delfíny (`race`, optional)
 
-Opens after Murena Mumla is freed _(balance `race.unlockAfter`)_ if the parent left it on: a
+Opens after Muréna Mumla is freed _(balance `race.unlockAfter`)_ if the parent left it on: a
 60-second race _(`race.seconds`)_ of known items (box 2+) against the child's own best, dolphins
 leaping beside Bublinka; the shell ends it with `endRound{ reason: 'time-up' }`; at most 60
 problems; a new best earns a sticker. As Dragon Valley's Arena.
@@ -759,7 +759,7 @@ practice.
 
 - **Seeded and deterministic** (the `ambush` stream): the same seed and actions bring the same
   ambushes, and an ambush never changes the next problem.
-- They come only once the lagoon's monster level (Murena Mumla's) is complete _(balance
+- They come only once the lagoon's monster level (Muréna Mumla's) is complete _(balance
   `ambush.unlockAfter`)_; `beat.inkoustici` may introduce them.
 - In Krmení, Inkoustová věta, Lov chyb, Určování and Svačinka, with a chance per problem _(balance
   `ambush.chance`, 10 %)_ from the third problem on (`minIndex`), at most one a round
@@ -805,9 +805,9 @@ sessions.
 
 About 60, one album page per region, composed from data (`{ id, nameKey, page, criteria, icon,
 color, frame }`). Names are Czech and never address the child with a gendered word: _První mládě ·
-Murena zpívá · Žrout je sytý · Mýt, nebo mít? · Sedm pádů · Ledana roztála · 3. třída hotová ·
+Muréna zpívá · Žrout je sytý · Mýt, nebo mít? · Sedm pádů · Ledana roztála · 3. třída hotová ·
 Čtrnáct vzorů · Skokánek dospěl · Deset umytých ramen · První korunka_. A sticker for something the
-child does needs a criterion only that action meets (_Poprvé v parádě_ needs a friend wearing
+child does needs a criterion only that action meets (_První ozdoba_ needs a friend wearing
 something); _Pět Inkoustíků_ adds the criterion `inkoustici-splashed`.
 
 ### 8.4 Daily quests and the treasure chest
@@ -954,21 +954,27 @@ turquoise-coral-sun palette darkening toward the deep, no text in images, open w
   monsters `monster/<monster>/inked` and `/freed` (24; freed from the inked master), Inkoustíci
   `inkoustik/<id>` (4), scenes `scene/<region>`, `scene/grotto`, `scene/title` and maps
   `map/shallows`, `map/deep` (16), characters `character/osmicka`, `character/mroz-vousac`,
-  `character/bublinka` (4 images), avatars `avatar/diver-1` … `avatar/diver-8`.
+  `character/bublinka` and Osmička cheering `character/osmicka/happy` (4 images), avatars
+  `avatar/diver-1` … `avatar/diver-8`.
 - **SVG**: eggs `egg/<friend>`, cosmetics `cosmetic/<item>` and the crowned stage's golden shell
   crown on the friends' anchors (`head`, `eyes`, `neck`: `{ x, y }` in 0-1000, `scale`, `rotate`),
-  stickers `sticker/<sticker>`, UI, blots and pearls. Catalog: `assets/art/catalog.json`
-  (`pearl-sea-art-catalog/1`); art and audio references in contract §7.5.
+  stickers `sticker/<sticker>`, UI, blots and pearls. S5 makes the eggs, cosmetics and sticker art
+  as static SVG files listed in the art catalog; S4 renders them. A cosmetic has a 100 × 100
+  viewBox with its attachment point at the centre (a hat's brim centre, the goggles' bridge, a
+  scarf's knot) and at `scale` 100 is drawn 250/1000 of the painting's width wide. Catalog:
+  `assets/art/catalog.json` (`pearl-sea-art-catalog/1`); art and audio references in contract
+  §7.5.
 - Expressions (`idle`, `happy`, `curious`, `eating`, `sleepy`, `proud`) are motion on the paintings,
   never authoritative; reduced motion turns movement into fades.
-- **Music** (ACE-Step 1.5): `music/grotto` (title, grotto, story, shop, album, shell), `music/map`,
-  `music/practice` (lessons, minigames, Svačinka, placement), `music/battle` (battles, race),
-  `music/victory` (results, a monster freed), `music/finale` (the Krakatice and the finale).
+- **Music** (ACE-Step 1.5): `music/grotto` (title, grotto, story, shop, album, shell, results),
+  `music/map`, `music/practice` (lessons, minigames, Svačinka, placement), `music/battle` (battles,
+  race), `music/finale` (the Krakatice and the finale; optional). A mood without its own loop plays
+  `music/grotto`. A freed monster gets the 9-second one-shot `sfx/victory-sting`, not a loop.
 - **Sound effects** (`sfx/<name>`, about 30, re-voiced for water; S5's audio manifest
   `pearl-sea-audio-manifest/1`): bubble, splash, pearl chime rising with the streak, shrimp gulp,
-  coins, egg wobble and crack, hatch fanfare, ink splat and wipe, monster grumble, monster freed,
-  Inkoustík giggle, star, sticker, map unlock, chest, purchase, chirp, yawn, a soft _blub_ for a
-  miss, taps and swoosh; Dragon Valley's loudness tiers and buses.
+  coins, egg wobble and crack, hatch fanfare, ink splat and wipe, monster grumble, the victory sting
+  (a monster freed), Inkoustík giggle, star, sticker, map unlock, chest, purchase, chirp, yawn, a
+  soft _blub_ for a miss, taps and swoosh; Dragon Valley's loudness tiers and buses.
 
 ## 13. Accessibility
 

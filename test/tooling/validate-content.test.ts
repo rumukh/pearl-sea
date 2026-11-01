@@ -7,7 +7,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { collectArtIds, collectCatalogKeys } from '../../src/rules/contract';
+import { collectArtIds, collectCatalogKeys, SHELL_ART_IDS } from '../../src/rules/contract';
 import type { ContentData } from '../../src/rules/contract';
 import {
   czechTypographyProblems,
@@ -226,10 +226,10 @@ describe('scripts/validate-content.mjs with a content pack', () => {
     const keys = keysOf(pack());
     const czech = strings(keys);
     czech['story.prologue.2'] =
-      'Osmička plave s Bublinkou daleko za útes, kde spí velká stará murena. Ahoj!';
+      'Osmička plave s Bublinkou daleko za útes, kde spí velká stará muréna. Ahoj!';
     catalog('cs.content.json', czech);
     expect((await validateContentTree({ root })).errors).toEqual([
-      'story.prologue.2: "Osmička plave s Bublinkou daleko za útes, kde spí velká stará murena" has 12 words (max 10)',
+      'story.prologue.2: "Osmička plave s Bublinkou daleko za útes, kde spí velká stará muréna" has 12 words (max 10)',
     ]);
   });
 
@@ -272,19 +272,33 @@ describe('scripts/validate-content.mjs with a content pack', () => {
 
   it('checks art references against the published art catalog, strictly with --strict-art', async () => {
     const ids = collectArtIds(pack().data).map(({ id }) => id);
+    const missing = ['monster/humr-nuzkar/freed', 'character/osmicka/happy'];
     mkdirSync(join(root, 'assets', 'art'), { recursive: true });
-    const entries = [...new Set(ids)]
-      .filter((id) => id !== 'monster/humr-nuzkar/freed')
-      .map((id) => ({ id, kind: 'svg', file: `${id}.svg`, width: 512, height: 512 }));
-    writeFileSync(
-      join(root, 'assets', 'art', 'catalog.json'),
-      JSON.stringify({ format: 'pearl-sea-art-catalog/1', entries }),
-    );
-    const message =
-      'Art ID "monster/humr-nuzkar/freed" (monster humr-nuzkar) is not in assets/art/catalog.json.';
+    const publish = (cosmeticSide: number) => {
+      const entries = [...new Set([...ids, ...SHELL_ART_IDS])]
+        .filter((id) => !missing.includes(id))
+        .map((id) => {
+          const side = id.startsWith('cosmetic/') ? cosmeticSide : 512;
+          return { id, kind: 'svg', file: `${id}.svg`, width: side, height: side };
+        });
+      writeFileSync(
+        join(root, 'assets', 'art', 'catalog.json'),
+        JSON.stringify({ format: 'pearl-sea-art-catalog/1', entries }),
+      );
+    };
+    publish(100);
+    const messages = [
+      'Art ID "monster/humr-nuzkar/freed" (monster humr-nuzkar) is not in assets/art/catalog.json.',
+      'Art ID "character/osmicka/happy" (shown by the shell) is not in assets/art/catalog.json.',
+    ];
     const relaxed = await validateContentTree({ root });
     expect(relaxed.errors).toEqual([]);
-    expect(relaxed.warnings).toContain(message);
-    expect((await validateContentTree({ root, strictArt: true })).errors).toEqual([message]);
+    expect(relaxed.warnings).toEqual(expect.arrayContaining(messages));
+    expect((await validateContentTree({ root, strictArt: true })).errors).toEqual(messages);
+
+    publish(512);
+    expect((await validateContentTree({ root })).errors).toEqual([
+      'assets/art/catalog.json: not a pearl-sea-art-catalog/1 catalog (content  : [invalid-data] cosmetic/hat-captain: a cosmetic is an SVG with a 100 × 100 viewBox.)',
+    ]);
   });
 });

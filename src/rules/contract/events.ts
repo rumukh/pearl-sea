@@ -83,6 +83,7 @@ export interface EventPayloads {
   'ink.splashed': { monster: string; blots: number };
   /** One arm of a many-armed monster is clean (Krakatice). */
   'arm.washed': { monster: string; arm: number; arms: number };
+  /** The monster is clean: the shell plays the victory sting (media.ts `VICTORY_STING`). */
   'monster.freed': { monster: string };
   /**
    * The monster tells a joke (a catalog key): at the start of a battle, after every 5th right answer

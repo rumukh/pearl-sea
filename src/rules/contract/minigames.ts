@@ -102,8 +102,12 @@ export interface NecklaceBoard {
   order: AlphabetOrder;
   /** The listed-word letter of a rhyme necklace, else `null`. */
   letter: ListedLetter | null;
-  /** The pearls in their current order on the string. */
-  pearls: { id: string; word: string; text: string }[];
+  /**
+   * The pearls in their current order on the string. `inPlace`: after a check that was not right
+   * yet (`submitted`), the pearl sits where the solution has it; false before a check and after a
+   * move, so the necklace never gives its order away while the child threads it.
+   */
+  pearls: { id: string; word: string; text: string; inPlace: boolean }[];
   /** True after a check that was not right yet, until the next move. */
   submitted: boolean;
   attempts: number;

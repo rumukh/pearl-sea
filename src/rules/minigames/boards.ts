@@ -917,16 +917,18 @@ export function boardView(
     };
   }
   if (definitionValue.kind === 'ordering') {
+    const config = definitionValue.config as unknown as OrderingConfig;
     const progress = state.progress as unknown as OrderingState;
     const shape = necklaceShape(definitionValue.id);
     return {
       kind: 'pearl-necklace',
       order: shape.order,
       letter: shape.letter,
-      pearls: progress.order.map((id) => ({
+      pearls: progress.order.map((id, index) => ({
         id,
         word: id,
         text: lexicon.words.get(id)?.lemma ?? id,
+        inPlace: progress.submitted && config.solution[index] === id,
       })),
       submitted: progress.submitted,
       attempts: progress.attempts,

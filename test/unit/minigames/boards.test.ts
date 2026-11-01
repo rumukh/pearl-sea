@@ -865,7 +865,12 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
       kind: 'pearl-necklace',
       order: 'alphabet',
       letter: null,
-      pearls: items.map((item) => ({ id: item.id, word: item.id, text: lemma(LAGOON, item.id) })),
+      pearls: items.map((item) => ({
+        id: item.id,
+        word: item.id,
+        text: lemma(LAGOON, item.id),
+        inPlace: false,
+      })),
       submitted: false,
       attempts: 0,
     });
@@ -876,7 +881,10 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
     const checked = run(def, [{ type: 'submit' }]);
     expect(checked[1]!.status).toBe('active');
     expect(viewOf('pearl-necklace', LAGOON, def, checked[1]!)).toMatchObject({
-      pearls: viewOf('pearl-necklace', LAGOON, def, checked[0]!).pearls,
+      pearls: viewOf('pearl-necklace', LAGOON, def, checked[0]!).pearls.map((pearl, index) => ({
+        ...pearl,
+        inPlace: pearl.id === solution[index],
+      })),
       submitted: true,
       attempts: 1,
     });
@@ -893,6 +901,36 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
     expect(rhymeView.pearls.map((pearl) => pearl.text)).toEqual(
       config(rhymeDef).items.map((item) => lemma(BOARD_LAGOON, item.id)),
     );
+  });
+
+  it('marks the pearls in their place after a wrong check, never before it, until the next move', () => {
+    let wrongChecks = 0;
+    for (const seed of SEEDS) {
+      const def = made(makeBoard(request(LAGOON, 'pearl-necklace', abc.skills, abc.pool, seed)));
+      const { solution } = config(def);
+      const view = (state: MinigameState) => viewOf('pearl-necklace', LAGOON, def, state);
+      const marks = (state: MinigameState) => view(state).pearls.map((pearl) => pearl.inPlace);
+      const [dealt, threaded, checked, moved] = run(def, [
+        { type: 'place', item: solution[0]!, index: 0 },
+        { type: 'submit' },
+        { type: 'place', item: solution[1]!, index: 1 },
+      ]);
+      // Before a check nothing is marked, not even pearls the deal or a move put in place.
+      expect(marks(dealt!).some(Boolean), `seed ${seed}: dealt`).toBe(false);
+      expect(marks(threaded!).some(Boolean), `seed ${seed}: threaded`).toBe(false);
+      if (checked!.status !== 'active') continue;
+      wrongChecks += 1;
+      expect(
+        view(checked!).pearls.map(
+          (pearl, index) => pearl.inPlace === (pearl.id === solution[index]),
+        ),
+        `seed ${seed}: checked`,
+      ).not.toContain(false);
+      expect(view(checked!).pearls[0]!.inPlace, `seed ${seed}: the first pearl`).toBe(true);
+      expect(marks(checked!), `seed ${seed}: a wrong check`).toContain(false);
+      expect(marks(moved!).some(Boolean), `seed ${seed}: moved`).toBe(false);
+    }
+    expect(wrongChecks).toBeGreaterThan(SEEDS.length / 2);
   });
 
   it('credits every pearl fast at a right first check, slow after a wrong one; a coin a pearl', () => {

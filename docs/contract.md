@@ -891,12 +891,13 @@ items for facts (design.md).
 Every minigame round carries its board twice: the narrative projection (`round.minigame.view`) and
 the same board typed (`round.current`). Moves go in `minigameMove.move` with
 `revision = round.minigame.revision`. Boards never punish: a wrong pair, net, cut or pick stays as
-gentle feedback and can be corrected; faces of hidden cards are never in the view.
+gentle feedback and can be corrected; faces of hidden cards are never in the view. After a necklace
+check that was not right yet, `inPlace` marks the pearls already in their place, until the next move.
 
 | Board                              | View (besides `kind`)                                                                                      | Moves                                                                                                                  |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `memory-match` (`matching`)        | `pair`, `cards[{ id, face, faceUp, matched }]`, `clearAvailable`, `pairs`, `matched`, `attempts`           | `{ type: 'select', card }`, `{ type: 'clear' }`                                                                        |
-| `pearl-necklace` (`ordering`)      | `order` (`alphabet`/`rhyme`), `letter`, `pearls[{ id, word, text }]`, `submitted`, `attempts`              | `{ type: 'place', item, index }`, `{ type: 'submit' }`                                                                 |
+| `pearl-necklace` (`ordering`)      | `order` (`alphabet`/`rhyme`), `letter`, `pearls[{ id, word, text, inPlace }]`, `submitted`, `attempts`     | `{ type: 'place', item, index }`, `{ type: 'submit' }`                                                                 |
 | `fishing-nets` (`ps.sorting-nets`) | `dimension`, `nets[{ value }]`, `fish[{ id, word, text, net, wrong }]`, `submitted`, `attempts`            | `{ type: 'net', fish, net \| null }`, `{ type: 'submit' }`                                                             |
 | `word-shell` (`ps.word-builder`)   | `word`, `text`, `letters`, `cuts`, `parts[{ text, role }]`, `zeroEnding`, `roles`, `submitted`, `attempts` | `{ type: 'cut' \| 'uncut', at }`, `{ type: 'label', part, role }`, `{ type: 'zero-ending', on }`, `{ type: 'submit' }` |
 | `word-family` (`ps.word-family`)   | `family`, `head`, `letter`, `words[{ id, word, text, picked }]`, `needed`, `submitted`, `attempts`         | `{ type: 'pick', word }`, `{ type: 'submit' }`                                                                         |

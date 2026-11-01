@@ -152,5 +152,10 @@
   "grownups.game.gradeNotServed": "The game does not cover this grade yet.",
   "grownups.game.gradeBusy": "The grade cannot change during the placement check. Try again after it.",
   "grownups.game.dailyGoal": "Daily goal: right answers",
-  "grownups.game.race": "Dolphin race"
+  "grownups.game.race": "Dolphin race",
+  "grownups.game.placement": "The “Show what you know” check",
+  "grownups.game.placementNote": "The child shows what they already know, and the game opens levels to match.",
+  "grownups.game.placementRun": "Run the check again",
+  "grownups.game.placementStarted": "The check starts the next time the child plays.",
+  "grownups.game.placementBusy": "Not now: a round or a story is under way. Try again once it ends."
 }

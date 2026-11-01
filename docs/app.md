@@ -117,7 +117,10 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   when the durable revision equals the committed one; "Ukládám…" while a checkpoint is pending;
   "Neuloženo" + **Zkusit znovu** after a failed write, which calls `retryCheckpoint()` then
   `continuePending()` (the action is never dispatched again); "Hra je otevřená jinde" + reopen for
-  a storage conflict; "Tady se nedá ukládat" when storage is unavailable.
+  a storage conflict (another window saved the same child's game first); "Tady se nedá ukládat"
+  when storage is unavailable. Every screen of a child's game shows it, in its top bar or, where
+  there is none (a story beat, the eggs, the results, goodbye), in its top corner
+  (`cornerSaveStatus`), so an action refused there never leaves the child stuck.
 - **Recovery** (`recovery.ts`, `screens/recovery.ts`): nothing turns an unreadable record into a
   new one by itself. The screen offers what the stored history allows: save the original bytes to a
   file, restore the previous copy (validated like a fresh load), load a backup, or a confirmed reset
@@ -333,8 +336,10 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
 - **Nastavení / Settings**: the language of the area; reading aloud (available voices, or why there
   are none and how to add one); each child's settings: the game's grade (3 or 4: where the child
   starts and what the game suggests; content that does not serve a grade, or a placement round,
-  keeps the old one and says why), daily goal and the dolphin race; read-aloud, auto-read, voice
-  with a test line, music and effects volumes, text size, less motion, a time limit for one sitting.
+  keeps the old one and says why), daily goal and the dolphin race, and the placement check again
+  for a grade that has one (it starts the next time the child plays; a round or a story under way
+  keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes,
+  text size, less motion, a time limit for one sitting.
 - **Pokrok / Progress** (`grownups/progress.ts`), per child: days practised, answers, monsters
   freed and the grade; the last 14 days of practice (right answers of all); each goal of the 3rd
   and 4th grade (pearls mastered, silver and gold, of the goal's items, and the success rate);
@@ -373,14 +378,18 @@ its own presentation; calls take turns, and a child opened for play waits for th
   digits), the number pad, the Czech keyboard, the whole gate dialog, tabs, meters, stars and the
   coin counter, toasts, icons, a rebuilt panel keeping focus, print sheets, the save status pill
   and the read-aloud button.
-- **Browser, the game** (`test/e2e/game.spec.ts`, Playwright): three journeys played the way a
-  child plays, every answer given on screen. A new 3rd grader goes from the editor through the
-  prologue, the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked
-  too early, the nets, Krmení with a wrong answer that shows the right one and a reload that
-  resumes the same step) up to the friend hatching. A new 4th grader takes the placement check and
-  plays Slovní rodinka and Ulita slov in Měsíční jeskyně. A 3rd grader who has played every lesson
-  of the lagoon washes Muréna Mumla clean (the ink meter, her joke, an ink blot wiped), frees her
-  into the gallery and prints her diploma from the grown-ups' area. What is right comes from the
+- **Browser, the game** (`test/e2e/game.spec.ts`, Playwright): journeys played the way a child
+  plays, every answer given on screen. A new 3rd grader goes from the editor through the prologue,
+  the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked too
+  early, the nets, Krmení with Nápověda tapped twice and no complaint, a wrong answer that shows
+  the right one and a reload that resumes the same step) up to the friend hatching, with Osmička
+  cheering beside the results. A new 4th grader takes the placement check (Osmička cheering a right
+  answer) and plays Slovní rodinka (quick taps all counted) and Ulita slov in Měsíční jeskyně. A
+  3rd grader who has played every lesson of the lagoon washes Muréna Mumla clean (the ink meter,
+  her joke, an ink blot wiped), frees her into the gallery and prints her diploma from the
+  grown-ups' area. A second window on the same child shows "Hra je otevřená jinde" on a story beat
+  and reopens the saved game. A grown-up runs a placed 4th grader's placement check again, and
+  leaving it says kindly what stays. What is right comes from the
   game itself (`support/game.ts`): the save the page stored is read back from IndexedDB and
   restored into a runtime host in Node, and its view says what the problem or board on screen asks;
   screens name what they show only by position (`data-round`, `data-index`, `data-step`,
@@ -488,14 +497,19 @@ keyboard (`ui/czech-keyboard.ts`: the letters with diacritics, QWERTZ, Shift, sp
 take focus, so a physical keyboard works the same), a category, or a word to pick (the sentence of
 a Lov chyb, an odd one out, a related word). Read-aloud says a gap as a pause, never the spelling.
 A miss is "Skoro!" with the right answer and the strategy that helps; nothing is ever lost.
+Nápověda asks the rules once a problem (they take one hint each); a later tap shows it again.
+Leaving the placement check from the pause ends it for good and keeps what it placed, and the pause
+dialog says so kindly: a grown-up can run it again from Pro dospělé (§14).
 
 In a battle Bublinka's bubbles wash the monster: the ink meter fills, the freed form shows through
 as the ink fades, the monster's harmless ink blots wait on the screen until the child wipes them
 away, and its jokes (`BattleView.jokeKey`) appear in a speech bubble; at the end the inked painting
 washes off in the results to the victory sting (§9) and the freed monster tells its last joke. A
 board sends each move as
-`minigameMove` and redraws from the view; pearls and fish move by tapping or with the keyboard,
-fish also by dragging. After a check that is not right yet, the pearls already in their place wear
+`minigameMove` and redraws from the view, in the order the moves were made (`controller/moves.ts`):
+a quick tap while the move before it is saving waits for it rather than being lost, and is dropped
+only when its board is done or the rules no longer allow it. Pearls and fish move by tapping or with
+the keyboard, fish also by dragging. After a check that is not right yet, the pearls already in their place wear
 a check mark (`inPlace`). In Ulita slov the child cuts the word between its letters (never inside
 "ch"), names each part with one of the asked roles and marks a zero ending ("nulová koncovka") when
 endings are asked; in Slovní rodinka the child picks every word related to the head word. A check

@@ -11,7 +11,8 @@
  * pearl picked up is put down by tapping its new place, or moved with the arrow keys; a fish is
  * dragged into a net, or tapped and then its net tapped.
  */
-import { taken } from '../controller/commands';
+import { CommandRejectedError, taken } from '../controller/commands';
+import { createMoveQueue } from '../controller/moves';
 import type { Screen } from '../router/router';
 import type { ActiveDiver, App } from '../shell/app';
 import { candyButton } from '../ui/button';
@@ -95,28 +96,52 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
   });
   const actions = h('div', { className: 'ps-board__actions' });
 
-  let busy = false;
   let disposed = false;
   let lastBoard = first.board;
 
-  /** Send a move made on the board as it is drawn now, then draw what the rules say. */
+  /**
+   * Moves in the order they were made (controller/moves.ts): a quick tap while the previous move
+   * is still saving waits for it instead of being lost, as children tap fast. A waiting move is
+   * sent against the board as it is by then; it is dropped when its board is done or the round is
+   * over, and quietly when the rules no longer allow it (a second tap on a card the first tap
+   * already turned).
+   */
+  const moves = createMoveQueue(
+    async ({
+      made,
+      board,
+      waited,
+    }: {
+      made: MinigameMove;
+      board: number;
+      waited: boolean;
+    }): Promise<boolean> => {
+      const round = minigameRound(active.game.view());
+      if (disposed || !round || round.status !== 'active' || round.board !== board) return false;
+      try {
+        await taken(
+          active.commands.captureSend()({
+            type: 'minigameMove',
+            revision: round.minigame.revision,
+            move: made as unknown as MinigameRoundView['minigame']['view'],
+          }),
+        );
+      } catch (error) {
+        if (waited && error instanceof CommandRejectedError) return false;
+        throw error;
+      }
+      if (!disposed) await redraw();
+      return true;
+    },
+  );
+
+  /** Send a move made on the board, after any still on its way; then draw what the rules say. */
   const move = async (made: MinigameMove): Promise<void> => {
-    if (busy) return;
-    const round = minigameRound(active.game.view());
-    if (!round || round.status !== 'active') return;
-    busy = true;
-    try {
-      await taken(
-        active.commands.captureSend()({
-          type: 'minigameMove',
-          revision: round.minigame.revision,
-          move: made as unknown as MinigameRoundView['minigame']['view'],
-        }),
-      );
-    } finally {
-      busy = false;
-    }
-    if (!disposed) await redraw();
+    await moves.push({
+      made,
+      board: minigameRound(active.game.view())?.board ?? -1,
+      waited: moves.pending() > 0,
+    });
   };
 
   const redraw = async (): Promise<void> => {

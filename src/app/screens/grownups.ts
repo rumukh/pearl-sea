@@ -1,15 +1,17 @@
 /**
  * The grown-ups' area, behind the gate, in Czech or English (the family's choice): the language
- * switch, reading aloud and each child's settings (the game's grade, daily goal and dolphin race;
- * read-aloud, voice, volumes, text size, less motion, time limit), each child's progress with
- * printable flashcards and diplomas (grownups/progress.ts), backups and erasing, storage
- * persistence, offline installation and updates, and what the game does and does not do.
+ * switch, reading aloud and each child's settings (the game's grade, daily goal, dolphin race and
+ * the placement check again; read-aloud, voice, volumes, text size, less motion, time limit), each
+ * child's progress with printable flashcards and diplomas (grownups/progress.ts), backups and
+ * erasing, storage persistence, offline installation and updates, and what the game does and does
+ * not do.
  *
  * It is an operating surface: calm, plain and complete. Nothing here plays sounds, and no
  * child's game is played while it is shown: a child's save is only read or changed in passing
  * (`App.withGame`), which starts no session and counts no play time.
  */
 import { assertChildSafeView } from '@aegis/browser/ui';
+import { CommandRejectedError } from '../controller/commands';
 import type { Dispatch } from '../controller/commands';
 import { requestGrade } from '../game/grade';
 import type { GradeRefusal } from '../game/grade';
@@ -289,6 +291,46 @@ export function grownUpsScreen(
             h('span', { text: g('grownups.game.race') }),
             race,
           ),
+          placementRerun(diver, settings.grade),
+        );
+      };
+
+      /**
+       * The placement check again (design §5.16), for a grade that has one: it starts the next
+       * time the child plays. A round or a story under way keeps it for later.
+       */
+      const placementRerun = (diver: Diver, grade: Grade): HTMLElement | null => {
+        const steps = app.content()?.game.content.data.placement.steps ?? [];
+        if (!steps.some((step) => (step.grades as readonly number[]).includes(grade))) return null;
+        return field(
+          g('grownups.game.placement'),
+          candyButton({
+            label: g('grownups.game.placementRun'),
+            icon: 'retry',
+            variant: 'paper',
+            size: 'small',
+            testId: 'setting-placement',
+            onPress: async () => {
+              try {
+                await app.withGame(diver.id, (_game, dispatch) =>
+                  dispatch({ type: 'startActivity', activity: { kind: 'placement' } }),
+                );
+              } catch (error) {
+                if (error instanceof RecoveryRequired) {
+                  app.reportError(error);
+                  return;
+                }
+                if (error instanceof CommandRejectedError && !error.accepted) {
+                  app.kit.toasts.show(g('grownups.game.placementBusy'), { tone: 'warning' });
+                  return;
+                }
+                throw error;
+              }
+              app.kit.toasts.show(g('grownups.game.placementStarted'), { tone: 'success' });
+            },
+            onError: app.kit.onError,
+          }),
+          g('grownups.game.placementNote'),
         );
       };
 

@@ -105,6 +105,14 @@
   object-position: 50% 100%;
 }
 
+/* The save status of a screen with no top bar (story, eggs, results, goodbye), in its corner. */
+.ps-corner-save {
+  position: absolute;
+  z-index: 2;
+  top: max(clamp(8px, 2vw, 20px), env(safe-area-inset-top));
+  right: clamp(8px, 2vw, 20px);
+}
+
 /* Screens drawn over a scene: the picture fills the screen behind everything else. */
 .ps-hub,
 .ps-story,

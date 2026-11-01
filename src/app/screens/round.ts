@@ -323,6 +323,8 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       hintSlot.hidden = false;
     };
     if (problem.hinted) show();
+    /** A dispatch in flight: a quick second tap waits for it rather than asking twice. */
+    let asking: Promise<unknown> | null = null;
     return [
       candyButton({
         label: t('round.hint'),
@@ -332,7 +334,19 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         keepsFocus: true,
         testId: 'round-hint',
         onPress: async () => {
-          if (!shown?.hinted) await active.commands.capture()({ type: 'hint' });
+          // The rules take one hint per problem: read the live view, since this problem's view
+          // was drawn before the hint, and once it is taken a tap only shows the hint again.
+          const live = problemRound(active.game.view())?.problem;
+          if (live && live.index === problem.index && !live.hinted) {
+            asking ??= active.commands
+              .capture()({ type: 'hint' })
+              .finally(() => {
+                asking = null;
+              });
+            await asking;
+          } else if (asking) {
+            await asking;
+          }
           send = active.commands.captureSend();
           show();
         },
@@ -682,13 +696,17 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       testId: 'pause-dialog',
       dismissValue: 'resume',
       build(body, close) {
+        // Leaving the placement check ends it for good, keeping what was placed: say so kindly.
         body.append(
-          h('p', { text: t('pause.body') }),
+          h('p', {
+            testId: 'pause-body',
+            text: t(placement ? 'pause.placementBody' : 'pause.body'),
+          }),
           h(
             'div',
             { className: 'ps-dialog__actions' },
             candyButton({
-              label: t('pause.quit'),
+              label: t(placement ? 'pause.placementQuit' : 'pause.quit'),
               variant: 'paper',
               testId: 'pause-quit',
               onPress: () => close('quit'),

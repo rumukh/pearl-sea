@@ -12,6 +12,7 @@ import { candyButton } from '../ui/button';
 import { h } from '../ui/dom';
 import { ART, GUIDE_ID } from '../../rules/contract';
 import type { ContentData, GameEvent } from '../../rules/contract';
+import { cornerSaveStatus } from './common';
 import { speakerButton } from './speaker';
 
 type StoryAdvanced = Extract<GameEvent, { type: 'story.advanced' }>;
@@ -143,11 +144,13 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
   }
 
   say(story.text);
+  const saveStatus = cornerSaveStatus(app, active);
   const heading = h('h1', { className: 'ps-visually-hidden', text: t('storyScreen.heading') });
   const element = h(
     'main',
     { className: 'ps-story', testId: 'screen-story', dataset: { beat: story.beat } },
     h('div', { className: 'ps-backdrop' }, picture(app.art, story.scene)),
+    saveStatus.element,
     heading,
     h(
       'section',
@@ -169,5 +172,6 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
     music: 'grotto',
     focusTarget: () => actions.querySelector<HTMLElement>('button:not(:disabled)') ?? heading,
     mounted: autoRead,
+    dispose: saveStatus.dispose,
   };
 }

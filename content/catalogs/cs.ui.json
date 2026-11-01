@@ -338,6 +338,8 @@
   "pause.body": "Hra stojí. Až budeš chtít, pokračuj.",
   "pause.quit": "Skončit kolo",
   "pause.resume": "Pokračovat",
+  "pause.placementBody": "Když teď odejdeš, kontrola skončí. Co už máš hotové, ti zůstane. Spustit ji znovu může dospělý v části Pro dospělé.",
+  "pause.placementQuit": "Skončit kontrolu",
   "praise.right": "Správně! Výborně!",
   "praise.right.boy": "Správně! Ty jsi ale šikovný!",
   "praise.right.girl": "Správně! Ty jsi ale šikovná!",
@@ -526,5 +528,10 @@
   "grownups.game.gradeNotServed": "Tuto třídu hra zatím neobsahuje.",
   "grownups.game.gradeBusy": "Během úvodní kontroly nejde třídu změnit. Zkuste to po ní.",
   "grownups.game.dailyGoal": "Denní cíl: správné odpovědi",
-  "grownups.game.race": "Závod s delfíny"
+  "grownups.game.race": "Závod s delfíny",
+  "grownups.game.placement": "Kontrola „Ukaž, co umíš“",
+  "grownups.game.placementNote": "Dítě ukáže, co už umí, a hra mu podle toho otevře úrovně.",
+  "grownups.game.placementRun": "Spustit kontrolu znovu",
+  "grownups.game.placementStarted": "Kontrola se spustí, až dítě příště začne hrát.",
+  "grownups.game.placementBusy": "Teď to nejde: právě probíhá kolo nebo příběh. Zkuste to, až skončí."
 }

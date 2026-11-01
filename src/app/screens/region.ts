@@ -12,13 +12,14 @@ import { h, svg } from '../ui/dom';
 import { icon, starIcon } from '../ui/icons';
 import { ART } from '../../rules/contract';
 import type { LevelCard } from '../../rules/contract';
-import { topBar } from './common';
+import { diverSaveStatus, topBar } from './common';
 
 export function regionScreen(app: App, diverId: string, regionId: string): ScreenEntry {
   return {
     key: `region:${diverId}:${regionId}`,
     async build(context) {
       const active = await app.openDiver(diverId);
+      const saveStatus = diverSaveStatus(app, active);
       const t = app.kit.t;
       const text = app.content()!.text;
       const view = active.game.view();
@@ -112,6 +113,7 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
             ? { label: t('common.back'), onPress: () => app.router.back() }
             : undefined,
           title: heading,
+          tools: [saveStatus.element],
           onError: app.kit.onError,
         }),
         board,
@@ -122,6 +124,7 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
         field: 'sea',
         region: region.id,
         music: 'map',
+        dispose: saveStatus.dispose,
         focusTarget: () =>
           nodes.find((node) => node.dataset['glowing'] === 'true') ??
           nodes.find((node) => !node.disabled) ??

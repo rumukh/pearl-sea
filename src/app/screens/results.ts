@@ -19,6 +19,7 @@ import { createStars } from '../ui/meters';
 import { ART, GUIDE_ID } from '../../rules/contract';
 import type { ContentData, GameAction, GameEvent } from '../../rules/contract';
 import { friendStageName } from './celebrate';
+import { cornerSaveStatus } from './common';
 
 const CELEBRATED = [
   'friend.hatched',
@@ -282,10 +283,12 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
   };
   showMoment(0, false);
 
+  const saveStatus = cornerSaveStatus(app, active);
   const element = h(
     'main',
     { className: 'ps-results', testId: 'screen-results' },
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene('grotto'))),
+    saveStatus.element,
     stage,
   );
   return {
@@ -302,5 +305,6 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
       if (current < moments.length && shown && onward) celebrate(shown, onward);
       else void stars?.reveal();
     },
+    dispose: saveStatus.dispose,
   };
 }

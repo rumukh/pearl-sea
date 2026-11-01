@@ -53,24 +53,26 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 | `content/`      | Data: the content pack, built from `pack-src/` and the Czech word bank (`lexicon-src/`); catalogs   |
 | `assets/`       | Runtime fonts (and later art and audio) with provenance                                             |
 | `scripts/`      | Node tooling: build, serve, verify, check-site, content validation, lexicon checks, lockfile, fonts |
-| `test/`         | Vitest unit and tooling tests, Playwright end-to-end tests (`e2e/`)                                 |
+| `test/`         | Vitest unit, trace, migration, simulation and tooling tests, Playwright end-to-end tests (`e2e/`)   |
 | `vendor/aegis/` | The pinned SDK tarball set and its artifact manifest                                                |
 | `docs/`         | The approved plan and the documentation below                                                       |
 
 ## Documentation
 
-| Document                                | What                                                                                  |
-| --------------------------------------- | ------------------------------------------------------------------------------------- |
-| [plan.md](docs/plan.md)                 | The approved plan: setting, regions, activities, delivery                             |
-| [design.md](docs/design.md)             | The full game design: story, regions and levels, activities, learning engine, economy |
-| [curriculum.md](docs/curriculum.md)     | Czech-language objectives for grades 3 and 4, RVP ZV outcomes, the level mapping      |
-| [contract.md](docs/contract.md)         | The domain contract every session builds on, and who owns what                        |
-| [lexicon.md](docs/lexicon.md)           | The verified Czech word bank: fields, school conventions, sources, coverage           |
-| [content.md](docs/content.md)           | Authoring content: the pack's sources and build, revisions, rules, the regions        |
-| [architecture.md](docs/architecture.md) | Layers, the command loop, persistence and same-origin isolation, offline, the build   |
-| [testing.md](docs/testing.md)           | The gate and the testing discipline                                                   |
-| [assets.md](docs/assets.md)             | Art, audio and fonts: local models only, provenance                                   |
-| [sdk-update.md](docs/sdk-update.md)     | Updating the pinned Aegis SDK                                                         |
+| Document                                    | What                                                                                  |
+| ------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [plan.md](docs/plan.md)                     | The approved plan: setting, regions, activities, delivery                             |
+| [design.md](docs/design.md)                 | The full game design: story, regions and levels, activities, learning engine, economy |
+| [curriculum.md](docs/curriculum.md)         | Czech-language objectives for grades 3 and 4, RVP ZV outcomes, the level mapping      |
+| [contract.md](docs/contract.md)             | The domain contract every session builds on, and who owns what                        |
+| [learning.md](docs/learning.md)             | How the rules learn and play: items, selection, generators, boards, battles, pacing   |
+| [lexicon.md](docs/lexicon.md)               | The verified Czech word bank: fields, school conventions, sources, coverage           |
+| [content.md](docs/content.md)               | Authoring content: the pack's sources and build, revisions, rules, the regions        |
+| [architecture.md](docs/architecture.md)     | Layers, the command loop, persistence and same-origin isolation, offline, the build   |
+| [testing.md](docs/testing.md)               | The gate and the testing discipline                                                   |
+| [balance-report.md](docs/balance-report.md) | The learner simulation's measurements, findings and balance proposals                 |
+| [assets.md](docs/assets.md)                 | Art, audio and fonts: local models only, provenance                                   |
+| [sdk-update.md](docs/sdk-update.md)         | Updating the pinned Aegis SDK                                                         |
 
 ## License
 

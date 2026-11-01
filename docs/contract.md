@@ -956,8 +956,9 @@ linguistic checks; problems, answers and item IDs; skill item universes; content
 catalog and art collection, grammar keys and curriculum gaps; the catalog convention; state, days,
 actions and events (`test/unit/contract/**`, on the fixture pack). S2's rules (docs/learning.md)
 implement the adapter and everything it registers: items, selection, rounds, Svačinka, placement,
-the daily adventure, progression, the economy, story beats, the views, the `spell.*` generators,
-the five minigames, battles and the Inkoustíci (`test/unit/**`, `test/traces/**`,
-`test/migration/**` on the rules' lagoon fixture). Planned: the `classify`, `odd-one-out` and
-`relation` generators, the finale's checks and the learner simulations (S2), the content pack and
-its strings (S3), the shell and its records (S4), art and audio (S5).
+the daily adventure, progression, the economy, story beats, the views, every problem generator
+(`spell.*`, `classify`, `odd-one-out`, `relation`), the five minigames, battles, the finales and
+the Inkoustíci (`test/unit/**`, `test/traces/**`, `test/migration/**` on the rules' lagoon fixture,
+the contract's mini pack and the game's pack), and the learner simulations measure the balance
+(`test/sim/**`, `scripts/simulate.mjs`, docs/balance-report.md). Planned: the content pack beyond
+the 3rd grade and its strings (S3), the shell and its records (S4), art and audio (S5).

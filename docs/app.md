@@ -216,19 +216,34 @@ sound), music states with a crossfade, and per-sound throttles. Sound IDs follow
 `AUDIO_ID_PATTERN`: effects are `sfx/<name>` and music loops `music/<loop>` (the contract's
 `MUSIC_IDS`: `music/grotto`, `music/map`, `music/practice`, `music/battle`, `music/finale`; results
 and missing moods play `music/grotto`, and a freed monster gets the one-shot `sfx/victory-sting`); a
-manifest that names a sound otherwise is refused as a whole. The event map is keyed by the
-contract's `EVENTS`
-(`answer.correct`, `coins.earned`, …) and the shell cues `ui.tap`, `ui.keypad`, `ui.navigate`,
-`ui.blocked`. Until S5's pack lands the repository ships an **empty placeholder** in that schema,
-so the game is silent without a missing file; S5's generator overwrites it. With no sounds, no
-`AudioContext` is ever created.
+manifest that names a sound otherwise is refused as a whole. S5 owns the pack, its manifest generator and
+`docs/audio.md`; the shell owns the runtime map, which events it cues and when. Until S5's pack
+lands the repository ships an **empty placeholder** in that schema, so the game is silent without
+a missing file; S5's generator overwrites it. With no sounds, no `AudioContext` is ever created.
+
+What the shell cues, by name in the manifest's event map:
+
+- Every live game event (the contract's `EVENTS`: `answer.correct`, `coins.earned`,
+  `level.completed`, …) as it is committed, never replayed history; except the celebrations
+  `friend.hatched`, `monster.freed` and `grade.completed`, which the results screen cues when their
+  moment is on screen.
+- The shell's own cues: `ui.tap`, `ui.keypad`, `ui.navigate`, `ui.blocked`, and in the game
+  `fx.bubble` (Bublinka's bubble at the monster), `fx.wipe` (an ink blot wiped away),
+  `fx.board-done` (a board solved), `fx.chest` (the treasure chest opened) and `fx.buy` (bought at
+  U Mrože).
 
 Screens name a **mood** for their music, and the manifest's `music.states` maps each mood to a loop
 (or `null` for silence): `grotto` (title, profiles, story, hub, collections, results, goodbye),
 `map` (map, region, level intro), `practice` (problem rounds and boards) and `battle` (monster
 battles). A mood the pack does not list plays the `grotto` loop (`musicFor`), so S5's slice loops
-(grotto, practice, battle) cover every screen; the 9-second victory take is the one-shot effect
-`sfx/victory-sting` on a round's events, not a music state.
+(grotto, practice, battle) cover every screen, the results and the finale included.
+
+The victory is no loop but a 9-second one-shot, `sfx/victory-sting`, which the manifest maps to
+`monster.freed`. The results screen plays it as a **sting** (`GameAudio.sting`) when the freed
+monster's moment shows: the music stops first (the battle loop, or the grotto loop the results
+screen just asked for), stays silent until the sting has ended (a pause or a hidden page stretches
+that), and then the music the current screen asks for comes back. A level's completion keeps a
+short fanfare; only freeing a monster gets the sting.
 
 ## 10. Read-aloud
 
@@ -415,7 +430,8 @@ A miss is "Skoro!" with the right answer and the strategy that helps; nothing is
 In a battle Bublinka's bubbles wash the monster: the ink meter fills, the freed form shows through
 as the ink fades, the monster's harmless ink blots wait on the screen until the child wipes them
 away, and its jokes (`BattleView.jokeKey`) appear in a speech bubble; at the end the inked painting
-washes off in the results and the freed monster tells its last joke. A board sends each move as
+washes off in the results to the victory sting (§9) and the freed monster tells its last joke. A
+board sends each move as
 `minigameMove` and redraws from the view; pearls and fish move by tapping or with the keyboard,
 fish also by dragging.
 

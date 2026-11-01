@@ -264,7 +264,10 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     if (live) celebrate(shown, onward);
   };
   const celebrate = (shown: HTMLElement, onward: HTMLElement): void => {
-    app.kit.cue(shown.dataset['testid'] === 'moment-hatch' ? 'friend.hatched' : 'monster.freed');
+    // Each moment's own sound: the freeing is the victory sting, heard with the music stopped.
+    const moment = shown.dataset['testid'];
+    if (moment === 'moment-freed') app.audio.sting('monster.freed');
+    else app.kit.cue(moment === 'moment-hatch' ? 'friend.hatched' : 'grade.completed');
     void confetti(app.kit.fx);
     onward.focus();
   };

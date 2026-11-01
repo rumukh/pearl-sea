@@ -76,9 +76,14 @@ const MAX_INBOX = 64;
 
 /**
  * Events whose sounds belong to a celebration screen, which cues them in time with its picture
- * (the hatch fanfare lands when the egg cracks), instead of when the answer is committed.
+ * (the hatch fanfare lands when the egg cracks, the victory sting when the ink washes off),
+ * instead of when the answer is committed.
  */
-const CELEBRATION_SOUNDS: ReadonlySet<string> = new Set(['friend.hatched', 'monster.freed']);
+const CELEBRATION_SOUNDS: ReadonlySet<string> = new Set([
+  'friend.hatched',
+  'monster.freed',
+  'grade.completed',
+]);
 
 /** The router key of a child's play screen. */
 export function playKey(diverId: string): string {

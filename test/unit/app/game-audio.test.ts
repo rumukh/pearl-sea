@@ -64,10 +64,10 @@ const flush = async (): Promise<void> => {
   for (let index = 0; index < 5; index++) await Promise.resolve();
 };
 
-async function ready(fake: ReturnType<typeof fakeNarration>, now?: () => number) {
+async function ready(fake: ReturnType<typeof fakeNarration>, now?: () => number, map = MAP) {
   const audio = createGameAudio({
     baseUrl: 'http://localhost/',
-    map: MAP,
+    map,
     narration: fake.factory,
     ...(now ? { now } : {}),
   });
@@ -76,6 +76,21 @@ async function ready(fake: ReturnType<typeof fakeNarration>, now?: () => number)
   await flush();
   return audio;
 }
+
+/** The pack with its 9-second victory sting and a battle loop (docs/plan.md §10). */
+const STING_MAP: AudioMap = {
+  ...MAP,
+  effects: [
+    ...MAP.effects,
+    { id: 'sfx/victory-sting', src: 'assets/audio/sfx/victory-sting.ogg', durationMs: 9000 },
+  ],
+  music: [
+    ...MAP.music,
+    { id: 'music/battle', src: 'assets/audio/music/battle.ogg', durationMs: 60_000 },
+  ],
+  events: { ...MAP.events, 'monster.freed': { sounds: ['sfx/victory-sting'], pick: 'first' } },
+  musicStates: { grotto: 'music/grotto', battle: 'music/battle' },
+};
 
 afterEach(() => {
   vi.useRealTimers();
@@ -197,6 +212,90 @@ describe('game audio', () => {
     audio.clear();
     await flush();
     expect(fake.calls).toEqual(['music music/grotto', 'pause', 'resume', 'music silence', 'clear']);
+  });
+
+  it('stops the battle loop before the victory sting, and brings the music asked for back after it', async () => {
+    vi.useFakeTimers();
+    let now = 0;
+    const fake = fakeNarration();
+    const audio = await ready(fake, () => now, STING_MAP);
+    audio.setMusic('battle');
+    // The results screen asks for the grotto and, in the same moment, frees the monster.
+    audio.setMusic('grotto');
+    audio.sting('monster.freed');
+    await flush();
+    expect(fake.calls).toEqual([
+      'music music/battle',
+      'music music/grotto',
+      'music silence',
+      'effect sfx/victory-sting',
+    ]);
+    // Music asked for during the sting waits for its end.
+    audio.setMusic('battle');
+    audio.setMusic('grotto');
+    now += 8999;
+    vi.advanceTimersByTime(8999);
+    await flush();
+    expect(fake.calls).toHaveLength(4);
+    now += 1;
+    vi.advanceTimersByTime(1);
+    await flush();
+    expect(fake.calls.slice(4)).toEqual(['music music/grotto']);
+  });
+
+  it('keeps the music silent for the rest of a sting paused with the game', async () => {
+    vi.useFakeTimers();
+    let now = 0;
+    const fake = fakeNarration();
+    const audio = await ready(fake, () => now, STING_MAP);
+    audio.setMusic('grotto');
+    audio.sting('monster.freed');
+    now += 2000;
+    vi.advanceTimersByTime(2000);
+    audio.pause();
+    now += 30_000;
+    vi.advanceTimersByTime(30_000);
+    audio.resume();
+    await flush();
+    expect(fake.calls).toEqual([
+      'music music/grotto',
+      'music silence',
+      'effect sfx/victory-sting',
+      'pause',
+      'resume',
+    ]);
+    now += 6999;
+    vi.advanceTimersByTime(6999);
+    await flush();
+    expect(fake.calls).toHaveLength(5);
+    now += 1;
+    vi.advanceTimersByTime(1);
+    await flush();
+    expect(fake.calls.slice(5)).toEqual(['music music/grotto']);
+  });
+
+  it('lets a new child’s music play at once after a sting, and leaves the music to a silent sting', async () => {
+    vi.useFakeTimers();
+    let now = 0;
+    const fake = fakeNarration();
+    const audio = await ready(fake, () => now, STING_MAP);
+    audio.setMusic('grotto');
+    audio.sting('round.started');
+    audio.sting('monster.freed');
+    audio.clear();
+    audio.setMusic('grotto');
+    await flush();
+    expect(fake.calls).toEqual([
+      'music music/grotto',
+      'music silence',
+      'effect sfx/victory-sting',
+      'clear',
+      'music music/grotto',
+    ]);
+    now += 9000;
+    vi.advanceTimersByTime(9000);
+    await flush();
+    expect(fake.calls).toHaveLength(5);
   });
 
   it('applies bus volumes from preferences and lowers the music while read-aloud speaks', async () => {

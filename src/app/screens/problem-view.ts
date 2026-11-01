@@ -6,9 +6,11 @@
  * or a highlighted part of it), the words of an odd-one-out, and the word of a relation.
  *
  * `stepAnswer` says what this step takes: text (choice tiles, the big letter pad or the Czech
- * keyboard, as `ProblemView.input` says), a category option, or a pick of a word. `spokenProblem`
- * is what read-aloud says: the instruction and the text, a gap said as a pause, so hearing it
- * never gives a spelling away.
+ * keyboard, as `ProblemView.input` says), a category option, or a pick of a word. `promptKey` is the
+ * step's instruction: a gap that is no letters asks for its conjunction, end mark (a comma inside
+ * a sentence) or standard word, and a Lov chyb of a colloquial word asks for the colloquial word.
+ * `spokenProblem` is what read-aloud says: the instruction and the text, a gap said as a pause, so
+ * hearing it never gives a spelling away.
  */
 import type { MessageKey, Translate } from '../i18n/messages';
 import type { ContentText } from '../content/text';
@@ -16,7 +18,9 @@ import { h } from '../ui/dom';
 import type {
   AnswerValue,
   Gap,
+  GapsProblem,
   Hint,
+  MistakeProblem,
   Problem,
   ProblemView,
   ResolvedInputMode,
@@ -64,10 +68,18 @@ export function stepAnswer(view: ProblemView, text: ContentText): StepAnswer {
 /** The instruction above a problem at a step. */
 export function promptKey(problem: Problem, step: number): MessageKey {
   switch (problem.kind) {
-    case 'gaps':
-      return problem.sentence === null ? 'round.prompt.word' : 'round.prompt.sentence';
+    case 'gaps': {
+      const gap = problem.gaps[step];
+      const special = gap ? wholeGapPromptKey(gap, gapEndsSentence(problem, step)) : null;
+      return special ?? (problem.sentence === null ? 'round.prompt.word' : 'round.prompt.sentence');
+    }
     case 'mistake':
-      return step === 0 ? 'round.prompt.find' : 'round.prompt.fix';
+      if (step === 0) {
+        return problem.fix.rule === 'spisovne'
+          ? 'round.prompt.findColloquial'
+          : 'round.prompt.find';
+      }
+      return wholeGapPromptKey(problem.fix, mistakeEndsSentence(problem)) ?? 'round.prompt.fix';
     case 'classify':
       return `round.classify.${problem.dimension}` as MessageKey;
     case 'odd':
@@ -75,6 +87,45 @@ export function promptKey(problem: Problem, step: number): MessageKey {
     case 'relation':
       return `round.relation.${problem.relation}` as MessageKey;
   }
+}
+
+/** Sentence rules whose gap is no letters but a whole conjunction, mark or word. */
+const WHOLE_GAP_RULES: readonly string[] = ['spojka', 'interpunkce', 'spisovne'];
+
+/** Whether a gap is filled with letters (the letter pad's keys are letters). */
+export function gapHoldsLetters(gap: Gap): boolean {
+  return !WHOLE_GAP_RULES.includes(gap.rule);
+}
+
+/**
+ * What a gap that is not letters asks for: the conjunction, the end mark (or, inside a sentence,
+ * a comma between clauses) or the standard word in place of its colloquial twin. "Doplň" fits
+ * every input, the tiles, the pad and the keyboard alike.
+ */
+function wholeGapPromptKey(gap: Gap, endsSentence: boolean): MessageKey | null {
+  switch (gap.rule) {
+    case 'spojka':
+      return 'round.prompt.conjunction';
+    case 'interpunkce':
+      return endsSentence ? 'round.prompt.endMark' : 'round.prompt.mark';
+    case 'spisovne':
+      return 'round.prompt.standard';
+    default:
+      return null;
+  }
+}
+
+/** Whether nothing but spaces follows gap `gap` (its end mark ends the sentence). */
+function gapEndsSentence(problem: GapsProblem, gap: number): boolean {
+  const at = problem.parts.findIndex((part) => part.kind === 'gap' && part.gap === gap);
+  return (
+    at >= 0 &&
+    problem.parts.slice(at + 1).every((part) => part.kind === 'text' && part.text.trim() === '')
+  );
+}
+
+function mistakeEndsSentence(problem: MistakeProblem): boolean {
+  return problem.wrong === problem.tokens.length - 1 && problem.around[1].trim() === '';
 }
 
 function blot(
@@ -247,6 +298,25 @@ export function answerText(problem: Problem, value: AnswerValue, text: ContentTe
       return words[value.index] ?? '';
     }
   }
+}
+
+/**
+ * What the feedback says after a miss: _Skoro! Správně je: ý_. A right word tapped while hunting a
+ * Lov chyb's mistake is _Tohle slovo je v pořádku._ (docs/design.md §5.6), never "správně je" and
+ * the misspelled word, and the fix step that follows marks where the mistake was.
+ */
+export function missText(
+  problem: Problem,
+  step: number,
+  expected: AnswerValue,
+  t: Translate,
+  text: ContentText,
+): { readonly lead: string | null; readonly line: string } {
+  if (problem.kind === 'mistake' && step === 0) return { lead: null, line: t('miss.wordIsFine') };
+  return {
+    lead: t('miss.almost'),
+    line: t('miss.answer', { answer: answerText(problem, expected, text) }),
+  };
 }
 
 /** The hint of the current step: the strategy, never just the answer. */

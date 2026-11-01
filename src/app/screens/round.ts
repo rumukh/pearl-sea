@@ -46,8 +46,9 @@ import type {
 import { diverSaveStatus, topBar } from './common';
 import { activityName } from './level';
 import {
-  answerText,
+  gapHoldsLetters,
   hintText,
+  missText,
   problemDisplay,
   promptKey,
   spokenProblem,
@@ -380,10 +381,15 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     } else if (answer.kind === 'text') {
       const values = answer.input === 'letters' ? answer.gap.keys : answer.gap.options;
       tiles = createTiles(app.kit, {
-        label: t(answer.input === 'letters' ? 'round.letters' : 'round.choices'),
+        label: t(
+          answer.input === 'letters' && gapHoldsLetters(answer.gap)
+            ? 'round.letters'
+            : 'round.choices',
+        ),
         choices: values.map((value) => ({ id: value, label: value })),
         typeSelect: true,
-        glyphs: answer.input === 'letters' || values.every((value) => [...value].length <= 2),
+        // Letters and marks are drawn big; whole words (a conjunction, mě/mně) keep the tile's size.
+        glyphs: values.every((value) => [...value].length <= 2),
         testIdPrefix: answer.input === 'letters' ? 'key' : 'choice',
         onChoose: async (choice) => {
           await submit({ kind: 'text', value: choice.id }, tileOf(choice.id));
@@ -559,6 +565,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       ),
     );
     const hint = stepHint(asked.problem, asked.step);
+    const said = missText(asked.problem, asked.step, result.expected, t, text);
     setFeedback(
       'miss',
       h('span', {
@@ -569,9 +576,9 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       h(
         'span',
         { className: 'ps-feedback__text' },
-        h('strong', { text: t('miss.almost') }),
-        ' ',
-        t('miss.answer', { answer: answerText(asked.problem, result.expected, text) }),
+        said.lead === null ? null : h('strong', { text: said.lead }),
+        said.lead === null ? null : ' ',
+        said.line,
       ),
       hint ? h('span', { className: 'ps-feedback__hint', text: hintText(hint, t, text) }) : null,
     );

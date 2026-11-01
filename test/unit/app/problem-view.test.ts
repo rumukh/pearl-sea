@@ -11,7 +11,9 @@ import { createContentText } from '../../../src/app/content/text';
 import { createTranslator } from '../../../src/app/i18n/messages';
 import {
   answerText,
+  gapHoldsLetters,
   hintText,
+  missText,
   problemDisplay,
   promptKey,
   spokenProblem,
@@ -19,7 +21,8 @@ import {
   stepGap,
   stepHint,
 } from '../../../src/app/screens/problem-view';
-import { MLIN, MLYN, ODD, PLAVE, problemView, RYBA, VELKY } from './game-views';
+import type { Gap, GapsProblem, MistakeProblem, TextPart } from '../../../src/rules/contract';
+import { gap, MLIN, MLYN, ODD, PLAVE, problemView, RYBA, VELKY } from './game-views';
 
 const t = createTranslator();
 const text = createContentText({
@@ -100,6 +103,86 @@ describe('what a step takes', () => {
     expect(promptKey(VELKY, 0)).toBe('round.relation.antonym');
     for (const problem of [MLYN, RYBA, MLIN, PLAVE, ODD, VELKY]) {
       expect(t(promptKey(problem, 0))).not.toBe(promptKey(problem, 0));
+    }
+  });
+});
+
+describe('instructions for gaps that are no letters', () => {
+  const sentence = (parts: TextPart[], gaps: Gap[]): GapsProblem => ({
+    kind: 'gaps',
+    sentence: 's.test',
+    parts,
+    gaps,
+  });
+  const text = (value: string): TextPart => ({ kind: 'text', text: value });
+  const at = (index: number): TextPart => ({ kind: 'gap', gap: index });
+
+  it('asks for the conjunction, the end mark, a comma inside a sentence, the standard word', () => {
+    const conjunction = sentence(
+      [text('Foukal silný vítr, '), at(0), text(' delfíni skákali dál.')],
+      [gap('ale', { rule: 'spojka', options: ['ale', 'protože'] })],
+    );
+    const endMark = sentence(
+      [text('Kde bydlí malá chobotnice'), at(0)],
+      [gap('?', { rule: 'interpunkce', options: ['?', '.'] })],
+    );
+    const comma = sentence(
+      [text('Krab spí'), at(0), text(' protože je unavený.')],
+      [gap(',', { rule: 'interpunkce', options: [',', '.'] })],
+    );
+    const standard = sentence(
+      [text('Ke snídani mám '), at(0), text('.')],
+      [gap('mléko', { rule: 'spisovne', options: ['mléko', 'mlíko'] })],
+    );
+    expect(promptKey(conjunction, 0)).toBe('round.prompt.conjunction');
+    expect(promptKey(endMark, 0)).toBe('round.prompt.endMark');
+    expect(promptKey(comma, 0)).toBe('round.prompt.mark');
+    expect(promptKey(standard, 0)).toBe('round.prompt.standard');
+    expect(t('round.prompt.endMark')).toBe('Doplň znaménko na konec věty.');
+  });
+
+  it('gives each step of a sentence its own instruction', () => {
+    const mixed = sentence(
+      [text('Kde b'), at(0), text('dlí ml'), at(1), text('nář'), at(2), text(' ')],
+      [gap('y'), gap('y'), gap('?', { rule: 'interpunkce', options: ['?', '.'] })],
+    );
+    expect([0, 1, 2].map((step) => promptKey(mixed, step))).toEqual([
+      'round.prompt.sentence',
+      'round.prompt.sentence',
+      'round.prompt.endMark',
+    ]);
+  });
+
+  it('hunts a colloquial word as such, and fixes it with the standard word', () => {
+    const colloquial: MistakeProblem = {
+      kind: 'mistake',
+      sentence: 'register.01',
+      tokens: ['Delfín', 'má', 'velkej', 'hlad.'],
+      wrong: 2,
+      fix: gap('velký', { rule: 'spisovne', options: ['velký', 'velkej'] }),
+      around: ['', ''],
+    };
+    expect(promptKey(colloquial, 0)).toBe('round.prompt.findColloquial');
+    expect(promptKey(colloquial, 1)).toBe('round.prompt.standard');
+    expect(spokenProblem(problemView(colloquial), t)).toBe(
+      `${t('round.prompt.findColloquial')} Delfín má velkej hlad.`,
+    );
+    const endMark: MistakeProblem = {
+      kind: 'mistake',
+      sentence: 'kind.06',
+      tokens: ['Kde', 'bydlí', 'malá', 'chobotnice.'],
+      wrong: 3,
+      fix: gap('?', { rule: 'interpunkce', options: ['?', '.'] }),
+      around: ['chobotnice', ''],
+    };
+    expect(promptKey(endMark, 0)).toBe('round.prompt.find');
+    expect(promptKey(endMark, 1)).toBe('round.prompt.endMark');
+  });
+
+  it('calls a pad of letters letters, and one of words or marks choices', () => {
+    expect(gapHoldsLetters(gap('ý'))).toBe(true);
+    for (const rule of ['spojka', 'interpunkce', 'spisovne'] as const) {
+      expect(gapHoldsLetters(gap('x', { rule }))).toBe(false);
     }
   });
 });
@@ -187,6 +270,19 @@ describe('answers and hints in words', () => {
     expect(answerText(ODD, { kind: 'pick', index: 2 }, text)).toBe('pivo');
     expect(answerText(VELKY, { kind: 'pick', index: 0 }, text)).toBe('malý');
     expect(answerText(MLIN, { kind: 'pick', index: 0 }, text)).toBe('Mlín');
+  });
+
+  it('never calls the misspelled word right when a right word was tapped in a Lov chyb', () => {
+    expect(missText(MLIN, 0, { kind: 'pick', index: 0 }, t, text)).toEqual({
+      lead: null,
+      line: 'Tohle slovo je v\u00a0pořádku.',
+    });
+    expect(missText(MLIN, 1, { kind: 'text', value: 'ý' }, t, text)).toEqual({
+      lead: t('miss.almost'),
+      line: t('miss.answer', { answer: 'ý' }),
+    });
+    expect(missText(PLAVE, 0, { kind: 'option', value: '5' }, t, text).line).toContain('sloveso');
+    expect(missText(ODD, 0, { kind: 'pick', index: 2 }, t, text).line).toContain('pivo');
   });
 
   it('gives each step its own hint: the gap’s, the fix’s, the problem’s, none to find', () => {

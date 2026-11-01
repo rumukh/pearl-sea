@@ -7,8 +7,9 @@ installation, printables and the grown-ups' area, on the packed Aegis SDK's **pu
 reference implementation; the modules that are not about arithmetic are ported here, renamed and
 kept under test.
 
-**Status: Phase B, the slice** (Slunná laguna end to end). Everything below runs and is tested; the
-game itself opens once the rules adapter is wired (`game/rules.ts`, §16). The shell takes its
+**Status: Phase B, the slice.** The rules adapter is wired (`game/rules.ts`, §16), so the title's
+Hrát starts the game: Slunná laguna end to end and every activity the content pack uses, played
+through in a real browser (§15). The shell takes its
 vocabularies from the domain contract (`src/rules/contract`, `docs/contract.md`): diver avatars,
 forms of address, grades, the catalog convention, the audio manifest, the art catalog and IDs, the
 views and actions, and the storage names.
@@ -125,8 +126,8 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   envelopes exactly as stored, both re-validated before export. Loading one into a child rebinds
   the envelopes to that child's profile and validates them like a normal load (a save that cannot
   be opened is replaced through its recovery). The game save is reached through `GameRecords`,
-  made from the game definition; until the shell has one (Phase B) backups carry preferences only
-  and a backup with a game is refused.
+  made from the game definition, so a backup carries the child's game as stored; a shell without
+  the rules would carry preferences only and refuse a backup with a game.
 - **Day** (`day.ts`): when a child's day starts, the shell notes which items already shine and how
   far each sea friend has grown; the diary card is the difference from the view. It holds nothing
   the game save does not, so an unreadable record is replaced without asking anyone, and a failed
@@ -217,9 +218,9 @@ sound), music states with a crossfade, and per-sound throttles. Sound IDs follow
 `MUSIC_IDS`: `music/grotto`, `music/map`, `music/practice`, `music/battle`, `music/finale`; results
 and missing moods play `music/grotto`, and a freed monster gets the one-shot `sfx/victory-sting`); a
 manifest that names a sound otherwise is refused as a whole. S5 owns the pack, its manifest generator and
-`docs/audio.md`; the shell owns the runtime map, which events it cues and when. Until S5's pack
-lands the repository ships an **empty placeholder** in that schema, so the game is silent without
-a missing file; S5's generator overwrites it. With no sounds, no `AudioContext` is ever created.
+`docs/audio.md`; the shell owns the runtime map, which events it cues and when. S5's slice pack
+holds the grotto, practice and battle loops and the victory sting; a manifest with no sounds keeps
+the game silent, and then no `AudioContext` is ever created.
 
 What the shell cues, by name in the manifest's event map:
 
@@ -296,6 +297,10 @@ The catalog format carries Czech grammar. It is the contract's convention (docs/
   breaks after "s".
 - **Grown-ups**: `app.grownUps()` speaks the family's chosen language (Czech by default, English
   on request), falling back to Czech for any key English lacks.
+- **Names** (S3's rule): code never declines a name, so a name inserted into a sentence stands
+  only at its start or after a colon or dash, and no verb or adjective agrees with it ("Hurá!
+  Vajíčko se vylíhlo: {name}!"); the child is never addressed by name, which would need the
+  vocative (the grotto shows the child's name as a label beside the picture instead).
 
 Child-facing sentences keep to the narrative toolkit's child profile (at most ten words); a unit
 test runs `catalogProblems` on both catalogs and checks sentence length, placeholders, `{count}` in
@@ -362,7 +367,23 @@ its own presentation; calls take turns, and a child opened for play waits for th
   digits), the number pad, the Czech keyboard, the whole gate dialog, tabs, meters, stars and the
   coin counter, toasts, icons, a rebuilt panel keeping focus, print sheets, the save status pill
   and the read-aloud button.
-- **Browser** (`test/e2e/grownups.spec.ts`, Playwright): the gate (cancel, a wrong answer, the
+- **Browser, the game** (`test/e2e/game.spec.ts`, Playwright): three journeys played the way a
+  child plays, every answer given on screen. A new 3rd grader goes from the editor through the
+  prologue, the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked
+  too early, the nets, Krmení with a wrong answer that shows the right one and a reload that
+  resumes the same step) up to the friend hatching. A new 4th grader takes the placement check and
+  plays Slovní rodinka and Ulita slov in Měsíční jeskyně. A 3rd grader who has played every lesson
+  of the lagoon washes Muréna Mumla clean (the ink meter, her joke, an ink blot wiped), frees her
+  into the gallery and prints her diploma from the grown-ups' area. What is right comes from the
+  game itself (`support/game.ts`): the save the page stored is read back from IndexedDB and
+  restored into a runtime host in Node, and its view says what the problem or board on screen asks;
+  screens name what they show only by position (`data-round`, `data-index`, `data-step`,
+  `data-board`), never by item. Boards are solved from the board view and the lexicon with S2's
+  trace helpers; the seeded child is played by S2's trace `Player` on the real pack and stored as
+  the shell's checkpoint stores it (`support/saves.ts`). Every new screen passes axe, and each
+  journey ends with no page or console error, no failed request and nothing sent to another
+  origin.
+- **Browser, the shell** (`test/e2e/grownups.spec.ts`): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
   download, offline installation into this game's caches and scope, and the recovery screen for
@@ -400,10 +421,14 @@ Pictures are drawn by art ID (`ART` in media.ts) from S5's catalog (`assets/art/
 `pearl-sea-art-catalog/1`): WebP paintings and static SVGs (eggs, cosmetics, stickers) with their
 pixel size, painted friends with anchors where SVG cosmetics sit (`art/picture.ts`: `dressedFriend`
 puts what a friend wears on `head`, `eyes` and `neck`, and the golden shell crown on a crowned
-friend). A cosmetic is drawn in a 100×100 viewBox with its attachment point at the centre; at an
-anchor's `scale` 100 it is 250/1000 of the painting's width (`COSMETIC_WIDTH`), centred on the
-anchor and turned by its `rotate`. An ID the catalog lacks
-is drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
+friend: S5's `cosmetic/shell-crown` once the catalog has it, else a crown the shell draws). A
+cosmetic is drawn by the contract's anchor scale (`cosmeticPlacement`): a 100×100 viewBox with its
+attachment point at the centre, at an anchor's `scale` 100 `COSMETIC_BASE_WIDTH` (250/1000) of the
+painting's width, centred on the anchor and turned by its `rotate`. A **sticker** is composed from
+its content record, as Dragon Valley's composer does (`stickerPicture`): in one 100 × 100 box, a
+flat disc in the sticker's `color` (centre 50, 50, radius 40) drawn by the shell, S5's `frame` SVG
+over it (its rim covers the disc's edge) and the `icon` SVG on top. An ID the catalog lacks is
+drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
 marked "DEV <art id>" (`data-placeholder`). The repository ships an empty catalog until S5's
 assets land, so their files drop in without code changes. A catalog file outside `assets/art/` is
 ignored, and an unreadable catalog means placeholders everywhere.
@@ -417,7 +442,7 @@ ignored, and an unreadable catalog means placeholders everywhere.
 | The grotto: the featured friend and its growth, Dnešní výprava, today (goal, week, quests, chest), the places                            | `hub.ts`                          |
 | The sea map (shallows, deep), a region's levels, a level's intro                                                                         | `map.ts`, `region.ts`, `level.ts` |
 | Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`     |
-| Boards: Pexeso, Perlový náhrdelník, Rybářské sítě                                                                                        | `boards.ts`                       |
+| Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                       |
 | Results with the big moments (hatching, a monster freed, a grade done)                                                                   | `results.ts`                      |
 | U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                  |
 | Goodbye with the diary card                                                                                                              | `goodbye.ts`                      |
@@ -436,7 +461,11 @@ away, and its jokes (`BattleView.jokeKey`) appear in a speech bubble; at the end
 washes off in the results to the victory sting (§9) and the freed monster tells its last joke. A
 board sends each move as
 `minigameMove` and redraws from the view; pearls and fish move by tapping or with the keyboard,
-fish also by dragging.
+fish also by dragging. After a check that is not right yet, the pearls already in their place wear
+a check mark (`inPlace`). In Ulita slov the child cuts the word between its letters (never inside
+"ch"), names each part with one of the asked roles and marks a zero ending ("nulová koncovka") when
+endings are asked; in Slovní rodinka the child picks every word related to the head word. A check
+that is not right yet says so and leaves the board as it was.
 
 Layouts are touch-first for a landscape tablet. Each game screen is a size container, so a layout
 that needs room asks for it in `em` (`styles/game.css`): at 200 % text, as on a phone, the grotto
@@ -452,9 +481,8 @@ picture (`game/map.ts`): S5 paints open water there.
 
 ### 16.5 Still to come
 
-The remaining activities (Ulita slov, Slovní rodinka, the dolphin race and the snack basket's
-details), the finale and the 4th grade's flow join in the next pull request; until S2's adapter is
-wired, the title says the game is still being built.
+The dolphin race (in no level of the pack yet, and with no way in on screen), the snack basket's
+details and the finale join in the next pull request.
 
 ## 17. SDK notes
 

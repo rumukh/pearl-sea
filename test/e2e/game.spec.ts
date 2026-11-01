@@ -91,7 +91,7 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
   await chooseEgg(page, 'krab-tvrdak');
 
   await expect(page.getByTestId('hub-greeting')).toHaveText('Ahoj! Kam se dnes ponoříme?');
-  await expect(page.getByTestId('hub-diver')).toHaveText('Ema');
+  await expect(page.getByTestId('hub-diver').locator('.ps-hub__diver-name')).toHaveText('Ema');
   await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-friend', 'krab-tvrdak');
   await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-stage', 'egg');
   await noViolations(page, 'the grotto');
@@ -104,7 +104,9 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
   if (necklace.kind !== 'pearl-necklace') throw new Error(`a ${necklace.kind} board`);
   await page.getByTestId('board-submit').click();
   const message = page.getByTestId('board-message');
-  await expect(message).toHaveText(/^(Ještě ne\. Zkus pořadí opravit\.|Hotovo! Jde se na další\.)$/);
+  await expect(message).toHaveText(
+    /^(Ještě ne\. Zkus pořadí opravit\.|Hotovo! Jde se na další\.)$/,
+  );
   if ((await message.textContent())!.startsWith('Ještě ne')) {
     await arrangeBoard(page, necklace);
     await checkBoard(page);
@@ -146,7 +148,8 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
   const after = await problemOnScreen(page, CHILD);
   expect([after.index, after.step, after.item]).toEqual([before.index, before.step, before.item]);
 
-  expect(await playRound(page, CHILD)).toBe('screen-results');
+  await playRound(page, CHILD);
+  expect(await throughStory(page)).toBe('screen-results');
   const hatch = page.getByTestId('moment-hatch');
   await expect(hatch).toContainText('Hurá! Vajíčko se vylíhlo: Krab Tvrďák!');
   await noViolations(page, 'the friend hatching');
@@ -186,7 +189,7 @@ test('a new 4th grader takes the placement check, then plays Slovní rodinka and
   await noViolations(page, 'Slovní rodinka');
   await page.getByTestId('board-submit').click();
   await expect(page.getByTestId('board-message')).toHaveText(
-    'Ještě ne. Která slova patří do rodiny?',
+    'Ještě ne. Která slova jsou příbuzná?',
   );
   await arrangeBoard(page, await boardOnScreen(page, CHILD));
   await noViolations(page, 'Slovní rodinka with words picked');
@@ -258,7 +261,9 @@ test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', asy
   await blot.click();
   await expect(page.getByTestId('ink-splash')).toHaveCount(blots - 1);
 
-  expect(await playRound(page, CHILD)).toBe('screen-results');
+  // Washed clean: her freeing beat, then the results.
+  await playRound(page, CHILD);
+  expect(await throughStory(page)).toBe('screen-results');
   const freed = page.getByTestId('moment-freed');
   await expect(freed).toContainText('Inkoust je smytý! Muréna Mumla se usmívá.');
   await expect(page.getByTestId('moment-joke')).not.toBeEmpty();

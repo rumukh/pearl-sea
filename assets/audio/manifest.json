@@ -1,8 +1,83 @@
 {
   "schema": "pearl-sea-audio-manifest/1",
   "packId": "pearl-sea-audio",
-  "revision": "placeholder-0",
-  "sounds": [],
-  "events": {},
-  "music": { "states": {}, "crossfadeSeconds": 1.2 }
+  "revision": "pack-816e438c279175ab",
+  "sampleRate": 48000,
+  "sounds": [
+    {
+      "id": "music/battle",
+      "src": "assets/audio/music/battle.ogg",
+      "bus": "music",
+      "tier": "music",
+      "loop": true,
+      "durationSeconds": 57.54,
+      "samples": 2761920,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bytes": 653118,
+      "sha256": "ee6afa3417767965b3cb8c8bbb188ec7fe4647c97344c518ea9ec21bad5112e5"
+    },
+    {
+      "id": "music/grotto",
+      "src": "assets/audio/music/grotto.ogg",
+      "bus": "music",
+      "tier": "music",
+      "loop": true,
+      "durationSeconds": 60.64,
+      "samples": 2910720,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bytes": 625642,
+      "sha256": "9c209c719c3d089e6b79371d2aed5c5df203ff7938f13d41a47b188e21f06b88"
+    },
+    {
+      "id": "music/practice",
+      "src": "assets/audio/music/practice.ogg",
+      "bus": "music",
+      "tier": "musicCalm",
+      "loop": true,
+      "durationSeconds": 44.646667,
+      "samples": 2143040,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bytes": 484202,
+      "sha256": "39a3dc48bd60d9cd7a97e56915ab0df47075962f0207561dcbd9207e17dce572"
+    },
+    {
+      "id": "sfx/victory-sting",
+      "src": "assets/audio/sfx/victory-sting.ogg",
+      "bus": "effects",
+      "tier": "music",
+      "loop": false,
+      "durationSeconds": 9.303812,
+      "samples": 446583,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bytes": 98833,
+      "sha256": "4bfb282ec8fa3b09655cbb49c7b886c564460d7778f07818f46d97c439855899"
+    }
+  ],
+  "events": {
+    "monster.freed": {
+      "sounds": [
+        "sfx/victory-sting"
+      ]
+    }
+  },
+  "music": {
+    "states": {
+      "grotto": "music/grotto",
+      "practice": "music/practice",
+      "battle": "music/battle",
+      "race": "music/battle"
+    },
+    "crossfadeSeconds": 1.2
+  },
+  "voices": {
+    "throttle": {}
+  },
+  "decoded": {
+    "bytes": 33049052,
+    "budgetBytes": 50331648
+  }
 }

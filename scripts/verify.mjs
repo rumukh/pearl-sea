@@ -74,6 +74,12 @@ export const STEPS = [
     args: ['scripts/lexicon/check.mjs'],
   },
   {
+    id: 'audio',
+    label:
+      'Check the audio pack (manifest up to date, mono 48 kHz Vorbis, whole-frame loops, budget)',
+    args: ['scripts/audio/manifest.mjs', '--check'],
+  },
+  {
     id: 'test',
     label: 'Unit, trace and tooling tests (Vitest)',
     args: [

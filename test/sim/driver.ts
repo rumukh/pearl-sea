@@ -88,6 +88,8 @@ export interface SimulationReport {
   learner: LearnerName;
   seed: string;
   daysSimulated: number;
+  /** The child's school grade (3 unless the run set 4). */
+  grade: Grade;
   content: {
     revision: string;
     levels: string[];
@@ -98,6 +100,9 @@ export interface SimulationReport {
     cosmetics: number;
     /** The finale monster's level, if the pack has one. */
     finale: string | null;
+    /** The levels of the 3rd grade's regions, and its finale's level (Ledana's), if any. */
+    thirdGrade: string[];
+    thirdGradeFinale: string | null;
   };
   days: DayReport[];
   /** Rejected steps: a simulation of a valid child has none. */
@@ -124,6 +129,8 @@ export interface SimulationReport {
   levelDays: Record<string, number>;
   monsterDays: Record<string, number>;
   eggDays: Record<string, number>;
+  /** Eggs the placement check gave (its placed levels' rewards), not received in play. */
+  placedEggs: string[];
   finaleDay: number | null;
   coins: number;
   stickers: number;
@@ -144,6 +151,8 @@ class SimPlayer extends Player {
   readonly tally: Record<string, { answers: number; correct: number }> = {};
   /** The simulation's day index, for the answer log. */
   dayIndex = 0;
+  /** Eggs received while the placement check was on (its placed levels' rewards). */
+  readonly placedEggs = new Set<string>();
 
   constructor(
     readonly learner: Learner,
@@ -162,7 +171,17 @@ class SimPlayer extends Player {
   override async act(action: GameAction): Promise<boolean> {
     // A simulated month is long: let the test runner's messages through now and then.
     if (++this.simSteps % 20 === 0) await new Promise((resolve) => setImmediate(resolve));
+    const round = this.view().round;
+    const placing = round?.type === 'problems' && round.activity === 'placement';
+    const eventsBefore = this.events.length;
     const outcome = await this.host.dispatch(action);
+    if (placing) {
+      for (const event of this.events.slice(eventsBefore)) {
+        if (event.type === 'egg.received') {
+          this.placedEggs.add((event.data as { friend: string }).friend);
+        }
+      }
+    }
     if (!outcome.ok) {
       this.failures.push(`${action.type}: ${outcome.error.code}`);
       return false;
@@ -474,6 +493,7 @@ export async function simulate(
     learner: name,
     seed,
     daysSimulated: days,
+    grade: options.grade ?? 3,
     content: {
       revision: pack.revision,
       levels: data.levels.map((l) => l.id),
@@ -492,6 +512,15 @@ export async function simulate(
       cosmetics: data.cosmetics.length,
       finale:
         data.levels.find((l) => l.kind === 'monster' && finaleMonster(data, l.id))?.id ?? null,
+      thirdGrade: data.levels
+        .filter((l) => data.regions.find((r) => r.id === l.region)?.grade === 3)
+        .map((l) => l.id),
+      thirdGradeFinale:
+        data.levels.find(
+          (l) =>
+            l.kind === 'monster' &&
+            data.monsters.find((m) => m.id === l.monster)?.gradeFinale === 3,
+        )?.id ?? null,
     },
     days: [],
     failures: player.failures,
@@ -502,6 +531,7 @@ export async function simulate(
     levelDays: {},
     monsterDays: {},
     eggDays: {},
+    placedEggs: [],
     finaleDay: null,
     coins: 0,
     stickers: 0,
@@ -654,6 +684,7 @@ export async function simulate(
     report.stars[level] = progress.stars;
   report.coins = final.coins;
   report.stickers = Object.keys(final.stickers).length;
+  report.placedEggs = [...player.placedEggs].sort();
   report.overdue = overdueKnown(final.items, first + days).slice(0, 20);
   const boardTrained = boardItems(data);
   for (const [item, record] of Object.entries(final.items)) {

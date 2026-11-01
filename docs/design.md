@@ -376,11 +376,16 @@ hungry friends and the basket at the start of the day; the next glowing level un
 today; a minigame for variety once (`startLevel { level, activity }`, which never completes a level
 again; it replays the finished board whose items wait most, due or never met, which is how items
 only boards train are reviewed and first met, §6.5; on a day with no level to play it comes only
-when such items wait); the **treasure chest** once the daily goal is met; Svačinka again while an
-item is starving, and a board while an item only boards train is starving (at most three boards a
-day); the next level again **while today's success is at least 70 %** (pacing; below it the
-adventure reviews the last three finished levels instead, and a level under way always continues);
-then free play. After the goal the friends get **sleepy** (an expression, never a lock). A time
+when such items wait); the **treasure chest** once the daily goal is met; a board while an item
+only boards train is starving (at most six boards a day), then Svačinka again while an item is
+starving; the next level again **while today's success is at least 70 %** (below it the adventure
+reviews the last three finished levels instead, and a level under way always continues); then free
+play. **Pacing** (a balance study for content 1.2, balance-report.md): new levels, the day's first
+too, wait while the last 20 answers are below 70 % right or more than **40 items** wait for review
+_(`BACKLOG_LIMIT`)_, and come all the same on the first day of practice and on **every third
+day** _(`PACE_EVERY`)_, so a child always moves on and a 4th grader's first lesson follows the
+placement check; Svačinka and reviews come instead, and every open level stays playable from the
+map. After the goal the friends get **sleepy** (an expression, never a lock). A time
 limit set by the grown-ups ends the round gently (`endRound{ reason: 'time-limit' }`).
 
 The hub is the **home grotto** (`scene/grotto`): the featured friend with its next stage (the
@@ -607,10 +612,12 @@ _(`response.typed.perExtraLetterMs`)_.
 As in Dragon Valley: the success band is 70-85 %, with a target of **82 %** _(`mix.successTarget`)_;
 **70 %** likely successes and 30 % learning items _(`knownShare`)_, the learning share moving
 between 10 and 50 % with the last 20 answers. **Protecting success** below 70 %: likeliest
-successes first, smaller snacks, reviews and re-asks by choice, no further new levels that day.
+successes first, smaller snacks, reviews and re-asks by choice, no further new levels that day
+(and pacing, §4.2). **Svačinka aims at the target**: below 82 % it serves the likeliest successes
+first, since once the levels pile up most answers are its reviews.
 **Review guarantee**: a known item (box 2+) 4 days past its review is _starving_ and comes first
 everywhere (a board threads it first); Svačinka comes before new levels, and for an item only
-boards train a board does.
+boards train a board does, before Svačinka.
 **No repeats** within 2 problems _(`noRepeatWithin`)_, a word's items counting as one; new here,
 sound-alike partners are never served back to back unless one problem shows both. Skills
 interleave. **The focus egg**: learning draws prefer the chosen egg's never-right items while it is
@@ -661,7 +668,7 @@ five stages fold into four, since only baby and grown are painted:
 | --------- | ------------------------------------------------------------------- |
 | `egg`     | received                                                            |
 | `baby`    | 30 % of its set answered right at least once (hatchling)            |
-| `grown`   | 80 % at silver or better, and its monster freed (adult)             |
+| `grown`   | 70 % at bronze or better, and its monster freed (adult)             |
 | `crowned` | 100 % gold, and its monster freed; the golden shell crown (crowned) |
 
 A friend's set is the union of its skills' items, and its `monster` is the one whose freeing lets
@@ -673,9 +680,11 @@ boards train (`abc:`, `pair:`, `seg:`, `fam:`, and consonant letters no classifi
 never served as single problems: they count for growth and shine in the Great Shell, a friend is
 hungry only for items Svačinka can serve, and the daily adventure's variety minigame reviews them
 by replaying the board whose items wait most (§4.2); each board threads its own skill's words,
-starving ones first, then the chosen egg's, then the ones due or never met. **Open point** (raised with the
-coordinator): keeping Dragon Valley's adult rule for `grown` may leave friends babies for weeks;
-the learner simulation measures the time to `grown` before v1.
+starving ones first, then the chosen egg's, then the ones due or never met. **`grown` at 70 %
+bronze** (check (a), balance-report.md): Dragon Valley's adult rule, 80 % at silver, left every
+friend past the lagoon a baby for the whole 12-week study, because with Perlové moře's many items a
+pearl reaches silver late; at 70 % bronze, and with pacing, friends grow up within days to six
+weeks of their monster.
 
 ### 6.6 Generators and distractors
 
@@ -716,8 +725,9 @@ words have _y/ý_ after their letter, segments rebuild the word, every noun's pa
 gender, no word appears twice in spellings differing only in _i/y_ (unless declared
 sound-alikes), and every word cites a source (ÚJČ's Internetová jazyková příručka, the Pravidla
 českého pravopisu). Golden traces pin each first-egg choice, a 4th grader's first session, an
-ambush, Ledana and the Krakatice; learner simulations (S2) re-tune the balance, first the new
-`letters` and `typed` times and the time to `grown`.
+ambush, Ledana and the Krakatice; learner simulations (S2) measure the balance
+([balance-report.md](balance-report.md)): the review load of the whole sea set the pacing, Svačinka's
+aim and the `grown` rule.
 
 ## 7. Monsters and Inkoustíci
 
@@ -783,11 +793,12 @@ playing.
 
 ### 8.1 Coins (_mince_)
 
-1 a right answer; +1 at every 5 in a row; lesson stars 2 / 4 / 6 and monster level stars 4 / 8 / 12
+1 a right answer; +1 at every 10 in a row; lesson stars 2 / 4 / 6 and monster level stars 4 / 8 / 12
 (first time each); 15 for a monster freed; 10 for the placement check; 1 for an Inkoustík splashed
-(new); 2-5 a daily quest (3 a day); 2-6 from the treasure chest. Stars as in Dragon Valley: 1 for
+(new); 2-5 a daily quest (3 a day); 1-3 from the treasure chest. Stars as in Dragon Valley: 1 for
 completing, 2 at 80 % right, 3 at 95 % with 60 % fast; minigames do not count towards accuracy. A
-15-minute session earns roughly 50-80 coins.
+15-minute session earns roughly 50-80 coins (balance-report.md: the streak bonus and the chest are
+smaller than Dragon Valley's, since the reviewing boards pay a coin a pair, pearl or fish).
 
 ### 8.2 U Mrože
 

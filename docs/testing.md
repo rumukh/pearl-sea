@@ -184,8 +184,10 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
   floored percentages, unaskable steps, never a first lesson or a monster); Svačinka (size, first
   tastes, the review guarantee); steps (one turn a gap, Lov chyb's credit, re-asks, hints, input);
   the boards' review (starving items first, then the chosen egg, then due or never met; a board on
-  a day without a level while items wait; boards while a board-only item starves, at most three a
-  day).
+  a day without a level while items wait; boards while a board-only item starves, before
+  Svačinka's starving round, at most six a day); pacing (new levels held while recent success is
+  below the band or more than 40 items are due, never on the first or every third day of practice,
+  never a level under way) and Svačinka's likeliest successes first below the success target.
 - `test/unit/rules/adapter.test.ts`: every rejection code changes nothing; U Mrože, outfits, the
   grotto, quests, the chest and settings.
 - `test/unit/contract/events.test.ts`: event names, and docs/contract.md §13 lists exactly them.
@@ -237,14 +239,16 @@ boards with the trace harness, buys at U Mrože, and records what a grown-up wou
 | slow       | learns like the average child but is never quick       |
 
 Each check (`test/sim/report.ts`, `CHECKS`) is named by what it measures, and its target
-(`TARGETS`) is agreed with the coordinator before it is pinned: success per session of the average
-child in the band, the struggling child's floor, coins every session, weekly progress, the chest
-when the daily goal is met, the first hatch and the hatch pace, no dead ends (every level completed
-and every monster freed), the struggling child's steady path, no known item waiting more than a
-week past its review day, coins per session, the first cosmetic in the first week, fluency (the
-slow child brings to gold no item only problems ask), the perfect child's pace to the finale, and
-the time to `grown` (check a). `test/sim/growth.ts` follows other growth rules alongside the shipped
-ones in the same run (growth never feeds back into play).
+(`TARGETS`) was agreed with the coordinator before it was pinned: success per session of the
+average child in the band, the struggling child's floor, coins every session, weekly progress, the
+chest when the daily goal is met, the first hatch and the hatch pace of eggs received in play, no
+dead end (a new level in every week with play while levels remain, every finished region's monster
+freed), no known item waiting more than a week past its review day, coins per session, the first
+cosmetic in the first week, fluency (the slow child brings to gold no item only problems ask), the
+3rd grade's pace (Ledana freed within 16 weeks by the average child and 8 by the perfect one, or on
+pace in a shorter run), and the time to `grown` (check a, within 6 weeks of the monster).
+`test/sim/growth.ts` follows other growth rules alongside the shipped ones in the same run (growth
+never feeds back into play).
 
 A simulated day costs a few hundred commits, so long runs live outside the gate:
 `node scripts/simulate.mjs --days 84 [--pack <file>] [--growth test/sim/growth-study.json]

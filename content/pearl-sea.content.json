@@ -1,6 +1,6 @@
 {
   "id": "pearl-sea",
-  "revision": "1.2.1",
+  "revision": "1.2.2",
   "schemaVersion": 1,
   "data": {
     "grades": [
@@ -14406,7 +14406,7 @@
       "reask": { "delay": 3, "maxPerRound": 2 },
       "coins": {
         "correct": 1,
-        "streakEvery": 5,
+        "streakEvery": 10,
         "streakBonus": 1,
         "monsterFreed": 15,
         "placementDone": 10,
@@ -14424,11 +14424,11 @@
       },
       "growth": [
         { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
-        { "stage": "grown", "share": 80, "mastery": "silver", "monster": true },
+        { "stage": "grown", "share": 70, "mastery": "bronze", "monster": true },
         { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
       ],
       "daily": { "goalAnswers": 30, "goalMin": 10, "goalMax": 100, "quests": 3, "historyDays": 60 },
-      "chest": { "coinsMin": 2, "coinsMax": 6, "cosmeticWeight": 0, "coinsWeight": 1 },
+      "chest": { "coinsMin": 1, "coinsMax": 3, "cosmeticWeight": 0, "coinsWeight": 1 },
       "race": { "unlockAfter": "sunny-lagoon.monster", "maxProblems": 60, "seconds": 60 },
       "hungry": { "minDue": 1 },
       "ambush": {

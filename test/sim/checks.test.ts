@@ -49,6 +49,7 @@ function report(learner: LearnerName, patch: Partial<SimulationReport> = {}): Si
     learner,
     seed: 'test',
     daysSimulated: days.length,
+    grade: 3,
     content: {
       revision: '1.0.0',
       levels: ['a.1', 'a.monster'],
@@ -57,6 +58,8 @@ function report(learner: LearnerName, patch: Partial<SimulationReport> = {}): Si
       friends: [{ id: 'krab', monster: 'murena' }],
       cosmetics: 6,
       finale: null,
+      thirdGrade: ['a.1', 'a.monster'],
+      thirdGradeFinale: null,
     },
     days,
     failures: [],
@@ -67,6 +70,7 @@ function report(learner: LearnerName, patch: Partial<SimulationReport> = {}): Si
     levelDays: { 'a.1': 0, 'a.monster': 3 },
     monsterDays: { murena: 3 },
     eggDays: { krab: 0 },
+    placedEggs: [],
     finaleDay: null,
     coins: 800,
     stickers: 10,
@@ -219,43 +223,44 @@ describe('the balance checks fail, by name, a report that misses a target', () =
       stages: { krab: { egg: 0, baby: 0 }, medusa: { egg: 12 } },
     });
     expect(check(fresh, 'hatch-pace').ok).toBe(true);
+    // The placement check's eggs arrive together and hatch one by one: reported, not judged.
+    const placed = report('average', { ...late, placedEggs: ['medusa'] });
+    expect(check(placed, 'hatch-pace').ok).toBe(true);
+    expect(check(placed, 'hatch-pace').name).toContain(
+      "the placement check's eggs, as measured: medusa 10",
+    );
   });
 
-  it('a level never completed, a monster never freed', () => {
-    const r = report('average', {
-      levelDays: { 'a.1': 0 },
-      stars: { 'a.1': 3 },
-      monsterDays: {},
-    });
-    expect(check(r, 'no-dead-end')).toMatchObject({ ok: false });
-    expect(check(r, 'no-dead-end').name).toContain('completed 1 of 2 levels and freed 0 of 1');
-  });
-
-  it("a struggling child that stalls, leaves a finished region's monster, or falls short", () => {
+  it('a week with play but no new level while levels remain, or a finished region’s monster left', () => {
     const content = {
       ...report('struggling').content,
       levels: ['a.1', 'a.2', 'a.monster'],
       regions: [{ id: 'a', lessons: ['a.1', 'a.2'], monster: 'a.monster' }],
     };
-    const stalled = report('struggling', {
-      content,
-      levelDays: { 'a.1': 0 },
-      stars: { 'a.1': 1 },
-    });
-    const steady = check(
-      withDays(stalled, () => ({ levels: [] })),
-      'steady-path',
-    );
-    expect(steady.ok).toBe(false);
-    expect(steady.name).toContain('none in the weeks from day 0, 7');
-    const leftMonster = report('struggling', {
+    for (const learner of ['perfect', 'average', 'struggling', 'slow'] as const) {
+      const stalled = report(learner, {
+        content,
+        levelDays: { 'a.1': 0 },
+        stars: { 'a.1': 1 },
+      });
+      const stuck = check(
+        withDays(stalled, () => ({ levels: [] })),
+        'no-dead-end',
+      );
+      expect(stuck.ok, learner).toBe(false);
+      expect(stuck.name).toContain('none in the weeks from day 0, 7');
+    }
+    const leftMonster = report('average', {
       content,
       levelDays: { 'a.1': 0, 'a.2': 1 },
       stars: { 'a.1': 1, 'a.2': 1 },
     });
-    expect(check(leftMonster, 'steady-path').name).toContain(
+    expect(check(leftMonster, 'no-dead-end').ok).toBe(false);
+    expect(check(leftMonster, 'no-dead-end').name).toContain(
       'freed the monsters of 0 of 1 finished regions',
     );
+    // Every level done: nothing more is asked of the remaining weeks.
+    expect(check(report('average'), 'no-dead-end').name).toContain('2 of 2 levels in 14 days');
   });
 
   it('a known item that starves', () => {
@@ -290,28 +295,51 @@ describe('the balance checks fail, by name, a report that misses a target', () =
     expect(check(none, 'fluency').ok).toBe(false);
   });
 
-  it('a perfect child that reaches the finale late; a pack without a finale passes', () => {
-    expect(check(report('perfect'), 'perfect-pace')).toMatchObject({ ok: true });
-    expect(check(report('perfect'), 'perfect-pace').name).toContain('no finale yet');
-    const content = { ...report('perfect').content, finale: 'abyss.monster' };
-    expect(check(report('perfect', { content, finaleDay: 20 }), 'perfect-pace').ok).toBe(true);
-    const late = report('perfect', { content, finaleDay: TARGETS.perfectFinaleDays });
-    expect(check(late, 'perfect-pace')).toMatchObject({ ok: false });
-    expect(check(report('perfect', { content }), 'perfect-pace').name).toContain('day never');
+  it('a 3rd grader who frees Ledana late, or is not on pace for it in a shorter run', () => {
+    expect(check(report('perfect'), 'grade-pace').name).toContain('finale none');
+    const content = {
+      ...report('average').content,
+      levels: ['a.1', 'a.2', 'a.3', 'a.4', 'a.5', 'a.6', 'a.7', 'ice.monster'],
+      thirdGrade: ['a.1', 'a.2', 'a.3', 'a.4', 'a.5', 'a.6', 'a.7', 'ice.monster'],
+      thirdGradeFinale: 'ice.monster',
+    };
+    const perfect = TARGETS.gradePace.perfect;
+    const freedOn = (day: number) =>
+      report('perfect', { content, levelDays: { 'ice.monster': day }, stars: {} });
+    expect(check(freedOn(perfect - 1), 'grade-pace').ok).toBe(true);
+    expect(check(freedOn(perfect), 'grade-pace')).toMatchObject({ ok: false });
+    expect(check(freedOn(perfect), 'grade-pace').name).toContain(`on day ${perfect}`);
+    // A 14-day run of the average child: on pace with ⌈8 · 14 / 112⌉ = 1 level.
+    const onPace = report('average', { content, levelDays: { 'a.1': 0 }, stars: {} });
+    expect(check(onPace, 'grade-pace').ok).toBe(true);
+    expect(check(onPace, 'grade-pace').name).toContain("1 of the 3rd grade's 8 levels");
+    const behind = report('average', { content, levelDays: {}, stars: {} });
+    expect(check(behind, 'grade-pace').ok).toBe(false);
+    // A run as long as the target judges Ledana herself.
+    const days = Array.from({ length: TARGETS.gradePace.average }, (_, i) => day(i));
+    const long = report('average', {
+      content,
+      days,
+      daysSimulated: days.length,
+      levelDays: { 'a.1': 0 },
+      stars: {},
+    });
+    expect(check(long, 'grade-pace').name).toContain('on day never');
+    expect(check({ ...long, grade: 4 }, 'grade-pace').ok, 'a 4th grader').toBe(true);
   });
 
   it('a friend that grows up too long after its monster is freed', () => {
-    const days = Array.from({ length: 42 }, (_, i) => day(i));
+    const days = Array.from({ length: TARGETS.grownUp.days + 14 }, (_, i) => day(i));
     const late = report('average', {
       days,
-      daysSimulated: 42,
+      daysSimulated: days.length,
       stages: { krab: { egg: 0, baby: 0, grown: 3 + TARGETS.grownUp.days + 1 } },
     });
     expect(check(late, 'grown-up')).toMatchObject({ ok: false });
     expect(check(late, 'grown-up').name).toContain(`late: krab ${TARGETS.grownUp.days + 1}`);
     const never = report('average', {
       days,
-      daysSimulated: 42,
+      daysSimulated: days.length,
       stages: { krab: { egg: 0, baby: 0 } },
     });
     expect(check(never, 'grown-up').name).toContain('late: krab not yet');

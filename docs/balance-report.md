@@ -1,34 +1,36 @@
 # Balance report
 
-Four synthetic children play Perlové moře through the real rules for up to 12 weeks. This report
-records what they measured on S3's content (the slice 1.0.0, then previews of 1.1.0 and 1.2.0, the
-whole sea), what works, what the content's size does to the review schedule, and the balance and
-rule changes the measurements support.
+Four synthetic children play Perlové moře through the real rules for up to 16 weeks. This report
+records what they measured on S3's content (the slice 1.0.0, then 1.1.0 and 1.2.0, the whole sea),
+what works, what the content's size does to the review schedule, and the balance and rule changes
+the measurements support.
 
-**Decided** (the coordinator, 2026-11-01): the proposal of §6.5 and the targets of §3 are approved,
-and follow in the pull request after this report's, with design.md and this report updated; the
-band's shortfall (34-42 sessions of 60 against 45) is known, to revisit after the playtest; coins
-come back to design's 50-80 through balance data if no other target breaks. The Krakatice's cap of
-40 is in the contract (an activity's `count` up to 40).
+**Decided and implemented.** The coordinator approved the proposal of §6.5 and the targets of §3
+on 2026-11-01: the rules' pacing, Svačinka's aim and the boards' order, and content 1.2.2's
+balance (`grown` at 70 % bronze, coins back towards 50-80). §8 measures the result. The band's
+shortfall is known, to revisit after the playtest. The Krakatice's cap of 40 is in the contract (an
+activity's `count` up to 40) and in content 1.2.1.
 
 - **Code**: the learner model `test/sim/learners.ts`, the driver `test/sim/driver.ts`, the named
   checks `test/sim/report.ts` and the growth probes `test/sim/growth.ts`.
   [testing.md §4](testing.md#4-learner-simulation-bots-s2) explains how they fit together.
-- **Rules**: this branch (PR #8's engine with the remaining generators, the finales and the board
-  review of this pull request).
-- **Content** (S3's packs; the previews are S3's branches before their pull requests):
+- **Rules**: §1-§7 measure the rules of #12 (Dragon Valley's adventure and the board review); §8
+  the approved rules of the pull request after it.
+- **Content** (S3's packs; 1.1.0 and 1.2.0 were measured on S3's previews, byte for byte the packs
+  #10 merged):
 
-  | Pack  | What                                                    | Levels | Friends | Items (board-only) | Source                                                |
-  | ----- | ------------------------------------------------------- | ------ | ------- | ------------------ | ----------------------------------------------------- |
-  | 1.0.0 | Slunná laguna, the slice                                | 7      | 3       | about 120          | #7                                                    |
-  | 1.1.0 | regions 1-6 of the 3rd grade                            | 39     | 12      | 849 (355)          | `rumukh-s3-regions-preview` af76804, fe165b25e4728f31 |
-  | 1.2.0 | all twelve regions, the grade-4 start and the placement | 77     | 18      | 1,730 (545)        | `rumukh-s3-deep-preview` 6942c59, 7ed523b6d8a3ad19    |
+  | Pack  | What                                                    | Levels | Friends | Items (board-only) | Source, content hash  |
+  | ----- | ------------------------------------------------------- | ------ | ------- | ------------------ | --------------------- |
+  | 1.0.0 | Slunná laguna, the slice                                | 7      | 3       | about 120          | #7, d100ffcbca348be3  |
+  | 1.1.0 | regions 1-6 of the 3rd grade                            | 39     | 12      | 849 (355)          | #10, fe165b25e4728f31 |
+  | 1.2.0 | all twelve regions, the grade-4 start and the placement | 77     | 18      | 1,730 (545)        | #10, 7ed523b6d8a3ad19 |
+  | 1.2.2 | 1.2.1 (the Krakatice's 40, #14) with §8's balance       | 77     | 18      | 1,730 (545)        | §8, 39f6a398bd6aadc0  |
 
-  The 4th grader's run (§4.4) used the first 1.2.0 preview (d75e203); its only differences are a
+  The 4th grader's run of §4.4 used S3's first 1.2.0 preview (d75e203); its only differences are a
   Pexeso S3 has since fixed and eight stickers.
 
-- **Runs**: from Monday 2026-11-02 with seed `simulation`: 84 days on 1.1.0 and 1.2.0, 42 on
-  1.0.0, and 28 days for a 4th grader.
+- **Runs**: from Monday 2026-11-02 with seed `simulation`: 84 days on 1.1.0, 1.2.0 and 1.2.2, 42
+  on 1.0.0, 112 for the average child's pace on 1.2.2, and 28 days for 4th graders.
 - **Reproduce**:
   - `node scripts/simulate.mjs --days 84 --pack <pack> --growth test/sim/growth-study.json` runs
     the four children and writes `out/simulation/report.md`; `--check` fails on a failed check.
@@ -37,21 +39,30 @@ come back to design's 50-80 through balance data if no other target breaks. The 
   - `--balance file.json` merges a partial balance block first (the intervals experiment:
     `{ "leitner": { "intervals": [0, 1, 3, 7, 14, 30] } }`); `--answers` writes every answer with
     its activity, input, box, days overdue and the child's recall.
-  - The rule experiments of §6 (X1, X2, P1-P3) are a few lines each in `src/rules`, described there;
-    they are not in this branch.
+  - The rule experiments of §6 (X1, X2, P1-P3, B6) were a few lines each in `src/rules`; X1, P2
+    and B6 are the rules now (§8), the others are described in §6.
   - With the 1.2.0 pack a commit costs about 10 ms; an 84-day run of the four children takes 15-35
     minutes, depending on how many run at once.
 
 ## 1. Summary
 
+**The outcome** (§8): on content 1.2.2 with the approved rules, every child's success is up
+(over five seeds the average child's median is 71-75 % against 68 %, the struggling child's 67-71 %
+against 54-60 %), board-only items wait 7-9 days instead of 43-61, 8-10 of the average child's
+friends grow up instead of 2-3, and its coins are 77-82 a session. The 3rd grade takes the average
+child about 15 weeks (Ledana on day 94 of a 16-week run). What remains: the band's shortfall
+(34-42 of 60 sessions, known), a day or two over the review guarantee for board-only items, and
+the friends whose sets those items fill (§8.5). The rest of this summary describes the rules of #12,
+before the balance.
+
 **What works on every pack.** No step of any run is rejected. Every egg received in play hatches
 within 4 sessions, the first in the first session; every child who reaches a monster frees it; the
 chest opens every time the daily goal is met; every session earns coins (the average child's median
-is 68-74 a session, design §7.1: 50-80); every child buys its first cosmetic on day 0. On 1.1.0 and
+is 68-74 a session, design §8.1: 50-80); every child buys its first cosmetic on day 0. On 1.1.0 and
 1.2.0 every child sees progress every week (on the slice alone, the slow child has one week without,
 once the lagoon is done). A 4th grader's first session hatches Kořínek, and the chosen lagoon egg
 hatches on day 3 (check b, §5.6). On the slice alone the average child's three friends grow up on
-day 7, five days after Murena (§4.1).
+day 7, five days after Muréna (§4.1).
 
 **What fails: the review load outgrows the session.** Perlové moře teaches about 22 items a level
 (15 that problems ask), where Dragon Valley taught about 4 facts a level. The engine is Dragon
@@ -96,10 +107,10 @@ of the average child's 60 sessions are in it, against the 45 the target asks.
 
 **Check (a), the time to `grown`** (§5.5). Under the shipped rule (80 % silver and the monster
 freed) only the lagoon's friends grow up within 12 weeks for the average and slow children, and
-none for the struggling child; on the slice the rule is fine (5 days after Murena). Growth is a
+none for the struggling child; on the slice the rule is fine (5 days after Muréna). Growth is a
 symptom of the review load: no rule grows friends whose items are not reviewed. With the pacing of
 §6, **70 % bronze and the monster freed** grows the average child's lagoon friends 1-2 days after
-Murena and the later ones 2-6 weeks after their monster.
+Muréna and the later ones 2-6 weeks after their monster.
 
 **Proposed** (§6.5), and approved:
 
@@ -157,40 +168,37 @@ playtest with real children (testing.md §6) is the check on the model.
 ## 3. Targets
 
 The checks are named in `test/sim/report.ts` (`CHECKS`); each label states what it measured. Their
-targets (`TARGETS`) are Dragon Valley's unless noted, **proposed** until the coordinator agrees them.
+targets (`TARGETS`) are Dragon Valley's unless noted, as the coordinator agreed them on 2026-11-01.
 
-| Check              | Target                                                                                       | Source                    |
-| ------------------ | -------------------------------------------------------------------------------------------- | ------------------------- |
-| success band       | average, weeks 1-12: 75 % of sessions at 70-90 % success, median inside                      | the brief; testing.md §4  |
-| struggling success | struggling: median success per session at least 60 %                                         | Dragon Valley             |
-| rewarded           | every child earns coins every session                                                        | testing.md §4             |
-| weekly progress    | average, struggling, slow: a level, hatch, growth, sticker or a pearl turning silver or gold | testing.md §4             |
-| chest              | the chest opens every session that reaches the daily goal                                    | design §4.2               |
-| first hatch        | the first egg hatches in the first session                                                   | design §4.1               |
-| hatch pace         | every egg hatches within 5 sessions of arriving                                              | design §4.1, §6.5         |
-| no dead end        | perfect, average, slow: every level completed and every monster freed within 84 days         | testing.md §4             |
-| steady path        | struggling: a new level every week with play; finished regions' monsters freed; ≥ ¾ levels   | Dragon Valley (1.2.0)     |
-| no starving        | no known item (Leitner box 2+) waits more than 7 days past its review day                    | testing.md §4             |
-| coins              | average: median 50-80 coins per session                                                      | design §7.1               |
-| starter week       | every child buys its first cosmetic in its first week                                        | Dragon Valley (1.2.0)     |
-| fluency            | the slow child brings no item only problems ask to gold                                      | design §6.5               |
-| perfect pace       | the perfect child reaches the finale within 4 weeks                                          | Dragon Valley's design §3 |
-| grown up (a)       | average: each friend grown within 21 days of its monster being freed                         | new (check a)             |
+| Check              | Target                                                                                                 | Source                    |
+| ------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------- |
+| success band       | average, weeks 1-12: 75 % of sessions at 70-90 % success, median inside (1.2's shortfall is known)     | the brief; testing.md §4  |
+| struggling success | struggling: median success per session at least 60 %                                                   | Dragon Valley             |
+| rewarded           | every child earns coins every session                                                                  | testing.md §4             |
+| weekly progress    | average, struggling, slow: a level, hatch, growth, sticker or a pearl turning silver or gold           | testing.md §4             |
+| chest              | the chest opens every session that reaches the daily goal                                              | design §4.2               |
+| first hatch        | the first egg hatches in the first session                                                             | design §4.1               |
+| hatch pace         | every egg received in play hatches within 5 sessions (the placement check's eggs: as measured)         | design §4.1, §6.5; agreed |
+| no dead end        | every child: a new level in every week with play while levels remain; finished regions' monsters freed | agreed (structural)       |
+| no starving        | no known item (Leitner box 2+) waits more than 7 days past its review day                              | testing.md §4             |
+| coins              | average: median 50-80 coins per session                                                                | design §8.1               |
+| starter week       | every child buys its first cosmetic in its first week                                                  | Dragon Valley (1.2.0)     |
+| fluency            | the slow child brings no item only problems ask to gold                                                | design §6.5               |
+| 3rd grade's pace   | a 3rd grader frees Ledana within 16 weeks (average) or 8 (perfect); a shorter run: on pace             | agreed                    |
+| grown up (a)       | average: each friend grown within 6 weeks of its monster being freed                                   | agreed (check a)          |
 
-**Some targets do not fit this game**, and the proposal is to change them with the pacing (§6.5):
+**What the agreed targets replace.** Dragon Valley's valley is a trimester of times tables;
+Perlové moře is two school years of Czech, 77 levels, so four of its targets did not fit:
 
-- **No dead end and the perfect pace** ask for the whole game in 12 and 4 weeks. Dragon Valley's
-  valley is a trimester of times tables; Perlové moře is two school years of Czech, 77 levels. On
-  today's rules the perfect child needs 45 days and the average child 67, and with any pacing that
-  keeps up the reviews, longer (§6). Proposed instead: no dead end as a structural check (every
-  level and monster reachable, no rejected step: it passes on every pack), and pace targets per
-  grade: the average 3rd grader frees Ledana within 16 weeks, the perfect child within 8.
-- **The steady path's floor** of ¾ of the levels in 12 weeks is likewise the valley's; the weekly
-  new level stays.
-- **Grown up (a)**: 21 days is measured on the lagoon alone; with the pacing, later friends grow
-  2-6 weeks after their monster. Proposed: 6 weeks.
-- **Hatch pace**: eggs the placement check gives arrive together and hatch one by one (§5.8).
-  Proposed: judge eggs received in play.
+- **No dead end** asked for every level and monster within 84 days, and **the perfect pace** for
+  the finale within 4 weeks. On the shipped rules the perfect child needed 45 days and the average
+  child 67, and any pacing that keeps up the reviews takes longer (§6). They become the structural
+  no-dead-end check and the 3rd grade's pace.
+- **The steady path's floor** (¾ of the levels in 12 weeks, the struggling child) was the valley's
+  too; its weekly new level is now the no-dead-end check of every child.
+- **Grown up (a)** within 21 days was measured on the lagoon alone; with the pacing, later friends
+  grow 2-6 weeks after their monster.
+- **Hatch pace**: the eggs the placement check gives arrive together and hatch one by one (§5.8).
 
 ## 4. Results
 
@@ -313,7 +321,7 @@ silver) and the alternatives `test/sim/growth-study.json` follows in the same ru
 On the slice the shipped rule takes 5 days for the average child. With more content it fails
 because the items of later friends are not reviewed often enough to reach silver (§5.1); relaxing
 the rule helps on 1.1.0 and hardly on 1.2.0. With the pacing of §6 friends grow again, and 70 %
-bronze grows the lagoon's within days of Murena and the others within 2-6 weeks of their monster
+bronze grows the lagoon's within days of Muréna and the others within 2-6 weeks of their monster
 (§6.5). Effort-only variants (3 days for silver) were weaker than 70 % bronze in every run.
 
 ### 5.6 Check (b): a 4th grader's first sessions
@@ -462,7 +470,7 @@ P2, X1, B6 and G70 together, on 1.2.0 (seed `simulation`):
 Against the shipped rules (§4.3): every child's success rises (average 68 → 75 %, slow 67 → 75 %,
 struggling 55 → 67 %), board-only items wait 8-9 days instead of 32-70, the average child's known
 items due at a session's start fall from 157 to 100, and friends grow up: the average child's
-lagoon friends 1-2 days after Murena, the others 2-6 weeks after their monster (8 of 12 by day 84,
+lagoon friends 1-2 days after Muréna, the others 2-6 weeks after their monster (8 of 12 by day 84,
 against 3 of 18). The average child plays about 3.5 levels a week, so the 3rd grade's 46 levels take
 about 13 weeks; the struggling child plays about 2 a week.
 
@@ -520,5 +528,91 @@ next lever is the mix's own target: Svačinka now aims at 82 % while the band as
   points between experiments may be noise (Dragon Valley's five-seed spreads were 1-4 points).
 - **Session length.** A session is a number of answers; boards and stories are not timed. More
   board rounds make a real session longer (R10 and the proposal: up to 8-10 in a session).
-- **Previews.** 1.1.0 and 1.2.0 are S3's previews; their pull requests may still change them.
-- **The 4th grader** was simulated for 28 days only, on the first 1.2.0 preview.
+- **Content.** 1.1.0 and 1.2.0 were measured on S3's previews, byte for byte the packs #10 merged.
+- **4th graders** were simulated for 28 days only.
+
+## 8. Content 1.2.2: the approved balance
+
+Content 1.2.2 (1.2.1 with `grown` at 70 % bronze, a streak bonus every 10 right answers in a row
+and a chest of 1-3 coins) on the approved rules: pacing (new levels wait while the last 20 answers
+are below 70 % right or more than 40 items are due, except on the first and every third day of
+practice), Svačinka's likeliest successes first below the 82 % target, and the boards first for
+starving board-only items (at most 6 a day). These are §6.5's P2, X1 and B6, with one change: the
+first day of practice never waits (§8.4). Seed `simulation`, 84 days; seeds `s2`-`s5` for the
+average and struggling children; 112 days for the average child's pace; 28 days for 4th graders.
+
+### 8.1 The four children
+
+| Child      | Success per session (in band) | Levels in 84 days | Ledana | Due | Longest overdue | Friends grown (of those freed) | Coins per session | Board rounds a session |
+| ---------- | ----------------------------- | ----------------- | ------ | --- | --------------- | ------------------------------ | ----------------- | ---------------------- |
+| perfect    | 100 %                         | 64                | day 44 | 248 | 32              | 15 of 15                       | 110               | 1 / 4 / 10             |
+| average    | 56 / 75 / 91 % (41 of 60)     | 42 of 46 (3rd)    | -      | 100 | 8               | 8 of 12                        | 79                | 1 / 4 / 8              |
+| slow       | 33 / 75 / 93 % (46 of 60)     | 42                | -      | 81  | 9               | 7 of 12                        | 69                | 0 / 4 / 8              |
+| struggling | 45 / 67 / 85 % (17 of 48)     | 27                | -      | 9   | 6               | 2 of 10                        | 42                | 0 / 1 / 4              |
+
+The average child's friends grow up 1-2 days after Muréna (the lagoon's three), then 14-42 days
+after theirs (Barakuda, Lachtan, Koník, Ježík, Vydra); Pyskoun and Jazýček are not grown by day 83.
+Its coins are mostly one a right answer or board credit (68 a session); the streak bonus is now
+rare (0.2 a session) and the chest pays 1.7.
+
+### 8.2 Five seeds
+
+| Measure (min-max over five seeds)          | 1.2.0, the shipped rules | 1.2.2, the approved balance |
+| ------------------------------------------ | ------------------------ | --------------------------- |
+| Average: success per session (median)      | 68 % (all five)          | 71-75 %                     |
+| Average: sessions at 70-90 % (of 60)       | 20-25                    | 34-42                       |
+| Average: longest overdue (days)            | 43-61                    | 7-9                         |
+| Average: friends grown (of those freed)    | 2-3 of 18                | 8-10 of 12-13               |
+| Average: levels in 84 days                 | 77                       | 42-46                       |
+| Average: coins per session (median)        | 66-71                    | 77-82                       |
+| Struggling: success per session (median)   | 54-60 %                  | 67-71 %                     |
+| Struggling: levels in 84 days              | 55-60                    | 27-33                       |
+| Struggling: friends grown (of those freed) | 0 of 14-15               | 2-3 of 10-11                |
+
+### 8.3 The checks
+
+- **Pass on every seed**: no rejected step, the first hatch, the struggling child's floor, coins
+  every session, weekly progress, the chest, no dead end (a new level in every week with play and
+  every finished region's monster freed, for all four children), the starter week, and the 3rd
+  grade's pace (the perfect child frees Ledana on day 44, within 56; the average child is on pace,
+  42-46 of the 3rd grade's 46 levels in 84 days where 35 suffice).
+- **Pass on four of five seeds**: the hatch pace of eggs received in play (on `s4` Hvězdice's and
+  Delfín's eggs wait 7 sessions: pacing spaces out the lessons between an egg and its hatching
+  lesson), and coins (77-79; `s4` 82).
+- **Fail, known**: the success band. 34-42 of the average child's 60 sessions are at 70-90 %,
+  against 45; its median is inside (71-75 %). To revisit after the playtest.
+- **Fail by a day or two**: no starving. The longest wait is 7-9 days, against 7, on four seeds:
+  family and Pexeso items (`fam:`, `pair:family:`) whose family boards a busy day cannot all
+  thread, since each family board threads one family.
+- **Fail**: check (a) within 6 weeks. 7-9 of the 10 friends judged grow up in time. Jazýček is
+  late on every seed, and Lachtan, Barakuda or Pyskoun on some. Their sets hold many items only
+  boards train (Jazýček: 23 items, his family's 6 words among them), and those reach bronze only
+  through boards.
+- **Fail, known**: fluency. The slow child brings `spell:vila:1` to gold through the reading
+  allowance (§5.7), as on 1.0.0 and 1.1.0.
+
+### 8.4 Pace over 16 weeks, and the 4th grader
+
+- **The average child over 112 days** frees Ledana on day 94 (target 112) with 53 levels; its
+  success per session has a median of 73 %. Check (a) holds for 8 of 11 friends (Pyskoun after 67
+  days; Jazýček and Hvězdice not yet by day 112). Delfín's egg, given a lesson before his topic,
+  waits 8 sessions.
+- **4th graders** (28 days; average, perfect and struggling): Kořínek hatches in the first
+  session of each; the chosen Želva hatches on day 2 (average, perfect), or with Kořínek on day 0
+  (struggling: its placement check stops early, and Svačinka's first tastes come the same day).
+  The average 4th grader's success has a median of 74 % (17 of 20 sessions in the band). Without the
+  first day's exemption the placement check's misses held the average 4th grader's first lesson,
+  and Kořínek came only on day 1 (check b): hence the one change from §6.5's P2.
+
+### 8.5 What remains
+
+- **The band** (known): revisit after the playtest, with real children's success.
+- **Items only boards train** hold back the last misses: the review guarantee's 8-9 days and the
+  friends whose sets they fill. Options for a later study: a family board that threads more than
+  one family, the daily board twice on a day when many board-only items wait, or fewer board-only
+  items in friends' sets (content).
+- **Coins**: balance data is at its limit (the streak bonus is rare now). A median above 80 on one
+  seed in five comes from the boards' coin a pair, pearl or fish; a rule paying boards less, or
+  smaller quest coins (content), would bring it down.
+- **Eggs a lesson ahead of their topic** wait longer under pacing (Hvězdice, Delfín): content
+  could give them with their topic's first lesson.

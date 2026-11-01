@@ -40,6 +40,7 @@ import {
   blockedKeys,
   focusItems,
   lowSuccess,
+  belowTarget,
   missedTwice,
   pickMixed,
   pickPlacement,
@@ -254,7 +255,7 @@ function chooseItem(
     return pickPlacement({ state, data, pool, blocked, served, random, focus });
   }
   let pool = poolOf(data, round.skills);
-  // Below the success band, snacks and reviews serve the likeliest successes first.
+  // Below the success band, reviews serve the likeliest successes first (Svačinka below the target).
   const protect = lowSuccess(state, data);
   if (round.activity === 'snack') {
     const friend = round.source.kind === 'snack' ? round.source.friend : null;
@@ -276,7 +277,8 @@ function chooseItem(
       blocked,
       served,
       random,
-      likelyFirst: protect,
+      // Svačinka aims at the success target: below it, the likeliest successes first (§6.3).
+      likelyFirst: belowTarget(state, data),
       tastes,
       tastesPerSnack: TASTES_PER_SNACK,
     });

@@ -206,42 +206,50 @@ interface Check {
 
 /**
  * Balance targets, each from docs/design.md, docs/plan.md or the simulation brief (docs/testing.md
- * §4). They are fixed before measuring and never moved to make a run pass.
+ * §4), as the coordinator agreed them on 2026-11-01 (docs/balance-report.md §3). They are fixed
+ * before measuring and never moved to make a run pass.
  */
 export const TARGETS = {
   /**
    * Success per session of the average child: within `low`-`high` % in `sessionsShare` % of its
    * sessions and at the median, over its first `weeks` weeks (the coordinator's brief: 70-90 %,
-   * as Dragon Valley measured; docs/plan.md §4 names 70-85 % for the rounds' control).
+   * as Dragon Valley measured; docs/plan.md §4 names 70-85 % for the rounds' control). Content
+   * 1.2's shortfall is known, to revisit after the playtest (balance-report.md §1).
    */
   success: { low: 70, high: 90, sessionsShare: 75, weeks: 12 },
   /** The struggling child's median success per session: at least `floor` (Dragon Valley's). */
   strugglingSuccess: { floor: 60 },
-  /** Coins per session, median, for the average child (design §7.1: a session earns 50-80). */
+  /** Coins per session, median, for the average child (design §8.1: a session earns 50-80). */
   coins: { low: 50, high: 80 },
   /** Days a known item (box 2+) may wait past its review day: the interval plus a grace. */
   graceDays: 7,
-  /** An egg hatches within this many sessions of the child receiving it. */
+  /**
+   * An egg received in play hatches within this many sessions of the child receiving it. The
+   * eggs the placement check gives arrive together and hatch one by one: reported as measured.
+   */
   hatchSessions: 5,
   /** Weeks over which the average, struggling and slow children see progress every week. */
   progressWeeks: 12,
   /**
-   * The struggling child's steady path (Dragon Valley's): a new level every week with play while
-   * levels remain; the monster of every region whose lessons it finished freed (lessons finished in
-   * the last `monsterGraceDays` days may still have it ahead); at least `floorShare` % of the levels
-   * within `floorDays` days (scaled down for a shorter run).
+   * No dead end, a structural check: while levels remain, a new level in every week with play,
+   * and the monster of every region whose lessons the child finished freed (lessons finished in
+   * the run's last `monsterGraceDays` days may still have it ahead).
    */
-  steadyPath: { floorShare: 75, floorDays: 84, monsterGraceDays: 7 },
-  /** The perfect child reaches the finale within this many days of daily play. */
-  perfectFinaleDays: 28,
+  noDeadEnd: { monsterGraceDays: 7 },
+  /**
+   * The 3rd grade's pace: a 3rd grader frees Ledana, the grade's finale, within this many days
+   * (16 weeks for the average child, 8 for the perfect child). A shorter run is judged on pace:
+   * its share of the 3rd grade's levels by its last day.
+   */
+  gradePace: { average: 112, perfect: 56 },
   /** Every child buys its first cosmetic in its first week. */
   firstWeekDays: 7,
   /**
-   * Check (a), the time to `grown` (design §6.5's open point): the average child grows each friend
-   * within `days` days of its monster being freed (of the friend hatching, if later); friends whose
+   * Check (a), the time to `grown` (design §6.5): the average child grows each friend within
+   * `days` days of its monster being freed (of the friend hatching, if later); friends whose
    * monster was freed in the run's last `days` days may still be growing.
    */
-  grownUp: { days: 21 },
+  grownUp: { days: 42 },
 } as const;
 
 const ALL: readonly LearnerName[] = ['perfect', 'average', 'struggling', 'slow'];
@@ -395,32 +403,24 @@ export const CHECKS: readonly Check[] = [
         return { friend, sessions: sessionsBetween(r, day, end), hatched: hatched !== null };
       });
       // An egg received in the run's last sessions may still be warming: late only past the limit.
-      const late = waits.filter((w) => w.sessions > TARGETS.hatchSessions);
-      const longest = Math.max(0, ...waits.map((w) => w.sessions));
+      const inPlay = waits.filter((w) => !r.placedEggs.includes(w.friend));
+      const placed = waits.filter((w) => r.placedEggs.includes(w.friend));
+      const late = inPlay.filter((w) => w.sessions > TARGETS.hatchSessions);
+      const longest = Math.max(0, ...inPlay.map((w) => w.sessions));
+      const fromPlacement = placed.length
+        ? `; the placement check's eggs, as measured: ${placed.map((w) => `${w.friend} ${w.hatched ? w.sessions : 'not yet'}`).join(', ')}`
+        : '';
       return {
         ok: late.length === 0,
-        name: `hatched every egg within ${TARGETS.hatchSessions} sessions of receiving it (${waits.length} eggs, longest ${longest} sessions${late.length ? `; late: ${late.map((w) => `${w.friend} ${w.hatched ? w.sessions : 'not yet'}`).join(', ')}` : ''})`,
+        name: `hatched every egg received in play within ${TARGETS.hatchSessions} sessions (${inPlay.length} eggs, longest ${longest} sessions${late.length ? `; late: ${late.map((w) => `${w.friend} ${w.hatched ? w.sessions : 'not yet'}`).join(', ')}` : ''}${fromPlacement})`,
       };
     },
   },
   {
     id: 'no-dead-end',
-    learners: ['perfect', 'average', 'slow'],
+    learners: ALL,
     evaluate: (r) => {
-      const done = r.content.levels.filter((level) => completionDay(r, level) !== null);
-      const freed = r.content.monsters.filter((level) => completionDay(r, level) !== null);
-      const last = Math.max(0, ...Object.values(r.levelDays));
-      return {
-        ok: done.length === r.content.levels.length,
-        name: `completed ${done.length} of ${r.content.levels.length} levels and freed ${freed.length} of ${r.content.monsters.length} monsters within ${r.daysSimulated} days (the last on day ${last})`,
-      };
-    },
-  },
-  {
-    id: 'steady-path',
-    learners: ['struggling'],
-    evaluate: (r) => {
-      const { floorShare, floorDays, monsterGraceDays } = TARGETS.steadyPath;
+      const { monsterGraceDays } = TARGETS.noDeadEnd;
       const total = r.content.levels.length;
       const doneBefore = (end: number) =>
         r.content.levels.filter((level) => {
@@ -444,15 +444,9 @@ export const CHECKS: readonly Check[] = [
           }),
       );
       const freed = finished.filter((region) => completionDay(r, region.monster!) !== null);
-      const cutoff = Math.min(floorDays, r.daysSimulated);
-      const needed = Math.ceil((total * floorShare * cutoff) / (100 * floorDays));
-      const byCutoff = Math.min(doneBefore(cutoff), total);
       return {
-        ok:
-          stalled.length === 0 &&
-          freed.length === finished.length &&
-          byCutoff >= Math.min(needed, total),
-        name: `kept moving: a new level in ${weeks.length - stalled.length} of ${weeks.length} weeks with play while levels remained${stalled.length > 0 ? ` (none in the weeks from day ${stalled.join(', ')})` : ''}; freed the monsters of ${freed.length} of ${finished.length} finished regions; ${byCutoff} of ${total} levels within ${cutoff} days (at least ${Math.min(needed, total)})`,
+        ok: stalled.length === 0 && freed.length === finished.length,
+        name: `no dead end: a new level in ${weeks.length - stalled.length} of ${weeks.length} weeks with play while levels remained${stalled.length > 0 ? ` (none in the weeks from day ${stalled.join(', ')})` : ''}; freed the monsters of ${freed.length} of ${finished.length} finished regions (${doneBefore(r.daysSimulated)} of ${total} levels in ${r.daysSimulated} days)`,
       };
     },
   },
@@ -481,7 +475,7 @@ export const CHECKS: readonly Check[] = [
       const median = spread(sessionsOf(r).map((d) => d.coins)).median;
       return {
         ok: median >= low && median <= high,
-        name: `earned a median of ${median} coins per session (design §7.1: ${low}-${high})`,
+        name: `earned a median of ${median} coins per session (design §8.1: ${low}-${high})`,
       };
     },
   },
@@ -508,17 +502,32 @@ export const CHECKS: readonly Check[] = [
     },
   },
   {
-    id: 'perfect-pace',
-    learners: ['perfect'],
-    evaluate: (r) => ({
-      ok:
-        r.content.finale === null ||
-        (r.finaleDay !== null && r.finaleDay < TARGETS.perfectFinaleDays),
-      name:
-        r.content.finale === null
-          ? 'the pack has no finale yet (Krakatice Inkoustová)'
-          : `reached the finale within ${TARGETS.perfectFinaleDays} days of daily play (day ${r.finaleDay ?? 'never'})`,
-    }),
+    id: 'grade-pace',
+    learners: ['perfect', 'average'],
+    evaluate: (r) => {
+      const days = TARGETS.gradePace[r.learner as 'perfect' | 'average'];
+      const finale = r.content.thirdGradeFinale;
+      if (r.grade !== 3 || finale === null) {
+        return {
+          ok: true,
+          name: `the 3rd grade's pace is judged for a 3rd grader on a pack with its finale (grade ${r.grade}, finale ${finale ?? 'none'})`,
+        };
+      }
+      const freed = completionDay(r, finale);
+      if (freed !== null || r.daysSimulated >= days) {
+        return {
+          ok: freed !== null && freed < days,
+          name: `freed Ledana, the 3rd grade's finale, within ${days} days (on day ${freed ?? 'never'})`,
+        };
+      }
+      const total = r.content.thirdGrade.length;
+      const done = r.content.thirdGrade.filter((level) => completionDay(r, level) !== null).length;
+      const needed = Math.ceil((total * r.daysSimulated) / days);
+      return {
+        ok: done >= needed,
+        name: `on pace to free Ledana within ${days} days: ${done} of the 3rd grade's ${total} levels in ${r.daysSimulated} days (at least ${needed})`,
+      };
+    },
   },
   {
     id: 'grown-up',

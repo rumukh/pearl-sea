@@ -5,7 +5,8 @@
  * for a board (due, or never answered: a board is the only place to meet them). The daily
  * adventure replays a finished board once a day, for variety after a level and on a day without
  * one while its items wait; and while a known item only boards train is starving, a board comes
- * before anything new, at most `STARVING_BOARDS` boards a day.
+ * before anything new, even before Svačinka's starving round, at most `STARVING_BOARDS` boards a
+ * day.
  */
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { initialProfileState, isMinigameKind } from '../../../src/rules/contract';
@@ -199,5 +200,21 @@ describe('the daily adventure’s boards on a day without a new level', () => {
     expect(next(state), 'never more boards a day than the guarantee asks').toEqual({
       kind: 'free-play',
     });
+  });
+
+  it('feeds a starving board-only item by its board before Svačinka’s starving round', () => {
+    const boardOnly = boardItems()[9]!;
+    const servable = [...servableItems(data)].sort()[0]!;
+    const state = scene((s) => {
+      for (const item of [boardOnly, servable]) {
+        s.items[item]!.box = 2;
+        s.items[item]!.due = s.day! - STARVING_DAYS;
+      }
+    });
+    // Today's board for variety is played: the guarantee's boards come before the snack.
+    state.daily!.minigames = 1;
+    expect(replays(next(state), [boardOnly]), JSON.stringify(next(state))).toBe(true);
+    state.daily!.minigames = STARVING_BOARDS;
+    expect(next(state)).toEqual({ kind: 'snack', friend: null });
   });
 });

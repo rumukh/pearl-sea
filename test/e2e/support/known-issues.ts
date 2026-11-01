@@ -62,47 +62,11 @@ export interface Defect {
  * as plain regression checks.
  */
 export const DEFECTS = {
-  'PS-QA-01': {
-    owner: 'S4',
-    severity: 'major',
-    title:
-      'Ulita slov: the cut points between letters are 19-43 px wide, under the 48 px touch target',
-  },
-  'PS-QA-04': {
-    owner: 'S4',
-    severity: 'major',
-    title:
-      'The grotto does not fit a landscape tablet: at 1280 × 800 its places (map, U Mrože, gallery …) start below the fold; at 1024 × 768 it falls to one column 1,436-1,577 px tall',
-  },
-  'PS-QA-05': {
-    owner: 'S4',
-    severity: 'major',
-    title:
-      'Rounds and battles need scrolling on a landscape tablet: at 1024 × 768 a miss puts Dál below the fold (1,104 px) and an Inkoustík pushes the letter pad down (1,045 px); at 1280 × 800 a miss is 827 px and an ambush 836 px',
-  },
-  'PS-QA-06': {
-    owner: 'S4',
-    severity: 'major',
-    title:
-      'Pexeso never says what makes a pair (a word and its plural, its family, its opposite …); the other boards say what to do',
-  },
-  'PS-QA-07': {
-    owner: 'S4',
-    severity: 'minor',
-    title: 'On the title, the focus ring around Hrát cuts through the tagline’s last line',
-  },
-  'PS-QA-08': {
+  'PS-QA-19': {
     owner: 'S4',
     severity: 'minor',
     title:
-      'At 200 % text on a phone, rounds scroll sideways (Nápověda sticks out of the screen) and U Mrože’s greeting does not wrap',
-  },
-  'PS-QA-09': {
-    owner: 'S4',
-    severity: 'major',
-    title:
-      'With less motion (the device’s or the child’s Méně pohybu), a fish dragged onto a net often swims back to the pool; tapping works',
-    intermittent: true,
+      'With three quest rewards and the chest to open, the grotto is 788 px tall at 1024 × 768: the bottom of Dnešní výprava sits under the fold',
   },
 } as const satisfies Record<string, Defect>;
 
@@ -117,22 +81,10 @@ export interface KnownLayout {
 }
 
 export const KNOWN_LAYOUT: readonly KnownLayout[] = [
-  { defect: 'PS-QA-01', where: /word-shell/, problem: /^<button cut-\d+> .* under 48px$/ },
   {
-    defect: 'PS-QA-04',
-    where: /^\d\d-(grotto-[a-z-]+|chest) \((small )?tablet landscape\)$/,
+    defect: 'PS-QA-19',
+    where: /^\d\d-(grotto-quests|chest) \(small tablet landscape\)$/,
     problem: /^the page is \d+ px tall in the \d+ px window$/,
-  },
-  {
-    defect: 'PS-QA-05',
-    where: /^\d\d-(?!grotto|chest)[a-z-]+ \((small )?tablet landscape\)$/,
-    problem: /^the page is \d+ px tall in the \d+ px window$/,
-  },
-  {
-    defect: 'PS-QA-08',
-    where: /^text-200\/\d\d-[a-z-]+ \(phone portrait\)$/,
-    problem:
-      /^(the page scrolls sideways: .*|<button round-hint> "Nápověda" sticks out of the 390px viewport .*)$/,
   },
 ];
 

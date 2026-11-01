@@ -7,6 +7,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './support/fixtures';
 import { observe } from './support/observe';
+import { ready } from './support/screens';
 
 test('the game boots at the Pages base into the Czech title screen', async ({ page, baseURL }) => {
   const seen = observe(page, new URL(baseURL!).origin);
@@ -31,7 +32,11 @@ test('the game boots at the Pages base into the Czech title screen', async ({ pa
 
 test('Czech text is drawn in the reading font', async ({ page }) => {
   await page.goto('./');
+  // The title on screen, not just the font loaded: a painted backdrop may hold the first screen
+  // back after the font is ready.
+  await ready(page, 'title');
   await expect(page.getByTestId('boot-status')).toHaveAttribute('data-font', 'loaded');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   const font = await page.evaluate(async () => {
     await document.fonts.ready;
     const heading = document.querySelector('h1');

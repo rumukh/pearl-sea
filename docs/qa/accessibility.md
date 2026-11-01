@@ -1,21 +1,21 @@
 # Accessibility report: the Slunná laguna slice
 
-Perlové moře's slice (main after #27-#34, content 1.2.5) as the QA suite checks it in Chromium
-(Edge), Firefox and WebKit, against WCAG 2.2 levels A and AA and the plan's own promises (plan §0
-and §5: touch-first with full keyboard support, targets of at least 48 px, text to 200 %, reduced
-motion, read-aloud with local Czech voices only, colour never the only signal).
+Perlové moře's slice (main `441bcab`, after #36, content 1.2.5) as the QA suite checks it in
+Chromium (Edge), Firefox and WebKit, against WCAG 2.2 levels A and AA and the plan's own promises
+(plan §0 and §5: touch-first with full keyboard support, targets of at least 48 px, text to 200 %,
+reduced motion, read-aloud with local Czech voices only, colour never the only signal).
 
 **In short:**
 
 - No WCAG 2.2 A or AA violation (axe-core) on any of the 71 screens and states of the slice, in any
-  engine, at the tablet (1280 × 800) and phone (390 × 844) sizes, nor in the 200 % text walk.
+  engine, at the tablet (1280 × 800) and phone (390 × 844) sizes, nor in the 200 % text walk; and
+  no best-practice advice either.
 - The game can be played by keyboard alone and by touch alone, and read-aloud uses only a local
   Czech voice.
-- Open accessibility defects (all S4, [defects.md](defects.md)): the grotto and the rounds need
-  scrolling on a landscape tablet (PS-QA-04, PS-QA-05), Ulita slov's cut points are under 48 px
-  (PS-QA-01), dragging fails with less motion (PS-QA-09), and at 200 % text on a phone the rounds
-  scroll sideways (PS-QA-08).
-- axe's best-practice advice: the hatch and the freed-monster moments have no level-one heading.
+- Every child's screen is whole on a landscape tablet, every control is at least 48 px, text
+  reflows at 200 % on a phone, and dragging works with less motion: #36 fixed PS-QA-01 and 04-09.
+  One open accessibility defect is left ([defects.md](defects.md)): the grotto with three quest
+  rewards and the chest waiting is 20 px too tall at 1024 × 768 (PS-QA-19, minor, S4).
 - Some things only a person can check: screen readers on the real tablet, Windows high contrast,
   colour vision (below).
 
@@ -41,8 +41,8 @@ motion, read-aloud with local Czech voices only, colour never the only signal).
 | 1.3.4 Orientation                | AA    | Pass: landscape tablet and desktop, portrait phone                                                                                                                                  |
 | 1.4.1 Use of Color               | A     | Pass: a miss is "Skoro!" with a "?" badge, a right answer a check, pearls in place a check mark                                                                                     |
 | 1.4.3 Contrast (Minimum)         | AA    | Pass (axe, every stop, three engines; text sits on paper over the paintings)                                                                                                        |
-| 1.4.4 Resize Text                | AA    | Pass at 200 % text on tablets and the desktop; on a phone the rounds scroll sideways (PS-QA-08, minor)                                                                              |
-| 1.4.10 Reflow                    | AA    | Pass at 390 px, except at 200 % text (PS-QA-08)                                                                                                                                     |
+| 1.4.4 Resize Text                | AA    | Pass at 200 % text on tablets, the desktop and a phone (PS-QA-08, fixed by #36)                                                                                                     |
+| 1.4.10 Reflow                    | AA    | Pass at 390 px, also at 200 % text                                                                                                                                                  |
 | 1.4.11 Non-text Contrast         | AA    | Not measured: rings are proven present by computed style, not their contrast. Manual check                                                                                          |
 | 1.4.12 Text Spacing              | AA    | Not tested. Manual check                                                                                                                                                            |
 | 1.4.13 Content on Hover or Focus | AA    | Nothing appears on hover or focus alone                                                                                                                                             |
@@ -53,17 +53,17 @@ motion, read-aloud with local Czech voices only, colour never the only signal).
 | 2.2.2 Pause, Stop, Hide          | A     | Pass: with less motion (the device's or the child's) nothing keeps moving on any stop                                                                                               |
 | 2.4.2 Page Titled                | A     | Pass (axe)                                                                                                                                                                          |
 | 2.4.3 Focus Order                | A     | Pass: the keyboard journey reaches every control in a sensible order; a new screen focuses its heading or Dnešní výprava                                                            |
-| 2.4.6 Headings and Labels        | AA    | Pass; best practice: the hatch and freed moments have no level-one heading (axe advice)                                                                                             |
-| 2.4.7 Focus Visible              | AA    | Pass: every control the keyboard reaches shows a ring (computed style); on the title the ring cuts through the tagline (PS-QA-07, minor)                                            |
+| 2.4.6 Headings and Labels        | AA    | Pass; the hatch, freed and grade moments carry the page's level-one heading                                                                                                         |
+| 2.4.7 Focus Visible              | AA    | Pass: every control the keyboard reaches shows a ring (computed style); the title's ring clears the tagline                                                                         |
 | 2.4.11 Focus Not Obscured        | AA    | Pass where checked: each focused control is on screen                                                                                                                               |
 | 2.5.1 Pointer Gestures           | A     | Pass: everything is a single tap; dragging a fish is optional (tap a fish, then a net)                                                                                              |
 | 2.5.2 Pointer Cancellation       | A     | Pass: letting go of the gate's lock early opens nothing                                                                                                                             |
-| 2.5.7 Dragging Movements         | AA    | Pass: every drag has a tap alternative. Dragging itself fails with less motion (PS-QA-09)                                                                                           |
-| 2.5.8 Target Size (Minimum)      | AA    | Pass at 24 px (axe); the game's own 48 px bar fails only for Ulita slov's cut points (PS-QA-01)                                                                                     |
+| 2.5.7 Dragging Movements         | AA    | Pass: every drag has a tap alternative, and dragging works with less motion too (PS-QA-09, fixed by #36)                                                                            |
+| 2.5.8 Target Size (Minimum)      | AA    | Pass at 24 px (axe), and every control meets the game's own 48 px bar (Ulita slov's cuts since #36)                                                                                 |
 | 3.1.1 Language of Page           | A     | Pass: `lang="cs"`; the grown-ups' area `lang="en"` in English                                                                                                                       |
 | 3.1.2 Language of Parts          | AA    | Pass: Czech words on cards, pearls and fish carry `lang="cs"`                                                                                                                       |
 | 3.3.1 Error Identification       | A     | Pass: the editor says in words what is missing; a miss shows the right answer in the gap and the strategy                                                                           |
-| 3.3.2 Labels or Instructions     | A     | Pass (axe); Pexeso has no task line saying what makes a pair (PS-QA-06)                                                                                                             |
+| 3.3.2 Labels or Instructions     | A     | Pass (axe); every board says its task, Pexeso what makes a pair (since #36)                                                                                                         |
 | 3.3.8 Accessible Authentication  | AA    | Not applicable: the gate (hold, then a multiplication) is a child lock, not a sign-in                                                                                               |
 | 4.1.2 Name, Role, Value          | A     | Pass (axe): meters report their value, tiles and pearls their pressed state, switches their state                                                                                   |
 | 4.1.3 Status Messages            | AA    | Feedback, board messages and toasts are live regions; what a screen reader says was not listened to (below)                                                                         |
@@ -72,11 +72,11 @@ motion, read-aloud with local Czech voices only, colour never the only signal).
 
 | Promise                                           | Result                                                                                                                     |
 | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Touch-first, targets of at least 48 px            | Pass at every size and at 200 % text, except Ulita slov's cut points (PS-QA-01)                                            |
-| A tablet screen without page scrolling            | Fails: the grotto (PS-QA-04) and the rounds and results (PS-QA-05) at 1280 × 800 and 1024 × 768                            |
-| Text scales to 200 % with reflow                  | Pass on tablets and the desktop; phone rounds scroll sideways (PS-QA-08)                                                   |
+| Touch-first, targets of at least 48 px            | Pass at every size and at 200 % text                                                                                       |
+| A tablet screen without page scrolling            | Pass at 1280 × 800 and 1024 × 768, except the grotto with three rewards and the chest waiting at 1024 × 768 (PS-QA-19)     |
+| Text scales to 200 % with reflow                  | Pass on tablets, the desktop and a phone                                                                                   |
 | Full keyboard support                             | Pass                                                                                                                       |
-| Reduced motion, from the device or the child      | Nothing keeps moving; dragging breaks (PS-QA-09)                                                                           |
+| Reduced motion, from the device or the child      | Pass: nothing keeps moving, and fish can be dragged                                                                        |
 | Read-aloud with local Czech voices only           | Pass; hidden with no local voice, and the grown-ups' area says how to add Zuzana (iPad) or the Czech speech pack (Windows) |
 | The game works fully without sound and read-aloud | Pass: every journey passes in Playwright's WebKit on Windows, which has no sound at all, and with no local Czech voice     |
 

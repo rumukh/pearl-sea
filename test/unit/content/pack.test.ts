@@ -254,6 +254,116 @@ describe('the content', () => {
     expect(bare).toEqual([]);
   });
 
+  it('names in no rule line a word its rule’s problems show: a hint never gives the answer away', () => {
+    const catalog = JSON.parse(
+      readFileSync(join(root, 'content', 'catalogs', 'cs.content.json'), 'utf8'),
+    ) as Record<string, string>;
+    const lower = (text: string): string => text.toLowerCase();
+    const words = new Map(data.lexicon.words.map((word) => [word.id, word]));
+    const sentences = new Map(data.lexicon.sentences.map((sentence) => [sentence.id, sentence]));
+    const kin = new Map<string, string[]>();
+    for (const word of data.lexicon.words) {
+      if (word.family) kin.set(word.family.id, [...(kin.get(word.family.id) ?? []), word.id]);
+    }
+    /** A word's written forms: the lemma and every paradigm cell. */
+    const written = (id: string): string[] => {
+      const out: string[] = [];
+      const walk = (value: unknown): void => {
+        if (typeof value === 'string') out.push(lower(value));
+        else if (Array.isArray(value)) value.forEach(walk);
+        else if (value !== null && typeof value === 'object') Object.values(value).forEach(walk);
+      };
+      const word = words.get(id);
+      if (word) walk([word.lemma, word.noun?.paradigm, word.verb?.paradigm]);
+      return out;
+    };
+    /** The lemma with each option at the point's place: bít, být. */
+    const respelled = (lemma: string, at: number, correct: string, options: string[]): string[] => {
+      const letters = [...lemma];
+      const end = at + [...correct].length;
+      return options.map((o) =>
+        lower([...letters.slice(0, at), o, ...letters.slice(end)].join('')),
+      );
+    };
+    /** A sentence gap's text with each of its options filled in: odplavala, od plavala. */
+    const gapTexts = (text: string, index: number): { texts: string[]; whole: boolean } => {
+      const group = [...text.matchAll(/\{([^}]*)\}/g)][index];
+      if (group?.index === undefined) return { texts: [], whole: false };
+      const fill = (part: string) => part.replace(/\{([^|}]*)\|[^}]*\}/g, '$1');
+      const left = /\S*$/.exec(fill(text.slice(0, group.index)))?.[0] ?? '';
+      const right = /^\S*/.exec(fill(text.slice(group.index + group[0].length)))?.[0] ?? '';
+      return {
+        texts: group[1]!
+          .split('|')
+          .map((option) => lower(`${left}${option}${right}`).replace(/[^\p{L} ]/gu, '')),
+        whole: !/\p{L}/u.test(left + right),
+      };
+    };
+    // What a rule's problems show: the asked word in every form, with its other letters, and its
+    // family; a gap's text with each option; the agreement's subjects.
+    const shown = new Map<string, Map<string, string>>();
+    const show = (rule: string, texts: readonly string[], where: string) => {
+      const known = shown.get(rule) ?? new Map<string, string>();
+      for (const text of texts) if (!known.has(text)) known.set(text, where);
+      shown.set(rule, known);
+    };
+    // A rule whose every item is a choice between the same whole words (mně, mě) names them as
+    // its subject, not as an example; any item with letters to fill disables that.
+    const choices = new Map<string, Set<string>[]>();
+    const lettered = new Set<string>();
+    for (const skill of data.skills) {
+      if (!['spell.word', 'spell.sentence', 'spell.mistake'].includes(skill.generator)) continue;
+      for (const item of items.get(skill.id) ?? []) {
+        const [kind, target = '', detail = ''] = item.split(':');
+        const where = `${skill.id}: ${target}`;
+        if (kind === 'spell') {
+          const word = words.get(target);
+          const point = word?.spelling?.find((p) => p.at === Number(detail));
+          if (!word || !point) continue;
+          lettered.add(point.rule);
+          show(
+            point.rule,
+            respelled(word.lemma, point.at, point.correct, [point.correct, ...point.alt]),
+            where,
+          );
+          for (const id of word.family ? (kin.get(word.family.id) ?? []) : [word.id]) {
+            show(point.rule, written(id), where);
+          }
+        } else if (kind === 'gap') {
+          const sentence = sentences.get(target);
+          const gap = sentence?.gaps[Number(detail)];
+          if (!sentence || !gap) continue;
+          const { texts, whole } = gapTexts(sentence.text, Number(detail));
+          if (whole) choices.set(gap.rule, [...(choices.get(gap.rule) ?? []), new Set(texts)]);
+          else lettered.add(gap.rule);
+          show(gap.rule, texts, where);
+          if (gap.word) show(gap.rule, written(gap.word), where);
+          for (const index of gap.subjects ?? []) {
+            const token = sentence.tokens?.[index];
+            if (token)
+              show(gap.rule, [lower(token.t), ...(token.word ? written(token.word) : [])], where);
+          }
+        }
+      }
+    }
+    const named: string[] = [];
+    for (const [key, line] of Object.entries(catalog)) {
+      const rule = /^grammar\.rule\.(.+)$/.exec(key)?.[1];
+      if (rule === undefined) continue;
+      const said = lower(line);
+      const tokens = new Set(said.match(/\p{L}+/gu) ?? []);
+      const sets = lettered.has(rule) ? [] : (choices.get(rule) ?? []);
+      const subject = (text: string) => sets.length > 1 && sets.every((set) => set.has(text));
+      for (const [text, where] of shown.get(rule) ?? []) {
+        if (text.length < 2 || subject(text)) continue;
+        if (text.includes(' ') ? said.includes(text) : tokens.has(text)) {
+          named.push(`${key}: ${text} (${where})`);
+        }
+      }
+    }
+    expect(named, 'example words no problem of the rule shows (docs/content.md §7)').toEqual([]);
+  });
+
   it('feeds a friend with every item a problem teaches, but the basket’s skills', () => {
     const fed = new Set(data.friends.flatMap((f) => [...friendSet(f.skills)]));
     const hungry: string[] = [];

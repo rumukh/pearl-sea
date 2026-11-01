@@ -683,10 +683,13 @@ As in Dragon Valley:
   retired IDs is unchanged. Content 1.2.5 changes nothing but the revision, so that every save on
   1.2.4 or older activates it and merges.
 - **State compatibility.** New state fields are optional with a default that old saves get by
-  omission. A change an old snapshot cannot continue under bumps `STATE_VERSION` (now 1) and adds a
+  omission. A change an old snapshot cannot continue under bumps `STATE_VERSION` (now 2) and adds a
   step to `STATE_MIGRATIONS`; `migrateProfileState` and `migrateSnapshot` (which rewrites the
   runtime snapshot's state resource, `RUNTIME_STATE_RESOURCE`) run the steps in order, and the shell
-  registers one save migration per step.
+  registers one save migration per step. Version 2: hints name other words than the asked one
+  (§5.3), so step 1 → 2 clears the `family`, `test-word` and `listed` hints of the problem on
+  screen, which named the asked word in version 1 and would now read as examples; every other hint
+  and everything else stays, and the step shows no hint.
 
 ## 8. The lexicon (`lexicon.ts`)
 
@@ -932,7 +935,7 @@ newer view; `elapsedMs` excludes paused time and is capped at 600 000 ms.
 | Registration         | Value                                                                                           |
 | -------------------- | ----------------------------------------------------------------------------------------------- |
 | `id`                 | `pearl-sea` (`ADAPTER_ID`)                                                                      |
-| `stateVersion`       | `STATE_VERSION` (1)                                                                             |
+| `stateVersion`       | `STATE_VERSION` (2)                                                                             |
 | `state` / `action`   | `profileStateSchema` / `gameActionSchema`                                                       |
 | `content`            | `contentRegistration` (schema version 1)                                                        |
 | `randomStreams`      | `problems`, `distractors`, `rewards`, `words`, `ambush`                                         |

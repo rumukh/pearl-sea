@@ -85,6 +85,26 @@
   -webkit-user-drag: none;
 }
 
+/*
+ * A monster's two forms (art/picture.ts `monsterForms`): one box of the inked painting's shape,
+ * the freed form under the inked one, each drawn whole and standing on the box's ground.
+ */
+.ps-monster-forms {
+  position: relative;
+  display: block;
+}
+
+.ps-monster-forms > .ps-art {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  aspect-ratio: auto !important;
+}
+
+.ps-monster-forms .ps-art__image {
+  object-position: 50% 100%;
+}
+
 /* Screens drawn over a scene: the picture fills the screen behind everything else. */
 .ps-hub,
 .ps-story,
@@ -531,8 +551,12 @@
   min-width: 0;
 }
 
+/* Over the grotto's painting the greeting sits on paper, like every text on a scene. */
 .ps-hub__greeting {
+  padding: 0.15em 0.6em;
+  border-radius: 0.8em;
   font-size: min(1.5rem, 7vw);
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
 }
 
 .ps-hub__diver {
@@ -780,12 +804,13 @@
   box-shadow: 0 0.5em 1.4em color-mix(in srgb, var(--ps-shadow) 30%, transparent);
 }
 
+/* A board as wide as fits the screen at its painting's ratio (`--ps-picture-ratio`). */
 .ps-map__board {
-  width: min(100%, 64em, calc((100dvh - 9.5rem) * 1.6));
+  width: min(100%, 64em, calc((100dvh - 9.5rem) * var(--ps-picture-ratio, 1.79)));
 }
 
 .ps-region__board {
-  width: min(100%, 64em, calc((100dvh - 6rem) * 1.78));
+  width: min(100%, 64em, calc((100dvh - 6rem) * var(--ps-picture-ratio, 1.79)));
 }
 
 .ps-map__region {
@@ -811,11 +836,12 @@
   touch-action: manipulation;
 }
 
+/* A locked region: a dashed edge, a lock and muted words, on solid paper over the painting. */
 .ps-map__region:disabled {
   cursor: default;
   border-style: dashed;
   color: var(--ps-ink-muted);
-  background: color-mix(in srgb, var(--ps-paper) 82%, transparent);
+  background: var(--ps-paper);
   box-shadow: none;
 }
 
@@ -1072,10 +1098,16 @@
 
 /* ---- Problem rounds --------------------------------------------------------------------- */
 
+/* A round's or a board's title and meter, on paper over the region's painting. */
 .ps-round__header {
   display: grid;
   gap: 0.25em;
+  width: fit-content;
   min-width: 0;
+  max-width: 100%;
+  padding: 0.3em 0.8em 0.45em;
+  border-radius: 1em;
+  background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
 }
 
 .ps-round__title {
@@ -1132,16 +1164,11 @@
 }
 
 .ps-round__monster {
-  display: grid;
   width: min(15rem, 30vh, 52vw);
 }
 
-.ps-round__monster > .ps-art {
-  grid-area: 1 / 1;
-}
-
 /* The ink washes off as the meter fills, leaving a trace for the freeing in the results. */
-.ps-round__monster-inked {
+.ps-round__monster .ps-monster-forms__inked {
   opacity: calc(0.25 + 0.75 * var(--ink-left, 1));
   transition: opacity 600ms ease-out;
 }
@@ -2075,6 +2102,26 @@
   place-items: center;
 }
 
+/* Osmička beside the card, cheering after a finished round; without room, the card alone. */
+.ps-results__scene {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 24px);
+  width: min(100%, 54em);
+}
+
+.ps-results__guide {
+  flex: 0 0 auto;
+  width: min(12rem, 30vh, 28%);
+}
+
+@container (max-width: 40em) {
+  .ps-results__guide {
+    display: none;
+  }
+}
+
 .ps-results__card {
   display: flex;
   flex-direction: column;
@@ -2154,15 +2201,7 @@
 }
 
 /* The inked painting washes away and the freed one is left. */
-.ps-moment__wash {
-  display: grid;
-}
-
-.ps-moment__wash > .ps-art {
-  grid-area: 1 / 1;
-}
-
-.ps-moment__inked {
+.ps-moment__wash .ps-monster-forms__inked {
   animation: ps-wash 2.4s ease-in 0.5s both;
 }
 
@@ -2575,21 +2614,21 @@
 
 /* Entrances that start faint do not run at all, and the wash ends washed. */
 :root[data-reduced-motion='true'] .ps-moment__art,
-:root[data-reduced-motion='true'] .ps-moment__inked {
+:root[data-reduced-motion='true'] .ps-moment__wash .ps-monster-forms__inked {
   animation: none !important;
 }
 
-:root[data-reduced-motion='true'] .ps-moment__inked {
+:root[data-reduced-motion='true'] .ps-moment__wash .ps-monster-forms__inked {
   opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ps-moment__art,
-  .ps-moment__inked {
+  .ps-moment__wash .ps-monster-forms__inked {
     animation: none !important;
   }
 
-  .ps-moment__inked {
+  .ps-moment__wash .ps-monster-forms__inked {
     opacity: 0;
   }
 }

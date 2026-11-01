@@ -3,10 +3,11 @@
  * time and full size: an egg that hatched (the egg cracks, the baby swims out), and a monster set
  * free (the inked painting washes into its freed form, and it joins the friends' gallery). Then
  * the round's card: stars for a finished level, right answers, coins, and the smaller news
- * (a friend grew or got its crown, a new egg, a sticker, a new region). Celebrations come from the
- * round's live events, so a reload never celebrates twice; the card itself comes from the view.
+ * (a friend grew or got its crown, a new egg, a sticker, a new region), with Osmička cheering beside it
+ * after a finished round. Celebrations come from the round's live events, so a reload never celebrates
+ * twice; the card itself comes from the view.
  */
-import { dressedFriend, picture, stickerPicture } from '../art/picture';
+import { dressedFriend, monsterForms, picture, stickerPicture } from '../art/picture';
 import { taken } from '../controller/commands';
 import { findFriend, resultsNext } from '../game/view';
 import type { Screen } from '../router/router';
@@ -15,7 +16,7 @@ import { candyButton } from '../ui/button';
 import { confetti } from '../ui/confetti';
 import { h } from '../ui/dom';
 import { createStars } from '../ui/meters';
-import { ART } from '../../rules/contract';
+import { ART, GUIDE_ID } from '../../rules/contract';
 import type { ContentData, GameAction, GameEvent } from '../../rules/contract';
 import { friendStageName } from './celebrate';
 
@@ -64,15 +65,14 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     stars = createStars(result.stars, t.plural('results.stars', result.stars));
     card.append(stars.element);
   }
-  if (round.type === 'problems' && round.progress.answered > 0) {
+  // Right answers are steps (each gap, the find and the fix of Lov chyb), while the round's
+  // `answered` counts whole problems: the card tells the right ones only.
+  if (round.type === 'problems' && round.progress.correct > 0) {
     card.append(
       h('p', {
         className: 'ps-results__score',
         testId: 'results-score',
-        text: t('results.score', {
-          correct: round.progress.correct,
-          answered: round.progress.answered,
-        }),
+        text: t.plural('results.right', round.progress.correct),
       }),
     );
   }
@@ -209,15 +209,10 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
         h(
           'section',
           { className: 'ps-moment ps-moment--freed', testId: 'moment-freed' },
-          h(
-            'div',
-            { className: 'ps-moment__art ps-moment__wash' },
-            picture(app.art, ART.monster(monster, 'inked'), { className: 'ps-moment__inked' }),
-            picture(app.art, ART.monster(monster, 'freed'), {
-              className: 'ps-moment__freed',
-              alt: name(data.monsters, monster),
-            }),
-          ),
+          monsterForms(app.art, monster, {
+            className: 'ps-moment__art ps-moment__wash',
+            alt: name(data.monsters, monster),
+          }),
           h('h2', { text: t('results.freed', { name: name(data.monsters, monster) }) }),
           joke !== null && text.has(joke)
             ? h('p', { className: 'ps-moment__joke', testId: 'moment-joke', text: text(joke) })
@@ -236,6 +231,19 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     }
   }
 
+  // Osmička beside the card: cheering after a finished round, her calm portrait after a stop.
+  const cheering = round.endReason !== 'quit' && round.endReason !== 'time-limit';
+  const guide = h(
+    'div',
+    {
+      className: 'ps-results__guide',
+      testId: 'results-guide',
+      dataset: { expression: cheering ? 'happy' : 'idle' },
+    },
+    picture(app.art, cheering ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID)),
+  );
+  const scene = h('div', { className: 'ps-results__scene' }, guide, card);
+
   const stage = h('div', { className: 'ps-results__stage' });
   let current = 0;
   /** Draw moment `index` (or the card after the last); effects only once it is on the screen. */
@@ -243,7 +251,7 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     current = index;
     const moment = moments[index];
     if (!moment) {
-      stage.replaceChildren(card);
+      stage.replaceChildren(scene);
       if (live) {
         void stars?.reveal();
         button.focus();

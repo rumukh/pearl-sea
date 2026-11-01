@@ -3,7 +3,7 @@
  * and the monster's ink blot last. Each node says its number, whether it is done (with its
  * stars), open or locked; the level the game suggests glows. A node opens the level's intro.
  */
-import { picture } from '../art/picture';
+import { picture, pictureSize } from '../art/picture';
 import { findRegion } from '../game/view';
 import { levelSpots } from '../game/map';
 import type { ScreenEntry } from '../router/router';
@@ -95,6 +95,15 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
         }),
       );
       const heading = h('h1', { text: text(region.titleKey) });
+      const board = h(
+        'div',
+        { className: 'ps-region__board', testId: 'region-board' },
+        picture(app.art, ART.scene(region.id), { className: 'ps-region__picture' }),
+        path,
+        ...nodes,
+      );
+      const [width, height] = pictureSize(app.art, ART.scene(region.id));
+      board.style.setProperty('--ps-picture-ratio', String(width / height));
       const element = h(
         'main',
         { className: 'ps-region', testId: 'screen-region', dataset: { region: region.id } },
@@ -105,13 +114,7 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
           title: heading,
           onError: app.kit.onError,
         }),
-        h(
-          'div',
-          { className: 'ps-region__board', testId: 'region-board' },
-          picture(app.art, ART.scene(region.id), { className: 'ps-region__picture' }),
-          path,
-          ...nodes,
-        ),
+        board,
       );
       return {
         element,

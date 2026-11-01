@@ -16,7 +16,7 @@
  * answer goes through the command controller (stale-view guard, strict save); Escape or the pause
  * button pauses the game.
  */
-import { dressedFriend, picture } from '../art/picture';
+import { dressedFriend, monsterForms, picture } from '../art/picture';
 import { CommandRejectedError } from '../controller/commands';
 import { createResponseTimer } from '../game/timer';
 import { findFriend } from '../game/view';
@@ -192,27 +192,24 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     }
   };
 
-  /** The friend being fed, the monster being washed, or Osmička for the placement check. */
+  /** Osmička, where she keeps the child company, cheers after a right step until the next miss. */
+  let guideCheers = false;
+
+  /**
+   * The friend being fed, the monster being washed, or Osmička: she asks the placement check's
+   * questions (the rules' friend there is only the first one owned, often still an egg).
+   */
   const paintCompanion = (view: GameView): void => {
     const round = problemRound(view);
     if (round?.battle) {
       const left = round.battle.target > 0 ? 1 - round.battle.washed / round.battle.target : 0;
       // The freed form shows through as the ink washes off; the last of it goes in the results.
-      const monster = h(
-        'div',
-        {
-          className: 'ps-round__monster',
-          testId: 'battle-monster',
-          dataset: { monster: round.battle.monster, washed: String(round.battle.washed) },
-        },
-        picture(app.art, ART.monster(round.battle.monster, 'freed'), {
-          className: 'ps-round__monster-freed',
-        }),
-        picture(app.art, ART.monster(round.battle.monster, 'inked'), {
-          className: 'ps-round__monster-inked',
-          alt: text(round.battle.nameKey),
-        }),
-      );
+      const monster = monsterForms(app.art, round.battle.monster, {
+        className: 'ps-round__monster',
+        testId: 'battle-monster',
+        alt: text(round.battle.nameKey),
+      });
+      monster.dataset['washed'] = String(round.battle.washed);
       monster.style.setProperty('--ink-left', String(Math.max(0, Math.min(1, left))));
       showJoke(round.battle.jokeKey);
       companion.replaceChildren(
@@ -226,7 +223,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       );
       return;
     }
-    const friendId = round?.friend?.id ?? null;
+    const friendId = round?.placement ? null : (round?.friend?.id ?? null);
     const friend = friendId ? findFriend(view, friendId) : undefined;
     if (friend) {
       companion.replaceChildren(
@@ -249,8 +246,12 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     companion.replaceChildren(
       h(
         'div',
-        { className: 'ps-round__friend', testId: 'round-friend' },
-        picture(app.art, ART.character(GUIDE_ID)),
+        {
+          className: 'ps-round__friend',
+          testId: 'round-friend',
+          dataset: { guide: GUIDE_ID, expression: guideCheers ? 'happy' : 'idle' },
+        },
+        picture(app.art, guideCheers ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID)),
       ),
     );
   };
@@ -550,7 +551,8 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     if (round.battle) {
       app.kit.cue('fx.bubble');
       await fly(source, companion.querySelector('[data-testid="battle-monster"]'), 'bubble');
-    } else {
+    } else if (!round.placement) {
+      // A snack for the friend; Osmička, asking the placement check, cheers instead (below).
       await fly(source, companion.querySelector('[data-testid="round-friend"]'), 'snack');
     }
     if (result.ambush?.splashed) {
@@ -559,6 +561,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       app.kit.announcer.announce(t('ambush.splashed'));
     }
     if (result.coins > 0) await coins.gain(result.coins, source);
+    guideCheers = true;
     paintCompanion(after);
     updateProgress(round);
     await new Promise((resolve) =>
@@ -601,6 +604,10 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     );
     if (result.ambush && !result.ambush.splashed) {
       app.kit.announcer.announce(t('ambush.stayed'));
+    }
+    if (guideCheers) {
+      guideCheers = false;
+      paintCompanion(after);
     }
     const round = problemRound(after);
     if (round) updateProgress(round);

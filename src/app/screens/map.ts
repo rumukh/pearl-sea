@@ -4,7 +4,7 @@
  * freed. Locked regions show a lock. A region opens its own view with the level nodes
  * (screens/region.ts). The map shown first is the one with the glowing level.
  */
-import { picture } from '../art/picture';
+import { picture, pictureSize } from '../art/picture';
 import { findLevel } from '../game/view';
 import { regionSpot } from '../game/map';
 import type { Screen, ScreenEntry } from '../router/router';
@@ -105,6 +105,9 @@ function mapView(
       .filter((region) => region.map === sea)
       .sort((a, b) => a.order - b.order);
     board.dataset['sea'] = sea;
+    // The board is as tall as the painting is for its width, and fits the screen by that ratio.
+    const [width, height] = pictureSize(app.art, ART.map(sea));
+    board.style.setProperty('--ps-picture-ratio', String(width / height));
     board.replaceChildren(
       picture(app.art, ART.map(sea), { className: 'ps-map__picture' }),
       ...regions.map((region, index) => marker(region, index, regions.length)),

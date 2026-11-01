@@ -204,8 +204,11 @@ in seeded order including `correct`, `keys` the letter pad's keys including `cor
 spelling rule, `word` the lexicon word or null, and `item` the item the gap trains. A
 classification's `options` keep the dimension's school order (`DIMENSION_VALUES`: the cases 1-7,
 the parts of speech 1-10, the patterns by gender), never shuffled, so each value keeps its place on
-screen. `problemSchema` checks the fields and that the problem is coherent: the answer is offered,
-every gap appears exactly once and in order, indices are in range.
+screen. A classification of a whole sentence (`sentence-kind`, `clauses`) shows the sentence itself
+as its `target` (`word: null`, `text` up to 240 characters; for `sentence-kind` without its end
+mark, which would give the kind away) and has no `context`; every other `target` and word is a
+token of at most 64 characters. `problemSchema` checks the fields and that the problem is coherent:
+the answer is offered, every gap appears exactly once and in order, indices are in range.
 
 ### 5.2 Answers and steps
 

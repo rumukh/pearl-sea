@@ -128,6 +128,25 @@ describe('problems', () => {
     expect(problemSchema.parse(twice).ok).toBe(false);
   });
 
+  it('take a whole sentence of up to 240 characters as a classification target, a token elsewhere', () => {
+    const sentence = (length: number) => 'Krab'.padEnd(length, ' a ryba');
+    const whole = (text: string): Problem => ({
+      kind: 'classify',
+      dimension: 'sentence-kind',
+      target: { word: null, text },
+      context: null,
+      span: null,
+      options: ['statement', 'question', 'command', 'wish'],
+      correct: 'question',
+      hint: null,
+    });
+    expect(problemSchema.parse(whole(sentence(240))).ok).toBe(true);
+    expect(problemSchema.parse(whole(sentence(241))).ok).toBe(false);
+    const long = { word: null, text: sentence(65) };
+    expect(problemSchema.parse({ ...problems[3]!, words: [long, long, long] }).ok).toBe(false);
+    expect(problemSchema.parse({ ...problems[4]!, target: long }).ok).toBe(false);
+  });
+
   it('have one expected answer per step: one per gap, find then fix for a mistake', () => {
     expect(problems.map(problemSteps)).toEqual([1, 1, 1, 1, 1, 2]);
     expect(expectedAnswer(problems[0]!, 0)).toEqual({ kind: 'text', value: 'ý' });

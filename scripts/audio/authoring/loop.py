@@ -35,6 +35,26 @@ def sha256(path):
     return h.hexdigest()
 
 
+def comb_period(onset, fps, period, max_lag_s=30.0, span=0.04):
+    """The beat period (frames) that best fits the onset envelope's autocorrelation at every
+    multiple of the beat up to max_lag_s (a comb), searched within +-4 % of `period`. A comb over
+    all multiples cannot lock onto one lucky lag, and the long lags average out swing,
+    syncopation and fills; it catches a beat tracker that settled on a slightly wrong tempo."""
+    x = onset[int(8 * fps): len(onset) - int(6 * fps)].astype(float)
+    x = x - x.mean()
+    n = len(x)
+    max_lag = min(int(max_lag_s * fps), n // 2)
+    ac = np.array([np.dot(x[:n - lag], x[lag:]) / (n - lag) for lag in range(max_lag + 1)])
+    ac /= ac[0]
+    best = None
+    for p in np.linspace(period * (1 - span), period * (1 + span), 801):
+        ks = np.arange(1, int(max_lag / p) + 1)
+        score = np.interp(ks * p, np.arange(len(ac)), ac).mean()
+        if best is None or score > best[0]:
+            best = (score, p)
+    return best[1]
+
+
 def fit_grid(onset, fps, bpm, y_mono=None, sr=None, hop=256):
     """Beat period and phase (in onset frames).
 
@@ -57,6 +77,12 @@ def fit_grid(onset, fps, bpm, y_mono=None, sr=None, hop=256):
             break
         inliers = new
     period = p[0]
+    tracker_period = period
+    ac_period = comb_period(onset, fps, period)
+    source = "beat tracker"
+    if abs(ac_period / period - 1) > 0.002:
+        # the tracker drifted (swing, a rocking feel): trust the long-lag autocorrelation
+        period, source = ac_period, "onset autocorrelation comb"
     # refine period within +-0.3 percent and phase on the onset envelope
     best = None
     for per in np.linspace(period * 0.997, period * 1.003, 61):
@@ -67,7 +93,9 @@ def fit_grid(onset, fps, bpm, y_mono=None, sr=None, hop=256):
                 best = (score, per, phase)
     _, per, phase = best
     fitted_bpm = 60.0 * fps / per
-    return fitted_bpm, phase, {"trackerBpm": round(60.0 * fps / period, 3), "inlierShare": round(float(inliers.mean()), 3),
+    return fitted_bpm, phase, {"trackerBpm": round(60.0 * fps / tracker_period, 3),
+                                "autocorrBpm": round(60.0 * fps / ac_period, 3), "periodFrom": source,
+                                "inlierShare": round(float(inliers.mean()), 3),
                                 "residualMsP95": round(float(np.percentile(resid[inliers], 95) / fps * 1000), 1)}
 
 

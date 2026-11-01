@@ -68,6 +68,13 @@
       "loop": true
     },
     {
+      "id": "music/map",
+      "file": "music/map.ogg",
+      "bus": "music",
+      "tier": "music",
+      "loop": true
+    },
+    {
       "id": "sfx/victory-sting",
       "file": "sfx/victory-sting.ogg",
       "bus": "effects",
@@ -574,6 +581,7 @@
   "music": {
     "states": {
       "grotto": "music/grotto",
+      "map": "music/map",
       "practice": "music/practice",
       "battle": "music/battle",
       "race": "music/battle"

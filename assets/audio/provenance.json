@@ -1197,6 +1197,368 @@
         "note": "Approved as the stereo take. Shipped as 48 kHz mono by the coordinator's decision of 2026-10-31 (docs/plan.md, section 10).",
         "mono": "Plain mono downmix with no phase problem."
       }
+    },
+    {
+      "id": "music/map",
+      "file": "music/map.ogg",
+      "bytes": 408746,
+      "sha256": "5ca406d1c416f753ef2e3e0d10df993ed29bef24b08ee16d04de8a95f259871a",
+      "made": {
+        "tool": "ACE-Step 1.5 local API (ca1e85fe9430 of github.com/ace-step/ACE-Step-1.5), offline, no cloud service",
+        "models": {
+          "dit": {
+            "name": "acestep-v15-xl-sft (4B, SFT)",
+            "files": [
+              {
+                "file": "acestep-v15-xl-sft/config.json",
+                "bytes": 2525,
+                "sha256": "174cf8c4afc2c41212546b4dca9afb11e7958f8b1e1a770d7cd009a82d72a6f1"
+              },
+              {
+                "file": "acestep-v15-xl-sft/model-00001-of-00004.safetensors",
+                "bytes": 4986971456,
+                "sha256": "1d304b8a34859cd92c349c71ae6c27d50564844c7f7611d2d32913f67508e5a4"
+              },
+              {
+                "file": "acestep-v15-xl-sft/model-00002-of-00004.safetensors",
+                "bytes": 4986942776,
+                "sha256": "94e33648f514fdd00f473f2d2680af959204b58b15f7ab37246ac16d066aac87"
+              },
+              {
+                "file": "acestep-v15-xl-sft/model-00003-of-00004.safetensors",
+                "bytes": 4986942808,
+                "sha256": "befe558365f53bc6c44f3f7e521cb2dd026927a817c36aa05ad94fcd80a533a9"
+              },
+              {
+                "file": "acestep-v15-xl-sft/model-00004-of-00004.safetensors",
+                "bytes": 4988483464,
+                "sha256": "dfbc77aa26e54d0127892d6e7f3c0868bfc4623aa067867f6595c3b2fb7d31a4"
+              },
+              {
+                "file": "acestep-v15-xl-sft/model.safetensors.index.json",
+                "bytes": 71471,
+                "sha256": "0a0c7e153a7bb6f6061b155739e9502cf83977bb959186d4df688595302a9474"
+              }
+            ]
+          },
+          "planner": {
+            "name": "acestep-5Hz-lm-1.7B (vLLM backend)",
+            "files": [
+              {
+                "file": "acestep-5Hz-lm-1.7B/config.json",
+                "bytes": 1385,
+                "sha256": "73515ca4bfd86a5b56f28bf680311d1911e159c85d7f7ceb2188e310007c9010"
+              },
+              {
+                "file": "acestep-5Hz-lm-1.7B/model.safetensors",
+                "bytes": 3708521528,
+                "sha256": "f161689da73e5ecefa28ff780d51c2d92a00f056d021d7933c779ed5c6cd7db8"
+              }
+            ]
+          },
+          "vae": {
+            "name": "ACE-Step 1.5 VAE",
+            "files": [
+              {
+                "file": "vae/config.json",
+                "bytes": 425,
+                "sha256": "14e019904df567f26df750317a70e2bd08f9f8f3c40ff4a24c97d1cd3f20ccd2"
+              },
+              {
+                "file": "vae/diffusion_pytorch_model.safetensors",
+                "bytes": 337431388,
+                "sha256": "da17edb604c40deaf09e9b24974e590d1ca83a374070e5d0884cfa4bed9a99b0"
+              }
+            ]
+          },
+          "textEncoder": {
+            "name": "Qwen3-Embedding-0.6B",
+            "files": [
+              {
+                "file": "Qwen3-Embedding-0.6B/config.json",
+                "bytes": 1359,
+                "sha256": "bb23c1607cfe059a58d8f0196cf1cebb52082b1056b8e358a579da80a5759420"
+              },
+              {
+                "file": "Qwen3-Embedding-0.6B/model.safetensors",
+                "bytes": 1191586416,
+                "sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+              }
+            ]
+          }
+        },
+        "caption": "Instrumental music for a children's undersea adventure game: sailing across the sea map in a little yellow submarine and choosing where to dive next. Curious, adventurous and light: a playful pizzicato strings and flute melody over a gentle rocking sailing rhythm with ukulele, marimba, a soft round upright bass and light hand percussion, with little harp glissandos and glockenspiel sparkles like rising bubbles. Bright major key, moderate tempo, steady even energy with no big build-ups, no breakdowns and no drops. Clean, warm mix with gentle reverb. The groove keeps going from start to end so the music loops smoothly.",
+        "captionFile": "prompts/music-map.caption.txt",
+        "lyrics": "[Instrumental]",
+        "settings": {
+          "taskType": "text2music",
+          "seed": 85001,
+          "durationSeconds": 90,
+          "bpm": 104,
+          "keyScale": "G major",
+          "timeSignature": "4/4",
+          "inferenceSteps": 50,
+          "guidanceScale": 7.0,
+          "shift": 3.0,
+          "inferMethod": "ode",
+          "thinking": true,
+          "useFormat": false,
+          "constrainedDecoding": true,
+          "batchSize": 1,
+          "ditQuantization": "int8 weight-only",
+          "memory": "CPU offload plus DiT offload"
+        },
+        "date": "2026-11-01",
+        "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows",
+        "modelOutput": {
+          "format": "FLAC, 48 kHz, stereo",
+          "sha256": "1d702d6d6909cd68fd148cb7037c7f134eeb8463190670b48437b7cbba0188d9",
+          "seconds": 90.0
+        }
+      },
+      "processing": [
+        {
+          "step": "loop",
+          "tool": "scripts/audio/authoring/loop.py (librosa beat tracking checked against an onset-autocorrelation comb, robust tempo fit, bar-aligned loop search)",
+          "requestedBpm": 104.0,
+          "fittedBpm": 105.007,
+          "tempoFit": {
+            "trackerBpm": 106.057,
+            "autocorrBpm": 104.997,
+            "periodFrom": "onset autocorrelation comb",
+            "inlierShare": 0.211,
+            "residualMsP95": 29.4
+          },
+          "bars": 16,
+          "startBar": 19,
+          "startSample": 2087003,
+          "endSample": 3842203,
+          "lengthAdjustSamples": -111,
+          "crossfade": "equal-power, 0.5 beat, tail into the audio before the start",
+          "seamLagMs": 2.7,
+          "matchDistance": 3.3972
+        },
+        {
+          "step": "mono downmix",
+          "tool": "scripts/audio/authoring/mono.py",
+          "method": "(L+R)/2, then a circular zero-phase spectral-balance EQ",
+          "phase": {
+            "correlation": 0.299,
+            "bands": [
+              {
+                "hz": 63,
+                "correlation": 0.298,
+                "monoVsStereoDb": -1.88,
+                "bandLevelDbfs": -56.6
+              },
+              {
+                "hz": 125,
+                "correlation": 0.769,
+                "monoVsStereoDb": -0.56,
+                "bandLevelDbfs": -36.1
+              },
+              {
+                "hz": 250,
+                "correlation": 0.677,
+                "monoVsStereoDb": -0.76,
+                "bandLevelDbfs": -33.7
+              },
+              {
+                "hz": 500,
+                "correlation": 0.399,
+                "monoVsStereoDb": -1.6,
+                "bandLevelDbfs": -32.2
+              },
+              {
+                "hz": 1000,
+                "correlation": -0.15,
+                "monoVsStereoDb": -3.68,
+                "bandLevelDbfs": -31.7
+              },
+              {
+                "hz": 2000,
+                "correlation": -0.382,
+                "monoVsStereoDb": -5.1,
+                "bandLevelDbfs": -41.0
+              },
+              {
+                "hz": 4000,
+                "correlation": -0.034,
+                "monoVsStereoDb": -3.16,
+                "bandLevelDbfs": -40.9
+              },
+              {
+                "hz": 8000,
+                "correlation": 0.564,
+                "monoVsStereoDb": -1.07,
+                "bandLevelDbfs": -39.6
+              },
+              {
+                "hz": 16000,
+                "correlation": 0.611,
+                "monoVsStereoDb": -0.94,
+                "bandLevelDbfs": -48.3
+              }
+            ],
+            "flagged": [
+              2000
+            ],
+            "afterEq": {
+              "63": -0.3,
+              "125": 0.0,
+              "250": 0.0,
+              "500": 0.0,
+              "1000": -0.2,
+              "2000": -0.4,
+              "4000": -0.1,
+              "8000": 0.3,
+              "16000": 0.4
+            }
+          },
+          "balanceEq": [
+            {
+              "hz": 31.2,
+              "db": -0.06
+            },
+            {
+              "hz": 39.4,
+              "db": 0.02
+            },
+            {
+              "hz": 49.6,
+              "db": -0.14
+            },
+            {
+              "hz": 62.5,
+              "db": 0.19
+            },
+            {
+              "hz": 78.7,
+              "db": -0.21
+            },
+            {
+              "hz": 99.2,
+              "db": -0.5
+            },
+            {
+              "hz": 125.0,
+              "db": -1.14
+            },
+            {
+              "hz": 157.5,
+              "db": -1.27
+            },
+            {
+              "hz": 198.4,
+              "db": -1.14
+            },
+            {
+              "hz": 250.0,
+              "db": -1.05
+            },
+            {
+              "hz": 315.0,
+              "db": -0.72
+            },
+            {
+              "hz": 396.9,
+              "db": -0.39
+            },
+            {
+              "hz": 500.0,
+              "db": -0.12
+            },
+            {
+              "hz": 630.0,
+              "db": 0.45
+            },
+            {
+              "hz": 793.7,
+              "db": 1.25
+            },
+            {
+              "hz": 1000.0,
+              "db": 2.0
+            },
+            {
+              "hz": 1259.9,
+              "db": 2.62
+            },
+            {
+              "hz": 1587.4,
+              "db": 2.88
+            },
+            {
+              "hz": 2000.0,
+              "db": 3.31
+            },
+            {
+              "hz": 2519.8,
+              "db": 3.08
+            },
+            {
+              "hz": 3174.8,
+              "db": 2.56
+            },
+            {
+              "hz": 4000.0,
+              "db": 1.62
+            },
+            {
+              "hz": 5039.7,
+              "db": 0.69
+            },
+            {
+              "hz": 6349.6,
+              "db": 0.08
+            },
+            {
+              "hz": 8000.0,
+              "db": -0.45
+            },
+            {
+              "hz": 10079.4,
+              "db": -0.4
+            },
+            {
+              "hz": 12699.2,
+              "db": -0.44
+            },
+            {
+              "hz": 16000.0,
+              "db": -0.03
+            },
+            {
+              "hz": 20158.7,
+              "db": 0.14
+            }
+          ]
+        },
+        {
+          "step": "loudness",
+          "targetLufs": -23.0,
+          "measuredAs": "single channel, ITU-R BS.1770 (pyloudnorm)",
+          "outputLufs": -23.0,
+          "truePeakDbtp": -2.42,
+          "ceilingDbtp": -1.0
+        },
+        {
+          "step": "encode",
+          "codec": "Vorbis (libvorbis through FFmpeg, -q:a 5, bitexact)",
+          "sampleRate": 48000,
+          "channels": 1,
+          "metadata": "stripped; only the encoder tag remains",
+          "decodedSamples": 1755200
+        }
+      ],
+      "approval": {
+        "gate": "gate 7, the sea map music (S5 session, relayed by the coordinator)",
+        "decidedAt": "2026-11-01T23:02:28.4624654+01:00",
+        "question": "Gate 7: the music for the sea map, on S5's audition page (audition-map/index.html). It's curious and light, with pizzicato, flute, ukulele and harp at about 105 BPM, and each player loops it three times. Take 1 (36.6 s) keeps its sound in the game's mono; take 2 (27.4 s) turns a little dull in mono. Which should play on the map?",
+        "answer": "Take 1, 36.6 s (Recommended)",
+        "note": "The user auditioned the shipped mono loop itself (played three times), with the stereo loop for reference.",
+        "mono": "Mono downmix with a per-octave balance correction (the 2 kHz band was anti-phase); every band within 0.4 dB of the stereo balance."
+      }
     }
   ]
 }

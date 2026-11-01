@@ -42,6 +42,13 @@ function minigameRound(view: GameView): MinigameRoundView | null {
   return view.round?.type === 'minigame' ? view.round : null;
 }
 
+/** "předpona, kořen a koncovka": a Czech list, joined as a sentence joins it. */
+function czechList(items: readonly string[]): string {
+  return items.length > 1
+    ? `${items.slice(0, -1).join(', ')} a ${items.at(-1)!}`
+    : (items[0] ?? '');
+}
+
 /** A card face in words: a word or form, a noun pattern, or a category value. */
 export function faceText(face: CardFace, text: ContentText): string {
   switch (face.kind) {
@@ -195,19 +202,30 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
   let held: string | null = null;
   const necklaceBoard = (board: NecklaceBoard): HTMLElement => {
     const pearls = board.pearls.map((pearl, index) => {
+      // After a check that was not right yet, a pearl already in its place wears a check mark.
       const button = h(
         'button',
         {
           className: 'ps-pearl-bead',
           testId: `pearl-${pearl.id}`,
-          dataset: { held: String(held === pearl.id) },
+          dataset: { held: String(held === pearl.id), inPlace: String(pearl.inPlace) },
           attributes: {
             type: 'button',
             lang: 'cs',
             'aria-pressed': String(held === pearl.id),
-            'aria-label': t('board.pearl', { word: pearl.text, place: index + 1 }),
+            'aria-label': t(pearl.inPlace ? 'board.pearlInPlace' : 'board.pearl', {
+              word: pearl.text,
+              place: index + 1,
+            }),
           },
         },
+        pearl.inPlace
+          ? h(
+              'span',
+              { className: 'ps-pearl-bead__mark', attributes: { 'aria-hidden': 'true' } },
+              icon('check'),
+            )
+          : null,
         h('span', { className: 'ps-pearl-bead__word', text: pearl.text }),
       );
       button.addEventListener('click', () => {
@@ -417,9 +435,9 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
 
   // ---- Ulita slov ------------------------------------------------------------------------------------
   /**
-   * The word with a cut between every two letters (a toggle), the parts the cuts make, each named
-   * with one of the board's asked roles (tap the name again to take it off), and the empty
-   * "∅ koncovka" shell when endings are asked.
+   * The word with a cut between every two letters (a toggle; never inside "ch", one letter), the
+   * parts the cuts make, each named with one of the board's asked roles (tap the name again to
+   * take it off), and the zero ending ("nulová koncovka") when endings are asked.
    */
   const shellBoard = (board: WordShellBoard): HTMLElement => {
     const roleName = (role: SegmentRole): string => text(`grammar.segment.${role}`);
@@ -430,9 +448,10 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
       attributes: { role: 'group', 'aria-label': t('board.shellWord', { word: board.text }) },
     });
     board.letters.forEach((letter, index) => {
-      if (index > 0) {
-        const at = index;
-        const cut = board.cuts.includes(at);
+      const at = index;
+      const cut = board.cuts.includes(at);
+      const insideCh = /^c$/i.test(board.letters[at - 1] ?? '') && /^h$/i.test(letter);
+      if (index > 0 && (cut || !insideCh)) {
         const button = h('button', {
           className: 'ps-shell-word__cut',
           testId: `cut-${at}`,
@@ -539,7 +558,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
       { className: 'ps-shell-board' },
       h('p', {
         className: 'ps-board__task',
-        text: t('board.shellTask', { roles: board.roles.map(roleName).join(', ') }),
+        text: t('board.shellTask', { roles: czechList(board.roles.map(roleName)) }),
       }),
       word,
       parts,
@@ -659,7 +678,11 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
   draw(first.current);
   const element = h(
     'main',
-    { className: 'ps-board', testId: 'screen-board', dataset: { activity: first.activity, round: first.id } },
+    {
+      className: 'ps-board',
+      testId: 'screen-board',
+      dataset: { activity: first.activity, round: first.id },
+    },
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene(regionId ?? 'grotto'))),
     topBar({
       title: h('div', { className: 'ps-round__header' }, heading, progress.element),

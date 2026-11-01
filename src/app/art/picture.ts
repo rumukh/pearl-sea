@@ -10,7 +10,7 @@
  * stage is the grown painting with a golden shell crown on `head`.
  */
 import type { AnchorPoint, ArtAnchor, ArtEntry, FriendStage } from '../../rules/contract';
-import { ART } from '../../rules/contract';
+import { ART, COSMETIC_BASE_WIDTH } from '../../rules/contract';
 import { h, svg } from '../ui/dom';
 import type { ArtLibrary } from './library';
 
@@ -29,15 +29,15 @@ export function artKind(id: string): string {
 /** Pixel sizes S5 paints at, for placeholders until the catalog has the real size. */
 const DEFAULT_SIZES: Readonly<Record<string, readonly [number, number]>> = {
   friend: [1024, 1024],
-  egg: [600, 800],
+  egg: [120, 160],
   monster: [1024, 1024],
   inkoustik: [640, 640],
   scene: [1600, 900],
   map: [1600, 1000],
   character: [1024, 1024],
   avatar: [512, 512],
-  cosmetic: [256, 256],
-  sticker: [256, 256],
+  cosmetic: [100, 100],
+  sticker: [100, 100],
 };
 
 /** Where cosmetics sit on a placeholder friend (the real paintings publish their own). */
@@ -47,13 +47,9 @@ export const DEFAULT_ANCHORS: Readonly<Record<ArtAnchor, AnchorPoint>> = {
   neck: { x: 500, y: 640, scale: 100, rotate: 0 },
 };
 
-/**
- * A cosmetic's natural size on a painted friend, the size an anchor's `scale` is a percentage of:
- * S5 draws each cosmetic in a 100×100 SVG viewBox with its attachment point at the centre, and at
- * scale 100 it is 250/1000 of the painting's width, its centre on the anchor.
- */
-export const COSMETIC_WIDTH = 250;
-/** The shell crown's width on the `head` anchor at scale 100, in thousandths of the painting. */
+/** S5's shell crown for a crowned friend, a cosmetic SVG; the shell draws one until it is there. */
+export const CROWN_ART = ART.cosmetic('shell-crown');
+/** The drawn crown's width on the `head` anchor at scale 100, in thousandths of the painting. */
 export const CROWN_WIDTH = 300;
 
 export function pictureSize(art: ArtLibrary, id: string): readonly [number, number] {
@@ -72,7 +68,10 @@ function hueOf(id: string): number {
   return hash;
 }
 
-const OUTLINE = { stroke: '#123a52', 'stroke-width': 18, 'stroke-linejoin': 'round' } as const;
+/** A five-pointed star of radius `r * 0.45` about (`cx`, `cy`). */
+function starPath(cx: number, cy: number, r: number): string {
+  return `M ${cx} ${cy - r * 0.45} L ${cx + r * 0.14} ${cy - r * 0.12} L ${cx + r * 0.45} ${cy - r * 0.1} L ${cx + r * 0.2} ${cy + r * 0.1} L ${cx + r * 0.28} ${cy + r * 0.42} L ${cx} ${cy + r * 0.24} L ${cx - r * 0.28} ${cy + r * 0.42} L ${cx - r * 0.2} ${cy + r * 0.1} L ${cx - r * 0.45} ${cy - r * 0.1} L ${cx - r * 0.14} ${cy - r * 0.12} Z`;
+}
 
 /** A simple drawing of the art's kind, in the art's own pixel box. */
 function placeholderDrawing(id: string, width: number, height: number): SVGSVGElement {
@@ -82,6 +81,8 @@ function placeholderDrawing(id: string, width: number, height: number): SVGSVGEl
   const cx = width / 2;
   const cy = height / 2;
   const r = Math.min(width, height) / 2;
+  // An outline in proportion to the box: 18 units on a 1024-pixel painting.
+  const OUTLINE = { stroke: '#123a52', 'stroke-width': r * 0.035, 'stroke-linejoin': 'round' };
   const parts: SVGElement[] = [];
   switch (artKind(id)) {
     case 'scene':
@@ -151,13 +152,30 @@ function placeholderDrawing(id: string, width: number, height: number): SVGSVGEl
       break;
     }
     case 'cosmetic':
-    case 'sticker':
       parts.push(
         svg('circle', { cx, cy, r: r * 0.8, fill, ...OUTLINE }),
-        svg('path', {
-          d: `M ${cx} ${cy - r * 0.45} L ${cx + r * 0.14} ${cy - r * 0.12} L ${cx + r * 0.45} ${cy - r * 0.1} L ${cx + r * 0.2} ${cy + r * 0.1} L ${cx + r * 0.28} ${cy + r * 0.42} L ${cx} ${cy + r * 0.24} L ${cx - r * 0.28} ${cy + r * 0.42} L ${cx - r * 0.2} ${cy + r * 0.1} L ${cx - r * 0.45} ${cy - r * 0.1} L ${cx - r * 0.14} ${cy - r * 0.12} Z`,
-          fill: '#ffd166',
-        }),
+        svg('path', { d: starPath(cx, cy, r), fill: '#ffd166' }),
+      );
+      break;
+    case 'sticker':
+      // A sticker is composed (`stickerPicture`): the frame is a rim around the shell's disc,
+      // the icon a picture on it.
+      parts.push(
+        id.startsWith('sticker/frame')
+          ? svg('circle', {
+              cx,
+              cy,
+              r: r * 0.84,
+              fill: 'none',
+              stroke: '#ffffff',
+              'stroke-width': r * 0.12,
+            })
+          : svg('path', {
+              d: starPath(cx, cy, r),
+              fill: deep,
+              stroke: '#ffffff',
+              'stroke-width': r * 0.04,
+            }),
       );
       break;
     case 'avatar':
@@ -194,7 +212,7 @@ function placeholderDrawing(id: string, width: number, height: number): SVGSVGEl
           d: `M ${cx - width * 0.26} ${cy + height * 0.08} q ${width * 0.08} ${height * 0.08} ${width * 0.16} 0`,
           fill: 'none',
           stroke: '#123a52',
-          'stroke-width': 14,
+          'stroke-width': r * 0.027,
           'stroke-linecap': 'round',
         }),
       );
@@ -258,6 +276,87 @@ export function picture(art: ArtLibrary, id: string, options: PictureOptions = {
   return frame;
 }
 
+/** A sticker's look, from its content record (`Sticker` in content.ts): two art IDs and a colour. */
+export interface StickerLook {
+  /** `sticker/<icon>`: the picture, in full colour. */
+  readonly icon: string;
+  /** `sticker/frame-…`: the rim, the white die-cut edge and the shadow. */
+  readonly frame: string;
+  /** The disc's colour, `#rrggbb`. */
+  readonly color: string;
+}
+
+/** A sticker's box and the radius of its disc, in the units of S5's 100 × 100 sticker SVGs. */
+const STICKER_BOX = 100;
+const STICKER_DISC = 40;
+
+/** One layer of a composed picture: its catalog file, or the kind's placeholder drawing. */
+function layer(art: ArtLibrary, id: string): Element {
+  const entry = art.entry(id);
+  if (entry) {
+    return h('img', {
+      className: 'ps-sticker__layer',
+      attributes: { src: art.url(entry), alt: '', decoding: 'async', draggable: 'false' },
+    });
+  }
+  const [width, height] = pictureSize(art, id);
+  const drawing = placeholderDrawing(id, width, height);
+  drawing.classList.add('ps-sticker__layer');
+  return drawing;
+}
+
+/**
+ * A sticker, composed from its record as Dragon Valley's composer does: three layers filling one
+ * square box of 100 × 100 units. The shell draws a flat disc in the sticker's colour (centre 50,
+ * 50, radius 40); the frame's SVG goes over it (clear inside radius 38 but for a soft sheen, then
+ * the shell rim, the white die-cut edge and the shadow, so the disc's edge never shows); the icon's
+ * SVG goes on top, within radius 36. Until S5's SVGs are in the catalog, placeholders stand in.
+ */
+export function stickerPicture(
+  art: ArtLibrary,
+  look: StickerLook,
+  options: PictureOptions = {},
+): HTMLElement {
+  const box = h('span', {
+    className: ['ps-sticker', options.className ?? ''].join(' ').trim(),
+    dataset: { icon: look.icon, frame: look.frame },
+    ...(options.testId ? { testId: options.testId } : {}),
+  });
+  if (options.alt) {
+    box.setAttribute('role', 'img');
+    box.setAttribute('aria-label', options.alt);
+  } else {
+    box.setAttribute('aria-hidden', 'true');
+  }
+  const centre = STICKER_BOX / 2;
+  box.append(
+    svg(
+      'svg',
+      {
+        class: 'ps-sticker__layer',
+        viewBox: `0 0 ${STICKER_BOX} ${STICKER_BOX}`,
+        'aria-hidden': 'true',
+        focusable: 'false',
+      },
+      svg('circle', { cx: centre, cy: centre, r: STICKER_DISC, fill: look.color }),
+    ),
+    layer(art, look.frame),
+    layer(art, look.icon),
+  );
+  const missing = [look.frame, look.icon].filter((id) => !art.entry(id));
+  if (missing.length > 0) {
+    box.dataset['placeholder'] = 'true';
+    box.append(
+      h('span', {
+        className: 'ps-art__dev',
+        text: `DEV ${missing.join(' + ')}`,
+        attributes: { 'aria-hidden': 'true' },
+      }),
+    );
+  }
+  return box;
+}
+
 /** The golden shell crown of a crowned friend, drawn by the shell on the `head` anchor. */
 function shellCrown(): SVGSVGElement {
   return svg(
@@ -299,7 +398,10 @@ export function dressedFriend(
   const id = friendArtId(look.friend, look.stage);
   const base = picture(art, id, options);
   if (look.stage === 'egg') return base;
-  /** Put `element` on an anchor, `width` thousandths of the painting wide at scale 100. */
+  /**
+   * Put `element` on an anchor, `width` thousandths of the painting wide at scale 100: for a
+   * cosmetic, the contract's anchor scale (`cosmeticPlacement`, `COSMETIC_BASE_WIDTH`) in percent.
+   */
   const place = (element: Element, anchor: ArtAnchor, width: number): void => {
     const point = anchorOf(art, id, anchor);
     const holder = h('span', { className: 'ps-art__worn', dataset: { anchor } });
@@ -312,8 +414,11 @@ export function dressedFriend(
   };
   for (const anchor of ['neck', 'eyes', 'head'] as const) {
     const item = look.outfit?.[anchor];
-    if (item) place(picture(art, ART.cosmetic(item)), anchor, COSMETIC_WIDTH);
+    if (item) place(picture(art, ART.cosmetic(item)), anchor, COSMETIC_BASE_WIDTH);
   }
-  if (look.stage === 'crowned') place(shellCrown(), 'head', CROWN_WIDTH);
+  if (look.stage === 'crowned') {
+    if (art.entry(CROWN_ART)) place(picture(art, CROWN_ART), 'head', COSMETIC_BASE_WIDTH);
+    else place(shellCrown(), 'head', CROWN_WIDTH);
+  }
   return base;
 }

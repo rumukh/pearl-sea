@@ -2,23 +2,29 @@
 /**
  * Art by ID: a painting from S5's catalog, or a visibly labelled dev placeholder of the same
  * kind and shape, so the real files drop in without code changes; friends dressed with SVG
- * cosmetics on their anchors and the shell crown when crowned; and a catalog that cannot be
- * trusted is an empty one (placeholders everywhere), never a failed boot.
+ * cosmetics on their anchors and the shell crown when crowned; stickers composed from their record;
+ * and a catalog that cannot be trusted is an empty one (placeholders everywhere), never a failed boot.
  */
 import { describe, expect, it } from 'vitest';
 import { createArtLibrary, loadArtLibrary } from '../../../src/app/art/library';
 import {
   anchorOf,
   artKind,
-  COSMETIC_WIDTH,
+  CROWN_ART,
   CROWN_WIDTH,
   DEFAULT_ANCHORS,
   dressedFriend,
   friendArtId,
   picture,
   pictureSize,
+  stickerPicture,
 } from '../../../src/app/art/picture';
-import { ART, ART_CATALOG_PATH, ART_CATALOG_FORMAT } from '../../../src/rules/contract';
+import {
+  ART,
+  ART_CATALOG_PATH,
+  ART_CATALOG_FORMAT,
+  COSMETIC_BASE_WIDTH,
+} from '../../../src/rules/contract';
 import type { ArtEntry } from '../../../src/rules/contract';
 
 const BASE = 'https://example.test/pearl-sea/';
@@ -59,7 +65,7 @@ describe('pictures', () => {
     expect(egg.querySelector('img')).toBeNull();
     expect(egg.getAttribute('role')).toBe('img');
     expect(egg.getAttribute('aria-label')).toBe('Vajíčko');
-    expect(egg.style.aspectRatio).toBe('600 / 800');
+    expect(egg.style.aspectRatio).toBe('120 / 160');
     const scene = picture(art, ART.scene('sunny-lagoon'));
     expect(scene.getAttribute('aria-hidden')).toBe('true');
     expect(scene.style.aspectRatio).toBe('1600 / 900');
@@ -99,7 +105,8 @@ describe('dressed friends', () => {
     const head = worn.find((holder) => holder.dataset['anchor'] === 'head')!;
     expect(head.style.left).toBe('40%');
     expect(head.style.top).toBe('10%');
-    // 250/1000 of the painting at scale 100; this anchor's scale is 80.
+    // The contract's anchor scale: 250/1000 of the painting at scale 100; this one's is 80.
+    expect(COSMETIC_BASE_WIDTH).toBe(250);
     expect(head.style.width).toBe('20%');
     expect(head.style.transform).toBe('translate(-50%, -50%) rotate(-10deg)');
     expect(worn.find((holder) => holder.dataset['anchor'] === 'neck')!.style.width).toBe('22.5%');
@@ -112,9 +119,28 @@ describe('dressed friends', () => {
     const shown = dressedFriend(art, { friend: 'krab-tvrdak', stage: 'crowned' });
     expect(shown.querySelector('.ps-crown')).not.toBeNull();
     expect(shown.dataset['artId']).toBe(ART.friend('krab-tvrdak', 'grown'));
-    expect(COSMETIC_WIDTH).toBe(250);
     const crown = shown.querySelector<HTMLElement>('.ps-art__worn')!;
     expect(crown.style.width).toBe(`${CROWN_WIDTH / 10}%`);
+  });
+
+  it('wears S5’s shell crown, a cosmetic, once the catalog has it', () => {
+    const file: ArtEntry = {
+      id: CROWN_ART,
+      kind: 'svg',
+      file: 'cosmetics/shell-crown.svg',
+      width: 100,
+      height: 100,
+    };
+    const crowned = createArtLibrary(BASE, [KRAB, file]);
+    const shown = dressedFriend(crowned, { friend: 'krab-tvrdak', stage: 'crowned' });
+    expect(shown.querySelector('.ps-crown')).toBeNull();
+    const crown = shown.querySelector<HTMLElement>('.ps-art__worn')!;
+    expect(crown.querySelector('img')?.getAttribute('src')).toBe(
+      `${BASE}assets/art/cosmetics/shell-crown.svg`,
+    );
+    // The grown painting is a placeholder here: its default head anchor, at scale 100, gives the
+    // contract's 250/1000 of the painting.
+    expect(crown.style.width).toBe('25%');
   });
 
   it('dresses no egg, and uses default anchors on a placeholder', () => {
@@ -129,6 +155,60 @@ describe('dressed friends', () => {
   });
 });
 
+describe('stickers', () => {
+  const look = { icon: 'sticker/egg-hatching', frame: 'sticker/frame-shell', color: '#ffd45c' };
+  const svgEntry = (id: string, file: string): ArtEntry => ({
+    id,
+    kind: 'svg',
+    file,
+    width: 100,
+    height: 100,
+  });
+
+  it('composes the disc in the sticker’s colour, the frame over it and the icon on top', () => {
+    const art = createArtLibrary(BASE, [
+      svgEntry('sticker/frame-shell', 'stickers/frame-shell.svg'),
+      svgEntry('sticker/egg-hatching', 'stickers/egg-hatching.svg'),
+    ]);
+    const sticker = stickerPicture(art, look, {
+      alt: 'Vylíhlo se!',
+      className: 'ps-celebrate__art',
+    });
+    expect(sticker.getAttribute('role')).toBe('img');
+    expect(sticker.getAttribute('aria-label')).toBe('Vylíhlo se!');
+    expect(sticker.classList.contains('ps-celebrate__art')).toBe(true);
+    const layers = [...sticker.children];
+    expect(layers.map((layer) => layer.tagName.toLowerCase())).toEqual(['svg', 'img', 'img']);
+    expect(layers[0]!.getAttribute('viewBox')).toBe('0 0 100 100');
+    const disc = layers[0]!.querySelector('circle')!;
+    expect(['cx', 'cy', 'r', 'fill'].map((name) => disc.getAttribute(name))).toEqual([
+      '50',
+      '50',
+      '40',
+      '#ffd45c',
+    ]);
+    expect(layers.slice(1).map((layer) => layer.getAttribute('src'))).toEqual([
+      `${BASE}assets/art/stickers/frame-shell.svg`,
+      `${BASE}assets/art/stickers/egg-hatching.svg`,
+    ]);
+    expect(sticker.dataset['placeholder']).toBeUndefined();
+    expect(stickerPicture(art, look).getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('labels the art still missing until S5’s SVGs are in the catalog', () => {
+    const art = createArtLibrary(BASE, [
+      svgEntry('sticker/frame-shell', 'stickers/frame-shell.svg'),
+    ]);
+    const sticker = stickerPicture(art, look);
+    expect(sticker.dataset['placeholder']).toBe('true');
+    expect(sticker.querySelector('.ps-art__dev')?.textContent).toBe('DEV sticker/egg-hatching');
+    expect(sticker.querySelector('circle')?.getAttribute('fill')).toBe('#ffd45c');
+    const none = stickerPicture(createArtLibrary(BASE, []), look);
+    expect(none.querySelector('.ps-art__dev')?.textContent).toBe(
+      'DEV sticker/frame-shell + sticker/egg-hatching',
+    );
+  });
+});
 describe('the art catalog', () => {
   const fetcher =
     (body: string, status = 200) =>

@@ -10,7 +10,7 @@
  * - **Album samolepek**: a page of stickers for each region, earned ones with their day.
  * - **Velká lastura**: the Great Shell, every skill's pearls by how well they shine.
  */
-import { dressedFriend, picture } from '../art/picture';
+import { dressedFriend, picture, stickerPicture } from '../art/picture';
 import { taken } from '../controller/commands';
 import { growthOf } from '../game/view';
 import type { MessageKey } from '../i18n/messages';
@@ -438,7 +438,7 @@ export function albumScreen(app: App, diverId: string): ScreenEntry {
                 dataset: { earned: String(sticker.earned) },
               },
               sticker.earned
-                ? picture(app.art, ART.sticker(sticker.id), { alt: text(sticker.nameKey) })
+                ? stickerPicture(app.art, sticker, { alt: text(sticker.nameKey) })
                 : h(
                     'span',
                     { className: 'ps-album__empty', attributes: { 'aria-hidden': 'true' } },

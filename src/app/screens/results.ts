@@ -6,7 +6,7 @@
  * (a friend grew or got its crown, a new egg, a sticker, a new region). Celebrations come from the
  * round's live events, so a reload never celebrates twice; the card itself comes from the view.
  */
-import { dressedFriend, picture } from '../art/picture';
+import { dressedFriend, picture, stickerPicture } from '../art/picture';
 import { taken } from '../controller/commands';
 import { findFriend, resultsNext } from '../game/view';
 import type { Screen } from '../router/router';
@@ -122,11 +122,12 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
         );
         break;
       case 'sticker.earned': {
+        const sticker = data.stickers.find((candidate) => candidate.id === event.data.sticker);
         news.push(
           h(
             'div',
             { className: 'ps-celebrate', testId: 'celebrate-sticker' },
-            picture(app.art, ART.sticker(event.data.sticker), { className: 'ps-celebrate__art' }),
+            sticker ? stickerPicture(app.art, sticker, { className: 'ps-celebrate__art' }) : null,
             h('p', {
               text: t('sticker.earned', { name: name(data.stickers, event.data.sticker) }),
             }),

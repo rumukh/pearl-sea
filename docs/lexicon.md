@@ -20,26 +20,26 @@ the 14 patterns, persons, tenses, moods, rules, the school lists of the vyjmenov
 `sources.json` the sources that entries cite and `paradigms.json` the paradigms of the nouns and
 verbs whose topic file does not give one (§2.3).
 
-| File                                        | Grade | Topic                                                                                                                                                                                                |
-| ------------------------------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alphabet.json`                             | 3     | alphabet and alphabetical order (_ch_ after _h_; _č ř š ž_ as letters)                                                                                                                               |
-| `vowels.json`                               | 3     | short and long vowels, minimal pairs (_pas – pás_)                                                                                                                                                   |
-| `hard-soft.json`                            | 3     | hard and soft consonants, _dy ty ny_ and _di ti ni_                                                                                                                                                  |
-| `e-caron.json`                              | 3, 4  | _dě tě ně_, _bě pě vě mě_; 4th grade _bje vje_, _mně_, the pronoun _mě/mně_                                                                                                                          |
-| `u-ring.json`                               | 3     | _ú/ů_, including the loanword exception _medúza_                                                                                                                                                     |
-| `paired-consonants.json`                    | 3     | paired consonants inside and at the end of words, each with its test word                                                                                                                            |
-| `capitals.json`                             | 3     | capital letters in proper names                                                                                                                                                                      |
-| `vyjmenovana-b.json` … `vyjmenovana-z.json` | 3     | all vyjmenovaná slova after B, L, M, P, S, V, Z with related words and _i_-contrast words                                                                                                            |
-| `sound-alikes.json`                         | 3, 4  | _být – bít_ (and _byl – bil_, _byli – bili_), _bydlo – bidlo_, _mýt – mít_, _my – mi_, _pyl – pil_, _sýrový – sírový_, _výr – vír_, _výt – vít_, _výskat – vískat_, _vysel – visel_, _dobýt – dobít_ |
-| `meaning.json`                              | 3     | synonyms, antonyms, general and specific words, words with several meanings                                                                                                                          |
-| `parts-of-speech.json`                      | 3     | the ten parts of speech, in isolation and in context                                                                                                                                                 |
-| `nouns.json`                                | 3     | gender, animacy, number and the seven cases in sentences                                                                                                                                             |
-| `verbs.json`                                | 3, 4  | person, number, tense, infinitive; mood, simple and compound forms, reflexive verbs                                                                                                                  |
-| `sentences.json`                            | 3, 4  | simple and compound sentences, subject and predicate, past-tense agreement                                                                                                                           |
-| `noun-patterns.json`                        | 4     | the 14 patterns with typical nouns and full paradigms; endings by pattern                                                                                                                            |
-| `word-structure.json`                       | 4     | prefix, root, suffix, ending; word families and look-alike words                                                                                                                                     |
-| `prefixes.json`                             | 4     | prefixes versus prepositions; the prefixes _od- nad- pod- před- roz- bez-_                                                                                                                           |
-| `register.json`                             | 4     | standard and colloquial words                                                                                                                                                                        |
+| File                                        | Grade | Topic                                                                                                                                                                                                                       |
+| ------------------------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `alphabet.json`                             | 3     | alphabet and alphabetical order (_ch_ after _h_; _č ř š ž_ as letters)                                                                                                                                                      |
+| `vowels.json`                               | 3     | short and long vowels, minimal pairs (_pas – pás_)                                                                                                                                                                          |
+| `hard-soft.json`                            | 3     | hard and soft consonants, _dy ty ny_ and _di ti ni_                                                                                                                                                                         |
+| `e-caron.json`                              | 3, 4  | _dě tě ně_, _bě pě vě mě_; 4th grade _bje vje_, _mně_, the pronoun _mě/mně_                                                                                                                                                 |
+| `u-ring.json`                               | 3     | _ú/ů_, including the loanword exception _medúza_                                                                                                                                                                            |
+| `paired-consonants.json`                    | 3     | paired consonants inside and at the end of words, each with its test word                                                                                                                                                   |
+| `capitals.json`                             | 3     | capital letters in proper names                                                                                                                                                                                             |
+| `vyjmenovana-b.json` … `vyjmenovana-z.json` | 3     | all vyjmenovaná slova after B, L, M, P, S, V, Z with related words and _i_-contrast words                                                                                                                                   |
+| `sound-alikes.json`                         | 3, 4  | _být – bít_ (and _byl – bil_, _byli – bili_), _bydlo – bidlo_, _mýt – mít_, _my – mi_, _pyl – pil_, _sýrový – sírový_, _výr – vír_, _výt – vít_, _výskat – vískat_, _vysel – visel_, _dobýt – dobít_, _opylovat – opilovat_ |
+| `meaning.json`                              | 3     | synonyms, antonyms, general and specific words, words with several meanings                                                                                                                                                 |
+| `parts-of-speech.json`                      | 3     | the ten parts of speech, in isolation and in context                                                                                                                                                                        |
+| `nouns.json`                                | 3     | gender, animacy, number and the seven cases in sentences                                                                                                                                                                    |
+| `verbs.json`                                | 3, 4  | person, number, tense, infinitive; mood, simple and compound forms, reflexive verbs                                                                                                                                         |
+| `sentences.json`                            | 3, 4  | simple and compound sentences, subject and predicate, past-tense agreement                                                                                                                                                  |
+| `noun-patterns.json`                        | 4     | the 14 patterns with typical nouns and full paradigms; endings by pattern                                                                                                                                                   |
+| `word-structure.json`                       | 4     | prefix, root, suffix, ending; word families and look-alike words                                                                                                                                                            |
+| `prefixes.json`                             | 4     | prefixes versus prepositions; the prefixes _od- nad- pod- před- roz- bez-_                                                                                                                                                  |
+| `register.json`                             | 4     | standard and colloquial words                                                                                                                                                                                               |
 
 `node scripts/lexicon/check.mjs` checks every invariant below and exits non-zero on a problem;
 `--summary` prints coverage counts and `--dir <path>` checks another copy. It uses Node built-ins
@@ -133,10 +133,27 @@ the _ú/ů_ rules, the vowel's short and long form for `delka`, the consonant pa
 small and capital letter for `velke-pismeno`, the gap's own alternatives otherwise. When one of
 these spells another word or form of the bank (_být – bít_, _vila – víla_, _děti – dětí_, _dál –
 dal_), the word alone cannot decide, so the game asks that point only in a sentence. The checker
-lists these points (`model.ambiguous`, 35 now) and fails when one has no sentence with a gap on it.
+lists these points (`model.ambiguous`, 42 now) and fails when one has no sentence with a gap on it.
 A partner word is in the bank even when no exercise asks it, because the other word is then asked
-in a sentence. _let_ and _přistavit_ are there for _led_ and _přístav_; the review of the generated
-problems found them (§5).
+in a sentence. The review of the generated problems found them (§5):
+
+| Asked in a sentence | Partner word in the bank       |
+| ------------------- | ------------------------------ |
+| _led_               | _let_                          |
+| _přístav_           | _přistavit_ (_přistav_)        |
+| _lyže_              | _lízat_ (_líže_)               |
+| _lyska_             | _líska_                        |
+| _mýval_             | _mívat_ (_míval_)              |
+| _opylovat_          | _opilovat_, a sound-alike pair |
+| _slepýš_            | _slepit_ (_slepíš_)            |
+| _vy_                | _vědět_ (_ví_)                 |
+| _vjet_              | _věta_ (_vět_)                 |
+
+A word that would need a rare partner word, or one that brings a family with it, is instead left
+out of the exercises that ask single words. It is then asked only in sentences:
+
+- _nabít_ (_nabýt_ would join the _být_ family);
+- _pobyt_ (_pobýt_ would join it too).
 
 The names _Bublinka_ and _Osmička_ need the common nouns _bublinka_ and _osmička_ as partners. The
 contract's i/y check still reads a pair that differs only in a capital as an i/y pair. Until it
@@ -210,6 +227,14 @@ collation with no ties at the primary level), `synonyms`, `antonyms` (one part o
 `hyponyms` (`general` and `specific` nouns), `sound-alikes` (forms that differ only in _i/y_),
 `minimal-length` (forms that differ only in one vowel's length) and `lookalikes` (words that look
 like members of a family but are not related: _vodítko_ is from _vodit_, _rybíz_ is not from _ryba_).
+
+Synonyms and antonyms are closed, and the checker requires it:
+
+- a synonym of a synonym is a synonym;
+- a synonym of an antonym is an antonym. For example, _smutný × veselý_ and _veselý = radostný_
+  give _smutný × radostný_.
+
+Otherwise a relation problem could offer a second right answer as a wrong one.
 
 ## 3. School conventions
 
@@ -328,7 +353,7 @@ word bank. It reports lemmas MorfFlex does not know, part of speech, gender and 
 every paradigm cell including `paradigms.json` and the `fut` forms (and standard forms a cell leaves
 out; MorfFlex's dual _očima, nohama_ counts as plural), unknown words in sentences, gap
 alternatives that are also real words, marks MorfFlex cannot confirm, whether colloquial words are
-non-standard, and DeriNet roots of family members and look-alikes. The final run (770 words, 566
+non-standard, and DeriNet roots of family members and look-alikes. The final run (781 words, 568
 sentences) found no unknown lemma or sentence word. The only paradigm cells outside MorfFlex are
 the capitalised names _Bublinka_ and _Osmička_ (MorfFlex has the common nouns), the plurals of
 _dítě_ and _oko_ (MorfFlex files them under the lemmas _děti_ and _oči_) and _hlemýždi_ (§2.3;
@@ -347,13 +372,19 @@ verifier and the IJP articles did the systematic work. MorfFlex caught two error
 (_o racích_ → _o raccích_; the standard variants _lososové, krabové, útese, přístavě_).
 
 **Generated problems.** Before the playtest, the problems the rules make were read as a Czech
-teacher would (`scripts/content/sample-problems.mjs`, [content.md](content.md) §2). Every
-alternative a word asked alone can show was looked up in MorfFlex: its options and the keys of its
-letter pad, 739 in all. 60 are real words. Most are rare: _dup, duma, uhořet, pobít, zupa_.
+teacher would (`scripts/content/sample-problems.mjs`, [content.md](content.md) §2 and §7). The
+review read 1,322 problems of 143 skills, 132 boards and every battle.
 
-The common ones would make a spelling right for another word, so their partner words joined the
-bank (§2.2). For the lagoon these are _let_ and _přistavit_ (1.2.3). _Bublinka_ and _Osmička_
-(_bublinka_, _osmička_) are asked only in sentences.
+Every alternative a word asked alone can show was looked up in MorfFlex: its options and the keys
+of its letter pad, 739 in all. 60 are real words. Most are rare: _dup, duma, uhořet, pobít,
+zupa_. The common ones would make a spelling right for another word, so their partner words joined
+the bank (§2.2):
+
+- _let_ and _přistavit_ for the lagoon (1.2.3);
+- seven more for the other regions (1.2.4).
+
+_Bublinka_ and _Osmička_ (_bublinka_, _osmička_) are asked only in sentences. The rest of what the
+review found is in content.md §7.
 
 **Human review.** Three independent expert reviews of the Czech (the vyjmenovaná families, the
 3rd-grade spelling and meaning topics, the grammar topics) found no wrong spelling, form, family
@@ -369,7 +400,7 @@ meaning, facts, naturalness and conventions was checked and corrected, for examp
 
 ## 6. Coverage
 
-`node scripts/lexicon/check.mjs --summary` prints the current counts: 770 words, 91 families, 566
+`node scripts/lexicon/check.mjs --summary` prints the current counts: 781 words, 91 families, 568
 sentences (Phase A ended with 517), every grade-3 and grade-4 topic of the plan (§2). By region:
 
 | Region            | Curriculum                                  | Data                                                                                                                                                   |
@@ -378,9 +409,9 @@ sentences (Phase A ended with 517), every grade-3 and grade-4 topic of the plan 
 | Korálový útes     | after B, L                                  | 26 families, 97 words, 69 sentences                                                                                                                    |
 | Chaluhový les     | after M, P                                  | 28 families, 76 words, 51 sentences                                                                                                                    |
 | Pirátský vrak     | after S, V, Z                               | 26 families, 69 words, 65 sentences                                                                                                                    |
-| Perlová zátoka    | all mixed, sound-alikes, meaning            | 13 sound-alike pairs (26 sentences), 11 synonym, 17 antonym, 9 general/specific sets, 14 words with several meanings                                   |
+| Perlová zátoka    | all mixed, sound-alikes, meaning            | 14 sound-alike pairs (26 sentences), 11 synonym, 25 antonym, 9 general/specific sets, 14 words with several meanings                                   |
 | Sopečné prameny   | parts of speech                             | 80 words, 17 sentences with every word tagged in context                                                                                               |
-| Ledové moře       | nouns, cases, verbs, sentences              | 28 case sentences, 28 verbs with paradigms and 16 grade-3 verb sentences, 13 clause sentences, 20 sentences of the four kinds, 8 conjunction sentences |
+| Ledové moře       | nouns, cases, verbs, sentences              | 28 case sentences, 28 verbs with paradigms and 18 grade-3 verb sentences, 13 clause sentences, 20 sentences of the four kinds, 8 conjunction sentences |
 | Měsíční jeskyně   | word structure                              | 7 families, 31 segmented words, 3 look-alikes                                                                                                          |
 | Potopené město    | prefixes and prepositions, _bje vje mně mě_ | 20 prefix sentences, 7 segmented prefix words, 18 _ě_ sentences                                                                                        |
 | Temný příkop      | the 14 patterns                             | 14 patterns, 71 nouns with full paradigms, 15 ending sentences                                                                                         |

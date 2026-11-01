@@ -712,6 +712,14 @@
       "spell": "m{i|y}nce",
       "rules": ["obojetna-i"],
       "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "miivat",
+      "lemma": "mívat",
+      "pos": "verb",
+      "aspect": "impf",
+      "note": "míval jsem psa; jiné je mýval, zvíře, a proto se mýval ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
     }
   ],
   "sentences": [

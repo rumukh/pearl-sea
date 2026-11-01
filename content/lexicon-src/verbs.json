@@ -1113,6 +1113,36 @@
           "compound": true
         }
       ]
+    },
+    {
+      "id": "verbs.31",
+      "text": "Zítra půjdeme k moři.",
+      "marks": [
+        {
+          "t": "půjdeme",
+          "word": "jiit",
+          "person": 1,
+          "number": "pl",
+          "tense": "future",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
+    },
+    {
+      "id": "verbs.32",
+      "text": "Racek zítra poletí k ostrovu.",
+      "marks": [
+        {
+          "t": "poletí",
+          "word": "letext",
+          "person": 3,
+          "number": "sg",
+          "tense": "future",
+          "mood": "indicative",
+          "compound": false
+        }
+      ]
     }
   ]
 }

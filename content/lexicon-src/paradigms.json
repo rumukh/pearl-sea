@@ -852,6 +852,35 @@
       "sg": ["lípa", "lípy", "lípě", "lípu", "lípo", "lípě", "lípou"],
       "pl": ["lípy", "lip", "lípám", "lípy", "lípy", "lípách", "lípami"]
     },
+    "liiska": {
+      "sg": ["líska", "lísky", "lísce", "lísku", "lísko", "lísce", "lískou"],
+      "pl": ["lísky", "lísek", "lískám", "lísky", "lísky", "lískách", "lískami"]
+    },
+    "liizat": {
+      "inf": "lízat",
+      "pres": [
+        ["lízám", "lížu"],
+        ["lízáš", "lížeš"],
+        ["lízá", "líže"],
+        ["lízáme", "lížeme"],
+        ["lízáte", "lížete"],
+        ["lízají", "lížou"]
+      ],
+      "imp": [
+        ["lízej", "liž"],
+        ["lízejme", "ližme"],
+        ["lízejte", "ližte"]
+      ],
+      "past": {
+        "m": "lízal",
+        "f": "lízala",
+        "n": "lízalo",
+        "ma": "lízali",
+        "mi": "lízaly",
+        "fpl": "lízaly",
+        "npl": "lízala"
+      }
+    },
     "list": {
       "sg": ["list", "listu", "listu", "list", "liste", "listě", "listem"],
       "pl": ["listy", "listů", "listům", "listy", "listy", "listech", "listy"]
@@ -973,6 +1002,20 @@
     "miisto": {
       "sg": ["místo", "místa", "místu", "místo", "místo", "místě", "místem"],
       "pl": ["místa", "míst", "místům", "místa", "místa", "místech", "místy"]
+    },
+    "miivat": {
+      "inf": "mívat",
+      "pres": ["mívám", "míváš", "mívá", "míváme", "míváte", "mívají"],
+      "imp": ["mívej", "mívejme", "mívejte"],
+      "past": {
+        "m": "míval",
+        "f": "mívala",
+        "n": "mívalo",
+        "ma": "mívali",
+        "mi": "mívaly",
+        "fpl": "mívaly",
+        "npl": "mívala"
+      }
     },
     "mince": {
       "sg": ["mince", "mince", "minci", "minci", "mince", "minci", "mincí"],
@@ -1567,6 +1610,20 @@
     "omyl": {
       "sg": ["omyl", "omylu", "omylu", "omyl", "omyle", "omylu", "omylem"],
       "pl": ["omyly", "omylů", "omylům", "omyly", "omyly", "omylech", "omyly"]
+    },
+    "opilovat": {
+      "inf": "opilovat",
+      "pres": [["opiluji", "opiluju"], "opiluješ", "opiluje", "opilujeme", "opilujete", "opilují"],
+      "imp": ["opiluj", "opilujme", "opilujte"],
+      "past": {
+        "m": "opiloval",
+        "f": "opilovala",
+        "n": "opilovalo",
+        "ma": "opilovali",
+        "mi": "opilovaly",
+        "fpl": "opilovaly",
+        "npl": "opilovala"
+      }
     },
     "opylovat": {
       "inf": "opylovat",
@@ -2392,6 +2449,20 @@
       "sg": ["síla", "síly", "síle", "sílu", "sílo", "síle", "silou"],
       "pl": ["síly", "sil", "silám", "síly", "síly", "silách", "silami"]
     },
+    "slepit": {
+      "inf": "slepit",
+      "pres": ["slepím", "slepíš", "slepí", "slepíme", "slepíte", "slepí"],
+      "imp": ["slep", "slepme", "slepte"],
+      "past": {
+        "m": "slepil",
+        "f": "slepila",
+        "n": "slepilo",
+        "ma": "slepili",
+        "mi": "slepily",
+        "fpl": "slepily",
+        "npl": "slepila"
+      }
+    },
     "slepyysx": {
       "sg": ["slepýš", "slepýše", "slepýši", "slepýše", "slepýši", "slepýši", "slepýšem"],
       "pl": ["slepýši", "slepýšů", "slepýšům", "slepýše", "slepýši", "slepýších", "slepýši"]
@@ -2890,6 +2961,24 @@
     "velryba": {
       "sg": ["velryba", "velryby", "velrybě", "velrybu", "velrybo", "velrybě", "velrybou"],
       "pl": ["velryby", "velryb", "velrybám", "velryby", "velryby", "velrybách", "velrybami"]
+    },
+    "vexdext": {
+      "inf": "vědět",
+      "pres": ["vím", "víš", "ví", "víme", "víte", "vědí"],
+      "imp": ["věz", "vězme", "vězte"],
+      "past": {
+        "m": "věděl",
+        "f": "věděla",
+        "n": "vědělo",
+        "ma": "věděli",
+        "mi": "věděly",
+        "fpl": "věděly",
+        "npl": "věděla"
+      }
+    },
+    "vexta": {
+      "sg": ["věta", "věty", "větě", "větu", "věto", "větě", "větou"],
+      "pl": ["věty", "vět", "větám", "věty", "věty", "větách", "větami"]
     },
     "vidext": {
       "inf": "vidět",

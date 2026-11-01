@@ -668,6 +668,14 @@
       "rules": ["obojetna-i"],
       "note": "viset na stožáru (visel); jiné je vysít mrkev (vysel)",
       "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "vexdext",
+      "lemma": "vědět",
+      "pos": "verb",
+      "aspect": "impf",
+      "note": "on to ví; jiné je vy, a proto se vy ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
     }
   ],
   "sentences": [

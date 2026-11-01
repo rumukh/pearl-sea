@@ -620,6 +620,22 @@
       "spell": "p{í|ý}rko",
       "rules": ["obojetna-i"],
       "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "opilovat",
+      "lemma": "opilovat",
+      "pos": "verb",
+      "aspect": "pf",
+      "note": "opilovat pilníkem; jiné je opylovat květy, a proto se opylovat ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
+    },
+    {
+      "id": "slepit",
+      "lemma": "slepit",
+      "pos": "verb",
+      "aspect": "pf",
+      "note": "slepíš to lepidlem; jiné je slepýš, plaz, a proto se slepýš ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
     }
   ],
   "sentences": [

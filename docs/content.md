@@ -43,7 +43,8 @@ so **every content change merged to `main` gets a new revision** (MAJOR.MINOR.PA
 balance or text, minor for new levels or regions; contract §7.6). The vertical slice, Slunná laguna,
 is `1.0.0`; regions 2-6 are `1.1.0`; regions 7-12, the 4th grade's start and the placement check
 are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`; the balance of the pacing study is `1.2.2`; four
-lagoon points the word alone cannot decide, asked only in sentences, are `1.2.3`. To change content:
+lagoon points the word alone cannot decide, asked only in sentences, are `1.2.3`; the Czech QA of
+regions 2-12 (§7) is `1.2.4`. To change content:
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from
@@ -378,3 +379,71 @@ region's own, there are long-run stickers on the pages with fewer:
 
 _3. třída hotová_ is the Ledana battle completed. She is freed at the same moment, so the 3rd
 grade's end earns two stickers.
+
+## 7. The Czech QA of the generated problems, content 1.2.3 and 1.2.4
+
+Before the playtest, every problem skill's problems, the boards and the battles were read as a
+Czech teacher would, through `scripts/content/sample-problems.mjs` (§2). That was 1,322 problems
+and 132 boards. Every alternative a word asked alone can show was also looked up in MorfFlex
+([lexicon.md](lexicon.md) §5). The review established these rules for content.
+
+**A word alone must have one right answer.** If an option or a letter-pad key spells another
+common word, the point is asked only in a sentence. Its partner word joins the bank (lexicon.md
+§2.2): _led_ (_let_), _přístav_ (_přistav_), _lyže_ (_líže_), _lyska_ (_líska_), _mýval_
+(_míval_), _opylovat_ (_opilovat_), _slepýš_ (_slepíš_), _vy_ (_ví_), _vjet_ (_vět_).
+
+- A word whose partner would join a family leaves the single-word lists instead:
+  - _nabít_ (_nabýt_) is now asked in the B sound-alike sentences (`sk.reef.alike-b`, _Musím
+    nabít baterii v ponorce._);
+  - _pobyt_ (_pobýt_) in the B sentences.
+- _Bublinka_ and _Osmička_ wait for the contract to tell a capital from an i/y pair (S1's #18).
+
+**One highlighted word must carry what is asked.** A person, number, tense or mood question
+highlights one word, so it cannot ask a compound form:
+
+- _jsme «plavali»_ carries the person in _jsme_;
+- _budeme «plavat»_ highlights an infinitive;
+- _by «plavala»_ carries the conditional in _by_.
+
+These sentences left the skills that ask about the highlighted word:
+
+- `sk.ice.verb-person`, `-number` and `-tense` lost _verbs.07, 08, 10_. They gained two simple
+  futures: _Zítra půjdeme k moři._ and _Racek zítra poletí k ostrovu._;
+- `sk.storm.person` lost _verbs.18, 23, 30_;
+- `sk.storm.mood` lost _verbs.18, 20, 25_. The conditional is asked on whole forms
+  (`sk.storm.mood-forms`) until a highlight can cover several words.
+
+**The words must show what is hidden.** A sentence-kind problem hides the end mark, so a question
+must have a question word: _Plavou delfíni rychleji než ryby?_ left `sk.ice.kinds`. Wishes start
+with _Kéž_, because _Ať_ can also start a command.
+
+**No second right answer.**
+
+- Synonyms and antonyms are closed (lexicon.md §2.6); eight antonym pairs joined, among them
+  _smutný × radostný_.
+- _Děti_ is neuter as _dítě_ but feminine in the agreement of the plural, so it left the gender
+  question (`sk.kraken.gender-class`).
+- The pronoun _mně_ in the 3rd case is asked where it is stressed, since _mi_ is the unstressed
+  form: _Tu mušli dej mně, ne krabovi._
+
+**Variety and naturalness.**
+
+- The odd-one-out of listed words has more words that are not listed (_bitva, bidlo, líný, plíce,
+  milý, smích, pilný_), so the answer is not always _bílý_ or _místo_.
+- _mně_ inside a word has six words (_příjemně, skromně, rozumně, tajemně_).
+- _blýskavice_, a bookish word, left the grade-3 family boards.
+- _Na tuhle otázku neznám odpověď._ and _vlny ho vracely zpátky_ read more naturally.
+- The rule line for standard Czech names the three common changes: _mlíko, velkej, vokno_.
+
+**For the rules (S2).** These went to S2: reflexive problems that show _se/si_ in the word, the
+full stop on the end-mark pad, typed whole-word gaps (conjunctions, _mě/mně_, prefixes), and the
+punctuation the classify context drops. Also hints that give the answer away or point at the
+look-alike, hint gaps, and punctuation inside Lov chyb tokens.
+
+**Kept on purpose.** These alternatives are rare words a child does not mean: _sípat, prosít,
+posýpat, vyset, sír_. A teacher would mark them wrong too, and the word read aloud decides. Also
+kept:
+
+- _Ponorka podplula pod mostem_, which shows a prefix and a preposition side by side;
+- _sírové prameny_;
+- the odd-one-out of listed words in the reef's first lesson, as design §3.2 places it.

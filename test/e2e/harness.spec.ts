@@ -8,7 +8,15 @@ import type { Page } from '@playwright/test';
 import { expect, test } from './support/fixtures';
 import type { FindingKind, Guard } from './support/guard';
 import { audit } from './support/a11y';
-import { audioLog, audioProbe, hasWebAudio, soundOf } from './support/audio';
+import {
+  AUDIO_MANIFEST,
+  audioLog,
+  audioProbe,
+  hasWebAudio,
+  soundOf,
+  startedSounds,
+} from './support/audio';
+import type { ManifestSound } from './support/audio';
 import { layoutProblems } from './support/layout';
 import { ready, resize } from './support/screens';
 
@@ -254,5 +262,63 @@ test.describe('the audio probe sees what the page plays', () => {
     expect(soundOf(log.started[0]!.duration), 'no manifest sound is this long').toBe(
       `unknown (${seconds.toFixed(2)} s)`,
     );
+  });
+});
+
+/** The two manifest sounds closest in length (with the effects, several are equally long). */
+function closestInLength(sounds: readonly ManifestSound[]): [ManifestSound, ManifestSound] {
+  let best: [ManifestSound, ManifestSound] | undefined;
+  for (const [index, first] of sounds.entries()) {
+    for (const second of sounds.slice(index + 1)) {
+      const gap = Math.abs(first.durationSeconds - second.durationSeconds);
+      if (!best || gap < Math.abs(best[0].durationSeconds - best[1].durationSeconds)) {
+        best = [first, second];
+      }
+    }
+  }
+  if (!best) throw new Error('the audio manifest has fewer than two sounds');
+  return best;
+}
+
+test.describe('the audio probe names a sound by its file', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.addInitScript(audioProbe);
+  });
+
+  test('the two sounds closest in length are told apart by their files', async ({ page }) => {
+    await boot(page);
+    test.skip(
+      !(await hasWebAudio(page)),
+      'This engine has no Web Audio (Playwright’s WebKit on Windows).',
+    );
+    const pair = closestInLength(AUDIO_MANIFEST.sounds);
+    await page.evaluate(
+      async (sources) => {
+        const context = new AudioContext();
+        for (const src of sources) {
+          const data = await (await fetch(src)).arrayBuffer();
+          const source = context.createBufferSource();
+          source.buffer = await context.decodeAudioData(data);
+          source.connect(context.destination);
+          source.start();
+          source.stop();
+        }
+        await context.close();
+      },
+      pair.map((sound) => sound.src),
+    );
+    const log = await audioLog(page);
+    expect(
+      log.decoded.map((buffer) => buffer.encoded),
+      'the decoded files’ sizes',
+    ).toEqual(pair.map((sound) => sound.bytes));
+    expect(await startedSounds(page), 'each sound named by its file').toEqual(
+      pair.map((sound) => sound.id),
+    );
+    if (Math.abs(pair[0].durationSeconds - pair[1].durationSeconds) < 0.05) {
+      expect(soundOf(pair[0].durationSeconds), 'a length two sounds share names neither').toMatch(
+        /^one of /,
+      );
+    }
   });
 });

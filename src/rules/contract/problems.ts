@@ -58,15 +58,22 @@ export const HINT_METHODS = [
 export type HintMethod = (typeof HINT_METHODS)[number];
 
 /**
- * A hint shows the strategy, not just the answer (docs/design.md §5.3):
- * - `family`: a related word that proves the spelling (mlýn → mlynář);
- * - `test-word`: a form that makes the sound clear (hrad → hrady, led → ledy);
+ * A hint shows the strategy, not just the answer (docs/design.md §5.3). It never shows the asked
+ * word, a revealing form of it or a member of its family: a hint that teaches by example takes the
+ * example from another family of the same rule, never a word of the problem.
+ * - `family`: an example of finding the related listed word, on another listed family: a related
+ *   word (`word`) and its listed word (`related`), mlynář → mlýn;
+ * - `test-word`: an example of saying another form that makes the sound clear, on another word of
+ *   the same rule: the word (`word`) and that form (`test`), hrad → hrady, dům → domy;
  * - `listed`: the school rhyme of the listed words after `letter`;
  * - `ten-ta-to`: the gender test (ten pes, ta ryba, to moře); with `plural`, the test of a plural
  *   subject (ti psi, ty ryby, ta kuřata) for agreement;
  * - `case-question`: the case question (kdo? co?, koho? čeho?, …);
  * - `pattern`: the pattern and its ending (o hradech, o strojích);
- * - `rule`: the general explanation of a spelling rule;
+ * - `rule`: the general explanation of a spelling rule, with up to two `examples` of it from the
+ *   lexicon as written (Brno, Bublinka; for `spisovne` the standard form, then the colloquial one;
+ *   for `predpona-predlozka` one written together, then one apart; for `obojetna-i` a sound-alike
+ *   pair), or none where no safe example exists;
  * - `method`: how to find the answer step by step (`HINT_METHODS`), never the answer;
  * - `not-listed`: the word is not a listed word (nor related to one), so i: shown with the gap's
  *   letters blanked (`span`, code points of the lemma: b_lý), never spelled out.
@@ -78,9 +85,12 @@ export type Hint =
   | { kind: 'ten-ta-to'; gender: GenderClass; plural?: true }
   | { kind: 'case-question'; case: Case }
   | { kind: 'pattern'; pattern: NounPattern }
-  | { kind: 'rule'; rule: SpellingRule }
+  | { kind: 'rule'; rule: SpellingRule; examples?: string[] }
   | { kind: 'method'; method: HintMethod }
   | { kind: 'not-listed'; word: string; span: [number, number] };
+
+/** The most examples a `rule` hint shows. */
+export const MAX_HINT_EXAMPLES = 2;
 
 // ---------------------------------------------------------------------------------------------
 // Problems
@@ -407,7 +417,10 @@ export const hintSchema: Schema<Hint> = schema.union(
   ),
   schema.object({ kind: schema.literal('case-question'), case: int(1, 7) as Schema<Case> }),
   schema.object({ kind: schema.literal('pattern'), pattern: oneOf(NOUN_PATTERNS) }),
-  schema.object({ kind: schema.literal('rule'), rule: oneOf(SPELLING_RULES) }),
+  objectWithOptional(
+    { kind: schema.literal('rule'), rule: oneOf(SPELLING_RULES) },
+    { examples: schema.array(tokenText, { min: 1, max: MAX_HINT_EXAMPLES }) },
+  ),
   schema.object({ kind: schema.literal('method'), method: oneOf(HINT_METHODS) }),
   schema.object({ kind: schema.literal('not-listed'), word: contentId, span: wordSpan }),
 ) as Schema<Hint>;

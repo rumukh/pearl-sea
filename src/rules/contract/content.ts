@@ -1337,7 +1337,8 @@ export function collectCatalogKeys(data: Read<ContentData>): { key: string; wher
  * §7.4): a category value `v` of a dimension `d` is `grammar.<d>.<v>` (`grammar.case.7`,
  * `grammar.pos.noun`, `grammar.pattern.hrad`) and a case also has its question
  * (`grammar.case-question.7`); a spelling rule's hint is `grammar.rule.<rule>`, and the listed-word
- * rule shows the school rhyme of each letter (`grammar.listed.<letter>`); a relation is
+ * rule shows the school rhyme of each letter (`grammar.listed.<letter>`); an odd-one-out set on the
+ * listed basis may show the listed-word rule (`grammar.rule.vyjm`); a relation is
  * `grammar.relation.<relation>` and a part of a word `grammar.segment.<role>`; a classification
  * of a dimension with a method hint (`HINT_METHODS`) and a sound-alike relation show
  * `grammar.method.<method>`.
@@ -1373,7 +1374,8 @@ export function grammarKeys(skill: Read<Skill>): string[] {
       values(skill.params.dimension, skill.params.values);
       break;
     case 'odd-one-out':
-      if (skill.params.basis !== 'family' && skill.params.basis !== 'listed') {
+      if (skill.params.basis === 'listed') keys.push('grammar.rule.vyjm');
+      else if (skill.params.basis !== 'family') {
         values(skill.params.basis, DIMENSION_VALUES[skill.params.basis]);
       }
       break;

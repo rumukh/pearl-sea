@@ -233,19 +233,35 @@ does not answer `V`. A problem's steps are answered one by one; a wrong step is 
 
 ### 5.3 Hints
 
-A hint shows the strategy, not just the answer (design.md):
+A hint shows the strategy, not just the answer (design.md), and never the asked word, a revealing
+form of it or a member of its family: a hint that teaches by example shows another word.
 
-| Hint            | Shows                                                                                                 |
-| --------------- | ----------------------------------------------------------------------------------------------------- |
-| `family`        | a related word that proves the spelling (mlýn → mlynář)                                               |
-| `test-word`     | a form that makes the sound clear (hrad → hrady)                                                      |
-| `listed`        | the school rhyme of the listed words of a letter                                                      |
-| `ten-ta-to`     | the gender test (ten pes, ta ryba, to moře); with `plural: true` a plural subject's (ti, ty, ta)      |
-| `case-question` | the case question (koho? čeho?)                                                                       |
-| `pattern`       | the pattern and its ending (o hradech, o strojích)                                                    |
-| `rule`          | the general explanation of a spelling rule                                                            |
-| `method`        | how to find the answer (`HINT_METHODS`: case, pattern, tense, mood, verb-form, sound-alike), never it |
-| `not-listed`    | the word is not a listed word, so i: the lemma with `span` blanked (b_lý), never spelled out          |
+| Hint            | Shows                                                                                                                          |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `family`        | finding the related listed word, on another family: a related `word` and its listed word `related` (bydlení → bydlit)          |
+| `test-word`     | saying another form, on another word of the rule: the `word` and its form `test` that makes the sound clear (hrad → hrady)     |
+| `listed`        | the school rhyme of the listed words of a letter (no longer made: it names the asked words; a round saved before may hold one) |
+| `ten-ta-to`     | the gender test (ten pes, ta ryba, to moře); with `plural: true` a plural subject's (ti, ty, ta)                               |
+| `case-question` | the case question (koho? čeho?)                                                                                                |
+| `pattern`       | the pattern and its ending (o hradech, o strojích)                                                                             |
+| `rule`          | the general explanation of a spelling rule, with up to two `examples` (`MAX_HINT_EXAMPLES`) of other families, or none         |
+| `method`        | how to find the answer (`HINT_METHODS`: case, pattern, tense, mood, verb-form, sound-alike), never it                          |
+| `not-listed`    | the word is not a listed word, so i: the lemma with `span` blanked (b_lý), never spelled out                                   |
+
+An example is chosen deterministically from the lexicon (`src/rules/learning/hint-examples.ts`,
+[learning.md](learning.md) §3.1): a word or a sentence gap of the same rule, of no family close to
+a word the problem shows (its own, one sharing its root, its sound-alike family), standard, no word
+of the problem (for names, none the sentence holds), not the asked word with an alternative and
+without the asked point's letters around its point (_měkkýš_ for _měkký_); a content word, another
+deciding letter first where it varies, then grade 3, then nouns, adjectives, verbs, adverbs, then
+lexicon order. Where none is safe the hint is the rule line alone. `vyjm` hints `family` for a
+related word, and the rule line alone for a listed word (its rhyme would list it). A rule's
+`examples` are lemmas as written; for `spisovne` the standard form, then the colloquial one; for
+`predpona-predlozka` one written together, then one apart; for `obojetna-i` a sound-alike pair,
+the y-word first. `shoda`, `vzor` and `mne-zajmeno` (their lines teach with their own examples),
+`interpunkce` and `spojka` (an example would be the answer) and the rules of a sound or a syllable
+show none. An odd-one-out set on the listed basis hints `family` on a family none of its words is
+close to, else the `vyjm` rule line; never the rhyme, which names the set's listed words.
 
 `method` is the content line `grammar.method.<method>`, with no parameters: the case questions in
 turn, the pattern from the gender and the 1st and 2nd case, and so on. A classification of the
@@ -556,7 +572,8 @@ those a skill can show, and the gate requires them): a category value `v` of dim
 `grammar.<d>.<v>` (`grammar.case.7`, `grammar.pos.noun`, `grammar.pattern.hrad`,
 `grammar.gender-class.mi`); a case also has its question, `grammar.case-question.<n>`; a spelling rule's
 hint is `grammar.rule.<rule>`, and the listed-word rule shows each letter's school rhyme,
-`grammar.listed.<letter>`; relations are `grammar.relation.<relation>` and word parts
+`grammar.listed.<letter>`; an odd-one-out set on the listed basis may show the listed-word rule,
+`grammar.rule.vyjm`; relations are `grammar.relation.<relation>` and word parts
 `grammar.segment.<role>`; a method hint is `grammar.method.<method>`, needed by the
 classifications of a dimension with a method and by sound-alike relations (`grammarKeys`).
 

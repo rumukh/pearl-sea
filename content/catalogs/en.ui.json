@@ -21,6 +21,7 @@
   "grownups.settings.voiceTest": "Try the voice",
   "grownups.settings.music": "Music",
   "grownups.settings.effects": "Sound effects",
+  "grownups.settings.soundUnavailable": "Sound could not start, so the game is silent for now.",
   "grownups.settings.percent": "{percent}%",
   "grownups.settings.textSize": "Text size",
   "grownups.settings.reducedMotion": "Less motion on screen",

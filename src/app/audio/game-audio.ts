@@ -11,7 +11,11 @@
  *   from a previous child or session can sound later.
  * - Read-aloud lowers the music while the device speaks (`duck`).
  * - Every failure is contained: sound is decoration, and the game works silently. With no
- *   sounds at all (the silent stub) no AudioContext is ever created.
+ *   sounds at all (the silent stub) no AudioContext is ever created. The one exception is a pack
+ *   the SDK refuses at registration, a defect of the build: it goes to `console.error`, and the
+ *   status turns `unavailable` (the grown-ups' area says so).
+ * - The SDK takes asset IDs only as stable identifiers: contract sound IDs cross into it as
+ *   `sdkSoundId` (`music/grotto` is `music:grotto`), and nowhere else.
  */
 import { createNarration } from '@aegis/browser/audio';
 import type { NarrationController, NarrationState } from '@aegis/browser/audio';
@@ -51,6 +55,28 @@ export interface GameAudioOptions {
   readonly random?: () => number;
   /** For tests: a narration controller stand-in. */
   readonly narration?: (onState: (state: NarrationState) => void) => NarrationController;
+  /** Every change of `status()`, as it happens. */
+  readonly onStatus?: (status: AudioStatus) => void;
+}
+
+/**
+ * The SDK takes asset IDs only as stable identifiers (`[A-Za-z0-9][A-Za-z0-9._:-]*`), so the
+ * contract's sound IDs (`AUDIO_ID_PATTERN`: `music/grotto`, `sfx/victory-sting`) cross into it
+ * with `:` for `/` (`music:grotto`). The pattern has no `:`, so no two sounds meet. Everything
+ * else in the shell (the manifest, the event map, the throttles) keeps the contract's IDs.
+ */
+export function sdkSoundId(id: string): string {
+  return id.replaceAll('/', ':');
+}
+
+/** The pack as the SDK registers it: every sound under its SDK-safe ID. */
+export function sdkPack(map: AudioMap): Parameters<NarrationController['registerPack']>[0] {
+  return {
+    id: map.packId,
+    revision: map.revision,
+    assets: [...map.effects, ...map.music].map(({ id, src }) => ({ id: sdkSoundId(id), src })),
+    lines: [],
+  };
 }
 
 /** Music level while the device speaks, as a share of the chosen music volume. */
@@ -90,6 +116,11 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
   });
   const durations = new Map(map.effects.map((asset) => [asset.id, asset.durationMs]));
   let status: AudioStatus = hasSound ? 'locked' : 'silent';
+  const setStatus = (next: AudioStatus): void => {
+    if (status === next) return;
+    status = next;
+    options.onStatus?.(next);
+  };
   let paused = false;
   let pausedAt: number | null = null;
   let ducked = false;
@@ -103,7 +134,7 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
   const timers = new Set<ReturnType<typeof setTimeout>>();
 
   const onState = (state: NarrationState): void => {
-    if (state.status === 'blocked' && status === 'ready') status = 'blocked';
+    if (state.status === 'blocked' && status === 'ready') setStatus('blocked');
   };
   const ignore = (): void => undefined;
 
@@ -114,14 +145,13 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
         narration = options.narration
           ? options.narration(onState)
           : createNarration({ baseUrl: options.baseUrl, onState, contextFactory: createContext });
-        narration.registerPack({
-          id: map.packId,
-          revision: map.revision,
-          assets: [...map.effects, ...map.music].map(({ id, src }) => ({ id, src })),
-          lines: [],
-        });
-      } catch {
-        status = 'unavailable';
+        narration.registerPack(sdkPack(map));
+      } catch (error) {
+        // A published pack the SDK cannot take is a defect of the build, never a quiet game: it
+        // is the one thing the shell writes to the console, so tests and grown-ups see it.
+        console.error('Game audio is unavailable: the sound pack could not be registered.', error);
+        narration = undefined;
+        setStatus('unavailable');
         return undefined;
       }
     }
@@ -146,7 +176,9 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
     if (!controller || status !== 'ready' || paused || held()) return;
     controller
       .setAtmosphere(
-        music ? { packId: map.packId, asset: music, fadeSeconds: map.crossfadeSeconds } : null,
+        music
+          ? { packId: map.packId, asset: sdkSoundId(music), fadeSeconds: map.crossfadeSeconds }
+          : null,
       )
       .catch(ignore);
   };
@@ -173,7 +205,7 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
   const play = (sound: string, own: number): void => {
     if (own !== generation || status !== 'ready' || paused) return;
     if (!picker.admit(sound)) return;
-    ensure()?.playEffect(map.packId, sound).catch(ignore);
+    ensure()?.playEffect(map.packId, sdkSoundId(sound)).catch(ignore);
   };
 
   const playPlanned = (planned: readonly PlannedSound[]): void => {
@@ -199,17 +231,17 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
       try {
         attempt = controller.unlock();
       } catch {
-        status = 'unavailable';
+        setStatus('unavailable');
         return;
       }
       attempt.then(
         () => {
-          status = 'ready';
+          setStatus('ready');
           applyVolumes();
           if (music !== null) applyMusic();
         },
         () => {
-          if (status !== 'unavailable') status = 'blocked';
+          if (status !== 'unavailable') setStatus('blocked');
         },
       );
     },
@@ -282,7 +314,7 @@ export function createGameAudio(options: GameAudioOptions): GameAudio {
       cancelHold();
       await narration?.dispose().catch(ignore);
       narration = undefined;
-      status = hasSound ? 'locked' : 'silent';
+      setStatus(hasSound ? 'locked' : 'silent');
     },
   };
 }

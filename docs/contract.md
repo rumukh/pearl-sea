@@ -213,7 +213,9 @@ after each token (`''` for none, at most 4 characters, never a letter, a digit o
 entry per token: _Delfíne, skoč!_ is `tokens: ['Delfíne', 'skoč']`, `marks: [',', '!']`. Without
 the comma of address, _Delfíni pojďte_ reads as a subject. A classification's `context` carries
 them; Lov chyb's `marks`, when present, means its `tokens` and `around` hold no marks (_dosita_
-and `.`, not _dosita._). The shell writes each token, then its mark, outside the highlight.
+and `.`, not _dosita._). The rules give Lov chyb `marks` unless its slip is the punctuation itself
+(an end mark) or a token starts with a mark (an opening quote): then every token keeps its marks.
+The shell writes each token, then its mark, outside the highlight.
 `problemSchema` checks the fields and that the problem is coherent:
 the answer is offered, every gap appears exactly once and in order, indices are in range, and
 `marks` has one entry per token.
@@ -249,8 +251,10 @@ A hint shows the strategy, not just the answer (design.md):
 turn, the pattern from the gender and the 1st and 2nd case, and so on. A classification of the
 case, the pattern, the tense, the mood or the verb form hints its method, since the case question
 or the pattern would name the answer; a sound-alike relation hints `sound-alike`. An `obojetna-i`
-gap after a listed letter hints `not-listed`; `span` is `[start, end)` in code points of the lemma,
-the gap's letters.
+gap after a listed letter hints `not-listed`, unless the word with one of the point's alternatives
+in the gap is another lexicon spelling (_b_t_ is _být_ too: then the rule line); `span` is
+`[start, end)` in code points of the lemma, the gap's letters. Agreement (`shoda`) hints
+`ten-ta-to` for one subject and the rule line for several.
 
 ### 5.4 Item IDs and mastery
 

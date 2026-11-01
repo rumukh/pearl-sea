@@ -76,7 +76,9 @@ ok answer) can go unannounced; scheduling never reads it.
   at the drawn gap and filled at the other), filled one by one; with `single` only the drawn gap. A
   re-ask of a sentence item asks the word alone where it is not ambiguous (`request.alone`).
 - **`spell.mistake`**: a sentence with the drawn gap written as one of its authored alternatives;
-  the tokens are the sentence split at spaces (a gap's own spaces stay in its token). Step 0 picks
+  the tokens are the sentence split at spaces (a gap's own spaces stay in its token), each token's
+  punctuation its mark (`marks`: _dosita_ with `.`), so a word button never holds a comma or an end
+  mark; a slip in the punctuation itself keeps every mark in its token. Step 0 picks
   the wrong token, step 1 writes the gap right; a wrong find still leads to the fix.
 - **`classify`**: the skill's `values` (every value of the dimension when `null`) in the dimension's
   school order (`DIMENSION_VALUES`), never shuffled; the target as the child reads it: the consonant
@@ -118,8 +120,10 @@ _mně_, a word with or without a space, a standard word) is never typed: the chi
 which word to type, and another one may be right too. Hints follow design §5.3: `vyjm` the family
 word (the rhyme for a head word); `obojetna-i` after a listed letter `not-listed` with the gap's
 `span` (never the rhyme, which lists only y-words and may hold a look-alike: _být_ for _bít_), else
-the rule line; `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
-_ten, ta, to_ (`plural` for a plural subject: _ti, ty, ta_), `vzor` the pattern, other rules the
+the rule line, also where the gap with the point's alternative spells another lexicon word (_b_t_:
+_být_); `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
+_ten, ta, to_ (`plural` for a plural subject: _ti, ty, ta_) for one subject and the rule line for
+several, `vzor` the pattern, other rules the
 rule. Classifications hint the gender test, or the `method` of the case, the pattern, the tense,
 the mood and the verb form; a sound-alike relation hints its `method`.
 A verb asked for its reflexive pronoun is shown without it (_bát_, not _bát se_), alone, on a net or

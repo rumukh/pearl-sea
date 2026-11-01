@@ -256,10 +256,18 @@ function expectedHint(
     }
     case 'obojetna-i': {
       // After a listed letter: not listed, shown with its gap; never the rhyme of y-words (S3's
-      // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line.
+      // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line, and
+      // so where the gap with an alternative spells another word (b_t is být too).
       const letters = word ? [...word.lemma.toLowerCase()] : [];
       const before = point && point.at > 0 ? letters[point.at - 1] : undefined;
-      return word && point && before !== undefined && 'blmpsvz'.includes(before)
+      const twin =
+        word !== null &&
+        point !== null &&
+        point.alt.some((alt) => {
+          const other = respell(word, point, alt);
+          return other !== word.lemma && rawOf(data).spellings.has(other);
+        });
+      return word && point && before !== undefined && 'blmpsvz'.includes(before) && !twin
         ? {
             kind: 'not-listed',
             word: word.id,
@@ -275,9 +283,10 @@ function expectedHint(
     case 'mne-zajmeno':
       return gap?.case !== undefined ? { kind: 'case-question', case: gap.case } : ruleHint;
     case 'shoda': {
-      // A plural subject's test: ti, ty, ta (ty děti → -y), never to dítě.
-      const subject = gap?.subjects?.[0];
-      const token = subject === undefined ? undefined : sentence?.tokens?.[subject];
+      // One subject's test: ti, ty, ta for a plural one (ty děti → -y), never to dítě. Several
+      // subjects (delfíni a želvy) get the rule line.
+      if (gap?.subjects?.length !== 1) return ruleHint;
+      const token = sentence?.tokens?.[gap.subjects[0]!];
       if (token?.gender === undefined) return ruleHint;
       return token.number === 'pl'
         ? { kind: 'ten-ta-to', gender: token.gender, plural: true }
@@ -566,6 +575,8 @@ function locateSentence(data: ContentData, problem: GapsProblem, say: Say): Loca
 /**
  * The fix of a mistake: the shown sentence must be the sentence with exactly one authored
  * alternative swapped in, the wrong token the one holding it, and the fix must give it back.
+ * Each token's punctuation is its mark (`marks`): tokens start and end with a letter or digit, and
+ * marks are punctuation only; only a slip in punctuation itself keeps the marks in its tokens.
  */
 function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Located[] {
   const filled = rawOf(data).sentences.get(problem.sentence);
@@ -573,7 +584,10 @@ function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Lo
     say('mistake', `no sentence ${problem.sentence}`);
     return [];
   }
-  const shown = problem.tokens.join(' ');
+  const marks = problem.marks;
+  const join = (tokens: readonly string[]) =>
+    tokens.map((token, i) => `${token}${marks?.[i] ?? ''}`).join(' ');
+  const shown = join(problem.tokens);
   const swaps: { index: number; alt: string }[] = [];
   filled.parsed.gaps.forEach((gap, index) => {
     const start = filled.starts[index]!;
@@ -592,13 +606,22 @@ function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Lo
   const token = shown.slice(0, filled.starts[index]).split(' ').length - 1;
   if (problem.wrong !== token) say('mistake', `wrong is ${problem.wrong}, the slip is in ${token}`);
   if (problem.tokens.some((t) => t.length === 0)) say('mistake', `an empty token in "${shown}"`);
+  if (marks === undefined) {
+    // Only a slip in punctuation (an end mark) leaves the marks in the tokens.
+    if (!/[^\p{L}\p{N}\s]/u.test(`${alt}${correct}`)) say('mistake', `no marks in "${shown}"`);
+  } else {
+    const bare = /^[\p{L}\p{N}](?:.*[\p{L}\p{N}])?$/u;
+    const strays = problem.tokens.filter((t) => !bare.test(t));
+    if (strays.length > 0) say('mistake', `tokens holding marks: ${strays.join(' ')}`);
+    if (marks.some((m) => !/^[^\p{L}\p{N}\s]{0,4}$/u.test(m))) say('mistake', `marks ${marks}`);
+  }
   const [before, after] = problem.around;
   if (`${before}${alt}${after}` !== problem.tokens[problem.wrong]) {
     say('mistake', `around ${JSON.stringify(problem.around)} is not the wrong token's`);
   }
-  const fixed = problem.tokens
-    .map((t, i) => (i === problem.wrong ? `${before}${correct}${after}` : t))
-    .join(' ');
+  const fixed = join(
+    problem.tokens.map((t, i) => (i === problem.wrong ? `${before}${correct}${after}` : t)),
+  );
   if (fixed !== filled.plain) say('mistake', `the fix gives "${fixed}", not "${filled.plain}"`);
   if (problem.fix.correct !== correct) say('mistake', `the fix is "${problem.fix.correct}"`);
   return [sentenceGap(data, filled, index, problem.fix)];
@@ -1215,37 +1238,74 @@ describe('the tokens of a mistake (mistakeTokens)', () => {
   it('split the shown sentence at spaces and find the wrong token and the text around the slip', () => {
     const ticho = made('T{i|y}chá r{y|i}ba spí pod kamenem.');
     expect(mistakeTokens(ticho, 0, 'y')).toEqual({
-      tokens: ['Tychá', 'ryba', 'spí', 'pod', 'kamenem.'],
+      tokens: ['Tychá', 'ryba', 'spí', 'pod', 'kamenem'],
+      marks: ['', '', '', '', '.'],
       index: 0,
       around: ['T', 'chá'],
     });
     expect(mistakeTokens(ticho, 1, 'i')).toEqual({
-      tokens: ['Tichá', 'riba', 'spí', 'pod', 'kamenem.'],
+      tokens: ['Tichá', 'riba', 'spí', 'pod', 'kamenem'],
+      marks: ['', '', '', '', '.'],
       index: 1,
       around: ['r', 'ba'],
     });
     expect(mistakeTokens(made('Řeka {V|v}ltava teče přes celé Čechy.'), 0, 'v')).toEqual({
-      tokens: ['Řeka', 'vltava', 'teče', 'přes', 'celé', 'Čechy.'],
+      tokens: ['Řeka', 'vltava', 'teče', 'přes', 'celé', 'Čechy'],
+      marks: ['', '', '', '', '', '.'],
       index: 1,
       around: ['', 'ltava'],
     });
     expect(mistakeTokens(made('Na pláži stojí písečný hra{d|t}.'), 0, 't')).toEqual({
-      tokens: ['Na', 'pláži', 'stojí', 'písečný', 'hrat.'],
+      tokens: ['Na', 'pláži', 'stojí', 'písečný', 'hrat'],
+      marks: ['', '', '', '', '.'],
       index: 4,
-      around: ['hra', '.'],
+      around: ['hra', ''],
     });
   });
 
-  it("keep a slip's own space inside its token, and an end mark with its word", () => {
+  it('give each token its punctuation as its mark: the comma of address, of clauses, the end mark', () => {
+    // S3's Czech QA: ~dosita.~ and the fix dos[ ]ta. showed the end mark as part of the word.
+    expect(mistakeTokens(made('Krabe, pojď sem, r{y|i}chle!'), 0, 'i')).toEqual({
+      tokens: ['Krabe', 'pojď', 'sem', 'richle'],
+      marks: [',', '', ',', '!'],
+      index: 3,
+      around: ['r', 'chle'],
+    });
+    expect(mistakeTokens(made('Vlk se najedl dos{y|i}ta.'), 0, 'i')).toEqual({
+      tokens: ['Vlk', 'se', 'najedl', 'dosita'],
+      marks: ['', '', '', '.'],
+      index: 3,
+      around: ['dos', 'ta'],
+    });
+  });
+
+  it("keep a slip's own space inside its token, and the marks in the tokens when the slip is a mark or a token starts with one", () => {
     expect(mistakeTokens(made('Delfín {odplaval|od plaval} od lodi.'), 0, 'od plaval')).toEqual({
-      tokens: ['Delfín', 'od plaval', 'od', 'lodi.'],
+      tokens: ['Delfín', 'od plaval', 'od', 'lodi'],
+      marks: ['', '', '', '.'],
       index: 1,
       around: ['', ''],
     });
+    // A slip in the end mark itself: the wrong token is the word with its mark.
     expect(mistakeTokens(made('Kdo to tam plave{?|.}'), 0, '.')).toEqual({
       tokens: ['Kdo', 'to', 'tam', 'plave.'],
+      marks: null,
       index: 3,
       around: ['plave', ''],
+    });
+    // An opening quote has no token before it to follow.
+    expect(mistakeTokens(made('Řekl: „P{y|i}šný krab.“'), 0, 'i')).toEqual({
+      tokens: ['Řekl:', '„Pišný', 'krab.“'],
+      marks: null,
+      index: 1,
+      around: ['„P', 'šný'],
+    });
+    // A mark longer than the contract's 4 characters.
+    expect(mistakeTokens(made('R{y|i}ba plave.....'), 0, 'i')).toEqual({
+      tokens: ['Riba', 'plave.....'],
+      marks: null,
+      index: 0,
+      around: ['R', 'ba'],
     });
   });
 });
@@ -1482,8 +1542,17 @@ describe('hints (design §5.3)', () => {
 
   it('say after a listed letter that an obojetna-i word is not listed, shown with its gap, never the rhyme of y-words', () => {
     // S3's Czech QA: the rhyme lists only y-words, so for an i it points the wrong way, and a
-    // look-alike in it (být for bít) confirms the slip. The shell shows b_t, never bít.
-    expect(hint(mini, 'biit')).toEqual({ kind: 'not-listed', word: 'biit', span: [1, 2] });
+    // look-alike in it (být for bít) confirms the slip. The shell shows b_lý, never bílý.
+    const bily = made('biilyy', 'bílý', {
+      spelling: [{ at: 1, correct: 'í', alt: ['ý'], rule: 'obojetna-i' }],
+    });
+    expect(gapHint(mini, 'obojetna-i', bily, bily.spelling![0]!, null)).toEqual({
+      kind: 'not-listed',
+      word: 'biilyy',
+      span: [1, 2],
+    });
+    // b_t is být too, a listed word: the rule line, which tells such words apart by meaning.
+    expect(hint(mini, 'biit')).toEqual({ kind: 'rule', rule: 'obojetna-i' });
     // After f, which lists no words: the rule line.
     const fialka = made('fialka', 'fialka');
     const point: SpellingPoint = { at: 1, correct: 'i', alt: ['y'], rule: 'obojetna-i' };
@@ -1497,6 +1566,26 @@ describe('hints (design §5.3)', () => {
     });
   });
 
+  it('in the game, give the rule line to the eight obojetna-i words whose gap is a listed word too', () => {
+    // S3's count: 48 obojetna-i words after a listed letter, of which these spell a y-word with
+    // the point's alternative (bít → být, vír → výr …).
+    const twins = new Set<string>();
+    let notListed = 0;
+    for (const entry of real.lexicon.words) {
+      for (const point of entry.spelling ?? []) {
+        if (point.rule !== 'obojetna-i' || point.at === 0) continue;
+        if (!'blmpsvz'.includes([...entry.lemma.toLowerCase()][point.at - 1]!)) continue;
+        const found = gapHint(real, 'obojetna-i', entry, point, null);
+        if (found.kind === 'not-listed') notListed += 1;
+        else twins.add(entry.lemma);
+      }
+    }
+    expect([...twins].sort()).toEqual(
+      ['bidlo', 'bít', 'dobít', 'mít', 'sírový', 'vír', 'vískat', 'vít'].sort(),
+    );
+    expect(notListed).toBeGreaterThanOrEqual(40);
+  });
+
   it('show a test word for parova and u-uprostred', () => {
     expect(hint(lagoon, 'hrad')).toEqual({ kind: 'test-word', word: 'hrad', test: 'hrady' });
     expect(hint(lagoon, 'zub')).toEqual({ kind: 'test-word', word: 'zub', test: 'zuby' });
@@ -1508,7 +1597,7 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the case question for mne-zajmeno, ti-ty-ta for a plural subject of shoda, the pattern for vzor', () => {
+  it('show the case question for mne-zajmeno, ti-ty-ta for one plural subject of shoda and the rule for several, the pattern for vzor', () => {
     const dej = {
       sentence: {
         id: 's.dej',
@@ -1546,6 +1635,29 @@ describe('hints (design §5.3)', () => {
     expect(
       gapHint(mini, 'shoda', null, null, { parsed: singular, gap: ryby.sentence.gaps[0]! }),
     ).toEqual({ kind: 'ten-ta-to', gender: 'f' });
+    // Several subjects are not decided word by word (ti delfíni a ty želvy): the rule line.
+    const text = 'Delfíni a želvy plaval{i|y} spolu.';
+    const both = {
+      sentence: {
+        id: 's.both',
+        grade: 4,
+        topics: [],
+        text,
+        gaps: [{ rule: 'shoda', word: null, subjects: [0, 2] }],
+        tokens: [
+          { t: 'Delfíni', pos: 'noun', number: 'pl', gender: 'ma', member: 'subject' },
+          { t: 'a', pos: 'conj' },
+          { t: 'želvy', pos: 'noun', number: 'pl', gender: 'f', member: 'subject' },
+          { t: 'plavali', pos: 'verb', number: 'pl', member: 'predicate' },
+          { t: 'spolu', pos: 'adv' },
+        ],
+      },
+      parsed: parseGappedText(text),
+      words: ['Delfíni', 'a', 'želvy', 'plavali', 'spolu'],
+    } as unknown as ParsedSentence;
+    expect(
+      gapHint(mini, 'shoda', null, null, { parsed: both, gap: both.sentence.gaps[0]! }),
+    ).toEqual({ kind: 'rule', rule: 'shoda' });
     const stroj = made('stroj', 'stroj', {
       noun: { gender: 'm', animate: false, numbers: 'both', pattern: 'stroj' },
     });

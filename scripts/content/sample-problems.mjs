@@ -11,8 +11,9 @@
  * `problemFor`, the rules' own code) makes up to `--per-skill` problems: one per item, the items
  * spread evenly over what the skill can serve, each from its own seeded streams. They are written
  * as Czech text: the word or sentence with its numbered gaps, the options and the letter pad, the
- * expected answer and the hint (the catalogs' rule lines, the family word, the test word, the case
- * question, the pattern). Every board activity gets `--boards` boards from the board makers
+ * expected answer and the hint (the catalogs' rule and method lines, the family word, the test
+ * word, the case question, the pattern, the word that is not listed shown with its gap). Every
+ * board activity gets `--boards` boards from the board makers
  * (src/rules/minigames/boards.ts `makeBoard`). Each monster battle lists its skills (arm by arm for
  * a many-armed monster) with problems drawn from them in turn. `inkoustici.md` lists the
  * activities the Inkoustíci ambush and their lines. `summary.md` counts what was written.
@@ -169,13 +170,23 @@ export async function sampleProblems(options = {}) {
       case 'listed':
         return text(`grammar.listed.${hint.letter}`);
       case 'ten-ta-to':
-        return `ten, ta, nebo to? (${label('gender-class', hint.gender)})`;
+        return hint.plural
+          ? `ti, ty, nebo ta? (${label('gender-class', hint.gender)}, množné číslo)`
+          : `ten, ta, nebo to? (${label('gender-class', hint.gender)})`;
       case 'case-question':
         return `${label('case', hint.case)}: ${text(`grammar.case-question.${hint.case}`)}`;
       case 'pattern':
         return `vzor ${label('pattern', hint.pattern)}`;
       case 'rule':
         return text(`grammar.rule.${hint.rule}`);
+      case 'method':
+        return text(`grammar.method.${hint.method}`);
+      case 'not-listed': {
+        // As the shell shows it: the word with its gap, never spelled out.
+        const letters = [...lemma(hint.word)];
+        const gapped = [...letters.slice(0, hint.span[0]), '_', ...letters.slice(hint.span[1])];
+        return `slovo ${gapped.join('')} není vyjmenované ani příbuzné s vyjmenovaným`;
+      }
       default:
         return JSON.stringify(hint);
     }
@@ -356,8 +367,10 @@ export async function sampleProblems(options = {}) {
         break;
       }
       case 'mistake': {
-        const tokens = problem.tokens.map((/** @type {string} */ t, /** @type {number} */ i) =>
-          i === problem.wrong ? `~${t}~` : t,
+        // Each token, then its mark (`marks`), as the shell shows them: ~dosita~. and dos[ ]ta.
+        const tokens = problem.tokens.map(
+          (/** @type {string} */ t, /** @type {number} */ i) =>
+            `${i === problem.wrong ? `~${t}~` : t}${problem.marks?.[i] ?? ''}`,
         );
         lines.push(`- lov chyb (${problem.sentence}): ${tokens.join(' ')}`);
         gapLine(problem.fix, `oprava ${problem.around[0]}[ ]${problem.around[1]}:`);

@@ -512,6 +512,14 @@ it and the content gate runs it on every catalog):
 - `one`, `few`, `other`, `boy` and `girl` are reserved as last key segments.
 - A referenced key resolves as a bare key or a plural set (`catalogHasKey`).
 
+**Inserted names** bind every catalog too (from S3's Czech copy review; design §10.3). A
+`{placeholder}` that inserts a name (a child's, a friend's, a monster's, a cosmetic's) stands only
+at the start of a sentence or after a colon or dash. Nothing in the sentence agrees with it: no
+verb, adjective or pronoun depends on its gender or number. The child is never addressed by name:
+Czech needs the vocative (_Petře_, _Jano_), which code cannot derive. Inside a sentence a species
+label is lowercase (_krab Tvrďák_), the capitals rule the game teaches. Copy review checks this; the
+gate does not.
+
 **Grammar terms** come from `cs.content.json` under `grammar.*` keys (`grammarKeys(skill)` lists
 those a skill can show, and the gate requires them): a category value `v` of dimension `d` is
 `grammar.<d>.<v>` (`grammar.case.7`, `grammar.pos.noun`, `grammar.pattern.hrad`,

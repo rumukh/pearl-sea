@@ -892,6 +892,16 @@ form by the count, then the address variant if there is one, else the neutral fo
 only for `grownups.*` keys and uses `.one` and `.other`; every Czech `grownups.*` string has its
 English twin, and objective titles are `grownups.objective.*` keys, shown only to grown-ups.
 
+**Inserted names** (from S3's Czech copy review of the UI templates). The code inserts a name (a
+child's, a friend's, a monster's, a cosmetic's) as it is: in the nominative, as its catalog label,
+with its capital. So a name placeholder stands only at the start of a sentence or after a colon or
+dash, and nothing in the sentence agrees with it: no verb, adjective or pronoun that depends on its
+gender or number (never _{friend} vyrostl_). The child is never addressed by name (never _Ahoj,
+{name}!_): Czech addresses people in the vocative (_Petře_, _Jano_), which code cannot derive, so
+address goes through the form of address (§10.2). Inside a sentence a species label is lowercase
+(_krab Tvrďák_, [lexicon.md](lexicon.md) §3.1), the capitals rule the game teaches, so only
+authored lines name a creature mid-sentence. Copy review checks this rule; the gate does not.
+
 **Validation**: the content gate enforces, with `catalogProblems`, the address pairs, the required
 neutral and plural forms, and equal placeholders between an address variant and its neutral form,
 and it keeps story lines to the child profile (`CHILD_PROFILE`, at most 10 words a sentence). It

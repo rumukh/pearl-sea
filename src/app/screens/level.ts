@@ -14,7 +14,7 @@ import { h } from '../ui/dom';
 import { icon, starIcon } from '../ui/icons';
 import { ART, isMinigameKind } from '../../rules/contract';
 import type { ContentData, GameAction } from '../../rules/contract';
-import { topBar } from './common';
+import { diverSaveStatus, topBar } from './common';
 
 export function activityName(t: (key: MessageKey) => string, kind: string): string {
   return t(`activity.${kind}` as MessageKey);
@@ -25,6 +25,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
     key: `level:${diverId}:${levelId}`,
     async build(context) {
       const active = await app.openDiver(diverId);
+      const saveStatus = diverSaveStatus(app, active);
       const t = app.kit.t;
       const text = app.content()!.text;
       const view = active.game.view();
@@ -102,6 +103,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
             ? { label: t('common.back'), onPress: () => app.router.back() }
             : undefined,
           title: heading,
+          tools: [saveStatus.element],
           onError: app.kit.onError,
         }),
         h(
@@ -144,6 +146,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
         region: found.region.id,
         music: 'map',
         focusTarget: () => go,
+        dispose: saveStatus.dispose,
       };
     },
   };

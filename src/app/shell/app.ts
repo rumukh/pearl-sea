@@ -399,6 +399,8 @@ export function createApp(options: AppOptions): App {
     await closeDiver();
     const diver = findDiver(family.state(), diverId);
     if (!diver) throw new Error('That child is not on this device.');
+    // A child's game starts clean: what the grown-ups' area or another child was told stays there.
+    app.kit.toasts.clear();
     const task = (async (): Promise<OpenDiver> => {
       const preferences = new PreferencesStore(storage, diver.id);
       await preferences.open();

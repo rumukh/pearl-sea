@@ -83,6 +83,12 @@ function showStartupFailure(root: HTMLElement, status: HTMLElement): void {
   status.dataset['state'] = 'failed';
 }
 
+/** The game's content pack and the strings it uses, checked against each other. */
+async function loadGameContent(baseUrl: string) {
+  const pack = await loadContentPack(baseUrl);
+  return { pack, catalogs: await loadContentCatalogs(baseUrl, pack.data) };
+}
+
 async function boot(root: HTMLElement, status: HTMLElement): Promise<void> {
   applyTokens(document.documentElement);
   applyPresentationPreferences(document.documentElement, DEFAULT_PRESENTATION);
@@ -100,13 +106,16 @@ async function boot(root: HTMLElement, status: HTMLElement): Promise<void> {
   ]);
   const app = createApp({ env, root, bootStatus: status, audioMap, art });
   app.screens = createScreens(app);
+  // With rules, the game's content (the pack and its strings) loads while the family record
+  // opens: on a slow device both take seconds. A failure waits for its turn below (a handler is
+  // attached at once, so it never counts as an unhandled rejection).
+  const content = RULES ? loadGameContent(env.baseUrl) : null;
+  content?.catch(() => undefined);
   let first: ScreenEntry;
   try {
     await app.family.open();
-    // With rules, the game's content: the pack and its strings, validated before any screen.
-    if (RULES) {
-      const pack = await loadContentPack(env.baseUrl);
-      const catalogs = await loadContentCatalogs(env.baseUrl, pack.data);
+    if (RULES && content) {
+      const { pack, catalogs } = await content;
       app.useContent(
         pearlSeaGame(RULES, pack, [], createHistoryLoader(env.baseUrl, pack)),
         catalogs,

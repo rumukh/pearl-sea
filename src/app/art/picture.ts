@@ -26,14 +26,17 @@ export function artKind(id: string): string {
   return id.split('/')[0] ?? '';
 }
 
-/** Pixel sizes S5 paints at, for placeholders until the catalog has the real size. */
+/**
+ * The sizes S5 publishes, for placeholders until the catalog has the real size: scenes and maps
+ * are 1664 × 928 (docs/art.md §3), SVG eggs, cosmetics and stickers their viewBox.
+ */
 const DEFAULT_SIZES: Readonly<Record<string, readonly [number, number]>> = {
   friend: [1024, 1024],
   egg: [120, 160],
   monster: [1024, 1024],
   inkoustik: [640, 640],
-  scene: [1600, 900],
-  map: [1600, 1000],
+  scene: [1664, 928],
+  map: [1664, 928],
   character: [1024, 1024],
   avatar: [512, 512],
   cosmetic: [100, 100],
@@ -223,10 +226,13 @@ function placeholderDrawing(id: string, width: number, height: number): SVGSVGEl
     {
       class: 'ps-art__drawing',
       viewBox: `0 0 ${width} ${height}`,
-      // Scenes fill a backdrop of any shape, as a painting does with object-fit: cover.
+      // Scenes fill a backdrop of any shape, as a painting does with object-fit: cover; a monster
+      // stands on its box's ground, like its painting (`monsterForms`).
       ...(artKind(id) === 'scene' || artKind(id) === 'map'
         ? { preserveAspectRatio: 'xMidYMid slice' }
-        : {}),
+        : artKind(id) === 'monster'
+          ? { preserveAspectRatio: 'xMidYMax meet' }
+          : {}),
       'aria-hidden': 'true',
       focusable: 'false',
     },
@@ -275,6 +281,37 @@ export function picture(art: ArtLibrary, id: string, options: PictureOptions = {
     }),
   );
   return frame;
+}
+
+/**
+ * A monster's two forms in one box, the freed one under the inked one (the ink washes off it).
+ * S5 trims each cut-out to its own box, so both are drawn whole inside the inked painting's box
+ * and stand on its ground, centred: a freed form trimmed taller or wider stays in place. `alt`
+ * names the monster; the two paintings themselves are decoration.
+ */
+export function monsterForms(
+  art: ArtLibrary,
+  monster: string,
+  options: PictureOptions = {},
+): HTMLElement {
+  const inked = ART.monster(monster, 'inked');
+  const [width, height] = pictureSize(art, inked);
+  const box = h(
+    'div',
+    {
+      className: ['ps-monster-forms', options.className ?? ''].join(' ').trim(),
+      dataset: { monster },
+      ...(options.testId ? { testId: options.testId } : {}),
+    },
+    picture(art, ART.monster(monster, 'freed'), { className: 'ps-monster-forms__freed' }),
+    picture(art, inked, { className: 'ps-monster-forms__inked' }),
+  );
+  box.style.aspectRatio = `${width} / ${height}`;
+  if (options.alt) {
+    box.setAttribute('role', 'img');
+    box.setAttribute('aria-label', options.alt);
+  }
+  return box;
 }
 
 /** A sticker's look, from its content record (`Sticker` in content.ts): two art IDs and a colour. */

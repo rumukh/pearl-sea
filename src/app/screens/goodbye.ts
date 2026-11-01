@@ -12,6 +12,7 @@ import { candyButton } from '../ui/button';
 import { h } from '../ui/dom';
 import { ART } from '../../rules/contract';
 import type { GameView } from '../../rules/contract';
+import { cornerSaveStatus } from './common';
 import { speakerButton } from './speaker';
 
 /** Words shown by name on the diary card before "+N". */
@@ -120,10 +121,12 @@ export function goodbyeScreen(app: App, diverId: string): ScreenEntry {
         onPress: () => app.continueGame(diverId),
         onError: app.kit.onError,
       });
+      const saveStatus = cornerSaveStatus(app, active);
       const element = h(
         'main',
         { className: 'ps-goodbye', testId: 'screen-goodbye' },
         h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene('grotto'))),
+        saveStatus.element,
         h(
           'section',
           { className: 'ps-goodbye__stage' },
@@ -139,6 +142,7 @@ export function goodbyeScreen(app: App, diverId: string): ScreenEntry {
         region: null,
         music: 'grotto',
         focusTarget: () => bye,
+        dispose: saveStatus.dispose,
       };
     },
   };

@@ -43,8 +43,9 @@ deployment base and offline revision from `<meta name="ps-base">` and
 `<meta name="ps-offline-revision">`, starts loading the reading font (waiting at most 2.5 s),
 reads S5's audio manifest and art catalog (a missing or broken one means a silent game or
 placeholder art, never a failed boot), and opens the family record. With the rules wired
-(`game/rules.ts`) it also loads and validates the content pack and its strings (every key the pack
-uses must resolve) before the first screen. The first screen is the title, or the recovery screen
+(`game/rules.ts`) it loads and validates the content pack and its strings (every key the pack uses
+must resolve) meanwhile, since on a slow device both take seconds; both finish before the first
+screen. The first screen is the title, or the recovery screen
 when the family record cannot be read.
 
 The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
@@ -117,7 +118,10 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   when the durable revision equals the committed one; "Ukládám…" while a checkpoint is pending;
   "Neuloženo" + **Zkusit znovu** after a failed write, which calls `retryCheckpoint()` then
   `continuePending()` (the action is never dispatched again); "Hra je otevřená jinde" + reopen for
-  a storage conflict; "Tady se nedá ukládat" when storage is unavailable.
+  a storage conflict (another window saved the same child's game first); "Tady se nedá ukládat"
+  when storage is unavailable. Every screen of a child's game shows it, in its top bar or, where
+  there is none (a story beat, the eggs, the results, goodbye), in its top corner
+  (`cornerSaveStatus`), so an action refused there never leaves the child stuck.
 - **Recovery** (`recovery.ts`, `screens/recovery.ts`): nothing turns an unreadable record into a
   new one by itself. The screen offers what the stored history allows: save the original bytes to a
   file, restore the previous copy (validated like a fresh load), load a backup, or a confirmed reset
@@ -333,8 +337,12 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
 - **Nastavení / Settings**: the language of the area; reading aloud (available voices, or why there
   are none and how to add one); each child's settings: the game's grade (3 or 4: where the child
   starts and what the game suggests; content that does not serve a grade, or a placement round,
-  keeps the old one and says why), daily goal and the dolphin race; read-aloud, auto-read, voice
-  with a test line, music and effects volumes, text size, less motion, a time limit for one sitting.
+  keeps the old one and says why; the grade picked in the editor goes to the game when this area
+  first reads it, so the grade shown is the one the child plays), daily goal and the dolphin race,
+  and the placement check again
+  for a grade that has one (it starts the next time the child plays; a round or a story under way
+  keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes,
+  text size, less motion, a time limit for one sitting.
 - **Pokrok / Progress** (`grownups/progress.ts`), per child: days practised, answers, monsters
   freed and the grade; the last 14 days of practice (right answers of all); each goal of the 3rd
   and 4th grade (pearls mastered, silver and gold, of the goal's items, and the success rate);
@@ -373,14 +381,19 @@ its own presentation; calls take turns, and a child opened for play waits for th
   digits), the number pad, the Czech keyboard, the whole gate dialog, tabs, meters, stars and the
   coin counter, toasts, icons, a rebuilt panel keeping focus, print sheets, the save status pill
   and the read-aloud button.
-- **Browser, the game** (`test/e2e/game.spec.ts`, Playwright): three journeys played the way a
-  child plays, every answer given on screen. A new 3rd grader goes from the editor through the
-  prologue, the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked
-  too early, the nets, Krmení with a wrong answer that shows the right one and a reload that
-  resumes the same step) up to the friend hatching. A new 4th grader takes the placement check and
-  plays Slovní rodinka and Ulita slov in Měsíční jeskyně. A 3rd grader who has played every lesson
-  of the lagoon washes Muréna Mumla clean (the ink meter, her joke, an ink blot wiped), frees her
-  into the gallery and prints her diploma from the grown-ups' area. What is right comes from the
+- **Browser, the game** (`test/e2e/game.spec.ts`, Playwright): journeys played the way a child
+  plays, every answer given on screen. A new 3rd grader goes from the editor through the prologue,
+  the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked too
+  early, the nets, Krmení with Nápověda tapped twice and no complaint, a wrong answer that shows
+  the right one and a reload that resumes the same step) up to the friend hatching, with Osmička
+  cheering beside the results. A new 4th grader takes the placement check (Osmička cheering a right
+  answer) and plays Slovní rodinka (quick taps all counted) and Ulita slov in Měsíční jeskyně. A
+  3rd grader who has played every lesson of the lagoon washes Muréna Mumla clean (the ink meter,
+  her joke, an ink blot wiped), frees her into the gallery and prints her diploma from the
+  grown-ups' area. A second window on the same child shows "Hra je otevřená jinde" on a story beat
+  and reopens the saved game. A grown-up runs a placed 4th grader's placement check again, and
+  leaving it says kindly what stays; a grade a grown-up chooses before the first dive is the grade
+  the child plays. What is right comes from the
   game itself (`support/game.ts`): the save the page stored is read back from IndexedDB and
   restored into a runtime host in Node, and its view says what the problem or board on screen asks;
   screens name what they show only by position (`data-round`, `data-index`, `data-step`,
@@ -389,6 +402,14 @@ its own presentation; calls take turns, and a child opened for play waits for th
   the shell's checkpoint stores it (`support/saves.ts`). Every new screen passes axe, and each
   journey ends with no page or console error, no failed request and nothing sent to another
   origin.
+- **Browser, the art** (`test/e2e/art.spec.ts`): S5's next paintings rehearsed before they exist.
+  `support/art.ts` serves a catalog of main's art plus stand-ins in the real formats (the lagoon's
+  babies, the freed Muréna, Osmička cheering, the shallows map, the lagoon, the grotto and the
+  title: cut-outs trimmed to their own boxes, scenes and maps of 1664 × 928, dark and busy on
+  purpose). A seeded child plays through them: each is drawn from the catalog, the backdrops cover
+  their screens, region markers and level nodes stay on their spots, the inked and the freed
+  Muréna share their ground, Osmička cheers beside the results, and no text sits straight on a
+  painting (`textOffPaper`), with axe on every screen.
 - **Browser, the shell** (`test/e2e/grownups.spec.ts`): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
@@ -434,10 +455,30 @@ painting's width, centred on the anchor and turned by its `rotate`. A **sticker*
 its content record, as Dragon Valley's composer does (`stickerPicture`): in one 100 × 100 box, a
 flat disc in the sticker's `color` (centre 50, 50, radius 40) drawn by the shell, S5's `frame` SVG
 over it (its rim covers the disc's edge) and the `icon` SVG on top. An ID the catalog lacks is
-drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
-marked "DEV <art id>" (`data-placeholder`), so S5's files drop in without code changes as the
-catalog grows. A catalog file outside `assets/art/` is ignored, and an unreadable catalog means
-placeholders everywhere.
+drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at the size S5 ships it
+(scenes and maps 1664 × 928, docs/art.md §3), marked "DEV <art id>" (`data-placeholder`), so S5's
+files drop in without code changes as the catalog grows and nothing moves when they do. A catalog
+file outside `assets/art/` is ignored, and an unreadable catalog means placeholders everywhere.
+
+What the shell does so that real paintings drop in:
+
+- **Backdrops** cover their screen (`object-fit: cover`, standing on the bottom edge); a placeholder
+  scene is faded, a painting is shown at full strength. The title shows `scene/title` once the
+  catalog lists it and its own open water until then: the first screen never shows a placeholder.
+- **Text over a painting sits on paper** (at least 85 % opaque), because a painting's colours are
+  not the palette's and the deep regions are dark: the grotto's greeting, a round's or a board's
+  title and meter, locked regions on the map, every card and label.
+- **The map and a region's scene** are boards as tall as their painting is for its width, sized to
+  the screen by the painting's own ratio (`--picture-ratio`); markers and level nodes sit in
+  thousandths of the painting (`game/map.ts`), so they stay on the open water S5 paints there.
+- **A monster's two forms** (`monsterForms`): S5 trims each cut-out to its own box, so the battle
+  and the freeing draw both in the inked painting's box, the freed one under the inked one, each
+  whole and standing on the box's ground, centred.
+- **Osmička cheering** (`character/osmicka/happy`): beside the results of a finished round (her
+  portrait after a stop or a rest), and in the placement check, whose questions she asks: she
+  cheers a right answer until the next miss.
+
+`test/e2e/art.spec.ts` rehearses S5's next batch before it exists (§15).
 
 ### 16.3 The screens
 
@@ -449,7 +490,7 @@ placeholders everywhere.
 | The sea map (shallows, deep), a region's levels, a level's intro                                                                         | `map.ts`, `region.ts`, `level.ts` |
 | Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`     |
 | Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                       |
-| Results with the big moments (hatching, a monster freed, a grade done)                                                                   | `results.ts`                      |
+| Results with the big moments (hatching, a monster freed, a grade done) and Osmička cheering                                              | `results.ts`                      |
 | U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                  |
 | Goodbye with the diary card                                                                                                              | `goodbye.ts`                      |
 
@@ -460,14 +501,25 @@ keyboard (`ui/czech-keyboard.ts`: the letters with diacritics, QWERTZ, Shift, sp
 take focus, so a physical keyboard works the same), a category, or a word to pick (the sentence of
 a Lov chyb, an odd one out, a related word). Read-aloud says a gap as a pause, never the spelling.
 A miss is "Skoro!" with the right answer and the strategy that helps; nothing is ever lost.
+Nápověda asks the rules once a problem (they take one hint each); a later tap shows it again. A
+hint is a strategy, never the answer: a related word, a test form, a listed-words rhyme, _ten, ta,
+nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern, a rule, a method
+to follow (S3's `grammar.method.*` lines), or a word that is not listed with its gap blanked
+(_Slovo b_lý mezi vyjmenovanými není._). Punctuation the rules give beside a sentence's words
+(`marks`: _Delfíne, skoč!_) follows each word outside the highlight and the word buttons, and is
+read aloud with it.
+Leaving the placement check from the pause ends it for good and keeps what it placed, and the pause
+dialog says so kindly: a grown-up can run it again from Pro dospělé (§14).
 
 In a battle Bublinka's bubbles wash the monster: the ink meter fills, the freed form shows through
 as the ink fades, the monster's harmless ink blots wait on the screen until the child wipes them
 away, and its jokes (`BattleView.jokeKey`) appear in a speech bubble; at the end the inked painting
 washes off in the results to the victory sting (§9) and the freed monster tells its last joke. A
 board sends each move as
-`minigameMove` and redraws from the view; pearls and fish move by tapping or with the keyboard,
-fish also by dragging. After a check that is not right yet, the pearls already in their place wear
+`minigameMove` and redraws from the view, in the order the moves were made (`controller/moves.ts`):
+a quick tap while the move before it is saving waits for it rather than being lost, and is dropped
+only when its board is done or the rules no longer allow it. Pearls and fish move by tapping or with
+the keyboard, fish also by dragging. After a check that is not right yet, the pearls already in their place wear
 a check mark (`inPlace`). In Ulita slov the child cuts the word between its letters (never inside
 "ch"), names each part with one of the asked roles and marks a zero ending ("nulová koncovka") when
 endings are asked; in Slovní rodinka the child picks every word related to the head word. A check
@@ -476,8 +528,8 @@ that is not right yet says so and leaves the board as it was.
 Layouts are touch-first for a landscape tablet. Each game screen is a size container, so a layout
 that needs room asks for it in `em` (`styles/game.css`): at 200 % text, as on a phone, the grotto
 and rounds become one column, the painted map becomes a list of region cards and a region's level
-nodes wrap in rows. Text on open water always sits on paper, targets are at least 48 px, and every
-state shows a shape or a word as well as a colour.
+nodes wrap in rows. Text on open water or a painting always sits on paper, targets are at least
+48 px, and every state shows a shape or a word as well as a colour.
 
 ### 16.4 Music and the painted maps
 

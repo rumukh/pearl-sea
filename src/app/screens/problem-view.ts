@@ -10,7 +10,8 @@
  * step's instruction: a gap that is no letters asks for its conjunction, end mark (a comma inside
  * a sentence) or standard word, and a Lov chyb of a colloquial word asks for the colloquial word.
  * `spokenProblem` is what read-aloud says: the instruction and the text, a gap said as a pause, so
- * hearing it never gives a spelling away.
+ * hearing it never gives a spelling away. Punctuation the rules give beside the tokens (`marks`:
+ * _Delfíne, skoč!_) is written after each token, outside any highlight, and read aloud with it.
  */
 import type { MessageKey, Translate } from '../i18n/messages';
 import type { ContentText } from '../content/text';
@@ -30,7 +31,21 @@ import type {
 export type StepAnswer =
   | { readonly kind: 'text'; readonly gap: Gap; readonly input: ResolvedInputMode }
   | { readonly kind: 'option'; readonly options: readonly { id: string; label: string }[] }
-  | { readonly kind: 'pick'; readonly words: readonly string[]; readonly inSentence: boolean };
+  | {
+      readonly kind: 'pick';
+      readonly words: readonly string[];
+      readonly inSentence: boolean;
+      /** The punctuation after each word of a sentence (`marks`), shown outside the buttons. */
+      readonly marks?: readonly string[];
+    };
+
+/** Tokens with the punctuation the rules give beside them (`marks`), as one reads them. */
+export function withMarks(
+  tokens: readonly string[],
+  marks: readonly string[] | undefined,
+): string[] {
+  return tokens.map((token, index) => token + (marks?.[index] ?? ''));
+}
 
 /** The gap a text step fills: a gap of the word or sentence, or the fix of a mistake. */
 export function stepGap(problem: Problem, step: number): Gap | null {
@@ -45,7 +60,12 @@ export function stepAnswer(view: ProblemView, text: ContentText): StepAnswer {
     case 'gaps':
     case 'mistake': {
       if (problem.kind === 'mistake' && step === 0) {
-        return { kind: 'pick', words: problem.tokens, inSentence: true };
+        return {
+          kind: 'pick',
+          words: problem.tokens,
+          inSentence: true,
+          ...(problem.marks ? { marks: problem.marks } : {}),
+        };
       }
       const gap = stepGap(problem, step)!;
       return { kind: 'text', gap, input: view.input };
@@ -125,7 +145,11 @@ function gapEndsSentence(problem: GapsProblem, gap: number): boolean {
 }
 
 function mistakeEndsSentence(problem: MistakeProblem): boolean {
-  return problem.wrong === problem.tokens.length - 1 && problem.around[1].trim() === '';
+  return (
+    problem.wrong === problem.tokens.length - 1 &&
+    problem.around[1].trim() === '' &&
+    (problem.marks?.[problem.wrong] ?? '') === ''
+  );
 }
 
 function blot(
@@ -183,15 +207,19 @@ export function problemDisplay(
     case 'mistake': {
       if (step === 0) {
         // The sentence itself is the answer: its words are buttons (stepAnswer is a pick).
-        return h('p', { className: 'ps-visually-hidden', text: problem.tokens.join(' ') });
+        return h('p', {
+          className: 'ps-visually-hidden',
+          text: withMarks(problem.tokens, problem.marks).join(' '),
+        });
       }
       return h(
         'p',
         { className: 'ps-problem__text', testId: 'problem-text', attributes: { lang: 'cs' } },
         ...problem.tokens.flatMap((token, index) => {
           const words: Node[] = index > 0 ? [document.createTextNode(' ')] : [];
+          const mark = problem.marks?.[index] ?? '';
           if (index !== problem.wrong) {
-            words.push(document.createTextNode(token));
+            words.push(document.createTextNode(token + mark));
             return words;
           }
           words.push(
@@ -203,6 +231,7 @@ export function problemDisplay(
               problem.around[1],
             ),
           );
+          if (mark) words.push(document.createTextNode(mark));
           return words;
         }),
       );
@@ -218,6 +247,7 @@ export function problemDisplay(
             index === context.at
               ? h('mark', { className: 'ps-problem__mark', text: token })
               : document.createTextNode(token),
+            ...(context.marks?.[index] ? [document.createTextNode(context.marks[index])] : []),
           ]),
         );
       }
@@ -267,9 +297,13 @@ export function spokenProblem(view: ProblemView, t: Translate): string {
         .map((part) => (part.kind === 'text' ? part.text : '…'))
         .join('')}`;
     case 'mistake':
-      return `${prompt} ${problem.tokens.join(' ')}`;
+      return `${prompt} ${withMarks(problem.tokens, problem.marks).join(' ')}`;
     case 'classify':
-      return `${prompt} ${problem.context ? problem.context.tokens.join(' ') : problem.target.text}`;
+      return `${prompt} ${
+        problem.context
+          ? withMarks(problem.context.tokens, problem.context.marks).join(' ')
+          : problem.target.text
+      }`;
     case 'odd':
       return `${prompt} ${problem.words.map((word) => word.text).join(', ')}`;
     case 'relation':
@@ -329,11 +363,18 @@ export function stepHint(problem: Problem, step: number): Hint | null {
 }
 
 /**
- * A hint in words (docs/design.md §5.3): a related word, a test form, a rhyme, a question. Hints
- * are optional help, so one whose content string the pack lacks is `null` and simply not shown,
- * never an error in the middle of a round.
+ * A hint in words (docs/design.md §5.3): a related word, a test form, a rhyme, a question, the way
+ * to find an answer step by step, or a word that is not listed, with its gap blanked (_b_lý_:
+ * spelled out it would be the answer). Hints are optional help, so one whose content string or
+ * word the pack lacks is `null` and simply not shown, never an error in the middle of a round.
+ * `lemmaOf` gives a lexicon word's lemma.
  */
-export function hintText(hint: Hint, t: Translate, text: ContentText): string | null {
+export function hintText(
+  hint: Hint,
+  t: Translate,
+  text: ContentText,
+  lemmaOf: (word: string) => string | null,
+): string | null {
   const content = (key: string): string | null => (text.has(key) ? text(key) : null);
   switch (hint.kind) {
     case 'family':
@@ -343,7 +384,7 @@ export function hintText(hint: Hint, t: Translate, text: ContentText): string | 
     case 'listed':
       return content(`grammar.listed.${hint.letter}`);
     case 'ten-ta-to':
-      return t('hint.tenTaTo');
+      return t(hint.plural ? 'hint.tenTaToPlural' : 'hint.tenTaTo');
     case 'case-question':
       return content(`grammar.case-question.${hint.case}`);
     case 'pattern': {
@@ -352,11 +393,15 @@ export function hintText(hint: Hint, t: Translate, text: ContentText): string | 
     }
     case 'rule':
       return content(`grammar.rule.${hint.rule}`);
-    // S2's placeholders until the shell renders these kinds (contract §5.3): the method's content
-    // line, and the obojetná-i rule line for a word that is not listed.
     case 'method':
       return content(`grammar.method.${hint.method}`);
-    case 'not-listed':
-      return content('grammar.rule.obojetna-i');
+    case 'not-listed': {
+      const lemma = lemmaOf(hint.word);
+      if (lemma === null) return null;
+      const letters = [...lemma];
+      const [start, end] = hint.span;
+      const blanked = [...letters.slice(0, start), '_'.repeat(end - start), ...letters.slice(end)];
+      return t('hint.notListed', { word: blanked.join('') });
+    }
   }
 }

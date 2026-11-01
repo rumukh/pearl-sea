@@ -166,6 +166,22 @@ export function diverSaveStatus(
   });
 }
 
+/**
+ * The save status where a screen has no top bar (a story beat, the eggs, the results, goodbye),
+ * in the screen's top corner: every screen of a child's game shows "Hra je otevřená jinde" with
+ * its reopen button, so an action refused there never leaves the child stuck.
+ */
+export function cornerSaveStatus(
+  app: App,
+  active: ActiveDiver,
+): { readonly element: HTMLElement; dispose(): void } {
+  const status = diverSaveStatus(app, active);
+  return {
+    element: h('div', { className: 'ps-corner-save' }, status.element),
+    dispose: status.dispose,
+  };
+}
+
 /** Offer `text` as a file download without putting a link into the page. */
 export function downloadText(fileName: string, text: string, type = 'application/json'): void {
   const url = URL.createObjectURL(new Blob([text], { type }));

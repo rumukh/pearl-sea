@@ -16,7 +16,7 @@
  * answer goes through the command controller (stale-view guard, strict save); Escape or the pause
  * button pauses the game.
  */
-import { dressedFriend, picture } from '../art/picture';
+import { dressedFriend, monsterForms, picture } from '../art/picture';
 import { CommandRejectedError } from '../controller/commands';
 import { createResponseTimer } from '../game/timer';
 import { findFriend } from '../game/view';
@@ -192,27 +192,28 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     }
   };
 
-  /** The friend being fed, the monster being washed, or Osmička for the placement check. */
+  /** A lexicon word's lemma, for a hint that shows a word (`not-listed`, its gap blanked). */
+  const lemmaOf = (id: string): string | null =>
+    data.lexicon.words.find((word) => word.id === id)?.lemma ?? null;
+
+  /** Osmička, where she keeps the child company, cheers after a right step until the next miss. */
+  let guideCheers = false;
+
+  /**
+   * The friend being fed, the monster being washed, or Osmička: she asks the placement check's
+   * questions (the rules' friend there is only the first one owned, often still an egg).
+   */
   const paintCompanion = (view: GameView): void => {
     const round = problemRound(view);
     if (round?.battle) {
       const left = round.battle.target > 0 ? 1 - round.battle.washed / round.battle.target : 0;
       // The freed form shows through as the ink washes off; the last of it goes in the results.
-      const monster = h(
-        'div',
-        {
-          className: 'ps-round__monster',
-          testId: 'battle-monster',
-          dataset: { monster: round.battle.monster, washed: String(round.battle.washed) },
-        },
-        picture(app.art, ART.monster(round.battle.monster, 'freed'), {
-          className: 'ps-round__monster-freed',
-        }),
-        picture(app.art, ART.monster(round.battle.monster, 'inked'), {
-          className: 'ps-round__monster-inked',
-          alt: text(round.battle.nameKey),
-        }),
-      );
+      const monster = monsterForms(app.art, round.battle.monster, {
+        className: 'ps-round__monster',
+        testId: 'battle-monster',
+        alt: text(round.battle.nameKey),
+      });
+      monster.dataset['washed'] = String(round.battle.washed);
       monster.style.setProperty('--ink-left', String(Math.max(0, Math.min(1, left))));
       showJoke(round.battle.jokeKey);
       companion.replaceChildren(
@@ -226,7 +227,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       );
       return;
     }
-    const friendId = round?.friend?.id ?? null;
+    const friendId = round?.placement ? null : (round?.friend?.id ?? null);
     const friend = friendId ? findFriend(view, friendId) : undefined;
     if (friend) {
       companion.replaceChildren(
@@ -249,8 +250,12 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     companion.replaceChildren(
       h(
         'div',
-        { className: 'ps-round__friend', testId: 'round-friend' },
-        picture(app.art, ART.character(GUIDE_ID)),
+        {
+          className: 'ps-round__friend',
+          testId: 'round-friend',
+          dataset: { guide: GUIDE_ID, expression: guideCheers ? 'happy' : 'idle' },
+        },
+        picture(app.art, guideCheers ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID)),
       ),
     );
   };
@@ -315,13 +320,15 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
   // ---- one problem -------------------------------------------------------------------------------
   const hintButton = (problem: ProblemView): HTMLElement[] => {
     const hint = stepHint(problem.problem, problem.step);
-    const line = hint ? hintText(hint, t, text) : null;
+    const line = hint ? hintText(hint, t, text, lemmaOf) : null;
     if (line === null) return [];
     const show = (): void => {
       hintSlot.textContent = line;
       hintSlot.hidden = false;
     };
     if (problem.hinted) show();
+    /** A dispatch in flight: a quick second tap waits for it rather than asking twice. */
+    let asking: Promise<unknown> | null = null;
     return [
       candyButton({
         label: t('round.hint'),
@@ -331,7 +338,19 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         keepsFocus: true,
         testId: 'round-hint',
         onPress: async () => {
-          if (!shown?.hinted) await active.commands.capture()({ type: 'hint' });
+          // The rules take one hint per problem: read the live view, since this problem's view
+          // was drawn before the hint, and once it is taken a tap only shows the hint again.
+          const live = problemRound(active.game.view())?.problem;
+          if (live && live.index === problem.index && !live.hinted) {
+            asking ??= active.commands
+              .capture()({ type: 'hint' })
+              .finally(() => {
+                asking = null;
+              });
+            await asking;
+          } else if (asking) {
+            await asking;
+          }
           send = active.commands.captureSend();
           show();
         },
@@ -449,9 +468,15 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
               'aria-label': t(promptKey(problem.problem, problem.step)),
             },
           },
-          ...words.flatMap((button, index) =>
-            answer.inSentence && index > 0 ? [document.createTextNode(' '), button] : [button],
-          ),
+          // A word's punctuation follows its button, never inside it: the word alone is the pick.
+          ...words.flatMap((button, index) => {
+            const mark = answer.marks?.[index] ?? '';
+            return [
+              ...(answer.inSentence && index > 0 ? [document.createTextNode(' ')] : []),
+              button,
+              ...(mark ? [document.createTextNode(mark)] : []),
+            ];
+          }),
         ),
       );
       answerSlot.dataset['input'] = 'pick';
@@ -550,7 +575,8 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     if (round.battle) {
       app.kit.cue('fx.bubble');
       await fly(source, companion.querySelector('[data-testid="battle-monster"]'), 'bubble');
-    } else {
+    } else if (!round.placement) {
+      // A snack for the friend; Osmička, asking the placement check, cheers instead (below).
       await fly(source, companion.querySelector('[data-testid="round-friend"]'), 'snack');
     }
     if (result.ambush?.splashed) {
@@ -559,6 +585,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       app.kit.announcer.announce(t('ambush.splashed'));
     }
     if (result.coins > 0) await coins.gain(result.coins, source);
+    guideCheers = true;
     paintCompanion(after);
     updateProgress(round);
     await new Promise((resolve) =>
@@ -581,7 +608,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       ),
     );
     const hint = stepHint(asked.problem, asked.step);
-    const hintLine = hint ? hintText(hint, t, text) : null;
+    const hintLine = hint ? hintText(hint, t, text, lemmaOf) : null;
     const said = missText(asked.problem, asked.step, result.expected, t, text);
     setFeedback(
       'miss',
@@ -601,6 +628,10 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     );
     if (result.ambush && !result.ambush.splashed) {
       app.kit.announcer.announce(t('ambush.stayed'));
+    }
+    if (guideCheers) {
+      guideCheers = false;
+      paintCompanion(after);
     }
     const round = problemRound(after);
     if (round) updateProgress(round);
@@ -675,13 +706,17 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       testId: 'pause-dialog',
       dismissValue: 'resume',
       build(body, close) {
+        // Leaving the placement check ends it for good, keeping what was placed: say so kindly.
         body.append(
-          h('p', { text: t('pause.body') }),
+          h('p', {
+            testId: 'pause-body',
+            text: t(placement ? 'pause.placementBody' : 'pause.body'),
+          }),
           h(
             'div',
             { className: 'ps-dialog__actions' },
             candyButton({
-              label: t('pause.quit'),
+              label: t(placement ? 'pause.placementQuit' : 'pause.quit'),
               variant: 'paper',
               testId: 'pause-quit',
               onPress: () => close('quit'),

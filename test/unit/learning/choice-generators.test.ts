@@ -135,6 +135,26 @@ function bareClash(data: ContentData, word: Word): boolean {
 const shownAlone = (word: Word, dimension: string) =>
   dimension === 'reflexive' && word.verb !== undefined ? bareOf(word) : word.lemma;
 
+/**
+ * The punctuation after each word of a filled sentence, the oracle's way: the text split into
+ * runs of letters and runs of marks, each run of marks going to the word before it. `null` when
+ * those words are not `tokens` (or a mark comes first).
+ */
+function marksOf(plain: string, tokens: readonly string[]): string[] | null {
+  const words: string[] = [];
+  const marks: string[] = [];
+  for (const run of plain.match(/[^\s\p{P}\p{S}]+|[\p{P}\p{S}]+/gu) ?? []) {
+    if (/^[\p{P}\p{S}]+$/u.test(run)) {
+      if (words.length === 0) return null;
+      marks[marks.length - 1] += run;
+    } else {
+      words.push(run);
+      marks.push('');
+    }
+  }
+  return isDeepStrictEqual(words, [...tokens]) ? marks : null;
+}
+
 /** Whether two families share a root (`kin`, listed on either side). */
 function kin(data: ContentData, a: string | undefined, b: string | undefined): boolean {
   if (a === undefined || b === undefined) return false;
@@ -393,9 +413,12 @@ function classTargetOf(
     const at = Number(parsed.detail);
     const token = tokens[at];
     if (token === undefined) return null;
+    const texts = tokens.map((t) => t.t);
+    const marks = marksOf(filledSentence(c.data, sentence.id).plain, texts);
+    if (marks === null) say('target', `the tokens of ${sentence.id} are not its words`);
     return {
       target: { word: token.word ?? null, text: token.t },
-      context: { tokens: tokens.map((t) => t.t), at },
+      context: marks === null ? { tokens: texts, at } : { tokens: texts, at, marks },
       span: null,
     };
   }
@@ -446,11 +469,12 @@ function classHintOf(c: Case, problem: ClassifyProblem): Hint | null {
       return { kind: 'ten-ta-to', gender: gender === 'm' ? (animate ? 'ma' : 'mi') : gender };
     }
     case 'case':
-      return { kind: 'case-question', case: Number(problem.correct) } as Hint;
     case 'pattern':
-      return problem.context === null && problem.span === null && word?.noun?.pattern
-        ? { kind: 'pattern', pattern: word.noun.pattern }
-        : null;
+    case 'tense':
+    case 'mood':
+    case 'verb-form':
+      // The method, never the case question or the pattern: those name the answer (S3's QA).
+      return { kind: 'method', method: problem.dimension };
     default:
       return null;
   }
@@ -676,7 +700,12 @@ function checkRelation(c: Case, problem: RelationProblem, say: Say): void {
       say('tempting', `${shown.lemma}: none of ${tempting.map((w) => w.lemma)} is offered`);
     }
   }
-  if (problem.hint !== null) say('hint', `a relation hints ${JSON.stringify(problem.hint)}`);
+  // A sound-alike pair hints how such words differ (the method); other relations hint nothing.
+  const relationHint: Hint | null =
+    problem.relation === 'sound-alike' ? { kind: 'method', method: 'sound-alike' } : null;
+  if (!isDeepStrictEqual(problem.hint, relationHint)) {
+    say('hint', `a ${problem.relation} relation hints ${JSON.stringify(problem.hint)}`);
+  }
 }
 
 function violations(c: Case): { check: Check; message: string }[] {

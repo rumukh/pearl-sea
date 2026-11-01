@@ -76,11 +76,14 @@ ok answer) can go unannounced; scheduling never reads it.
   the wrong token, step 1 writes the gap right; a wrong find still leads to the fix.
 - **`classify`**: the skill's `values` (every value of the dimension when `null`) in the dimension's
   school order (`DIMENSION_VALUES`), never shuffled; the target as the child reads it: the consonant
-  letter, the word, the form (`formCells`), a token of its sentence (`context`), a part of the word
+  letter, the word, the form (`formCells`), a token of its sentence (`context`, with each token's
+  `marks`, the punctuation right after it, read from the filled sentence: the comma of address
+  decides _Delfíne, skoč!_), a part of the word
   (`span`, a zero ending the empty span after the last letter), or the whole sentence (`word:
 null`, at most 240 characters, without its end mark for `sentence-kind`). A word on its own is
-  never one written like another lexicon word. Hints: _ten, ta, to_ for gender, the case question,
-  the pattern.
+  never one written like another lexicon word. Hints: _ten, ta, to_ for gender; the `method` of
+  the case, the pattern, the tense, the mood and the verb form (never the case question or the
+  pattern, which name the answer).
 - **`odd-one-out`**: 3 to the skill's `size` words, the drawn item's word among the ones that
   belong, exactly one differing on the basis (a word dimension, the family, listed or not). The
   companions are the skill's words (a family set may add its family's other members, of the
@@ -109,9 +112,12 @@ alphabet), so the answer's place on the pad tells nothing; an end mark offers on
 since after a command a full stop is right too. A gap that is a whole word (a conjunction, _mě_ or
 _mně_, a word with or without a space, a standard word) is never typed: the child could not know
 which word to type, and another one may be right too. Hints follow design §5.3: `vyjm` the family
-word (the rhyme for a head word), `obojetna-i` the rule line (never the rhyme, which lists only
-y-words and may hold a look-alike: _být_ for _bít_), `parova` and `u-uprostred` the test word,
-`mne-zajmeno` the case question, `shoda` _ten, ta, to_, `vzor` the pattern, other rules the rule.
+word (the rhyme for a head word); `obojetna-i` after a listed letter `not-listed` with the gap's
+`span` (never the rhyme, which lists only y-words and may hold a look-alike: _být_ for _bít_), else
+the rule line; `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
+_ten, ta, to_ (`plural` for a plural subject: _ti, ty, ta_), `vzor` the pattern, other rules the
+rule. Classifications hint the gender test, or the `method` of the case, the pattern, the tense,
+the mood and the verb form; a sound-alike relation hints its `method`.
 A verb asked for its reflexive pronoun is shown without it (_bát_, not _bát se_), alone, on a net or
 in an odd-one-out set; a verb that shown so is another lexicon verb with another pronoun (_hrát_,
 _hrát si_) is not asked.

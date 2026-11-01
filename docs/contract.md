@@ -190,13 +190,13 @@ blots and the letter pad, and the verbalizer reads them aloud. Every problem is 
 
 ### 5.1 Problem kinds
 
-| Kind       | What the child does                                                                       | Fields                                                                                                           | Steps             |
-| ---------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `gaps`     | fills the ink-blot gaps of a word or sentence, one gap per step (Krmení, Inkoustová věta) | `sentence` (ID or null), `parts` (text and gap parts), `gaps[]`                                                  | one per gap (1-3) |
-| `classify` | names one dimension of a word, a form, a token or a sentence (Určování)                   | `dimension`, `target {word, text}`, `context {tokens, at}` or null, `span` or null, `options`, `correct`, `hint` | 1                 |
-| `odd`      | picks the word that does not belong                                                       | `basis` (a dimension, `family` or `listed`), `words[]`, `correct` (index), `hint`                                | 1                 |
-| `relation` | picks the synonym, antonym, general word, … of a word                                     | `relation`, `target`, `options[]`, `correct` (index), `hint`                                                     | 1                 |
-| `mistake`  | taps the word the ink spelled wrong, then fixes it (Lov chyb)                             | `sentence`, `tokens` (one misspelled), `wrong` (index), `fix` (a gap), `around` (the token split around the fix) | 2: find, then fix |
+| Kind       | What the child does                                                                       | Fields                                                                                                                     | Steps             |
+| ---------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `gaps`     | fills the ink-blot gaps of a word or sentence, one gap per step (Krmení, Inkoustová věta) | `sentence` (ID or null), `parts` (text and gap parts), `gaps[]`                                                            | one per gap (1-3) |
+| `classify` | names one dimension of a word, a form, a token or a sentence (Určování)                   | `dimension`, `target {word, text}`, `context {tokens, at, marks?}` or null, `span` or null, `options`, `correct`, `hint`   | 1                 |
+| `odd`      | picks the word that does not belong                                                       | `basis` (a dimension, `family` or `listed`), `words[]`, `correct` (index), `hint`                                          | 1                 |
+| `relation` | picks the synonym, antonym, general word, … of a word                                     | `relation`, `target`, `options[]`, `correct` (index), `hint`                                                               | 1                 |
+| `mistake`  | taps the word the ink spelled wrong, then fixes it (Lov chyb)                             | `sentence`, `tokens` (one misspelled), `marks?`, `wrong` (index), `fix` (a gap), `around` (the token split around the fix) | 2: find, then fix |
 
 A **gap** is `{ correct, options, keys, rule, word, item, hint }`: `correct` is the right text (a
 letter group such as `ý`, `mně`, or a whole token such as `odplavala`), `options` are 2-4 choices
@@ -208,8 +208,15 @@ the parts of speech 1-10, the patterns by gender), never shuffled, so each value
 screen. A classification of a whole sentence (`sentence-kind`, `clauses`) shows the sentence itself
 as its `target` (`word: null`, `text` up to 240 characters; for `sentence-kind` without its end
 mark, which would give the kind away) and has no `context`; every other `target` and word is a
-token of at most 64 characters. `problemSchema` checks the fields and that the problem is coherent:
-the answer is offered, every gap appears exactly once and in order, indices are in range.
+token of at most 64 characters. **Marks** (`marks`, optional) are the punctuation written right
+after each token (`''` for none, at most 4 characters, never a letter, a digit or a space), one
+entry per token: _Delfíne, skoč!_ is `tokens: ['Delfíne', 'skoč']`, `marks: [',', '!']`. Without
+the comma of address, _Delfíni pojďte_ reads as a subject. A classification's `context` carries
+them; Lov chyb's `marks`, when present, means its `tokens` and `around` hold no marks (_dosita_
+and `.`, not _dosita._). The shell writes each token, then its mark, outside the highlight.
+`problemSchema` checks the fields and that the problem is coherent:
+the answer is offered, every gap appears exactly once and in order, indices are in range, and
+`marks` has one entry per token.
 
 ### 5.2 Answers and steps
 
@@ -226,15 +233,24 @@ does not answer `V`. A problem's steps are answered one by one; a wrong step is 
 
 A hint shows the strategy, not just the answer (design.md):
 
-| Hint            | Shows                                                   |
-| --------------- | ------------------------------------------------------- |
-| `family`        | a related word that proves the spelling (mlýn → mlynář) |
-| `test-word`     | a form that makes the sound clear (hrad → hrady)        |
-| `listed`        | the school rhyme of the listed words of a letter        |
-| `ten-ta-to`     | the gender test (ten pes, ta ryba, to moře)             |
-| `case-question` | the case question (koho? čeho?)                         |
-| `pattern`       | the pattern and its ending (o hradech, o strojích)      |
-| `rule`          | the general explanation of a spelling rule              |
+| Hint            | Shows                                                                                                 |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `family`        | a related word that proves the spelling (mlýn → mlynář)                                               |
+| `test-word`     | a form that makes the sound clear (hrad → hrady)                                                      |
+| `listed`        | the school rhyme of the listed words of a letter                                                      |
+| `ten-ta-to`     | the gender test (ten pes, ta ryba, to moře); with `plural: true` a plural subject's (ti, ty, ta)      |
+| `case-question` | the case question (koho? čeho?)                                                                       |
+| `pattern`       | the pattern and its ending (o hradech, o strojích)                                                    |
+| `rule`          | the general explanation of a spelling rule                                                            |
+| `method`        | how to find the answer (`HINT_METHODS`: case, pattern, tense, mood, verb-form, sound-alike), never it |
+| `not-listed`    | the word is not a listed word, so i: the lemma with `span` blanked (b_lý), never spelled out          |
+
+`method` is the content line `grammar.method.<method>`, with no parameters: the case questions in
+turn, the pattern from the gender and the 1st and 2nd case, and so on. A classification of the
+case, the pattern, the tense, the mood or the verb form hints its method, since the case question
+or the pattern would name the answer; a sound-alike relation hints `sound-alike`. An `obojetna-i`
+gap after a listed letter hints `not-listed`; `span` is `[start, end)` in code points of the lemma,
+the gap's letters.
 
 ### 5.4 Item IDs and mastery
 
@@ -527,7 +543,8 @@ those a skill can show, and the gate requires them): a category value `v` of dim
 `grammar.gender-class.mi`); a case also has its question, `grammar.case-question.<n>`; a spelling rule's
 hint is `grammar.rule.<rule>`, and the listed-word rule shows each letter's school rhyme,
 `grammar.listed.<letter>`; relations are `grammar.relation.<relation>` and word parts
-`grammar.segment.<role>`.
+`grammar.segment.<role>`; a method hint is `grammar.method.<method>`, needed by the
+classifications of a dimension with a method and by sound-alike relations (`grammarKeys`).
 
 Czech text follows Czech typography („…“, ‚…‘, …, –, no space before punctuation) and uses only
 characters of the reading font (Pearl Reading, the Andika subset); the gate checks both.

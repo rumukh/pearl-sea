@@ -37,6 +37,7 @@ import {
 import { DIMENSION_VALUES, skillItems, skillSchema } from './skills';
 import type { Skill } from './skills';
 import { LISTED_LETTERS } from './language';
+import { HINT_METHODS } from './problems';
 import { GROWN_UPS_KEY_PREFIX } from './catalogs';
 
 type Read<T> = DeepReadonly<T>;
@@ -1337,7 +1338,9 @@ export function collectCatalogKeys(data: Read<ContentData>): { key: string; wher
  * `grammar.pos.noun`, `grammar.pattern.hrad`) and a case also has its question
  * (`grammar.case-question.7`); a spelling rule's hint is `grammar.rule.<rule>`, and the listed-word
  * rule shows the school rhyme of each letter (`grammar.listed.<letter>`); a relation is
- * `grammar.relation.<relation>` and a part of a word `grammar.segment.<role>`.
+ * `grammar.relation.<relation>` and a part of a word `grammar.segment.<role>`; a classification
+ * of a dimension with a method hint (`HINT_METHODS`) and a sound-alike relation show
+ * `grammar.method.<method>`.
  */
 export function grammarKeys(skill: Read<Skill>): string[] {
   const keys: string[] = [];
@@ -1346,6 +1349,9 @@ export function grammarKeys(skill: Read<Skill>): string[] {
       keys.push(`grammar.${dimension}.${value}`);
       if (dimension === 'case') keys.push(`grammar.case-question.${value}`);
     }
+  };
+  const method = (name: string) => {
+    if ((HINT_METHODS as readonly string[]).includes(name)) keys.push(`grammar.method.${name}`);
   };
   switch (skill.generator) {
     case 'spell.word':
@@ -1361,6 +1367,7 @@ export function grammarKeys(skill: Read<Skill>): string[] {
         skill.params.dimension,
         skill.params.values ?? DIMENSION_VALUES[skill.params.dimension],
       );
+      method(skill.params.dimension);
       break;
     case 'sort':
       values(skill.params.dimension, skill.params.values);
@@ -1372,6 +1379,7 @@ export function grammarKeys(skill: Read<Skill>): string[] {
       break;
     case 'relation':
       for (const relation of skill.params.relations) keys.push(`grammar.relation.${relation}`);
+      if (skill.params.relations.includes('sound-alike')) method('sound-alike');
       break;
     case 'segment':
       for (const role of skill.params.roles) keys.push(`grammar.segment.${role}`);

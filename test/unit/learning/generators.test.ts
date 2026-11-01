@@ -254,10 +254,19 @@ function expectedHint(
       if (family.head !== word.id) return { kind: 'family', word: word.id, related: family.head };
       return family.letter !== null ? { kind: 'listed', letter: family.letter } : ruleHint;
     }
-    case 'obojetna-i':
-      // The rule line, never the rhyme of y-words (S3's Czech QA: a look-alike in it, být for bít,
-      // would confirm the slip).
-      return ruleHint;
+    case 'obojetna-i': {
+      // After a listed letter: not listed, shown with its gap; never the rhyme of y-words (S3's
+      // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line.
+      const letters = word ? [...word.lemma.toLowerCase()] : [];
+      const before = point && point.at > 0 ? letters[point.at - 1] : undefined;
+      return word && point && before !== undefined && 'blmpsvz'.includes(before)
+        ? {
+            kind: 'not-listed',
+            word: word.id,
+            span: [point.at, point.at + [...point.correct].length],
+          }
+        : ruleHint;
+    }
     case 'parova':
     case 'u-uprostred':
       return word && point?.test !== undefined
@@ -266,9 +275,13 @@ function expectedHint(
     case 'mne-zajmeno':
       return gap?.case !== undefined ? { kind: 'case-question', case: gap.case } : ruleHint;
     case 'shoda': {
+      // A plural subject's test: ti, ty, ta (ty děti → -y), never to dítě.
       const subject = gap?.subjects?.[0];
-      const gender = subject === undefined ? undefined : sentence?.tokens?.[subject]?.gender;
-      return gender !== undefined ? { kind: 'ten-ta-to', gender } : ruleHint;
+      const token = subject === undefined ? undefined : sentence?.tokens?.[subject];
+      if (token?.gender === undefined) return ruleHint;
+      return token.number === 'pl'
+        ? { kind: 'ten-ta-to', gender: token.gender, plural: true }
+        : { kind: 'ten-ta-to', gender: token.gender };
     }
     case 'vzor':
       return word?.noun?.pattern ? { kind: 'pattern', pattern: word.noun.pattern } : ruleHint;
@@ -1467,13 +1480,18 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the rule line for an obojetna-i gap, never the rhyme of y-words', () => {
+  it('say after a listed letter that an obojetna-i word is not listed, shown with its gap, never the rhyme of y-words', () => {
     // S3's Czech QA: the rhyme lists only y-words, so for an i it points the wrong way, and a
-    // look-alike in it (být for bít) confirms the slip.
-    expect(hint(mini, 'biit')).toEqual({ kind: 'rule', rule: 'obojetna-i' });
+    // look-alike in it (být for bít) confirms the slip. The shell shows b_t, never bít.
+    expect(hint(mini, 'biit')).toEqual({ kind: 'not-listed', word: 'biit', span: [1, 2] });
+    // After f, which lists no words: the rule line.
     const fialka = made('fialka', 'fialka');
     const point: SpellingPoint = { at: 1, correct: 'i', alt: ['y'], rule: 'obojetna-i' };
     expect(gapHint(mini, 'obojetna-i', fialka, point, null)).toEqual({
+      kind: 'rule',
+      rule: 'obojetna-i',
+    });
+    expect(gapHint(mini, 'obojetna-i', null, null, null)).toEqual({
       kind: 'rule',
       rule: 'obojetna-i',
     });
@@ -1490,7 +1508,7 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the case question for mne-zajmeno, ten-ta-to for shoda, the pattern for vzor', () => {
+  it('show the case question for mne-zajmeno, ti-ty-ta for a plural subject of shoda, the pattern for vzor', () => {
     const dej = {
       sentence: {
         id: 's.dej',
@@ -1514,6 +1532,19 @@ describe('hints (design §5.3)', () => {
     const ryby = lexiconIndex(mini).sentences.get('s.ryby-1')!;
     expect(
       gapHint(mini, 'shoda', null, null, { parsed: ryby, gap: ryby.sentence.gaps[0]! }),
+    ).toEqual({ kind: 'ten-ta-to', gender: 'f', plural: true });
+    // A singular subject keeps ten, ta, to.
+    const singular = {
+      ...ryby,
+      sentence: {
+        ...ryby.sentence,
+        tokens: ryby.sentence.tokens!.map((token, at) =>
+          at === 0 ? { ...token, number: 'sg' as const } : token,
+        ),
+      },
+    } as ParsedSentence;
+    expect(
+      gapHint(mini, 'shoda', null, null, { parsed: singular, gap: ryby.sentence.gaps[0]! }),
     ).toEqual({ kind: 'ten-ta-to', gender: 'f' });
     const stroj = made('stroj', 'stroj', {
       noun: { gender: 'm', animate: false, numbers: 'both', pattern: 'stroj' },

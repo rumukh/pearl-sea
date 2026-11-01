@@ -45,7 +45,7 @@ const REVISIONS: Readonly<Record<string, string>> = {
   '1.2.1': '0bbc9d8dcd97870f', // the Krakatice's battle reaches its cap of 40 (design §7.1)
   '1.2.2': '39f6a398bd6aadc0', // balance: grown at 70 % bronze, a streak bonus every 10, chest 1-3
   '1.2.3': '69bff61d6002994d', // led, přístav, Bublinka and Osmička asked only in sentences
-  '1.2.4': 'f676069ae7022e90', // the Czech QA of regions 2-12: partner words, antonyms, simple verb forms
+  '1.2.4': 'e5eae91473499ccd', // the Czech QA of regions 2-12; Bublinka and Osmička back in Krmení
 };
 
 /** Generators that make boards, not problems: their items are trained only by minigames. */

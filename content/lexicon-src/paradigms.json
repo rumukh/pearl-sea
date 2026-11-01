@@ -110,6 +110,18 @@
       "sg": ["bublina", "bubliny", "bublině", "bublinu", "bublino", "bublině", "bublinou"],
       "pl": ["bubliny", "bublin", "bublinám", "bubliny", "bubliny", "bublinách", "bublinami"]
     },
+    "bublinka": {
+      "sg": ["bublinka", "bublinky", "bublince", "bublinku", "bublinko", "bublince", "bublinkou"],
+      "pl": [
+        "bublinky",
+        "bublinek",
+        "bublinkám",
+        "bublinky",
+        "bublinky",
+        "bublinkách",
+        "bublinkami"
+      ]
+    },
     "bublinka.ponorka": {
       "sg": ["Bublinka", "Bublinky", "Bublince", "Bublinku", "Bublinko", "Bublince", "Bublinkou"]
     },
@@ -1638,6 +1650,10 @@
         "fpl": "opylovaly",
         "npl": "opylovala"
       }
+    },
+    "osmicxka": {
+      "sg": ["osmička", "osmičky", "osmičce", "osmičku", "osmičko", "osmičce", "osmičkou"],
+      "pl": ["osmičky", "osmiček", "osmičkám", "osmičky", "osmičky", "osmičkách", "osmičkami"]
     },
     "osmicxka.profesorka": {
       "sg": ["Osmička", "Osmičky", "Osmičce", "Osmičku", "Osmičko", "Osmičce", "Osmičkou"]

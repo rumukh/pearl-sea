@@ -3268,6 +3268,8 @@
               "eva",
               "aliik",
               "ferda",
+              "bublinka.ponorka",
+              "osmicxka.profesorka",
               "vltava",
               "praha",
               "cxesko",
@@ -3713,7 +3715,18 @@
         "generator": "spell.word",
         "params": {
           "words": {
-            "words": ["petr", "eva", "aliik", "ferda", "vltava", "praha", "cxesko", "snexzxka"],
+            "words": [
+              "petr",
+              "eva",
+              "aliik",
+              "ferda",
+              "bublinka.ponorka",
+              "osmicxka.profesorka",
+              "vltava",
+              "praha",
+              "cxesko",
+              "snexzxka"
+            ],
             "grades": [3]
           },
           "rules": ["velke-pismeno"],
@@ -9201,8 +9214,7 @@
           "sk.lagoon.letters-both",
           "sk.lagoon.abc",
           "sk.lagoon.bpvm",
-          "sk.lagoon.capitals",
-          "sk.lagoon.capital-mistakes"
+          "sk.lagoon.capitals"
         ],
         "monster": "murena-mumla"
       },
@@ -15003,6 +15015,40 @@
                 "bubliny",
                 "bublinách",
                 "bublinami"
+              ]
+            }
+          }
+        },
+        {
+          "id": "bublinka",
+          "lemma": "bublinka",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["capitals"],
+          "tags": [],
+          "src": ["ssjc", "morfflex"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": [
+                "bublinka",
+                "bublinky",
+                "bublince",
+                "bublinku",
+                "bublinko",
+                "bublince",
+                "bublinkou"
+              ],
+              "pl": [
+                "bublinky",
+                "bublinek",
+                "bublinkám",
+                "bublinky",
+                "bublinky",
+                "bublinkách",
+                "bublinkami"
               ]
             }
           }
@@ -22219,6 +22265,32 @@
           },
           "family": { "id": "vyjm-p.pyl", "role": "related" },
           "spelling": [{ "at": 2, "correct": "y", "alt": ["i"], "rule": "vyjm" }]
+        },
+        {
+          "id": "osmicxka",
+          "lemma": "osmička",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["capitals"],
+          "tags": [],
+          "src": ["ssjc", "morfflex"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": ["osmička", "osmičky", "osmičce", "osmičku", "osmičko", "osmičce", "osmičkou"],
+              "pl": [
+                "osmičky",
+                "osmiček",
+                "osmičkám",
+                "osmičky",
+                "osmičky",
+                "osmičkách",
+                "osmičkami"
+              ]
+            }
+          }
         },
         {
           "id": "osmicxka.profesorka",

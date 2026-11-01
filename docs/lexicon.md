@@ -133,7 +133,7 @@ the _ú/ů_ rules, the vowel's short and long form for `delka`, the consonant pa
 small and capital letter for `velke-pismeno`, the gap's own alternatives otherwise. When one of
 these spells another word or form of the bank (_být – bít_, _vila – víla_, _děti – dětí_, _dál –
 dal_), the word alone cannot decide, so the game asks that point only in a sentence. The checker
-lists these points (`model.ambiguous`, 42 now) and fails when one has no sentence with a gap on it.
+lists these points (`model.ambiguous`, 44 now) and fails when one has no sentence with a gap on it.
 A partner word is in the bank even when no exercise asks it, because the other word is then asked
 in a sentence. The review of the generated problems found them (§5):
 
@@ -148,6 +148,8 @@ in a sentence. The review of the generated problems found them (§5):
 | _slepýš_            | _slepit_ (_slepíš_)            |
 | _vy_                | _vědět_ (_ví_)                 |
 | _vjet_              | _věta_ (_vět_)                 |
+| _Bublinka_          | _bublinka_                     |
+| _Osmička_           | _osmička_                      |
 
 A word that would need a rare partner word, or one that brings a family with it, is instead left
 out of the exercises that ask single words. It is then asked only in sentences:
@@ -155,15 +157,13 @@ out of the exercises that ask single words. It is then asked only in sentences:
 - _nabít_ (_nabýt_ would join the _být_ family);
 - _pobyt_ (_pobýt_ would join it too).
 
-The names _Bublinka_ and _Osmička_ need the common nouns _bublinka_ and _osmička_ as partners. The
-contract's i/y check still reads a pair that differs only in a capital as an i/y pair. Until it
-can tell them apart, the two names are left out of the exercises that ask single words, so they
-are asked only in sentences.
+A name and its common noun are never an _i/y_ pair for the contract ([contract.md](contract.md)
+§8.7), so _bublinka_ and _osmička_ are partner words like the others.
 
 ### 2.3 Paradigms
 
 Every standard noun and verb has a paradigm, in its topic file (the patterns and verbs topics) or
-in `paradigms.json` (451 more); only a colloquial word may leave it out, because it appears only as
+in `paradigms.json` (467 more); only a colloquial word may leave it out, because it appears only as
 a whole word in register exercises. A cell is a form, or a list of equally standard forms with the
 usual one first (`["pánovi", "pánu"]`).
 
@@ -353,7 +353,7 @@ word bank. It reports lemmas MorfFlex does not know, part of speech, gender and 
 every paradigm cell including `paradigms.json` and the `fut` forms (and standard forms a cell leaves
 out; MorfFlex's dual _očima, nohama_ counts as plural), unknown words in sentences, gap
 alternatives that are also real words, marks MorfFlex cannot confirm, whether colloquial words are
-non-standard, and DeriNet roots of family members and look-alikes. The final run (781 words, 568
+non-standard, and DeriNet roots of family members and look-alikes. The final run (783 words, 568
 sentences) found no unknown lemma or sentence word. The only paradigm cells outside MorfFlex are
 the capitalised names _Bublinka_ and _Osmička_ (MorfFlex has the common nouns), the plurals of
 _dítě_ and _oko_ (MorfFlex files them under the lemmas _děti_ and _oči_) and _hlemýždi_ (§2.3;
@@ -381,10 +381,9 @@ zupa_. The common ones would make a spelling right for another word, so their pa
 the bank (§2.2):
 
 - _let_ and _přistavit_ for the lagoon (1.2.3);
-- seven more for the other regions (1.2.4).
+- seven more for the other regions, and _bublinka_ and _osmička_ for the lagoon's names (1.2.4).
 
-_Bublinka_ and _Osmička_ (_bublinka_, _osmička_) are asked only in sentences. The rest of what the
-review found is in content.md §7.
+The rest of what the review found is in content.md §7.
 
 **Human review.** Three independent expert reviews of the Czech (the vyjmenovaná families, the
 3rd-grade spelling and meaning topics, the grammar topics) found no wrong spelling, form, family
@@ -400,7 +399,7 @@ meaning, facts, naturalness and conventions was checked and corrected, for examp
 
 ## 6. Coverage
 
-`node scripts/lexicon/check.mjs --summary` prints the current counts: 781 words, 91 families, 568
+`node scripts/lexicon/check.mjs --summary` prints the current counts: 783 words, 91 families, 568
 sentences (Phase A ended with 517), every grade-3 and grade-4 topic of the plan (§2). By region:
 
 | Region            | Curriculum                                  | Data                                                                                                                                                   |

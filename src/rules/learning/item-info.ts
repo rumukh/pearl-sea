@@ -218,19 +218,27 @@ export function itemWord(data: Data, item: string): string | null {
   return key.startsWith('w:') ? key.slice(2) : null;
 }
 
-/** The filled token of a sentence that holds gap `gap` (spaces inside a gap stay in the token). */
-export function gapToken(sentence: ParsedSentence, gap: number): string {
-  let text = '';
+/**
+ * The filled token of a sentence that holds gap `gap` (spaces inside a gap stay in the token),
+ * with `text` in the gap (its right text unless given).
+ */
+export function gapToken(sentence: ParsedSentence, gap: number, text?: string): string {
+  const inGap = text ?? sentence.parsed.gaps[gap]?.correct ?? '';
+  let shown = '';
   let at = -1;
   for (const part of sentence.parsed.parts) {
-    if (part.kind === 'gap' && part.gap === gap) at = text.length;
-    text += part.kind === 'text' ? part.text : sentence.parsed.gaps[part.gap]!.correct;
+    if (part.kind === 'gap' && part.gap === gap) at = shown.length;
+    shown +=
+      part.kind === 'text'
+        ? part.text
+        : part.gap === gap
+          ? inGap
+          : sentence.parsed.gaps[part.gap]!.correct;
   }
   if (at === -1) return '';
-  const correct = sentence.parsed.gaps[gap]!.correct;
-  const start = text.lastIndexOf(' ', at - 1) + 1;
-  const end = text.indexOf(' ', at + correct.length);
-  return text.slice(start, end === -1 ? text.length : end).replace(/[.,!?…:;„“"]+$/u, '');
+  const start = shown.lastIndexOf(' ', at - 1) + 1;
+  const end = shown.indexOf(' ', at + inGap.length);
+  return shown.slice(start, end === -1 ? shown.length : end).replace(/[.,!?…:;„“"]+$/u, '');
 }
 
 /** How an item is named for grown-ups and on the diary card: its word, and the text shown. */

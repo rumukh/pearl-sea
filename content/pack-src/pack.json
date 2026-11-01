@@ -717,7 +717,7 @@
     },
     "coins": {
       "correct": 1,
-      "streakEvery": 5,
+      "streakEvery": 10,
       "streakBonus": 1,
       "monsterFreed": 15,
       "placementDone": 10,
@@ -751,8 +751,8 @@
       },
       {
         "stage": "grown",
-        "share": 80,
-        "mastery": "silver",
+        "share": 70,
+        "mastery": "bronze",
         "monster": true
       },
       {
@@ -770,8 +770,8 @@
       "historyDays": 60
     },
     "chest": {
-      "coinsMin": 2,
-      "coinsMax": 6,
+      "coinsMin": 1,
+      "coinsMax": 3,
       "cosmeticWeight": 0,
       "coinsWeight": 1
     },

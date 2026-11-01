@@ -42,6 +42,7 @@ const REVISIONS: Readonly<Record<string, string>> = {
   '1.1.0': 'fe165b25e4728f31', // regions 2-6: the listed words, meanings and parts of speech
   '1.2.0': '7ed523b6d8a3ad19', // regions 7-12: the 3rd grade's finale, the 4th grade's deep, placement
   '1.2.1': '0bbc9d8dcd97870f', // the Krakatice's battle reaches its cap of 40 (design §7.1)
+  '1.2.2': '39f6a398bd6aadc0', // balance: grown at 70 % bronze, a streak bonus every 10, chest 1-3
 };
 
 /** Generators that make boards, not problems: their items are trained only by minigames. */

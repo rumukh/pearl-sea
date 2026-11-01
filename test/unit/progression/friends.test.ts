@@ -1,8 +1,9 @@
 /**
  * Sea friends' growth (design §6.5): a friend's set is the union of its skills' items; it hatches
- * when 30 % of its set was answered right once, grows up at 80 % silver once its monster is freed
- * (never before, however well the child knows the set), is crowned at 100 % gold with its monster
- * freed; it is hungry only for due items Svačinka can serve.
+ * when 30 % of its set was answered right once, grows up at a share and pearl of its set once its
+ * monster is freed (never before, however well the child knows the set; the fixture keeps Dragon
+ * Valley's 80 % silver, the game's pack grows up at 70 % bronze), is crowned at 100 % gold with
+ * its monster freed; it is hungry only for due items Svačinka can serve.
  */
 import { describe, expect, it } from 'vitest';
 import { initialProfileState } from '../../../src/rules/contract';
@@ -14,7 +15,7 @@ import {
   hungryFriends,
   servableItems,
 } from '../../../src/rules/progression/friends';
-import { lagoonPack } from '../../fixtures/rules/packs';
+import { lagoonPack, lagoonPackWith, realPack } from '../../fixtures/rules/packs';
 
 const data = lagoonPack().data;
 const index = itemIndex(data);
@@ -70,6 +71,24 @@ describe('growth', () => {
     expect(earnedStage(withKrab(set.length, 5, true), data, krab, index)).toBe('crowned');
     expect(earnedStage(withKrab(set.length, 5), data, krab, index)).toBe('baby');
     expect(earnedStage(withKrab(set.length - 1, 5, true), data, krab, index)).toBe('grown');
+  });
+
+  it('grows up at 70 % bronze with its monster freed in the game’s balance (check a)', () => {
+    const game = lagoonPackWith((d) => {
+      d.balance.growth = structuredClone(realPack().data.balance.growth);
+    }).data;
+    expect(game.balance.growth.find((rule) => rule.stage === 'grown')).toEqual({
+      stage: 'grown',
+      share: 70,
+      mastery: 'bronze',
+      monster: true,
+    });
+    // Box 2 is bronze.
+    expect(earnedStage(withKrab(itemsFor(70), 2, true), game, krab, index)).toBe('grown');
+    expect(earnedStage(withKrab(itemsFor(70) - 1, 2, true), game, krab, index)).toBe('baby');
+    expect(earnedStage(withKrab(set.length, 2), game, krab, index), 'not before the monster').toBe(
+      'baby',
+    );
   });
 });
 

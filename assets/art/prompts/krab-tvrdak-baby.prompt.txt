@@ -1,0 +1,38 @@
+# step 1: krab-tvrdak/krab-tvrdak-baby-b-red-edit-s91127.png (seed 91127, Scene mode)
+Edit this picture of the baby crab Krab Tvrďák. Change one colour only: his shell, claws, legs and eye stalks are too orange; paint them a warm, bright tomato red like his grown-up self, red all over with only a hint of orange in the lighter parts, keeping the same soft gouache and watercolour texture and gentle shading. Keep everything else exactly the same: the seven bone-white spikes along the top of his shell, his two big round eyes on the stalks, his smile and rosy cheeks on the front of his shell, the cream underside, the shapes of his two raised claws, the three short legs on each side, the deep plum-brown outline, the size, the framing and the plain light background. No text, no watermark.
+
+# negative prompt
+orange shell, pumpkin, brown, rust, glossy, shiny, plastic, crimson, dark red, closed eyes, eyes on the shell, dots on the shell, eyebrows, four eyes, extra eyes, extra spikes, missing spikes, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare
+
+# step 2: krab-tvrdak/krab-tvrdak-baby-b-colour-edit-s91126.png (seed 91126, Scene mode)
+Edit this picture of the baby crab Krab Tvrďák. Change only the colour and finish of his red parts so that he matches his grown-up self: paint his shell, claws, legs and eye stalks the same warm orange-red (a tomato red with a touch of orange) as the grown-up Krab Tvrďák, with soft gouache and watercolour texture and gentle shading instead of the glossy, shiny, plastic look, keeping only a small soft highlight. Keep everything else exactly the same: the seven bone-white spikes along the top of his shell, his two big round eyes on the stalks, his smile and rosy cheeks on the front of his shell, the cream underside, the shapes of his two raised claws, the three short legs on each side, the deep plum-brown outline, the size, the framing and the plain light background. No text, no watermark.
+
+# negative prompt
+glossy, shiny, plastic, crimson, dark red, closed eyes, eyes on the shell, dots on the shell, eyebrows, four eyes, extra eyes, extra spikes, missing spikes, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare
+
+# step 3: krab-tvrdak/krab-tvrdak-baby-b-edit3-s91125.png (seed 91125, Scene mode)
+Edit this picture of the baby crab Krab Tvrďák. Change one thing only: remove the two small curved lines of closed eyes above his smile on the front of his red shell, and paint plain glossy red shell there. Keep his smile and his two rosy cheeks exactly as they are. His only eyes are the two big eyes on the stalks above his shell. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the size, the outline style, the painting style, the framing and the plain light background. No text, no watermark.
+
+# negative prompt
+closed eyes, eyes on the shell, dots on the shell, eyebrows, four eyes, extra eyes, extra spikes, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare
+
+# step 4: krab-tvrdak/krab-tvrdak-baby-b-edit2-s91124.png (seed 91124, Scene mode)
+Edit this picture of the baby crab Krab Tvrďák. Add one thing only: a simple, happy, curved smile and two soft rosy cheeks painted on the upper front of his red shell, just below the eye stalks, like his grown-up self. Do not add any eyes or dots on the shell: his only eyes stay the two big eyes on the stalks. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.
+
+# negative prompt
+eyes on the shell, dots on the shell, four eyes, extra eyes, extra spikes, frown, sad, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare
+
+# step 5: krab-tvrdak/krab-tvrdak-baby-b-edit-s91123.png (seed 91123, Scene mode)
+Edit this picture of the baby crab Krab Tvrďák. Change one thing only: remove the two small black dot eyes on the front of his red shell, so that his only eyes are the two big eyes on the stalks above his shell; keep his smile and rosy cheeks on the shell. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.
+
+# negative prompt
+eyes on the shell, four eyes, extra eyes, extra spikes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare
+
+# step 6: krab-tvrdak/krab-tvrdak-baby-b-sketchv1-s91122.png (seed 91122, Scene mode)
+Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly seven small, hard, bone-white spikes along the top rim of the shell, evenly spaced and easy to count; two big round eyes on short red stalks above the shell; two small raised claws; three short stubby legs on each side. It shows Krab Tvrďák as a tiny hatchling: a sweet baby crab, an animal character and not a human, with a round, chubby, glossy tomato-red shell, a cream underside, and a happy smile with rosy cheeks drawn on the front of the shell; his only eyes are the two on the stalks. He is the young version of the grown-up Krab Tvrďák: the same colours, the same face and the same style, only smaller, rounder and younger.
+Storybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.
+Keep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.
+
+# negative prompt
+blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, human baby, person, nose, hair, eyebrows, eyelashes, costume, hood, mask, doll, eyes on the shell, extra eyes, extra spikes, sharp teeth, scary
+

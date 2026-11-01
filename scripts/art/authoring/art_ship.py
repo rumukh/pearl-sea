@@ -11,6 +11,7 @@ Usage: python art_ship.py <repo> <spec.json>   ($PEARL_SEA_ART_ROOT: the authori
 the repository, that holds the renders with their records, _briefs and _decisions)
 spec: {"assets": [{"id", "kind": "character"|"scene"|"avatar", "source", "file", "maxSide", "quality",
                    "gate": "<decision json>", "approvalKey": "<label in that gate>", "approvalNote"?: "...",
+                   "cutoutArgs"?: ["--min-hole", 100000000, ...], "cutoutWhy"?: "<why this asset needs them>",
                    "cell"?: <avatar 1-8 on the sheet>, "boxGroup"?: "<shared trim box>"}]}
 """
 
@@ -139,7 +140,8 @@ def main():
         if a["kind"] == "character":
             out_dir = os.path.join(os.path.dirname(a["source"]), "cutouts")
             stem = os.path.splitext(os.path.basename(a["source"]))[0]
-            subprocess.run([PY, "-W", "ignore", os.path.join(TOOLS, "cutout.py"), a["source"], "--out", out_dir],
+            subprocess.run([PY, "-W", "ignore", os.path.join(TOOLS, "cutout.py"), a["source"], "--out", out_dir,
+                            *[str(arg) for arg in a.get("cutoutArgs", [])]],
                            check=True, capture_output=True, env=dict(os.environ, CUDA_VISIBLE_DEVICES=""))
             item["cutout"] = os.path.join(out_dir, f"{stem}.cutout.png")
             anc = anchors.get(a["id"])
@@ -189,7 +191,10 @@ def main():
                           "(u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, "
                           "enclosed-gap opening, shadow removal and edge matting with colour decontamination",
                           "holesOpened": cut["holesOpened"], "specksRemoved": cut["specksRemoved"],
-                          "iouWithU2net": cut["iouWithU2net"]})
+                          "iouWithU2net": cut["iouWithU2net"]}
+                         | ({"options": " ".join(str(arg) for arg in a["cutoutArgs"]),
+                             "optionsWhy": a["cutoutWhy"]} if a.get("cutoutArgs") else {})
+                         | ({"edgeBleedRemoved": cut["edgeBleedRemoved"]} if "edgeBleedRemoved" in cut else {}))
         for step in processing:
             if step["step"] != "cut-out":
                 step["tool"] = f"{TOOL_PATH}/ship_art.py (sha256 {ship_sha})"

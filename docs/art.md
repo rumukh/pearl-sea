@@ -87,9 +87,15 @@ time; a painting takes 12-16 minutes.
    the border together with the soft shadows U2Net rejects; enclosed gaps (between tentacles, inside
    a claw) are opened only when they are plain backdrop ringed by the outline; specks are dropped,
    and a narrow edge band gets a matted alpha with colour decontamination, so no grey fringe
-   remains. The eight avatars are painted together on one sheet, for one style, and
-   `avatar_cut.py` cuts each portrait out along its porthole: a disc fitted to the frame's
-   silhouette (checked to be round), anti-aliased at 4×.
+   remains. When these rules fail on one painting, the review picks per-asset options, recorded
+   in the provenance with the reason: `--min-hole` set very high keeps every enclosed pocket (a
+   pale stone that U2Net calls background, or eye whites and spikes on a white backdrop);
+   `--clear X,Y` opens one light backdrop pocket from a reviewed seed point (between touching
+   tentacles or eye stalks); `--edge-bleed N` and `--peel N` remove light watercolour bleed outside
+   the outline; `--low` and `--high` loosen the key for a warm paper backdrop. The result is
+   checked at full size on navy and on water. The eight avatars are painted together on one sheet,
+   for one style, and `avatar_cut.py` cuts each portrait out along its porthole: a disc fitted to
+   the frame's silhouette (checked to be round), anti-aliased at 4×.
 7. **Shipping** (`ship_art.py`): a cut-out is trimmed to its alpha box plus a 2 % margin, scaled
    with premultiplied alpha so its longer side is at most 1024 px (512 for avatars), and encoded as
    lossy WebP (quality 90, method 6) with exact alpha; scenes and maps are scaled to 1664 × 928 and
@@ -118,6 +124,12 @@ time; a painting takes 12-16 minutes.
 - The model adds unrequested submarines, chests, fish and small blank signs to empty scenes, and
   signs grow pseudo-letters; the review looks for them.
 - The word "sticker" paints a white sticker border (clean to cut out, but not the chosen style).
+- A baby edited from its grown-up master in Subjects mode comes back as the grown-up; only its own
+  sketch makes it younger. Each in-place edit also drifts the colours (Krab's baby went crimson,
+  then pumpkin orange; Želva's shell came out tan), so a derived form is reviewed beside its master
+  and its colours are corrected in place before the gate.
+- Edits also change the backdrop: from light grey to near white or warm paper, where eye whites,
+  spikes and pale stones key out with the backdrop; hence the per-asset cut-out options (step 6).
 
 ## 4. The catalog and the anchors
 
@@ -146,7 +158,9 @@ the anchor, draws it `scale` % of its natural width, which is 25 % of the painti
 thousandths), and rotates it by `rotate` degrees about that point. Anchors are set on the approved
 master in its own pixels and mapped into the trimmed, scaled file by `ship_art.py`, so they follow
 the shipped box exactly. The crowned stage's golden crown, `cosmetic/shell-crown`, is such an SVG
-too, the centre of its base at the viewBox centre, on the `head` anchor.
+too, the centre of its base at the viewBox centre, on the `head` anchor. A baby has its own
+anchors, set on its own painting and checked with every cosmetic on the review board
+(`scripts/art/svg/preview.mjs`) beside its grown-up: a baby's bigger head can take a larger hat.
 
 ## 5. Scenes and maps: open water for the shell
 
@@ -180,8 +194,9 @@ file:
   with their role and SHA-256, the date and the machine;
 - the sketch script (`scripts/art/authoring/sketches.py`) and its SHA-256 when a sketch was used;
   the committed script reproduces every referenced sketch byte for byte;
-- every processing step: the cut-out with its tool digest and statistics, the trim box, the scale
-  factor and filter, the encoder settings, the PSNR and the chunks;
+- every processing step: the cut-out with its tool digest, its options and why, and its
+  statistics, the trim box (with the members of a shared box), the scale factor and filter, the
+  encoder settings, the PSNR and the chunks;
 - the user's approval: the gate, the time, the exact question and answer, and the chosen
   candidate. The style decision (gate 1) is recorded once at the top.
 

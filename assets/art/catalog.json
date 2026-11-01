@@ -72,6 +72,13 @@
       "height": 983
     },
     {
+      "id": "character/osmicka/happy",
+      "kind": "painted",
+      "file": "characters/osmicka-happy.webp",
+      "width": 976,
+      "height": 984
+    },
+    {
       "id": "cosmetic/bow-shell",
       "kind": "svg",
       "file": "cosmetics/bow-shell.svg",
@@ -177,6 +184,33 @@
       "height": 160
     },
     {
+      "id": "friend/krab-tvrdak/baby",
+      "kind": "painted",
+      "file": "friends/krab-tvrdak-baby.webp",
+      "width": 982,
+      "height": 811,
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 37,
+          "scale": 125,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 111,
+          "scale": 120,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 672,
+          "scale": 90,
+          "rotate": 0
+        }
+      }
+    },
+    {
       "id": "friend/krab-tvrdak/grown",
       "kind": "painted",
       "file": "friends/krab-tvrdak-grown.webp",
@@ -198,6 +232,33 @@
         "neck": {
           "x": 502,
           "y": 566,
+          "scale": 90,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/meduzka-mekulka/baby",
+      "kind": "painted",
+      "file": "friends/meduzka-mekulka-baby.webp",
+      "width": 1024,
+      "height": 663,
+      "anchors": {
+        "head": {
+          "x": 514,
+          "y": 91,
+          "scale": 120,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 514,
+          "y": 339,
+          "scale": 135,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 514,
+          "y": 670,
           "scale": 90,
           "rotate": 0
         }
@@ -227,6 +288,33 @@
           "y": 381,
           "scale": 100,
           "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/zelva-obojka/baby",
+      "kind": "painted",
+      "file": "friends/zelva-obojka-baby.webp",
+      "width": 1024,
+      "height": 587,
+      "anchors": {
+        "head": {
+          "x": 190,
+          "y": 85,
+          "scale": 110,
+          "rotate": -4
+        },
+        "eyes": {
+          "x": 194,
+          "y": 324,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 329,
+          "y": 528,
+          "scale": 60,
+          "rotate": -10
         }
       }
     },
@@ -265,11 +353,18 @@
       "height": 928
     },
     {
+      "id": "monster/murena-mumla/freed",
+      "kind": "painted",
+      "file": "monsters/murena-mumla-freed.webp",
+      "width": 1024,
+      "height": 893
+    },
+    {
       "id": "monster/murena-mumla/inked",
       "kind": "painted",
       "file": "monsters/murena-mumla-inked.webp",
       "width": 1024,
-      "height": 872
+      "height": 893
     },
     {
       "id": "scene/grotto",

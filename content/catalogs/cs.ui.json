@@ -292,6 +292,8 @@
   "hint.family": "Pomůže příbuzné slovo: {related}.",
   "hint.pattern": "Vzor: {pattern}.",
   "hint.tenTaTo": "Řekni si: ten, ta, nebo to?",
+  "hint.tenTaToPlural": "Řekni si: ti, ty, nebo ta?",
+  "hint.notListed": "Slovo {word} mezi vyjmenovanými není.",
   "hint.testWord": "Zkus si říct: {test}.",
   "hub.title": "Jeskyně",
   "hub.greeting": "Ahoj! Kam se dnes ponoříme?",

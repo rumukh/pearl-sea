@@ -501,7 +501,13 @@ keyboard (`ui/czech-keyboard.ts`: the letters with diacritics, QWERTZ, Shift, sp
 take focus, so a physical keyboard works the same), a category, or a word to pick (the sentence of
 a Lov chyb, an odd one out, a related word). Read-aloud says a gap as a pause, never the spelling.
 A miss is "Skoro!" with the right answer and the strategy that helps; nothing is ever lost.
-Nápověda asks the rules once a problem (they take one hint each); a later tap shows it again.
+Nápověda asks the rules once a problem (they take one hint each); a later tap shows it again. A
+hint is a strategy, never the answer: a related word, a test form, a listed-words rhyme, _ten, ta,
+nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern, a rule, a method
+to follow (S3's `grammar.method.*` lines), or a word that is not listed with its gap blanked
+(_Slovo b_lý mezi vyjmenovanými není._). Punctuation the rules give beside a sentence's words
+(`marks`: _Delfíne, skoč!_) follows each word outside the highlight and the word buttons, and is
+read aloud with it.
 Leaving the placement check from the pause ends it for good and keeps what it placed, and the pause
 dialog says so kindly: a grown-up can run it again from Pro dospělé (§14).
 

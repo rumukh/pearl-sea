@@ -192,6 +192,10 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     }
   };
 
+  /** A lexicon word's lemma, for a hint that shows a word (`not-listed`, its gap blanked). */
+  const lemmaOf = (id: string): string | null =>
+    data.lexicon.words.find((word) => word.id === id)?.lemma ?? null;
+
   /** Osmička, where she keeps the child company, cheers after a right step until the next miss. */
   let guideCheers = false;
 
@@ -316,7 +320,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
   // ---- one problem -------------------------------------------------------------------------------
   const hintButton = (problem: ProblemView): HTMLElement[] => {
     const hint = stepHint(problem.problem, problem.step);
-    const line = hint ? hintText(hint, t, text) : null;
+    const line = hint ? hintText(hint, t, text, lemmaOf) : null;
     if (line === null) return [];
     const show = (): void => {
       hintSlot.textContent = line;
@@ -464,9 +468,15 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
               'aria-label': t(promptKey(problem.problem, problem.step)),
             },
           },
-          ...words.flatMap((button, index) =>
-            answer.inSentence && index > 0 ? [document.createTextNode(' '), button] : [button],
-          ),
+          // A word's punctuation follows its button, never inside it: the word alone is the pick.
+          ...words.flatMap((button, index) => {
+            const mark = answer.marks?.[index] ?? '';
+            return [
+              ...(answer.inSentence && index > 0 ? [document.createTextNode(' ')] : []),
+              button,
+              ...(mark ? [document.createTextNode(mark)] : []),
+            ];
+          }),
         ),
       );
       answerSlot.dataset['input'] = 'pick';
@@ -598,7 +608,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       ),
     );
     const hint = stepHint(asked.problem, asked.step);
-    const hintLine = hint ? hintText(hint, t, text) : null;
+    const hintLine = hint ? hintText(hint, t, text, lemmaOf) : null;
     const said = missText(asked.problem, asked.step, result.expected, t, text);
     setFeedback(
       'miss',

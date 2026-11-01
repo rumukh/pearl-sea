@@ -279,7 +279,7 @@
             "sk.storm.register",
             "sk.kraken.member"
           ],
-          "count": 30,
+          "count": 40,
           "input": "auto",
           "options": {}
         }

@@ -51,6 +51,7 @@ describe('a battle for a child who misses every answer', () => {
   it('never refills or washes on a miss, stops at the kindness cap and frees the monster', async () => {
     const player = await playerFrom(beforeBattle, NEVER);
     const coins = player.state().coins;
+    const missed = player.count('answer.incorrect');
     await player.act({ type: 'startLevel', level: MONSTER });
     await player.settleStory();
     expect(battleView(player)).toMatchObject({ washed: 0, target: murena.meter, splashes: 0 });
@@ -63,7 +64,12 @@ describe('a battle for a child who misses every answer', () => {
     expect(round.status).toBe('complete');
     expect(round.progress.answered).toBe(cap);
     expect(player.count('ink.washed'), 'a miss never washes').toBe(0);
-    expect(player.count('ink.splashed')).toBe(Math.floor(cap / 4));
+    // Ink splashes every `splashEvery` answer steps (a sentence of two gaps is two steps).
+    const steps = player.count('answer.incorrect') - missed;
+    expect(steps).toBeGreaterThanOrEqual(cap);
+    expect(player.count('ink.splashed')).toBe(
+      Math.floor(steps / pack.data.balance.battle.splashEvery),
+    );
     // The cap washes the rest off with a flourish: the monster is freed all the same.
     expect(round.battle).toMatchObject({ washed: murena.meter, target: murena.meter });
     await player.act({ type: 'endRound', reason: 'done' });

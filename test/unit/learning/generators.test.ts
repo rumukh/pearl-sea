@@ -4,12 +4,14 @@
  * servable item of every problem skill is asked with several seeds, 2-4 grade choices and the
  * requests a round makes (`{}`, `single`, `alone`); so are the spell.word skills across their
  * parameter ranges (choices 2-4, maxGaps 1-3) and test skills of every rule and sentence of a pack.
+ * The game's pack (content/pearl-sea.content.json) is surveyed the same way with fewer seeds and
+ * its grade's choices: its own skills, and every spelling point and sentence gap of its lexicon.
  * Every problem must pass the contract's schema; every step's expected answer must be the
  * independent oracle's (test/traces/support.ts: read off the lexicon's raw letters and
  * `{correct|alt}` sentences); options, keys, items, shapes, mistakes and hints must follow
  * docs/design.md §5.2-§5.6 and §6.6 as restated here from the raw lexicon, never from the
  * generator. Points ambiguous bare (pas × pás) are asked only in sentences (být × bít, without one,
- * never), and every item of both packs can be served.
+ * never), and every item of the three packs can be served.
  */
 import { isDeepStrictEqual } from 'node:util';
 import { describe, expect, it } from 'vitest';
@@ -61,15 +63,19 @@ import {
 import { gapHint } from '../../../src/rules/learning/hints';
 import { itemIndex, lexiconIndex } from '../../../src/rules/learning/index-cache';
 import type { ParsedSentence } from '../../../src/rules/learning/index-cache';
-import { lagoonPack, miniPack } from '../../fixtures/rules/packs';
+import { lagoonPack, miniPack, realPack } from '../../fixtures/rules/packs';
 import { oracle } from '../../traces/support';
 
 const lagoon = lagoonPack().data;
 const mini = miniPack().data;
+/** The fixture packs, surveyed with every seed, choice count and request. */
 const PACKS = [
   ['lagoon', lagoon],
   ['mini', mini],
 ] as const;
+/** The game's pack (content/pearl-sea.content.json), surveyed with fewer seeds: it is large. */
+const real = realPack().data;
+const ALL_PACKS = [...PACKS, ['real', real]] as const;
 
 // ---------------------------------------------------------------- the raw lexicon (independent)
 
@@ -333,8 +339,13 @@ function survey(
   return cases;
 }
 
-/** The problem skills of a pack (the spelling generators; boards are minigames). */
+/** The problem skills of a pack: the spelling generators and the choice generators. */
 const problemSkills = (data: ContentData) => data.skills.filter((skill) => canGenerate(skill));
+/**
+ * The spelling skills this survey asks; classify, odd and relation have their own survey
+ * (choice-generators.test.ts).
+ */
+const spellSkills = (data: ContentData) => data.skills.filter((skill) => isSpell(skill));
 
 /** A spell.word skill across its parameter ranges (choices 2-4, maxGaps 1-3), but itself. */
 function variants(skill: Skill): Skill[] {
@@ -392,13 +403,17 @@ function servable(data: ContentData, skill: Skill, item: string): boolean {
 
 let allCases: Case[] | undefined;
 function cases(): Case[] {
-  allCases ??= PACKS.flatMap(([name, data]) => [
-    ...survey(name, data, problemSkills(data)),
-    ...survey(name, data, problemSkills(data).flatMap(variants), SEEDS.slice(0, 3), [
-      gradeBalance(data.balance, 3).input.choices,
+  const choices = (data: ContentData) => [gradeBalance(data.balance, 3).input.choices];
+  allCases ??= [
+    ...PACKS.flatMap(([name, data]) => [
+      ...survey(name, data, spellSkills(data)),
+      ...survey(name, data, spellSkills(data).flatMap(variants), SEEDS.slice(0, 3), choices(data)),
+      ...survey(name, data, wide(data), SEEDS.slice(0, 3)),
     ]),
-    ...survey(name, data, wide(data), SEEDS.slice(0, 3)),
-  ]);
+    // The game's pack: its own skills with two seeds, and every point and gap of its lexicon once.
+    ...survey('real', real, spellSkills(real), SEEDS.slice(0, 2), choices(real)),
+    ...survey('real', real, wide(real), SEEDS.slice(0, 1), choices(real)),
+  ];
   return allCases;
 }
 
@@ -768,13 +783,26 @@ function checkShape(c: Case, located: readonly Located[], say: Say): void {
   if (!matchesFilter(filled.sentence, skill.params.sentences)) {
     say('shape', `${problem.sentence} is not one of the skill's sentences`);
   }
-  // Every gap of the skill's rules, or the drawn gap alone (single, or a hunted mistake re-asked).
+  // The drawn gap and up to two more of the skill's rules in text order, each item once (a word
+  // written twice is asked at the drawn gap); the drawn gap alone when single, or a hunted mistake
+  // re-asked.
   const drawnIndex = located.find((where) => where.item === item)?.index ?? -1;
   const single = request === 'single' || skill.generator === 'spell.mistake';
-  const expected = filled.sentence.gaps
-    .map((gap, index) => ({ gap, index }))
-    .filter(({ gap, index }) => index === drawnIndex || (!single && rules.includes(gap.rule)))
-    .map(({ index }) => index);
+  const seen = new Set([item]);
+  const others = single
+    ? []
+    : filled.sentence.gaps
+        .map((gap, index) => ({ gap, index }))
+        .filter(({ gap, index }) => {
+          if (index === drawnIndex || !rules.includes(gap.rule)) return false;
+          const other = sentenceItem(filled.sentence, index);
+          if (seen.has(other)) return false;
+          seen.add(other);
+          return true;
+        })
+        .map(({ index }) => index)
+        .slice(0, 2);
+  const expected = [drawnIndex, ...others].sort((a, b) => a - b);
   const shown = located.map((where) => where.index);
   if (!isDeepStrictEqual(shown, expected)) {
     say('shape', `${problem.sentence} shows gaps ${shown}, not ${expected}`);
@@ -817,18 +845,20 @@ function found(check: Check): string[] {
 // ---------------------------------------------------------------- the tests
 
 describe('the problem generators', () => {
-  it('make problems of the spelling generators; boards are minigames, never problems', () => {
+  it('make problems of the spelling and choice generators; boards are minigames, never problems', () => {
     const boards = ['alphabet', 'pairs', 'sort', 'segment', 'family'];
-    for (const [, data] of PACKS) {
+    const choices = ['classify', 'odd', 'relation'];
+    for (const [, data] of ALL_PACKS) {
       for (const skill of data.skills) {
         if (skill.generator.startsWith('spell.')) expect(canGenerate(skill), skill.id).toBe(true);
+        if (choices.includes(skill.generator)) expect(canGenerate(skill), skill.id).toBe(true);
         if (boards.includes(skill.generator)) expect(canGenerate(skill), skill.id).toBe(false);
       }
     }
   });
 
-  it('can serve every item of every problem skill of both packs', () => {
-    for (const [name, data] of PACKS) {
+  it('can serve every item of every problem skill of the three packs', () => {
+    for (const [name, data] of ALL_PACKS) {
       expect(unservableItems(data), name).toEqual([]);
       const served = servableIndex(data);
       for (const skill of problemSkills(data)) {
@@ -836,14 +866,14 @@ describe('the problem generators', () => {
         expect(served.get(skill.id)?.length, skill.id).toBeGreaterThan(0);
       }
     }
-    // The survey below really is exhaustive: both packs, all their problem skills and items.
+    // The survey below really is exhaustive: the three packs, all their spelling skills and items.
     const surveyed = new Set(
       cases()
         .filter((c) => !c.skill.id.startsWith('sk.test.'))
         .map((c) => `${c.pack} ${c.skill.id} ${c.item}`),
     );
-    const items = PACKS.flatMap(([name, data]) =>
-      problemSkills(data).flatMap((skill) =>
+    const items = ALL_PACKS.flatMap(([name, data]) =>
+      spellSkills(data).flatMap((skill) =>
         (itemIndex(data).get(skill.id) ?? []).map((item) => `${name} ${skill.id} ${item}`),
       ),
     );
@@ -965,7 +995,7 @@ describe('every servable item, seed and request (exhaustive)', () => {
 
   it('gives the same problems for the same seeds, and varies them with other seeds', () => {
     const run = (seed: string) =>
-      survey('lagoon', lagoon, problemSkills(lagoon), [seed], [4]).map((c) => c.problem);
+      survey('lagoon', lagoon, spellSkills(lagoon), [seed], [4]).map((c) => c.problem);
     const first = run('tide');
     expect(isDeepStrictEqual(run('tide'), first)).toBe(true);
     const other = run('other');
@@ -1120,7 +1150,7 @@ describe('ambiguous bare points (ambiguousBare)', () => {
           item: `spell:${word.id}:${point.at}`,
         })),
       );
-    for (const [name, data] of PACKS) {
+    for (const [name, data] of ALL_PACKS) {
       for (const { word, point, item } of points(data)) {
         expect(ambiguousBare(data, word, point), `${name} ${item}`).toBe(
           ambiguous(data, word, point),
@@ -1138,7 +1168,7 @@ describe('ambiguous bare points (ambiguousBare)', () => {
 
   it('are served in a sentence on the point, or never: být and bít have no sentence', () => {
     const word = wide(mini)[0]!;
-    for (const [name, data] of PACKS) {
+    for (const [name, data] of ALL_PACKS) {
       for (const entry of data.lexicon.words) {
         for (const point of entry.spelling ?? []) {
           const item = `spell:${entry.id}:${point.at}`;

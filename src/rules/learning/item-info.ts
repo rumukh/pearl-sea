@@ -272,7 +272,8 @@ export function teachUnits(data: Data, item: string): string[] {
     const family = word?.family ? lexiconIndex(data).families.get(word.family.id) : undefined;
     if (family !== undefined && family.letter !== null) units.push(`family:${family.id}`);
   }
-  if (parsed.kind === 'class') {
+  if (parsed.kind === 'class' && parsed.dimension !== 'consonant') {
+    // The consonant classes are the 2nd grade's review: never taught first, like its rules.
     const target = classTargetOf(data, parsed);
     if (parsed.dimension === 'case' && target !== null && target.kind !== 'segment') {
       units.push(`class:case:${'value' in target ? target.value : ''}`);

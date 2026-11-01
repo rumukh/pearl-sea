@@ -21,6 +21,9 @@ import {
   spellWordProblem,
 } from './generators/spell';
 import type { SpellRequest } from './generators/spell';
+import { classifyProblem, classifyServable } from './generators/classify';
+import { oddProblem, oddServable } from './generators/odd';
+import { relationProblem, relationServable } from './generators/relation';
 import type { GeneratorSources } from './generators/shared';
 import type { Data } from '../types';
 
@@ -32,6 +35,9 @@ export const PROBLEM_GENERATORS: readonly GeneratorId[] = [
   'spell.word',
   'spell.sentence',
   'spell.mistake',
+  'classify',
+  'odd-one-out',
+  'relation',
 ];
 
 /** Whether this build can make single problems for the skill (boards are minigames.ts's). */
@@ -39,14 +45,23 @@ export function canGenerate(skill: DeepReadonly<Skill>): boolean {
   return PROBLEM_GENERATORS.includes(skill.generator) && !isBoardGenerator(skill.generator);
 }
 
-/** Whether `skill` can serve `item` (an item of its universe) as a problem. */
-function servable(data: Data, skill: DeepReadonly<Skill>, item: string): boolean {
+/**
+ * Whether `skill` can serve `item` (an item of its universe) as a problem; any skill, also one
+ * outside the pack (`servableIndex` covers the pack's own).
+ */
+export function canServe(data: Data, skill: DeepReadonly<Skill>, item: string): boolean {
   switch (skill.generator) {
     case 'spell.word':
       return spellServable(data, item);
     case 'spell.sentence':
     case 'spell.mistake':
       return sentencesFor(data, item, skill.params.sentences, skill.params.rules).length > 0;
+    case 'classify':
+      return classifyServable(data, skill.params, item);
+    case 'odd-one-out':
+      return oddServable(data, skill, item);
+    case 'relation':
+      return relationServable(data, skill, item);
     default:
       return false;
   }
@@ -61,7 +76,7 @@ export const servableIndex: (data: Data) => ReadonlyMap<string, readonly string[
       if (!canGenerate(skill)) continue;
       result.set(
         skill.id,
-        (index.get(skill.id) ?? []).filter((item) => servable(data, skill, item)),
+        (index.get(skill.id) ?? []).filter((item) => canServe(data, skill, item)),
       );
     }
     return result;
@@ -104,6 +119,12 @@ export function problemFor(
       return request.alone
         ? spellSentenceProblem(skill.params, item, sources, { ...request, single: true })
         : spellMistakeProblem(skill.params, item, sources);
+    case 'classify':
+      return classifyProblem(skill.params, item, sources);
+    case 'odd-one-out':
+      return oddProblem(skill, item, sources);
+    case 'relation':
+      return relationProblem(skill, item, sources);
     default:
       throw new Error(`Generator ${skill.generator} makes no single problems in this build.`);
   }

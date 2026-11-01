@@ -183,12 +183,17 @@ function sentenceGap(
     keys: padKeys(annotation.rule, parsed.correct, parsed.alternatives),
     rule: annotation.rule,
     word: annotation.word,
-    item:
-      annotation.word !== null && annotation.point !== undefined
-        ? spellItem(annotation.word, annotation.point)
-        : gapItem(sentence.sentence.id, index),
+    item: sentenceGapItem(sentence, index),
     hint: gapHint(data, annotation.rule, word, point, { parsed: sentence, gap: annotation }),
   };
+}
+
+/** The item a sentence gap trains: its word's spelling point, else the gap itself. */
+function sentenceGapItem(sentence: ParsedSentence, index: number): string {
+  const annotation = sentence.sentence.gaps[index]!;
+  return annotation.word !== null && annotation.point !== undefined
+    ? spellItem(annotation.word, annotation.point)
+    : gapItem(sentence.sentence.id, index);
 }
 
 /** A sentence with the gaps `shown` (indices into its gaps) as ink blots; the rest filled. */
@@ -214,17 +219,28 @@ export function sentenceProblem(
   };
 }
 
-/** The gaps a sentence skill shows: every gap of the skill's rules (at most 3, in text order). */
+/**
+ * The gaps a sentence skill shows: the drawn gap and up to two more of the skill's rules (at most
+ * 3, in text order), each item once: a word written twice (_dál a dál_) is asked at the drawn gap,
+ * the other one filled.
+ */
 function shownGaps(
   sentence: ParsedSentence,
   drawn: number,
   rules: readonly SpellingRule[],
 ): number[] {
-  const shown = sentence.sentence.gaps
+  const asked = new Set([sentenceGapItem(sentence, drawn)]);
+  const others = sentence.sentence.gaps
     .map((annotation, index) => ({ annotation, index }))
-    .filter(({ annotation, index }) => index === drawn || rules.includes(annotation.rule))
+    .filter(({ annotation, index }) => {
+      if (index === drawn || !rules.includes(annotation.rule)) return false;
+      const item = sentenceGapItem(sentence, index);
+      if (asked.has(item)) return false;
+      asked.add(item);
+      return true;
+    })
     .map(({ index }) => index);
-  return shown.slice(0, 3);
+  return [drawn, ...others.slice(0, 2)].sort((a, b) => a - b);
 }
 
 export interface SpellRequest {

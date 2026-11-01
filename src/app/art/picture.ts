@@ -10,7 +10,7 @@
  * stage is the grown painting with a golden shell crown on `head`.
  */
 import type { AnchorPoint, ArtAnchor, ArtEntry, FriendStage } from '../../rules/contract';
-import { ART, COSMETIC_BASE_WIDTH } from '../../rules/contract';
+import { ART, COSMETIC_BASE_WIDTH, CROWN_ART_ID } from '../../rules/contract';
 import { h, svg } from '../ui/dom';
 import type { ArtLibrary } from './library';
 
@@ -47,9 +47,10 @@ export const DEFAULT_ANCHORS: Readonly<Record<ArtAnchor, AnchorPoint>> = {
   neck: { x: 500, y: 640, scale: 100, rotate: 0 },
 };
 
-/** S5's shell crown for a crowned friend, a cosmetic SVG; the shell draws one until it is there. */
-export const CROWN_ART = ART.cosmetic('shell-crown');
-/** The drawn crown's width on the `head` anchor at scale 100, in thousandths of the painting. */
+/**
+ * The shell's own crown, until S5's `CROWN_ART_ID` is in the catalog: its width on `head` at scale
+ * 100, in thousandths of the painting.
+ */
 export const CROWN_WIDTH = 300;
 
 export function pictureSize(art: ArtLibrary, id: string): readonly [number, number] {
@@ -417,7 +418,7 @@ export function dressedFriend(
     if (item) place(picture(art, ART.cosmetic(item)), anchor, COSMETIC_BASE_WIDTH);
   }
   if (look.stage === 'crowned') {
-    if (art.entry(CROWN_ART)) place(picture(art, CROWN_ART), 'head', COSMETIC_BASE_WIDTH);
+    if (art.entry(CROWN_ART_ID)) place(picture(art, CROWN_ART_ID), 'head', COSMETIC_BASE_WIDTH);
     else place(shellCrown(), 'head', CROWN_WIDTH);
   }
   return base;

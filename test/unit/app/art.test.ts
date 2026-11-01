@@ -10,7 +10,6 @@ import { createArtLibrary, loadArtLibrary } from '../../../src/app/art/library';
 import {
   anchorOf,
   artKind,
-  CROWN_ART,
   CROWN_WIDTH,
   DEFAULT_ANCHORS,
   dressedFriend,
@@ -24,6 +23,7 @@ import {
   ART_CATALOG_PATH,
   ART_CATALOG_FORMAT,
   COSMETIC_BASE_WIDTH,
+  CROWN_ART_ID,
 } from '../../../src/rules/contract';
 import type { ArtEntry } from '../../../src/rules/contract';
 
@@ -125,7 +125,7 @@ describe('dressed friends', () => {
 
   it('wears S5’s shell crown, a cosmetic, once the catalog has it', () => {
     const file: ArtEntry = {
-      id: CROWN_ART,
+      id: CROWN_ART_ID,
       kind: 'svg',
       file: 'cosmetics/shell-crown.svg',
       width: 100,

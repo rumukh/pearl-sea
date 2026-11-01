@@ -429,9 +429,9 @@ its content record, as Dragon Valley's composer does (`stickerPicture`): in one 
 flat disc in the sticker's `color` (centre 50, 50, radius 40) drawn by the shell, S5's `frame` SVG
 over it (its rim covers the disc's edge) and the `icon` SVG on top. An ID the catalog lacks is
 drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
-marked "DEV <art id>" (`data-placeholder`). The repository ships an empty catalog until S5's
-assets land, so their files drop in without code changes. A catalog file outside `assets/art/` is
-ignored, and an unreadable catalog means placeholders everywhere.
+marked "DEV <art id>" (`data-placeholder`), so S5's files drop in without code changes as the
+catalog grows. A catalog file outside `assets/art/` is ignored, and an unreadable catalog means
+placeholders everywhere.
 
 ### 16.3 The screens
 

@@ -3,16 +3,19 @@
  * Art by ID: a painting from S5's catalog, or a visibly labelled dev placeholder of the same
  * kind and shape, so the real files drop in without code changes; friends dressed with SVG
  * cosmetics on their anchors and the shell crown when crowned; stickers composed from their record;
- * and a catalog that cannot be trusted is an empty one (placeholders everywhere), never a failed boot.
+ * a catalog that cannot be trusted is an empty one (placeholders everywhere), never a failed boot;
+ * a screen's painting fetched ahead of it, and one that arrives after its screen fades in.
  */
 import { describe, expect, it } from 'vitest';
-import { createArtLibrary, loadArtLibrary } from '../../../src/app/art/library';
+import { createArtLibrary, loadArtLibrary, preloadPictures } from '../../../src/app/art/library';
+import type { PreloadImage } from '../../../src/app/art/library';
 import {
   anchorOf,
   artKind,
   CROWN_WIDTH,
   DEFAULT_ANCHORS,
   dressedFriend,
+  fadeInIfLate,
   friendArtId,
   monsterForms,
   picture,
@@ -289,5 +292,63 @@ describe('the art catalog', () => {
     ]);
     expect(art.size).toBe(1);
     expect(art.entry('friend/a/baby')).toBeUndefined();
+  });
+
+  it('fetches a screen’s pictures ahead of it, only those it publishes, and never fails', async () => {
+    const title: ArtEntry = {
+      id: ART.scene('title'),
+      kind: 'painted',
+      file: 'scenes/title.webp',
+      width: 1664,
+      height: 928,
+    };
+    const art = createArtLibrary(BASE, [title, KRAB]);
+    const made: PreloadImage[] = [];
+    await preloadPictures(art, [ART.scene('title'), ART.scene('grotto')], () => {
+      const image: PreloadImage = {
+        src: '',
+        decoding: '',
+        decode: () => Promise.reject(new Error('offline')),
+      };
+      made.push(image);
+      return image;
+    });
+    // The grotto's painting is not published yet: its screen draws the placeholder as always.
+    expect(made.map((image) => [image.src, image.decoding])).toEqual([
+      [`${BASE}assets/art/scenes/title.webp`, 'async'],
+    ]);
+  });
+});
+
+describe('a painting on its way', () => {
+  /** An image still loading (a published painting the page does not have yet). */
+  const loading = (): HTMLImageElement => {
+    const image = document.createElement('img');
+    Object.defineProperty(image, 'complete', { value: false });
+    return image;
+  };
+
+  it('fades in when it arrives after its screen is shown, never when it was there first', () => {
+    const late = loading();
+    fadeInIfLate(late);
+    document.body.append(late);
+    late.dispatchEvent(new Event('load'));
+    expect(late.dataset['late']).toBe('true');
+
+    // Arrived while the router still waited to show its screen (off the page): simply there.
+    const early = loading();
+    fadeInIfLate(early);
+    early.dispatchEvent(new Event('load'));
+    document.body.append(early);
+    expect(early.dataset['late']).toBeUndefined();
+
+    // A painting the page already has is drawn at once.
+    const kept = document.createElement('img');
+    Object.defineProperty(kept, 'complete', { value: true });
+    fadeInIfLate(kept);
+    document.body.append(kept);
+    kept.dispatchEvent(new Event('load'));
+    expect(kept.dataset['late']).toBeUndefined();
+    for (const image of [late, early, kept]) image.remove();
   });
 });

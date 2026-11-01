@@ -48,3 +48,40 @@ export async function loadArtLibrary(baseUrl: string, fetcher?: Fetcher): Promis
     return createArtLibrary(baseUrl, []);
   }
 }
+
+/** What a preload needs of an image: `new Image()` in the browser. */
+export interface PreloadImage {
+  src: string;
+  decoding: string;
+  decode(): Promise<void>;
+}
+
+/** Pictures fetched ahead of their screen, kept with their library so the page keeps them. */
+const preloaded = new WeakMap<ArtLibrary, PreloadImage[]>();
+
+/**
+ * Fetch and decode published pictures before their screen is built: the title's painting at
+ * boot, while the content pack loads, so the first screen never shows bare sea while its
+ * painting is still on its way (S6's PS-QA-20). A page keeps the images it has loaded for the
+ * same address, so the screen's own picture of it is drawn at once. Nothing waits for it, and an
+ * ID the catalog lacks (a placeholder) or a picture that fails is simply left to its screen.
+ * Resolves once every picture is decoded or has failed.
+ */
+export function preloadPictures(
+  art: ArtLibrary,
+  ids: readonly string[],
+  create: () => PreloadImage = () => new Image(),
+): Promise<void> {
+  const held = preloaded.get(art) ?? [];
+  preloaded.set(art, held);
+  const loads = ids.flatMap((id) => {
+    const entry = art.entry(id);
+    if (!entry) return [];
+    const image = create();
+    image.decoding = 'async';
+    image.src = art.url(entry);
+    held.push(image);
+    return [image.decode().catch(() => undefined)];
+  });
+  return Promise.all(loads).then(() => undefined);
+}

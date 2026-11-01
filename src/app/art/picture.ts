@@ -240,6 +240,23 @@ function placeholderDrawing(id: string, width: number, height: number): SVGSVGEl
   );
 }
 
+/**
+ * A painting that arrives after its screen is shown fades in rather than popping in (S6's
+ * PS-QA-20). One the page already has is drawn at once, and one that arrives while the router
+ * still waits to show its new screen (off the page until then) is there when the screen is, so
+ * neither fades. With less motion the fade does not run (styles/game.css).
+ */
+export function fadeInIfLate(image: HTMLImageElement): void {
+  if (image.complete) return;
+  image.addEventListener(
+    'load',
+    () => {
+      if (image.isConnected) image.dataset['late'] = 'true';
+    },
+    { once: true },
+  );
+}
+
 /** A painting or SVG by art ID, or its labelled placeholder. */
 export function picture(art: ArtLibrary, id: string, options: PictureOptions = {}): HTMLElement {
   const [width, height] = pictureSize(art, id);
@@ -262,6 +279,7 @@ export function picture(art: ArtLibrary, id: string, options: PictureOptions = {
         draggable: 'false',
       },
     });
+    fadeInIfLate(image);
     frame.append(image);
     return frame;
   }

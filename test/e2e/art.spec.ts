@@ -8,12 +8,14 @@
  *   spots S5 paints open water at (`game/map.ts`);
  * - the inked and the freed Muréna stand on the same ground, however each is trimmed;
  * - Osmička cheers beside the results of a finished round;
- * - no text sits straight on a painting, and every screen passes axe.
+ * - no text sits straight on a painting, and every screen passes axe;
+ * - on a slow connection the title's painting is fetched while the content loads, so the title is
+ *   there with it, and a painting that arrives after its screen fades in (none with less motion).
  */
 import type { Page } from '@playwright/test';
 import { levelSpots, regionSpot } from '../../src/app/game/map';
 import { ART, GUIDE_ID } from '../../src/rules/contract';
-import { drawnRects, painted, rehearseNextArt, textOffPaper } from './support/art';
+import { drawnRects, NEXT_ART, painted, rehearseNextArt, textOffPaper } from './support/art';
 import {
   lagoonPlayed,
   leaveScreen,
@@ -173,4 +175,122 @@ test('S5’s next paintings drop in without code changes', async ({ page, baseUR
   expect(seen.consoleErrors, 'console errors').toEqual([]);
   expect(seen.foreignRequests, 'requests to another origin').toEqual([]);
   expect(seen.failedRequests, 'failed or 4xx/5xx requests').toEqual([]);
+});
+
+// ------------------------------------------------------------------------------ a slow connection
+
+/** The title's painting among the stand-ins. */
+const TITLE = NEXT_ART.find((art) => art.id === ART.scene('title'))!;
+const TITLE_URL = `**/assets/art/${TITLE.file}`;
+
+/** Hold every request for `url` back for `ms`, then let it go on as it would. */
+async function slowly(page: Page, url: string, ms: number): Promise<void> {
+  await page.route(url, async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, ms));
+    await route.fallback();
+  });
+}
+
+/** Hold every request for `url` back until the returned function lets them go. */
+async function heldBack(page: Page, url: string): Promise<() => void> {
+  let release!: () => void;
+  const released = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route(url, async (route) => {
+    await released;
+    await route.fallback();
+  });
+  return release;
+}
+
+interface ShownAtReady {
+  readonly complete: boolean;
+  readonly width: number;
+}
+
+/** Note, in the page, how the title's painting is drawn the moment the boot status says ready. */
+async function noteTitleAtReady(page: Page): Promise<() => Promise<ShownAtReady | null>> {
+  await page.addInitScript((id) => {
+    const scope = globalThis as { psTitleAtReady?: ShownAtReady | null };
+    scope.psTitleAtReady = null;
+    new MutationObserver(() => {
+      const status = document.querySelector('[data-testid="boot-status"]');
+      if (scope.psTitleAtReady || status?.getAttribute('data-state') !== 'ready') return;
+      const image = document.querySelector<HTMLImageElement>(`[data-art-id="${id}"] img`);
+      scope.psTitleAtReady = {
+        complete: image?.complete ?? false,
+        width: image?.naturalWidth ?? 0,
+      };
+    }).observe(document, { subtree: true, attributes: true, attributeFilter: ['data-state'] });
+  }, ART.scene('title'));
+  return () =>
+    page.evaluate(
+      () => (globalThis as { psTitleAtReady?: ShownAtReady | null }).psTitleAtReady ?? null,
+    );
+}
+
+test('on a slow connection the title is there with its painting, fetched while the content loads', async ({
+  page,
+}) => {
+  // S6's PS-QA-20: the title used to ask for its painting only once it was built, and showed bare
+  // sea until the painting popped in.
+  await rehearseNextArt(page);
+  const asked: string[] = [];
+  page.on('request', (request) => {
+    if (request.url().endsWith(`/assets/art/${TITLE.file}`)) asked.push(request.url());
+  });
+  // Registered after the rehearsal, these run first: the painting is slow, the content slower.
+  await slowly(page, TITLE_URL, 1500);
+  await slowly(page, '**/content/pearl-sea.content.json', 3000);
+  const atReady = await noteTitleAtReady(page);
+  await page.goto('./');
+  await ready(page, 'title');
+  expect(await atReady(), 'the title’s painting when the title appears').toEqual({
+    complete: true,
+    width: TITLE.width,
+  });
+  // The title's own picture is the painting the page already has.
+  expect(asked).toHaveLength(1);
+});
+
+test('with less motion a painting that arrives after its screen is simply there', async ({
+  page,
+}) => {
+  await rehearseNextArt(page);
+  const release = await heldBack(page, TITLE_URL);
+  // A held painting may hold back the page's load event (WebKit), so wait for the boot status.
+  await page.goto('./', { waitUntil: 'domcontentloaded' });
+  await ready(page, 'title');
+  const painting = painted(page, ART.scene('title'));
+  release();
+  await expect(painting).toHaveAttribute('data-late', 'true');
+  await expect
+    .poll(() => painting.evaluate((image) => (image as HTMLImageElement).complete))
+    .toBe(true);
+  expect(await painting.evaluate((image) => getComputedStyle(image).animationName)).toBe('none');
+  expect(await painting.evaluate((image) => getComputedStyle(image).opacity)).toBe('1');
+});
+
+test.describe('with motion', () => {
+  test.use({ reducedMotion: 'no-preference' });
+
+  test('a painting that arrives after its screen is shown fades in, never pops in', async ({
+    page,
+  }) => {
+    await rehearseNextArt(page);
+    const release = await heldBack(page, TITLE_URL);
+    // A held painting may hold back the page's load event (WebKit), so wait for the boot status.
+    await page.goto('./', { waitUntil: 'domcontentloaded' });
+    await ready(page, 'title');
+    const painting = painted(page, ART.scene('title'));
+    // The title is shown, its painting still on its way.
+    expect(await painting.evaluate((image) => (image as HTMLImageElement).complete)).toBe(false);
+    expect(await painting.getAttribute('data-late')).toBeNull();
+    release();
+    await expect(painting).toHaveAttribute('data-late', 'true');
+    expect(await painting.evaluate((image) => getComputedStyle(image).animationName)).toBe(
+      'ps-art-in',
+    );
+  });
 });

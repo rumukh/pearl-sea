@@ -3,7 +3,8 @@
  * (or found unreadable, which shows the recovery screen), the game's content pack and strings
  * were validated (with rules on main), the reading font loaded (or its short wait ran out), and
  * the first screen is mounted and painted. The audio manifest and the art catalog are read first
- * (a missing or broken one means a silent game or placeholder art, never a failed boot). Nothing
+ * (a missing or broken one means a silent game or placeholder art, never a failed boot); the
+ * title's painting then loads alongside the content, so the title never shows without it. Nothing
  * is exposed on `window`, the console gets a line only when the browser's sound service refuses
  * the sound pack (see `audio/game-audio.ts`), and uncaught errors land on the error screen.
  *
@@ -14,7 +15,7 @@
  */
 import { applyPresentationPreferences } from '@aegis/browser/ui';
 import { requireValue, schema } from '@aegis/runtime';
-import { loadArtLibrary } from './art/library';
+import { loadArtLibrary, preloadPictures } from './art/library';
 import { loadAudioMap } from './audio/manifest';
 import { createHistoryLoader } from './content/history';
 import { loadContentPack } from './content/load';
@@ -30,6 +31,7 @@ import { createScreens } from './screens';
 import { createApp, STARTUP_FAILURE } from './shell/app';
 import type { AppEnvironment } from './shell/app';
 import { afterPaint, h } from './ui/dom';
+import { ART } from '../rules/contract';
 import './styles/base.css';
 import './styles/components.css';
 import './styles/screens.css';
@@ -105,6 +107,8 @@ async function boot(root: HTMLElement, status: HTMLElement): Promise<void> {
     loadAudioMap(env.baseUrl),
     loadArtLibrary(env.baseUrl),
   ]);
+  // The title's painting loads while the content does, so the first screen is there with it.
+  void preloadPictures(art, [ART.scene('title')]);
   const app = createApp({ env, root, bootStatus: status, audioMap, art });
   app.screens = createScreens(app);
   // With rules, the game's content (the pack and its strings) loads while the family record

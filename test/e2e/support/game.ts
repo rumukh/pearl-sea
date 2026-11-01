@@ -211,6 +211,25 @@ export const LAGOON_LESSONS: readonly string[] = PACK.data.levels
   .map((level) => level.id);
 
 /**
+ * A 3rd grader who played the whole lagoon today (`day`, the page's own date, `pageDay`): today's
+ * goal met, the day's quests done but their coins not claimed, and the treasure chest waiting.
+ * The quests of a first day all come with the lagoon (answers right, fast and in a row, a board, a
+ * level), so the grotto shows three rewards to claim and the chest: its fullest state.
+ */
+export async function lagoonPlayedToday(day: string): Promise<RuntimeSnapshot> {
+  return levelsPlayed(LAGOON_LESSONS, 'e2e-today', 'krab-tvrdak', 0, day);
+}
+
+/** The page's own date, as the shell reads it (`localDay` in persistence/day.ts). */
+export function pageDay(page: Page): Promise<string> {
+  return page.evaluate(() => {
+    const now = new Date();
+    const pad = (value: number): string => String(value).padStart(2, '0');
+    return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  });
+}
+
+/**
  * A 3rd grader who played the whole lagoon, Muréna Mumla's battle too, missing one answer in
  * five: progress with words to practise and a monster's diploma for the grown-ups' area.
  */
@@ -219,15 +238,16 @@ export async function lagoonFreed(): Promise<RuntimeSnapshot> {
 }
 
 /**
- * A 3rd grader who chose `egg` and played `levels` in order on SEED_DAY (S2's trace player on
- * the real pack), then went home: the snapshot a save of that child holds. `slips` makes every
- * n-th answer a miss, as a child who is still learning gives them.
+ * A 3rd grader who chose `egg` and played `levels` in order on `day` (SEED_DAY unless the test
+ * needs today: S2's trace player on the real pack), then went home: the snapshot a save of that
+ * child holds. `slips` makes every n-th answer a miss, as a child who is still learning gives them.
  */
 export async function levelsPlayed(
   levels: readonly string[],
   seed = 'e2e-levels',
   egg = 'krab-tvrdak',
   slips = 0,
+  day = SEED_DAY,
 ): Promise<RuntimeSnapshot> {
   const style =
     slips > 0
@@ -235,7 +255,7 @@ export async function levelsPlayed(
       : PERFECT;
   const player = new Player(style, seed, GAME.adapter, GAME.content);
   try {
-    if (!(await player.begin(egg, SEED_DAY))) {
+    if (!(await player.begin(egg, day))) {
       throw new Error(`the seeded child could not begin: ${player.failures.join(', ')}`);
     }
     for (const level of levels) await player.playLevel(level);

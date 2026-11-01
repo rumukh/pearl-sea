@@ -475,6 +475,79 @@ def avatars(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(1.0)).save(out)
 
 
+def paddle(d, root, tip, width, color, bend=0.0, spots=None):
+    """A rounded, leaf-shaped flipper from root to tip, widest a third of the way out; bend curves
+    it sideways (a fraction of its length, positive to the left of the root-to-tip direction)."""
+    (x0, y0), (x1, y1) = root, tip
+    length = math.hypot(x1 - x0, y1 - y0)
+    ux, uy = (x1 - x0) / length, (y1 - y0) / length
+    nx, ny = -uy, ux
+    left, right = [], []
+    for t in 1.0 - (1.0 - np.linspace(0.0, 1.0, 64)) ** 1.6:                  # dense near the round tip
+        if t <= 0.4:
+            half = width / 2 * (0.55 + 0.45 * math.sin(math.pi / 2 * t / 0.4))
+        else:
+            half = width / 2 * math.sqrt(max(0.0, 1 - ((t - 0.4) / 0.6) ** 2))
+        off = bend * length * math.sin(math.pi * t)
+        cx, cy = x0 + ux * length * t + nx * off, y0 + uy * length * t + ny * off
+        left.append((cx + nx * half, cy + ny * half))
+        right.append((cx - nx * half, cy - ny * half))
+    d.polygon(left + right[::-1], fill=color)
+    for s, o in spots or ():
+        off = bend * length * math.sin(math.pi * s)
+        px = x0 + ux * length * s + nx * (off + o * width / 2)
+        py = y0 + uy * length * s + ny * (off + o * width / 2)
+        d.ellipse([px - 13, py - 10, px + 13, py + 10], fill=(170, 226, 160))
+
+
+def zelva_baby2(out, route_json=None):
+    """Zelva Obojka as a hatchling, facing left like her master: a big round head, a small domed
+    shell of exactly eight plates (an upper row of four and a lower row of four), a lighter rim
+    band, a cream belly and short, rounded, leaf-shaped paddle flippers (never arms or legs)."""
+    img, d = canvas()
+    skin, spot, cream, rim = (118, 204, 150), (170, 226, 160), (246, 232, 168), (238, 176, 92)
+    fin = (92, 180, 124)
+    plates = [np.array((226, 150, 66)), np.array((242, 186, 92))]
+    paddle(d, (1060, 715), (1215, 790), 96, fin, bend=0.10, spots=[(0.55, 0.0)])             # rear flipper
+    paddle(d, (720, 755), (860, 880), 104, fin, bend=0.12, spots=[(0.55, 0.0)])              # far front flipper, swept back
+    d.ellipse([570, 650, 1080, 775], fill=cream)                             # belly
+    cx, cy, rx, ry = 830, 690, 290, 260                                      # dome on the rim line cy
+    arr = np.asarray(img).copy()
+    yy, xx = np.mgrid[0:arr.shape[0], 0:arr.shape[1]]
+    u = (xx - cx) / rx
+    inside = (u ** 2 + ((yy - cy) / ry) ** 2 <= 1.0) & (yy <= cy)
+    xs = []
+    for k in (-1, 0, 1):                                                     # column borders, fanned
+        x_rim, x_top = cx + k * 150, cx + k * 70
+        xs.append(x_rim + (x_top - x_rim) * (cy - yy) / ry)
+    col = (xx >= xs[0]).astype(int) + (xx >= xs[1]).astype(int) + (xx >= xs[2]).astype(int)
+    boundary = cy - 0.56 * ry * np.sqrt(np.clip(1 - u ** 2, 0, 1))
+    row = (yy >= boundary).astype(int)
+    cell = col + 4 * row
+    for k in range(8):
+        arr[inside & (cell == k)] = plates[(k + k // 4) % 2]
+    edge = np.zeros_like(inside)
+    edge[1:, :] |= cell[1:, :] != cell[:-1, :]
+    edge[:, 1:] |= cell[:, 1:] != cell[:, :-1]
+    edge = ndimage_dilate(edge & inside, 5)
+    arr[edge & inside] = PLUM
+    img = Image.fromarray(arr)
+    d = ImageDraw.Draw(img)
+    dome = [(cx + rx * math.cos(a), cy - ry * math.sin(a)) for a in np.linspace(0, math.pi, 90)]
+    d.line(dome, fill=PLUM, width=12)
+    d.rectangle([cx - rx, cy - 30, cx + rx, cy + 6], fill=rim)               # lighter rim band
+    d.line([(cx - rx, cy - 30), (cx + rx, cy - 30)], fill=PLUM, width=10)
+    paddle(d, (630, 720), (330, 835), 140, fin, bend=0.10, spots=[(0.45, 0.1), (0.62, -0.25), (0.78, 0.15)])  # near front flipper
+    thick_path(d, [(600, 610), (560, 592), (520, 580)], 140, 130, skin)     # short thick neck
+    d.ellipse([200, 350, 540, 680], fill=skin)                              # big round head
+    for sx, sy in ((285, 405), (335, 385), (395, 392), (440, 420), (255, 455), (495, 470)):
+        d.ellipse([sx - 14, sy - 11, sx + 14, sy + 11], fill=spot)
+    eye(d, 315, 508, 56, iris=(120, 70, 40))
+    eye(d, 437, 513, 52, iris=(120, 70, 40))
+    smile(d, 377, 603, 46, 28)
+    cheeks(d, [(262, 594), (497, 600)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
 def ndimage_dilate(mask, r):
     from scipy import ndimage
     return ndimage.binary_dilation(mask, iterations=r)
@@ -803,5 +876,5 @@ if __name__ == "__main__":
      "moray2": moray2, "krab": krab, "meduzka": meduzka, "meduzka2": meduzka2, "zelva": zelva,
      "zelva2": zelva2, "osmicka": osmicka, "title": title, "plain-grey": plain_grey,
      "krab-baby": krab_baby, "meduzka-baby": meduzka_baby, "zelva-baby": zelva_baby,
-     "avatars": avatars}[name](out, rj)
+     "avatars": avatars, "zelva-baby2": zelva_baby2}[name](out, rj)
     print(out)

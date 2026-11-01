@@ -1342,6 +1342,633 @@
       }
     },
     {
+      "id": "character/osmicka/happy",
+      "file": "characters/osmicka-happy.webp",
+      "width": 976,
+      "height": 984,
+      "bytes": 117322,
+      "sha256": "0b534cdfd7bbe4aef39299b05d0712da954f8b144e8441e5649496a1b6c060e7",
+      "anchors": null,
+      "promptFile": "prompts/osmicka-happy.prompt.txt",
+      "approvedImage": {
+        "image": "profesorka-osmicka/profesorka-osmicka-happy-b-edit-s94102.png",
+        "sha256": "99e66dd69f0dc23f114175a2ae67ec055455ffe9bca81d2a364e6076083e8017"
+      },
+      "lineage": [
+        {
+          "image": "profesorka-osmicka/profesorka-osmicka-happy-b-edit-s94102.png",
+          "sha256": "99e66dd69f0dc23f114175a2ae67ec055455ffe9bca81d2a364e6076083e8017",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the octopus teacher Profesorka Osmička. Change one thing only: her raised, waving arm on the right must end in a smooth, curled octopus tentacle tip with small round suckers, like her other seven arms, with no hand, no fingers and no thumb. Keep everything else exactly the same: her happy open-mouthed smile, her round golden glasses, her rosy cheeks, all eight arms, her colours, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "hand, fingers, thumb, palm, glove, extra arms, nine arms, seven arms, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 94102,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "profesorka-osmicka/profesorka-osmicka-happy-b-from-master-s94101.png",
+              "role": "source image edited in place: happy take s94101 (the waving arm ends in a hand)",
+              "sha256": "5829faf218a02959b2b43fe2b3a95c89941a014957d33b135d6b50028f9340bc"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "profesorka-osmicka/profesorka-osmicka-happy-b-from-master-s94101.png",
+          "sha256": "5829faf218a02959b2b43fe2b3a95c89941a014957d33b135d6b50028f9340bc",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the octopus teacher Profesorka Osmička. Change only her expression and her raised arm: she is delighted and proud of the child, with a big, warm, open-mouthed happy smile, cheerful eyes behind her round golden glasses and rosy cheeks, and her raised arm waving happily with its tip curled. Keep everything else exactly the same: all eight arms with their curled tips and suckers, her colours, her glasses, the outline style, the painting style, the framing and the plain flat light grey background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "hand, fingers, extra arms, nine arms, seven arms, glow, light rays, sticker border, white outline, blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background",
+          "seed": 94101,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "profesorka-osmicka/profesorka-osmicka-neutral-b-edit-s94013.png",
+              "role": "approved master (gate 2), edited in place to derive the happy form",
+              "sha256": "b6f68d80a298e3d0e84b6bbb8db6e9c310981e5997e715e1c2598ec32d267c8c"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "profesorka-osmicka/profesorka-osmicka-neutral-b-edit-s94013.png",
+          "sha256": "b6f68d80a298e3d0e84b6bbb8db6e9c310981e5997e715e1c2598ec32d267c8c",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the octopus teacher Profesorka Osmička. Change one thing only: her raised arm on the left must end in a soft, rounded, curled octopus arm tip with little suckers, like her other arms, with no hand and no fingers; keep it raised in the same friendly explaining gesture. Also make the whole background plain, flat, evenly lit light grey with no glow in the corner. Keep everything else exactly the same: her face, glasses, smile, colours, all eight arms, the outline style, the painting style and the framing. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "hand, fingers, glove, extra arms, nine arms, seven arms, glow, light rays, vignette, sticker border, white outline, blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background",
+          "seed": 94013,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "profesorka-osmicka/profesorka-osmicka-neutral-b-sketchv1-s94011.png",
+              "role": "source image edited in place: sketch-based take s94011 (eight arms, raised arm drawn as a hand)",
+              "sha256": "fa07ff1761b7f23954e471f2c85206996adbd36d90ba576cdbfee5e66b2aa5e6"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "profesorka-osmicka/profesorka-osmicka-neutral-b-sketchv1-s94011.png",
+          "sha256": "fa07ff1761b7f23954e471f2c85206996adbd36d90ba576cdbfee5e66b2aa5e6",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly eight graceful curling arms, all clearly visible and easy to count, with paler lilac suckers; one arm raised as if gently explaining something; round golden glasses. It shows Profesorka Osmička, a wise, kind octopus teacher, sitting upright and looking at the viewer with a warm, attentive smile. A soft violet-lilac body with a big rounded head, big friendly eyes behind the round golden glasses, and rosy cheeks.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain flat light grey background around the character, nothing else: no shadow, no sun, no light rays, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, squid, extra arms, book, pointer stick",
+          "seed": 94011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "profesorka-osmicka/ref-profesorka-osmicka-neutral-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py osmicka), repainted in place",
+              "sha256": "40ee100b7c4926da0a07c570ab7bd2b102f3748023cca546edd8d57cebfcbabb",
+              "sketch": "scripts/art/authoring/sketches.py osmicka (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-10-31",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e88d812ffcf0c0b2ffcf4f3e8870a5163725633ac85b5dba4a5bfa1dd5c0b200"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d00380a48f214c94144ca28624bda71318f35b11351047fba0d43718cf7a710f): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "bc0e8d3d70d93d2df68659285de9ba0ea15bba3706a632562ec07fc83c1f5d71",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9494
+        },
+        {
+          "step": "trim",
+          "box": [
+            188,
+            210,
+            1164,
+            1194
+          ],
+          "marginPx": 19,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            976,
+            984
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.49,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate5-derived-forms",
+        "decidedAt": "2026-11-01T18:56:57.172441+01:00",
+        "question": "Gate 5: the slice's derived forms, each shown beside its approved master on the lagoon (S5's gate5-derived images). They are the babies of Krab Tvrďák, Medúzka Měkulka and Želva Obojka, Murena Mumla freed, and Profesorka Osmička happy. Krab's baby has two takes: A is tomato red with soft gouache texture like the grown-up, B is glossy red. Which should I ship?",
+        "answer": "Approve all five, with Krab baby A (Recommended)",
+        "chosen": "Osmička happy"
+      }
+    },
+    {
+      "id": "friend/krab-tvrdak/baby",
+      "file": "friends/krab-tvrdak-baby.webp",
+      "width": 982,
+      "height": 811,
+      "bytes": 83410,
+      "sha256": "9dd56dabe474953df59f27da9afdeaf18a0f5cd5f174539e6af417449a7eff13",
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 37,
+          "scale": 125,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 111,
+          "scale": 120,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 672,
+          "scale": 90,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/krab-tvrdak-baby.prompt.txt",
+      "approvedImage": {
+        "image": "krab-tvrdak/krab-tvrdak-baby-b-red-edit-s91127.png",
+        "sha256": "8b77f2dd56af0d44fa206ea26288e5261eaaea61d61690aa46f3359d2dfea49a"
+      },
+      "lineage": [
+        {
+          "image": "krab-tvrdak/krab-tvrdak-baby-b-red-edit-s91127.png",
+          "sha256": "8b77f2dd56af0d44fa206ea26288e5261eaaea61d61690aa46f3359d2dfea49a",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby crab Krab Tvrďák. Change one colour only: his shell, claws, legs and eye stalks are too orange; paint them a warm, bright tomato red like his grown-up self, red all over with only a hint of orange in the lighter parts, keeping the same soft gouache and watercolour texture and gentle shading. Keep everything else exactly the same: the seven bone-white spikes along the top of his shell, his two big round eyes on the stalks, his smile and rosy cheeks on the front of his shell, the cream underside, the shapes of his two raised claws, the three short legs on each side, the deep plum-brown outline, the size, the framing and the plain light background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "orange shell, pumpkin, brown, rust, glossy, shiny, plastic, crimson, dark red, closed eyes, eyes on the shell, dots on the shell, eyebrows, four eyes, extra eyes, extra spikes, missing spikes, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 91127,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krab-tvrdak/krab-tvrdak-baby-b-colour-edit-s91126.png",
+              "role": "source image edited in place: hatchling s91126 (gouache texture like the master, seven spikes, but orange instead of the master's tomato red)",
+              "sha256": "98a78ad22c54977136e863b28b79871fa86a1d6bcd068dfa9175e61bff6880ba"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "krab-tvrdak/krab-tvrdak-baby-b-colour-edit-s91126.png",
+          "sha256": "98a78ad22c54977136e863b28b79871fa86a1d6bcd068dfa9175e61bff6880ba",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby crab Krab Tvrďák. Change only the colour and finish of his red parts so that he matches his grown-up self: paint his shell, claws, legs and eye stalks the same warm orange-red (a tomato red with a touch of orange) as the grown-up Krab Tvrďák, with soft gouache and watercolour texture and gentle shading instead of the glossy, shiny, plastic look, keeping only a small soft highlight. Keep everything else exactly the same: the seven bone-white spikes along the top of his shell, his two big round eyes on the stalks, his smile and rosy cheeks on the front of his shell, the cream underside, the shapes of his two raised claws, the three short legs on each side, the deep plum-brown outline, the size, the framing and the plain light background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "glossy, shiny, plastic, crimson, dark red, closed eyes, eyes on the shell, dots on the shell, eyebrows, four eyes, extra eyes, extra spikes, missing spikes, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 91126,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krab-tvrdak/krab-tvrdak-baby-b-edit3-s91125.png",
+              "role": "source image edited in place: hatchling s91125 (anatomy right; glossier, more crimson red than the grown-up master)",
+              "sha256": "0260f988188f4766d288b40437f0c7ba226a868c5589bb28d670535e7630c7d4"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "krab-tvrdak/krab-tvrdak-baby-b-edit3-s91125.png",
+          "sha256": "0260f988188f4766d288b40437f0c7ba226a868c5589bb28d670535e7630c7d4",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby crab Krab Tvrďák. Change one thing only: remove the two small curved lines of closed eyes above his smile on the front of his red shell, and paint plain glossy red shell there. Keep his smile and his two rosy cheeks exactly as they are. His only eyes are the two big eyes on the stalks above his shell. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the size, the outline style, the painting style, the framing and the plain light background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "closed eyes, eyes on the shell, dots on the shell, eyebrows, four eyes, extra eyes, extra spikes, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 91125,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krab-tvrdak/krab-tvrdak-baby-b-edit2-s91124.png",
+              "role": "source image edited in place: hatchling edit s91124 (smile and cheeks restored, but two closed-eye arcs added on the shell)",
+              "sha256": "9ad87d9f6f5df623d9a203f20d52c1a588072240bbd335137b1629851604f3f2"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "krab-tvrdak/krab-tvrdak-baby-b-edit2-s91124.png",
+          "sha256": "9ad87d9f6f5df623d9a203f20d52c1a588072240bbd335137b1629851604f3f2",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby crab Krab Tvrďák. Add one thing only: a simple, happy, curved smile and two soft rosy cheeks painted on the upper front of his red shell, just below the eye stalks, like his grown-up self. Do not add any eyes or dots on the shell: his only eyes stay the two big eyes on the stalks. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "eyes on the shell, dots on the shell, four eyes, extra eyes, extra spikes, frown, sad, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 91124,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krab-tvrdak/krab-tvrdak-baby-b-edit-s91123.png",
+              "role": "source image edited in place: hatchling edit s91123 (dot eyes removed, but the smile and cheeks went too)",
+              "sha256": "93fc13e8e7b3e6f7089a6a15e9a60f2ddf52a9ddb838d3c59b490246b8a3135b"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "krab-tvrdak/krab-tvrdak-baby-b-edit-s91123.png",
+          "sha256": "93fc13e8e7b3e6f7089a6a15e9a60f2ddf52a9ddb838d3c59b490246b8a3135b",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby crab Krab Tvrďák. Change one thing only: remove the two small black dot eyes on the front of his red shell, so that his only eyes are the two big eyes on the stalks above his shell; keep his smile and rosy cheeks on the shell. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "eyes on the shell, four eyes, extra eyes, extra spikes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 91123,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krab-tvrdak/krab-tvrdak-baby-b-sketchv1-s91122.png",
+              "role": "source image edited in place: sketch-based hatchling take s91122 (seven spikes, but two extra dot eyes on the shell)",
+              "sha256": "e69e0c43e63ab65594753e52f25f0616b5034a51f41c9fc0be1e006317038d4f"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "krab-tvrdak/krab-tvrdak-baby-b-sketchv1-s91122.png",
+          "sha256": "e69e0c43e63ab65594753e52f25f0616b5034a51f41c9fc0be1e006317038d4f",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly seven small, hard, bone-white spikes along the top rim of the shell, evenly spaced and easy to count; two big round eyes on short red stalks above the shell; two small raised claws; three short stubby legs on each side. It shows Krab Tvrďák as a tiny hatchling: a sweet baby crab, an animal character and not a human, with a round, chubby, glossy tomato-red shell, a cream underside, and a happy smile with rosy cheeks drawn on the front of the shell; his only eyes are the two on the stalks. He is the young version of the grown-up Krab Tvrďák: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, human baby, person, nose, hair, eyebrows, eyelashes, costume, hood, mask, doll, eyes on the shell, extra eyes, extra spikes, sharp teeth, scary",
+          "seed": 91122,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krab-tvrdak/ref-krab-tvrdak-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling (Pillow colour blocking, sketches.py krab-baby), repainted in place",
+              "sha256": "c862eff92cbb8cc336ec5fca3dfd1451c45e440a444ee34494e35001afc5d903",
+              "sketch": "scripts/art/authoring/sketches.py krab-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e88d812ffcf0c0b2ffcf4f3e8870a5163725633ac85b5dba4a5bfa1dd5c0b200"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d00380a48f214c94144ca28624bda71318f35b11351047fba0d43718cf7a710f): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "9c62dec004beb20a4f91f081d279881ecd6daaed17ffa6ed5653e66130f50a73",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9606,
+          "options": "--min-hole 100000000 --clear 682,431",
+          "optionsWhy": "Keeps the eye whites and the white spikes, which the default would open on the white backdrop, and opens the real gap between the eye stalks from a reviewed seed point."
+        },
+        {
+          "step": "trim",
+          "box": [
+            174,
+            260,
+            1156,
+            1071
+          ],
+          "marginPx": 19,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            982,
+            811
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 41.63,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate5-derived-forms",
+        "decidedAt": "2026-11-01T18:56:57.172441+01:00",
+        "question": "Gate 5: the slice's derived forms, each shown beside its approved master on the lagoon (S5's gate5-derived images). They are the babies of Krab Tvrďák, Medúzka Měkulka and Želva Obojka, Murena Mumla freed, and Profesorka Osmička happy. Krab's baby has two takes: A is tomato red with soft gouache texture like the grown-up, B is glossy red. Which should I ship?",
+        "answer": "Approve all five, with Krab baby A (Recommended)",
+        "chosen": "Krab baby A"
+      }
+    },
+    {
       "id": "friend/krab-tvrdak/grown",
       "file": "friends/krab-tvrdak-grown.webp",
       "width": 1024,
@@ -1526,6 +2153,192 @@
       }
     },
     {
+      "id": "friend/meduzka-mekulka/baby",
+      "file": "friends/meduzka-mekulka-baby.webp",
+      "width": 1024,
+      "height": 663,
+      "bytes": 84404,
+      "sha256": "ba089d58e118821fe65a544f66f77e3071311f5ff94485754270821c57b30731",
+      "anchors": {
+        "head": {
+          "x": 514,
+          "y": 91,
+          "scale": 120,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 514,
+          "y": 339,
+          "scale": 135,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 514,
+          "y": 670,
+          "scale": 90,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/meduzka-mekulka-baby.prompt.txt",
+      "approvedImage": {
+        "image": "meduzka-mekulka/meduzka-mekulka-baby-b-edit-s92113.png",
+        "sha256": "b5e5b5facf22d53c5cf9fe00ffe601e8947a37b1908419f5f01701c6d41d5096"
+      },
+      "lineage": [
+        {
+          "image": "meduzka-mekulka/meduzka-mekulka-baby-b-edit-s92113.png",
+          "sha256": "b5e5b5facf22d53c5cf9fe00ffe601e8947a37b1908419f5f01701c6d41d5096",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby jellyfish Medúzka Měkulka. Change one thing only: remove the purple flowers painted on her bell, and paint her bell as soft pastel pink-and-lilac jelly with gentle violet watercolour shading and a white highlight, like her grown-up self, with no flowers and no patterns. Keep everything else exactly the same: her face, eyes, smile and cheeks, all nine tentacles with their curls and colours, the outline style, the painting style, the framing and the plain light background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "flowers, floral pattern, petals, leaves, patterns, extra tentacles, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 92113,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "meduzka-mekulka/meduzka-mekulka-baby-b-sketchv1-s92111.png",
+              "role": "source image edited in place: sketch-based hatchling take s92111 (nine tentacles, but purple flowers painted on the bell)",
+              "sha256": "73c7a4c4507fd093f0089fcdc243b46f71ddc70497e0cd4b61555a66bbc9f508"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "meduzka-mekulka/meduzka-mekulka-baby-b-sketchv1-s92111.png",
+          "sha256": "73c7a4c4507fd093f0089fcdc243b46f71ddc70497e0cd4b61555a66bbc9f508",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly nine short, chubby, soft tentacles that fan out below the bell, each ending in one small curl, evenly spread, clearly separated and easy to count. It shows Medúzka Měkulka as a tiny hatchling: a sweet baby jellyfish, as soft as pudding, an animal character and not a human, with a big round domed bell, a happy little smile, very big shiny eyes with white highlights and rosy cheeks on her bell. Her bell is a soft pastel pink-and-lilac jelly with soft violet watercolour blooms, a gentle inner glow and a white highlight, painted opaque; the tentacles are pastel pink, lilac and peach. She is the young version of the grown-up Medúzka Měkulka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, human baby, person, nose, hair, eyebrows, eyelashes, costume, hood, mask, doll, stinging, see-through, octopus, squid, extra tentacles, long tentacles, straight sticks, balls on the tips",
+          "seed": 92111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "meduzka-mekulka/ref-meduzka-mekulka-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling (Pillow colour blocking, sketches.py meduzka-baby), repainted in place",
+              "sha256": "690671450e4833729d05cfd3adef8067c03403b3ab011e0dccfd243ee39ecf2f",
+              "sketch": "scripts/art/authoring/sketches.py meduzka-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e88d812ffcf0c0b2ffcf4f3e8870a5163725633ac85b5dba4a5bfa1dd5c0b200"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d00380a48f214c94144ca28624bda71318f35b11351047fba0d43718cf7a710f): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "90a3385da8a63e5a8756b7747efb191a078efcb2fde3b18d3b65777d7f99015a",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9424,
+          "options": "--low 30 --high 45 --peel 8 --clear 627,847 --clear 823,834 --clear 999,778 --clear 312,795 --clear 655,914 --clear 989,879",
+          "optionsWhy": "The warm paper backdrop and watercolour bleed past the outline: a looser key, an 8-pixel peel of light paint off the outer edge, and the light pockets between touching tentacles opened from reviewed seed points."
+        },
+        {
+          "step": "trim",
+          "box": [
+            112,
+            292,
+            1187,
+            988
+          ],
+          "marginPx": 21,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.952558,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            663
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.84,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate5-derived-forms",
+        "decidedAt": "2026-11-01T18:56:57.172441+01:00",
+        "question": "Gate 5: the slice's derived forms, each shown beside its approved master on the lagoon (S5's gate5-derived images). They are the babies of Krab Tvrďák, Medúzka Měkulka and Želva Obojka, Murena Mumla freed, and Profesorka Osmička happy. Krab's baby has two takes: A is tomato red with soft gouache texture like the grown-up, B is glossy red. Which should I ship?",
+        "answer": "Approve all five, with Krab baby A (Recommended)",
+        "chosen": "Medúzka baby"
+      }
+    },
+    {
       "id": "friend/meduzka-mekulka/grown",
       "file": "friends/meduzka-mekulka-grown.webp",
       "width": 930,
@@ -1661,6 +2474,238 @@
         "question": "Gate 2 – the slice character masters in style B (images batch1-candidates.jpg and batch1-in-the-lagoon.jpg in my gate2 folder). Krab Tvrďák has 7 spikes, Medúzka Měkulka 9 tentacles, Želva Obojka 8 shell plates and Profesorka Osmička 8 arms. Bublinka has two takes. Murena Mumla (inked) has two takes; A is the most moray-like but has a pale belly and a carrot-like tail tip. Babies, Murena's freed form and Osmička's happy face will be derived from whichever masters you approve. Which masters should I use?",
         "answer": "Approve the recommended set: Krab A, Medúzka A, Želva A, Osmička A, Bublinka A, Murena A (Recommended)",
         "chosen": "Medúzka A"
+      }
+    },
+    {
+      "id": "friend/zelva-obojka/baby",
+      "file": "friends/zelva-obojka-baby.webp",
+      "width": 1024,
+      "height": 587,
+      "bytes": 66786,
+      "sha256": "7a236097fe66062c631270616bfaead9542b7b5f92fd4a8e2d4b448066c67f34",
+      "anchors": {
+        "head": {
+          "x": 190,
+          "y": 85,
+          "scale": 110,
+          "rotate": -4
+        },
+        "eyes": {
+          "x": 194,
+          "y": 324,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 329,
+          "y": 528,
+          "scale": 60,
+          "rotate": -10
+        }
+      },
+      "promptFile": "prompts/zelva-obojka-baby.prompt.txt",
+      "approvedImage": {
+        "image": "zelva-obojka/zelva-obojka-baby-b-colour-edit-s93134.png",
+        "sha256": "06c2c263ab2012840cc9f37d989de86bffc97c7c8421b06225757c5e269a0f44"
+      },
+      "lineage": [
+        {
+          "image": "zelva-obojka/zelva-obojka-baby-b-colour-edit-s93134.png",
+          "sha256": "06c2c263ab2012840cc9f37d989de86bffc97c7c8421b06225757c5e269a0f44",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby sea turtle Želva Obojka. Change only two colours so that she matches her grown-up self: paint her shell plates a bright, glowing orange-amber with warm honey-gold highlights and gentle orange shading (not brown, not tan), and paint her skin, on her head, neck and three flippers, a fresh, clear mint-emerald green (not yellow-green, not lime), keeping the lighter green spots. Keep everything else exactly the same: her pose, her size, the deep plum-brown outline around her and her shapes, the plum lines between the eight shell plates (four in the upper row and four in the lower row), the light honey rim of her shell, the cream belly, her eyes with their small eyelashes, her smile, nostrils and rosy cheeks, the painting style, the framing and the plain light background. No sticker border and no white edge around the outline. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "brown shell, tan shell, wooden shell, yellow-green skin, lime skin, black outline, extra plates, extra flippers, arms, legs, feet, fingers, hands, eyebrows, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 93134,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zelva-obojka/zelva-obojka-baby-b-outline-edit-s93133.png",
+              "role": "source image edited in place: hatchling s93133 (s93132 with the style-B plum outline added); shell browner and skin more yellow-green than the grown-up master",
+              "sha256": "7fec1e20f31191c4697b691edff6e67bb23dd921c6da85c4d2061d05758559dc"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "zelva-obojka/zelva-obojka-baby-b-outline-edit-s93133.png",
+          "sha256": "7fec1e20f31191c4697b691edff6e67bb23dd921c6da85c4d2061d05758559dc",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the baby sea turtle Želva Obojka. Change one thing only: draw a clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and around each of her main shapes, her head, her three flippers, her belly and her shell, in the same plum-brown as the lines between her shell plates, like the outline of her grown-up self. Keep everything else exactly the same: her pose, her size, her big round head, her eyes with their small eyelashes, her smile, nostrils and rosy cheeks, the eight shell plates (four in the upper row and four in the lower row), the lighter honey rim of her shell, the cream belly, the green skin with lighter green spots, the colours, the painting style, the framing and the plain light background. No sticker border and no white edge around the outline. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "black outline, thick black lines, extra plates, extra flippers, arms, legs, feet, fingers, hands, eyebrows, frown, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 93133,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zelva-obojka/zelva-obojka-baby-b-sketchv2-s93132.png",
+              "role": "source image edited in place: hatchling take s93132 from the v2 sketch (good anatomy, eight plates, eyelashes; no plum outline around the body)",
+              "sha256": "70d1cb954086eebe041ad0cb8fea79ab5f9f5961a7adce28f478bae818bce46a"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "zelva-obojka/zelva-obojka-baby-b-sketchv2-s93132.png",
+          "sha256": "70d1cb954086eebe041ad0cb8fea79ab5f9f5961a7adce28f478bae818bce46a",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly eight shell plates, four in the upper row and four in the lower row, each clearly outlined and easy to count; exactly three short, rounded, leaf-shaped paddle flippers (two in front, one at the back), with no arms, legs, feet or toes. It shows Želva Obojka as a tiny hatchling: a sweet baby sea turtle, an animal character and not a human, swimming to the left, with a big round head, big shiny dark-brown eyes with small eyelashes, two tiny nostril dots, a happy smile and rosy cheeks; bright green skin with lighter green spots on her head and flippers; a small, low, domed caramel-and-honey shell with darker plate lines and a lighter honey rim along its lower edge, sitting on a cream-yellow belly. She is the young version of the grown-up Želva Obojka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, human baby, person, human nose, hair, eyebrows, costume, hood, mask, doll, fingers, hands, tortoise, land turtle, extra plates, flowers, arms, legs, feet, toes, claws, beach ball, ball, round shell, striped shell",
+          "seed": 93132,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zelva-obojka/ref-zelva-obojka-baby-sketch-v2.png",
+              "role": "anatomy and composition sketch of the hatchling (Pillow colour blocking, sketches.py zelva-baby2), repainted in place",
+              "sha256": "808200c5681cbc3198689a25f9f907ab43dba52c01b38104cb8436aa3df55d35",
+              "sketch": "scripts/art/authoring/sketches.py zelva-baby2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e88d812ffcf0c0b2ffcf4f3e8870a5163725633ac85b5dba4a5bfa1dd5c0b200"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d00380a48f214c94144ca28624bda71318f35b11351047fba0d43718cf7a710f): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "af79db25b7ef591adc9e25188579c28126627599c2dca52233d5107f689aff68",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9968,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the eye whites, which the default would open on the white backdrop; this pose has no real gaps."
+        },
+        {
+          "step": "trim",
+          "box": [
+            160,
+            309,
+            1254,
+            936
+          ],
+          "marginPx": 21,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.936015,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            587
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 40.43,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate5-derived-forms",
+        "decidedAt": "2026-11-01T18:56:57.172441+01:00",
+        "question": "Gate 5: the slice's derived forms, each shown beside its approved master on the lagoon (S5's gate5-derived images). They are the babies of Krab Tvrďák, Medúzka Měkulka and Želva Obojka, Murena Mumla freed, and Profesorka Osmička happy. Krab's baby has two takes: A is tomato red with soft gouache texture like the grown-up, B is glossy red. Which should I ship?",
+        "answer": "Approve all five, with Krab baby A (Recommended)",
+        "chosen": "Želva baby"
       }
     },
     {
@@ -2039,12 +3084,231 @@
       }
     },
     {
+      "id": "monster/murena-mumla/freed",
+      "file": "monsters/murena-mumla-freed.webp",
+      "width": 1024,
+      "height": 893,
+      "bytes": 89544,
+      "sha256": "c7a36758d61abb99e88511da228290153cd8817193da45f6448ac9ed776b773e",
+      "anchors": null,
+      "promptFile": "prompts/murena-mumla-freed.prompt.txt",
+      "approvedImage": {
+        "image": "murena-mumla/murena-mumla-freed-b-edit-s72107.png",
+        "sha256": "3eea16cc0ca49453b5da617699fd118f0f8a835ef6ea1ebbea1e2ac1e8929c73"
+      },
+      "lineage": [
+        {
+          "image": "murena-mumla/murena-mumla-freed-b-edit-s72107.png",
+          "sha256": "3eea16cc0ca49453b5da617699fd118f0f8a835ef6ea1ebbea1e2ac1e8929c73",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon moray eel Murena Mumla. Change one thing only: paint the big rounded boulder she leans out of in soft lilac-grey and lavender stone colours with gentle watercolour shading, like the boulder in her inked picture but clean, with no ink stains, clearly darker and more colourful than the light grey background. Keep the boulder's shape, its plum outline and the dark hole. Keep everything else exactly the same: Murena, her happy face and grin, her lime-green skin with yellow spots, the coral-orange fin crest, the tail tip, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, grey boulder, pale boulder, white boulder, grumpy, angry, sharp fangs, snake, cobra, crocodile, glow, light rays, sticker border, white outline, blurry, low resolution, duplicate subjects, cropped body, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background",
+          "seed": 72107,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "murena-mumla/murena-mumla-freed-b-from-master-s72106.png",
+              "role": "source image edited in place: freed take s72106 (the boulder came out light grey like the backdrop)",
+              "sha256": "f4f871120d6aa35857b5ca5c8c15772c5df0b5b2dfacb63d8273e529f50da12f"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "murena-mumla/murena-mumla-freed-b-from-master-s72106.png",
+          "sha256": "f4f871120d6aa35857b5ca5c8c15772c5df0b5b2dfacb63d8273e529f50da12f",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon moray eel Murena Mumla. All of the black and dark-violet magic ink has been washed away and she is happy again. Keep exactly the same character, pose, body shape, boulder, head shape, fin crest, tube nostrils, tail, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and ink bubble, revealing her clean, glossy, bright colours everywhere: lime-green skin with round lemon-yellow spots and a coral-orange fin crest. Change only her expression: a big, friendly, grateful smile with a bright, wide-open happy eye and a relaxed, raised eyebrow; her jaw stays a little open in a cheerful grin with a few small, blunt, rounded white teeth. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink bubbles, dirty, grumpy, angry, frowning, sharp fangs, snake, cobra, crocodile, dinosaur, belly plates, sun, light rays, glow, extra eyes, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 72106,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "murena-mumla/murena-mumla-inked-b-sketchv5-s72005.png",
+              "role": "approved master (gate 2), edited in place to derive the freed form",
+              "sha256": "e9adae9324464f92c4b55c77eb84c355a9838c7d0c72751a619b5ab113d573a1"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "murena-mumla/murena-mumla-inked-b-sketchv5-s72005.png",
+          "sha256": "e9adae9324464f92c4b55c77eb84c355a9838c7d0c72751a619b5ab113d573a1",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: her thick body is as wide as her head all the way up, with no neck; a long, blunt, rounded moray head facing left with a small round eye high near the front, two tiny tube-shaped nostrils on the snout tip and a very long gaping mouth that reaches back past her eye, showing a few small, blunt, rounded white teeth; a small round gill hole behind the mouth; one continuous frilly coral-orange fin crest along her back; the flat, paddle-shaped tail tip with an orange fin edge pokes out of a crack on the right side of the boulder. It shows Murena Mumla, a grumpy moray eel soaked in magic black ink, leaning out of a dark hole in a big rounded reef boulder. She is clearly a moray eel: a thick, muscular, smooth body with slimy skin, no scales, no belly plates and no side fins, lime green all over with round lemon-yellow spots and no pale belly. Glossy black and dark-violet magic ink covers part of her: blots, drips and a few little ink bubbles. A heavy, low, frowning eyebrow: she is grumpy and sulky, mumbling to herself. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, snake, cobra, hood, crocodile, alligator, dinosaur, dragon, long neck, thin neck, belly plates, belly scales, pale belly band, belly stripes, scales, forked tongue, legs, side fins, sharp fangs, blood, gore, horror, extra eyes",
+          "seed": 72005,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "murena-mumla/ref-murena-mumla-inked-sketch-v5.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py moray2), repainted in place",
+              "sha256": "a165f5c5271ab765ea3d1c98efbfd1557b06dba81214557ec439c38d80978db8",
+              "sketch": "scripts/art/authoring/sketches.py moray2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e88d812ffcf0c0b2ffcf4f3e8870a5163725633ac85b5dba4a5bfa1dd5c0b200"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d00380a48f214c94144ca28624bda71318f35b11351047fba0d43718cf7a710f): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "6426c1887acf6dcf85df6676f70e769ba1d8ad02c9270ae06a6288e0ec81b56b",
+          "holesOpened": 0,
+          "specksRemoved": 12,
+          "iouWithU2net": 0.4836,
+          "options": "--min-hole 100000000 --edge-bleed 60",
+          "optionsWhy": "U2Net calls the pale lilac boulder background, so the default opened its top; this composition has no real gaps, so every enclosed pocket is kept, and three light watercolour-bleed specks outside the outline are removed.",
+          "edgeBleedRemoved": 188
+        },
+        {
+          "step": "trim",
+          "box": [
+            116,
+            282,
+            1316,
+            1328
+          ],
+          "marginPx": 23,
+          "sharedWith": [
+            "monster/murena-mumla/freed",
+            "monster/murena-mumla/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.853333,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            893
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 41.78,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate5-derived-forms",
+        "decidedAt": "2026-11-01T18:56:57.172441+01:00",
+        "question": "Gate 5: the slice's derived forms, each shown beside its approved master on the lagoon (S5's gate5-derived images). They are the babies of Krab Tvrďák, Medúzka Měkulka and Želva Obojka, Murena Mumla freed, and Profesorka Osmička happy. Krab's baby has two takes: A is tomato red with soft gouache texture like the grown-up, B is glossy red. Which should I ship?",
+        "answer": "Approve all five, with Krab baby A (Recommended)",
+        "chosen": "Murena freed"
+      }
+    },
+    {
       "id": "monster/murena-mumla/inked",
       "file": "monsters/murena-mumla-inked.webp",
       "width": 1024,
-      "height": 872,
-      "bytes": 100346,
-      "sha256": "7b79c3b0ac29550be703a4b5e3782ad5f3f3929c208685871fa1556a494cf072",
+      "height": 893,
+      "bytes": 100440,
+      "sha256": "c5a7d0112ca90684d1098b73e792b90ffcc3d6043c96e8fc32e32d3dce10dc13",
       "anchors": null,
       "promptFile": "prompts/murena-mumla-inked.prompt.txt",
       "approvedImage": {
@@ -2102,12 +3366,12 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+        "sha256": "e88d812ffcf0c0b2ffcf4f3e8870a5163725633ac85b5dba4a5bfa1dd5c0b200"
       },
       "processing": [
         {
           "step": "cut-out",
-          "tool": "scripts/art/authoring/cutout.py (sha256 b3b9192da29c76bcb71ba5bb19951ae160cc41171daf6f6929aff1f0f44d9c84): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d00380a48f214c94144ca28624bda71318f35b11351047fba0d43718cf7a710f): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
           "cutoutSha256": "751ea1c3f740eacc51a2a26bd554c2314d6e7d597d53d72079a68eaf2e299097",
           "holesOpened": 7,
           "specksRemoved": 3,
@@ -2116,28 +3380,33 @@
         {
           "step": "trim",
           "box": [
-            119,
-            309,
+            116,
+            282,
             1316,
             1328
           ],
           "marginPx": 23,
+          "sharedWith": [
+            "monster/murena-mumla/freed",
+            "monster/murena-mumla/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
           "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
-          "factor": 0.855472,
+          "factor": 0.853333,
           "filter": "Lanczos on premultiplied alpha",
           "size": [
             1024,
-            872
+            893
           ],
           "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
           "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
-          "psnrDb": 42.26,
+          "psnrDb": 42.73,
           "alphaPsnrDb": null,
           "alphaExact": true,
           "chunks": [
@@ -2154,7 +3423,8 @@
         "decidedAt": "2026-11-01T09:04:48.9028417+01:00",
         "question": "Gate 2 – the slice character masters in style B (images batch1-candidates.jpg and batch1-in-the-lagoon.jpg in my gate2 folder). Krab Tvrďák has 7 spikes, Medúzka Měkulka 9 tentacles, Želva Obojka 8 shell plates and Profesorka Osmička 8 arms. Bublinka has two takes. Murena Mumla (inked) has two takes; A is the most moray-like but has a pale belly and a carrot-like tail tip. Babies, Murena's freed form and Osmička's happy face will be derived from whichever masters you approve. Which masters should I use?",
         "answer": "Approve the recommended set: Krab A, Medúzka A, Želva A, Osmička A, Bublinka A, Murena A (Recommended)",
-        "chosen": "Murena A"
+        "chosen": "Murena A",
+        "note": "Re-trimmed, unchanged, to the box it shares with the freed form, so the battle can cross-fade the two in place (S4's request)."
       }
     },
     {

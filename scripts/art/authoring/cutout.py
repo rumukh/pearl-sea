@@ -6,7 +6,13 @@ Pipeline (CPU only, offline):
 2. A smooth background model is fitted to the plain backdrop and every pixel gets a colour
    distance to it. The outer background is flood-filled from the image border; enclosed
    background-coloured holes are opened only where U2Net also says background.
-3. Soft, low-chroma shadows that U2Net rejects are removed; tiny specks are dropped.
+3. Soft, low-chroma shadows that U2Net rejects are removed; tiny specks are dropped. Opt-in per
+   asset: --edge-bleed N also removes light slivers of at most N pixels on the silhouette's edge,
+   outside the outline (watercolour bleed); --peel N peels up to N pixel layers of light paint off
+   the silhouette's outer edge down to the dark outline (a bleed halo); --min-hole set very high
+   keeps every enclosed pocket (a pale painted surface that U2Net calls background, a light stone,
+   or eye whites on a white backdrop); --clear X,Y opens the light backdrop pocket at a reviewed
+   seed point (between tentacles that touch, where U2Net is sure it is subject).
 4. A narrow edge band gets a matted alpha (projection between the backdrop colour and the
    nearest interior colour) and decontaminated colours, so no grey fringe remains.
 
@@ -73,7 +79,7 @@ def background_model(rgb, hint_bg):
     return cv2.resize(model.astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC), bg0
 
 
-def cutout(src, out_dir, t_low, t_high, min_hole, band):
+def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, clear=()):
     pil = Image.open(src).convert("RGB")
     rgb = np.asarray(pil).astype(np.float32)
     h, w = rgb.shape[:2]
@@ -147,6 +153,17 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band):
         nb, lb = cv2.connectedComponents((shadow_like | hole).astype(np.uint8), connectivity=4)
         touching = np.unique(lb[hole])
         hole = np.isin(lb, touching[touching > 0]) & (shadow_like | hole)
+    # opt-in (--clear x,y): a light, backdrop-like pocket the rules above kept (U2Net sure it is
+    # subject, a warm paper backdrop) is opened from a reviewed seed point
+    cleared = []
+    for sx, sy in clear:
+        light_bd = (rgb.mean(axis=2) > 200) & (chroma < 24)
+        if not light_bd[sy, sx]:
+            raise SystemExit(f"--clear {sx},{sy} is not on a light backdrop-like pixel")
+        lab_c, _ = ndimage.label(light_bd)
+        pocket = lab_c == lab_c[sy, sx]
+        hole |= pocket
+        cleared.append({"seed": [sx, sy], "pixels": int(pocket.sum())})
     bg = outer | hole
     fg = ~bg
 
@@ -169,6 +186,31 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band):
             elif area < 60 or (area < 4000 and msum[lab] / area < 0.3):
                 fg[lab2 == lab] = False
                 specks_removed += 1
+    # opt-in (--edge-bleed N): light slivers of at most N pixels on the silhouette's edge, outside the
+    # dark outline (watercolour bleed, or a sliver of backdrop the key missed), become background
+    bleed = np.zeros_like(fg)
+    if edge_bleed > 0:
+        light = fg & (rgb.min(axis=2) > 195) & (chroma < 40)
+        n3, lab3, st3, _ = cv2.connectedComponentsWithStats(light.astype(np.uint8), connectivity=8)
+        touching = np.unique(lab3[light & ndimage.binary_dilation(~fg)])
+        small = [lab for lab in touching if lab > 0 and st3[lab, cv2.CC_STAT_AREA] <= edge_bleed]
+        bleed = np.isin(lab3, small)
+        fg &= ~bleed
+    # opt-in (--peel N): peel up to N pixel layers of light paint (watercolour bleed past the outline)
+    # off the silhouette's outer edge; the dark outline stops it
+    peeled_px = 0
+    if peel > 0:
+        grey_all = rgb.mean(axis=2)
+        for _ in range(peel):
+            lab_bg, _ = ndimage.label(~fg)
+            border = np.unique(np.concatenate([lab_bg[0], lab_bg[-1], lab_bg[:, 0], lab_bg[:, -1]]))
+            exterior = np.isin(lab_bg, border[border > 0])
+            light_edge = fg & ndimage.binary_dilation(exterior) & (grey_all > 150)
+            if not light_edge.any():
+                break
+            fg &= ~light_edge
+            bleed |= light_edge
+            peeled_px += int(light_edge.sum())
     # fill pinholes inside the subject
     fg = ndimage.binary_fill_holes(fg) & ~hole | (fg & hole)
 
@@ -185,6 +227,7 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band):
     alpha = np.where(interior, 1.0, np.where(near, a_band, 0.0)).astype(np.float32)
     alpha[alpha < 0.04] = 0.0
     alpha[alpha > 0.96] = 1.0
+    alpha[bleed] = 0.0
 
     colour = rgb.copy()
     safe = near & (alpha > 0.25)
@@ -227,10 +270,14 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band):
         "bbox": [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1] if len(xs) else None,
         "coverage": float((alpha > 0.5).mean()),
         "backdropMedianRgb": [round(float(v), 1) for v in bg0],
-        "thresholds": {"low": t_low, "high": t_high, "band": band, "minHole": min_hole},
+        "thresholds": {"low": t_low, "high": t_high, "band": band, "minHole": min_hole}
+        | ({"edgeBleed": edge_bleed} if edge_bleed > 0 else {}) | ({"peel": peel} if peel > 0 else {}),
         "holesOpened": holes_opened,
         "specksRemoved": specks_removed,
         "edgeArtefactsRemoved": edge_artefacts_removed,
+        **({"edgeBleedRemoved": len(small)} if edge_bleed > 0 else {}),
+        **({"peeledPixels": peeled_px} if peel > 0 else {}),
+        **({"cleared": cleared} if clear else {}),
         "iouWithU2net": round(iou, 4),
         "tool": "rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on onnxruntime CPU + backdrop key and edge matting (cutout.py)",
     }
@@ -247,8 +294,13 @@ if __name__ == "__main__":
     ap.add_argument("--high", type=float, default=30.0)
     ap.add_argument("--min-hole", type=int, default=150)
     ap.add_argument("--band", type=int, default=2)
+    ap.add_argument("--edge-bleed", type=int, default=0)
+    ap.add_argument("--peel", type=int, default=0)
+    ap.add_argument("--clear", action="append", default=[], metavar="X,Y")
     args = ap.parse_args()
+    seeds = [tuple(int(v) for v in s.split(",")) for s in args.clear]
     for s in args.sources:
-        r = cutout(s, args.out, args.low, args.high, args.min_hole, args.band)
+        r = cutout(s, args.out, args.low, args.high, args.min_hole, args.band, args.edge_bleed, args.peel,
+                   seeds)
         print(json.dumps({k: r[k] for k in ("cutout", "bbox", "coverage", "holesOpened", "specksRemoved", "iouWithU2net")}))
     sys.stdout.flush()

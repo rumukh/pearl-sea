@@ -16,11 +16,12 @@
  * | a character; Osmička cheering    | `character/<character>`, `character/osmicka/happy` | painted |
  * | a diver avatar                   | `avatar/<diver-n>`                   | painted |
  * | a cosmetic                       | `cosmetic/<item>`                    | svg     |
+ * | the crowned stage's crown        | `cosmetic/shell-crown`               | svg     |
  * | a sticker                        | `sticker/<sticker>`                  | svg     |
  *
- * A crowned friend is its grown painting plus an SVG shell crown on the `head` anchor. Eggs,
- * cosmetics and sticker art are static SVG files that S5 makes and lists in the art catalog; the
- * shell (S4) renders them.
+ * A crowned friend is its grown painting plus the golden shell crown (`CROWN_ART_ID`) on the
+ * `head` anchor. Eggs, cosmetics, the crown and sticker art are static SVG files that S5 makes and
+ * lists in the art catalog; the shell (S4) renders them.
  */
 import { schema } from '@aegis/runtime';
 import type { Schema } from '@aegis/runtime';
@@ -57,15 +58,23 @@ export const CHARACTER_ART_IDS: readonly string[] = [
 ];
 
 /**
+ * The crowned stage's golden shell crown: a cosmetic SVG that sits on the friend's `head` anchor by
+ * the cosmetic anchor scale, the centre of its base at the viewBox centre. It is never a cosmetic
+ * item, sold or given (design §8.2): shop crowns have art of their own.
+ */
+export const CROWN_ART_ID = ART.cosmetic('shell-crown');
+
+/**
  * Art the shell shows directly rather than through content (`collectArtIds`): the characters,
- * the diver avatars, the title and the home grotto. The content gate checks them against the art
- * catalog too.
+ * the diver avatars, the title, the home grotto and the crowned stage's crown. The content gate
+ * checks them against the art catalog too.
  */
 export const SHELL_ART_IDS: readonly string[] = [
   ...CHARACTER_ART_IDS,
   ...DIVER_AVATARS.map((avatar) => ART.avatar(avatar)),
   ART.scene('title'),
   ART.scene('grotto'),
+  CROWN_ART_ID,
 ];
 
 /**

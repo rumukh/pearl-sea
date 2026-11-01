@@ -115,7 +115,10 @@ export type CharacterId = (typeof CHARACTER_IDS)[number];
 /** Sea friend growth stages, in order. Friends never shrink: a stage index only increases. */
 export const FRIEND_STAGES = ['egg', 'baby', 'grown', 'crowned'] as const;
 export type FriendStage = (typeof FRIEND_STAGES)[number];
-/** Stages with painted art; an egg is SVG, and crowned is the grown painting plus a shell crown. */
+/**
+ * Stages with painted art; an egg is SVG, and crowned is the grown painting plus the golden shell
+ * crown (media.ts `CROWN_ART_ID`).
+ */
 export const PAINTED_STAGES = ['baby', 'grown'] as const;
 export type PaintedStage = (typeof PAINTED_STAGES)[number];
 

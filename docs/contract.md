@@ -122,7 +122,7 @@ As in Dragon Valley:
 
 | Vocabulary                      | Values                                                                                                                                                                       |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Friend stages (`FRIEND_STAGES`) | `egg`, `baby`, `grown`, `crowned` (painted art for `baby` and `grown`; an egg is SVG; crowned is the grown painting plus an SVG shell crown)                                 |
+| Friend stages (`FRIEND_STAGES`) | `egg`, `baby`, `grown`, `crowned` (painted art for `baby` and `grown`; an egg is SVG; crowned is the grown painting plus the SVG shell crown `cosmetic/shell-crown`)         |
 | Expressions                     | `idle`, `happy`, `curious`, `eating`, `sleepy`, `proud` (hints for the art, derived from state)                                                                              |
 | Monster forms                   | `inked`, `freed` (each monster is painted twice)                                                                                                                             |
 | Cosmetic slots                  | `head`, `eyes`, `neck` (worn: `WEARABLE_SLOTS`) and `grotto` (placed in one of `GROTTO_SPOTS` = 6 spots)                                                                     |
@@ -434,6 +434,8 @@ Beyond the strict schemas (unknown fields are rejected), a pack is valid only if
   (`unreachable`);
 - growth rules list baby, grown, crowned in order; Leitner intervals never decrease; goal, chest,
   mix, response, input and placement ranges are consistent;
+- no cosmetic is made of the crowned stage's golden crown (`assetId` `cosmetic/shell-crown`): it is
+  never sold or given as an item;
 - beat graphs are valid narrative graphs with distinct IDs and scene-art scenes, and every story
   reward is claimed by a beat.
 
@@ -441,7 +443,7 @@ Beyond the strict schemas (unknown fields are rejected), a pack is valid only if
 their convention (§7.4), Czech typography and reading-font coverage; every catalog key the pack uses
 resolves in Czech (`collectCatalogKeys`, grammar terms included); story lines keep to the child
 profile (`CHILD_PROFILE`: at most 10 words a sentence); archived packs in `content/history/` stay
-valid, are named by their revision and keep their keys; art IDs exist in `assets/art/catalog.json` (reported, or failing with `--strict-art`); and curriculum coverage
+valid, are named by their revision and keep their keys; art IDs (the pack's and `SHELL_ART_IDS`) exist in `assets/art/catalog.json` (reported, or failing with `--strict-art`); and curriculum coverage
 (`--strict-coverage`, on in verify): every objective of curriculum.md has a lesson and a monster
 level, every objective the pack lists has both in the pack (`curriculumGaps`), and every level of
 the pack teaches exactly the objectives curriculum.md §3 maps to it. The pack checks start when S3
@@ -537,23 +539,26 @@ Content and views name art by art ID (`ART` in `media.ts`):
 | Osmička cheering (praise, results)    | `character/osmicka/happy`                                          | painted |
 | a diver avatar                        | `avatar/diver-1` … `avatar/diver-8`                                | painted |
 | a cosmetic                            | `cosmetic/<item>` (the pack's `assetId`)                           | SVG     |
+| the crowned stage's golden crown      | `cosmetic/shell-crown` (`CROWN_ART_ID`)                            | SVG     |
 | a sticker icon or frame               | `sticker/<name>` (the pack's `icon` and `frame`)                   | SVG     |
 
 S5 publishes `assets/art/catalog.json` (`ART_CATALOG_PATH`) in the format
 `pearl-sea-art-catalog/1`: `{ format, entries: { id, kind: 'painted' | 'svg', file, width, height,
 anchors? }[] }` (`artCatalogSchema`; `file` is relative to `assets/art/`; for an SVG, `width` and
-`height` are its viewBox size). The eggs, cosmetics and sticker art are static SVG files that S5
-makes and lists in the catalog beside the paintings; the shell (S4) renders them. Painted friends
-publish **anchors** so SVG cosmetics sit on painted creatures: for each of `head`, `eyes` and
-`neck`, a point `{ x, y }` in thousandths of the image box from its top left, the cosmetic's
+`height` are its viewBox size). The eggs, cosmetics, the crown and sticker art are static SVG files
+that S5 makes and lists in the catalog beside the paintings; the shell (S4) renders them. Painted
+friends publish **anchors** so SVG cosmetics sit on painted creatures: for each of `head`, `eyes`
+and `neck`, a point `{ x, y }` in thousandths of the image box from its top left, the cosmetic's
 `scale` in percent (10-400) and its `rotate` in degrees (-180-180), integers only. A cosmetic of
 slot `head` goes on the `head` anchor of the friend's current painting; a crowned friend is its
-grown painting with the shell crown on `head`.
+grown painting with the golden shell crown `cosmetic/shell-crown` on `head`, placed by the cosmetic
+anchor scale like any cosmetic. That crown is never a cosmetic item: the pack's cosmetics may not
+use its art (`invalid-content`).
 
 **The cosmetic anchor scale.** A cosmetic SVG has a `0 0 100 100` viewBox (`COSMETIC_VIEWBOX`; the
 catalog accepts a `cosmetic/*` entry only as an SVG of that size) with its attachment point at the
-centre: a hat's brim centre, the goggles' bridge, a scarf's knot. The anchor puts that centre on its
-point. At `scale` 100 the cosmetic is drawn 250/1000 of the painting's width wide
+centre: a hat's brim centre, the goggles' bridge, a scarf's knot, the centre of the crown's base. The
+anchor puts that centre on its point. At `scale` 100 the cosmetic is drawn 250/1000 of the painting's width wide
 (`COSMETIC_BASE_WIDTH`), and as tall; at another scale, `scale` percent of that; turned `rotate`
 degrees about its centre. `cosmeticPlacement(anchor, width, height)` gives the box on a painting of
 that size. Grotto decorations (slot `grotto`) share the viewBox and sit on the grotto's spots
@@ -562,8 +567,9 @@ instead of anchors.
 `collectArtIds(data)` lists every art ID the pack implies (friends, eggs, monsters in both forms,
 Inkoustíci, region scenes, maps, cosmetics, stickers, beat scenes and assets); `checkArtCatalog(data,
 ids)` reports the missing ones. The shell shows `SHELL_ART_IDS` directly: the characters
-(`CHARACTER_ART_IDS`), the avatars, the title and the grotto. The content gate checks both lists
-against the published catalog: a warning, or an error with `--strict-art`.
+(`CHARACTER_ART_IDS`), the avatars, the title, the grotto and the crown (`CROWN_ART_ID`). The
+content gate checks both lists against the published catalog: a warning, or an error with
+`--strict-art`.
 
 **Audio** is not in content. S5 owns the audio pack: its generator (`scripts/audio/manifest.mjs`,
 [audio.md](audio.md)) writes `assets/audio/manifest.json` (`AUDIO_MANIFEST_PATH`) in Dragon

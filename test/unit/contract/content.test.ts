@@ -157,6 +157,19 @@ describe('content validation reports', () => {
     expectDiagnostic(pack, 'invalid-content', 'murena-mumla');
   });
 
+  it('a cosmetic made of the crowned stage’s golden crown, which is never sold (design §8.2)', () => {
+    const pack = fresh();
+    pack.data.cosmetics[0]!.assetId = 'cosmetic/shell-crown';
+    expect(diagnostics(pack).map((d) => [d.code, d.recordId, d.path, d.message])).toEqual([
+      [
+        'invalid-content',
+        'hat-captain',
+        'assetId',
+        '"cosmetic/shell-crown" is the crowned stage\'s golden crown, never a cosmetic item (design §8.2).',
+      ],
+    ]);
+  });
+
   it('an objective title outside the grown-ups’ area', () => {
     const pack = fresh();
     pack.data.objectives[0]!.titleKey = 'objective.letters.hard-soft';

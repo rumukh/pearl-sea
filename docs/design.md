@@ -795,9 +795,10 @@ Mrož Vousáč's shop: about 40 SVG cosmetics in four slots: `head` (hats, caps,
 (diving goggles, glasses, masks), `neck` (scarves, bows, pearl necklaces) on the painted friends'
 anchors, and `grotto` (anemone lamps, coral arches, a shell swing) in the home grotto. As in Dragon
 Valley: things unlock as regions open (`cosmetic.unlock`), level rewards are given, not sold, any
-friend can wear any item, and each keeps its own outfit. The `crowned` stage's golden crown is never
-sold; shop crowns come in other colours. Prices keep Dragon Valley's 1.2.0 tiers over twelve regions
-_(balance)_: starters 15-25, Slunná laguna 175-325, Korálový útes and Chaluhový les 375-475,
+friend can wear any item, and each keeps its own outfit. The `crowned` stage's golden crown
+(`cosmetic/shell-crown`) is never sold or given as an item, and the content gate refuses a cosmetic
+made of it; shop crowns come in other colours. Prices keep Dragon Valley's 1.2.0 tiers over twelve
+regions _(balance)_: starters 15-25, Slunná laguna 175-325, Korálový útes and Chaluhový les 375-475,
 Pirátský vrak to Ledové moře 475-575, the deep 590-600, so something new comes about every five
 sessions.
 
@@ -947,8 +948,9 @@ zařízení_). Up to four children (`profile-1` … `profile-4`), names of at mo
 local `rembg` for cut-outs, ACE-Step 1.5 for instrumental music, Dragon Valley's deterministic
 synthesis for sound effects; never Azure or any cloud generator. Prompts, seeds, sketches, model
 revisions and digests are committed; the user approves the style, each character batch and the art
-in the game. Style: storybook gouache and watercolour, rounded shapes, clean sticker outlines, a
-turquoise-coral-sun palette darkening toward the deep, no text in images, open water for the UI.
+in the game. Style B, the user's choice (plan §10): storybook gouache and watercolour, rounded
+shapes, a clean medium plum-brown outline, no sticker border, a turquoise-coral-sun palette
+darkening toward the deep, no text in images, open water for the UI.
 
 - **Painted**: friends `friend/<friend>/baby` and `/grown` (36; the baby from the approved grown),
   monsters `monster/<monster>/inked` and `/freed` (24; freed from the inked master), Inkoustíci
@@ -957,13 +959,13 @@ turquoise-coral-sun palette darkening toward the deep, no text in images, open w
   `character/bublinka` and Osmička cheering `character/osmicka/happy` (4 images), avatars
   `avatar/diver-1` … `avatar/diver-8`.
 - **SVG**: eggs `egg/<friend>`, cosmetics `cosmetic/<item>` and the crowned stage's golden shell
-  crown on the friends' anchors (`head`, `eyes`, `neck`: `{ x, y }` in 0-1000, `scale`, `rotate`),
-  stickers `sticker/<sticker>`, UI, blots and pearls. S5 makes the eggs, cosmetics and sticker art
-  as static SVG files listed in the art catalog; S4 renders them. A cosmetic has a 100 × 100
-  viewBox with its attachment point at the centre (a hat's brim centre, the goggles' bridge, a
-  scarf's knot) and at `scale` 100 is drawn 250/1000 of the painting's width wide. Catalog:
-  `assets/art/catalog.json` (`pearl-sea-art-catalog/1`); art and audio references in contract
-  §7.5.
+  crown `cosmetic/shell-crown` on the friends' anchors (`head`, `eyes`, `neck`: `{ x, y }` in
+  0-1000, `scale`, `rotate`), stickers `sticker/<sticker>`, UI, blots and pearls. S5 makes the eggs,
+  cosmetics, the crown and sticker art as static SVG files listed in the art catalog; S4 renders
+  them. A cosmetic, the crown included, has a 100 × 100 viewBox with its attachment point at the
+  centre (a hat's brim centre, the goggles' bridge, a scarf's knot, the crown's base) and at `scale`
+  100 is drawn 250/1000 of the painting's width wide. Catalog: `assets/art/catalog.json`
+  (`pearl-sea-art-catalog/1`); art and audio references in contract §7.5.
 - Expressions (`idle`, `happy`, `curious`, `eating`, `sleepy`, `proud`) are motion on the paintings,
   never authoritative; reduced motion turns movement into fades.
 - **Music** (ACE-Step 1.5): `music/grotto` (title, grotto, story, shop, album, shell, results),

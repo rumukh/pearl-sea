@@ -12,6 +12,7 @@ import {
   COSMETIC_BASE_WIDTH,
   COSMETIC_VIEWBOX,
   cosmeticPlacement,
+  CROWN_ART_ID,
   MUSIC_FALLBACK,
   MUSIC_IDS,
   musicLoop,
@@ -30,7 +31,8 @@ describe('art conventions', () => {
     ]);
   });
 
-  it('lists the art the shell shows outside content: characters, avatars, title and grotto', () => {
+  it('lists the art the shell shows outside content: characters, avatars, title, grotto, crown', () => {
+    expect(CROWN_ART_ID).toBe('cosmetic/shell-crown');
     expect(SHELL_ART_IDS).toEqual([
       ...CHARACTER_ART_IDS,
       'avatar/diver-1',
@@ -43,6 +45,7 @@ describe('art conventions', () => {
       'avatar/diver-8',
       'scene/title',
       'scene/grotto',
+      'cosmetic/shell-crown',
     ]);
     expect(new Set(SHELL_ART_IDS).size).toBe(SHELL_ART_IDS.length);
     for (const id of SHELL_ART_IDS) expect(id, id).toMatch(ART_ID_PATTERN);
@@ -108,6 +111,13 @@ describe('art conventions', () => {
         'cosmetic/hat-captain: a cosmetic is an SVG with a 100 × 100 viewBox.',
       ]);
     }
+    // The crowned stage's crown is cosmetic art too, so it follows the same scale.
+    const crown = { ...hat, id: CROWN_ART_ID, file: 'cosmetic/shell-crown.svg' };
+    expect(artCatalogSchema.parse(catalog(crown)).ok).toBe(true);
+    const bigCrown = artCatalogSchema.parse(catalog({ ...crown, width: 512, height: 512 }));
+    expect(bigCrown.ok ? [] : bigCrown.error.diagnostics.map((d) => d.message)).toEqual([
+      'cosmetic/shell-crown: a cosmetic is an SVG with a 100 × 100 viewBox.',
+    ]);
   });
 });
 

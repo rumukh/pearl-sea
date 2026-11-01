@@ -53,7 +53,8 @@ describe('local days', () => {
 
 describe('profile state', () => {
   it('starts valid and empty, for a 3rd grader unless told otherwise', () => {
-    expect(STATE_VERSION).toBe(1);
+    // Version 2: hints name other words than the asked one (docs/contract.md §7.6).
+    expect(STATE_VERSION).toBe(2);
     const state = initialProfileState({ dailyGoal: 30, race: true });
     expect(requireValue(profileStateSchema.parse(JSON.parse(JSON.stringify(state))))).toEqual(
       state,

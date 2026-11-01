@@ -568,7 +568,7 @@ test form shown on another word (_Najdi příbuzné vyjmenované slovo, třeba b
 _ten, ta, nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern,
 a rule with up to two examples of other words (_Například: Brno, Bublinka._; _Například: velký, ne
 velkej._), a method to follow (S3's `grammar.method.*` lines), or a word that is not listed with its
-gap blanked (_Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._). Punctuation the rules
+gap blanked (_Slovo `b_lý` není vyjmenované ani příbuzné s vyjmenovaným._). Punctuation the rules
 give beside a sentence's words (`marks`: _Delfíne, skoč!_) follows each word outside the highlight
 and the word buttons, and is read aloud with it.
 The placement check's meter counts its parts (_Části 2 / 8_), not problems, and its results thank

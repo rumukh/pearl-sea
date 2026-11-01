@@ -47,10 +47,11 @@ vi.setConfig({ testTimeout: 300_000 });
  * the trajectory when Lov chyb's punctuation moved from its tokens into `marks`
  * (be8a19c3a1fdddce before; folding the marks back into the tokens gives it again) and when hints
  * took their examples from other families (f68a7cb0c42ecaf2 before; with every hint neutralized,
- * the old and the new rules both give d90aea382003ed47).
+ * the old and the new rules both give d90aea382003ed47); both when the state version became 2
+ * (65c4e9180da5809d and 9d7acb3bd68638ec before; with STATE_VERSION 1 they come back).
  */
-const GOLDEN_HASH = '65c4e9180da5809d';
-const GOLDEN_TRAJECTORY = '9d7acb3bd68638ec';
+const GOLDEN_HASH = '3a9c807cb5fbc53e';
+const GOLDEN_TRAJECTORY = 'c50f36ec0ec55e6a';
 
 const SEED = 'golden-finales';
 const EGG = 'krab-tvrdak';

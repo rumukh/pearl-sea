@@ -237,6 +237,12 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
 
   The same holds when the save moves to the pack the site serves.
 
+- `test/migration/state-version-2.test.ts`: a save from state version 1 with a problem on screen
+  whose hints named the asked word (`family`, `test-word`, the `listed` rhyme) is refused as it is,
+  and upgraded by `migrateSnapshot` and by the shell's save migration alike: those hints cleared
+  wherever they were (a gap, a fix, an odd set), every other hint and all else unchanged; it
+  restores in a new process and the round plays on.
+
 ### Planned evidence
 
 - **Lexicon** (S3): each linguistic check of the content gate rejects a planted mistake.

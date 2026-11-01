@@ -54,14 +54,50 @@ import {
  * means an old snapshot cannot continue unchanged, and add an explicit save migration
  * (docs/contract.md §7.6).
  */
-export const STATE_VERSION = 1;
+export const STATE_VERSION = 2;
+
+/**
+ * The hints whose meaning version 2 changed (docs/contract.md §5.3): in version 1 `family` and
+ * `test-word` named the asked word itself (mlynář → mlýn, dub → duby) and `listed` was the rhyme
+ * that lists it. From version 2 the first two are examples on other words, so an old one would read
+ * as an example and give the answer away.
+ */
+const VERSION_1_HINTS: readonly string[] = ['family', 'test-word', 'listed'];
+
+/** A version 1 problem without the hints that named its asked word. */
+function withoutVersion1Hints(problem: unknown): unknown {
+  const clear = (owner: unknown): unknown =>
+    isRecord(owner) && isRecord(owner.hint) && VERSION_1_HINTS.includes(String(owner.hint.kind))
+      ? { ...owner, hint: null }
+      : owner;
+  if (!isRecord(problem)) return problem;
+  if (problem.kind === 'gaps' && Array.isArray(problem.gaps)) {
+    return { ...problem, gaps: problem.gaps.map(clear) };
+  }
+  if (problem.kind === 'mistake') return { ...problem, fix: clear(problem.fix) };
+  return clear(problem);
+}
 
 /** One step per old version: `STATE_MIGRATIONS[n]` turns version n into n + 1. */
-const STATE_MIGRATIONS: Readonly<Record<number, (state: unknown) => unknown>> = {};
+const STATE_MIGRATIONS: Readonly<Record<number, (state: unknown) => unknown>> = {
+  1: (state) => {
+    if (!isRecord(state)) throw new TypeError('A version 1 profile state is an object.');
+    const round = state.round;
+    if (!isRecord(round) || !isRecord(round.current)) return { ...state };
+    const current = round.current;
+    return {
+      ...state,
+      round: { ...round, current: { ...current, problem: withoutVersion1Hints(current.problem) } },
+    };
+  },
+};
 
 /**
  * Upgrades the profile state of an older snapshot to version `to` (default `STATE_VERSION`), one
  * version at a time. Pure and deterministic; never mutates `state`; throws on an unknown version.
+ *
+ * - 1 -> 2: the problem on screen loses its `family`, `test-word` and `listed` hints, which named
+ *   the asked word (the step shows no hint); every other hint, and everything else, stays.
  */
 export function migrateProfileState(
   state: unknown,

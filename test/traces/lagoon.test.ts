@@ -29,10 +29,11 @@ vi.setConfig({ testTimeout: 300_000 });
  * chyb's punctuation moved from its tokens into `marks` (d2aa58e91b187117 before; folding the marks
  * back into the tokens gives it again), and when hints took their examples from other families
  * (0462676a1ecfe3a4 before; with every hint neutralized, the old and the new rules both give
- * b29b6dec9c9b7473).
+ * b29b6dec9c9b7473); both when the state version became 2 (3e39d1b03b1f527c and 64b802a933949722
+ * before; with STATE_VERSION 1 they come back).
  */
-const GOLDEN_HASH = '3e39d1b03b1f527c';
-const GOLDEN_TRAJECTORY = '64b802a933949722';
+const GOLDEN_HASH = '7842bc5461a7b7df';
+const GOLDEN_TRAJECTORY = 'cad636562d32ac3b';
 
 const SEED = 'slice-b';
 const LESSONS = [

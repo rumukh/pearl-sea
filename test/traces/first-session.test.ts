@@ -27,11 +27,14 @@ vi.setConfig({ testTimeout: 300_000 });
  * green run of this scenario (Windows, Node 24, the pinned Aegis SDK, the rules' lagoon fixture)
  * and pinned as literals. Re-pin only for a deliberate rules or fixture change, with the reason
  * and the old and new values in the commit message (docs/testing.md, "When a golden moves").
+ * Re-pinned when the state version became 2 (13a006d7f7486e4a/1c6cf50d9c98b444,
+ * fd794d395fab67e0/b79ec55ba6c2329d and 819507a19c048d70/5567d451ce70d5f0 before; with
+ * STATE_VERSION 1 they come back).
  */
 const GOLDEN: Record<string, { state: string; trajectory: string }> = {
-  'krab-tvrdak': { state: '13a006d7f7486e4a', trajectory: '1c6cf50d9c98b444' },
-  'meduzka-mekulka': { state: 'fd794d395fab67e0', trajectory: 'b79ec55ba6c2329d' },
-  'zelva-obojka': { state: '819507a19c048d70', trajectory: '5567d451ce70d5f0' },
+  'krab-tvrdak': { state: '570ea4b5932384a9', trajectory: 'd6178eb4afa5d24d' },
+  'meduzka-mekulka': { state: '1c0e8029d5bb44bb', trajectory: '762873952a2114b0' },
+  'zelva-obojka': { state: 'c908510b88d0f063', trajectory: '41d014d6f02dcad4' },
 };
 
 const SEED = 'golden-first-session';

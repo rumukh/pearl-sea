@@ -243,6 +243,21 @@ function giveaways(list: readonly Shown[]): string[] {
 const first = (list: readonly string[]) =>
   list.length > 8 ? [...list.slice(0, 8), `… ${list.length} in all`] : list;
 
+const PACKS_BY_NAME = new Map<string, ContentData>(PACKS);
+const idSets = new Map<ContentData, Set<string>>();
+
+/** The lexicon word IDs a line shows: IDs that are no written word of the pack (byyk, mlyyn). */
+function idsIn(data: ContentData, line: string): string[] {
+  let ids = idSets.get(data);
+  if (ids === undefined) {
+    const written = new Set([...rawOf(data).banned.values()].flatMap((set) => [...set]));
+    ids = new Set(data.lexicon.words.map((w) => w.id).filter((id) => !written.has(id)));
+    idSets.set(data, ids);
+  }
+  const tokens = line.toLowerCase().match(/[\p{L}\p{N}](?:[\p{L}\p{N}.-]*[\p{L}\p{N}])?/gu) ?? [];
+  return tokens.filter((token) => ids.has(token));
+}
+
 describe('hints as the child reads them', () => {
   it('never show the answer, nor a form of an asked word, its family, its kin or its sound-alikes', () => {
     expect(first(giveaways(everyHint()))).toEqual([]);
@@ -253,6 +268,16 @@ describe('hints as the child reads them', () => {
       .filter((h) => h.line === null)
       .map((h) => `${h.pack} ${h.where}: ${JSON.stringify(h.hint)}`);
     expect(first(lost)).toEqual([]);
+  });
+
+  it('name every word as written, never by its lexicon ID (PS-QA-22: Pomůže příbuzné slovo: byyk.)', () => {
+    const named = everyHint().flatMap((h) => {
+      const found = h.line === null ? [] : idsIn(PACKS_BY_NAME.get(h.pack)!, h.line);
+      return found.length === 0 ? [] : [`${h.pack} ${h.where}: "${h.line}" shows ${found}`];
+    });
+    expect(first(named)).toEqual([]);
+    // The check sees the line main's shell printed for býček.
+    expect(idsIn(realPack().data, 'Pomůže příbuzné slovo: byyk.')).toEqual(['byyk']);
   });
 
   it('teach by example where they can: examples of other words in every kind', () => {

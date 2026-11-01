@@ -467,7 +467,7 @@ line alone.
 | `pattern`       | the pattern and its ending                    | _o hradech, o strojích_                                              |
 | `rule`          | the rule in one line, examples of others      | _Vlastní jména píšeme s velkým písmenem. Například: Brno, Bublinka._ |
 | `method`        | how to find the answer, step by step          | _the case questions in turn_                                         |
-| `not-listed`    | the word is not listed, with its gap          | _Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._           |
+| `not-listed`    | the word is not listed, with its gap          | _Slovo `b_lý` není vyjmenované ani příbuzné s vyjmenovaným._         |
 
 `vyjm` shows, for a related word, finding the listed word on another family, a grade 3 noun of
 another letter first (_bydlení → bydlit_ for _ml_nář_), and the rule line alone for a listed word

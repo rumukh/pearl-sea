@@ -1,6 +1,6 @@
 {
   "id": "pearl-sea",
-  "revision": "1.2.2",
+  "revision": "1.2.3",
   "schemaVersion": 1,
   "data": {
     "grades": [
@@ -3268,8 +3268,6 @@
               "eva",
               "aliik",
               "ferda",
-              "bublinka.ponorka",
-              "osmicxka.profesorka",
               "vltava",
               "praha",
               "cxesko",
@@ -3716,18 +3714,7 @@
         "generator": "spell.word",
         "params": {
           "words": {
-            "words": [
-              "petr",
-              "eva",
-              "aliik",
-              "ferda",
-              "bublinka.ponorka",
-              "osmicxka.profesorka",
-              "vltava",
-              "praha",
-              "cxesko",
-              "snexzxka"
-            ],
+            "words": ["petr", "eva", "aliik", "ferda", "vltava", "praha", "cxesko", "snexzxka"],
             "grades": [3]
           },
           "rules": ["velke-pismeno"],
@@ -9214,7 +9201,8 @@
           "sk.lagoon.letters-both",
           "sk.lagoon.abc",
           "sk.lagoon.bpvm",
-          "sk.lagoon.capitals"
+          "sk.lagoon.capitals",
+          "sk.lagoon.capital-mistakes"
         ],
         "monster": "murena-mumla"
       },
@@ -18765,6 +18753,25 @@
           "src": ["ssc", "morfflex"]
         },
         {
+          "id": "let",
+          "lemma": "let",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["paired-consonants"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "noun": {
+            "gender": "m",
+            "animate": false,
+            "numbers": "both",
+            "pattern": "hrad",
+            "paradigm": {
+              "sg": ["let", "letu", "letu", "let", "lete", "letu", "letem"],
+              "pl": ["lety", "letů", "letům", "lety", "lety", "letech", "lety"]
+            }
+          }
+        },
+        {
           "id": "letext",
           "lemma": "letět",
           "pos": "verb",
@@ -24257,6 +24264,40 @@
                 "mi": "připomněly",
                 "fpl": "připomněly",
                 "npl": "připomněla"
+              }
+            }
+          }
+        },
+        {
+          "id": "prxistavit",
+          "lemma": "přistavit",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vowels"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "verb": {
+            "aspect": "pf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "přistavit",
+              "pres": [
+                "přistavím",
+                "přistavíš",
+                "přistaví",
+                "přistavíme",
+                "přistavíte",
+                "přistaví"
+              ],
+              "imp": ["přistav", "přistavme", "přistavte"],
+              "past": {
+                "m": "přistavil",
+                "f": "přistavila",
+                "n": "přistavilo",
+                "ma": "přistavili",
+                "mi": "přistavily",
+                "fpl": "přistavily",
+                "npl": "přistavila"
               }
             }
           }

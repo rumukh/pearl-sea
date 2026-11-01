@@ -42,7 +42,8 @@ A save pins the exact pack it was played with (ID, revision and content hash), a
 so **every content change merged to `main` gets a new revision** (MAJOR.MINOR.PATCH: patch for
 balance or text, minor for new levels or regions; contract §7.6). The vertical slice, Slunná laguna,
 is `1.0.0`; regions 2-6 are `1.1.0`; regions 7-12, the 4th grade's start and the placement check
-are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`. To change content:
+are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`; the balance of the pacing study is `1.2.2`; four
+lagoon points the word alone cannot decide, asked only in sentences, are `1.2.3`. To change content:
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from
@@ -54,6 +55,21 @@ are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`. To change content:
 A change to the catalogs alone needs no revision, since saves pin the pack and not its strings, but
 every catalog key a shipped pack uses must stay. IDs are append-only: a region, level, skill,
 friend, cosmetic, sticker, word or sentence is never renamed or deleted.
+
+**What the rules really ask.** `node scripts/content/sample-problems.mjs [--region <id>,…]
+[--per-skill 10] [--boards 2] [--seed qa]` writes, region by region into `out/problem-samples/`,
+the problems the rules' own generators make for every problem skill. Each problem shows its word
+or sentence, options, letter pad, answer and hint. The script also writes boards for every board
+activity, each monster battle's skills with problems drawn in turn, and the Inkoustíci's
+ambushes. It marks with ⚠ what a reviewer must decide:
+
+- an option that spells another word of the bank;
+- a form whose case the sentence must settle;
+- an option the bank relates to the target.
+
+Read it as a Czech teacher would before a playtest. For an option that spells a real word the bank
+does not know, also check every single-word problem's alternatives against MorfFlex
+([lexicon.md](lexicon.md) §5).
 
 ## 3. Authoring rules
 
@@ -134,30 +150,34 @@ words and sentences by ID.
 
 Skills (`sk.lagoon.*`) and their items:
 
-| Skill                                          | Generator                         | Selects                                                                                                          | Items   |
-| ---------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
-| `abc`                                          | `alphabet`, 4 pearls              | Želva's words, one per letter of the tricky pairs: _cíl, člun, hvězdice, chobotnice, racek, řasa, zátoka, želva_ | 8       |
-| `abc-pairs`                                    | `alphabet`, 3 pearls              | the words of the alphabet sets that tell _h/ch, c/č, r/ř, s/š, z/ž_ apart                                        | 17      |
-| `consonants`                                   | `sort` consonant, 12 fish         | all 24 consonants                                                                                                | 24      |
-| `letters-hard`, `letters-soft`, `letters-both` | `classify` consonant              | each friend's letters: _h ch k r d t n_; _ž š č ř c j ď ť ň_; _b f l m p s v z_                                  | 7, 9, 8 |
-| `tvrda`                                        | `spell.word`, 2 choices           | _ryba, rybář, chytat, rychlý, chytrý, chyba, kytara, tygr_                                                       | 8       |
-| `mekka`                                        | `spell.word`                      | _číslo, čistý, jídlo, jiskra, křídlo, šipka, široký, žízeň_                                                      | 8       |
-| `bpvm`                                         | `spell.word`                      | _oběd, pěna, pět, pěkný, věc, hvězda, medvěd, město, měsíc_                                                      | 9       |
-| `delka`                                        | `spell.word`                      | _delfín, maják, pláž, přístav, zátoka, korál, víla, vila_                                                        | 8       |
-| `dtn`                                          | `spell.word`                      | _děti, tělo, těžký, někdo, kotě, divadlo, ticho, dívka_                                                          | 9       |
-| `u`                                            | `spell.word`                      | _útes, úhoř, úkol, úsměv, neúspěch, dům, kůň, sůl_                                                               | 8       |
-| `parova`                                       | `spell.word`                      | _hrad, had, led, krab, dub, zub, sníh, mráz_                                                                     | 8       |
-| `capitals`                                     | `spell.word`                      | _Petr, Eva, Alík, Ferda, Bublinka, Osmička, Vltava, Praha, Česko, Sněžka_                                        | 10      |
-| `delka-sentences`                              | `spell.sentence`                  | 8 sentences on the `delka` words                                                                                 | 8       |
-| `tvrda-mekka-sentences`                        | `spell.sentence`                  | 14 sentences on the `tvrda` and `mekka` words                                                                    | 16      |
-| `e-sentences`, `e-mistakes`                    | `spell.sentence`, `spell.mistake` | 18 sentences on the `dtn` and `bpvm` words                                                                       | 18      |
-| `u-paired-sentences`                           | `spell.sentence`                  | 16 sentences on the `u` and `parova` words                                                                       | 16      |
-| `capital-mistakes`                             | `spell.mistake`                   | 7 sentences on the names                                                                                         | 10      |
-| `plural-pairs`                                 | `pairs` plural, 6 pairs           | _hrad, had, led, krab, dub, zub, plot, holub_                                                                    | 8       |
+| Skill                                          | Generator                         | Selects                                                                                                                    | Items   |
+| ---------------------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `abc`                                          | `alphabet`, 4 pearls              | Želva's words, one per letter of the tricky pairs: _cíl, člun, hvězdice, chobotnice, racek, řasa, zátoka, želva_           | 8       |
+| `abc-pairs`                                    | `alphabet`, 3 pearls              | the words of the alphabet sets that tell _h/ch, c/č, r/ř, s/š, z/ž_ apart                                                  | 17      |
+| `consonants`                                   | `sort` consonant, 12 fish         | all 24 consonants                                                                                                          | 24      |
+| `letters-hard`, `letters-soft`, `letters-both` | `classify` consonant              | each friend's letters: _h ch k r d t n_; _ž š č ř c j ď ť ň_; _b f l m p s v z_                                            | 7, 9, 8 |
+| `tvrda`                                        | `spell.word`, 2 choices           | _ryba, rybář, chytat, rychlý, chytrý, chyba, kytara, tygr_                                                                 | 8       |
+| `mekka`                                        | `spell.word`                      | _číslo, čistý, jídlo, jiskra, křídlo, šipka, široký, žízeň_                                                                | 8       |
+| `bpvm`                                         | `spell.word`                      | _oběd, pěna, pět, pěkný, věc, hvězda, medvěd, město, měsíc_                                                                | 9       |
+| `delka`                                        | `spell.word`                      | _delfín, maják, pláž, přístav, zátoka, korál, víla, vila_                                                                  | 8       |
+| `dtn`                                          | `spell.word`                      | _děti, tělo, těžký, někdo, kotě, divadlo, ticho, dívka_                                                                    | 9       |
+| `u`                                            | `spell.word`                      | _útes, úhoř, úkol, úsměv, neúspěch, dům, kůň, sůl_                                                                         | 8       |
+| `parova`                                       | `spell.word`                      | _hrad, had, led, krab, dub, zub, sníh, mráz_                                                                               | 8       |
+| `capitals`                                     | `spell.word`                      | _Petr, Eva, Alík, Ferda, Vltava, Praha, Česko, Sněžka_ (_Bublinka_ and _Osmička_ only in sentences: _bublinka_, _osmička_) | 8       |
+| `delka-sentences`                              | `spell.sentence`                  | 8 sentences on the `delka` words                                                                                           | 8       |
+| `tvrda-mekka-sentences`                        | `spell.sentence`                  | 14 sentences on the `tvrda` and `mekka` words                                                                              | 16      |
+| `e-sentences`, `e-mistakes`                    | `spell.sentence`, `spell.mistake` | 18 sentences on the `dtn` and `bpvm` words                                                                                 | 18      |
+| `u-paired-sentences`                           | `spell.sentence`                  | 16 sentences on the `u` and `parova` words                                                                                 | 16      |
+| `capital-mistakes`                             | `spell.mistake`                   | 7 sentences on the names                                                                                                   | 10      |
+| `plural-pairs`                                 | `pairs` plural, 6 pairs           | _hrad, had, led, krab, dub, zub, plot, holub_                                                                              | 8       |
+
+A point whose alternative spells another word is asked only in a sentence: _led_ (_let_) and
+_přístav_ (_přistav_), in Krmení too, and the names _Bublinka_ and _Osmička_, in Lov chyb
+([lexicon.md](lexicon.md) §2.2).
 
 Friends (design §2.2) and their sets: **Krab Tvrďák** 32 (his 7 letters, `tvrda`, `dtn`, `parova`),
 **Medúzka Měkulka** 33 (her 9 letters, `mekka`, `delka`, `u`), **Želva Obojka** 35 (her 8 letters,
-her 8 necklace words, `bpvm`, `capitals`). Problems serve every item in lessons 2-6, except Želva's
+her 8 necklace words, `bpvm`, `capitals` and `capital-mistakes`). Problems serve every item in lessons 2-6, except Želva's
 necklace words: she knows the alphabet (design §2.2), so they are in her set on purpose (§3), and
 lesson 1's necklace, nets and Krmení all feed her. Any 4 of her 8 necklace words hold a whole pair
 (_c, č_ or _h, ch_ …) three times in four. The child chooses the first egg (`chooseFirstFriend`);

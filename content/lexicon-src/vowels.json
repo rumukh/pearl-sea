@@ -203,6 +203,14 @@
       "spell": "m{i|í}le",
       "rules": ["delka"],
       "src": ["morfflex"]
+    },
+    {
+      "id": "prxistavit",
+      "lemma": "přistavit",
+      "pos": "verb",
+      "aspect": "pf",
+      "note": "přistav židli ke stolu; jiné je přístav, a proto se přístav ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
     }
   ],
   "sets": [

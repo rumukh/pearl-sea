@@ -1,0 +1,8 @@
+# step 1: inkoustik-kanka/inkoustik-kanka-default-b-s99102.png (seed 99102, Subjects mode)
+Use the grey reference only as a blank canvas. Paint one original cartoon character, Kaňka, a funny, mischievous little ink monster from a cheerful children's learning game set under the sea: a living splash of magic ink, glossy deep indigo and violet-black with soft blue-violet highlights, two big round cartoon eyes with white highlights and a cheeky expression. Small, cute and a little naughty, never scary, no teeth, no claws. Kaňka is a round, plump, dripping ink blot, like a big drop of ink that has just landed: a round body with a few thick drips running down from her bottom edge and two tiny splash droplets beside her. She grins proudly with a small mischievous smile and rosy dark-violet cheeks.
+Storybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.
+The whole character is centred and fully inside the frame, occupying about 80 percent of the image height, nothing cropped. Plain flat light grey background. No environment, no water surface, no sand, no bubbles, no other animals, no text, no watermark.
+
+# negative prompt
+blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, teeth, claws, fangs, scary, horror, octopus, squid, tentacles, legs, arms, hands
+

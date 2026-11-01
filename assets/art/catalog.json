@@ -346,6 +346,34 @@
       }
     },
     {
+      "id": "inkoustik/inkoustik-cmara",
+      "kind": "painted",
+      "file": "inkoustik/cmara.webp",
+      "width": 794,
+      "height": 1024
+    },
+    {
+      "id": "inkoustik/inkoustik-kanka",
+      "kind": "painted",
+      "file": "inkoustik/kanka.webp",
+      "width": 789,
+      "height": 990
+    },
+    {
+      "id": "inkoustik/inkoustik-klikyhak",
+      "kind": "painted",
+      "file": "inkoustik/klikyhak.webp",
+      "width": 544,
+      "height": 1024
+    },
+    {
+      "id": "inkoustik/inkoustik-smouha",
+      "kind": "painted",
+      "file": "inkoustik/smouha.webp",
+      "width": 1024,
+      "height": 726
+    },
+    {
       "id": "map/shallows",
       "kind": "painted",
       "file": "maps/shallows.webp",

@@ -12,7 +12,9 @@ Pipeline (CPU only, offline):
    the silhouette's outer edge down to the dark outline (a bleed halo); --min-hole set very high
    keeps every enclosed pocket (a pale painted surface that U2Net calls background, a light stone,
    or eye whites on a white backdrop); --clear X,Y opens the light backdrop pocket at a reviewed
-   seed point (between tentacles that touch, where U2Net is sure it is subject).
+   seed point (between tentacles that touch, where U2Net is sure it is subject); --keep-marks N
+   keeps detached painted marks of at least N pixels, clearly unlike the backdrop, that U2Net
+   rejects (an Inkoustík's speed marks and ink flecks).
 4. A narrow edge band gets a matted alpha (projection between the backdrop colour and the
    nearest interior colour) and decontaminated colours, so no grey fringe remains.
 
@@ -79,7 +81,7 @@ def background_model(rgb, hint_bg):
     return cv2.resize(model.astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC), bg0
 
 
-def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, clear=()):
+def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, clear=(), keep_marks=0):
     pil = Image.open(src).convert("RGB")
     rgb = np.asarray(pil).astype(np.float32)
     h, w = rgb.shape[:2]
@@ -172,6 +174,7 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, cl
     n2, lab2, stats, _ = cv2.connectedComponentsWithStats(fg.astype(np.uint8), connectivity=8)
     specks_removed = 0
     edge_artefacts_removed = 0
+    marks_kept = 0
     if n2 > 1:
         msum = np.bincount(lab2.ravel(), weights=m.ravel(), minlength=n2)
         biggest = 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))
@@ -183,6 +186,8 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, cl
             if lab in border_ids and msum[lab] / area < 0.6:
                 fg[lab2 == lab] = False
                 edge_artefacts_removed += 1
+            elif keep_marks and area >= keep_marks and np.median(d[lab2 == lab]) > t_high:
+                marks_kept += 1
             elif area < 60 or (area < 4000 and msum[lab] / area < 0.3):
                 fg[lab2 == lab] = False
                 specks_removed += 1
@@ -271,13 +276,15 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, cl
         "coverage": float((alpha > 0.5).mean()),
         "backdropMedianRgb": [round(float(v), 1) for v in bg0],
         "thresholds": {"low": t_low, "high": t_high, "band": band, "minHole": min_hole}
-        | ({"edgeBleed": edge_bleed} if edge_bleed > 0 else {}) | ({"peel": peel} if peel > 0 else {}),
+        | ({"edgeBleed": edge_bleed} if edge_bleed > 0 else {}) | ({"peel": peel} if peel > 0 else {})
+        | ({"keepMarks": keep_marks} if keep_marks else {}),
         "holesOpened": holes_opened,
         "specksRemoved": specks_removed,
         "edgeArtefactsRemoved": edge_artefacts_removed,
         **({"edgeBleedRemoved": len(small)} if edge_bleed > 0 else {}),
         **({"peeledPixels": peeled_px} if peel > 0 else {}),
         **({"cleared": cleared} if clear else {}),
+        **({"marksKept": marks_kept} if keep_marks else {}),
         "iouWithU2net": round(iou, 4),
         "tool": "rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on onnxruntime CPU + backdrop key and edge matting (cutout.py)",
     }
@@ -297,10 +304,11 @@ if __name__ == "__main__":
     ap.add_argument("--edge-bleed", type=int, default=0)
     ap.add_argument("--peel", type=int, default=0)
     ap.add_argument("--clear", action="append", default=[], metavar="X,Y")
+    ap.add_argument("--keep-marks", type=int, default=0, metavar="PIXELS")
     args = ap.parse_args()
     seeds = [tuple(int(v) for v in s.split(",")) for s in args.clear]
     for s in args.sources:
         r = cutout(s, args.out, args.low, args.high, args.min_hole, args.band, args.edge_bleed, args.peel,
-                   seeds)
+                   seeds, args.keep_marks)
         print(json.dumps({k: r[k] for k in ("cutout", "bbox", "coverage", "holesOpened", "specksRemoved", "iouWithU2net")}))
     sys.stdout.flush()

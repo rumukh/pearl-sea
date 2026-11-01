@@ -869,6 +869,139 @@ def lagoon2(out, route_json=None):
             json.dump({"size": [W, H], "levelSpotsPx": [[round(x, 1), round(y, 1)] for x, y in nodes]}, f, indent=1)
 
 
+INK, INK_MID, INK_HI, INK_HI2 = (44, 34, 96), (78, 64, 140), (96, 130, 230), (150, 110, 220)
+INK_CHEEK, MOUTH, TONGUE = (150, 80, 150), (60, 20, 50), (232, 120, 150)
+
+
+def stamp_path(d, pts, w0, w1, color, outline=None, step=5.0, chunk=24):
+    """A thick line along straight segments with round joins (sharp-but-rounded bends), tapering
+    from w0 to w1. With an outline colour it is laid in chunks, each outlined and then filled (the
+    fill reaching back over the previous chunk's joint), so where the line crosses itself the later
+    part passes over the earlier one with its outline, and the joints show no seam."""
+    seg = [math.dist(a, b) for a, b in zip(pts, pts[1:])]
+    total = sum(seg)
+    walked = 0.0
+    stamps = []
+    for (x0, y0), (x1, y1), length in zip(pts, pts[1:], seg):
+        n = max(1, int(length / step))
+        for i in range(n):
+            f = i / n
+            stamps.append((x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, (w0 + (w1 - w0) * (walked + length * f) / total) / 2))
+        walked += length
+    stamps.append((pts[-1][0], pts[-1][1], w1 / 2))
+    if not outline:
+        for x, y, r in stamps:
+            d.ellipse([x - r, y - r, x + r, y + r], fill=color)
+        return
+    back = int(max(w0, w1) / 2 / step) + 6
+    for start in range(0, len(stamps), chunk):
+        part = stamps[start:start + chunk]
+        for x, y, r in part:
+            d.ellipse([x - r - 13, y - r - 13, x + r + 13, y + r + 13], fill=outline)
+        for x, y, r in stamps[max(0, start - back):start + chunk]:
+            d.ellipse([x - r, y - r, x + r, y + r], fill=color)
+
+def open_mouth(d, cx, cy, w, h):
+    d.ellipse([cx - w - 8, cy - h - 8, cx + w + 8, cy + h + 8], fill=PLUM)
+    d.ellipse([cx - w, cy - h, cx + w, cy + h], fill=MOUTH)
+    d.ellipse([cx - w * 0.6, cy + h * 0.15, cx + w * 0.6, cy + h * 0.95], fill=TONGUE)
+
+
+def inkoustik_smouha(out, route_json=None):
+    """Šmouha: a soft, sleepy, cloud-like smudge of ink, clearly wider than tall, with a wavy
+    scalloped outline, lighter rubbed streaks, heavy half-closed eyes and a big lazy yawn."""
+    img, d = canvas()
+    puffs = [(360, 730, 150), (480, 620, 190), (660, 570, 215), (850, 615, 190), (980, 720, 150),
+             (560, 800, 170), (780, 800, 170)]
+    for x, y, r in puffs:
+        d.ellipse([x - r - 13, y - r - 13, x + r + 13, y + r + 13], fill=PLUM)
+    d.rounded_rectangle([340 - 13, 700 - 13, 1000 + 13, 900 + 13], radius=100, fill=PLUM)
+    for x, y, r in puffs:
+        d.ellipse([x - r, y - r, x + r, y + r], fill=INK_MID)
+    d.rounded_rectangle([340, 700, 1000, 900], radius=90, fill=INK_MID)
+    for x0, y0, x1 in ((380, 860, 620), (700, 870, 940), (420, 760, 520), (860, 760, 950)):
+        d.line([(x0, y0), (x1, y0 - 10)], fill=(120, 110, 170), width=26)
+    d.ellipse([500, 470, 600, 520], fill=INK_HI2)
+    for ex in (565, 765):
+        ey, r = 650, 62
+        d.ellipse([ex - r - 8, ey - r - 8, ex + r + 8, ey + r + 8], fill=PLUM)
+        d.ellipse([ex - r, ey - r, ex + r, ey + r], fill=(255, 255, 255))
+        d.ellipse([ex - 30, ey - 2, ex + 30, ey + 50], fill=(25, 18, 30))
+        d.pieslice([ex - r - 2, ey - r - 2, ex + r + 2, ey + r + 2], 180, 360, fill=INK_MID)
+        d.rectangle([ex - r - 2, ey - 4, ex + r + 2, ey + 6], fill=INK_MID)
+        d.line([(ex - r - 6, ey + 4), (ex + r + 6, ey + 4)], fill=PLUM, width=12)
+    open_mouth(d, 665, 800, 74, 62)
+    cheeks(d, [(470, 760), (860, 760)], r=34)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def inkoustik_cmara(out, route_json=None):
+    """Čmára: a quick zigzag scribble of ink, a thick line with exactly four sharp-but-rounded
+    bends, her round head at the top end with an excited face, speed marks and ink flecks."""
+    img, d = canvas()
+    pts = [(610, 360), (870, 580), (500, 750), (850, 910), (520, 1070), (760, 1190)]
+    stamp_path(d, pts, 190, 80, INK, outline=PLUM)
+    d.ellipse([610 - 175 - 13, 330 - 165 - 13, 610 + 175 + 13, 330 + 165 + 13], fill=PLUM)
+    d.ellipse([610 - 175, 330 - 165, 610 + 175, 330 + 165], fill=INK)
+    for (x0, y0), (x1, y1) in zip(pts[1:], pts[2:]):
+        d.line([(x0 + (x1 - x0) * 0.25, y0 + (y1 - y0) * 0.25 - 40), (x0 + (x1 - x0) * 0.6, y0 + (y1 - y0) * 0.6 - 40)], fill=INK_HI, width=16)
+    d.ellipse([500, 210, 580, 250], fill=INK_HI2)
+    eye(d, 545, 320, 62)
+    eye(d, 685, 320, 58)
+    open_mouth(d, 615, 425, 42, 34)
+    cheeks(d, [(480, 410), (760, 410)], r=26)
+    for (x0, y0), (x1, y1) in (((250, 520), (380, 505)), ((230, 700), (360, 690)), ((270, 880), (390, 872))):
+        d.line([(x0, y0), (x1, y1)], fill=PLUM, width=16)
+    for x, y, r in ((420, 610, 18), (390, 820, 14), (430, 990, 20), (1000, 700, 16), (980, 1000, 12)):
+        d.ellipse([x - r - 6, y - r - 6, x + r + 6, y + r + 6], fill=PLUM)
+        d.ellipse([x - r, y - r, x + r, y + r], fill=INK)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def inkoustik_klikyhak(out, route_json=None):
+    """Klikyhák: a round head at the top and a thick ink line below it curling into exactly three
+    bouncy loops like a spring, ending in a little tapered tail; laughing, eyes squeezed shut."""
+    img, d = canvas()
+    R, v, cx = 150, 30, 665
+    ts = [i * 0.05 for i in range(int(6.6 * math.pi / 0.05))]
+    pts = [(cx + R * math.sin(t), 640 + v * t - R * math.cos(t)) for t in ts]
+    stamp_path(d, pts, 104, 52, INK, outline=PLUM, step=4.0)
+    for t in (0.6, 0.6 + 2 * math.pi, 0.6 + 4 * math.pi):
+        x, y = cx + R * math.sin(t), 640 + v * t - R * math.cos(t)
+        d.ellipse([x - 26, y - 34, x + 6, y - 14], fill=INK_HI)
+    d.ellipse([cx - 165 - 13, 330 - 160 - 13, cx + 165 + 13, 330 + 160 + 13], fill=PLUM)
+    d.ellipse([cx - 165, 330 - 160, cx + 165, 330 + 160], fill=INK)
+    d.ellipse([560, 200, 640, 240], fill=INK_HI2)
+    for ex in (600, 730):
+        d.arc([ex - 44, 290, ex + 44, 360], 200, 340, fill=PLUM, width=16)
+    d.chord([600, 360, 730, 470], 0, 180, fill=PLUM)
+    d.chord([610, 366, 720, 460], 0, 180, fill=MOUTH)
+    d.ellipse([635, 410, 695, 456], fill=TONGUE)
+    cheeks(d, [(545, 390), (785, 390)], r=28)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+def inkoustik_klikyhak2(out, route_json=None):
+    """Klikyhák v2: v1's spring ran off the bottom edge; this one is tighter and higher, so the
+    whole character, three loops and the tapered tail, sits inside the frame with a margin."""
+    img, d = canvas()
+    R, v, cx, y0 = 135, 26, 665, 600
+    ts = [i * 0.05 for i in range(int(6.6 * math.pi / 0.05))]
+    pts = [(cx + R * math.sin(t), y0 + v * t - R * math.cos(t)) for t in ts]
+    stamp_path(d, pts, 100, 50, INK, outline=PLUM, step=4.0)
+    for t in (0.6, 0.6 + 2 * math.pi, 0.6 + 4 * math.pi):
+        x, y = cx + R * math.sin(t), y0 + v * t - R * math.cos(t)
+        d.ellipse([x - 26, y - 34, x + 6, y - 14], fill=INK_HI)
+    d.ellipse([cx - 160 - 13, 320 - 155 - 13, cx + 160 + 13, 320 + 155 + 13], fill=PLUM)
+    d.ellipse([cx - 160, 320 - 155, cx + 160, 320 + 155], fill=INK)
+    d.ellipse([560, 195, 640, 235], fill=INK_HI2)
+    for ex in (600, 730):
+        d.arc([ex - 44, 280, ex + 44, 350], 200, 340, fill=PLUM, width=16)
+    d.chord([600, 350, 730, 460], 0, 180, fill=PLUM)
+    d.chord([610, 356, 720, 450], 0, 180, fill=MOUTH)
+    d.ellipse([635, 400, 695, 446], fill=TONGUE)
+    cheeks(d, [(545, 380), (785, 380)], r=28)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
 if __name__ == "__main__":
     name, out = sys.argv[1], sys.argv[2]
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
@@ -876,5 +1009,6 @@ if __name__ == "__main__":
      "moray2": moray2, "krab": krab, "meduzka": meduzka, "meduzka2": meduzka2, "zelva": zelva,
      "zelva2": zelva2, "osmicka": osmicka, "title": title, "plain-grey": plain_grey,
      "krab-baby": krab_baby, "meduzka-baby": meduzka_baby, "zelva-baby": zelva_baby,
-     "avatars": avatars, "zelva-baby2": zelva_baby2}[name](out, rj)
+     "avatars": avatars, "zelva-baby2": zelva_baby2, "smouha": inkoustik_smouha, "cmara": inkoustik_cmara,
+     "klikyhak": inkoustik_klikyhak, "klikyhak2": inkoustik_klikyhak2}[name](out, rj)
     print(out)

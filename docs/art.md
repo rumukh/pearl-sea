@@ -14,6 +14,7 @@ for any step. S5 makes and ships the art; the shell (S4) draws it by art ID.
 | `assets/art/characters/*.webp`    | Profesorka Osmička, Mrož Vousáč and the submarine Bublinka, cut out         |
 | `assets/art/friends/*.webp`       | the sea friends, baby and grown up, cut out                                 |
 | `assets/art/monsters/*.webp`      | the monsters, inked and freed, cut out to one shared box per monster        |
+| `assets/art/inkoustik/*.webp`     | the four Inkoustíci (Kaňka, Šmouha, Čmára, Klikyhák), cut out               |
 | `assets/art/avatars/*.webp`       | the eight diver avatars, round portraits                                    |
 | `assets/art/scenes/*.webp`        | the region scenes, the home grotto and the title backdrop                   |
 | `assets/art/maps/*.webp`          | the sea maps of the 3rd and the 4th grade                                   |
@@ -27,7 +28,7 @@ for any step. S5 makes and ships the art; the shell (S4) draws it by art ID.
 | `scripts/art/svg/*.mjs`           | the SVG art generator and its review board (§9)                             |
 | `scripts/art/authoring/*.py`      | the painting tools: sketches, cut-outs, anchors, shipping, provenance (§3)  |
 
-Inkoustíci join `inkoustik/` as they are approved. Art IDs follow the contract (`ART` in
+Art IDs follow the contract (`ART` in
 `src/rules/contract/media.ts`); an ID missing from the catalog is drawn as a labelled dev
 placeholder by the shell.
 
@@ -92,7 +93,9 @@ time; a painting takes 12-16 minutes.
    pale stone that U2Net calls background, or eye whites and spikes on a white backdrop);
    `--clear X,Y` opens one light backdrop pocket from a reviewed seed point (between touching
    tentacles or eye stalks); `--edge-bleed N` and `--peel N` remove light watercolour bleed outside
-   the outline; `--low` and `--high` loosen the key for a warm paper backdrop. The result is
+   the outline; `--keep-marks N` keeps detached painted marks of at least N pixels that U2Net
+   rejects (an Inkoustík's speed marks and ink flecks); `--low` and `--high` loosen the key for a
+   warm paper backdrop. The result is
    checked at full size on navy and on water. The eight avatars are painted together on one sheet,
    for one style, and `avatar_cut.py` cuts each portrait out along its porthole: a disc fitted to
    the frame's silhouette (checked to be round), anti-aliased at 4×.
@@ -130,6 +133,11 @@ time; a painting takes 12-16 minutes.
   and its colours are corrected in place before the gate.
 - Edits also change the backdrop: from light grey to near white or warm paper, where eye whites,
   spikes and pale stones key out with the backdrop; hence the per-asset cut-out options (step 6).
+- The Inkoustíci from text alone stood on painted beaches with smoke and bubbles and lost their
+  shapes (a tall ghost instead of a wide smudge); sketches fixed both. A cloud-shaped character
+  invites a painted sun, which the cut-out drops at the frame's edge.
+- A sketch that runs off the canvas is painted cropped: the first Klikyhák spring did, so a sketch's
+  bounds are checked (about 80 % of the height, a margin on every side) before it is rendered.
 
 ## 4. The catalog and the anchors
 

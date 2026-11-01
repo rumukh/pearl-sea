@@ -52,7 +52,7 @@ const WALKS: readonly Walk[] = [
     id: 'the-lagoon',
     title: 'The lagoon',
     summary:
-      'A diver who played four lessons comes back another day: the map, a lesson’s intro, the letter pad, Pexeso, Inkoustová věta, Lov chyb, today’s goal and the treasure chest, U Mrože, dressing a friend, the album, the Great Shell and goodbye (`lagoonWalk`).',
+      'A diver who played four lessons comes back another day: Dnešní výprava’s Svačinka, the map, a lesson’s intro, the letter pad, Pexeso, Inkoustová věta, Lov chyb, today’s goal and the treasure chest, U Mrože, dressing a friend, the album, the Great Shell and goodbye (`lagoonWalk`).',
     walk: lagoonWalk,
   },
   {

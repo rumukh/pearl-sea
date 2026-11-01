@@ -304,7 +304,9 @@ $env:PS_E2E_PORT = '4401'; npm run test:e2e       # a second run beside another 
 
 - **Locally** Playwright never downloads browsers: it drives the installed Microsoft Edge (channel
   `msedge`) or Chrome (`PS_BROWSER_CHANNEL=chrome`). `PS_E2E_ALL_ENGINES=1` runs Chromium, WebKit
-  and Firefox where Playwright's own builds are installed.
+  and Firefox where Playwright's own builds are installed. Run one engine at a time with two
+  workers (`--project=firefox --workers=2`), as CI does: with Firefox and WebKit walking the screens
+  at once on one Windows machine, Firefox's IndexedDB sometimes stalls a boot past its 20 s wait.
 - **On CI** each engine is its own job (`npx playwright test --project=<engine>`, two workers,
   `test.only` forbidden, `PS_E2E_AUDIT=1`). The engines' system packages come from Ubuntu's mirror,
   which is at times very slow, so their `.deb` files are cached per engine, runner image and
@@ -326,21 +328,22 @@ $env:PS_E2E_PORT = '4401'; npm run test:e2e       # a second run beside another 
   (and the CI job summary): totals, the known defects that still reproduce and the markers that no
   longer do, the registered defects no test met, the tests that used more than half their time
   budget, the performance measurements, pages too tall to photograph, checks narrowed for an engine,
-  and axe's best-practice advice by rule and screen. With `PS_E2E_AUDIT=1` it fails a run in which a
-  spec file never ran in a project or a test was skipped without a reason.
+  the walk stops the game did not offer that run (a hint, a mismatch, the chest …), and axe's
+  best-practice advice by rule and screen. With `PS_E2E_AUDIT=1` it fails a run in which a spec
+  file never ran in a project or a test was skipped without a reason.
 
 ### The QA specs (S6)
 
-| Spec                 | What it holds                                                                                                                                                                                                                                                                                                                         |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Spec                 | What it holds                                                                                                                                                                                                                                                                                                                       |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `screens.spec.ts`    | Every slice screen in seven walks (`support/tour.ts`): photographed at tablet 1280 × 800 and 1024 × 768, desktop 1440 × 900 and phone 390 × 844; axe WCAG 2.2 A/AA at the large tablet and the phone; layout checks at every size; play screens that fit a landscape tablet; nothing looping with less motion; a walk at 200 % text |
 | `input.spec.ts`      | A new diver's first lesson by keyboard alone (Tab both ways, arrows, typed letters, every control with a focus ring) and by touch alone; fish dragged into their nets with a finger, at normal motion and with less motion                                                                                                          |
-| `read-aloud.spec.ts` | Only local Czech voices (Zuzana), never the remote default, at 0.9; a gap read as a pause, never spelled; auto-read; pausing silences; no local Czech voice hides the speakers and the grown-ups' area says why; a late voice list is offered at once                                                                              |
-| `offline.spec.ts`    | Installed, then the test's own server shut down: the game opens from the worker and saves; the browser's offline mode (not WebKit); a browser that cannot install says so                                                                                                                                                         |
-| `audio.spec.ts`      | Watched from outside (`support/audio.ts`): the first tap unlocks audio; the grotto, practice and battle loops; the music stopped for the victory sting and back after it; decoded audio mono and within the manifest's budget                                                                                                      |
-| `perf.spec.ts`       | Script, style and offline pack sizes; a first visit on fast and slow 4G with a 4× slower processor (Chromium); feedback after a tap and the longest task while playing ([qa/performance.md](qa/performance.md))                                                                                                                    |
-| `harness.spec.ts`    | Each guard kind, the axe audit, the layout checks and the audio probe shown a planted fault                                                                                                                                                                                                                                       |
-| `live.spec.ts`       | The deployed site, on request only (`PS_E2E_LIVE=1`, it needs the internet): boots clean with its text compressed; installed for offline play, it opens and plays without the network                                                                                                                                             |
+| `read-aloud.spec.ts` | Only local Czech voices (Zuzana), never the remote default, at 0.9; a gap read as a pause, never spelled; auto-read; pausing silences; no local Czech voice hides the speakers and the grown-ups' area says why; a late voice list is offered at once                                                                               |
+| `offline.spec.ts`    | Installed, then the test's own server shut down: the game opens from the worker and saves; the browser's offline mode (not WebKit); a browser that cannot install says so                                                                                                                                                           |
+| `audio.spec.ts`      | Watched from outside (`support/audio.ts`): the first tap unlocks audio; the grotto, practice and battle loops; the music stopped for the victory sting and back after it; decoded audio mono and within the manifest's budget                                                                                                       |
+| `perf.spec.ts`       | Script, style and offline pack sizes; a first visit on fast and slow 4G with a 4× slower processor (Chromium); feedback after a tap and the longest task while playing ([qa/performance.md](qa/performance.md))                                                                                                                     |
+| `harness.spec.ts`    | Each guard kind, the axe audit, the layout checks and the audio probe shown a planted fault                                                                                                                                                                                                                                         |
+| `live.spec.ts`       | The deployed site, on request only (`PS_E2E_LIVE=1`, it needs the internet): boots clean with its text compressed; installed for offline play, it opens and plays without the network                                                                                                                                               |
 
 `PS_QA_DOCS=1 npm run test:e2e -- screens.spec.ts` also rewrites [qa/screens.md](qa/screens.md)
 with the tablet pictures, small, for review without running anything. The QA reports are in

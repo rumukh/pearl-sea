@@ -238,7 +238,9 @@ test('a family record that cannot be read asks a grown-up and replaces nothing b
 test('a sound pack the browser’s sound service refuses is reported, never a quiet failure', async ({
   page,
   baseURL,
+  guard,
 }) => {
+  guard.allow('console', /could not be registered/, 'the refused pack is reported on purpose');
   const seen = observe(page, new URL(baseURL!).origin);
   // A pack over the SDK's declaration budget (4096 sounds): the shell's own checks pass it, and
   // the sound service refuses it when the pack is registered.

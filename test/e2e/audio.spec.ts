@@ -5,24 +5,24 @@
  * Decoded audio stays within the manifest's own budget, all of it mono.
  *
  * The page's Web Audio is watched from outside (support/audio.ts): every context, decoded buffer
- * and buffer source, each sound known by its length in S5's manifest.
- *
- * PS-QA-02 (open): the SDK refuses the pack's sound IDs, so no audio context is ever made and the
- * game is silent. While it reproduces, each test records it and stops there.
+ * and buffer source, each sound known by its length in S5's manifest. The shell's own word on the
+ * sound is boot-status's `data-audio`: Chromium always has an audio output, headless included, so
+ * there the first tap must make it `ready`; another engine may have none here (Playwright's WebKit
+ * on Windows has no Web Audio at all), and then the sound stays `blocked`, silent, and the game
+ * works on.
  */
 import type { Page, TestInfo } from '@playwright/test';
 import {
   AUDIO_MANIFEST,
   audioLog,
   audioProbe,
-  hasWebAudio,
   manifestSound,
   soundOf,
   startedSounds,
 } from './support/audio';
 import { expect, test } from './support/fixtures';
 import { answerStep, lagoonPlayed, leaveScreen, playRound, throughStory } from './support/game';
-import { unlessKnown } from './support/known-issues';
+import { engineOf } from './support/known-issues';
 import { boot, CHILD, openLevel, seedFamily } from './support/tour';
 
 test.use({ reducedMotion: 'reduce' });
@@ -32,28 +32,26 @@ test.beforeEach(async ({ context }) => {
 });
 
 /**
- * After the first taps: the music has started, or the engine said it cannot decode the pack.
- * False when there is nothing more to check (no audio at all, or no decoder).
+ * After the first taps: the music has started, or the engine has no sound here or cannot decode
+ * the pack. False when there is nothing more to check.
  */
 async function musicStarted(page: Page, testInfo: TestInfo): Promise<boolean> {
-  if (!(await hasWebAudio(page))) {
+  const status = page.getByTestId('boot-status');
+  await expect(status, 'the first tap starts the sound').toHaveAttribute(
+    'data-audio',
+    engineOf(testInfo) === 'chromium' ? 'ready' : /^(ready|blocked)$/,
+  );
+  if ((await status.getAttribute('data-audio')) !== 'ready') {
     testInfo.annotations.push({
       type: 'engine limitation',
-      description: 'this engine has no Web Audio; the game stays silent and works on',
+      description: 'this engine has no sound here; the game stays silent and works on',
     });
     return false;
   }
-  let unlocked = false;
-  await unlessKnown(testInfo, 'PS-QA-02', async () => {
-    await expect
-      .poll(async () => (await audioLog(page)).contexts, {
-        message: 'the first tap unlocks audio (an audio context is made)',
-        timeout: 5_000,
-      })
-      .toBeGreaterThan(0);
-    unlocked = true;
-  });
-  if (!unlocked) return false;
+  expect(
+    (await audioLog(page)).contexts,
+    'the unlocked sound has an audio context',
+  ).toBeGreaterThan(0);
   await expect
     .poll(
       async () => {
@@ -132,6 +130,11 @@ test('each mood plays its loop, and freeing Muréna plays the victory sting betw
   )!;
   expect(back.at - sting.at, 'no music while the sting plays').toBeGreaterThanOrEqual(length - 250);
   expect(soundOf(back.duration), 'the results play the grotto’s loop').toBe('music/grotto');
+  const decoded = (await audioLog(page)).decoded;
+  testInfo.annotations.push({
+    type: 'performance',
+    description: `decoded audio after the grotto, the battle and the sting: ${(decoded.reduce((sum, buffer) => sum + buffer.bytes, 0) / 1_048_576).toFixed(1)} MiB in ${decoded.length} buffers (budget ${(AUDIO_MANIFEST.decoded.budgetBytes / 1_048_576).toFixed(0)} MiB for the whole pack)`,
+  });
 });
 
 test('lessons play the practice loop, and decoded audio stays mono and within its budget', async ({

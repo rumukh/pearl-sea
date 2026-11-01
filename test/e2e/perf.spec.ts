@@ -195,17 +195,25 @@ interface FirstScreen {
   readonly longTasks: number[];
 }
 
+/** Each file of the first visit: as built, and as GitHub Pages sends it (text gzipped). */
+function firstVisitFiles(
+  files: readonly string[],
+): { leaf: string; built: number; sent: number }[] {
+  const base = '/pearl-sea/';
+  return [...new Set(files)]
+    .filter((file) => file.startsWith(base))
+    .map((file) => {
+      const leaf = file.slice(base.length) || 'index.html';
+      const bytes = built(leaf);
+      const sent = /\.(woff2|webp|png|ogg|gz)$/.test(leaf) ? bytes.length : gzipSync(bytes).length;
+      return { leaf, built: bytes.length, sent };
+    })
+    .sort((a, b) => b.built - a.built);
+}
+
 /** What the first visit's files weigh gzipped, as GitHub Pages sends text. */
 function gzippedFirstVisit(files: readonly string[]): number {
-  const base = '/pearl-sea/';
-  let total = 0;
-  for (const file of new Set(files)) {
-    if (!file.startsWith(base)) continue;
-    const leaf = file.slice(base.length) || 'index.html';
-    const bytes = built(leaf);
-    total += /\.(woff2|webp|png|ogg|gz)$/.test(leaf) ? bytes.length : gzipSync(bytes).length;
-  }
-  return total;
+  return firstVisitFiles(files).reduce((sum, file) => sum + file.sent, 0);
 }
 
 for (const profile of PROFILES) {
@@ -245,6 +253,14 @@ for (const profile of PROFILES) {
       testInfo,
       `first visit on ${profile.name}, processor ×${CPU_SLOWDOWN}: ${best.screen} ready to tap in ${Math.round(best.readyMs)} ms (budget ${profile.readyMs}), first paint ${Math.round(best.paintMs)} ms (budget ${profile.paintMs}), ${kb(best.bytes)} downloaded uncompressed (budget ${kb(SIZE_BUDGETS.firstScreen)}), ${kb(gzipped)} as Pages sends it (budget ${kb(SIZE_BUDGETS.firstScreenGzipped)}), longest task ${Math.round(longest)} ms; visits ${visits.map((v) => Math.round(v.readyMs)).join(', ')} ms${note}`,
     );
+    if (profile === PROFILES[0]) {
+      record(
+        testInfo,
+        `first visit's files, as built (as Pages sends them): ${firstVisitFiles(best.files)
+          .map((file) => `${file.leaf} ${kb(file.built)} (${kb(file.sent)})`)
+          .join(', ')}`,
+      );
+    }
     expect(best.screen, 'a first visit opens on the title').toBe('title');
     expect(best.paintMs, 'something is painted early').toBeGreaterThan(0);
     expect(best.bytes, 'what a first visit downloads before its first screen').toBeLessThanOrEqual(

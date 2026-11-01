@@ -24,35 +24,37 @@ see.
    "Číst nové úlohy nahlas automaticky" and set the music volume or the text size.
 
 Known gaps (not the child's fault, not worth noting): shapes labelled "DEV …" are pictures still
-being painted; there are no sound effects yet (only music, once the current fix lands).
+being painted; there is music and a victory sting but no sound effects yet.
 
 ## While the child plays (about 15-20 minutes; stop when they want to)
 
 Sit beside them. Answer questions briefly; do not explain an activity before they try it. Note the
 minute when something happens. Watch for:
 
-| What                                                                | Notes (yes / no, what happened) |
-| ------------------------------------------------------------------- | ------------------------------- |
-| Makes the profile alone? Which step needed help?                    |                                 |
-| Reads the story or skips it (Přeskočit)? Uses the speaker button?   |                                 |
-| Which egg do they choose, and why?                                  |                                 |
-| Finds Dnešní výprava without help?                                  |                                 |
-| **Perlový náhrdelník**: understands how to move the pearls?         |                                 |
-| **Rybářské sítě**: taps or drags the fish? Knows the three nets?    |                                 |
-| **Krmení**: understands the ink blot and the letter choice?         |                                 |
-| After a miss ("Skoro!"): reads the right answer and the tip? Upset?  |                                 |
-| Uses **Nápověda** (the hint)? Does it help?                         |                                 |
-| **Inkoustová věta**, **Lov chyb**: understands without help?        |                                 |
-| **Pexeso**: works out what makes a pair?                            |                                 |
-| The friend hatching: excited? Says the friend's name?               |                                 |
-| Finds the map, U Mrože, Kamarádi, the album (scrolls down to them)? |                                 |
-| Buys or dresses something?                                          |                                 |
-| **Muréna Mumla's battle**: fun or scary? Wipes the ink blots? Jokes? |                                 |
-| Where do they hesitate, skip or tap at random?                       |                                 |
-| Moments of joy (laughs, "jé!") and of frustration (sighs, wants to stop) |                            |
-| Reading: too much text anywhere? Words they cannot read?            |                                 |
-| Anything a grown-up had to do for them (exact words help)           |                                 |
-| When did attention drop (minutes)?                                   |                                 |
+| What                                                                                 | Notes (yes / no, what happened) |
+| ------------------------------------------------------------------------------------ | ------------------------------- |
+| Makes the profile alone? Which step needed help?                                     |                                 |
+| Reads the story or skips it (Přeskočit)? Uses the speaker button?                    |                                 |
+| Which egg do they choose, and why?                                                   |                                 |
+| Finds Dnešní výprava without help?                                                   |                                 |
+| **Perlový náhrdelník**: understands how to move the pearls?                          |                                 |
+| **Rybářské sítě**: taps or drags the fish? Knows the three nets?                     |                                 |
+| **Krmení**: understands the ink blot and the letter choice?                          |                                 |
+| After a miss ("Skoro!"): reads the right answer and the tip? Upset?                  |                                 |
+| Uses **Nápověda** (the hint)? Does it help?                                          |                                 |
+| **Inkoustová věta**, **Lov chyb**: understands without help?                         |                                 |
+| **Pexeso**: works out what makes a pair?                                             |                                 |
+| The friend hatching: excited? Says the friend's name?                                |                                 |
+| Finds the map, U Mrože, Kamarádi, the album (scrolls down to them)?                  |                                 |
+| Buys or dresses something?                                                           |                                 |
+| **Muréna Mumla's battle**: fun or scary? Wipes the ink blots? Jokes?                 |                                 |
+| Music: noticed? Liked? Turned down? The fanfare when Muréna is freed?                |                                 |
+| On a later day: Dnešní výprava starts with **Svačinka** (review). Minds the repeats? |                                 |
+| Where do they hesitate, skip or tap at random?                                       |                                 |
+| Moments of joy (laughs, "jé!") and of frustration (sighs, wants to stop)             |                                 |
+| Reading: too much text anywhere? Words they cannot read?                             |                                 |
+| Anything a grown-up had to do for them (exact words help)                            |                                 |
+| When did attention drop (minutes)?                                                   |                                 |
 
 ## Afterwards: ask the child (in Czech, casually)
 

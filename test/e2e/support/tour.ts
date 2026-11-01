@@ -116,12 +116,27 @@ export async function openLevel(page: Page, level: string): Promise<void> {
   await ready(page, 'level');
 }
 
-/** Play the round on screen until its answer pad is `input`; false when the round ends first. */
-async function untilInput(page: Page, inputs: readonly string[]): Promise<boolean> {
+/**
+ * A stop that depends on what the game serves (a hint, a mismatch, a chest) did not come this
+ * run: its screen goes unphotographed and unchecked, so the QA summary says so.
+ */
+function notOffered(stop: string, why: string): void {
+  test.info().annotations.push({ type: 'stop not met', description: `${stop}: ${why}` });
+}
+
+/** Whether the round on screen asks on the letter pad (four keys or more, not a two-key gap). */
+async function onLetterPad(page: Page): Promise<boolean> {
+  return (
+    (await page.getByTestId('answer').getAttribute('data-input')) === 'letters' &&
+    (await page.locator('[data-testid^="key-"]').count()) >= 4
+  );
+}
+
+/** Play the round on screen until it asks on the letter pad; false when the round ends first. */
+async function untilLetterPad(page: Page): Promise<boolean> {
   for (let guard = 0; guard < 40; guard++) {
     if ((await shownScreen(page)) !== 'screen-round') return false;
-    const input = await page.getByTestId('answer').getAttribute('data-input');
-    if (input !== null && inputs.includes(input)) return true;
+    if (await onLetterPad(page)) return true;
     await answerStep(page, CHILD);
   }
   return false;
@@ -248,6 +263,8 @@ export async function firstDiveWalk(page: Page, visit: Visit): Promise<void> {
       play: true,
       description: 'Krmení with its hint: the strategy, not the answer',
     });
+  } else {
+    notOffered('15-hint', 'the second problem had no Nápověda');
   }
   await give(page, asked, wrongAnswer(asked));
   await expect(page.getByTestId('feedback')).toHaveAttribute('data-kind', 'miss');
@@ -296,9 +313,9 @@ async function createChildFromEditor(page: Page): Promise<void> {
 }
 
 /**
- * The lagoon after four lessons, on a later day: the daily adventure, the map, a region and a
- * level, Inkoustová věta, Pexeso, Lov chyb, the treasure chest, U Mrože, the friends' wardrobe,
- * the album, the Great Shell and goodbye.
+ * The lagoon after four lessons, on a later day: the daily adventure's Svačinka, the map, a region
+ * and a level, Inkoustová věta, Pexeso, Lov chyb, the treasure chest, U Mrože, the friends'
+ * wardrobe, the album, the Great Shell and goodbye.
  */
 export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
   const four = await levelsPlayed(
@@ -320,36 +337,62 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     description: 'A new day in the grotto: three baby friends, today’s plan',
   });
 
+  // Dnešní výprava on a new day: the friends are hungry, so a snack of review comes first.
+  expect(await goAdventuring(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'snack');
+  await visit({
+    name: '23-snack',
+    play: true,
+    description:
+      'Dnešní výprava on a new day: Svačinka, a review round for the hungry friends; a word the child knows well is answered on the letter pad (e é ě je, i í y ý …)',
+  });
+  // The first dive shows the two-tile choice; the letter pad comes with words the child knows
+  // well. Unless the snack opened on it, it is looked for in the snack, then in lesson 5's Krmení.
+  const letterPad = {
+    name: '23-letter-pad',
+    play: true,
+    description: 'The letter pad (i í y ý …), for a word the child knows well',
+  };
+  let letterPadSeen = await onLetterPad(page);
+  if (!letterPadSeen && (await untilLetterPad(page))) {
+    letterPadSeen = true;
+    await visit(letterPad);
+  }
+  await untilHub(page);
+
   await page.getByTestId('place-map').click();
   await ready(page, 'map');
   await visit({
-    name: '23-map',
+    name: '24-map',
     play: true,
     description: 'The sea map: Slunná laguna open, the deep still dark',
   });
   await page.getByTestId('region-sunny-lagoon').click();
   await ready(page, 'region');
   await visit({
-    name: '24-region',
+    name: '25-region',
     play: true,
     description: 'Slunná laguna: its lessons and Muréna Mumla’s cave',
   });
   await page.getByTestId('level-sunny-lagoon.5').click();
   await ready(page, 'level');
   await visit({
-    name: '25-level',
+    name: '26-level',
     play: true,
     description: 'A lesson’s intro: its games, stars and Hrát',
   });
   await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
   expect(await throughStory(page)).toBe('screen-round');
   // Lesson 5: Krmení, Pexeso, Inkoustová věta.
-  if (await untilInput(page, ['letters'])) {
-    await visit({
-      name: '26-letter-pad',
-      play: true,
-      description: 'Krmení with the big letter pad (i í y ý …)',
-    });
+  if (!letterPadSeen && (await untilLetterPad(page))) {
+    letterPadSeen = true;
+    await visit(letterPad);
+  }
+  if (!letterPadSeen) {
+    notOffered(
+      letterPad.name,
+      'neither Svačinka nor lesson 5’s Krmení asked on the big letter pad',
+    );
   }
   await playRound(page, CHILD);
   expect(await pastResults(page)).toBe('screen-board');
@@ -377,6 +420,8 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
       play: true,
       description: 'Pexeso: two cards that are no pair, and Otočit zpět',
     });
+  } else {
+    notOffered('28-pexeso-turn-back', 'the first card made a pair with every other card turned');
   }
   await playPexeso(page);
   expect(await solveBoards(page, CHILD)).toBe('screen-results');
@@ -394,6 +439,8 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
       play: true,
       description: 'Inkoustová věta after a right answer: the gap filled',
     });
+  } else {
+    notOffered('30-ink-sentence-on', 'the round ended with its first answer');
   }
   await playRound(page, CHILD);
   expect(await shownScreen(page)).toBe('screen-results');
@@ -447,6 +494,8 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
       play: true,
       description: 'The grotto with today’s goal met and a quest’s coins to claim',
     });
+  } else {
+    notOffered('34-grotto-quests', 'no quest had coins to claim');
   }
   if ((await page.getByTestId('chest-open').count()) > 0) {
     await page.getByTestId('chest-open').click();
@@ -458,6 +507,8 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     });
     await page.getByTestId('chest-close').click();
     await expect(page.getByTestId('screen-hub')).toBeVisible();
+  } else {
+    notOffered('35-chest', 'today’s goal was not met within six more adventures');
   }
 
   // U Mrože, the wardrobe, the album, the Great Shell.
@@ -470,6 +521,8 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     await affordable.first().click();
     await expect(page.getByTestId(`item-${item}`)).toHaveAttribute('data-owned', 'true');
     await visit({ name: '37-shop-bought', description: 'U Mrože after buying: the item owned' });
+  } else {
+    notOffered('37-shop-bought', 'the diver could afford nothing');
   }
   await page.getByTestId('shop-dress').click();
   await expect(page.getByTestId('screen-friends')).toBeVisible();
@@ -545,6 +598,8 @@ export async function monsterWalk(page: Page, visit: Visit): Promise<void> {
       description: 'Harmless ink blots on the screen, to wipe off with a tap',
     });
     await page.getByTestId('ink-splash').first().click();
+  } else {
+    notOffered('46-battle-ink', 'Muréna threw no ink in 30 answers');
   }
   await playRound(page, CHILD);
   expect(await throughStory(page)).toBe('screen-results');
@@ -592,6 +647,8 @@ export async function monsterWalk(page: Page, visit: Visit): Promise<void> {
       play: true,
       description: 'An Inkoustík ambush: answer right to splash it away',
     });
+  } else {
+    notOffered('50-ambush', 'no Inkoustík ambushed six adventures');
   }
 }
 
@@ -695,6 +752,8 @@ export async function grownUpsWalk(page: Page, visit: Visit): Promise<void> {
     await visit({ name: '63-print-cards', description: 'Flashcards of the hardest words, on A4' });
     await page.getByTestId('print-back').click();
     await ready(page, 'grownups');
+  } else {
+    notOffered('63-print-cards', 'Pokrok offered no flashcards');
   }
   const diploma = page.locator('[data-testid^="diploma-"]');
   if ((await diploma.count()) > 0) {
@@ -703,6 +762,8 @@ export async function grownUpsWalk(page: Page, visit: Visit): Promise<void> {
     await visit({ name: '64-print-diploma', description: 'Muréna Mumla’s diploma, on A4' });
     await page.getByTestId('print-back').click();
     await ready(page, 'grownups');
+  } else {
+    notOffered('64-print-diploma', 'Pokrok offered no diploma');
   }
   await page.getByTestId('grownups-tab-data').click();
   await expect(page.getByTestId('grownups-data')).toBeVisible();
@@ -775,7 +836,7 @@ export async function largeTextWalk(page: Page, visit: Visit): Promise<void> {
   expect(await throughStory(page)).toBe('screen-hub');
   await visit({ name: '22-grotto-new-day', description: 'The grotto at 200 % text' });
   expect(await goAdventuring(page)).toBe('screen-round');
-  await visit({ name: '14-feeding', description: 'A problem round at 200 % text' });
+  await visit({ name: '23-snack', description: 'Svačinka, a problem round, at 200 % text' });
   const asked = await problemOnScreen(page, CHILD);
   await give(page, asked, wrongAnswer(asked));
   await expect(page.getByTestId('feedback')).toHaveAttribute('data-kind', 'miss');
@@ -788,13 +849,13 @@ export async function largeTextWalk(page: Page, visit: Visit): Promise<void> {
   await untilHub(page);
   await page.getByTestId('place-map').click();
   await ready(page, 'map');
-  await visit({ name: '23-map', description: 'The sea map at 200 % text: region cards' });
+  await visit({ name: '24-map', description: 'The sea map at 200 % text: region cards' });
   await page.getByTestId('region-sunny-lagoon').click();
   await ready(page, 'region');
-  await visit({ name: '24-region', description: 'Slunná laguna’s levels at 200 % text' });
+  await visit({ name: '25-region', description: 'Slunná laguna’s levels at 200 % text' });
   await page.getByTestId('level-sunny-lagoon.5').click();
   await ready(page, 'level');
-  await visit({ name: '25-level', description: 'A lesson’s intro at 200 % text' });
+  await visit({ name: '26-level', description: 'A lesson’s intro at 200 % text' });
   await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
   expect(await throughStory(page)).toBe('screen-round');
   await playRound(page, CHILD);

@@ -107,6 +107,7 @@ class QaSummary implements Reporter {
     const measured: string[] = [];
     const tall: string[] = [];
     const limits: string[] = [];
+    const unmetStops: string[] = [];
     const met = new Set<string>();
     for (const { test, run } of this.results) {
       const project = projectOf(test);
@@ -135,6 +136,8 @@ class QaSummary implements Reporter {
           tall.push(`- ${description} _(${project})_`);
         } else if (note.type === 'engine limitation') {
           limits.push(`- ${test.title}: ${description} _(${project})_`);
+        } else if (note.type === 'stop not met') {
+          unmetStops.push(`- ${test.title}: ${description} _(${project})_`);
         } else if (note.type === 'axe advisory') {
           const found =
             /^(.*?): ([a-z0-9-]+ \((?:minor|moderate|serious|critical|unknown)\)) at /.exec(
@@ -194,6 +197,11 @@ class QaSummary implements Reporter {
     }
     if (limits.length > 0) {
       lines.push('', '### Checks narrowed for an engine', '', ...limits.sort());
+    }
+    if (unmetStops.length > 0) {
+      // A walk's stop that depends on what the game serves (a letter pad, a chest) did not come:
+      // its screen went unphotographed and unchecked this run.
+      lines.push('', '### Walk stops the game did not offer', '', ...unmetStops.sort());
     }
     lines.push('', '### Accessibility advice (axe best-practice findings, by rule)', '');
     if (advice.size === 0) lines.push('None.');

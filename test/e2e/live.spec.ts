@@ -1,8 +1,8 @@
 /**
  * The deployed game at https://rumukh.github.io/pearl-sea/ (or `PS_E2E_LIVE_URL`), checked from
  * outside before a playtest or a release (docs/qa/release.md): it boots into the Czech title with
- * nothing foreign and nothing failing, GitHub Pages sends its text compressed, and once installed
- * for offline play it opens and plays with the network gone.
+ * nothing foreign and nothing failing, GitHub Pages sends its text compressed, the first tap
+ * starts the music, and once installed for offline play it opens and plays with the network gone.
  *
  * It needs the internet, so it runs only when asked: `PS_E2E_LIVE=1 npm run test:e2e --
  * live.spec.ts`. Every other run skips it, saying why.
@@ -10,9 +10,12 @@
 import { expect, test } from './support/fixtures';
 import { createChild, leaveScreen, throughStory } from './support/game';
 import { enterGrownUps, ready } from './support/screens';
+import { fetchedSound, soundAfterFirstTap, soundFiles } from './support/sound';
 
 const LIVE = process.env['PS_E2E_LIVE_URL'] ?? 'https://rumukh.github.io/pearl-sea/';
 const ASKED = process.env['PS_E2E_LIVE'] === '1';
+/** The music the title and the editor ask for once the first tap has unlocked the sound. */
+const GROTTO_LOOP = '/assets/audio/music/grotto.ogg';
 
 test.use({ reducedMotion: 'reduce' });
 
@@ -41,6 +44,16 @@ test('the deployed game boots into the Czech title, its text sent compressed', a
   expect(files.length, 'the script, the style and the content were fetched').toBeGreaterThan(2);
   for (const file of files) {
     expect(encodings[file], `${file} is sent compressed`).not.toBe('none');
+  }
+});
+
+test('the deployed game’s first tap starts its music', async ({ page, browserName }) => {
+  const sounds = soundFiles(page);
+  await page.goto(LIVE);
+  await ready(page, 'title');
+  await page.getByTestId('title-play').click();
+  if ((await soundAfterFirstTap(page, browserName)) === 'ready') {
+    await fetchedSound(sounds, GROTTO_LOOP);
   }
 });
 
@@ -81,6 +94,10 @@ test('installed for offline play, the deployed game opens and plays without the 
     expect(await throughStory(page)).toBe('screen-hub');
     await leaveScreen(page, 'screen-hub', () => page.getByTestId('adventure').click());
     expect(await throughStory(page)).toBe('screen-board');
+    await expect(
+      page.getByTestId('boot-status'),
+      'the music plays offline too, from the installed pack',
+    ).toHaveAttribute('data-audio', browserName === 'chromium' ? 'ready' : /^(ready|blocked)$/);
   } finally {
     await context.setOffline(false);
   }

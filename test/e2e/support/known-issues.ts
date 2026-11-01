@@ -68,12 +68,6 @@ export const DEFECTS = {
     title:
       'Ulita slov: the cut points between letters are 19-43 px wide, under the 48 px touch target',
   },
-  'PS-QA-02': {
-    owner: 'S4',
-    severity: 'blocker',
-    title:
-      'The game is silent: the SDK refuses the audio pack’s sound IDs (“music/grotto” has a slash), so no music or victory sting ever plays',
-  },
   'PS-QA-04': {
     owner: 'S4',
     severity: 'major',

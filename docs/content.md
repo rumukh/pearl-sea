@@ -88,7 +88,9 @@ record names its strings by catalog key: `region.<id>`, `level.<id>`, `skill.<re
 shows the grammar keys of its rules and values: `grammar.rule.<rule>` (the strategy after a miss),
 `grammar.<dimension>.<value>` (contract §7.4) and `grammar.method.<id>`, the hint of a case,
 pattern, tense, mood or verb-form classification and of a sound-alike relation. A method hint shows
-how to find the answer and never names it, so its examples use a verb no item asks (_malovat_).
+how to find the answer and never names it, so its examples use a verb no item asks (_malovat_). A
+rule line states the method alone, so that the rules can add an example from another family; the
+few lines with examples of their own use words their rule's problems never show (§7).
 
 **Czech.** The child is addressed with _ty_; a bare key is neutral (no _naučil(a)_), with optional
 `.boy`/`.girl` pairs (design §10). Monsters and friends agree in gender with their names (_Muréna
@@ -453,17 +455,28 @@ full stop on the end-mark pad, typed whole-word gaps (conjunctions, _mě/mně_, 
 punctuation the classify context drops. Also hints that give the answer away or point at the
 look-alike, hint gaps, and punctuation inside Lov chyb tokens.
 
-**A hint must decide every item it serves.** The hints of the generated problems were read again
-once the rules showed them (catalog only, no revision):
+**A hint must decide every item it serves, and never names the answer.** The hints of the
+generated problems were read again once the rules showed them (catalog only, no revision):
 
 - Seven agreement sentences have several subjects (_Delfíni a želvy plavali_), where _ti, ty, ta_
   before each word does not decide. The agreement rule line now says that one masculine animate
   noun among them makes _-i_.
 - A sound-alike with _i_ (_bít, mít, vít, vír, vískat, dobít, bidlo, sírový_) shown with its gap
   also spells its partner with _y_ (`b_t` is _být_ too), so a hint cannot call it neither listed
-  nor related. The _i/í_ rule line now says that sound-alikes are told apart by meaning: _být_
-  (_existovat_), _bít_ (_tlouct_).
-- A rule line's examples use verbs that no agreement item asks (_štěkali, padaly, utíkali_).
+  nor related. The _i/í_ rule line now says that sound-alikes are told apart by meaning.
+- A hint never shows the asked word, a form of it that gives the answer, or a word of its family.
+  Twelve rule lines named the very words their problems ask (_útes, neúspěch, dům – domy, hrad –
+  hrady, Petr, Alík, Praha, vyplout, odpověď, objet, jemně, odplavala, mléko, velký, okno, bít_;
+  S6's hint baseline in #43 found three of them). They now state the method alone, so that the
+  rules can add an example of the same rule from another family. The line for standard Czech
+  names instead the three changes the register items show: _ej_ for _ý_ or _í_ (_velkej,
+  zejtra_), _í_ for _é_ (_mlíko_) and _vo_ for _o_ (_vokno_). A line that keeps
+  examples of its own, as the agreement and pattern lines do, uses only words that its rule's
+  problems never show. The agreement line's _kuřata_ was the subject of agree.14, and its
+  _kameny_ stood beside agree.04's _po kamenech_; they are now _prasátka_ and _stromy_.
+  `pack.test.ts` checks every rule line against what its rule's problems show. The only exception
+  is the two forms the `mne-zajmeno` line teaches, _mně_ and _mě_: every one of its gaps offers
+  both.
 
 **Kept on purpose.** These alternatives are rare words a child does not mean: _sípat, prosít,
 posýpat, vyset, sír_. A teacher would mark them wrong too, and the word read aloud decides. Also

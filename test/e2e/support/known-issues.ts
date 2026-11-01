@@ -61,14 +61,7 @@ export interface Defect {
  * once their fix is verified on every engine; the assertions that pinned them stay in the specs
  * as plain regression checks.
  */
-export const DEFECTS = {
-  'PS-QA-19': {
-    owner: 'S4',
-    severity: 'minor',
-    title:
-      'With three quest rewards and the chest to open, the grotto is 788 px tall at 1024 × 768: the bottom of Dnešní výprava sits under the fold',
-  },
-} as const satisfies Record<string, Defect>;
+export const DEFECTS = {} as const satisfies Record<string, Defect>;
 
 export type DefectId = keyof typeof DEFECTS;
 
@@ -80,13 +73,7 @@ export interface KnownLayout {
   readonly problem: RegExp;
 }
 
-export const KNOWN_LAYOUT: readonly KnownLayout[] = [
-  {
-    defect: 'PS-QA-19',
-    where: /^\d\d-(grotto-quests|chest) \(small tablet landscape\)$/,
-    problem: /^the page is \d+ px tall in the \d+ px window$/,
-  },
-];
+export const KNOWN_LAYOUT: readonly KnownLayout[] = [];
 
 /** The engine a test runs on: its project's browser (Edge and Chrome channels are Chromium). */
 export function engineOf(testInfo: TestInfo): string {

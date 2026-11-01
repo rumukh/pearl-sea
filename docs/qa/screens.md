@@ -20,13 +20,13 @@ The title: Perlové moře, Hrát and Pro dospělé
 
 ### 02-editor
 
-A new diver: name, eight pictures, kluk / holka / nechci říct, 3. or 4. třída (the page is 879 px tall)
+A new diver: name, eight pictures, kluk / holka / nechci říct, 3. or 4. třída
 
 ![A new diver: name, eight pictures, kluk / holka / nechci říct, 3. or 4. třída](screens/02-editor.webp)
 
 ### 03-editor-problem
 
-The editor asking kindly for a name (the page is 914 px tall)
+The editor asking kindly for a name
 
 ![The editor asking kindly for a name](screens/03-editor-problem.webp)
 
@@ -50,7 +50,7 @@ Krab Tvrďák’s egg chosen
 
 ### 07-grotto-egg
 
-The grotto on the first day: the egg, Dnešní výprava, today’s goal and quests, the places (the page is 824 px tall)
+The grotto on the first day: the egg, Dnešní výprava, today’s goal and quests, the places
 
 ![The grotto on the first day: the egg, Dnešní výprava, today’s goal and quests, the places](screens/07-grotto-egg.webp)
 
@@ -104,7 +104,7 @@ Krmení with its hint: the strategy, not the answer
 
 ### 16-miss
 
-A miss: “Skoro!”, the right answer in the gap, Dál (the page is 827 px tall)
+A miss: “Skoro!”, the right answer in the gap, Dál
 
 ![A miss: “Skoro!”, the right answer in the gap, Dál](screens/16-miss.webp)
 
@@ -144,7 +144,7 @@ Kdo se potápí? The family’s divers and a new one
 
 ### 22-grotto-new-day
 
-A new day in the grotto: three baby friends, today’s plan (the page is 868 px tall)
+A new day in the grotto: three baby friends, today’s plan
 
 ![A new day in the grotto: three baby friends, today’s plan](screens/22-grotto-new-day.webp)
 
@@ -210,19 +210,19 @@ Lov chyb: tap the word the ink spelled wrong
 
 ### 33-bug-hunt-fix
 
-Lov chyb: now fix the wrong word (the page is 844 px tall)
+Lov chyb: now fix the wrong word
 
 ![Lov chyb: now fix the wrong word](screens/33-bug-hunt-fix.webp)
 
 ### 34-grotto-quests
 
-The grotto with today’s goal met and a quest’s coins to claim (the page is 899 px tall)
+The grotto with today’s goal met and a quest’s coins to claim
 
 ![The grotto with today’s goal met and a quest’s coins to claim](screens/34-grotto-quests.webp)
 
 ### 35-chest
 
-The treasure chest, opened after today’s goal (the page is 899 px tall)
+The treasure chest, opened after today’s goal
 
 ![The treasure chest, opened after today’s goal](screens/35-chest.webp)
 
@@ -246,7 +246,7 @@ Kamarádi: the friends, the wardrobe and the grotto’s decorations (the page is
 
 ### 39-friends-dressed
 
-A friend wearing what was bought (the page is 987 px tall)
+A friend wearing what was bought (the page is 1214 px tall)
 
 ![A friend wearing what was bought](screens/39-friends-dressed.webp)
 
@@ -316,7 +316,7 @@ Galerie přátel: Muréna Mumla freed, the other monsters waiting (the page is 1
 
 ### 50-ambush
 
-An Inkoustík ambush: answer right to splash it away (the page is 836 px tall)
+An Inkoustík ambush: answer right to splash it away
 
 ![An Inkoustík ambush: answer right to splash it away](screens/50-ambush.webp)
 
@@ -326,13 +326,13 @@ A new 4th grader takes the placement check (missing every answer, so they start 
 
 ### 51-editor-grade-4
 
-The editor for a 4th grader (the page is 879 px tall)
+The editor for a 4th grader
 
 ![The editor for a 4th grader](screens/51-editor-grade-4.webp)
 
 ### 52-grotto-placement
 
-A 4th grader’s grotto: Ukaž, co umíš is today’s adventure (the page is 824 px tall)
+A 4th grader’s grotto: Ukaž, co umíš is today’s adventure
 
 ![A 4th grader’s grotto: Ukaž, co umíš is today’s adventure](screens/52-grotto-placement.webp)
 
@@ -390,13 +390,13 @@ The gate’s question and its number pad
 
 ### 61-settings
 
-Pro dospělé, Nastavení: language, read-aloud, Ema’s game and settings (the page is 1922 px tall)
+Pro dospělé, Nastavení: language, read-aloud, Ema’s game and settings (the page is 1856 px tall)
 
 ![Pro dospělé, Nastavení: language, read-aloud, Ema’s game and settings](screens/61-settings.webp)
 
 ### 62-progress
 
-Pokrok: days, answers, the goals of the 3rd grade, what goes wrong most (the page is 8663 px tall)
+Pokrok: days, answers, the goals of the 3rd grade, what goes wrong most (the page is 6226 px tall)
 
 ![Pokrok: days, answers, the goals of the 3rd grade, what goes wrong most](screens/62-progress.webp)
 
@@ -432,7 +432,7 @@ O hře: the version, privacy and licences
 
 ### 68-settings-english
 
-The grown-ups’ area in English (the page is 1980 px tall)
+The grown-ups’ area in English (the page is 1914 px tall)
 
 ![The grown-ups’ area in English](screens/68-settings-english.webp)
 

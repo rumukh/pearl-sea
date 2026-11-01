@@ -34,8 +34,7 @@ size, with S5's paintings in place.
   to verify once they land, in the problem sampler's output and the walks.
 - **Open pull requests on the hints**, to recheck with the probe below once they land: S2's #49
   (a test that no rendered hint shows a word ID, and state version 2: a save made mid-problem
-  before #46 drops its stale hints on load) and S3's #48 (pack 1.2.6: families for words of one
-  root, so no hint takes one as another's example).
+  before #46 drops its stale hints on load).
 
 ## Hints that name the asked word
 
@@ -44,11 +43,12 @@ A browser probe opens Nápověda on every gap problem of six adventures each for
 on into Korálový útes (Edge). A hint names the asked word when one of its words begins with the
 asked word or its lemma (duby for dub). None was empty or showed a raw key.
 
-| Main                               | Hints | Name the asked word | Which                                                                                                                                |
-| ---------------------------------- | ----: | ------------------: | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `75cd107` (the first two children) |    41 |                  14 | rule lines with the asked word as their example (Petr, Alík, Praha; dům – domy; neúspěch), test words (duby for dub)                 |
-| `5aa33d2` (after S3's #45)         |    91 |                  17 | test words ("Zkus si říct: duby."), and listed words, whose hint recites the whole list with the asked word in it                    |
-| `2ae633b` (after S2's #46)         |    91 |                   0 | rule lines end "Například: …" with other words, test words use another word ("třeba chléb → chleba"), listed words get the bare rule |
+| Main                                   | Hints | Name the asked word | Which                                                                                                                                |
+| -------------------------------------- | ----: | ------------------: | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `75cd107` (the first two children)     |    41 |                  14 | rule lines with the asked word as their example (Petr, Alík, Praha; dům – domy; neúspěch), test words (duby for dub)                 |
+| `5aa33d2` (after S3's #45)             |    91 |                  17 | test words ("Zkus si říct: duby."), and listed words, whose hint recites the whole list with the asked word in it                    |
+| `2ae633b` (after S2's #46)             |    91 |                   0 | rule lines end "Například: …" with other words, test words use another word ("třeba chléb → chleba"), listed words get the bare rule |
+| `e89faf8` (after S3's #48, pack 1.2.6) |    91 |                   0 | the same, with families for words of one root                                                                                        |
 
 Since #46 the examples change with the asked word (útes gets "úhoř, úkol", úhoř "úkol, úkryt"; dům
 gets "kůň → koně", kůň "dům → domu"), and no hint shows a lexicon ID (PS-QA-22). For neúspěch the

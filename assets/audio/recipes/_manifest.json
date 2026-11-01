@@ -1,0 +1,77 @@
+{
+  "$comment": "Source for assets/audio/manifest.json (scripts/audio/manifest.mjs measures every file and writes the manifest). Sounds, tiers, music states and throttles are S5's. A screen mood the pack does not list (map, results, finale) plays the grotto loop (the shell's musicFor).",
+  "packId": "pearl-sea-audio",
+  "sampleRate": 48000,
+  "channels": 1,
+  "buses": {
+    "music": {
+      "defaultVolume": 1,
+      "note": "Loops are mastered to their loudness tier (music -23 LUFS, musicCalm -26 LUFS), so play the bus at 1.0 by default; the parents' settings scale it down."
+    },
+    "effects": {
+      "defaultVolume": 1,
+      "note": "Effects are mastered to their tier; playEffect has no per-call gain, so the mix is in the files."
+    }
+  },
+  "loudnessTargets": {
+    "music": {
+      "target": -23,
+      "measure": "integrated",
+      "use": "grotto and battle loops, the victory sting"
+    },
+    "musicCalm": {
+      "target": -26,
+      "measure": "integrated",
+      "use": "practice loop: unobtrusive while the child thinks"
+    }
+  },
+  "sounds": [
+    {
+      "id": "music/grotto",
+      "file": "music/grotto.ogg",
+      "bus": "music",
+      "tier": "music",
+      "loop": true
+    },
+    {
+      "id": "music/practice",
+      "file": "music/practice.ogg",
+      "bus": "music",
+      "tier": "musicCalm",
+      "loop": true
+    },
+    {
+      "id": "music/battle",
+      "file": "music/battle.ogg",
+      "bus": "music",
+      "tier": "music",
+      "loop": true
+    },
+    {
+      "id": "sfx/victory-sting",
+      "file": "sfx/victory-sting.ogg",
+      "bus": "effects",
+      "tier": "music",
+      "loop": false
+    }
+  ],
+  "events": {
+    "monster.freed": {
+      "sounds": [
+        "sfx/victory-sting"
+      ]
+    }
+  },
+  "music": {
+    "states": {
+      "grotto": "music/grotto",
+      "practice": "music/practice",
+      "battle": "music/battle",
+      "race": "music/battle"
+    },
+    "crossfadeSeconds": 1.2
+  },
+  "voices": {
+    "throttle": {}
+  }
+}

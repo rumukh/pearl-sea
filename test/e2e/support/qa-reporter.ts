@@ -23,6 +23,7 @@ import type {
   TestCase,
   TestResult,
 } from '@playwright/test/reporter';
+import { boundExit, exitGraceMs } from './bounded-exit';
 import { DEFECTS } from './known-issues';
 import type { Defect } from './known-issues';
 import { writeScreensDoc, writingDocs } from './screens';
@@ -94,12 +95,17 @@ class QaSummary implements Reporter {
   }
 
   async onEnd(result: FullResult): Promise<{ status?: FullResult['status'] } | void> {
+    // On CI a run that has reported ends with its own status, even if the runner then hangs on
+    // its way out (PS-QA-21). This reporter reports first there, so the bound covers the others.
+    let status = result.status;
+    if (process.env['CI']) boundExit(() => status, exitGraceMs());
     const config = this.config;
     if (!config) return;
     const projects = [...new Set(this.results.map(({ test }) => projectOf(test)))];
     const count = (...statuses: TestResult['status'][]): number =>
       this.results.filter(({ run }) => statuses.includes(run.status)).length;
     const problems = process.env['PS_E2E_AUDIT'] === '1' ? this.audit(config, projects) : [];
+    if (problems.length) status = 'failed';
 
     const defects = new Map<string, Set<string>>();
     const fixed = new Map<string, Set<string>>();

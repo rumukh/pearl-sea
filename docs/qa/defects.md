@@ -95,26 +95,41 @@ UI playtest of main `8d6b61d` found PS-QA-15 to PS-QA-18.
 
 Verified on main `441bcab` in Edge, Firefox and WebKit (Windows) and on CI, unless stated.
 
-| ID       | Severity | Owner  | Defect                                                                                       | Fixed by                                                          |
-| -------- | -------- | ------ | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| PS-QA-02 | blocker  | S4     | The game was silent: no music and no victory sting ever played                               | #33, verified in `audio.spec.ts` in Edge, Firefox and CI's WebKit |
-| PS-QA-15 | blocker  | S4     | A second tap on Nápověda showed an error (S2's playtest)                                     | #27                                                               |
-| PS-QA-16 | blocker  | S4     | Quick taps on a board were dropped while the move before them saved (S2's playtest)          | #27                                                               |
-| PS-QA-01 | major    | S4     | Ulita slov's cut points were 19-43 px wide, under the 48 px target                           | #36                                                               |
-| PS-QA-03 | major    | S2     | Results said "Správně: 9 / 5" after Inkoustová věta and "10 / 5" after Lov chyb              | #27, units documented by #31                                      |
-| PS-QA-04 | major    | S4     | The grotto did not fit a landscape tablet: its places were below the fold                    | #36 (a 20 px remainder is PS-QA-19)                               |
-| PS-QA-05 | major    | S4     | Rounds and battles needed scrolling on a landscape tablet (Dál after a miss below the fold)  | #36                                                               |
-| PS-QA-06 | major    | S4     | Pexeso never said what makes a pair                                                          | #36                                                               |
-| PS-QA-09 | major    | S4     | With less motion, a fish dragged onto a net often swam back to the pool                      | #36                                                               |
-| PS-QA-07 | minor    | S4     | On the title, Hrát's focus ring cut through the tagline                                      | #36                                                               |
-| PS-QA-08 | minor    | S4     | At 200 % text on a phone, rounds scrolled sideways and U Mrože's greeting did not wrap       | #36                                                               |
-| PS-QA-10 | minor    | S3     | Freeing Muréna said the same news twice in a row                                             | #32                                                               |
-| PS-QA-11 | minor    | S2     | design.md said 1-3 coins from the chest in §8.1 and 2-6 in §8.4                              | #31 (1-3 is meant)                                                |
-| PS-QA-12 | minor    | S4, S3 | Inkoustová věta said "Doplň chybějící písmena." for a sentence with one gap                  | #36 ("Doplň, co chybí.", S3's wording)                            |
-| PS-QA-13 | minor    | S4     | The grown-ups' settings showed "Závod s delfíny", switched on, for a race with no way in yet | #36 (the switch waits until the race has a way in)                |
-| PS-QA-14 | minor    | S4     | After Nápověda, a miss repeated the same strategy line under the hint                        | #36                                                               |
-| PS-QA-17 | minor    | S4, S3 | The placement check's pause did not say that leaving ends the check (S2's playtest)          | #27 (S3's wording)                                                |
-| PS-QA-18 | minor    | S4     | A second window on the same child stalled on story screens (S2's playtest)                   | #27                                                               |
+| ID       | Severity | Owner  | Defect                                                                                          | Fixed by                                                          |
+| -------- | -------- | ------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| PS-QA-02 | blocker  | S4     | The game was silent: no music and no victory sting ever played                                  | #33, verified in `audio.spec.ts` in Edge, Firefox and CI's WebKit |
+| PS-QA-15 | blocker  | S4     | A second tap on Nápověda showed an error (S2's playtest)                                        | #27                                                               |
+| PS-QA-16 | blocker  | S4     | Quick taps on a board were dropped while the move before them saved (S2's playtest)             | #27                                                               |
+| PS-QA-01 | major    | S4     | Ulita slov's cut points were 19-43 px wide, under the 48 px target                              | #36                                                               |
+| PS-QA-03 | major    | S2     | Results said "Správně: 9 / 5" after Inkoustová věta and "10 / 5" after Lov chyb                 | #27, units documented by #31                                      |
+| PS-QA-04 | major    | S4     | The grotto did not fit a landscape tablet: its places were below the fold                       | #36 (a 20 px remainder is PS-QA-19)                               |
+| PS-QA-05 | major    | S4     | Rounds and battles needed scrolling on a landscape tablet (Dál after a miss below the fold)     | #36                                                               |
+| PS-QA-06 | major    | S4     | Pexeso never said what makes a pair                                                             | #36                                                               |
+| PS-QA-09 | major    | S4     | With less motion, a fish dragged onto a net often swam back to the pool                         | #36                                                               |
+| PS-QA-07 | minor    | S4     | On the title, Hrát's focus ring cut through the tagline                                         | #36                                                               |
+| PS-QA-08 | minor    | S4     | At 200 % text on a phone, rounds scrolled sideways and U Mrože's greeting did not wrap          | #36                                                               |
+| PS-QA-10 | minor    | S3     | Freeing Muréna said the same news twice in a row                                                | #32                                                               |
+| PS-QA-11 | minor    | S2     | design.md said 1-3 coins from the chest in §8.1 and 2-6 in §8.4                                 | #31 (1-3 is meant)                                                |
+| PS-QA-12 | minor    | S4, S3 | Inkoustová věta said "Doplň chybějící písmena." for a sentence with one gap                     | #36 ("Doplň, co chybí.", S3's wording)                            |
+| PS-QA-13 | minor    | S4     | The grown-ups' settings showed "Závod s delfíny", switched on, for a race with no way in yet    | #36 (the switch waits until the race has a way in)                |
+| PS-QA-14 | minor    | S4     | After Nápověda, a miss repeated the same strategy line under the hint                           | #36                                                               |
+| PS-QA-17 | minor    | S4, S3 | The placement check's pause did not say that leaving ends the check (S2's playtest)             | #27 (S3's wording)                                                |
+| PS-QA-18 | minor    | S4     | A second window on the same child stalled on story screens (S2's playtest)                      | #27                                                               |
+| PS-QA-21 | major    | S6, S1 | A green browser run could end red: the Playwright runner hung after reporting until the timeout | #41                                                               |
+
+- **PS-QA-21**: PR #22's job `e2e (chromium)` (run 41295288308) printed "15 passed (50.5s)" at
+  09:58:27 and wrote its JSON report, and then nothing until the step's 15-minute timeout at
+  10:12:49. At cleanup only the Playwright runner was left (with `npm exec` and `sh` above it); the
+  web server and browsers had gone. Every reporter had finished its `onEnd`, so the runner hung in
+  the window Playwright 1.63 leaves unguarded: its reporters' `onExit` and a flush of stdout and
+  stderr come before the CLI arms its own 30-second exit guard. It happened once in 174 e2e jobs.
+  #41 bounds it three ways: on CI the QA reporter reports first and, once the run has reported,
+  exits with the run's own status if the runner is still alive two minutes later
+  (`test/e2e/support/bounded-exit.ts`); Playwright's `globalTimeout` is 30 minutes on CI, twice
+  WebKit's slowest run, for a run stuck in its tests; and the step has 35 minutes and the job 50.
+  A planted reporter that hangs on exit showed it: without the bound the runner sat after
+  "1 passed"; with it, the run exited 0 five seconds after reporting, and a failed run exited
+  failed.
 
 - **PS-QA-15 to PS-QA-18** were found by S2's UI playtest of main `8d6b61d` and fixed by S4 in #27
   (commit `ca65b19`), whose tests in `game.spec.ts` fail without the fixes: Nápověda tapped twice

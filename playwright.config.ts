@@ -31,14 +31,15 @@ const systemBrowser: Project[] = [
   { name: `chromium-${channel}`, use: { ...devices['Desktop Chrome'], channel } },
 ];
 // The QA reporter (test/e2e/support/qa-reporter.ts) writes qa-summary.md beside the results: the
-// known defects, slow tests, performance and accessibility advice, and the job summary on CI.
+// known defects, slow tests, performance and accessibility advice, and the job summary on CI. On
+// CI it reports first, so its bound on the runner's exit (PS-QA-21) covers every reporter after it.
 const qa: ReporterDescription = ['./test/e2e/support/qa-reporter.ts'];
 const reporters: ReporterDescription[] = ci
   ? [
+      qa,
       ['list'],
       ['html', { open: 'never' }],
       ['json', { outputFile: 'test-results/results.json' }],
-      qa,
     ]
   : [['list'], qa];
 
@@ -51,6 +52,11 @@ export default defineConfig({
   timeout: 120_000,
   expect: { timeout: 10_000 },
   reporter: reporters,
+  // One engine's run takes up to 15 minutes on CI (WebKit, the slowest); this is twice that. A run
+  // that hangs in its tests or their teardown fails here with Playwright's own message, before the
+  // step's 35-minute timeout (.github/workflows/ci.yml); a hang after reporting is bounded by the
+  // QA reporter (PS-QA-21).
+  globalTimeout: ci ? 30 * 60_000 : 0,
   outputDir: outputFolder(port),
   use: {
     baseURL: `http://127.0.0.1:${port}${base}`,

@@ -25,7 +25,7 @@ this document says so and keeps Dragon Valley's rules; S2 ports them. The design
 | `problems.ts`    | Hints, problems, answers, `expectedAnswer`, `isCorrectAnswer`, item IDs                                                                                                                                                                                              |
 | `skills.ts`      | Word and sentence filters, skills, generator parameter schemas, `DIMENSION_VALUES`, `CONTEXT_DIMENSIONS`, item universes (`skillItems`)                                                                                                                              |
 | `minigames.ts`   | Typed minigame boards (`BoardView`), card faces and the moves of every minigame activity                                                                                                                                                                             |
-| `media.ts`       | Art ID conventions (`ART`), the art catalog schema with anchor points, the audio manifest and music IDs                                                                                                                                                              |
+| `media.ts`       | Art ID conventions (`ART`, the character and shell art lists), the art catalog schema with anchor points, the cosmetic anchor scale, the audio manifest, the music loops with their fallback, and the victory sting                                                  |
 | `catalogs.ts`    | The catalog key convention: address and plural variants, `czechPlural`, `catalogHasKey`, `catalogProblems`                                                                                                                                                           |
 | `content.ts`     | The content pack, `contentRegistration`, cross-reference validation, catalog, grammar, art and curriculum helpers                                                                                                                                                    |
 | `state.ts`       | `ProfileState` and its schema, `STATE_VERSION` and migrations, day numbers, the initial state                                                                                                                                                                        |
@@ -44,8 +44,8 @@ The runtime adapter, `src/rules/adapter.ts`, is S2's; §11 states what it must r
 | `src/rules/contract/**`, `docs/contract.md`, the curriculum and design documents' tables and IDs, `test/unit/contract/**`, `test/fixtures/contract/**`; the toolchain (`package.json`, tsconfigs, ESLint, Prettier, `scripts/*.mjs`, `scripts/lib/**`, `vendor/**`); the reading font (`assets/fonts/**`, `scripts/fonts/**`) | S1 Foundations & contract   |
 | The rest of `src/rules/**`: the adapter, the learning engine (Leitner boxes, the mix, re-asks, snack time, first tastes, placement), the generators and distractors, rounds, battles and ambushes, minigame adapters, economy, progression, story, the view; the learner simulation and traces                                | S2 Rules                    |
 | `content/pearl-sea.content.json`, `content/history/**`, `content/catalogs/cs.content.json`, the lexicon sources (`content/lexicon-src/**`) and their tools (`scripts/lexicon/**`)                                                                                                                                             | S3 Lexicon & content        |
-| `src/app/**` (persistence, family profiles, the grown-ups' gate, router, UI kit, offline install, audio wrapper, read-aloud, screens); `content/catalogs/cs.ui.json`, `content/catalogs/en.ui.json`; the audio manifest placeholder                                                                                           | S4 App                      |
-| `assets/art/**`, `assets/audio/**`, `scripts/art/**`, `scripts/audio/**`, `docs/art.md`, `docs/audio.md` (local models only: [assets.md](assets.md))                                                                                                                                                                          | S5 Art & music              |
+| `src/app/**` (persistence, family profiles, the grown-ups' gate, router, UI kit, offline install, audio wrapper, read-aloud, screens; the runtime map from events to sounds; rendering the static SVG art); `content/catalogs/cs.ui.json`, `content/catalogs/en.ui.json`                                                      | S4 App                      |
+| `assets/art/**` (the paintings, and the static SVG eggs, cosmetics and sticker art, all listed in the art catalog), `assets/audio/**` (the whole audio pack and its manifest), `scripts/art/**`, `scripts/audio/**`, `docs/art.md`, `docs/audio.md` (local models only: [assets.md](assets.md))                               | S5 Art & music              |
 | `test/e2e/**`, CI hardening (`.github/**` beyond fixes), release checks                                                                                                                                                                                                                                                       | S6 QA                       |
 | Merges, `docs/plan.md`, decisions that change the approved plan                                                                                                                                                                                                                                                               | Coordinator (with the user) |
 
@@ -534,29 +534,47 @@ Content and views name art by art ID (`ART` in `media.ts`):
 | a region scene, the grotto, the title | `scene/<region>`, `scene/grotto`, `scene/title`                    | painted |
 | the two sea maps                      | `map/shallows`, `map/deep`                                         | painted |
 | a character                           | `character/osmicka`, `character/mroz-vousac`, `character/bublinka` | painted |
+| Osmička cheering (praise, results)    | `character/osmicka/happy`                                          | painted |
 | a diver avatar                        | `avatar/diver-1` … `avatar/diver-8`                                | painted |
 | a cosmetic                            | `cosmetic/<item>` (the pack's `assetId`)                           | SVG     |
 | a sticker icon or frame               | `sticker/<name>` (the pack's `icon` and `frame`)                   | SVG     |
 
 S5 publishes `assets/art/catalog.json` (`ART_CATALOG_PATH`) in the format
 `pearl-sea-art-catalog/1`: `{ format, entries: { id, kind: 'painted' | 'svg', file, width, height,
-anchors? }[] }` (`artCatalogSchema`; `file` is relative to `assets/art/`). Painted friends publish
-**anchors** so SVG cosmetics sit on painted creatures: for each of `head`, `eyes` and `neck`, a
-point `{ x, y }` in thousandths of the image box from its top left, the cosmetic's `scale` in
-percent (10-400) and its `rotate` in degrees (-180-180), integers only. A cosmetic of slot `head`
-goes on the `head` anchor of the friend's current painting; a crowned friend is its grown painting
-with the shell crown on `head`. `collectArtIds(data)` lists every art ID the pack implies (friends,
-eggs, monsters in both forms, Inkoustíci, region scenes, maps, cosmetics, stickers, beat scenes and
-assets); `checkArtCatalog(data, ids)` reports the missing ones. Characters, avatars, the title and
-the grotto are used by the shell directly.
+anchors? }[] }` (`artCatalogSchema`; `file` is relative to `assets/art/`; for an SVG, `width` and
+`height` are its viewBox size). The eggs, cosmetics and sticker art are static SVG files that S5
+makes and lists in the catalog beside the paintings; the shell (S4) renders them. Painted friends
+publish **anchors** so SVG cosmetics sit on painted creatures: for each of `head`, `eyes` and
+`neck`, a point `{ x, y }` in thousandths of the image box from its top left, the cosmetic's
+`scale` in percent (10-400) and its `rotate` in degrees (-180-180), integers only. A cosmetic of
+slot `head` goes on the `head` anchor of the friend's current painting; a crowned friend is its
+grown painting with the shell crown on `head`.
 
-**Audio** is not in content. S5's generator writes `assets/audio/manifest.json`
-(`AUDIO_MANIFEST_PATH`) in Dragon Valley's format renamed `pearl-sea-audio-manifest/1`
-(`AUDIO_MANIFEST_SCHEMA`); until it does, S4 ships an empty placeholder. Sound IDs are
-`music/<loop>` (six loops: `music/grotto`, `music/map`, `music/practice`, `music/battle`,
-`music/victory`, `music/finale`; ACE-Step 1.5) and `sfx/<name>` (`AUDIO_ID_PATTERN`); the shell
-maps events (§13) to sounds. Every art and audio asset is made with local models only
-([assets.md](assets.md)).
+**The cosmetic anchor scale.** A cosmetic SVG has a `0 0 100 100` viewBox (`COSMETIC_VIEWBOX`; the
+catalog accepts a `cosmetic/*` entry only as an SVG of that size) with its attachment point at the
+centre: a hat's brim centre, the goggles' bridge, a scarf's knot. The anchor puts that centre on its
+point. At `scale` 100 the cosmetic is drawn 250/1000 of the painting's width wide
+(`COSMETIC_BASE_WIDTH`), and as tall; at another scale, `scale` percent of that; turned `rotate`
+degrees about its centre. `cosmeticPlacement(anchor, width, height)` gives the box on a painting of
+that size. Grotto decorations (slot `grotto`) share the viewBox and sit on the grotto's spots
+instead of anchors.
+
+`collectArtIds(data)` lists every art ID the pack implies (friends, eggs, monsters in both forms,
+Inkoustíci, region scenes, maps, cosmetics, stickers, beat scenes and assets); `checkArtCatalog(data,
+ids)` reports the missing ones. The shell shows `SHELL_ART_IDS` directly: the characters
+(`CHARACTER_ART_IDS`), the avatars, the title and the grotto. The content gate checks both lists
+against the published catalog: a warning, or an error with `--strict-art`.
+
+**Audio** is not in content. S5 owns the audio pack: its generator (`scripts/audio/manifest.mjs`,
+[audio.md](audio.md)) writes `assets/audio/manifest.json` (`AUDIO_MANIFEST_PATH`) in Dragon
+Valley's format renamed `pearl-sea-audio-manifest/1` (`AUDIO_MANIFEST_SCHEMA`). Sound IDs are
+`music/<loop>` and `sfx/<name>` (`AUDIO_ID_PATTERN`). The music loops (ACE-Step
+1.5, `MUSIC_IDS`) are `music/grotto`, `music/map`, `music/practice`, `music/battle` and
+`music/finale`; the finale's is optional (`OPTIONAL_MUSIC_IDS`). Results play `music/grotto`, and
+so does a mood whose loop the pack lacks (`MUSIC_FALLBACK`, `musicLoop`). There is no victory loop:
+a freed monster (`monster.freed`) gets the 9-second one-shot `sfx/victory-sting` (`VICTORY_STING`).
+The shell (S4) maps events (§13) to sounds. Every art and audio asset is made with local models
+only ([assets.md](assets.md)).
 
 ### 7.6 Revisions, history and save migration
 

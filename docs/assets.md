@@ -1,9 +1,10 @@
 # Assets: art, audio and fonts, and their provenance
 
-This is the umbrella policy for every non-code file the game ships. The art and music are S5's work
-on the local GPU queue, and their integration in the app is S4's; the owners document their
-pipelines as they land. The domain IDs that key assets are in [contract.md](contract.md), and who
-owns which path is in its §2.
+This is the umbrella policy for every non-code file the game ships. The art, music and sound
+effects are S5's work on the local GPU queue, including the static SVG eggs, cosmetics and sticker
+art, and their integration in the app is S4's; the owners document their pipelines as they land.
+The domain IDs that key assets are in [contract.md](contract.md), and who owns which path is in its
+§2.
 
 ## 1. Local models only (binding)
 
@@ -15,7 +16,7 @@ Every image and music track is made with **local models on this PC**:
 | Cut-outs of painted characters                                                    | **local rembg**, then alpha cleanup; shipped as WebP              |
 | Music loops (instrumental)                                                        | **ACE-Step 1.5** (local)                                          |
 | Sound effects                                                                     | Dragon Valley's deterministic synthesis code, re-voiced for water |
-| UI, icons, eggs and cosmetics                                                     | SVG                                                               |
+| Eggs, cosmetics and sticker art (S5's static files); UI and icons                 | SVG                                                               |
 | Read-aloud                                                                        | the device's own Czech voices only; nothing is recorded           |
 
 **Never Azure, and never any cloud image, speech or music generator or API.** A cloud route must
@@ -49,11 +50,11 @@ documentation and never shipped.
 
 | Path                          | Contents                                                                                                       | Owner  |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------- | ------ |
-| `assets/art/`                 | `catalog.json`, painted WebP art, SVG eggs and cosmetics, provenance                                           | S5     |
-| `assets/audio/`               | music loops, synthesized sound effects, recipes, provenance                                                    | S5     |
+| `assets/art/`                 | `catalog.json`, painted WebP art, static SVG eggs, cosmetics and sticker art, provenance                       | S5     |
+| `assets/audio/`               | `manifest.json`, music loops, synthesized sound effects, recipes, provenance                                   | S5     |
 | `assets/fonts/pearl-reading/` | Pearl Reading (two WOFF2 faces), `OFL.txt`, `provenance.json`                                                  | S1     |
 | `scripts/`                    | `audio/` (the audio manifest generator, authoring tools), the art scripts (planned); `fonts/subset-andika.mjs` | S5, S1 |
-| `src/app/`                    | painted-art integration, sound playback, read-aloud                                                            | S4     |
+| `src/app/`                    | painted-art integration, rendering the static SVG art, sound playback, read-aloud                              | S4     |
 
 Today the font and the slice's music exist ([audio.md](audio.md)); the painted art and the sound
 effects arrive with S5's next batches.
@@ -67,7 +68,7 @@ offline resource graph (exact bytes and SHA-256).
   JPEG, AVIF and ICO images; WOFF2, WOFF, TTF and OTF fonts; WAV, Ogg, MP3, M4A and Opus audio;
   JSON, web manifests and text. An unknown extension fails the build on purpose.
 - Budgets: at most 32 MiB per file and 64 MiB for the whole site (the SDK's offline defaults), 4096
-  files, no empty files. About 92 painted images, six music loops and about 30 sounds must fit
+  files, no empty files. About 92 painted images, five music loops and about 30 sounds must fit
   beside the code and fonts, or the build fails: prefer WebP for painted art, SVG for flat art and
   Ogg/Opus for audio, and keep music loops short.
 - Licence files that must travel with a file (`OFL.txt` next to the fonts) are shipped. The build
@@ -77,19 +78,29 @@ offline resource graph (exact bytes and SHA-256).
 
 - **Art catalog** `assets/art/catalog.json` (format `pearl-sea-art-catalog/1`; S5, planned): the
   published list of art IDs. Each entry is `{ id, kind, file, width, height, anchors? }`, where
-  `kind` is `painted` or `svg` and `file` is relative to `assets/art/`. Painted friends carry the
-  anchors `head`, `eyes` and `neck`, each with `x` and `y` in 0..1000 of the image box, `scale` in
-  percent (10..400) and `rotate` in degrees (-180..180), where SVG cosmetics are placed. Content
-  refers to art only by these IDs, and the content gate cross-checks every reference once the
-  catalog is published (reported, or failing with `--strict-art`).
+  `kind` is `painted` or `svg`, `file` is relative to `assets/art/`, and an SVG's `width` and
+  `height` are its viewBox size. S5 lists its static SVG files (eggs, cosmetics, sticker art) here
+  beside the paintings, and S4 renders them. Painted friends carry the anchors `head`, `eyes` and
+  `neck`, each with `x` and `y` in 0..1000 of the image box, `scale` in percent (10..400) and
+  `rotate` in degrees (-180..180), where SVG cosmetics are placed. Content refers to art only by
+  these IDs, and the content gate cross-checks every reference, and the art the shell shows
+  directly (characters, avatars, the title and the grotto), once the catalog is published
+  (reported, or failing with `--strict-art`).
+- **The cosmetic anchor scale**: a cosmetic SVG has a `0 0 100 100` viewBox with its attachment
+  point at the centre: a hat's brim centre, the goggles' bridge, a scarf's knot. The anchor puts
+  that centre on its point, and at `scale` 100 the cosmetic is drawn 250/1000 of the painting's
+  width wide (and as tall); at another scale, `scale` percent of that. Grotto decorations share the
+  viewBox and sit on the grotto's spots instead of anchors. The catalog accepts a `cosmetic/*` entry
+  only as an SVG of 100 × 100.
 - **Audio manifest** `assets/audio/manifest.json` (format `pearl-sea-audio-manifest/1`, Dragon
-  Valley's format renamed): generated by `scripts/audio/manifest.mjs` from
-  `assets/audio/recipes/_manifest.json` and the files themselves ([audio.md](audio.md)). It names
-  the music loops `music/grotto`, `music/practice` and `music/battle` (with `music/map` and
-  `music/finale` to come; a mood without its own loop plays the grotto's), the one-shot
-  `sfx/victory-sting` played when a monster is freed, and later the sound effects `sfx/<name>`
-  (`sfx/bubble`, `sfx/splash`, `sfx/pearl-chime`, `sfx/ink-splat`, `sfx/monster-grumble`, …).
-  Rules know no sound IDs; the shell maps rules events to sounds.
+  Valley's format renamed): S5 owns the whole audio pack, and `scripts/audio/manifest.mjs`
+  generates the manifest from `assets/audio/recipes/_manifest.json` and the files themselves
+  ([audio.md](audio.md)). It names the music loops of the contract's `MUSIC_IDS`: `music/grotto`,
+  `music/practice` and `music/battle` today, with `music/map` and `music/finale` (optional) to
+  come. Results, and any mood whose loop is missing, play `music/grotto`. There is no victory loop:
+  a freed monster gets `sfx/victory-sting`, a 9-second one-shot. The sound effects `sfx/<name>`
+  (`sfx/bubble`, `sfx/splash`, `sfx/pearl-chime`, `sfx/ink-splat`, `sfx/monster-grumble`, …) come
+  later. Rules emit no sound IDs; the shell maps rules events to sounds.
 
 Art IDs are built from the contract's canonical IDs ([contract.md](contract.md)):
 
@@ -102,6 +113,7 @@ Art IDs are built from the contract's canonical IDs ([contract.md](contract.md))
 | `scene/<region>`, `scene/grotto`, `scene/title`                    | painted | the 12 region scenes, Bublinka's home grotto, the title                |
 | `map/shallows`, `map/deep`                                         | painted | the sea maps of the 3rd and the 4th grade                              |
 | `character/osmicka`, `character/mroz-vousac`, `character/bublinka` | painted | Profesorka Osmička, Mrož Vousáč and the submarine Bublinka             |
+| `character/osmicka/happy`                                          | painted | Osmička cheering (praise, results)                                     |
 | `avatar/diver-1` … `avatar/diver-8`                                | painted | the diver avatars                                                      |
 | `cosmetic/<item>`                                                  | SVG     | hats, goggles, scarves, shell crowns, grotto decorations               |
 | `sticker/<sticker>`                                                | SVG     | the sticker album                                                      |

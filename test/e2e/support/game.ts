@@ -276,8 +276,15 @@ export async function openChild(page: Page, profileId: string): Promise<string> 
   return throughStory(page);
 }
 
-/** A 4th grader past the placement check (nothing placed), at the deep sea's first level. */
-export async function fourthGraderPlaced(): Promise<RuntimeSnapshot> {
+/**
+ * A 4th grader past the placement check (nothing placed), at the deep sea's first level. With
+ * `ahead`, the grown-ups have opened that region early (Pro dospělé) and the child has played
+ * its `levels`: a later lesson without the journey before it.
+ */
+export async function fourthGraderPlaced(ahead?: {
+  readonly region: string;
+  readonly levels: readonly string[];
+}): Promise<RuntimeSnapshot> {
   const player = new Player(PERFECT, 'e2e-grade-4', GAME.adapter, GAME.content);
   try {
     await player.act({ type: 'setSetting', setting: { key: 'grade', value: 4 } });
@@ -292,6 +299,16 @@ export async function fourthGraderPlaced(): Promise<RuntimeSnapshot> {
     await player.settleStory();
     if (player.failures.length > 0 || player.view().onboarding.placement !== 'done') {
       throw new Error(`the placement check did not end: ${player.failures.join(', ')}`);
+    }
+    if (ahead) {
+      await player.act({
+        type: 'setSetting',
+        setting: { key: 'unlockAhead', value: [ahead.region] },
+      });
+      for (const level of ahead.levels) await player.playLevel(level);
+      if (player.failures.length > 0) {
+        throw new Error(`the seeded child got stuck: ${player.failures.join(', ')}`);
+      }
     }
     return player.host.snapshot();
   } finally {

@@ -318,8 +318,10 @@ The catalog format carries Czech grammar. It is the contract's convention (docs/
   `FormOfAddress`) and the neutral phrasing for a child who chose neither, or when nobody is
   playing. Plural and address combine as `<key>.<plural>.<address>`.
 - **Typography**: every Czech string the translator returns binds a one-letter preposition or
-  conjunction to the next word with a no-break space (`i18n/typography.ts`), so "s ponorkou" never
-  breaks after "s".
+  conjunction to the next word with a no-break space, so "s ponorkou" never breaks after "s", and
+  keeps an ending's hyphen with its letters as a non-breaking hyphen (U+2011, in the reading font),
+  so "rod střední: -a" never leaves "-" at a line's end (`typesetCzech`, `i18n/typography.ts`;
+  printed sheets too).
 - **Grown-ups**: `app.grownUps()` speaks the family's chosen language (Czech by default, English
   on request), falling back to Czech for any key English lacks.
 - **Names** (S3's rule): code never declines a name, so a name inserted into a sentence stands
@@ -447,7 +449,10 @@ its own presentation; calls take turns, and a child opened for play waits for th
   editor, the eggs, the grotto (a first egg, a first friend, a whole lagoon with a monster to free,
   and a lagoon played today: three rewards to claim and the chest, seeded on the page's own date),
   every kind of board (Pexeso with two cards that are no pair, Slovní rodinka with its words picked,
-  Ulita slov cut), Krmení with its hint and a miss at once, the battle with an ink blot and a miss,
+  Ulita slov cut), Krmení with its hint and a miss at once, the longest hint the packs carry
+  (shoda's rule in Krakatičí propast 2, a 4th grader whose grown-ups opened the region ahead) with
+  a miss under an ink sentence and under a Lov chyb's fix, its endings' hyphens kept whole, the
+  battle with an ink blot and a miss,
   a round an Inkoustík ambushes (a child played in Node until one does) with a miss, the placement
   check with a miss and its results, the hatching, the freeing and the results. At 200 % text on a
   phone the grotto, U Mrože and a round with Nápověda and a miss keep to the screen's width.
@@ -610,7 +615,9 @@ card, and its title shares a line with its meter. The profile editor sets kluk/h
 grade, the pictures in one row and, with room, "Ponořit se!" in the same row. The results card
 never runs past the screen: a big day's news scroll inside it (a named region in the Tab order),
 the button onward in view. A short landscape window (up to 860 px high) draws words, pictures and
-the letter pad a little smaller (Dnešní výprava by the window's height), never a target, and
+the letter pad a little smaller (Dnešní výprava by the window's height), never a target, sets a
+long hint (over 120 characters, a rule explained in a paragraph) at three quarters of the reading
+size in its box and in a miss's feedback alike, so a miss with it and "Dál" still fit, and
 today's card in the grotto loses only its visible headings; on the shortest (up to 700 px) the
 grotto's friend steps back a little more. Each game screen is a size container, so a layout that
 needs room asks for it in

@@ -97,8 +97,8 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   and arrows, and keeps i, í, y and ý (and I, Í, Y, Ý) apart: four glyphs with different outlines,
   the same acute on í and ý as on á, é, ó and ú, descenders on y and ý only, a barred capital I.
 - `test/unit/app/text.test.ts`: one-letter prepositions and conjunctions are bound to the next word
-  with a no-break space; catalogs are flat maps of non-empty strings, and a missing key throws
-  instead of reaching the screen.
+  with a no-break space, and an ending's hyphen (_-a_) becomes a non-breaking one; catalogs are
+  flat maps of non-empty strings, and a missing key throws instead of reaching the screen.
 - `test/tooling/build.test.ts`: a verified resource graph for `/pearl-sea/`; the SDK bundled only
   from the installed tarballs and the worker from the public offline export, pinned to the revision
   and to this game's namespace and message, never Dragon Valley's; a Czech page with the reading

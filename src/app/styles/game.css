@@ -1784,6 +1784,14 @@
     padding: 0.35em 0.7em;
   }
 
+  /* A rule explained in a paragraph (round.ts LONG_HINT_CHARACTERS) is set smaller, the same in
+     the hint box and in a miss's feedback, so the miss, its hint and "Dál" fit the window. */
+  .ps-round__hint[data-long='true'],
+  .ps-feedback__hint[data-long='true'] {
+    font-size: 0.75em;
+    line-height: 1.35;
+  }
+
   .ps-problem__text {
     font-size: min(1.7rem, 7.5vw, 4.4vh);
     line-height: 1.6;

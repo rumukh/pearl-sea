@@ -1,11 +1,17 @@
 /**
  * Czech typesetting used by every screen: a one-letter preposition or conjunction never ends a
- * line, so the space after it becomes a no-break space.
+ * line, so the space after it becomes a no-break space, and an ending's hyphen (-a) never stays
+ * alone at a line's end.
  */
 import { describe, expect, it } from 'vitest';
-import { keepOneLetterWordsWithNext } from '../../../src/app/i18n/typography';
+import {
+  keepEndingsWhole,
+  keepOneLetterWordsWithNext,
+  typesetCzech,
+} from '../../../src/app/i18n/typography';
 
 const NBSP = '\u00a0';
+const NBHY = '\u2011';
 
 describe('keepOneLetterWordsWithNext', () => {
   it('binds one-letter prepositions and conjunctions to the next word', () => {
@@ -28,5 +34,30 @@ describe('keepOneLetterWordsWithNext', () => {
     for (const unchanged of ['Krab Tvrďák', 'i', 'pes a', 'ryby y', 'x y']) {
       expect(keepOneLetterWordsWithNext(unchanged)).toBe(unchanged);
     }
+  });
+});
+
+describe('keepEndingsWhole', () => {
+  it('keeps an ending’s hyphen with its letters', () => {
+    expect(keepEndingsWhole('ta prasátka chrochtala (rod střední: -a).')).toBe(
+      `ta prasátka chrochtala (rod střední: ${NBHY}a).`,
+    );
+    expect(keepEndingsWhole('-i, nebo -y? (-ách)')).toBe(`${NBHY}i, nebo ${NBHY}y? (${NBHY}ách)`);
+    expect(keepEndingsWhole('píšeme -i/-y')).toBe(`píšeme ${NBHY}i/${NBHY}y`);
+  });
+
+  it('leaves prefixes, hyphens inside words, dashes and minus signs alone', () => {
+    for (const unchanged of ['vy-/vý-', 'od-, nad-', 'e-mail', 'psi - kočky', 'je -5 °C', '–a']) {
+      expect(keepEndingsWhole(unchanged)).toBe(unchanged);
+    }
+  });
+});
+
+describe('typesetCzech', () => {
+  it('binds one-letter words and keeps endings whole', () => {
+    expect(typesetCzech('píšeme -i: psi a kočky utíkali')).toBe(
+      `píšeme ${NBHY}i: psi a${NBSP}kočky utíkali`,
+    );
+    expect(typesetCzech('a -y')).toBe(`a${NBSP}${NBHY}y`);
   });
 });

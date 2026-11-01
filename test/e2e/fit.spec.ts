@@ -3,13 +3,15 @@
  * Dragon Valley's playtest checks): at 100 % text the page itself never scrolls, so every control
  * is in view. The sizes are tablets in landscape (1024 × 768; 1024 × 698, an iPad's under Safari's
  * bars; 1180 × 820; 1280 × 800) and laptop windows (1366 × 657, 1536 × 730). Each journey stops at
- * the tallest states a screen can reach: a hint and a miss at once, a battle's miss with an ink
- * blot, an Inkoustík's ambush, the placement check, every kind of board, the big moments, the
- * results, and the grotto with today's rewards to claim and the chest (S6's PS-QA-19). At 200 %
- * text on a phone, a round and U Mrože keep to the screen's width.
+ * the tallest states a screen can reach: a hint and a miss at once (the longest hint too, shoda's
+ * rule in Krakatičí propast), a battle's miss with an ink blot, an Inkoustík's ambush, the
+ * placement check, every kind of board, the big moments, the results, and the grotto with today's
+ * rewards to claim and the chest (S6's PS-QA-19). At 200 % text on a phone, a round and U Mrože
+ * keep to the screen's width.
  */
 import type { Page } from '@playwright/test';
 import type { RuntimeSnapshot } from '@aegis/runtime';
+import type { ProblemView } from '../../src/rules/contract';
 import {
   GAME,
   PACK,
@@ -19,10 +21,12 @@ import {
   boardOnScreen,
   checkBoard,
   createChild,
+  fourthGraderPlaced,
   give,
   lagoonPlayed,
   lagoonPlayedToday,
   leaveScreen,
+  movedOn,
   pageDay,
   playRound,
   problemOnScreen,
@@ -116,11 +120,26 @@ async function openChild(page: Page, snapshot: RuntimeSnapshot): Promise<void> {
 async function toLevel(page: Page, level: string): Promise<void> {
   await page.getByTestId('place-map').click();
   await ready(page, 'map');
-  await page.getByTestId('region-sunny-lagoon').click();
+  await page.getByTestId(`region-${level.split('.')[0]}`).click();
   await ready(page, 'region');
   await page.getByTestId(`level-${level}`).click();
   await ready(page, 'level');
 }
+
+/** The spelling rule a step's hint explains, if its hint is a rule's. */
+function hintRule(view: ProblemView): string | null {
+  const { problem, step } = view;
+  const hint =
+    problem.kind === 'gaps'
+      ? problem.gaps[step]?.hint
+      : problem.kind === 'mistake' && step === 1
+        ? problem.fix.hint
+        : null;
+  return hint?.kind === 'rule' ? hint.rule : null;
+}
+
+/** An ending's hyphen (_-a_) a line could break after, leaving it alone at a line's end. */
+const LOOSE_ENDING = /(^|[\s(„‚"'/\u00a0])-\p{L}/u;
 
 /** A step answered wrong, its miss on screen with the right answer and "Dál". */
 async function miss(page: Page): Promise<void> {
@@ -343,6 +362,51 @@ test('a new 4th grader’s placement check and Měsíční jeskyně fit a landsc
   await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'word-shell');
   await arrangeBoard(page, await boardOnScreen(page, CHILD));
   await fits(page, 'Ulita slov with the word cut');
+});
+
+test('the longest hint, with a miss, fits a landscape screen', async ({ page }) => {
+  // Shoda's rule is a paragraph (273 characters): with a miss under an ink sentence it pushed
+  // "Dál" 52 px under a 1024 × 698 window. A long hint is set smaller in a short window (round.ts
+  // LONG_HINT_CHARACTERS), and its endings (-i, -y, -a) never leave their hyphen at a line's end.
+  test.setTimeout(300_000);
+  await page.setViewportSize(LANDSCAPE[0]);
+  await openChild(
+    page,
+    await fourthGraderPlaced({ region: 'kraken-abyss', levels: ['kraken-abyss.1'] }),
+  );
+  expect(await throughStory(page)).toBe('screen-hub');
+  await toLevel(page, 'kraken-abyss.2');
+  await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
+  expect(await throughStory(page)).toBe('screen-round');
+  const met = new Set<string>();
+  for (let guard = 0; met.size < 2; guard++) {
+    if (guard >= 60) {
+      throw new Error(`shoda's hint came only in: ${[...met].join(', ') || 'no round'}`);
+    }
+    const screen = await shownScreen(page);
+    if (screen === 'screen-results') await throughResults(page);
+    if (screen !== 'screen-round') {
+      await throughStory(page);
+      continue;
+    }
+    const asked = await problemOnScreen(page, CHILD);
+    const where = asked.problem.kind === 'gaps' ? 'an ink sentence' : 'a Lov chyb’s fix';
+    if (hintRule(asked) !== 'shoda' || met.has(where)) {
+      await answerStep(page, CHILD);
+      continue;
+    }
+    await page.getByTestId('round-hint').click();
+    await expect(page.getByTestId('hint-text')).toBeVisible();
+    expect(await page.getByTestId('hint-text').textContent()).not.toMatch(LOOSE_ENDING);
+    await fits(page, `${where} with shoda’s hint`);
+    await give(page, asked, wrongAnswer(asked));
+    await expect(page.getByTestId('feedback')).toHaveAttribute('data-kind', 'miss');
+    expect(await page.locator('.ps-feedback__hint').textContent()).not.toMatch(LOOSE_ENDING);
+    await fits(page, `${where} with shoda’s hint and a miss`);
+    await page.getByTestId('round-next').click();
+    await movedOn(page, asked);
+    met.add(where);
+  }
 });
 
 test('at 200 % text on a phone, a round and U Mrože keep to the screen’s width', async ({

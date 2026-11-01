@@ -72,13 +72,13 @@ export const DEFECTS = {
     owner: 'S4',
     severity: 'major',
     title:
-      'The grotto does not fit a landscape tablet: at 1280 × 800 its places (map, U Mrože, gallery …) start below the fold; at 1024 × 768 it falls to one column 1,400-1,570 px tall',
+      'The grotto does not fit a landscape tablet: at 1280 × 800 its places (map, U Mrože, gallery …) start below the fold; at 1024 × 768 it falls to one column 1,436-1,577 px tall',
   },
   'PS-QA-05': {
     owner: 'S4',
     severity: 'major',
     title:
-      'Rounds, boards and results need scrolling on a landscape tablet: at 1024 × 768 a miss puts Dál 250 px below the fold and an Inkoustík pushes the letter pad down (up to 1,090 px); a picked Slovní rodinka is 844 px at 1280 × 800',
+      'Rounds and battles need scrolling on a landscape tablet: at 1024 × 768 a miss puts Dál below the fold (1,104 px) and an Inkoustík pushes the letter pad down (1,045 px); at 1280 × 800 a miss is 827 px and an ambush 836 px',
   },
   'PS-QA-06': {
     owner: 'S4',

@@ -389,8 +389,11 @@ see it. `support/observe.ts` remains for the specs that also list what they saw.
   are advice) on every screen and state of the walks at the tablet and phone sizes; Dragon Valley's
   layout checks (`support/layout.ts`: no sideways scrolling, every control inside the viewport and
   at least 48 × 48 px, nothing cut off, no word broken in the middle) at all four sizes; focus rings
-  on every control the keyboard journey reaches. A watch for blank screens between screens and
-  focus rings checked by their pixels are planned (S6, Phase 2).
+  on every control the keyboard journey reaches. Every engine applies a resize to the page's `dvh`
+  styles a moment late (up to 0.4 s), so a page measured at once is as tall as the window before:
+  the walks resize with `resize()` (`support/screens.ts`), which waits for a `100dvh` canary to
+  follow. A watch for blank screens between screens and focus rings checked by their pixels are
+  planned (S6, Phase 2).
 
 ### Adding a browser test
 

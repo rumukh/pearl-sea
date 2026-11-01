@@ -97,8 +97,7 @@ chosen for growth, not only for practice:
   that one must be able to credit 30 % of its set, counting for each activity the smaller of its
   places (problems, pearls, fish, cards) and the set's items it reaches. The chosen lagoon egg
   hatches in lesson 1 (design §4.1), so a lagoon friend's set holds about 30-40 items: its own
-  consonant letters and the short words of its topics. Delfín and the Klauni hatch one lesson
-  later than design §3 says (§6).
+  consonant letters and the short words of its topics.
 - At least 45 % of a lagoon friend's set must be items that problems (not boards) serve in the
   lagoon's lessons after lesson 1, so an egg a 4th grader chose warms through Svačinka's first
   tastes and the placement check (S2).
@@ -327,8 +326,9 @@ A step never places a region's lesson 1 or a monster level. Its skill is one of 
 | Klipka Vzorná          | `dark-trench.1`  | 57  | 18   | 22                                 | the patterns, the endings by pattern                                                  |
 | Klauni Dvojčata        | `kraken-abyss.2` | 46  | 14   | 23                                 | subject and predicate, agreement                                                      |
 
-Delfín's and the Klauni's sets hold lessons after the design's hatching lesson (`ice-sea.3`,
-`kraken-abyss.1`), which alone cannot credit 30 % of them, so they hatch one lesson later.
+Delfín's egg comes with `ice-sea.2` and the Klauni's with `kraken-abyss.1`, but they hatch in
+`ice-sea.4` and `kraken-abyss.2` (design §3.7, §3.12): their sets reach into later lessons, so
+they hatch once their lessons so far can credit 30 % of them.
 
 The basket (`BASKET`, §3) holds:
 

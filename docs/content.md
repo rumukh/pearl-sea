@@ -100,6 +100,12 @@ words a sentence and written to be read aloud. Standard Czech only (_děkuji, ne
 proto_ rather than _tak_), and a joke or story line never contains a misspelled word. Typography:
 „…“, …, –, no space before punctuation.
 
+A freed beat plays just before the results, which say that the ink is washed off
+(`results.freed`), that the monster now lives in the gallery (`results.gallery`), which sticker it
+earns and which region opens. So a freed beat repeats none of these. It shows the change in the
+monster (_Ďas Lucerník už nikoho neláká do tmy._), its thanks, and what lies ahead (_Za útesem se
+vlní Chaluhový les._).
+
 **Skills.** A spelling skill lists its words or sentences by ID and keeps to one grade. The tests
 check that:
 

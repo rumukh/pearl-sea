@@ -452,6 +452,8 @@ test('a grown-up runs the placement check again, and leaving it is told kindly',
   await page.getByTestId(`diver-${CHILD}`).click();
   expect(await shownScreen(page)).toBe('screen-round');
   await expect(page.getByTestId('screen-round')).toHaveAttribute('data-placement', 'true');
+  // What the grown-ups' area said stays there.
+  await expect(page.getByTestId('toast')).toHaveCount(0);
   await page.getByTestId('round-pause').click();
   await expect(page.getByTestId('pause-body')).toHaveText(
     'Když teď odejdeš, kontrola skončí. Co už máš hotové, ti zůstane. ' +

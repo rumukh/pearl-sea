@@ -24,51 +24,37 @@ PS-QA-18.
 
 ## Open
 
-| ID       | Severity | Owner  | Defect                                                                                              | Fix                  |
-| -------- | -------- | ------ | --------------------------------------------------------------------------------------------------- | -------------------- |
-| PS-QA-22 | major    | S4, S2 | Korálový útes: the family hint shows the related word's lexicon ID ("Pomůže příbuzné slovo: byyk.") | #46 (open, verified) |
-
-### PS-QA-22: the family hint shows a lexicon ID instead of a word (major, S4, S2)
-
-- **Repro** (main `5bd41fe`, live): a child who freed Muréna plays on into Korálový útes; on a
-  family item (býček, bystřina, bývat …, from lesson 3) Nápověda says "Pomůže příbuzné slovo:
-  byyk." for býk, "bystryy" for bystrý and "byyt" for být; words without diacritics (bydlit,
-  kobyla, obyvatel) happen to look right, as their IDs are their lemmas.
-- **Cause**: the contract gives the family hint's `related` as a lexicon ID (`contentId`), and
-  `hintText` in `src/app/screens/problem-view.ts` prints it as it is (since `d4404ad`,
-  2026-10-31).
-- **Why it matters**: in a spelling game, a misspelled "related word" teaches the wrong spelling of
-  the very letters the child is learning. The slice's playtest stays in Slunná laguna, but a child
-  who frees Muréna can go on into the reef the same day.
-- **Fix**: S2's #46 renders it with `lemmaOf(hint.related)` and turns the family hint into a method
-  line on another family ("Najdi příbuzné vyjmenované slovo, třeba jazýček → jazyk."); verified on
-  its branch. A test that a hint never shows a word ID would keep it fixed.
-
-Everything else found so far is fixed (below). The registry in `known-issues.ts` is empty: on main
-`f073cff` the screen walks find no layout problem and axe no WCAG violation or advice at any size,
-with S5's paintings in place.
+None. Everything found so far is fixed (below). The registry in `known-issues.ts` is empty: on
+main `f073cff` the screen walks find no layout problem and axe no WCAG violation or advice at any
+size, with S5's paintings in place.
 
 ## Awaiting verification
 
 - **S2's rule changes for S3's language QA** (S2): reflexive _se_ and _si_ and punctuation marks,
-  to verify once they land, in the problem sampler's output and the walks. Hints that gave the
-  answer away: S2's #46, verified on its branch (below).
-- **Hints that name the asked word**, measured by a browser probe that opens Nápověda on every gap
-  problem of six adventures each for three children: a 3rd grader after four lagoon lessons, a
-  placed 4th grader, and a child who freed Muréna and plays on into Korálový útes (Edge). A hint
-  names the asked word when one of its words begins with the asked word or its lemma (duby for
-  dub). None was empty or showed a raw key.
+  to verify once they land, in the problem sampler's output and the walks.
+- **Open pull requests on the hints**, to recheck with the probe below once they land: S2's #49
+  (a test that no rendered hint shows a word ID, and state version 2: a save made mid-problem
+  before #46 drops its stale hints on load).
 
-  | Main                                  | Hints | Name the asked word | Which                                                                                                                                |
-  | ------------------------------------- | ----: | ------------------: | ------------------------------------------------------------------------------------------------------------------------------------ |
-  | `75cd107` (the first two children)    |    41 |                  14 | rule lines with the asked word as their example (Petr, Alík, Praha; dům – domy; neúspěch), test words (duby for dub)                 |
-  | `5aa33d2` (after S3's #45)            |    91 |                  17 | test words ("Zkus si říct: duby."), and listed words, whose hint recites the whole list with the asked word in it                    |
-  | `5aa33d2` with S2's #46 (branch only) |    91 |                   0 | rule lines end "Například: …" with other words, test words use another word ("třeba chléb → chleba"), listed words get the bare rule |
+## Hints that name the asked word
 
-  With #46 the examples change with the asked word (útes gets "úhoř, úkol", úhoř "úkol, úkryt";
-  dům gets "kůň → koně", kůň "dům → domu"). For neúspěch, the prefix rule's example "neúplný"
-  shares the asked word's own prefix (S2's call). The probe stays outside the repository, to rerun
-  when #46 lands.
+A browser probe opens Nápověda on every gap problem of six adventures each for three children: a
+3rd grader after four lagoon lessons, a placed 4th grader, and a child who freed Muréna and plays
+on into Korálový útes (Edge). A hint names the asked word when one of its words begins with the
+asked word or its lemma (duby for dub). None was empty or showed a raw key.
+
+| Main                                   | Hints | Name the asked word | Which                                                                                                                                |
+| -------------------------------------- | ----: | ------------------: | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `75cd107` (the first two children)     |    41 |                  14 | rule lines with the asked word as their example (Petr, Alík, Praha; dům – domy; neúspěch), test words (duby for dub)                 |
+| `5aa33d2` (after S3's #45)             |    91 |                  17 | test words ("Zkus si říct: duby."), and listed words, whose hint recites the whole list with the asked word in it                    |
+| `2ae633b` (after S2's #46)             |    91 |                   0 | rule lines end "Například: …" with other words, test words use another word ("třeba chléb → chleba"), listed words get the bare rule |
+| `e89faf8` (after S3's #48, pack 1.2.6) |    91 |                   0 | the same, with families for words of one root                                                                                        |
+
+Since #46 the examples change with the asked word (útes gets "úhoř, úkol", úhoř "úkol, úkryt"; dům
+gets "kůň → koně", kůň "dům → domu"), and no hint shows a lexicon ID (PS-QA-22). For neúspěch the
+prefix rule's example "neúplný" shares the asked word's prefix: S2 keeps it, as the rule line
+itself says ú after any prefix. The probe stays outside the repository and is rerun as hints
+change.
 
 ## Not in the slice yet (not defects)
 
@@ -133,6 +119,18 @@ Verified on main `441bcab` in Edge, Firefox and WebKit (Windows) and on CI, unle
 | PS-QA-21 | major    | S6, S1 | A green browser run could end red: the Playwright runner hung after reporting until the timeout | #41                                                               |
 | PS-QA-19 | minor    | S4     | With three quest rewards and the chest to open, the grotto was 788 px tall at 1024 × 768        | #42                                                               |
 | PS-QA-20 | minor    | S4     | On a slow connection the title showed briefly without its painting, which then popped in        | #42                                                               |
+| PS-QA-22 | major    | S4, S2 | Korálový útes: the family hint showed a lexicon ID ("Pomůže příbuzné slovo: byyk.")             | #46 (a guard in #49)                                              |
+
+- **PS-QA-22** (found on main `5aa33d2`, live until #46): a child who freed Muréna and played on
+  into Korálový útes read, on a family item (býček, bystřina, bývat … from lesson 3), "Pomůže
+  příbuzné slovo: byyk." for býk, "bystryy" for bystrý and "byyt" for být; words without
+  diacritics (bydlit, kobyla, obyvatel) looked right only because their IDs are their lemmas. The
+  contract gives the family hint's `related` as a lexicon ID, and `hintText` in
+  `src/app/screens/problem-view.ts` printed it as it was (since `d4404ad`, 2026-10-31): in a
+  spelling game, a misspelled word for the very letters being learned. S2's #46 renders the lemma
+  and makes the family hint a method line on another family ("Najdi příbuzné vyjmenované slovo,
+  třeba jazýček → jazyk."); on main `2ae633b` no hint of the 91 the probe met shows an ID, and S2's
+  #49 adds a test that no rendered hint of any served problem does.
 
 - **PS-QA-19 and PS-QA-20** (found verifying #36, fixed by #42): the grotto with three "Vyzvednout
   … mince" buttons and "Otevřít truhlu" was 788 px tall at 1024 × 768 (789 in Firefox, 792 in

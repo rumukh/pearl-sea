@@ -119,7 +119,7 @@ describe('Pearl Reading font', () => {
           (character) => !face.codePoints.has(character.codePointAt(0)!),
         );
         expect(missing).toEqual([]);
-        for (const mark of ['„', '“', '‚', '‘', '’', '–', '—', '…', '\u00a0', '→', '↔']) {
+        for (const mark of ['„', '“', '‚', '‘', '’', '–', '—', '…', '\u00a0', '\u2011', '→', '↔']) {
           expect(face.codePoints.has(mark.codePointAt(0)!), mark).toBe(true);
         }
       });

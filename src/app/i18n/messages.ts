@@ -16,15 +16,16 @@
  *   key and may add the pair `<key>.boy` and `<key>.girl` ("Dokázal jsi to!", "Dokázala jsi
  *   to!"). The translator picks the form for the child playing now, and the neutral phrasing for
  *   anyone else. Plural and address combine as `<key>.<plural>.<address>`.
- * - **Typography.** A one-letter preposition or conjunction is bound to the next word with a
- *   no-break space in every Czech string the translator returns (typography.ts).
+ * - **Typography.** In every Czech string the translator returns, a one-letter preposition or
+ *   conjunction is bound to the next word with a no-break space, and the hyphen of an ending
+ *   (_-a_) is kept with it (typography.ts).
  */
 import { createMessages } from '@aegis/browser/ui';
 import cs from '../../../content/catalogs/cs.ui.json' with { type: 'json' };
 import en from '../../../content/catalogs/en.ui.json' with { type: 'json' };
 import { czechPlural, englishPlural } from '../../rules/contract';
 import type { FormOfAddress, GROWN_UPS_KEY_PREFIX } from '../../rules/contract';
-import { keepOneLetterWordsWithNext } from './typography';
+import { typesetCzech } from './typography';
 
 export type MessageKey = keyof typeof cs;
 /** Keys of the grown-ups' area, the only part of the game that can be shown in English. */
@@ -91,7 +92,7 @@ function translator<K extends string, P extends string>(
     const variant = who === 'neutral' ? key : `${key}.${who}`;
     const chosen = Object.hasOwn(source.catalog, variant) ? variant : key;
     const text = source.message(chosen, strings(values));
-    return source.language === 'cs' ? keepOneLetterWordsWithNext(text) : text;
+    return source.language === 'cs' ? typesetCzech(text) : text;
   };
 
   const plural = (key: P, count: number, values: MessageValues = {}): string =>

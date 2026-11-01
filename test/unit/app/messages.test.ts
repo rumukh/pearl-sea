@@ -131,6 +131,14 @@ describe('the translator', () => {
     expect((english as unknown as (key: string) => string)('a')).toBe('a crab and a fish');
   });
 
+  it('keeps an ending’s hyphen with its letters in Czech, the placeholders’ text too', () => {
+    const t = createTranslator({
+      catalog: { rule: 'Ta prasátka chrochtala (rod střední: -a).', ending: 'Koncovka {e}.' },
+    }) as unknown as (key: string, values?: Record<string, string>) => string;
+    expect(t('rule')).toBe('Ta prasátka chrochtala (rod střední: \u2011a).');
+    expect(t('ending', { e: '-y' })).toBe('Koncovka \u2011y.');
+  });
+
   it('fills placeholders and refuses to invent missing values or keys', () => {
     const t = createTranslator();
     expect(t('error.code', { code: 'QuotaExceededError' })).toBe(

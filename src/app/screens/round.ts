@@ -61,6 +61,12 @@ import { speakerButton } from './speaker';
 const CORRECT_PAUSE_MS = 1100;
 /** How often the time limit is checked. */
 const REST_CHECK_MS = 5000;
+/**
+ * A hint line longer than this (a rule explained in a paragraph) runs past three lines of the
+ * card at the reading size, so a short landscape window sets it smaller: with a miss and "Dál" it
+ * still fits the window (docs/app.md §16.3). Shorter lines keep the reading size.
+ */
+const LONG_HINT_CHARACTERS = 120;
 
 export function problemRound(view: GameView): ProblemRoundView | null {
   return view.round?.type === 'problems' ? view.round : null;
@@ -324,6 +330,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     if (line === null) return [];
     const show = (): void => {
       hintSlot.textContent = line;
+      hintSlot.dataset['long'] = String(line.length > LONG_HINT_CHARACTERS);
       hintSlot.hidden = false;
     };
     if (problem.hinted) show();
@@ -624,7 +631,13 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         said.lead === null ? null : ' ',
         said.line,
       ),
-      hintLine === null ? null : h('span', { className: 'ps-feedback__hint', text: hintLine }),
+      hintLine === null
+        ? null
+        : h('span', {
+            className: 'ps-feedback__hint',
+            text: hintLine,
+            dataset: { long: String(hintLine.length > LONG_HINT_CHARACTERS) },
+          }),
     );
     // The feedback carries the hint's line, so a hint shown before the miss is not said twice.
     if (hintLine !== null) {

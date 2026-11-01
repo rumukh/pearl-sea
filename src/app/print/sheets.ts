@@ -11,7 +11,7 @@
  * whatever language the grown-ups' area around them speaks.
  */
 import type { PrintLayout } from '@aegis/narrative';
-import { keepOneLetterWordsWithNext } from '../i18n/typography';
+import { typesetCzech } from '../i18n/typography';
 import { h } from '../ui/dom';
 import type { PrintJob } from './documents';
 
@@ -64,9 +64,7 @@ export function renderSheets(job: PrintJob, options: SheetOptions): HTMLElement 
       const art = options.art?.(item, page.side) ?? null;
       if (art) cell.append(h('div', { className: 'ps-sheet__art' }, art));
       for (const line of lines) {
-        cell.append(
-          h('p', { className: 'ps-sheet__line', text: keepOneLetterWordsWithNext(line) }),
-        );
+        cell.append(h('p', { className: 'ps-sheet__line', text: typesetCzech(line) }));
       }
       sheet.append(cell);
     }

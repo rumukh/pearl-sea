@@ -18,37 +18,15 @@ unless stated. Pictures: `docs/qa/screens/<stop>.webp` (tablet 1280 × 800, see
 `out/qa-screens/<project>/<size>/<stop>.png`.
 
 Found on main `e68d967` (content 1.2.3), 2026-11-01, locally and on the live site; rechecked on
-main `a729482` (content 1.2.5, after #27-#34) and on main `441bcab` (after #36) the same day. S2's
-UI playtest of main `8d6b61d` found PS-QA-15 to PS-QA-18.
+main `a729482` (content 1.2.5, after #27-#34), on main `441bcab` (after #36) and on main `f073cff`
+(after #38's art and #42) the same day. S2's UI playtest of main `8d6b61d` found PS-QA-15 to
+PS-QA-18.
 
 ## Open
 
-| ID       | Severity | Owner | Defect                                                                                  | Pinned by                                                   |
-| -------- | -------- | ----- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| PS-QA-19 | minor    | S4    | With three quest rewards and the chest to open, the grotto is 788 px tall at 1024 × 768 | `screens.spec.ts` › the lagoon (stops 34, 35 at 1024 × 768) |
-| PS-QA-20 | minor    | S4    | On a slow connection the title shows briefly without its painting, which then pops in   | (measured; no test)                                         |
-
-### PS-QA-19: the grotto with rewards to claim is 20 px too tall at 1024 × 768 (minor, S4)
-
-- **Repro**: a child who met today's goal and has quest rewards and the chest waiting: the grotto
-  at 1024 × 768 shows three "Vyzvednout … mince" buttons and "Otevřít truhlu" in its plan, and the
-  page is 788 px tall (Edge; 789 in Firefox), so the bottom of Dnešní výprava sits under the fold
-  (`out/qa-screens/<project>/tablet-small/34-grotto-quests.png`; 35 is the chest dialog over the
-  same grotto). Every other grotto, and this one at 1280 × 800, fits since #36.
-- **Why it matters**: little; everything stays reachable. #36's `fit.spec.ts` does not visit this
-  state, so it is the one grotto the fix missed.
-
-### PS-QA-20: the title's painting arrives after the title on a slow connection (minor, S4)
-
-- **Repro** (with #38's art: `scenes/title.webp`, 1664 × 928, 119 KB): a cold first visit in Edge
-  on slow 4G (150 ms, 1.6 Mbit/s) with the processor four times slower, local build. The splash
-  shows until the title is built; the painting is only requested then (11.4 s), the router's
-  320 ms wait for pictures runs out, and the title is shown over plain sea at 11.8 s. The painting
-  arrives and appears at 12.2 s, all at once. On fast 4G it arrives with the title. There is
-  never a blank screen.
-- **Suggested fix**: fetch the title's painting at boot, beside the content pack, so it is there
-  when the title is built; and fade a painting in when it decodes after its screen is shown (not
-  with less motion), so a late one never pops.
+None. Every defect found so far is fixed (below), and the registry in `known-issues.ts` is empty:
+on main `f073cff` the screen walks find no layout problem and axe no WCAG violation or advice at
+any size, with S5's paintings in place.
 
 ## Awaiting verification
 
@@ -69,12 +47,13 @@ UI playtest of main `8d6b61d` found PS-QA-15 to PS-QA-18.
 
 ## Not in the slice yet (not defects)
 
-- **Art placeholders**, each drawn as a labelled "DEV <id>" shape. Painted so far: Bublinka,
-  Profesorka Osmička, the three lagoon friends grown up and the inked Muréna Mumla. Still
-  placeholders: the eight diver avatars; the eggs and baby forms (lagoon and Kořínek); the scenes
-  (the grotto, Slunná laguna, Měsíční jeskyně) and the shallows' map; the freed Muréna; Mrož
-  Vousáč; the Inkoustíci; the stickers and the cosmetics (SVG); the other monsters in the
-  gallery. S5 is painting the slice's now.
+- **Art placeholders**, each drawn as a labelled "DEV <id>" shape. Painted or drawn since #38 (43
+  catalog entries): Bublinka, Profesorka Osmička, the eight diver avatars, the three lagoon eggs
+  and the friends grown up, the inked Muréna Mumla, the title, grotto and Slunná laguna scenes, the
+  shallows' map, and the stickers and cosmetics (SVG). Still placeholders: the friends' baby
+  forms; Kořínek's egg and forms; the Měsíční jeskyně scene and the deep's map; the freed Muréna;
+  Mrož Vousáč; the Inkoustíci; and the other monsters, in the gallery and on the map's locked
+  regions.
 - **Sound effects**: S5's pack has the three music loops and the victory sting only; the effects
   (taps, chimes, bubbles, splashes) are not in it yet, so the game has music but no effects.
 
@@ -127,6 +106,17 @@ Verified on main `441bcab` in Edge, Firefox and WebKit (Windows) and on CI, unle
 | PS-QA-17 | minor    | S4, S3 | The placement check's pause did not say that leaving ends the check (S2's playtest)             | #27 (S3's wording)                                                |
 | PS-QA-18 | minor    | S4     | A second window on the same child stalled on story screens (S2's playtest)                      | #27                                                               |
 | PS-QA-21 | major    | S6, S1 | A green browser run could end red: the Playwright runner hung after reporting until the timeout | #41                                                               |
+| PS-QA-19 | minor    | S4     | With three quest rewards and the chest to open, the grotto was 788 px tall at 1024 × 768        | #42                                                               |
+| PS-QA-20 | minor    | S4     | On a slow connection the title showed briefly without its painting, which then popped in        | #42                                                               |
+
+- **PS-QA-19 and PS-QA-20** (found verifying #36, fixed by #42): the grotto with three "Vyzvednout
+  … mince" buttons and "Otevřít truhlu" was 788 px tall at 1024 × 768 (789 in Firefox, 792 in
+  WebKit, the same on CI), the bottom of Dnešní výprava under the fold; it is 768 now and the
+  walks hold it to the window with no allowance left. On slow 4G with a processor four times
+  slower, the title's painting (119 KB) was requested only when the title was built (11.4 s), so
+  the title showed for 0.4 s over plain sea before it popped in; it is now requested at boot,
+  beside the content pack (4.6 s), arrives at 6.0 s and is there, fully drawn, when the title
+  appears; a painting that arrives after its screen fades in (S4's tests hold its response).
 
 - **PS-QA-21**: PR #22's job `e2e (chromium)` (run 41295288308) printed "15 passed (50.5s)" at
   09:58:27 and wrote its JSON report, and then nothing until the step's 15-minute timeout at

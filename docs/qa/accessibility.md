@@ -1,21 +1,21 @@
 # Accessibility report: the Slunná laguna slice
 
-Perlové moře's slice (main `441bcab`, after #36, content 1.2.5) as the QA suite checks it in
-Chromium (Edge), Firefox and WebKit, against WCAG 2.2 levels A and AA and the plan's own promises
-(plan §0 and §5: touch-first with full keyboard support, targets of at least 48 px, text to 200 %,
-reduced motion, read-aloud with local Czech voices only, colour never the only signal).
+Perlové moře's slice (main `f073cff`, after #38's art and #42, content 1.2.5) as the QA suite
+checks it in Chromium (Edge), Firefox and WebKit, against WCAG 2.2 levels A and AA and the plan's
+own promises (plan §0 and §5: touch-first with full keyboard support, targets of at least 48 px,
+text to 200 %, reduced motion, read-aloud with local Czech voices only, colour never the only
+signal).
 
 **In short:**
 
 - No WCAG 2.2 A or AA violation (axe-core) on any of the 71 screens and states of the slice, in any
   engine, at the tablet (1280 × 800) and phone (390 × 844) sizes, nor in the 200 % text walk; and
-  no best-practice advice either.
+  no best-practice advice either, with S5's paintings in place.
 - The game can be played by keyboard alone and by touch alone, and read-aloud uses only a local
   Czech voice.
 - Every child's screen is whole on a landscape tablet, every control is at least 48 px, text
-  reflows at 200 % on a phone, and dragging works with less motion: #36 fixed PS-QA-01 and 04-09.
-  One open accessibility defect is left ([defects.md](defects.md)): the grotto with three quest
-  rewards and the chest waiting is 20 px too tall at 1024 × 768 (PS-QA-19, minor, S4).
+  reflows at 200 % on a phone, and dragging works with less motion: #36 and #42 fixed PS-QA-01,
+  04-09 and 19. No accessibility defect is open ([defects.md](defects.md)).
 - Some things only a person can check: screen readers on the real tablet, Windows high contrast,
   colour vision (below).
 
@@ -73,7 +73,7 @@ reduced motion, read-aloud with local Czech voices only, colour never the only s
 | Promise                                           | Result                                                                                                                     |
 | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | Touch-first, targets of at least 48 px            | Pass at every size and at 200 % text                                                                                       |
-| A tablet screen without page scrolling            | Pass at 1280 × 800 and 1024 × 768, except the grotto with three rewards and the chest waiting at 1024 × 768 (PS-QA-19)     |
+| A tablet screen without page scrolling            | Pass at 1280 × 800 and 1024 × 768                                                                                          |
 | Text scales to 200 % with reflow                  | Pass on tablets, the desktop and a phone                                                                                   |
 | Full keyboard support                             | Pass                                                                                                                       |
 | Reduced motion, from the device or the child      | Pass: nothing keeps moving, and fish can be dragged                                                                        |

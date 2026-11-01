@@ -6,7 +6,7 @@ and WebKit (Ubuntu), and locally in Edge, Firefox and WebKit on Windows; the dep
 checked by `live.spec.ts` on request. The rules, the content and the learner simulations have their
 own suites (docs/testing.md §2-§4).
 
-Run on main `441bcab` (after #36, content 1.2.5) with this branch's specs, 2026-11-01. "Pass" means the test
+Run on main `f073cff` (after #38's art and #42, content 1.2.5) with this branch's specs, 2026-11-01. "Pass" means the test
 passes and asserts the behaviour; open defects are named where a check records one instead of
 failing ([defects.md](defects.md)).
 

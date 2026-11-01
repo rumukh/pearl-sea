@@ -337,16 +337,26 @@ export function spellSentenceProblem(
   return sentenceProblem(data, pick.sentence, shown, sources);
 }
 
+/** The punctuation a token ends with, after its last letter or digit. */
+const TRAILING_MARK = /[^\p{L}\p{N}\s]+$/u;
+/** A token that can give up its marks starts with a letter or a digit (no quote or bracket). */
+const WORD_START = /^[\p{L}\p{N}]/u;
+/** The longest mark after a token (contract §5.1). */
+const MAX_MARK = 4;
+
 /**
  * The shown sentence of a mistake: every gap filled right except `wrong`, which shows `text`,
  * split into tokens at spaces (a gap's own spaces stay inside its token), with the wrong token
- * and the text around the gap in it.
+ * and the text around the gap in it. The punctuation after each token is its mark (`marks`), so
+ * the tokens and `around` hold none (_dosita_ with `.`, never _dosita._). A slip in the
+ * punctuation itself (an end mark), or a token that starts with a mark, keeps every mark in its
+ * token (`marks: null`), as the shell showed tokens before it drew marks.
  */
 export function mistakeTokens(
   sentence: ParsedSentence,
   wrong: number,
   text: string,
-): { tokens: string[]; index: number; around: [string, string] } {
+): { tokens: string[]; marks: string[] | null; index: number; around: [string, string] } {
   let shown = '';
   let start = -1;
   for (const part of sentence.parsed.parts) {
@@ -357,23 +367,39 @@ export function mistakeTokens(
     } else shown += sentence.parsed.gaps[part.gap]!.correct;
   }
   const end = start + text.length;
-  const tokens: string[] = [];
+  const spans: [number, number][] = [];
   let index = -1;
-  let around: [string, string] = ['', ''];
   let tokenStart = 0;
   for (let at = 0; at <= shown.length; at++) {
     const inside = at >= start && at < end;
     if (at < shown.length && (shown[at] !== ' ' || inside)) continue;
     if (at > tokenStart) {
-      if (start >= tokenStart && start <= at && index === -1) {
-        index = tokens.length;
-        around = [shown.slice(tokenStart, start), shown.slice(end, at)];
-      }
-      tokens.push(shown.slice(tokenStart, at));
+      if (start >= tokenStart && start <= at && index === -1) index = spans.length;
+      spans.push([tokenStart, at]);
     }
     tokenStart = at + 1;
   }
-  return { tokens, index, around };
+  const whole = spans.map(([from, to]) => shown.slice(from, to));
+  if (index === -1) return { tokens: whole, marks: null, index, around: ['', ''] };
+  const [from, to] = spans[index]!;
+  const marks = whole.map((token) => TRAILING_MARK.exec(token)?.[0] ?? '');
+  const apart =
+    end <= to - marks[index]!.length &&
+    whole.every((token, i) => WORD_START.test(token) && [...marks[i]!].length <= MAX_MARK);
+  if (!apart) {
+    return {
+      tokens: whole,
+      marks: null,
+      index,
+      around: [shown.slice(from, start), shown.slice(end, to)],
+    };
+  }
+  return {
+    tokens: whole.map((token, i) => token.slice(0, token.length - marks[i]!.length)),
+    marks,
+    index,
+    around: [shown.slice(from, start), shown.slice(end, to - marks[index]!.length)],
+  };
 }
 
 /** `spell.mistake`: a sentence with the drawn gap spelled wrong (one of its alternatives). */
@@ -388,11 +414,12 @@ export function spellMistakeProblem(
   const pick = sources.problems.pick(candidates);
   const parsedGap = pick.sentence.parsed.gaps[pick.gap]!;
   const wrongText = sources.distractors.pick(parsedGap.alternatives);
-  const { tokens, index, around } = mistakeTokens(pick.sentence, pick.gap, wrongText);
+  const { tokens, marks, index, around } = mistakeTokens(pick.sentence, pick.gap, wrongText);
   return {
     kind: 'mistake',
     sentence: pick.sentence.sentence.id,
     tokens,
+    ...(marks === null ? {} : { marks }),
     wrong: index,
     fix: sentenceGap(data, pick.sentence, pick.gap, sources),
     around,

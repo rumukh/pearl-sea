@@ -24,9 +24,13 @@ import type { Recorded, Served, Style } from './support';
 
 vi.setConfig({ testTimeout: 300_000 });
 
-/** Pinned literals (docs/testing.md, "When a golden moves"). */
+/**
+ * Pinned literals (docs/testing.md, "When a golden moves"). The trajectory was re-pinned when Lov
+ * chyb's punctuation moved from its tokens into `marks` (d2aa58e91b187117 before; folding the marks
+ * back into the tokens gives it again).
+ */
 const GOLDEN_HASH = '3e39d1b03b1f527c';
-const GOLDEN_TRAJECTORY = 'd2aa58e91b187117';
+const GOLDEN_TRAJECTORY = '0462676a1ecfe3a4';
 
 const SEED = 'slice-b';
 const LESSONS = [

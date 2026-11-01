@@ -491,7 +491,9 @@ steps train the fix's item. The mistake is always one of the sentence's annotate
 (`{correct|alt}`), a plausible slip, never a random typo. In Bouřlivé moře the slip can be a
 colloquial word in a standard sentence (`spisovne`: _Ke snídani mám mlíko._ → _mléko_). A tap on a
 right word says _Tohle slovo je v pořádku._, counts as a miss and the fix follows (as Dragon
-Valley's wrong operation pick). 4-6 sentences; `spell.mistake`.
+Valley's wrong operation pick). The words are the buttons; commas and end marks stand beside them,
+never inside: the child taps _dosita_, not _dosita._, and fixes _dos_ta_. 4-6 sentences;
+`spell.mistake`.
 
 ### 5.7 Určování (`analysis`)
 

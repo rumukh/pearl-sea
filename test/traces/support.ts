@@ -126,7 +126,7 @@ export function oracle(data: ContentData, problem: Problem, step: number): Answe
     }
     case 'mistake': {
       // The right sentence beside the shown one: the first token that differs is the wrong one,
-      // and the gap where they first differ is the one to fix.
+      // and the gap where they first differ is the one to fix. A token's mark follows it.
       const filled = filledSentence(data, problem.sentence);
       let at = 0;
       for (let index = 0; index < problem.tokens.length; index++) {
@@ -140,7 +140,7 @@ export function oracle(data: ContentData, problem: Problem, step: number): Answe
           if (!gap) throw new Error(`no gap in token ${token}`);
           return { kind: 'text', value: gap.correct };
         }
-        at += token.length + 1;
+        at += token.length + (problem.marks?.[index]?.length ?? 0) + 1;
       }
       throw new Error(`no wrong token in ${problem.tokens.join(' ')}`);
     }

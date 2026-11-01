@@ -213,7 +213,9 @@ after each token (`''` for none, at most 4 characters, never a letter, a digit o
 entry per token: _Delfíne, skoč!_ is `tokens: ['Delfíne', 'skoč']`, `marks: [',', '!']`. Without
 the comma of address, _Delfíni pojďte_ reads as a subject. A classification's `context` carries
 them; Lov chyb's `marks`, when present, means its `tokens` and `around` hold no marks (_dosita_
-and `.`, not _dosita._). The shell writes each token, then its mark, outside the highlight.
+and `.`, not _dosita._). The rules give Lov chyb `marks` unless its slip is the punctuation itself
+(an end mark) or a token starts with a mark (an opening quote): then every token keeps its marks.
+The shell writes each token, then its mark, outside the highlight.
 `problemSchema` checks the fields and that the problem is coherent:
 the answer is offered, every gap appears exactly once and in order, indices are in range, and
 `marks` has one entry per token.

@@ -566,6 +566,8 @@ function locateSentence(data: ContentData, problem: GapsProblem, say: Say): Loca
 /**
  * The fix of a mistake: the shown sentence must be the sentence with exactly one authored
  * alternative swapped in, the wrong token the one holding it, and the fix must give it back.
+ * Each token's punctuation is its mark (`marks`): tokens start and end with a letter or digit, and
+ * marks are punctuation only; only a slip in punctuation itself keeps the marks in its tokens.
  */
 function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Located[] {
   const filled = rawOf(data).sentences.get(problem.sentence);
@@ -573,7 +575,10 @@ function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Lo
     say('mistake', `no sentence ${problem.sentence}`);
     return [];
   }
-  const shown = problem.tokens.join(' ');
+  const marks = problem.marks;
+  const join = (tokens: readonly string[]) =>
+    tokens.map((token, i) => `${token}${marks?.[i] ?? ''}`).join(' ');
+  const shown = join(problem.tokens);
   const swaps: { index: number; alt: string }[] = [];
   filled.parsed.gaps.forEach((gap, index) => {
     const start = filled.starts[index]!;
@@ -592,13 +597,22 @@ function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Lo
   const token = shown.slice(0, filled.starts[index]).split(' ').length - 1;
   if (problem.wrong !== token) say('mistake', `wrong is ${problem.wrong}, the slip is in ${token}`);
   if (problem.tokens.some((t) => t.length === 0)) say('mistake', `an empty token in "${shown}"`);
+  if (marks === undefined) {
+    // Only a slip in punctuation (an end mark) leaves the marks in the tokens.
+    if (!/[^\p{L}\p{N}\s]/u.test(`${alt}${correct}`)) say('mistake', `no marks in "${shown}"`);
+  } else {
+    const bare = /^[\p{L}\p{N}](?:.*[\p{L}\p{N}])?$/u;
+    const strays = problem.tokens.filter((t) => !bare.test(t));
+    if (strays.length > 0) say('mistake', `tokens holding marks: ${strays.join(' ')}`);
+    if (marks.some((m) => !/^[^\p{L}\p{N}\s]{0,4}$/u.test(m))) say('mistake', `marks ${marks}`);
+  }
   const [before, after] = problem.around;
   if (`${before}${alt}${after}` !== problem.tokens[problem.wrong]) {
     say('mistake', `around ${JSON.stringify(problem.around)} is not the wrong token's`);
   }
-  const fixed = problem.tokens
-    .map((t, i) => (i === problem.wrong ? `${before}${correct}${after}` : t))
-    .join(' ');
+  const fixed = join(
+    problem.tokens.map((t, i) => (i === problem.wrong ? `${before}${correct}${after}` : t)),
+  );
   if (fixed !== filled.plain) say('mistake', `the fix gives "${fixed}", not "${filled.plain}"`);
   if (problem.fix.correct !== correct) say('mistake', `the fix is "${problem.fix.correct}"`);
   return [sentenceGap(data, filled, index, problem.fix)];
@@ -1215,37 +1229,74 @@ describe('the tokens of a mistake (mistakeTokens)', () => {
   it('split the shown sentence at spaces and find the wrong token and the text around the slip', () => {
     const ticho = made('T{i|y}chá r{y|i}ba spí pod kamenem.');
     expect(mistakeTokens(ticho, 0, 'y')).toEqual({
-      tokens: ['Tychá', 'ryba', 'spí', 'pod', 'kamenem.'],
+      tokens: ['Tychá', 'ryba', 'spí', 'pod', 'kamenem'],
+      marks: ['', '', '', '', '.'],
       index: 0,
       around: ['T', 'chá'],
     });
     expect(mistakeTokens(ticho, 1, 'i')).toEqual({
-      tokens: ['Tichá', 'riba', 'spí', 'pod', 'kamenem.'],
+      tokens: ['Tichá', 'riba', 'spí', 'pod', 'kamenem'],
+      marks: ['', '', '', '', '.'],
       index: 1,
       around: ['r', 'ba'],
     });
     expect(mistakeTokens(made('Řeka {V|v}ltava teče přes celé Čechy.'), 0, 'v')).toEqual({
-      tokens: ['Řeka', 'vltava', 'teče', 'přes', 'celé', 'Čechy.'],
+      tokens: ['Řeka', 'vltava', 'teče', 'přes', 'celé', 'Čechy'],
+      marks: ['', '', '', '', '', '.'],
       index: 1,
       around: ['', 'ltava'],
     });
     expect(mistakeTokens(made('Na pláži stojí písečný hra{d|t}.'), 0, 't')).toEqual({
-      tokens: ['Na', 'pláži', 'stojí', 'písečný', 'hrat.'],
+      tokens: ['Na', 'pláži', 'stojí', 'písečný', 'hrat'],
+      marks: ['', '', '', '', '.'],
       index: 4,
-      around: ['hra', '.'],
+      around: ['hra', ''],
     });
   });
 
-  it("keep a slip's own space inside its token, and an end mark with its word", () => {
+  it('give each token its punctuation as its mark: the comma of address, of clauses, the end mark', () => {
+    // S3's Czech QA: ~dosita.~ and the fix dos[ ]ta. showed the end mark as part of the word.
+    expect(mistakeTokens(made('Krabe, pojď sem, r{y|i}chle!'), 0, 'i')).toEqual({
+      tokens: ['Krabe', 'pojď', 'sem', 'richle'],
+      marks: [',', '', ',', '!'],
+      index: 3,
+      around: ['r', 'chle'],
+    });
+    expect(mistakeTokens(made('Vlk se najedl dos{y|i}ta.'), 0, 'i')).toEqual({
+      tokens: ['Vlk', 'se', 'najedl', 'dosita'],
+      marks: ['', '', '', '.'],
+      index: 3,
+      around: ['dos', 'ta'],
+    });
+  });
+
+  it("keep a slip's own space inside its token, and the marks in the tokens when the slip is a mark or a token starts with one", () => {
     expect(mistakeTokens(made('Delfín {odplaval|od plaval} od lodi.'), 0, 'od plaval')).toEqual({
-      tokens: ['Delfín', 'od plaval', 'od', 'lodi.'],
+      tokens: ['Delfín', 'od plaval', 'od', 'lodi'],
+      marks: ['', '', '', '.'],
       index: 1,
       around: ['', ''],
     });
+    // A slip in the end mark itself: the wrong token is the word with its mark.
     expect(mistakeTokens(made('Kdo to tam plave{?|.}'), 0, '.')).toEqual({
       tokens: ['Kdo', 'to', 'tam', 'plave.'],
+      marks: null,
       index: 3,
       around: ['plave', ''],
+    });
+    // An opening quote has no token before it to follow.
+    expect(mistakeTokens(made('Řekl: „P{y|i}šný krab.“'), 0, 'i')).toEqual({
+      tokens: ['Řekl:', '„Pišný', 'krab.“'],
+      marks: null,
+      index: 1,
+      around: ['„P', 'šný'],
+    });
+    // A mark longer than the contract's 4 characters.
+    expect(mistakeTokens(made('R{y|i}ba plave.....'), 0, 'i')).toEqual({
+      tokens: ['Riba', 'plave.....'],
+      marks: null,
+      index: 0,
+      around: ['R', 'ba'],
     });
   });
 });

@@ -3,7 +3,15 @@
  * accepted by the SDK's own validator, and free of Node built-ins, three.js and the renderer.
  */
 import { build } from 'esbuild';
-import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  cpSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -11,11 +19,18 @@ import { browserBoundary, buildSite, isForbiddenModule } from '../../scripts/bui
 import { verifySite } from '../../scripts/lib/site.mjs';
 import { FONT_DIRECTORY, FONT_FACES } from '../../src/app/design/fonts';
 import {
+  CONTENT_FILE,
+  CONTENT_HISTORY_DIRECTORY,
+  CONTENT_HISTORY_EXTENSION,
+  contentHistoryPath,
+} from '../../src/rules/contract';
+import {
   DEPLOYMENT_BASE,
   OFFLINE_ERROR_MESSAGE,
   OFFLINE_NAMESPACE,
 } from '../../src/rules/contract/persistence';
 
+const repository = join(import.meta.dirname, '..', '..');
 let directory: string;
 let site: Awaited<ReturnType<typeof buildSite>>;
 const BASE = DEPLOYMENT_BASE;
@@ -97,6 +112,41 @@ describe('scripts/build.mjs', () => {
       `${BASE}${FONT_DIRECTORY}provenance.json`,
     );
     expect(sources).toContain(`${BASE}content/catalogs/cs.ui.json`);
+  });
+
+  it('ships the pack, its catalogs and the history archives, never the content sources', () => {
+    const resources = graph().resources;
+    const sources = resources.map((resource) => resource.src);
+    expect(sources).toContain(`${BASE}content/${CONTENT_FILE}`);
+    const archives = readdirSync(join(repository, ...CONTENT_HISTORY_DIRECTORY.split('/'))).filter(
+      (name) => name.endsWith(CONTENT_HISTORY_EXTENSION),
+    );
+    expect(archives.length, 'the repository has archived packs to ship').toBeGreaterThan(0);
+    for (const name of archives) {
+      const revision = name.slice(0, -CONTENT_HISTORY_EXTENSION.length);
+      const archive = resources.find((r) => r.src === `${BASE}${contentHistoryPath(revision)}`);
+      expect(archive, `${name} is installable offline`).toMatchObject({ kind: 'data' });
+    }
+    expect(
+      sources.filter((src) => src.startsWith(`${BASE}content/`)).length,
+      'nothing else under content/',
+    ).toBe(1 + archives.length + readdirSync(join(repository, 'content', 'catalogs')).length);
+    expect(sources.filter((src) => /\/content\/(lexicon-src|pack-src)\//.test(src))).toEqual([]);
+  });
+
+  it('credits the SDK, the reading font and the local art and music models in licenses.txt', () => {
+    const licenses = readFileSync(join(site.directory, 'licenses.txt'), 'utf8');
+    expect(licenses).toContain(readFileSync(join(repository, 'LICENSE'), 'utf8').trim());
+    for (const credit of [
+      'Aegis SDK',
+      'Qwen-Image-Edit-2511 by the Qwen team (Apache-2.0)',
+      'WanGP by DeepBeepMeep',
+      'rembg (MIT) and U²-Net (Apache-2.0)',
+      'ACE-Step 1.5 (MIT)',
+      'SIL Open Font License 1.1, as OFL.txt',
+    ]) {
+      expect(licenses, credit).toContain(credit);
+    }
   });
 
   it('builds reproducibly: the same tree yields the same offline revision', async () => {

@@ -107,7 +107,10 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   `createRuntimeHost` with the seed `profileSeed(id)`. A stored envelope is validated by the codec,
   restored into a throwaway probe host with the content revision it pinned, and only then into the
   real host with `durableRevision`. Old saves keep their pack until `activateLatestContent()` moves
-  them at a safe boundary; a pack that cannot be fetched leaves the save untouched for recovery
+  them at a safe boundary. An old save's pack is fetched on demand from the build's gzip archive
+  (`content/history.ts`: `content/history/<revision>.json.gz`, served without a Content-Encoding
+  and decompressed with `DecompressionStream`); a pack that cannot be fetched or read, or a browser
+  without `DecompressionStream`, leaves the save untouched for recovery
   (`content-unavailable`). One commit listener per session keeps the latest view and fans each
   commit or restore out to the shell; a failing listener cannot silence the others.
 - **Save status** (`save-status.ts`, `screens/common.ts`): from acknowledged facts only. "Uloženo"
@@ -362,7 +365,10 @@ its own presentation; calls take turns, and a child opened for play waits for th
   aliases; print layouts and printables; the About build id. The game screens' logic runs on
   contract-typed view fixtures (`game-views.ts`): problem views (steps, prompts, ink-blot gaps,
   read-aloud, hints), view readings and the adventure, map spots, timers, art and the art catalog,
-  content strings and the diary card.
+  content strings and the diary card; the archived packs (`content-history.test.ts`: every shipped
+  gzip archive decompresses through the platform's `DecompressionStream` to exactly the bytes zlib
+  reads and loads as its pack, once; truncated, already decompressed, missing or wrong-revision
+  archives and a browser without `DecompressionStream` reject, and a retry fetches again).
 - **DOM** (`test/unit/app/dom/`, happy-dom): the router, the announcer, choice tiles (letters and
   digits), the number pad, the Czech keyboard, the whole gate dialog, tabs, meters, stars and the
   coin counter, toasts, icons, a rebuilt panel keeping focus, print sheets, the save status pill

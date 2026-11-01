@@ -16,7 +16,7 @@ design in [design.md](design.md) and the word bank in [lexicon.md](lexicon.md).
 | `content/pearl-sea.content.json`              | the pack `{ id, revision, schemaVersion, data }`: the game data with `lexicon` built from the word bank                                                           | never: built   |
 | `content/catalogs/cs.content.json`            | every Czech string the pack refers to                                                                                                                             | by hand        |
 | `content/catalogs/en.content.json`            | the English twins of its grown-ups' keys (the objective titles)                                                                                                   | by hand        |
-| `content/history/<revision>.json`             | every deployed revision, byte for byte                                                                                                                            | `content:bump` |
+| `content/history/<revision>.json.gz`          | every deployed revision, byte for byte, gzip-compressed                                                                                                           | `content:bump` |
 
 ```sh
 node scripts/lexicon/check.mjs          # the word bank's linguistic checks (lexicon.md §1)
@@ -47,8 +47,8 @@ lagoon points the word alone cannot decide, asked only in sentences, are `1.2.3`
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from
-   `origin/main` byte for byte as `content/history/<its revision>.json` and sets the pack's
-   `revision`, nothing else.
+   `origin/main` byte for byte, gzip-compressed, as `content/history/<its revision>.json.gz` and
+   sets the pack's `revision`, nothing else.
 3. Pin the new revision and its content hash in `REVISIONS` in `test/unit/content/pack.test.ts`
    (the failing test prints the hash) and re-pin the golden traces.
 

@@ -7,7 +7,8 @@
  * Output (default `dist-site/`):
  *   index.html            shell from src/app/index.html (base, offline revision and CSP filled in)
  *   app.js, app.css       esbuild bundle of src/app/main.ts
- *   content/**.json       content packs, history and catalogs (copied verbatim)
+ *   content/              the pack, its catalogs and the gzip-compressed history archives (copied
+ *                         verbatim; the authoring sources in content/ are not shipped)
  *   assets/**             runtime art, audio and fonts (authoring metadata is not shipped)
  *   resource-graph.json   every file above with bytes + SHA-256 (validated by the SDK validator)
  *   sw.js                 offline worker bundled from the PUBLIC @aegis/browser/offline/worker export
@@ -55,6 +56,16 @@ const NOT_SHIPPED = [
   /(^|\/)[^/]*provenance[^/]*\.json$/i,
   /(^|\/)(recipes|source|sources|prompts)\//i,
   /\.(mjs|cjs|ts)$/i,
+];
+
+/**
+ * The content a player needs, relative to content/: the pack, its catalogs and the archived packs
+ * that old saves restore with. The word bank and the pack's sources stay in the repository.
+ */
+const SHIPPED_CONTENT = [
+  /^pearl-sea\.content\.json$/,
+  /^catalogs\/[^/]+\.json$/,
+  /^history\/[^/]+\.json\.gz$/,
 ];
 
 const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((name) => `node:${name}`)]);
@@ -177,7 +188,7 @@ export async function buildSite(options = {}) {
     });
     const appInputs = checkInputs(app.metafile, 'App');
     const content = copyTree(join(root, 'content'), join(stage, 'content'), (path) =>
-      path.endsWith('.json'),
+      SHIPPED_CONTENT.some((pattern) => pattern.test(path)),
     );
     const assets = copyTree(
       join(root, 'assets'),
@@ -196,7 +207,8 @@ export async function buildSite(options = {}) {
         readFileSync(join(root, 'LICENSE'), 'utf8').trim(),
         'Aegis SDK (@aegis/core, @aegis/runtime, @aegis/narrative, @aegis/browser), bundled in app.js and sw.js',
         readFileSync(join(root, 'node_modules', '@aegis', 'core', 'LICENSE'), 'utf8').trim(),
-        'Fonts, art and audio carry their own licenses next to the files under assets/.',
+        "Art and music: made locally and offline. The paintings were made with Qwen-Image-Edit-2511 by the Qwen team (Apache-2.0), run in WanGP by DeepBeepMeep, and cut out with rembg (MIT) and U²-Net (Apache-2.0). The music was made with ACE-Step 1.5 (MIT). Each file's provenance is recorded in the repository.",
+        'The reading font, Pearl Reading (a renamed subset of Andika), carries its licence, the SIL Open Font License 1.1, as OFL.txt next to its files under assets/fonts/pearl-reading/.',
       ].join('\n\n') + '\n',
     );
     const provisional = describeResources(stage, base);

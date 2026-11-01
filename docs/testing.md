@@ -102,13 +102,21 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
 - `test/tooling/build.test.ts`: a verified resource graph for `/pearl-sea/`; the SDK bundled only
   from the installed tarballs and the worker from the public offline export, pinned to the revision
   and to this game's namespace and message, never Dragon Valley's; a Czech page with the reading
-  font and `cs.ui.json` in the graph and no provenance shipped; reproducible revisions; forbidden
-  modules refused; drifted bytes (even at the same length), extra files and bad bases rejected; no
-  overwrite without `--clean`.
+  font and `cs.ui.json` in the graph and no provenance shipped; the pack, its catalogs and the
+  history archives shipped (archives as `data`) and none of the content sources; `licenses.txt`
+  with the game's and the SDK's notices, the font's licence and the art and music credits;
+  reproducible
+  revisions; forbidden modules refused; drifted bytes (even at the same length), extra files and
+  bad bases rejected; no overwrite without `--clean`.
 - `test/tooling/content-bump.test.ts`: in a throwaway git repository, the deployed pack is archived
-  byte for byte and only the top-level revision changes; a second run changes nothing; malformed
-  revisions, revisions that are not newer, a changed archive and a branch behind the deployed pack
-  are refused.
+  byte for byte (decompressed) in a gzip archive without an OS byte, and only the top-level revision
+  changes; a second run changes nothing; an archive compressed differently but holding the same
+  bytes is kept; malformed revisions, revisions that are not newer, a changed or unreadable archive
+  and a branch behind the deployed pack are refused.
+- `test/tooling/history-archive.test.ts`: the archive format of `scripts/lib/history.mjs` agrees
+  with the contract's `contentHistoryPath`; a pack survives the round trip byte for byte under the
+  fixed gzip header; plain JSON, a file name, a modification time, zlib's Linux and Windows OS
+  bytes, a second member and trailing bytes are refused.
 - `test/tooling/lockfile-registry.test.ts`: every registry URL is canonical (with an anti-vacuity
   count), the SDK comes only from the vendored tarballs, `.npmrc` still names the proxy, every job
   that installs packages sets `NPM_CONFIG_REGISTRY` at job level, and CI's verify job runs exactly
@@ -117,6 +125,7 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   locale, English-key, scope and variant-convention mistakes and each Czech typography rule are
   rejected with a named message; characters the font cannot draw are named by code point; on the
   fixture pack, pack diagnostics, missing strings, an overlong story line, a wrongly named archive,
+  a file in `content/history/` that is not an archive, an archive with zlib's OS byte,
   curriculum gaps, a level mapping that disagrees with curriculum.md and missing art (the pack's
   and the shell's) are reported, strictly with `--strict-coverage` and `--strict-art`; a cosmetic
   that is not a 100 × 100 SVG fails the art catalog.
@@ -141,8 +150,9 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   the pack on every level's objectives.
 - `test/unit/content/pack.test.ts`: the content pack validates, is the build of its sources
   (`content/pack-src/pack.json`, the region files and the word bank) and is pinned by content hash
-  (`REVISIONS`, as Dragon Valley's `content.test.ts`); every archived revision stays unchanged,
-  valid and with its catalog keys; the authoring rules of [content.md](content.md) §3 hold (listed
+  (`REVISIONS`, as Dragon Valley's `content.test.ts`); `content/history/` holds only gzip archives,
+  and every archived revision, decompressed, stays unchanged, valid and with its catalog keys; the
+  authoring rules of [content.md](content.md) §3 hold (listed
   words and sentences serve their skills, sentence gaps keep to the skill's rules, every skill is
   practised in a level or the placement check, ambiguous points are taught in sentences, every
   problem item feeds a friend unless its skill is in the basket on purpose, friends' sets hatch in
@@ -162,6 +172,11 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
 - `test/e2e/isolation.spec.ts`: Dragon Valley's save and offline caches, seeded under their real
   names, survive this game's boots unchanged; every database, cache and worker scope belongs to one
   of the two games, and localStorage stays empty.
+- `test/e2e/history.spec.ts`: a save made on the newest archived revision (played in Node by S2's
+  trace player on the decompressed archive) opens in the browser: the shell fetches
+  `content/history/<revision>.json.gz` as a gzip file without a Content-Encoding, decompresses it
+  with `DecompressionStream`, restores the save and, at the grotto, moves it to the newest pack
+  with the chosen friend and the completed lesson kept.
 
 ### The rules' tests (S2)
 

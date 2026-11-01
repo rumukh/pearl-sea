@@ -599,9 +599,16 @@ As in Dragon Valley:
 - **Every content change merged to `main` bumps `revision`** (MAJOR.MINOR.PATCH: patch for balance
   or text, minor for new levels or regions) with `npm run content:bump -- <revision>`: `main`
   deploys, so its pack is what saves pin.
-- **Every deployed revision is archived** byte for byte as `content/history/<revision>.json` and
-  shipped with the site. A revision string is never reused for different content: the gate refuses
-  a current revision archived with other content, and S3 pins each revision's content hash in a
+- **Every deployed revision is archived** as `content/history/<revision>.json.gz`
+  (`contentHistoryPath`) and shipped with the site. The archive is the deployed pack byte for
+  byte, gzip-compressed: one gzip member with no file name, comment or extra field, modification
+  time 0 and OS byte 255, about a tenth of the pack's size. `npm run content:bump` writes it once
+  (`scripts/lib/history.mjs`); since compressed bytes depend on the zlib build, archives are never
+  regenerated, and every check compares the decompressed bytes. The site serves an archive as
+  `application/gzip` without a Content-Encoding (as GitHub Pages does), and the shell decompresses
+  it with `DecompressionStream('gzip')`. A revision string is never reused for different content:
+  the gate refuses a current revision archived with other content and anything in
+  `content/history/` that is not such an archive, and S3 pins each revision's content hash in a
   test as Dragon Valley does. Every catalog key an archived pack uses stays in the catalogs.
 - **The schema only grows compatibly.** Every archived pack must stay valid under the current
   `contentRegistration`, so `CONTENT_SCHEMA_VERSION` stays 1 and changes are limited to new union
@@ -740,7 +747,9 @@ linguistic consistency:
   y or ý right after the family's letter (or a `vyjm-prefix` vy-/vý-); a listed family has a rhyme
   order and an ordinary one none; `kin` and `soundAlike` name other existing families;
 - two words that differ only in i/y (or í/ý) are declared sound-alikes, so a misspelled duplicate
-  cannot slip in;
+  cannot slip in. Capitals do not count: a proper name and its common noun (_Bublinka_,
+  _bublinka_) are homographs, not an i/y pair, and a pair declared for one spelling covers its
+  capitalised homographs;
 - sentences parse, have as many annotations as gaps, at most 10 words, tokens that match the text,
   gap words that exist and have the named spelling point, and token indices in range;
 - relation pairs are not self-pairs or duplicates and name existing words, and a sound-alike form

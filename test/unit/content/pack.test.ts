@@ -19,6 +19,7 @@ import {
 import type { ContentData, GeneratorId, Skill } from '../../../src/rules/contract';
 import { checkLexicon } from '../../../scripts/lexicon/check.mjs';
 import { buildLexicon, buildPack, formatPack } from '../../../scripts/lexicon/build.mjs';
+import { archivedRevision, readArchive } from '../../../scripts/lib/history.mjs';
 
 const root = join(import.meta.dirname, '..', '..', '..');
 const packText = readFileSync(join(root, 'content', CONTENT_FILE), 'utf8');
@@ -356,10 +357,12 @@ describe('the content', () => {
 
 describe('content history', () => {
   const historyDir = join(root, 'content', 'history');
-  const shipped = existsSync(historyDir)
-    ? readdirSync(historyDir).filter((name) => name.endsWith('.json'))
-    : [];
-  const archived = (name: string): Pack => JSON.parse(readFileSync(join(historyDir, name), 'utf8'));
+  const files = existsSync(historyDir) ? readdirSync(historyDir) : [];
+  const shipped = files.filter((name) => archivedRevision(name) !== null);
+  /** An archived pack's text: the deployed bytes, decompressed (scripts/lib/history.mjs). */
+  const archivedText = (name: string): string =>
+    readArchive(readFileSync(join(historyDir, name))).toString('utf8');
+  const archived = (name: string): Pack => JSON.parse(archivedText(name));
   const order = (revision: string): number[] => revision.split('.').map(Number);
   const older = (a: string, b: string): boolean => {
     const [x, y] = [order(a), order(b)];
@@ -375,10 +378,14 @@ describe('content history', () => {
 
   it('archives every revision merged to main before the current one', () => {
     const current = fresh().revision;
+    expect(
+      files.filter((name) => archivedRevision(name) === null),
+      'only archives',
+    ).toEqual([]);
     expect([...shipped].sort()).toEqual(
       Object.keys(REVISIONS)
         .filter((revision) => revision !== current)
-        .map((revision) => `${revision}.json`)
+        .map((revision) => `${revision}.json.gz`)
         .sort(),
     );
     for (const name of shipped) {
@@ -415,12 +422,12 @@ describe('content history', () => {
 
   it('keeps every archived pack valid under the current schema, named by its revision', () => {
     for (const name of shipped) {
-      const text = readFileSync(join(historyDir, name), 'utf8');
+      const text = archivedText(name);
       const outcome = parseContentJson(text, contentRegistration, name);
       expect(outcome.ok, `${name}: ${JSON.stringify(outcome.ok ? null : outcome.error)}`).toBe(
         true,
       );
-      if (outcome.ok) expect(`${outcome.value.revision}.json`).toBe(name);
+      if (outcome.ok) expect(`${outcome.value.revision}.json.gz`).toBe(name);
     }
   });
 });

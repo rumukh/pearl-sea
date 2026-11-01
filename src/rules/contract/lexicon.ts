@@ -959,17 +959,31 @@ export function validateLexicon(lexicon: Read<Lexicon>): LexiconProblem[] {
       typeof a === 'string' && typeof b === 'string' ? [`${a}|${b}`, `${b}|${a}`] : [],
     ),
   );
-  const byFold = new Map<string, Read<Word>>();
+  // Words whose lemmas differ only in i/y must be declared sound-alikes. Capitals do not count: a
+  // proper name and its common noun (Bublinka, bublinka) are homographs, not an i/y pair, and a
+  // pair declared for one spelling covers its capitalised homographs too.
+  const byFold = new Map<string, Map<string, Read<Word>[]>>();
   for (const word of lexicon.words) {
-    const folded = foldIY(word.lemma);
-    const other = byFold.get(folded);
-    if (other && other.lemma !== word.lemma && !soundAlike.has(`${other.id}|${word.id}`)) {
-      report(
-        `word ${word.id}`,
-        `"${word.lemma}" and "${other.lemma}" differ only in i/y: declare them sound-alikes or fix the spelling.`,
-      );
-    }
-    if (!other) byFold.set(folded, word);
+    const spelling = word.lemma.toLowerCase();
+    const fold = foldIY(spelling);
+    const group = byFold.get(fold) ?? new Map<string, Read<Word>[]>();
+    byFold.set(fold, group);
+    const alike = group.get(spelling);
+    if (alike) alike.push(word);
+    else group.set(spelling, [word]);
+  }
+  for (const group of byFold.values()) {
+    const spellings = [...group.values()];
+    spellings.forEach((later, index) => {
+      for (const earlier of spellings.slice(0, index)) {
+        if (!later.some((a) => earlier.some((b) => soundAlike.has(`${a.id}|${b.id}`)))) {
+          report(
+            `word ${later[0]!.id}`,
+            `"${later[0]!.lemma}" and "${earlier[0]!.lemma}" differ only in i/y: declare them sound-alikes or fix the spelling.`,
+          );
+        }
+      }
+    });
   }
 
   const sentenceIds = new Set<string>();

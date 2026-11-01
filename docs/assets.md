@@ -70,10 +70,13 @@ offline resource graph (exact bytes and SHA-256).
   JSON, web manifests and text. An unknown extension fails the build on purpose.
 - Budgets: at most 32 MiB per file and 64 MiB for the whole site (the SDK's offline defaults), 4096
   files, no empty files. About 92 painted images, five music loops and about 30 sounds must fit
-  beside the code and fonts, or the build fails: prefer WebP for painted art, SVG for flat art and
+  beside the code, the fonts and the content (the pack, about 1.2 MB, plus a gzip archive of
+  about 0.1 MB for every older revision), or the build fails: prefer WebP for painted art, SVG for flat art and
   Ogg/Opus for audio, and keep music loops short.
 - Licence files that must travel with a file (`OFL.txt` next to the fonts) are shipped. The build
-  also writes `licenses.txt` with the game's and the Aegis SDK's MIT notices.
+  also writes `licenses.txt` with the game's and the Aegis SDK's MIT notices, the credits for the
+  local art and music models (Qwen-Image-Edit-2511 in WanGP, rembg and U²-Net, ACE-Step 1.5) and a
+  pointer to the font's licence.
 
 ## 4. Interfaces with code
 

@@ -12,8 +12,9 @@
  * 1. reads the deployed pack byte for byte from git, `<git-ref>:content/pearl-sea.content.json`
  *    (default `origin/main`: fetch first). That is the pack saves in the wild pin, whether or not
  *    the working tree has already changed the content;
- * 2. archives it as `content/history/<its revision>.json` (an archive that already exists must be
- *    identical: an archived pack never changes);
+ * 2. archives it, gzip-compressed, as `content/history/<its revision>.json.gz` (lib/history.mjs).
+ *    An archive that already exists must decompress to the same bytes: an archived pack never
+ *    changes. The compressed bytes may differ between zlib builds, so they are never compared;
  * 3. sets the working tree pack's top-level `revision` to `<revision>` and touches nothing else.
  *
  * It refuses a revision that is not MAJOR.MINOR.PATCH or not newer than the deployed one, and a
@@ -27,10 +28,11 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { HISTORY_DIRECTORY, archiveName, compressArchive, readArchive } from './lib/history.mjs';
 import { isMain, repositoryRoot } from './lib/tools.mjs';
 
 export const PACK_PATH = 'content/pearl-sea.content.json';
-export const HISTORY_PATH = 'content/history';
+export const HISTORY_PATH = HISTORY_DIRECTORY;
 
 /** The pack's own `revision` line: prettier puts top-level keys at two spaces. */
 const REVISION_LINE = /^ {2}"revision": "[^"\n]*"/m;
@@ -94,16 +96,35 @@ export function bumpContent({ root = repositoryRoot, revision, from = 'origin/ma
     );
   }
 
-  const archived = `${HISTORY_PATH}/${deployed.revision}.json`;
-  const archiveFile = join(root, archived);
+  const archived = `${HISTORY_PATH}/${archiveName(deployed.revision)}`;
+  const archiveFile = join(root, ...archived.split('/'));
   if (existsSync(archiveFile)) {
-    if (!readFileSync(archiveFile).equals(deployedBytes)) {
+    /** @type {Buffer} */
+    let stored;
+    try {
+      stored = readArchive(readFileSync(archiveFile));
+    } catch (error) {
+      throw new Error(
+        `${archived} is not a readable archive (${error instanceof Error ? error.message : String(error)}): ` +
+          'an archived pack never changes',
+      );
+    }
+    if (!stored.equals(deployedBytes)) {
       throw new Error(
         `${archived} differs from the pack deployed as ${deployed.revision} (${from}): ` +
           'an archived pack never changes',
       );
     }
   }
+  /** Write the archive, checking that it decompresses to exactly the deployed bytes. */
+  const archive = () => {
+    const bytes = compressArchive(deployedBytes);
+    if (!readArchive(bytes).equals(deployedBytes)) {
+      throw new Error(`${archived} would not decompress to the deployed pack`);
+    }
+    mkdirSync(join(root, HISTORY_PATH), { recursive: true });
+    writeFileSync(archiveFile, bytes);
+  };
 
   let changed = false;
   if (pack.revision !== revision) {
@@ -114,15 +135,11 @@ export function bumpContent({ root = repositoryRoot, revision, from = 'origin/ma
     if (JSON.stringify(JSON.parse(updated)) !== JSON.stringify({ ...pack, revision })) {
       throw new Error(`setting the revision would change more than the revision of ${PACK_PATH}`);
     }
-    if (!existsSync(archiveFile)) {
-      mkdirSync(join(root, HISTORY_PATH), { recursive: true });
-      writeFileSync(archiveFile, deployedBytes);
-    }
+    if (!existsSync(archiveFile)) archive();
     writeFileSync(packFile, updated);
     changed = true;
   } else if (!existsSync(archiveFile)) {
-    mkdirSync(join(root, HISTORY_PATH), { recursive: true });
-    writeFileSync(archiveFile, deployedBytes);
+    archive();
     changed = true;
   }
   return { archived, from: deployed.revision, to: revision, changed };

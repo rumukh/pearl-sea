@@ -1,9 +1,9 @@
 /**
  * A child's grade (3. or 4. třída) on the shell's side. The game save's `settings.grade` is its
- * home; the family record only holds the grade picked in the new-child editor until the save
- * exists (`persistence/family.ts`). `applyPendingGrade` hands it over before the first
- * `startSession`, so the first session's story is already the grade's (docs/design.md §4.1); the
- * grown-ups' area changes it later through the same request.
+ * home; the family record only holds the grade picked in the new-child editor until the game first
+ * opens (`persistence/family.ts`). `handOverGrade` hands it over before the first `startSession`,
+ * so the first session's story is already the grade's (docs/design.md §4.1), or when the grown-ups'
+ * area first reads the game, which then changes it through the same request.
  */
 import type { GameAction, GameView, Grade } from '../../rules/contract';
 import type { Dispatch } from '../controller/commands';
@@ -41,10 +41,24 @@ export async function requestGrade(
   }
 }
 
-/** Hand the editor's grade to the game and drop it from the family record. */
-export async function applyPendingGrade(app: App, active: ActiveDiver): Promise<void> {
-  const grade = findDiver(app.family.state(), active.diver.id)?.grade;
+/**
+ * Hand the editor's grade (kept in the family record until the child's game first opens) to the
+ * game and drop it from the record: at the first dive, or when the grown-ups' area first reads the
+ * child's game, so the grade shown there is the one the child plays and a grown-up's change sticks.
+ */
+export async function handOverGrade(
+  app: App,
+  diverId: string,
+  view: GameView,
+  dispatch: Dispatch<GameAction>,
+): Promise<void> {
+  const grade = findDiver(app.family.state(), diverId)?.grade;
   if (grade === undefined) return;
-  await requestGrade(active.game.view(), active.commands.capture(), grade);
-  await app.family.setPendingGrade(active.diver.id, null);
+  await requestGrade(view, dispatch, grade);
+  await app.family.setPendingGrade(diverId, null);
+}
+
+/** Hand the editor's grade to the game a child opens for play (`handOverGrade`). */
+export async function applyPendingGrade(app: App, active: ActiveDiver): Promise<void> {
+  await handOverGrade(app, active.diver.id, active.game.view(), active.commands.capture());
 }

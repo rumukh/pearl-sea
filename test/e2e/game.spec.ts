@@ -40,6 +40,7 @@ import {
 } from './support/game';
 import { ART, GUIDE_ID } from '../../src/rules/contract';
 import { observe } from './support/observe';
+import { FAMILY_KEY, familyPayload, storeRecord } from './support/saves';
 import type { Observations } from './support/observe';
 import { enterGrownUps, noViolations, ready } from './support/screens';
 
@@ -458,9 +459,44 @@ test('a grown-up runs the placement check again, and leaving it is told kindly',
   );
   await expect(page.getByTestId('pause-quit')).toHaveText('Skončit kontrolu');
   await noViolations(page, 'the pause dialog of the placement check');
-  await page.getByTestId('pause-quit').click();
+  await leaveScreen(page, 'screen-round', () => page.getByTestId('pause-quit').click());
   if ((await shownScreen(page)) === 'screen-results') await throughResults(page);
   expect(await throughStory(page)).toBe('screen-hub');
   await expect(page.getByTestId('adventure-next')).toContainText('Další úroveň');
+  nothingWentWrong(seen);
+});
+
+test('the grade a grown-up chooses before the first dive is the grade the child plays', async ({
+  page,
+  baseURL,
+}) => {
+  test.setTimeout(240_000);
+  const seen = observe(page, new URL(baseURL!).origin);
+  await page.goto('./');
+  await ready(page, 'title');
+  // The editor picked the 3rd grade, and the child's game has not opened yet.
+  await storeRecord(
+    page,
+    FAMILY_KEY,
+    await familyPayload({
+      profiles: [{ id: CHILD, name: 'Ema', avatar: 'diver-2', address: 'girl', grade: 3 }],
+      grownUpsLanguage: 'cs',
+    }),
+  );
+  await page.reload();
+  await ready(page, 'title');
+  await enterGrownUps(page);
+  await expect(page.getByTestId('setting-grade-3')).toHaveAttribute('aria-pressed', 'true');
+  await page.getByTestId('setting-grade-4').click();
+  await expect(page.getByTestId('setting-grade-4')).toHaveAttribute('aria-pressed', 'true');
+  await page.getByTestId('grownups-close').click();
+  await ready(page, 'title');
+
+  await page.getByTestId('title-play').click();
+  await ready(page, 'divers');
+  await page.getByTestId(`diver-${CHILD}`).click();
+  await chooseEgg(page);
+  // A 4th grader's adventure begins with the placement check.
+  await expect(page.getByTestId('adventure-next')).toHaveText('Ukaž, co umíš!');
   nothingWentWrong(seen);
 });

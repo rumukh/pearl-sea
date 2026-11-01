@@ -13,7 +13,7 @@
 import { assertChildSafeView } from '@aegis/browser/ui';
 import { CommandRejectedError } from '../controller/commands';
 import type { Dispatch } from '../controller/commands';
-import { requestGrade } from '../game/grade';
+import { handOverGrade, requestGrade } from '../game/grade';
 import type { GradeRefusal } from '../game/grade';
 import { shortRevision } from '../grownups/about';
 import type { OfflineState } from '../grownups/offline';
@@ -210,7 +210,11 @@ export function grownUpsScreen(
       // ---- A child's game: grade, daily goal, the dolphin race ------------------------------
       const gameSettings = async (diver: Diver): Promise<HTMLElement | null> => {
         if (!app.content()) return null;
-        const settings = await app.withGame(diver.id, async (game) => game.view().settings);
+        // The editor's grade goes to the game now, so the grade shown is the one the child plays.
+        const settings = await app.withGame(diver.id, async (game, dispatch) => {
+          await handOverGrade(app, diver.id, game.view(), dispatch);
+          return game.view().settings;
+        });
         /** Change the game's settings; the game may keep its grade and say why. */
         const changeGame = async (
           change: (view: GameView, dispatch: Dispatch<GameAction>) => Promise<GradeRefusal | null>,

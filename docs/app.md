@@ -43,8 +43,9 @@ deployment base and offline revision from `<meta name="ps-base">` and
 `<meta name="ps-offline-revision">`, starts loading the reading font (waiting at most 2.5 s),
 reads S5's audio manifest and art catalog (a missing or broken one means a silent game or
 placeholder art, never a failed boot), and opens the family record. With the rules wired
-(`game/rules.ts`) it also loads and validates the content pack and its strings (every key the pack
-uses must resolve) before the first screen. The first screen is the title, or the recovery screen
+(`game/rules.ts`) it loads and validates the content pack and its strings (every key the pack uses
+must resolve) meanwhile, since on a slow device both take seconds; both finish before the first
+screen. The first screen is the title, or the recovery screen
 when the family record cannot be read.
 
 The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
@@ -336,7 +337,9 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
 - **Nastavení / Settings**: the language of the area; reading aloud (available voices, or why there
   are none and how to add one); each child's settings: the game's grade (3 or 4: where the child
   starts and what the game suggests; content that does not serve a grade, or a placement round,
-  keeps the old one and says why), daily goal and the dolphin race, and the placement check again
+  keeps the old one and says why; the grade picked in the editor goes to the game when this area
+  first reads it, so the grade shown is the one the child plays), daily goal and the dolphin race,
+  and the placement check again
   for a grade that has one (it starts the next time the child plays; a round or a story under way
   keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes,
   text size, less motion, a time limit for one sitting.
@@ -389,7 +392,8 @@ its own presentation; calls take turns, and a child opened for play waits for th
   her joke, an ink blot wiped), frees her into the gallery and prints her diploma from the
   grown-ups' area. A second window on the same child shows "Hra je otevřená jinde" on a story beat
   and reopens the saved game. A grown-up runs a placed 4th grader's placement check again, and
-  leaving it says kindly what stays. What is right comes from the
+  leaving it says kindly what stays; a grade a grown-up chooses before the first dive is the grade
+  the child plays. What is right comes from the
   game itself (`support/game.ts`): the save the page stored is read back from IndexedDB and
   restored into a runtime host in Node, and its view says what the problem or board on screen asks;
   screens name what they show only by position (`data-round`, `data-index`, `data-step`,

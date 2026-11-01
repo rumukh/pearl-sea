@@ -5,20 +5,37 @@
  *   node scripts/lexicon/build.mjs           write content/pearl-sea.content.json
  *   node scripts/lexicon/build.mjs --check   fail when the pack is not the build of its sources
  *
- * The pack is `content/pack-src/pack.json` (the game: regions, levels, skills, friends, story, …)
- * with `data.lexicon` built from the word bank in `content/lexicon-src` (docs/lexicon.md §8): noun
- * and verb data nested, spelling points as positions in the lemma, the point each sentence gap
- * tests, every word of a sentence as a token, relations from the sets. The word bank is checked
- * first (check.mjs). The pack's `id`, `revision` and `schemaVersion` are kept from the pack file,
- * so `npm run content:bump` keeps working; the file is formatted with the repository's Prettier.
+ * The pack is `content/pack-src/pack.json` (what the regions share: grades, balance, placement,
+ * quests, …) and one file per region in `content/pack-src/regions/` (its region, levels, skills,
+ * friends, monster, story, …), merged in file-name order, with `data.lexicon` built from the word
+ * bank in `content/lexicon-src` (docs/lexicon.md §8): noun and verb data nested, spelling points as
+ * positions in the lemma, the point each sentence gap tests, every word of a sentence as a token,
+ * relations from the sets. The word bank is checked first (check.mjs). The pack's `id`, `revision`
+ * and `schemaVersion` are kept from the pack file, so `npm run content:bump` keeps working; the
+ * file is formatted with the repository's Prettier.
  */
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { isMain, repositoryRoot } from '../lib/tools.mjs';
 import { checkLexicon, parseMarked } from './check.mjs';
 
 export const PACK_FILE = join(repositoryRoot, 'content', 'pearl-sea.content.json');
 export const PACK_SOURCE = join(repositoryRoot, 'content', 'pack-src', 'pack.json');
+/** One file per region (`01-sunny-lagoon.json`, …), merged into the pack in file-name order. */
+export const REGION_SOURCES = join(repositoryRoot, 'content', 'pack-src', 'regions');
+/** What a region file may hold: its records, appended to the pack's lists. */
+export const REGION_KEYS = [
+  'objectives',
+  'regions',
+  'levels',
+  'skills',
+  'friends',
+  'monsters',
+  'cosmetics',
+  'stickers',
+  'quests',
+  'story',
+];
 
 /** The contract's words of a text (`textWords`): runs of letters with inner hyphens. */
 const TEXT_WORDS = /\p{L}+(?:-\p{L}+)*/gu;
@@ -293,6 +310,7 @@ function convertSentence(s, topic, fileGrade, points, words) {
   const gapRecords = gaps.map((gap, i) => {
     const meta = s.gaps[i];
     const index = tokenAt(gap.start);
+    if (meta.rule === 'spojka' && index >= 0) conjunctions.push(index);
     /** @type {Record<string, unknown>} */
     const record = { rule: meta.rule, word: meta.word ?? null };
     const point = points[i];
@@ -334,25 +352,31 @@ function convertSentence(s, topic, fileGrade, points, words) {
     gaps: gapRecords,
     tokens,
   };
-  const kind = plain.endsWith('?')
-    ? 'question'
-    : moods.includes('imperative')
-      ? 'command'
-      : moods.length && moods.every((mood) => mood === 'indicative') && plain.endsWith('.')
-        ? 'statement'
-        : undefined;
+  // The kind the word bank gives (a wish needs it), else the one the end mark and moods show.
+  const kind =
+    s.kind ??
+    (plain.endsWith('?')
+      ? 'question'
+      : moods.includes('imperative')
+        ? 'command'
+        : moods.length && moods.every((mood) => mood === 'indicative') && plain.endsWith('.')
+          ? 'statement'
+          : undefined);
   if (kind) out.kind = kind;
   if (subjects.length) out.subjects = subjects;
   if (predicates.length) out.predicates = predicates;
   if (s.clauses !== undefined) {
     out.clauses = s.clauses;
-    if (s.clauses > 1 && conjunctions.length) out.conjunctions = conjunctions;
+    if (s.clauses > 1 && conjunctions.length)
+      out.conjunctions = [...new Set(conjunctions)].sort((a, b) => a - b);
   }
   return out;
 }
 
 /**
- * The whole pack: the game source with the built lexicon, keeping the pack's own header.
+ * The whole pack: the game source with the built lexicon, keeping the pack's own header. The game
+ * source is `pack.json` (what all regions share: grades, balance, placement, quests, the Inkoustíci,
+ * the opening beats) with each region's file of `regions/` merged in, in file-name order.
  * @param {any} lexicon
  */
 export function buildPack(lexicon) {
@@ -360,12 +384,40 @@ export function buildPack(lexicon) {
     ? JSON.parse(readFileSync(PACK_FILE, 'utf8'))
     : { id: 'pearl-sea', revision: '1.0.0', schemaVersion: 1 };
   const game = JSON.parse(readFileSync(PACK_SOURCE, 'utf8'));
+  const names = existsSync(REGION_SOURCES)
+    ? readdirSync(REGION_SOURCES)
+        .filter((name) => name.endsWith('.json'))
+        .sort()
+    : [];
+  for (const name of names) {
+    mergeRegion(game, JSON.parse(readFileSync(join(REGION_SOURCES, name), 'utf8')), name);
+  }
   return {
     id: header.id,
     revision: header.revision,
     schemaVersion: header.schemaVersion,
     data: { ...game, lexicon },
   };
+}
+
+/**
+ * Appends a region file's records to the game source; a region file holds only `REGION_KEYS`.
+ * @param {any} game
+ * @param {any} region
+ * @param {string} name
+ */
+export function mergeRegion(game, region, name) {
+  for (const [key, value] of Object.entries(region)) {
+    if (!REGION_KEYS.includes(key)) {
+      throw new Error(`pack-src/regions/${name}: "${key}" belongs in pack-src/pack.json`);
+    }
+    if (key === 'story') {
+      game.story.beats.push(...(value.beats ?? []));
+      game.story.rewards.push(...(value.rewards ?? []));
+    } else {
+      game[key] = [...(game[key] ?? []), ...value];
+    }
+  }
 }
 
 /**

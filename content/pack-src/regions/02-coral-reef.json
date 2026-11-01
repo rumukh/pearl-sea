@@ -1,0 +1,1345 @@
+{
+  "objectives": [
+    {
+      "id": "obj.listed.both-way",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.both-way",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.b",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.b",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.l",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.l",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.related",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.related",
+      "rvp": ["ČJL-3-2-02", "ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.sound-alikes",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.sound-alikes",
+      "rvp": ["ČJL-3-2-08", "ČJL-5-2-08"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "coral-reef",
+      "order": 2,
+      "titleKey": "region.coral-reef",
+      "unlock": {
+        "after": ["sunny-lagoon.monster"]
+      },
+      "monster": "zralok-zrout",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "coral-reef.1",
+      "region": "coral-reef",
+      "order": 1,
+      "titleKey": "level.coral-reef.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.lagoon.consonants"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.reef.obojetna-i", "sk.reef.vyjm-b", "sk.reef.odd-listed"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.coral-reef-welcome",
+      "objectives": ["obj.listed.both-way"]
+    },
+    {
+      "id": "coral-reef.2",
+      "region": "coral-reef",
+      "order": 2,
+      "titleKey": "level.coral-reef.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["coral-reef.1"]
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.reef.rhyme-b"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.reef.vyjm-b"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.reef.sentences-b"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["barakuda-bystrinka"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.b"]
+    },
+    {
+      "id": "coral-reef.3",
+      "region": "coral-reef",
+      "order": 3,
+      "titleKey": "level.coral-reef.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["coral-reef.2"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.reef.family-b"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.reef.pairs-family-b"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.reef.related-b"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["lachtan-lyzar"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.b", "obj.listed.related"]
+    },
+    {
+      "id": "coral-reef.4",
+      "region": "coral-reef",
+      "order": 4,
+      "titleKey": "level.coral-reef.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["coral-reef.3"]
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.reef.rhyme-l"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.reef.vyjm-l"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.reef.sentences-l"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["lachtan-lyzar"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.l"]
+    },
+    {
+      "id": "coral-reef.5",
+      "region": "coral-reef",
+      "order": 5,
+      "titleKey": "level.coral-reef.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["coral-reef.4"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.reef.family-l"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.reef.pairs-family-l"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.reef.related-l"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.l", "obj.listed.related"]
+    },
+    {
+      "id": "coral-reef.6",
+      "region": "coral-reef",
+      "order": 6,
+      "titleKey": "level.coral-reef.6",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["coral-reef.5"]
+      },
+      "activities": [
+        {
+          "kind": "memory-match",
+          "skills": ["sk.reef.pairs-alike"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": [
+            "sk.reef.vyjm-b",
+            "sk.reef.vyjm-l",
+            "sk.reef.contrast-b",
+            "sk.reef.contrast-l",
+            "sk.reef.relation-alike"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.reef.mistakes-bl"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.b", "obj.listed.l", "obj.listed.sound-alikes"]
+    },
+    {
+      "id": "coral-reef.monster",
+      "region": "coral-reef",
+      "order": 7,
+      "titleKey": "level.coral-reef.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["coral-reef.6"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.reef.vyjm-b",
+            "sk.reef.vyjm-l",
+            "sk.reef.related-b",
+            "sk.reef.related-l",
+            "sk.reef.sentences-b",
+            "sk.reef.sentences-l",
+            "sk.reef.alike-b",
+            "sk.reef.contrast-b",
+            "sk.reef.contrast-l",
+            "sk.reef.mistakes-bl",
+            "sk.reef.obojetna-i",
+            "sk.reef.odd-listed",
+            "sk.reef.relation-alike"
+          ],
+          "count": 20,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["barakuda-bystrinka", "lachtan-lyzar"],
+        "cosmetics": ["arch-coral"]
+      },
+      "monster": "zralok-zrout",
+      "storyBeat": "beat.zralok-zrout",
+      "objectives": ["obj.listed.both-way", "obj.listed.b", "obj.listed.l", "obj.listed.related"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.reef.obojetna-i",
+      "titleKey": "skill.reef.obojetna-i",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["biilyy", "liipa", "mince", "piirko", "siila", "viitr", "zima"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.odd-listed",
+      "titleKey": "skill.reef.odd-listed",
+      "strand": "listed-words",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "listed",
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "mlyyn",
+            "lyzxe",
+            "lysyy",
+            "polykat",
+            "biilyy",
+            "obilii",
+            "liipa",
+            "klid",
+            "list",
+            "lisxka"
+          ],
+          "grades": [3]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.reef.rhyme-b",
+      "titleKey": "skill.reef.rhyme-b",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "obyvatel",
+            "byt",
+            "prxiibytek",
+            "naabytek",
+            "dobytek",
+            "obycxej",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "prxibyslav"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 7
+      }
+    },
+    {
+      "id": "sk.reef.vyjm-b",
+      "titleKey": "skill.reef.vyjm-b",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "obyvatel",
+            "byt",
+            "prxiibytek",
+            "naabytek",
+            "dobytek",
+            "obycxej",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "prxibyslav",
+            "bydlisxtex",
+            "obydlii",
+            "bydlo",
+            "obyyvacii",
+            "pobyt",
+            "byyvat",
+            "ubytovat",
+            "bystrxina",
+            "bylinka",
+            "kobylka",
+            "byycxek",
+            "obycxejnyy"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.related-b",
+      "titleKey": "skill.reef.related-b",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "bydlisxtex",
+            "obydlii",
+            "bydlo",
+            "obyyvacii",
+            "pobyt",
+            "byyvat",
+            "ubytovat",
+            "bystrxina",
+            "bylinka",
+            "kobylka",
+            "byycxek",
+            "obycxejnyy"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.sentences-b",
+      "titleKey": "skill.reef.sentences-b",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-b.01",
+            "vyjm-b.02",
+            "vyjm-b.04",
+            "vyjm-b.10",
+            "vyjm-b.13",
+            "vyjm-b.14",
+            "vyjm-b.16",
+            "vyjm-b.18",
+            "vyjm-b.19",
+            "vyjm-b.20",
+            "vyjm-b.21",
+            "vyjm-b.24",
+            "vyjm-b.25",
+            "vyjm-b.26",
+            "vyjm-b.29",
+            "vyjm-b.30",
+            "vyjm-b.31",
+            "vyjm-b.37"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.reef.contrast-b",
+      "titleKey": "skill.reef.contrast-b",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["biilyy", "obilii", "rozbiit", "nabiit", "biit", "bitva", "bidlo"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.family-b",
+      "titleKey": "skill.reef.family-b",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["b"],
+          "grades": [3]
+        },
+        "families": [
+          "vyjm-b.byyt",
+          "vyjm-b.bydlit",
+          "vyjm-b.obyvatel",
+          "vyjm-b.byt",
+          "vyjm-b.dobytek",
+          "vyjm-b.obycxej",
+          "vyjm-b.bystryy",
+          "vyjm-b.bylina",
+          "vyjm-b.byyk"
+        ],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.reef.alike-b",
+      "titleKey": "skill.reef.alike-b",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "alike.01",
+            "alike.02",
+            "alike.03",
+            "alike.04",
+            "alike.05",
+            "alike.18",
+            "alike.20",
+            "alike.21"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.reef.pairs-family-b",
+      "titleKey": "skill.reef.pairs-family-b",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "family",
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "obyvatel",
+            "byt",
+            "naabytek",
+            "dobytek",
+            "obycxej",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "bydlisxtex",
+            "obydlii",
+            "bydlo",
+            "obyyvacii",
+            "pobyt",
+            "byyvat",
+            "ubytovat",
+            "bystrxina",
+            "bylinka",
+            "kobylka",
+            "byycxek",
+            "obycxejnyy"
+          ],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.reef.rhyme-l",
+      "titleKey": "skill.reef.rhyme-l",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "slysxet",
+            "mlyyn",
+            "blyyskat-se",
+            "polykat",
+            "plynout",
+            "plyytvat",
+            "vzlykat",
+            "lysyy",
+            "lyytko",
+            "lyzxe",
+            "pelynexk",
+            "plysx"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 6
+      }
+    },
+    {
+      "id": "sk.reef.vyjm-l",
+      "titleKey": "skill.reef.vyjm-l",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "slysxet",
+            "mlyyn",
+            "blyyskat-se",
+            "polykat",
+            "plynout",
+            "plyytvat",
+            "vzlykat",
+            "lysyy",
+            "lyytko",
+            "lyyko",
+            "lyzxe",
+            "pelynexk",
+            "plysx",
+            "uslysxet",
+            "mlynaarx",
+            "mlyynek",
+            "blysxtext-se",
+            "spolykat",
+            "plyn",
+            "plynule",
+            "lyska",
+            "lyzxarx",
+            "plysxovyy"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.related-l",
+      "titleKey": "skill.reef.related-l",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "uslysxet",
+            "mlynaarx",
+            "mlyynek",
+            "blysxtext-se",
+            "spolykat",
+            "plyn",
+            "plynule",
+            "lyska",
+            "lyzxarx",
+            "plysxovyy"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.sentences-l",
+      "titleKey": "skill.reef.sentences-l",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-l.01",
+            "vyjm-l.02",
+            "vyjm-l.03",
+            "vyjm-l.04",
+            "vyjm-l.05",
+            "vyjm-l.06",
+            "vyjm-l.08",
+            "vyjm-l.10",
+            "vyjm-l.11",
+            "vyjm-l.12",
+            "vyjm-l.13",
+            "vyjm-l.14",
+            "vyjm-l.16",
+            "vyjm-l.17",
+            "vyjm-l.18",
+            "vyjm-l.19",
+            "vyjm-l.20",
+            "vyjm-l.21",
+            "vyjm-l.22",
+            "vyjm-l.23",
+            "vyjm-l.24",
+            "vyjm-l.25"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.reef.contrast-l",
+      "titleKey": "skill.reef.contrast-l",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["liipa", "pliice", "bliizko", "klid", "lisxka", "liinyy", "list", "mliit"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.reef.family-l",
+      "titleKey": "skill.reef.family-l",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["l"],
+          "grades": [3]
+        },
+        "families": [
+          "vyjm-l.mlyyn",
+          "vyjm-l.blyyskat-se",
+          "vyjm-l.polykat",
+          "vyjm-l.plynout",
+          "vyjm-l.vzlykat",
+          "vyjm-l.lysyy",
+          "vyjm-l.lyzxe"
+        ],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.reef.pairs-family-l",
+      "titleKey": "skill.reef.pairs-family-l",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "family",
+        "words": {
+          "words": [
+            "slysxet",
+            "mlyyn",
+            "blyyskat-se",
+            "polykat",
+            "plynout",
+            "plyytvat",
+            "vzlykat",
+            "lysyy",
+            "lyytko",
+            "lyyko",
+            "lyzxe",
+            "plysx",
+            "uslysxet",
+            "mlynaarx",
+            "mlyynek",
+            "blysxtext-se",
+            "spolykat",
+            "plyn",
+            "plynule",
+            "lyska",
+            "lyzxarx",
+            "plysxovyy"
+          ],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.reef.pairs-alike",
+      "titleKey": "skill.reef.pairs-alike",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": ["byyt", "biit", "bydlo", "bidlo"],
+          "grades": [3]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.reef.relation-alike",
+      "titleKey": "skill.reef.relation-alike",
+      "strand": "listed-words",
+      "generator": "relation",
+      "params": {
+        "relations": ["sound-alike"],
+        "words": {
+          "words": ["byyt", "biit", "bydlo", "bidlo"],
+          "grades": [3]
+        }
+      }
+    },
+    {
+      "id": "sk.reef.mistakes-bl",
+      "titleKey": "skill.reef.mistakes-bl",
+      "strand": "listed-words",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-b.01",
+            "vyjm-b.04",
+            "vyjm-b.10",
+            "vyjm-b.13",
+            "vyjm-b.14",
+            "vyjm-b.16",
+            "vyjm-b.18",
+            "vyjm-b.19",
+            "vyjm-b.20",
+            "vyjm-b.21",
+            "vyjm-b.24",
+            "vyjm-b.25",
+            "vyjm-b.26",
+            "vyjm-b.29",
+            "vyjm-b.30",
+            "vyjm-b.31",
+            "vyjm-l.01",
+            "vyjm-l.02",
+            "vyjm-l.03",
+            "vyjm-l.04",
+            "vyjm-l.05",
+            "vyjm-l.06",
+            "vyjm-l.08",
+            "vyjm-l.10",
+            "vyjm-l.11",
+            "vyjm-l.12",
+            "vyjm-l.13",
+            "vyjm-l.14",
+            "vyjm-l.16",
+            "vyjm-l.17",
+            "vyjm-l.18",
+            "vyjm-l.19",
+            "vyjm-l.20",
+            "vyjm-l.21",
+            "vyjm-l.22",
+            "vyjm-l.23",
+            "vyjm-l.24",
+            "vyjm-l.25",
+            "vyjm-b.32",
+            "vyjm-b.33",
+            "vyjm-b.35",
+            "vyjm-l.26",
+            "vyjm-l.27",
+            "vyjm-l.28",
+            "vyjm-l.29",
+            "vyjm-l.30",
+            "vyjm-l.31",
+            "vyjm-l.32"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "obojetna-i"]
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "barakuda-bystrinka",
+      "nameKey": "friend.barakuda-bystrinka",
+      "mnemonicKey": "friend.barakuda-bystrinka.mnemonic",
+      "region": "coral-reef",
+      "skills": [
+        "sk.reef.rhyme-b",
+        "sk.reef.vyjm-b",
+        "sk.reef.sentences-b",
+        "sk.reef.contrast-b",
+        "sk.reef.alike-b"
+      ],
+      "monster": "zralok-zrout"
+    },
+    {
+      "id": "lachtan-lyzar",
+      "nameKey": "friend.lachtan-lyzar",
+      "mnemonicKey": "friend.lachtan-lyzar.mnemonic",
+      "region": "coral-reef",
+      "skills": ["sk.reef.rhyme-l", "sk.reef.vyjm-l", "sk.reef.sentences-l", "sk.reef.contrast-l"],
+      "monster": "zralok-zrout"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "zralok-zrout",
+      "region": "coral-reef",
+      "nameKey": "monster.zralok-zrout",
+      "mood": "grumpy",
+      "meter": 15,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.zralok-zrout.joke.1",
+        "monster.zralok-zrout.joke.2",
+        "monster.zralok-zrout.joke.3",
+        "monster.zralok-zrout.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "crown-coral",
+      "slot": "head",
+      "assetId": "cosmetic/crown-coral",
+      "nameKey": "cosmetic.crown-coral",
+      "price": 375,
+      "unlock": "coral-reef.2"
+    },
+    {
+      "id": "mask-snorkel",
+      "slot": "eyes",
+      "assetId": "cosmetic/mask-snorkel",
+      "nameKey": "cosmetic.mask-snorkel",
+      "price": 425,
+      "unlock": "coral-reef.4"
+    },
+    {
+      "id": "arch-coral",
+      "slot": "grotto",
+      "assetId": "cosmetic/arch-coral",
+      "nameKey": "cosmetic.arch-coral",
+      "price": 475,
+      "unlock": "coral-reef.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "barakuda-hatched",
+      "nameKey": "sticker.barakuda-hatched",
+      "page": "coral-reef",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "barakuda-bystrinka",
+        "stage": "baby"
+      },
+      "icon": "sticker/barakuda",
+      "color": "#3fa7d6",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "lachtan-hatched",
+      "nameKey": "sticker.lachtan-hatched",
+      "page": "coral-reef",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "lachtan-lyzar",
+        "stage": "baby"
+      },
+      "icon": "sticker/skis",
+      "color": "#8ec5fc",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "shark-full",
+      "nameKey": "sticker.shark-full",
+      "page": "coral-reef",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "zralok-zrout"
+      },
+      "icon": "sticker/shark-smile",
+      "color": "#ff8a7a",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "reef-stars",
+      "nameKey": "sticker.reef-stars",
+      "page": "coral-reef",
+      "criteria": {
+        "kind": "level-complete",
+        "level": "coral-reef.monster",
+        "stars": 3
+      },
+      "icon": "sticker/star-coral",
+      "color": "#f2c94c",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "race-ten",
+      "nameKey": "sticker.race-ten",
+      "page": "coral-reef",
+      "criteria": {
+        "kind": "race-best",
+        "count": 10
+      },
+      "icon": "sticker/stopwatch",
+      "color": "#4fc3f7",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "correct-30",
+      "titleKey": "quest.correct-30",
+      "goal": "correct-answers",
+      "target": 30,
+      "coins": 4,
+      "weight": 8,
+      "unlock": "coral-reef.1"
+    },
+    {
+      "id": "splash-3",
+      "titleKey": "quest.splash-3",
+      "goal": "splash-inkoustik",
+      "target": 3,
+      "coins": 4,
+      "weight": 4,
+      "unlock": "coral-reef.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.coral-reef-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "coral-reef.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.coral-reef-welcome",
+          "revision": "1",
+          "start": "coral-reef-welcome-1",
+          "catalogs": {
+            "scene": ["scene/coral-reef"],
+            "text": [
+              "story.coral-reef-welcome.1",
+              "story.coral-reef-welcome.2",
+              "story.coral-reef-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.barakuda-bystrinka"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-barakuda-bystrinka",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.barakuda-bystrinka"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "coral-reef-welcome-1",
+              "scene": "scene/coral-reef",
+              "text": "story.coral-reef-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-barakuda-bystrinka"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "coral-reef-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "coral-reef-welcome-2",
+              "scene": "scene/coral-reef",
+              "text": "story.coral-reef-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "coral-reef-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "coral-reef-welcome-3",
+              "scene": "scene/coral-reef",
+              "text": "story.coral-reef-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.zralok-zrout",
+        "trigger": {
+          "kind": "level-start",
+          "level": "coral-reef.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.zralok-zrout",
+          "revision": "1",
+          "start": "zralok-zrout-1",
+          "catalogs": {
+            "scene": ["scene/coral-reef"],
+            "text": [
+              "story.zralok-zrout.1",
+              "story.zralok-zrout.2",
+              "story.zralok-zrout.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "zralok-zrout-1",
+              "scene": "scene/coral-reef",
+              "text": "story.zralok-zrout.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zralok-zrout-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zralok-zrout-2",
+              "scene": "scene/coral-reef",
+              "text": "story.zralok-zrout.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zralok-zrout-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zralok-zrout-3",
+              "scene": "scene/coral-reef",
+              "text": "story.zralok-zrout.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.zralok-zrout-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "zralok-zrout"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.zralok-zrout-freed",
+          "revision": "1",
+          "start": "zralok-zrout-freed-1",
+          "catalogs": {
+            "scene": ["scene/coral-reef"],
+            "text": [
+              "story.zralok-zrout-freed.1",
+              "story.zralok-zrout-freed.2",
+              "story.zralok-zrout-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "zralok-zrout-freed-1",
+              "scene": "scene/coral-reef",
+              "text": "story.zralok-zrout-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zralok-zrout-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zralok-zrout-freed-2",
+              "scene": "scene/coral-reef",
+              "text": "story.zralok-zrout-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zralok-zrout-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zralok-zrout-freed-3",
+              "scene": "scene/coral-reef",
+              "text": "story.zralok-zrout-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.barakuda-bystrinka",
+        "grant": {
+          "kind": "egg",
+          "friend": "barakuda-bystrinka"
+        }
+      }
+    ]
+  }
+}

@@ -25,6 +25,10 @@
     "bezpecxii": {
       "sg": ["bezpečí", "bezpečí", "bezpečí", "bezpečí", "bezpečí", "bezpečí", "bezpečím"]
     },
+    "bidlo": {
+      "sg": ["bidlo", "bidla", "bidlu", "bidlo", "bidlo", ["bidle", "bidlu"], "bidlem"],
+      "pl": ["bidla", "bidel", "bidlům", "bidla", "bidla", "bidlech", "bidly"]
+    },
     "biit": {
       "inf": "bít",
       "pres": [["biji", "biju"], "biješ", "bije", "bijeme", "bijete", "bijí"],
@@ -133,6 +137,9 @@
         "fpl": ["bydlely", "bydlily"],
         "npl": ["bydlela", "bydlila"]
       }
+    },
+    "bydlo": {
+      "sg": ["bydlo", "bydla", "bydlu", "bydlo", "bydlo", ["bydle", "bydlu"], "bydlem"]
     },
     "bylina": {
       "sg": ["bylina", "byliny", "bylině", "bylinu", "bylino", "bylině", "bylinou"],
@@ -2902,6 +2909,20 @@
         "npl": "vířila"
       }
     },
+    "viiskat": {
+      "inf": "vískat",
+      "pres": ["vískám", "vískáš", "víská", "vískáme", "vískáte", "vískají"],
+      "imp": ["vískej", "vískejme", "vískejte"],
+      "past": {
+        "m": "vískal",
+        "f": "vískala",
+        "n": "vískalo",
+        "ma": "vískali",
+        "mi": "vískaly",
+        "fpl": "vískaly",
+        "npl": "vískala"
+      }
+    },
     "viit": {
       "inf": "vít",
       "pres": [["viji", "viju"], "viješ", "vije", "vijeme", "vijete", "vijí"],
@@ -2927,6 +2948,20 @@
     "vila": {
       "sg": ["vila", "vily", "vile", "vilu", "vilo", "vile", "vilou"],
       "pl": ["vily", "vil", "vilám", "vily", "vily", "vilách", "vilami"]
+    },
+    "viset": {
+      "inf": "viset",
+      "pres": ["visím", "visíš", "visí", "visíme", "visíte", "visí"],
+      "imp": ["vis", "visme", "viste"],
+      "past": {
+        "m": "visel",
+        "f": "visela",
+        "n": "viselo",
+        "ma": "viseli",
+        "mi": "visely",
+        "fpl": "visely",
+        "npl": "visela"
+      }
     },
     "vjet": {
       "inf": "vjet",
@@ -3093,6 +3128,20 @@
         "mi": "vypluly",
         "fpl": "vypluly",
         "npl": "vyplula"
+      }
+    },
+    "vysiit": {
+      "inf": "vysít",
+      "pres": [["vyseji", "vyseju"], "vyseješ", "vyseje", "vysejeme", "vysejete", "vysejí"],
+      "imp": ["vysej", "vysejme", "vysejte"],
+      "past": {
+        "m": "vysel",
+        "f": "vysela",
+        "n": "vyselo",
+        "ma": "vyseli",
+        "mi": "vysely",
+        "fpl": "vysely",
+        "npl": "vysela"
       }
     },
     "vysocxina": {

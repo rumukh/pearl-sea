@@ -189,6 +189,52 @@ const faults: Fault[] = [
     change: (d) => (d.sentences = d.sentences.filter((s: any) => s.id !== 'vowels.14')),
     reported: 'the spelling point at 1 also spells "víla": a sentence needs a gap on it',
   },
+  {
+    name: 'an end-mark gap in a statement, which may be read as a question',
+    file: 'sentences.json',
+    change: (d) => {
+      const s = sentence(d, 'kind.01');
+      s.text = 'Na dně moře žije mnoho barevných ryb{.|?}';
+      s.gaps = [{ rule: 'interpunkce' }];
+    },
+    reported: 'an end mark is asked only in a question, a command or a wish',
+  },
+  {
+    name: 'an end-mark gap in a question without a question word',
+    file: 'sentences.json',
+    change: (d) => {
+      const s = sentence(d, 'kind.11');
+      s.text = 'Plavou delfíni rychleji než ryby{?|.}';
+      s.gaps = [{ rule: 'interpunkce' }];
+    },
+    reported: 'starts with a question word',
+  },
+  {
+    name: 'a command offering the full stop it may also end with',
+    file: 'sentences.json',
+    change: (d) => (sentence(d, 'kind.12').text = 'Plav rychle ke břehu{!|.}'),
+    reported: 'a command ends with !, against ?',
+  },
+  {
+    name: 'a wish without kéž or ať',
+    file: 'sentences.json',
+    change: (d) => (sentence(d, 'kind.17').text = 'Už bychom našli ztracený poklad{!|?}'),
+    reported: 'a wish starts with Kéž or Ať',
+  },
+  {
+    name: 'a conjunction offered against one that takes the comma differently',
+    file: 'sentences.json',
+    change: (d) =>
+      (sentence(d, 'conj.01').text = 'Foukal silný vítr, {ale|a} delfíni skákali dál.'),
+    reported: 'takes the comma differently',
+  },
+  {
+    name: 'a missing comma before ale',
+    file: 'sentences.json',
+    change: (d) =>
+      (sentence(d, 'conj.05').text = 'Krab plaval ke břehu {ale|protože} vlny ho vracely.'),
+    reported: 'a comma goes before "ale"',
+  },
 ];
 
 describe('scripts/lexicon/check.mjs', () => {

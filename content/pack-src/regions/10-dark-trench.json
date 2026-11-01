@@ -1,0 +1,1368 @@
+{
+  "objectives": [
+    {
+      "id": "obj.nouns.patterns",
+      "strand": "nouns",
+      "grade": 4,
+      "titleKey": "grownups.objective.nouns.patterns",
+      "rvp": ["ČJL-5-2-03"]
+    },
+    {
+      "id": "obj.nouns.declension",
+      "strand": "nouns",
+      "grade": 4,
+      "titleKey": "grownups.objective.nouns.declension",
+      "rvp": ["ČJL-5-2-03"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "dark-trench",
+      "order": 10,
+      "titleKey": "region.dark-trench",
+      "unlock": {
+        "after": ["sunken-city.monster"]
+      },
+      "monster": "chobotnice-napodobnice",
+      "map": "deep",
+      "grade": 4
+    }
+  ],
+  "levels": [
+    {
+      "id": "dark-trench.1",
+      "region": "dark-trench",
+      "order": 1,
+      "titleKey": "level.dark-trench.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.trench.nets-neuter"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.trench.pairs-neuter"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.trench.pattern-neuter"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["klipka-vzorna"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.dark-trench-welcome",
+      "objectives": ["obj.nouns.patterns"]
+    },
+    {
+      "id": "dark-trench.2",
+      "region": "dark-trench",
+      "order": 2,
+      "titleKey": "level.dark-trench.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["dark-trench.1"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.trench.nets-feminine"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.trench.pairs-feminine"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.trench.pattern-feminine"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.nouns.patterns"]
+    },
+    {
+      "id": "dark-trench.3",
+      "region": "dark-trench",
+      "order": 3,
+      "titleKey": "level.dark-trench.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["dark-trench.2"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.trench.nets-animate"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.trench.pairs-animate"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.trench.pattern-animate"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.nouns.patterns"]
+    },
+    {
+      "id": "dark-trench.4",
+      "region": "dark-trench",
+      "order": 4,
+      "titleKey": "level.dark-trench.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["dark-trench.3"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.trench.nets-inanimate"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.trench.pairs-masculine"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.trench.pattern-inanimate"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.nouns.patterns"]
+    },
+    {
+      "id": "dark-trench.5",
+      "region": "dark-trench",
+      "order": 5,
+      "titleKey": "level.dark-trench.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["dark-trench.4"]
+      },
+      "activities": [
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.trench.vzor-sentences"],
+          "count": 6,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.trench.vzor-mistakes"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.trench.case-forms"],
+          "count": 8,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.nouns.declension"]
+    },
+    {
+      "id": "dark-trench.6",
+      "region": "dark-trench",
+      "order": 6,
+      "titleKey": "level.dark-trench.6",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["dark-trench.5"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.trench.pattern-all"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.trench.pairs-all"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.trench.nets-gender-class"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.nouns.patterns", "obj.nouns.declension"]
+    },
+    {
+      "id": "dark-trench.monster",
+      "region": "dark-trench",
+      "order": 7,
+      "titleKey": "level.dark-trench.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["dark-trench.6"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.trench.pattern-all",
+            "sk.trench.vzor-sentences",
+            "sk.trench.vzor-mistakes",
+            "sk.trench.case-forms",
+            "sk.trench.pattern-neuter",
+            "sk.trench.pattern-feminine",
+            "sk.trench.pattern-animate",
+            "sk.trench.pattern-inanimate"
+          ],
+          "count": 25,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["klipka-vzorna"],
+        "cosmetics": ["stones-glowing"]
+      },
+      "monster": "chobotnice-napodobnice",
+      "storyBeat": "beat.chobotnice-napodobnice",
+      "objectives": ["obj.nouns.patterns", "obj.nouns.declension"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.trench.pattern-neuter",
+      "titleKey": "skill.trench.pattern-neuter",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "words": {
+          "words": [
+            "jezero",
+            "okno",
+            "lano",
+            "slunce",
+            "srdce",
+            "pole",
+            "kotex",
+            "mlaadex",
+            "sxtexnex",
+            "naadrazxii",
+            "naamexstii",
+            "uudolii"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["mesto", "more", "kure", "staveni"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.nets-neuter",
+      "titleKey": "skill.trench.nets-neuter",
+      "strand": "nouns",
+      "generator": "sort",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "values": ["mesto", "more", "kure", "staveni"],
+        "words": {
+          "words": [
+            "jezero",
+            "okno",
+            "lano",
+            "kolo",
+            "slunce",
+            "srdce",
+            "pole",
+            "hrxisxtex",
+            "kotex",
+            "mlaadex",
+            "sxtexnex",
+            "rajcxe",
+            "naadrazxii",
+            "naamexstii",
+            "uudolii",
+            "pobrxezxii"
+          ],
+          "grades": [3, 4]
+        },
+        "fish": 12,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.pairs-neuter",
+      "titleKey": "skill.trench.pairs-neuter",
+      "strand": "nouns",
+      "generator": "pairs",
+      "params": {
+        "pair": "pattern",
+        "words": {
+          "words": [
+            "jezero",
+            "okno",
+            "lano",
+            "kolo",
+            "slunce",
+            "srdce",
+            "pole",
+            "hrxisxtex",
+            "kotex",
+            "mlaadex",
+            "sxtexnex",
+            "rajcxe",
+            "naadrazxii",
+            "naamexstii",
+            "uudolii",
+            "pobrxezxii"
+          ],
+          "grades": [3, 4]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.trench.pattern-feminine",
+      "titleKey": "skill.trench.pattern-feminine",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "words": {
+          "words": [
+            "ryba",
+            "zxelva",
+            "perla",
+            "musxle",
+            "chobotnice",
+            "hvexzdice",
+            "plaazx",
+            "siitx",
+            "postel",
+            "radost",
+            "vexc",
+            "vlastnost"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["zena", "ruze", "pisen", "kost"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.nets-feminine",
+      "titleKey": "skill.trench.nets-feminine",
+      "strand": "nouns",
+      "generator": "sort",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "values": ["zena", "ruze", "pisen", "kost"],
+        "words": {
+          "words": [
+            "ryba",
+            "zxelva",
+            "perla",
+            "vlna",
+            "musxle",
+            "chobotnice",
+            "hvexzdice",
+            "zxidle",
+            "plaazx",
+            "siitx",
+            "postel",
+            "skrxiinx",
+            "radost",
+            "vexc",
+            "vlastnost",
+            "bytost"
+          ],
+          "grades": [3, 4]
+        },
+        "fish": 12,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.pairs-feminine",
+      "titleKey": "skill.trench.pairs-feminine",
+      "strand": "nouns",
+      "generator": "pairs",
+      "params": {
+        "pair": "pattern",
+        "words": {
+          "words": [
+            "ryba",
+            "zxelva",
+            "perla",
+            "vlna",
+            "musxle",
+            "chobotnice",
+            "hvexzdice",
+            "zxidle",
+            "plaazx",
+            "siitx",
+            "postel",
+            "skrxiinx",
+            "radost",
+            "vexc",
+            "vlastnost",
+            "bytost"
+          ],
+          "grades": [3, 4]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.trench.pattern-animate",
+      "titleKey": "skill.trench.pattern-animate",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "words": {
+          "words": [
+            "delfiin",
+            "racek",
+            "krab",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "turista",
+            "taata",
+            "starosta",
+            "zachraance",
+            "straazxce",
+            "vuodce"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["pan", "muz", "predseda", "soudce"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.nets-animate",
+      "titleKey": "skill.trench.nets-animate",
+      "strand": "nouns",
+      "generator": "sort",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "values": ["pan", "muz", "predseda", "soudce"],
+        "words": {
+          "words": [
+            "delfiin",
+            "racek",
+            "krab",
+            "losos",
+            "holub",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "mrozx",
+            "turista",
+            "taata",
+            "starosta",
+            "dexda",
+            "zachraance",
+            "straazxce",
+            "vuodce",
+            "vlaadce"
+          ],
+          "grades": [3, 4]
+        },
+        "fish": 12,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.pairs-animate",
+      "titleKey": "skill.trench.pairs-animate",
+      "strand": "nouns",
+      "generator": "pairs",
+      "params": {
+        "pair": "pattern",
+        "words": {
+          "words": [
+            "delfiin",
+            "racek",
+            "krab",
+            "losos",
+            "holub",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "mrozx",
+            "turista",
+            "taata",
+            "starosta",
+            "dexda",
+            "zachraance",
+            "straazxce",
+            "vuodce",
+            "vlaadce"
+          ],
+          "grades": [3, 4]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.trench.pattern-inanimate",
+      "titleKey": "skill.trench.pattern-inanimate",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "words": {
+          "words": ["ostrov", "majaak", "prxiistav", "miicx", "kliicx", "kosx"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["hrad", "stroj"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.nets-inanimate",
+      "titleKey": "skill.trench.nets-inanimate",
+      "strand": "nouns",
+      "generator": "sort",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "values": ["hrad", "stroj"],
+        "words": {
+          "words": ["ostrov", "majaak", "prxiistav", "uutes", "miicx", "kliicx", "kosx", "nuozx"],
+          "grades": [3, 4]
+        },
+        "fish": 8,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.pairs-masculine",
+      "titleKey": "skill.trench.pairs-masculine",
+      "strand": "nouns",
+      "generator": "pairs",
+      "params": {
+        "pair": "pattern",
+        "words": {
+          "words": [
+            "delfiin",
+            "racek",
+            "krab",
+            "losos",
+            "holub",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "mrozx",
+            "turista",
+            "taata",
+            "starosta",
+            "dexda",
+            "zachraance",
+            "straazxce",
+            "vuodce",
+            "vlaadce",
+            "ostrov",
+            "majaak",
+            "prxiistav",
+            "uutes",
+            "miicx",
+            "kliicx",
+            "kosx",
+            "nuozx"
+          ],
+          "grades": [3, 4]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.trench.pattern-all",
+      "titleKey": "skill.trench.pattern-all",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "pattern",
+        "context": "word",
+        "words": {
+          "words": [
+            "jezero",
+            "okno",
+            "lano",
+            "slunce",
+            "srdce",
+            "pole",
+            "kotex",
+            "mlaadex",
+            "sxtexnex",
+            "naadrazxii",
+            "naamexstii",
+            "uudolii",
+            "ryba",
+            "zxelva",
+            "perla",
+            "musxle",
+            "chobotnice",
+            "hvexzdice",
+            "plaazx",
+            "siitx",
+            "postel",
+            "radost",
+            "vexc",
+            "vlastnost",
+            "delfiin",
+            "racek",
+            "krab",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "turista",
+            "taata",
+            "starosta",
+            "zachraance",
+            "straazxce",
+            "vuodce",
+            "ostrov",
+            "majaak",
+            "prxiistav",
+            "miicx",
+            "kliicx",
+            "kosx"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.pairs-all",
+      "titleKey": "skill.trench.pairs-all",
+      "strand": "nouns",
+      "generator": "pairs",
+      "params": {
+        "pair": "pattern",
+        "words": {
+          "words": [
+            "jezero",
+            "okno",
+            "lano",
+            "kolo",
+            "slunce",
+            "srdce",
+            "pole",
+            "hrxisxtex",
+            "kotex",
+            "mlaadex",
+            "sxtexnex",
+            "rajcxe",
+            "naadrazxii",
+            "naamexstii",
+            "uudolii",
+            "pobrxezxii",
+            "ryba",
+            "zxelva",
+            "perla",
+            "vlna",
+            "musxle",
+            "chobotnice",
+            "hvexzdice",
+            "zxidle",
+            "plaazx",
+            "siitx",
+            "postel",
+            "skrxiinx",
+            "radost",
+            "vexc",
+            "vlastnost",
+            "bytost",
+            "delfiin",
+            "racek",
+            "krab",
+            "losos",
+            "holub",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "mrozx",
+            "turista",
+            "taata",
+            "starosta",
+            "dexda",
+            "zachraance",
+            "straazxce",
+            "vuodce",
+            "vlaadce",
+            "ostrov",
+            "majaak",
+            "prxiistav",
+            "uutes",
+            "miicx",
+            "kliicx",
+            "kosx",
+            "nuozx"
+          ],
+          "grades": [3, 4]
+        },
+        "pairs": 8
+      }
+    },
+    {
+      "id": "sk.trench.nets-gender-class",
+      "titleKey": "skill.trench.nets-gender-class",
+      "strand": "nouns",
+      "generator": "sort",
+      "params": {
+        "dimension": "gender-class",
+        "context": "word",
+        "values": ["ma", "mi", "f", "n"],
+        "words": {
+          "words": [
+            "jezero",
+            "okno",
+            "lano",
+            "kolo",
+            "slunce",
+            "srdce",
+            "pole",
+            "hrxisxtex",
+            "kotex",
+            "mlaadex",
+            "sxtexnex",
+            "rajcxe",
+            "naadrazxii",
+            "naamexstii",
+            "uudolii",
+            "pobrxezxii",
+            "ryba",
+            "zxelva",
+            "perla",
+            "vlna",
+            "musxle",
+            "chobotnice",
+            "hvexzdice",
+            "zxidle",
+            "plaazx",
+            "siitx",
+            "postel",
+            "skrxiinx",
+            "radost",
+            "vexc",
+            "vlastnost",
+            "bytost",
+            "delfiin",
+            "racek",
+            "krab",
+            "losos",
+            "holub",
+            "tulenx",
+            "rybaarx",
+            "uuhorx",
+            "mrozx",
+            "turista",
+            "taata",
+            "starosta",
+            "dexda",
+            "zachraance",
+            "straazxce",
+            "vuodce",
+            "vlaadce",
+            "ostrov",
+            "majaak",
+            "prxiistav",
+            "uutes",
+            "miicx",
+            "kliicx",
+            "kosx",
+            "nuozx"
+          ],
+          "grades": [3, 4]
+        },
+        "fish": 12,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.trench.vzor-sentences",
+      "titleKey": "skill.trench.vzor-sentences",
+      "strand": "nouns",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vzor.01",
+            "vzor.02",
+            "vzor.03",
+            "vzor.04",
+            "vzor.05",
+            "vzor.06",
+            "vzor.07",
+            "vzor.08",
+            "vzor.09",
+            "vzor.10",
+            "vzor.11",
+            "vzor.12",
+            "vzor.13",
+            "vzor.14",
+            "vzor.15"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["vzor"]
+      }
+    },
+    {
+      "id": "sk.trench.vzor-mistakes",
+      "titleKey": "skill.trench.vzor-mistakes",
+      "strand": "nouns",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vzor.01",
+            "vzor.02",
+            "vzor.03",
+            "vzor.04",
+            "vzor.05",
+            "vzor.06",
+            "vzor.07",
+            "vzor.08",
+            "vzor.09",
+            "vzor.10",
+            "vzor.11",
+            "vzor.12",
+            "vzor.13",
+            "vzor.14",
+            "vzor.15"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["vzor"]
+      }
+    },
+    {
+      "id": "sk.trench.case-forms",
+      "titleKey": "skill.trench.case-forms",
+      "strand": "nouns",
+      "generator": "classify",
+      "params": {
+        "dimension": "case",
+        "context": "form",
+        "words": {
+          "words": ["ostrov", "ryba", "jezero"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "klipka-vzorna",
+      "nameKey": "friend.klipka-vzorna",
+      "mnemonicKey": "friend.klipka-vzorna.mnemonic",
+      "region": "dark-trench",
+      "skills": [
+        "sk.trench.pattern-neuter",
+        "sk.trench.pattern-feminine",
+        "sk.trench.pattern-animate",
+        "sk.trench.pattern-inanimate",
+        "sk.trench.pattern-all",
+        "sk.trench.vzor-sentences"
+      ],
+      "monster": "chobotnice-napodobnice"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "chobotnice-napodobnice",
+      "region": "dark-trench",
+      "nameKey": "monster.chobotnice-napodobnice",
+      "mood": "laughing",
+      "meter": 20,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.chobotnice-napodobnice.joke.1",
+        "monster.chobotnice-napodobnice.joke.2",
+        "monster.chobotnice-napodobnice.joke.3",
+        "monster.chobotnice-napodobnice.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "headband-pattern",
+      "slot": "head",
+      "assetId": "cosmetic/headband-pattern",
+      "nameKey": "cosmetic.headband-pattern",
+      "price": 590,
+      "unlock": "dark-trench.1"
+    },
+    {
+      "id": "mask-deep",
+      "slot": "eyes",
+      "assetId": "cosmetic/mask-deep",
+      "nameKey": "cosmetic.mask-deep",
+      "price": 595,
+      "unlock": "dark-trench.3"
+    },
+    {
+      "id": "stones-glowing",
+      "slot": "grotto",
+      "assetId": "cosmetic/stones-glowing",
+      "nameKey": "cosmetic.stones-glowing",
+      "price": 600,
+      "unlock": "dark-trench.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "klipka-hatched",
+      "nameKey": "sticker.klipka-hatched",
+      "page": "dark-trench",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "klipka-vzorna",
+        "stage": "baby"
+      },
+      "icon": "sticker/butterflyfish",
+      "color": "#5c6bc0",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "octopus-herself",
+      "nameKey": "sticker.octopus-herself",
+      "page": "dark-trench",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "chobotnice-napodobnice"
+      },
+      "icon": "sticker/happy-octopus",
+      "color": "#7986cb",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "fourteen-patterns",
+      "nameKey": "sticker.fourteen-patterns",
+      "page": "dark-trench",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.trench.pattern-all",
+        "level": "silver",
+        "share": 100
+      },
+      "icon": "sticker/fourteen-scales",
+      "color": "#3f51b5",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "race-twenty",
+      "nameKey": "sticker.race-twenty",
+      "page": "dark-trench",
+      "criteria": {
+        "kind": "race-best",
+        "count": 20
+      },
+      "icon": "sticker/dolphin-trophy",
+      "color": "#303f9f",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "minigame-3",
+      "titleKey": "quest.minigame-3",
+      "goal": "play-minigame",
+      "target": 3,
+      "coins": 5,
+      "weight": 6,
+      "unlock": "dark-trench.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.dark-trench-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "dark-trench.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.dark-trench-welcome",
+          "revision": "1",
+          "start": "dark-trench-welcome-1",
+          "catalogs": {
+            "scene": ["scene/dark-trench"],
+            "text": [
+              "story.dark-trench-welcome.1",
+              "story.dark-trench-welcome.2",
+              "story.dark-trench-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.klipka-vzorna"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-klipka-vzorna",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.klipka-vzorna"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "dark-trench-welcome-1",
+              "scene": "scene/dark-trench",
+              "text": "story.dark-trench-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-klipka-vzorna"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "dark-trench-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "dark-trench-welcome-2",
+              "scene": "scene/dark-trench",
+              "text": "story.dark-trench-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "dark-trench-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "dark-trench-welcome-3",
+              "scene": "scene/dark-trench",
+              "text": "story.dark-trench-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.chobotnice-napodobnice",
+        "trigger": {
+          "kind": "level-start",
+          "level": "dark-trench.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.chobotnice-napodobnice",
+          "revision": "1",
+          "start": "chobotnice-napodobnice-1",
+          "catalogs": {
+            "scene": ["scene/dark-trench"],
+            "text": [
+              "story.chobotnice-napodobnice.1",
+              "story.chobotnice-napodobnice.2",
+              "story.chobotnice-napodobnice.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "chobotnice-napodobnice-1",
+              "scene": "scene/dark-trench",
+              "text": "story.chobotnice-napodobnice.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "chobotnice-napodobnice-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "chobotnice-napodobnice-2",
+              "scene": "scene/dark-trench",
+              "text": "story.chobotnice-napodobnice.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "chobotnice-napodobnice-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "chobotnice-napodobnice-3",
+              "scene": "scene/dark-trench",
+              "text": "story.chobotnice-napodobnice.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.chobotnice-napodobnice-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "chobotnice-napodobnice"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.chobotnice-napodobnice-freed",
+          "revision": "1",
+          "start": "chobotnice-napodobnice-freed-1",
+          "catalogs": {
+            "scene": ["scene/dark-trench"],
+            "text": [
+              "story.chobotnice-napodobnice-freed.1",
+              "story.chobotnice-napodobnice-freed.2",
+              "story.chobotnice-napodobnice-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "chobotnice-napodobnice-freed-1",
+              "scene": "scene/dark-trench",
+              "text": "story.chobotnice-napodobnice-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "chobotnice-napodobnice-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "chobotnice-napodobnice-freed-2",
+              "scene": "scene/dark-trench",
+              "text": "story.chobotnice-napodobnice-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "chobotnice-napodobnice-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "chobotnice-napodobnice-freed-3",
+              "scene": "scene/dark-trench",
+              "text": "story.chobotnice-napodobnice-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.klipka-vzorna",
+        "grant": {
+          "kind": "egg",
+          "friend": "klipka-vzorna"
+        }
+      }
+    ]
+  }
+}

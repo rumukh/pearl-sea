@@ -1,0 +1,1401 @@
+{
+  "objectives": [
+    {
+      "id": "obj.listed.s",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.s",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.v",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.v",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.z",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.z",
+      "rvp": ["ČJL-3-2-08"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "pirate-wreck",
+      "order": 4,
+      "titleKey": "region.pirate-wreck",
+      "unlock": {
+        "after": ["kelp-forest.monster"]
+      },
+      "monster": "das-lucernik",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "pirate-wreck.1",
+      "region": "pirate-wreck",
+      "order": 1,
+      "titleKey": "level.pirate-wreck.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.wreck.rhyme-s"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.wreck.vyjm-s"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.wreck.sentences-s"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["jezik-sycik"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.pirate-wreck-welcome",
+      "objectives": ["obj.listed.s"]
+    },
+    {
+      "id": "pirate-wreck.2",
+      "region": "pirate-wreck",
+      "order": 2,
+      "titleKey": "level.pirate-wreck.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pirate-wreck.1"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.wreck.family-s"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.wreck.pairs-alike-s"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.wreck.related-s", "sk.wreck.contrast-s"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["vydra-vyskalka"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.s", "obj.listed.related", "obj.listed.sound-alikes"]
+    },
+    {
+      "id": "pirate-wreck.3",
+      "region": "pirate-wreck",
+      "order": 3,
+      "titleKey": "level.pirate-wreck.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pirate-wreck.2"]
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.wreck.rhyme-v"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.wreck.vyjm-v", "sk.wreck.prefix-vy"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.wreck.sentences-v", "sk.wreck.prefix-vy-sentences"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["vydra-vyskalka"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.v"]
+    },
+    {
+      "id": "pirate-wreck.4",
+      "region": "pirate-wreck",
+      "order": 4,
+      "titleKey": "level.pirate-wreck.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pirate-wreck.3"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.wreck.family-v"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.wreck.pairs-alike-v"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.wreck.related-v", "sk.wreck.contrast-v"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["jazyk-jazycek"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.v", "obj.listed.related", "obj.listed.sound-alikes"]
+    },
+    {
+      "id": "pirate-wreck.5",
+      "region": "pirate-wreck",
+      "order": 5,
+      "titleKey": "level.pirate-wreck.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pirate-wreck.4"]
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.wreck.rhyme-z"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.wreck.vyjm-z"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "word-family",
+          "skills": ["sk.wreck.family-z"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["jazyk-jazycek"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.z"]
+    },
+    {
+      "id": "pirate-wreck.6",
+      "region": "pirate-wreck",
+      "order": 6,
+      "titleKey": "level.pirate-wreck.6",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pirate-wreck.5"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": [
+            "sk.wreck.vyjm-s",
+            "sk.wreck.vyjm-v",
+            "sk.wreck.prefix-vy",
+            "sk.wreck.vyjm-z",
+            "sk.wreck.contrast-s",
+            "sk.wreck.contrast-v",
+            "sk.wreck.contrast-z"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.wreck.pairs-alike-svz"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.wreck.mistakes-svz"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.s", "obj.listed.v", "obj.listed.z"]
+    },
+    {
+      "id": "pirate-wreck.monster",
+      "region": "pirate-wreck",
+      "order": 7,
+      "titleKey": "level.pirate-wreck.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["pirate-wreck.6"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.wreck.vyjm-s",
+            "sk.wreck.vyjm-v",
+            "sk.wreck.vyjm-z",
+            "sk.wreck.prefix-vy",
+            "sk.wreck.related-s",
+            "sk.wreck.related-v",
+            "sk.wreck.related-z",
+            "sk.wreck.sentences-s",
+            "sk.wreck.sentences-v",
+            "sk.wreck.sentences-z",
+            "sk.wreck.prefix-vy-sentences",
+            "sk.wreck.alike-s",
+            "sk.wreck.alike-v",
+            "sk.wreck.contrast-s",
+            "sk.wreck.contrast-v",
+            "sk.wreck.mistakes-svz"
+          ],
+          "count": 23,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["jezik-sycik", "vydra-vyskalka", "jazyk-jazycek"],
+        "cosmetics": ["chest-treasure"]
+      },
+      "monster": "das-lucernik",
+      "storyBeat": "beat.das-lucernik",
+      "objectives": ["obj.listed.s", "obj.listed.v", "obj.listed.z", "obj.listed.related"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.wreck.rhyme-s",
+      "titleKey": "skill.wreck.rhyme-s",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "syn",
+            "sytyy",
+            "syyr",
+            "syrovyy",
+            "sychravyy",
+            "usychat",
+            "syykora",
+            "syycxek",
+            "sysel",
+            "sycxet",
+            "sypat"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 6
+      }
+    },
+    {
+      "id": "sk.wreck.vyjm-s",
+      "titleKey": "skill.wreck.vyjm-s",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "syn",
+            "sytyy",
+            "syyr",
+            "syrovyy",
+            "sychravyy",
+            "usychat",
+            "syykora",
+            "syycxek",
+            "sysel",
+            "sycxet",
+            "sypat",
+            "synek",
+            "dosyta",
+            "nenasytnyy",
+            "syyrovyy",
+            "syykorka",
+            "sykot",
+            "nasypat",
+            "rozsypat",
+            "posypat"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.related-s",
+      "titleKey": "skill.wreck.related-s",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "synek",
+            "dosyta",
+            "nenasytnyy",
+            "syyrovyy",
+            "syykorka",
+            "sykot",
+            "nasypat",
+            "rozsypat",
+            "posypat"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.sentences-s",
+      "titleKey": "skill.wreck.sentences-s",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-s.01",
+            "vyjm-s.02",
+            "vyjm-s.03",
+            "vyjm-s.04",
+            "vyjm-s.05",
+            "vyjm-s.06",
+            "vyjm-s.07",
+            "vyjm-s.08",
+            "vyjm-s.09",
+            "vyjm-s.10",
+            "vyjm-s.11",
+            "vyjm-s.12",
+            "vyjm-s.13",
+            "vyjm-s.14",
+            "vyjm-s.16",
+            "vyjm-s.17",
+            "vyjm-s.18",
+            "vyjm-s.19",
+            "vyjm-s.24"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.wreck.contrast-s",
+      "titleKey": "skill.wreck.contrast-s",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["siitx", "silnyy", "siila", "prosit", "siirovyy"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.family-s",
+      "titleKey": "skill.wreck.family-s",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["s"],
+          "grades": [3]
+        },
+        "families": ["vyjm-s.syn", "vyjm-s.sytyy", "vyjm-s.sycxet", "vyjm-s.sypat"],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.wreck.alike-s",
+      "titleKey": "skill.wreck.alike-s",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": ["alike.22"],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.wreck.rhyme-v",
+      "titleKey": "skill.wreck.rhyme-v",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "vy",
+            "vysokyy",
+            "vyyt",
+            "vyyskat",
+            "zvykat",
+            "zxvyykat",
+            "vydra",
+            "vyyr",
+            "vyzxle",
+            "povyk",
+            "vyyhenx"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 6
+      }
+    },
+    {
+      "id": "sk.wreck.vyjm-v",
+      "titleKey": "skill.wreck.vyjm-v",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "vy",
+            "vysokyy",
+            "vyyt",
+            "vyyskat",
+            "zvykat",
+            "zxvyykat",
+            "vydra",
+            "vyyr",
+            "vyzxle",
+            "povyk",
+            "vyyhenx",
+            "vykat",
+            "vyysxka",
+            "vysoko",
+            "vyyskot",
+            "zvyk",
+            "zvyknout-si",
+            "obvykle",
+            "zxvyykacxka",
+            "vyyrxii"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.related-v",
+      "titleKey": "skill.wreck.related-v",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "vykat",
+            "vyysxka",
+            "vysoko",
+            "vyyskot",
+            "zvyk",
+            "zvyknout-si",
+            "obvykle",
+            "zxvyykacxka",
+            "vyyrxii"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.sentences-v",
+      "titleKey": "skill.wreck.sentences-v",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-v.01",
+            "vyjm-v.02",
+            "vyjm-v.03",
+            "vyjm-v.04",
+            "vyjm-v.05",
+            "vyjm-v.06",
+            "vyjm-v.07",
+            "vyjm-v.12",
+            "vyjm-v.13",
+            "vyjm-v.14",
+            "vyjm-v.16",
+            "vyjm-v.17",
+            "vyjm-v.18",
+            "vyjm-v.19",
+            "vyjm-v.20",
+            "vyjm-v.27",
+            "vyjm-v.28"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.wreck.contrast-v",
+      "titleKey": "skill.wreck.contrast-v",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["viitr", "vidext", "viitexz", "zviirxit", "viir", "viiskat", "viset", "viit"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.family-v",
+      "titleKey": "skill.wreck.family-v",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["v"],
+          "grades": [3]
+        },
+        "families": [
+          "vyjm-v.vysokyy",
+          "vyjm-v.vyyt",
+          "vyjm-v.vyyskat",
+          "vyjm-v.zvykat",
+          "vyjm-v.zxvyykat"
+        ],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.wreck.prefix-vy",
+      "titleKey": "skill.wreck.prefix-vy",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "vyplout",
+            "vynorxit-se",
+            "vyylet",
+            "vyyhled",
+            "vyhraat",
+            "vyyprava",
+            "vyleezt",
+            "vysiit"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm-prefix"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.prefix-vy-sentences",
+      "titleKey": "skill.wreck.prefix-vy-sentences",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "alike.24",
+            "vyjm-v.08",
+            "vyjm-v.09",
+            "vyjm-v.10",
+            "vyjm-v.11",
+            "vyjm-v.15",
+            "vyjm-v.21"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix"]
+      }
+    },
+    {
+      "id": "sk.wreck.alike-v",
+      "titleKey": "skill.wreck.alike-v",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "alike.08",
+            "alike.09",
+            "alike.14",
+            "alike.15",
+            "alike.19",
+            "alike.23",
+            "alike.24",
+            "alike.25"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.wreck.rhyme-z",
+      "titleKey": "skill.wreck.rhyme-z",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": ["brzy", "jazyk", "nazyyvat", "ruzynex"],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.wreck.vyjm-z",
+      "titleKey": "skill.wreck.vyjm-z",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "brzy",
+            "jazyk",
+            "nazyyvat",
+            "ruzynex",
+            "jazyycxek",
+            "jazykovyy",
+            "ozyyvat-se",
+            "vyzyyvat"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.related-z",
+      "titleKey": "skill.wreck.related-z",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["jazyycxek", "jazykovyy", "ozyyvat-se", "vyzyyvat"],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.sentences-z",
+      "titleKey": "skill.wreck.sentences-z",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-z.02",
+            "vyjm-z.03",
+            "vyjm-z.04",
+            "vyjm-z.05",
+            "vyjm-z.06",
+            "vyjm-z.07",
+            "vyjm-z.09",
+            "vyjm-z.10"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.wreck.contrast-z",
+      "titleKey": "skill.wreck.contrast-z",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["ziitra", "zima", "ziivat", "jeziirko", "voziik"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.wreck.family-z",
+      "titleKey": "skill.wreck.family-z",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["z"],
+          "grades": [3]
+        },
+        "families": ["vyjm-z.jazyk", "vyjm-z.nazyyvat"],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.wreck.pairs-alike-s",
+      "titleKey": "skill.wreck.pairs-alike-s",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": ["syyrovyy", "siirovyy", "pyl", "piit", "myyt", "miit", "byyt", "biit"],
+          "grades": [3]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.wreck.pairs-alike-v",
+      "titleKey": "skill.wreck.pairs-alike-v",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": ["vyyr", "viir", "vyyskat", "viiskat", "vysiit", "viset", "vyyt", "viit"],
+          "grades": [3]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.wreck.pairs-alike-svz",
+      "titleKey": "skill.wreck.pairs-alike-svz",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": [
+            "syyrovyy",
+            "siirovyy",
+            "vyyr",
+            "viir",
+            "vyyskat",
+            "viiskat",
+            "vysiit",
+            "viset",
+            "vyyt",
+            "viit"
+          ],
+          "grades": [3]
+        },
+        "pairs": 5
+      }
+    },
+    {
+      "id": "sk.wreck.mistakes-svz",
+      "titleKey": "skill.wreck.mistakes-svz",
+      "strand": "listed-words",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-s.01",
+            "vyjm-s.02",
+            "vyjm-s.03",
+            "vyjm-s.05",
+            "vyjm-s.06",
+            "vyjm-s.07",
+            "vyjm-s.08",
+            "vyjm-s.09",
+            "vyjm-s.10",
+            "vyjm-s.11",
+            "vyjm-s.12",
+            "vyjm-s.13",
+            "vyjm-s.14",
+            "vyjm-s.16",
+            "vyjm-s.17",
+            "vyjm-s.18",
+            "vyjm-s.19",
+            "vyjm-v.01",
+            "vyjm-v.02",
+            "vyjm-v.05",
+            "vyjm-v.06",
+            "vyjm-v.07",
+            "vyjm-v.12",
+            "vyjm-v.13",
+            "vyjm-v.14",
+            "vyjm-v.16",
+            "vyjm-v.17",
+            "vyjm-v.18",
+            "vyjm-v.20",
+            "alike.24",
+            "vyjm-v.08",
+            "vyjm-v.09",
+            "vyjm-v.10",
+            "vyjm-v.11",
+            "vyjm-v.15",
+            "vyjm-v.21",
+            "vyjm-z.02",
+            "vyjm-z.03",
+            "vyjm-z.04",
+            "vyjm-z.05",
+            "vyjm-z.06",
+            "vyjm-z.07",
+            "vyjm-z.09",
+            "vyjm-z.10",
+            "vyjm-s.20",
+            "vyjm-s.21",
+            "vyjm-s.22",
+            "vyjm-s.23",
+            "vyjm-v.22",
+            "vyjm-v.23",
+            "vyjm-v.25",
+            "vyjm-v.26",
+            "vyjm-z.11",
+            "vyjm-z.12",
+            "vyjm-z.13",
+            "vyjm-z.14"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "jezik-sycik",
+      "nameKey": "friend.jezik-sycik",
+      "mnemonicKey": "friend.jezik-sycik.mnemonic",
+      "region": "pirate-wreck",
+      "skills": [
+        "sk.wreck.rhyme-s",
+        "sk.wreck.vyjm-s",
+        "sk.wreck.sentences-s",
+        "sk.wreck.contrast-s",
+        "sk.wreck.alike-s"
+      ],
+      "monster": "das-lucernik"
+    },
+    {
+      "id": "vydra-vyskalka",
+      "nameKey": "friend.vydra-vyskalka",
+      "mnemonicKey": "friend.vydra-vyskalka.mnemonic",
+      "region": "pirate-wreck",
+      "skills": [
+        "sk.wreck.rhyme-v",
+        "sk.wreck.vyjm-v",
+        "sk.wreck.sentences-v",
+        "sk.wreck.contrast-v",
+        "sk.wreck.prefix-vy",
+        "sk.wreck.prefix-vy-sentences",
+        "sk.wreck.alike-v"
+      ],
+      "monster": "das-lucernik"
+    },
+    {
+      "id": "jazyk-jazycek",
+      "nameKey": "friend.jazyk-jazycek",
+      "mnemonicKey": "friend.jazyk-jazycek.mnemonic",
+      "region": "pirate-wreck",
+      "skills": [
+        "sk.wreck.rhyme-z",
+        "sk.wreck.vyjm-z",
+        "sk.wreck.sentences-z",
+        "sk.wreck.contrast-z",
+        "sk.wreck.family-z"
+      ],
+      "monster": "das-lucernik"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "das-lucernik",
+      "region": "pirate-wreck",
+      "nameKey": "monster.das-lucernik",
+      "mood": "grumpy",
+      "meter": 18,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.das-lucernik.joke.1",
+        "monster.das-lucernik.joke.2",
+        "monster.das-lucernik.joke.3",
+        "monster.das-lucernik.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "hat-pirate",
+      "slot": "head",
+      "assetId": "cosmetic/hat-pirate",
+      "nameKey": "cosmetic.hat-pirate",
+      "price": 475,
+      "unlock": "pirate-wreck.1"
+    },
+    {
+      "id": "eyepatch",
+      "slot": "eyes",
+      "assetId": "cosmetic/eyepatch",
+      "nameKey": "cosmetic.eyepatch",
+      "price": 525,
+      "unlock": "pirate-wreck.3"
+    },
+    {
+      "id": "chest-treasure",
+      "slot": "grotto",
+      "assetId": "cosmetic/chest-treasure",
+      "nameKey": "cosmetic.chest-treasure",
+      "price": 575,
+      "unlock": "pirate-wreck.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "jezik-hatched",
+      "nameKey": "sticker.jezik-hatched",
+      "page": "pirate-wreck",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "jezik-sycik",
+        "stage": "baby"
+      },
+      "icon": "sticker/puffer",
+      "color": "#f6c26b",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "vydra-hatched",
+      "nameKey": "sticker.vydra-hatched",
+      "page": "pirate-wreck",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "vydra-vyskalka",
+        "stage": "baby"
+      },
+      "icon": "sticker/otter",
+      "color": "#b98b5e",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "jazyk-hatched",
+      "nameKey": "sticker.jazyk-hatched",
+      "page": "pirate-wreck",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "jazyk-jazycek",
+        "stage": "baby"
+      },
+      "icon": "sticker/sole",
+      "color": "#d9b38c",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "lantern-bright",
+      "nameKey": "sticker.lantern-bright",
+      "page": "pirate-wreck",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "das-lucernik"
+      },
+      "icon": "sticker/lantern",
+      "color": "#ffd45c",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ten-days",
+      "nameKey": "sticker.ten-days",
+      "page": "pirate-wreck",
+      "criteria": {
+        "kind": "days-practiced",
+        "count": 10
+      },
+      "icon": "sticker/calendar-wave",
+      "color": "#5fb4c9",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "minigame-2",
+      "titleKey": "quest.minigame-2",
+      "goal": "play-minigame",
+      "target": 2,
+      "coins": 3,
+      "weight": 6,
+      "unlock": "pirate-wreck.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.pirate-wreck-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "pirate-wreck.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.pirate-wreck-welcome",
+          "revision": "1",
+          "start": "pirate-wreck-welcome-1",
+          "catalogs": {
+            "scene": ["scene/pirate-wreck"],
+            "text": [
+              "story.pirate-wreck-welcome.1",
+              "story.pirate-wreck-welcome.2",
+              "story.pirate-wreck-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.jezik-sycik"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-jezik-sycik",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.jezik-sycik"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "pirate-wreck-welcome-1",
+              "scene": "scene/pirate-wreck",
+              "text": "story.pirate-wreck-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-jezik-sycik"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "pirate-wreck-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "pirate-wreck-welcome-2",
+              "scene": "scene/pirate-wreck",
+              "text": "story.pirate-wreck-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "pirate-wreck-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "pirate-wreck-welcome-3",
+              "scene": "scene/pirate-wreck",
+              "text": "story.pirate-wreck-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.das-lucernik",
+        "trigger": {
+          "kind": "level-start",
+          "level": "pirate-wreck.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.das-lucernik",
+          "revision": "1",
+          "start": "das-lucernik-1",
+          "catalogs": {
+            "scene": ["scene/pirate-wreck"],
+            "text": [
+              "story.das-lucernik.1",
+              "story.das-lucernik.2",
+              "story.das-lucernik.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "das-lucernik-1",
+              "scene": "scene/pirate-wreck",
+              "text": "story.das-lucernik.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "das-lucernik-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "das-lucernik-2",
+              "scene": "scene/pirate-wreck",
+              "text": "story.das-lucernik.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "das-lucernik-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "das-lucernik-3",
+              "scene": "scene/pirate-wreck",
+              "text": "story.das-lucernik.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.das-lucernik-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "das-lucernik"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.das-lucernik-freed",
+          "revision": "1",
+          "start": "das-lucernik-freed-1",
+          "catalogs": {
+            "scene": ["scene/pirate-wreck"],
+            "text": [
+              "story.das-lucernik-freed.1",
+              "story.das-lucernik-freed.2",
+              "story.das-lucernik-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "das-lucernik-freed-1",
+              "scene": "scene/pirate-wreck",
+              "text": "story.das-lucernik-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "das-lucernik-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "das-lucernik-freed-2",
+              "scene": "scene/pirate-wreck",
+              "text": "story.das-lucernik-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "das-lucernik-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "das-lucernik-freed-3",
+              "scene": "scene/pirate-wreck",
+              "text": "story.das-lucernik-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.jezik-sycik",
+        "grant": {
+          "kind": "egg",
+          "friend": "jezik-sycik"
+        }
+      }
+    ]
+  }
+}

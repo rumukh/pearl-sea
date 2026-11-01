@@ -473,6 +473,315 @@
       "gaps": [
         { "rule": "shoda", "word": "diivat-se", "subjects": [{ "t": "Lidé", "word": "lidee" }] }
       ]
+    },
+    {
+      "id": "kind.01",
+      "text": "Na dně moře žije mnoho barevných ryb.",
+      "kind": "statement",
+      "clauses": 1,
+      "marks": [{ "t": "žije", "word": "zxiit", "role": "predicate" }]
+    },
+    {
+      "id": "kind.02",
+      "text": "Delfíni skáčou vysoko nad vlny.",
+      "kind": "statement",
+      "clauses": 1,
+      "marks": [{ "t": "skáčou", "word": "skaakat", "role": "predicate" }]
+    },
+    {
+      "id": "kind.03",
+      "text": "Večer nad mořem svítí maják.",
+      "kind": "statement",
+      "clauses": 1,
+      "marks": [{ "t": "svítí", "word": "sviitit", "role": "predicate" }]
+    },
+    {
+      "id": "kind.04",
+      "text": "Velryby zpívají dlouhé písně.",
+      "kind": "statement",
+      "clauses": 1,
+      "marks": [{ "t": "zpívají", "word": "zpiivat", "role": "predicate" }]
+    },
+    {
+      "id": "kind.05",
+      "text": "Želva klade vejce do písku.",
+      "kind": "statement",
+      "clauses": 1,
+      "marks": [{ "t": "klade", "role": "predicate" }]
+    },
+    {
+      "id": "kind.06",
+      "text": "Kde bydlí malá chobotnice{?|.}",
+      "kind": "question",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "bydlí", "word": "bydlit", "role": "predicate" }]
+    },
+    {
+      "id": "kind.07",
+      "text": "Kdo plave tak rychle jako delfín{?|.}",
+      "kind": "question",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "plave", "word": "plavat", "role": "predicate" }]
+    },
+    {
+      "id": "kind.08",
+      "text": "Proč racci křičí nad přístavem{?|.}",
+      "kind": "question",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "křičí", "word": "krxicxet", "role": "predicate" }]
+    },
+    {
+      "id": "kind.09",
+      "text": "Kolik ramen má hvězdice{?|.}",
+      "kind": "question",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "má", "word": "miit", "role": "predicate" }]
+    },
+    {
+      "id": "kind.10",
+      "text": "Co jí velryba k obědu{?|.}",
+      "kind": "question",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "jí", "role": "predicate" }]
+    },
+    {
+      "id": "kind.11",
+      "text": "Plavou delfíni rychleji než ryby?",
+      "kind": "question",
+      "clauses": 1,
+      "marks": [{ "t": "Plavou", "word": "plavat", "role": "predicate" }]
+    },
+    {
+      "id": "kind.12",
+      "text": "Plav rychle ke břehu{!|?}",
+      "kind": "command",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "Plav", "word": "plavat", "role": "predicate", "mood": "imperative" }]
+    },
+    {
+      "id": "kind.13",
+      "text": "Zavři rychle poklop ponorky{!|?}",
+      "kind": "command",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "Zavři", "word": "zavrxiit", "role": "predicate", "mood": "imperative" }]
+    },
+    {
+      "id": "kind.14",
+      "text": "Dej mi tu modrou mušli{!|?}",
+      "kind": "command",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "Dej", "word": "daat", "role": "predicate", "mood": "imperative" }]
+    },
+    {
+      "id": "kind.15",
+      "text": "Hledej perlu pod velkým kamenem{!|?}",
+      "kind": "command",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "Hledej", "word": "hledat", "role": "predicate", "mood": "imperative" }]
+    },
+    {
+      "id": "kind.16",
+      "text": "Najdi všechny ztracené mušle{!|?}",
+      "kind": "command",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "Najdi", "word": "najiit", "role": "predicate", "mood": "imperative" }]
+    },
+    {
+      "id": "kind.17",
+      "text": "Kéž bychom našli ztracený poklad{!|?}",
+      "kind": "wish",
+      "gaps": [{ "rule": "interpunkce" }]
+    },
+    {
+      "id": "kind.18",
+      "text": "Kéž by delfíni připluli až k nám{!|?}",
+      "kind": "wish",
+      "gaps": [{ "rule": "interpunkce" }]
+    },
+    {
+      "id": "kind.19",
+      "text": "Ať najdeš tu nejkrásnější perlu{!|?}",
+      "kind": "wish",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "najdeš", "word": "najiit", "role": "predicate" }]
+    },
+    {
+      "id": "kind.20",
+      "text": "Ať vyhraješ závod s delfíny{!|?}",
+      "kind": "wish",
+      "clauses": 1,
+      "gaps": [{ "rule": "interpunkce" }],
+      "marks": [{ "t": "vyhraješ", "word": "vyhraat", "role": "predicate" }]
+    },
+    {
+      "id": "conj.01",
+      "text": "Foukal silný vítr, {ale|protože} delfíni skákali dál.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "ale" }],
+      "marks": [
+        { "t": "Foukal", "role": "predicate" },
+        { "t": "skákali", "word": "skaakat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.02",
+      "text": "Malá rybka plakala, {protože|ale} ztratila mušli.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "protozxe" }],
+      "marks": [
+        { "t": "plakala", "role": "predicate" },
+        { "t": "ztratila", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.03",
+      "text": "Delfín vyskočil z vody, {když|že} uviděl loď.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "kdyzx" }],
+      "marks": [
+        { "t": "vyskočil", "role": "predicate" },
+        { "t": "uviděl", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.04",
+      "text": "Rybář věděl, {že|protože} přijde bouřka.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "zxe" }],
+      "marks": [
+        { "t": "věděl", "role": "predicate" },
+        { "t": "přijde", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.05",
+      "text": "Krab plaval ke břehu, {ale|protože} vlny ho vracely.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "ale" }],
+      "marks": [
+        { "t": "plaval", "word": "plavat", "role": "predicate" },
+        { "t": "vracely", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.06",
+      "text": "Ponorka vyplula, {když|že} bouře přestala.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "kdyzx" }],
+      "marks": [
+        { "t": "vyplula", "word": "vyplout", "role": "predicate" },
+        { "t": "přestala", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.07",
+      "text": "Mrož Vousáč řekl, {že|protože} zítra otevře obchod.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "zxe" }],
+      "marks": [
+        { "t": "řekl", "role": "predicate" },
+        { "t": "otevře", "word": "otevrxiit", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "conj.08",
+      "text": "Rybky rychle odplavaly, {protože|že} připlul žralok.",
+      "kind": "statement",
+      "clauses": 2,
+      "gaps": [{ "rule": "spojka", "word": "protozxe" }],
+      "marks": [
+        { "t": "odplavaly", "word": "odplavat", "role": "predicate" },
+        { "t": "připlul", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.08",
+      "grade": 4,
+      "text": "Racci křičí nad přístavem.",
+      "clauses": 1,
+      "marks": [
+        { "t": "Racci", "word": "racek", "role": "subject" },
+        { "t": "křičí", "word": "krxicxet", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.09",
+      "grade": 4,
+      "text": "Velryba zpívá dlouhou píseň.",
+      "clauses": 1,
+      "marks": [
+        { "t": "Velryba", "word": "velryba", "role": "subject" },
+        { "t": "zpívá", "word": "zpiivat", "role": "predicate" }
+      ]
+    },
+    {
+      "id": "subj.10",
+      "grade": 4,
+      "text": "Plaveme spolu k majáku.",
+      "clauses": 1,
+      "marks": [{ "t": "Plaveme", "word": "plavat", "role": "predicate" }]
+    },
+    {
+      "id": "subj.11",
+      "grade": 4,
+      "text": "Pod mostem odpočívá unavený tuleň.",
+      "clauses": 1,
+      "marks": [
+        { "t": "odpočívá", "word": "odpocxiivat", "role": "predicate" },
+        { "t": "tuleň", "word": "tulenx", "role": "subject" }
+      ]
+    },
+    {
+      "id": "subj.12",
+      "grade": 4,
+      "text": "Hledáš na pláži mušle?",
+      "clauses": 1,
+      "marks": [{ "t": "Hledáš", "word": "hledat", "role": "predicate" }]
+    },
+    {
+      "id": "subj.13",
+      "grade": 4,
+      "text": "Na obloze září slunce.",
+      "clauses": 1,
+      "marks": [
+        { "t": "září", "role": "predicate" },
+        { "t": "slunce", "word": "slunce", "role": "subject" }
+      ]
+    },
+    {
+      "id": "subj.14",
+      "grade": 4,
+      "text": "Lovíme ryby sítí.",
+      "clauses": 1,
+      "marks": [{ "t": "Lovíme", "word": "lovit", "role": "predicate" }]
+    },
+    {
+      "id": "subj.15",
+      "grade": 4,
+      "text": "Malý krab staví hrad z písku.",
+      "clauses": 1,
+      "marks": [
+        { "t": "krab", "word": "krab", "role": "subject" },
+        { "t": "staví", "role": "predicate" }
+      ]
     }
   ]
 }

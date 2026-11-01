@@ -599,6 +599,61 @@
         }
       },
       "src": ["morfflex"]
+    },
+    {
+      "id": "vsximnout-si",
+      "lemma": "všimnout si",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "pf",
+      "reflexive": "si",
+      "paradigm": {
+        "inf": "všimnout",
+        "pres": ["všimnu", "všimneš", "všimne", "všimneme", "všimnete", "všimnou"],
+        "imp": ["všimni", "všimněme", "všimněte"],
+        "past": {
+          "m": "všiml",
+          "f": "všimla",
+          "n": "všimlo",
+          "ma": "všimli",
+          "mi": "všimly",
+          "fpl": "všimly",
+          "npl": "všimla"
+        }
+      },
+      "note": "Bez si se nepoužívá; minulý čas všiml (IJP; tvar všimnul příručky neuvádějí).",
+      "src": ["ijp", "morfflex"]
+    },
+    {
+      "id": "stexzxovat-si",
+      "lemma": "stěžovat si",
+      "pos": "verb",
+      "grade": 4,
+      "aspect": "impf",
+      "reflexive": "si",
+      "paradigm": {
+        "inf": "stěžovat",
+        "pres": [
+          ["stěžuji", "stěžuju"],
+          "stěžuješ",
+          "stěžuje",
+          "stěžujeme",
+          "stěžujete",
+          "stěžují"
+        ],
+        "imp": ["stěžuj", "stěžujme", "stěžujte"],
+        "past": {
+          "m": "stěžoval",
+          "f": "stěžovala",
+          "n": "stěžovalo",
+          "ma": "stěžovali",
+          "mi": "stěžovaly",
+          "fpl": "stěžovaly",
+          "npl": "stěžovala"
+        }
+      },
+      "note": "Bez si se nepoužívá.",
+      "src": ["ijp", "morfflex"]
     }
   ],
   "sentences": [

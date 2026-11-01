@@ -1,0 +1,1171 @@
+{
+  "objectives": [
+    {
+      "id": "obj.listed.m",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.m",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.listed.p",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.p",
+      "rvp": ["ČJL-3-2-08"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "kelp-forest",
+      "order": 3,
+      "titleKey": "region.kelp-forest",
+      "unlock": {
+        "after": ["coral-reef.monster"]
+      },
+      "monster": "had-zamotal",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "kelp-forest.1",
+      "region": "kelp-forest",
+      "order": 1,
+      "titleKey": "level.kelp-forest.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.kelp.rhyme-m"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.kelp.vyjm-m"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.kelp.sentences-m"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["konik-mydlinek"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.kelp-forest-welcome",
+      "objectives": ["obj.listed.m"]
+    },
+    {
+      "id": "kelp-forest.2",
+      "region": "kelp-forest",
+      "order": 2,
+      "titleKey": "level.kelp-forest.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kelp-forest.1"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.kelp.family-m"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.kelp.pairs-alike-m"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.kelp.related-m", "sk.kelp.contrast-m"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["pyskoun-pysny"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.m", "obj.listed.related", "obj.listed.sound-alikes"]
+    },
+    {
+      "id": "kelp-forest.3",
+      "region": "kelp-forest",
+      "order": 3,
+      "titleKey": "level.kelp-forest.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kelp-forest.2"]
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.kelp.rhyme-p"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.kelp.vyjm-p"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.kelp.sentences-p"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["pyskoun-pysny"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.p"]
+    },
+    {
+      "id": "kelp-forest.4",
+      "region": "kelp-forest",
+      "order": 4,
+      "titleKey": "level.kelp-forest.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kelp-forest.3"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.kelp.family-p"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.kelp.pairs-alike-p"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.kelp.related-p", "sk.kelp.contrast-p"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.p", "obj.listed.related", "obj.listed.sound-alikes"]
+    },
+    {
+      "id": "kelp-forest.5",
+      "region": "kelp-forest",
+      "order": 5,
+      "titleKey": "level.kelp-forest.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["kelp-forest.4"]
+      },
+      "activities": [
+        {
+          "kind": "feeding",
+          "skills": [
+            "sk.kelp.vyjm-m",
+            "sk.kelp.vyjm-p",
+            "sk.kelp.contrast-m",
+            "sk.kelp.contrast-p",
+            "sk.kelp.odd-listed"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.kelp.mistakes-mp"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.m", "obj.listed.p"]
+    },
+    {
+      "id": "kelp-forest.monster",
+      "region": "kelp-forest",
+      "order": 6,
+      "titleKey": "level.kelp-forest.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["kelp-forest.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.kelp.vyjm-m",
+            "sk.kelp.vyjm-p",
+            "sk.kelp.related-m",
+            "sk.kelp.related-p",
+            "sk.kelp.sentences-m",
+            "sk.kelp.sentences-p",
+            "sk.kelp.alike-m",
+            "sk.kelp.alike-p",
+            "sk.kelp.contrast-m",
+            "sk.kelp.contrast-p",
+            "sk.kelp.mistakes-mp",
+            "sk.kelp.odd-listed"
+          ],
+          "count": 20,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["konik-mydlinek", "pyskoun-pysny"],
+        "cosmetics": ["curtain-kelp"]
+      },
+      "monster": "had-zamotal",
+      "storyBeat": "beat.had-zamotal",
+      "objectives": ["obj.listed.m", "obj.listed.p", "obj.listed.related"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.kelp.rhyme-m",
+      "titleKey": "skill.kelp.rhyme-m",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "my",
+            "myyt",
+            "myslit",
+            "myylit-se",
+            "hmyz",
+            "mysx",
+            "hlemyyzxdx",
+            "myytit",
+            "zamykat",
+            "smyykat",
+            "dmyychat",
+            "chmyyrxii",
+            "nachomyytnout-se",
+            "litomysxl"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 7
+      }
+    },
+    {
+      "id": "sk.kelp.vyjm-m",
+      "titleKey": "skill.kelp.vyjm-m",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "my",
+            "myyt",
+            "myslit",
+            "myylit-se",
+            "hmyz",
+            "mysx",
+            "hlemyyzxdx",
+            "myytit",
+            "zamykat",
+            "smyykat",
+            "dmyychat",
+            "chmyyrxii",
+            "nachomyytnout-se",
+            "litomysxl",
+            "myydlo",
+            "umyyt",
+            "myyval",
+            "mytii",
+            "mysxlenka",
+            "prxemyysxlet",
+            "omyl",
+            "mysxka",
+            "odemykat",
+            "myytina"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kelp.related-m",
+      "titleKey": "skill.kelp.related-m",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "myydlo",
+            "umyyt",
+            "myyval",
+            "mytii",
+            "mysxlenka",
+            "prxemyysxlet",
+            "omyl",
+            "mysxka",
+            "odemykat",
+            "myytina"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kelp.sentences-m",
+      "titleKey": "skill.kelp.sentences-m",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-m.01",
+            "vyjm-m.02",
+            "vyjm-m.03",
+            "vyjm-m.04",
+            "vyjm-m.06",
+            "vyjm-m.07",
+            "vyjm-m.09",
+            "vyjm-m.11",
+            "vyjm-m.12",
+            "vyjm-m.13",
+            "vyjm-m.14",
+            "vyjm-m.15",
+            "vyjm-m.16",
+            "vyjm-m.17",
+            "vyjm-m.19",
+            "vyjm-m.21",
+            "vyjm-m.22",
+            "vyjm-m.29"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.kelp.contrast-m",
+      "titleKey": "skill.kelp.contrast-m",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["miicx", "miisto", "mince", "smiich", "milyy", "miit"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kelp.family-m",
+      "titleKey": "skill.kelp.family-m",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["m"],
+          "grades": [3]
+        },
+        "families": ["vyjm-m.myyt", "vyjm-m.myslit", "vyjm-m.myylit-se", "vyjm-m.mysx"],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.kelp.alike-m",
+      "titleKey": "skill.kelp.alike-m",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": ["alike.06", "alike.07", "alike.12", "alike.13"],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.kelp.rhyme-p",
+      "titleKey": "skill.kelp.rhyme-p",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "pyycha",
+            "pytel",
+            "pysk",
+            "netopyyr",
+            "slepyysx",
+            "pyl",
+            "kopyto",
+            "klopyytat",
+            "trxpytit-se",
+            "zpytovat",
+            "pykat",
+            "pyyr",
+            "pyyrxit-se",
+            "cxepyyrxit-se"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 7
+      }
+    },
+    {
+      "id": "sk.kelp.vyjm-p",
+      "titleKey": "skill.kelp.vyjm-p",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "pyycha",
+            "pytel",
+            "pysk",
+            "netopyyr",
+            "slepyysx",
+            "pyl",
+            "kopyto",
+            "klopyytat",
+            "trxpytit-se",
+            "zpytovat",
+            "pykat",
+            "pyyr",
+            "pyyrxit-se",
+            "cxepyyrxit-se",
+            "pysxnyy",
+            "pytliik",
+            "pyskoun",
+            "ptakopysk",
+            "opylovat",
+            "klopyytnout",
+            "trxpytka",
+            "zapyyrxit-se",
+            "pysxnit-se",
+            "nacxepyyrxenyy"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kelp.related-p",
+      "titleKey": "skill.kelp.related-p",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": [
+            "pysxnyy",
+            "pytliik",
+            "pyskoun",
+            "ptakopysk",
+            "opylovat",
+            "klopyytnout",
+            "trxpytka",
+            "zapyyrxit-se",
+            "pysxnit-se",
+            "nacxepyyrxenyy"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kelp.sentences-p",
+      "titleKey": "skill.kelp.sentences-p",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-p.01",
+            "vyjm-p.02",
+            "vyjm-p.03",
+            "vyjm-p.04",
+            "vyjm-p.05",
+            "vyjm-p.06",
+            "vyjm-p.07",
+            "vyjm-p.08",
+            "vyjm-p.09",
+            "vyjm-p.10",
+            "vyjm-p.11",
+            "vyjm-p.12",
+            "vyjm-p.13",
+            "vyjm-p.14",
+            "vyjm-p.15",
+            "vyjm-p.16",
+            "vyjm-p.17",
+            "vyjm-p.18"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm"]
+      }
+    },
+    {
+      "id": "sk.kelp.contrast-p",
+      "titleKey": "skill.kelp.contrast-p",
+      "strand": "listed-words",
+      "generator": "spell.word",
+      "params": {
+        "words": {
+          "words": ["piisek", "piraat", "pilnyy", "piirko", "piit"],
+          "grades": [3]
+        },
+        "rules": ["obojetna-i"],
+        "maxGaps": 1,
+        "choices": 2
+      }
+    },
+    {
+      "id": "sk.kelp.family-p",
+      "titleKey": "skill.kelp.family-p",
+      "strand": "listed-words",
+      "generator": "family",
+      "params": {
+        "words": {
+          "letters": ["p"],
+          "grades": [3]
+        },
+        "families": [
+          "vyjm-p.pyycha",
+          "vyjm-p.pysk",
+          "vyjm-p.pyl",
+          "vyjm-p.kopyto",
+          "vyjm-p.trxpytit-se"
+        ],
+        "pick": 3,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.kelp.alike-p",
+      "titleKey": "skill.kelp.alike-p",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": ["alike.10", "alike.11"],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.kelp.pairs-alike-m",
+      "titleKey": "skill.kelp.pairs-alike-m",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": ["myyt", "miit", "my", "jaa", "byyt", "biit", "bydlo", "bidlo"],
+          "grades": [3]
+        },
+        "pairs": 4
+      }
+    },
+    {
+      "id": "sk.kelp.pairs-alike-p",
+      "titleKey": "skill.kelp.pairs-alike-p",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": ["pyl", "piit", "myyt", "miit", "my", "jaa"],
+          "grades": [3]
+        },
+        "pairs": 3
+      }
+    },
+    {
+      "id": "sk.kelp.odd-listed",
+      "titleKey": "skill.kelp.odd-listed",
+      "strand": "listed-words",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "listed",
+        "words": {
+          "words": [
+            "myyt",
+            "myslit",
+            "hmyz",
+            "mysx",
+            "hlemyyzxdx",
+            "pyycha",
+            "pytel",
+            "pysk",
+            "netopyyr",
+            "pyl",
+            "miicx",
+            "miisto",
+            "mince",
+            "piisek",
+            "piraat",
+            "piirko"
+          ],
+          "grades": [3]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.kelp.mistakes-mp",
+      "titleKey": "skill.kelp.mistakes-mp",
+      "strand": "listed-words",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-m.03",
+            "vyjm-m.06",
+            "vyjm-m.07",
+            "vyjm-m.09",
+            "vyjm-m.11",
+            "vyjm-m.12",
+            "vyjm-m.13",
+            "vyjm-m.14",
+            "vyjm-m.15",
+            "vyjm-m.16",
+            "vyjm-m.17",
+            "vyjm-m.19",
+            "vyjm-m.21",
+            "vyjm-m.22",
+            "vyjm-p.01",
+            "vyjm-p.02",
+            "vyjm-p.03",
+            "vyjm-p.04",
+            "vyjm-p.06",
+            "vyjm-p.07",
+            "vyjm-p.08",
+            "vyjm-p.09",
+            "vyjm-p.10",
+            "vyjm-p.11",
+            "vyjm-p.12",
+            "vyjm-p.13",
+            "vyjm-p.14",
+            "vyjm-p.15",
+            "vyjm-p.16",
+            "vyjm-p.17",
+            "vyjm-p.18",
+            "vyjm-m.23",
+            "vyjm-m.24",
+            "vyjm-m.25",
+            "vyjm-m.26",
+            "vyjm-m.27",
+            "vyjm-p.19",
+            "vyjm-p.20",
+            "vyjm-p.21",
+            "vyjm-p.22"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "obojetna-i"]
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "konik-mydlinek",
+      "nameKey": "friend.konik-mydlinek",
+      "mnemonicKey": "friend.konik-mydlinek.mnemonic",
+      "region": "kelp-forest",
+      "skills": [
+        "sk.kelp.rhyme-m",
+        "sk.kelp.vyjm-m",
+        "sk.kelp.sentences-m",
+        "sk.kelp.contrast-m",
+        "sk.kelp.alike-m"
+      ],
+      "monster": "had-zamotal"
+    },
+    {
+      "id": "pyskoun-pysny",
+      "nameKey": "friend.pyskoun-pysny",
+      "mnemonicKey": "friend.pyskoun-pysny.mnemonic",
+      "region": "kelp-forest",
+      "skills": [
+        "sk.kelp.rhyme-p",
+        "sk.kelp.vyjm-p",
+        "sk.kelp.sentences-p",
+        "sk.kelp.contrast-p",
+        "sk.kelp.alike-p"
+      ],
+      "monster": "had-zamotal"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "had-zamotal",
+      "region": "kelp-forest",
+      "nameKey": "monster.had-zamotal",
+      "mood": "grumpy",
+      "meter": 15,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.had-zamotal.joke.1",
+        "monster.had-zamotal.joke.2",
+        "monster.had-zamotal.joke.3",
+        "monster.had-zamotal.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "hat-kelp",
+      "slot": "head",
+      "assetId": "cosmetic/hat-kelp",
+      "nameKey": "cosmetic.hat-kelp",
+      "price": 375,
+      "unlock": "kelp-forest.1"
+    },
+    {
+      "id": "scarf-kelp",
+      "slot": "neck",
+      "assetId": "cosmetic/scarf-kelp",
+      "nameKey": "cosmetic.scarf-kelp",
+      "price": 425,
+      "unlock": "kelp-forest.3"
+    },
+    {
+      "id": "curtain-kelp",
+      "slot": "grotto",
+      "assetId": "cosmetic/curtain-kelp",
+      "nameKey": "cosmetic.curtain-kelp",
+      "price": 475,
+      "unlock": "kelp-forest.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "konik-hatched",
+      "nameKey": "sticker.konik-hatched",
+      "page": "kelp-forest",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "konik-mydlinek",
+        "stage": "baby"
+      },
+      "icon": "sticker/soap-bubbles",
+      "color": "#9be3c4",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "pyskoun-hatched",
+      "nameKey": "sticker.pyskoun-hatched",
+      "page": "kelp-forest",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "pyskoun-pysny",
+        "stage": "baby"
+      },
+      "icon": "sticker/proud-lips",
+      "color": "#f5a3c7",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "wash-or-have",
+      "nameKey": "sticker.wash-or-have",
+      "page": "kelp-forest",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.kelp.alike-m",
+        "level": "bronze",
+        "share": 100
+      },
+      "icon": "sticker/soap-and-hand",
+      "color": "#7fd1ae",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "snake-untangled",
+      "nameKey": "sticker.snake-untangled",
+      "page": "kelp-forest",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "had-zamotal"
+      },
+      "icon": "sticker/untied-knot",
+      "color": "#4caf7a",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "five-outfits",
+      "nameKey": "sticker.five-outfits",
+      "page": "kelp-forest",
+      "criteria": {
+        "kind": "cosmetics-owned",
+        "count": 5
+      },
+      "icon": "sticker/wardrobe",
+      "color": "#c38dd6",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "snack-10",
+      "titleKey": "quest.snack-10",
+      "goal": "feed-hungry",
+      "target": 10,
+      "coins": 4,
+      "weight": 6,
+      "unlock": "kelp-forest.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.kelp-forest-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "kelp-forest.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.kelp-forest-welcome",
+          "revision": "1",
+          "start": "kelp-forest-welcome-1",
+          "catalogs": {
+            "scene": ["scene/kelp-forest"],
+            "text": [
+              "story.kelp-forest-welcome.1",
+              "story.kelp-forest-welcome.2",
+              "story.kelp-forest-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.konik-mydlinek"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-konik-mydlinek",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.konik-mydlinek"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "kelp-forest-welcome-1",
+              "scene": "scene/kelp-forest",
+              "text": "story.kelp-forest-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-konik-mydlinek"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "kelp-forest-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "kelp-forest-welcome-2",
+              "scene": "scene/kelp-forest",
+              "text": "story.kelp-forest-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "kelp-forest-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "kelp-forest-welcome-3",
+              "scene": "scene/kelp-forest",
+              "text": "story.kelp-forest-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.had-zamotal",
+        "trigger": {
+          "kind": "level-start",
+          "level": "kelp-forest.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.had-zamotal",
+          "revision": "1",
+          "start": "had-zamotal-1",
+          "catalogs": {
+            "scene": ["scene/kelp-forest"],
+            "text": [
+              "story.had-zamotal.1",
+              "story.had-zamotal.2",
+              "story.had-zamotal.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "had-zamotal-1",
+              "scene": "scene/kelp-forest",
+              "text": "story.had-zamotal.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "had-zamotal-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "had-zamotal-2",
+              "scene": "scene/kelp-forest",
+              "text": "story.had-zamotal.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "had-zamotal-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "had-zamotal-3",
+              "scene": "scene/kelp-forest",
+              "text": "story.had-zamotal.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.had-zamotal-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "had-zamotal"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.had-zamotal-freed",
+          "revision": "1",
+          "start": "had-zamotal-freed-1",
+          "catalogs": {
+            "scene": ["scene/kelp-forest"],
+            "text": [
+              "story.had-zamotal-freed.1",
+              "story.had-zamotal-freed.2",
+              "story.had-zamotal-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "had-zamotal-freed-1",
+              "scene": "scene/kelp-forest",
+              "text": "story.had-zamotal-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "had-zamotal-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "had-zamotal-freed-2",
+              "scene": "scene/kelp-forest",
+              "text": "story.had-zamotal-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "had-zamotal-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "had-zamotal-freed-3",
+              "scene": "scene/kelp-forest",
+              "text": "story.had-zamotal-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.konik-mydlinek",
+        "grant": {
+          "kind": "egg",
+          "friend": "konik-mydlinek"
+        }
+      }
+    ]
+  }
+}

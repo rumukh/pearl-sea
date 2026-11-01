@@ -248,6 +248,8 @@
     },
     { "id": "shoda", "grade": 4, "cs": "shoda přísudku s podmětem v čase minulém: -i, -y, -a" },
     { "id": "vzor", "grade": 4, "cs": "koncovka podstatného jména podle vzoru" },
+    { "id": "interpunkce", "grade": 3, "cs": "znaménko na konci věty podle druhu věty" },
+    { "id": "spojka", "grade": 3, "cs": "spojka, která spojuje věty v souvětí" },
     { "id": "spisovne", "grade": 4, "cs": "spisovné slovo místo nespisovného" }
   ],
   "schoolLists": {

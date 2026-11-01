@@ -1,0 +1,1336 @@
+{
+  "objectives": [
+    {
+      "id": "obj.listed.all",
+      "strand": "listed-words",
+      "grade": 3,
+      "titleKey": "grownups.objective.listed.all",
+      "rvp": ["ČJL-3-2-08"]
+    },
+    {
+      "id": "obj.meaning.families",
+      "strand": "word-meaning",
+      "grade": 3,
+      "titleKey": "grownups.objective.meaning.families",
+      "rvp": ["ČJL-3-2-02"]
+    },
+    {
+      "id": "obj.meaning.synonyms-antonyms",
+      "strand": "word-meaning",
+      "grade": 3,
+      "titleKey": "grownups.objective.meaning.synonyms-antonyms",
+      "rvp": ["ČJL-3-2-02", "ČJL-5-2-01"]
+    },
+    {
+      "id": "obj.meaning.general-specific",
+      "strand": "word-meaning",
+      "grade": 3,
+      "titleKey": "grownups.objective.meaning.general-specific",
+      "rvp": ["ČJL-3-2-02"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "pearl-bay",
+      "order": 5,
+      "titleKey": "region.pearl-bay",
+      "unlock": {
+        "after": ["pirate-wreck.monster"]
+      },
+      "monster": "zeva-lakoma",
+      "map": "shallows",
+      "grade": 3
+    }
+  ],
+  "levels": [
+    {
+      "id": "pearl-bay.1",
+      "region": "pearl-bay",
+      "order": 1,
+      "titleKey": "level.pearl-bay.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "pearl-necklace",
+          "skills": ["sk.bay.rhyme-all"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": [
+            "sk.reef.vyjm-b",
+            "sk.reef.vyjm-l",
+            "sk.kelp.vyjm-m",
+            "sk.kelp.vyjm-p",
+            "sk.wreck.vyjm-s",
+            "sk.wreck.vyjm-v",
+            "sk.wreck.vyjm-z",
+            "sk.bay.odd-listed-all"
+          ],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.bay.mistakes-all"],
+          "count": 5,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.pearl-bay-welcome",
+      "objectives": ["obj.listed.all"]
+    },
+    {
+      "id": "pearl-bay.2",
+      "region": "pearl-bay",
+      "order": 2,
+      "titleKey": "level.pearl-bay.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pearl-bay.1"]
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.bay.family-all"],
+          "count": 3,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.bay.pairs-family"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.bay.relation-related", "sk.bay.odd-family"],
+          "count": 8,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["hvezdice-rodinka"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.meaning.families"]
+    },
+    {
+      "id": "pearl-bay.3",
+      "region": "pearl-bay",
+      "order": 3,
+      "titleKey": "level.pearl-bay.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pearl-bay.2"]
+      },
+      "activities": [
+        {
+          "kind": "memory-match",
+          "skills": ["sk.bay.pairs-alike-all"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "ink-sentence",
+          "skills": ["sk.bay.alike-all"],
+          "count": 6,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.bay.relation-alike"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.listed.sound-alikes"]
+    },
+    {
+      "id": "pearl-bay.4",
+      "region": "pearl-bay",
+      "order": 4,
+      "titleKey": "level.pearl-bay.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pearl-bay.3"]
+      },
+      "activities": [
+        {
+          "kind": "memory-match",
+          "skills": ["sk.bay.pairs-synonym", "sk.bay.pairs-antonym"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.bay.relation-synonym-antonym"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.meaning.synonyms-antonyms"]
+    },
+    {
+      "id": "pearl-bay.5",
+      "region": "pearl-bay",
+      "order": 5,
+      "titleKey": "level.pearl-bay.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["pearl-bay.4"]
+      },
+      "activities": [
+        {
+          "kind": "memory-match",
+          "skills": ["sk.bay.pairs-general"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.bay.relation-general", "sk.bay.relation-coordinate"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.meaning.general-specific"]
+    },
+    {
+      "id": "pearl-bay.monster",
+      "region": "pearl-bay",
+      "order": 6,
+      "titleKey": "level.pearl-bay.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["pearl-bay.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.reef.vyjm-b",
+            "sk.reef.vyjm-l",
+            "sk.kelp.vyjm-m",
+            "sk.kelp.vyjm-p",
+            "sk.wreck.vyjm-s",
+            "sk.wreck.vyjm-v",
+            "sk.wreck.vyjm-z",
+            "sk.bay.alike-all",
+            "sk.bay.mistakes-all",
+            "sk.bay.relation-related",
+            "sk.bay.odd-family",
+            "sk.bay.relation-synonym-antonym",
+            "sk.bay.relation-general",
+            "sk.bay.relation-coordinate",
+            "sk.bay.relation-alike",
+            "sk.bay.odd-listed-all"
+          ],
+          "count": 23,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["hvezdice-rodinka"],
+        "cosmetics": ["shell-giant"]
+      },
+      "monster": "zeva-lakoma",
+      "storyBeat": "beat.zeva-lakoma",
+      "objectives": [
+        "obj.listed.all",
+        "obj.listed.sound-alikes",
+        "obj.meaning.families",
+        "obj.meaning.synonyms-antonyms",
+        "obj.meaning.general-specific"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.bay.rhyme-all",
+      "titleKey": "skill.bay.rhyme-all",
+      "strand": "listed-words",
+      "generator": "alphabet",
+      "params": {
+        "words": {
+          "words": [
+            "byyt",
+            "bydlit",
+            "obyvatel",
+            "byt",
+            "prxiibytek",
+            "naabytek",
+            "dobytek",
+            "obycxej",
+            "bystryy",
+            "bylina",
+            "kobyla",
+            "byyk",
+            "prxibyslav",
+            "slysxet",
+            "mlyyn",
+            "blyyskat-se",
+            "polykat",
+            "plynout",
+            "plyytvat",
+            "vzlykat",
+            "lysyy",
+            "lyytko",
+            "lyzxe",
+            "pelynexk",
+            "plysx",
+            "my",
+            "myyt",
+            "myslit",
+            "myylit-se",
+            "hmyz",
+            "mysx",
+            "hlemyyzxdx",
+            "myytit",
+            "zamykat",
+            "smyykat",
+            "dmyychat",
+            "chmyyrxii",
+            "nachomyytnout-se",
+            "litomysxl",
+            "pyycha",
+            "pytel",
+            "pysk",
+            "netopyyr",
+            "slepyysx",
+            "pyl",
+            "kopyto",
+            "klopyytat",
+            "trxpytit-se",
+            "zpytovat",
+            "pykat",
+            "pyyr",
+            "pyyrxit-se",
+            "cxepyyrxit-se",
+            "syn",
+            "sytyy",
+            "syyr",
+            "syrovyy",
+            "sychravyy",
+            "usychat",
+            "syykora",
+            "syycxek",
+            "sysel",
+            "sycxet",
+            "sypat",
+            "vy",
+            "vysokyy",
+            "vyyt",
+            "vyyskat",
+            "zvykat",
+            "zxvyykat",
+            "vydra",
+            "vyyr",
+            "vyzxle",
+            "povyk",
+            "vyyhenx",
+            "brzy",
+            "jazyk",
+            "nazyyvat",
+            "ruzynex"
+          ],
+          "grades": [3]
+        },
+        "order": "rhyme",
+        "size": 6
+      }
+    },
+    {
+      "id": "sk.bay.odd-listed-all",
+      "titleKey": "skill.bay.odd-listed-all",
+      "strand": "listed-words",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "listed",
+        "words": {
+          "words": [
+            "bystryy",
+            "kobyla",
+            "mlyyn",
+            "lyzxe",
+            "hmyz",
+            "mysx",
+            "netopyyr",
+            "kopyto",
+            "sysel",
+            "sypat",
+            "vydra",
+            "vysokyy",
+            "jazyk",
+            "biilyy",
+            "liipa",
+            "miisto",
+            "piisek",
+            "siila",
+            "viitr",
+            "zima"
+          ],
+          "grades": [3]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.bay.mistakes-all",
+      "titleKey": "skill.bay.mistakes-all",
+      "strand": "listed-words",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "vyjm-b.01",
+            "vyjm-b.04",
+            "vyjm-b.10",
+            "vyjm-b.13",
+            "vyjm-b.14",
+            "vyjm-b.16",
+            "vyjm-b.18",
+            "vyjm-b.19",
+            "vyjm-b.20",
+            "vyjm-b.21",
+            "vyjm-b.24",
+            "vyjm-b.25",
+            "vyjm-b.26",
+            "vyjm-b.29",
+            "vyjm-b.30",
+            "vyjm-b.31",
+            "vyjm-l.01",
+            "vyjm-l.02",
+            "vyjm-l.03",
+            "vyjm-l.04",
+            "vyjm-l.05",
+            "vyjm-l.06",
+            "vyjm-l.08",
+            "vyjm-l.10",
+            "vyjm-l.11",
+            "vyjm-l.12",
+            "vyjm-l.13",
+            "vyjm-l.14",
+            "vyjm-l.16",
+            "vyjm-l.17",
+            "vyjm-l.18",
+            "vyjm-l.19",
+            "vyjm-l.20",
+            "vyjm-l.21",
+            "vyjm-l.22",
+            "vyjm-l.23",
+            "vyjm-l.24",
+            "vyjm-l.25",
+            "vyjm-b.32",
+            "vyjm-b.33",
+            "vyjm-b.35",
+            "vyjm-l.26",
+            "vyjm-l.27",
+            "vyjm-l.28",
+            "vyjm-l.29",
+            "vyjm-l.30",
+            "vyjm-l.31",
+            "vyjm-l.32",
+            "vyjm-m.03",
+            "vyjm-m.06",
+            "vyjm-m.07",
+            "vyjm-m.09",
+            "vyjm-m.11",
+            "vyjm-m.12",
+            "vyjm-m.13",
+            "vyjm-m.14",
+            "vyjm-m.15",
+            "vyjm-m.16",
+            "vyjm-m.17",
+            "vyjm-m.19",
+            "vyjm-m.21",
+            "vyjm-m.22",
+            "vyjm-p.01",
+            "vyjm-p.02",
+            "vyjm-p.03",
+            "vyjm-p.04",
+            "vyjm-p.06",
+            "vyjm-p.07",
+            "vyjm-p.08",
+            "vyjm-p.09",
+            "vyjm-p.10",
+            "vyjm-p.11",
+            "vyjm-p.12",
+            "vyjm-p.13",
+            "vyjm-p.14",
+            "vyjm-p.15",
+            "vyjm-p.16",
+            "vyjm-p.17",
+            "vyjm-p.18",
+            "vyjm-m.23",
+            "vyjm-m.24",
+            "vyjm-m.25",
+            "vyjm-m.26",
+            "vyjm-m.27",
+            "vyjm-p.19",
+            "vyjm-p.20",
+            "vyjm-p.21",
+            "vyjm-p.22",
+            "vyjm-s.01",
+            "vyjm-s.02",
+            "vyjm-s.03",
+            "vyjm-s.05",
+            "vyjm-s.06",
+            "vyjm-s.07",
+            "vyjm-s.08",
+            "vyjm-s.09",
+            "vyjm-s.10",
+            "vyjm-s.11",
+            "vyjm-s.12",
+            "vyjm-s.13",
+            "vyjm-s.14",
+            "vyjm-s.16",
+            "vyjm-s.17",
+            "vyjm-s.18",
+            "vyjm-s.19",
+            "vyjm-v.01",
+            "vyjm-v.02",
+            "vyjm-v.05",
+            "vyjm-v.06",
+            "vyjm-v.07",
+            "vyjm-v.12",
+            "vyjm-v.13",
+            "vyjm-v.14",
+            "vyjm-v.16",
+            "vyjm-v.17",
+            "vyjm-v.18",
+            "vyjm-v.20",
+            "alike.24",
+            "vyjm-v.08",
+            "vyjm-v.09",
+            "vyjm-v.10",
+            "vyjm-v.11",
+            "vyjm-v.15",
+            "vyjm-v.21",
+            "vyjm-z.02",
+            "vyjm-z.03",
+            "vyjm-z.04",
+            "vyjm-z.05",
+            "vyjm-z.06",
+            "vyjm-z.07",
+            "vyjm-z.09",
+            "vyjm-z.10",
+            "vyjm-s.20",
+            "vyjm-s.21",
+            "vyjm-s.22",
+            "vyjm-s.23",
+            "vyjm-v.22",
+            "vyjm-v.23",
+            "vyjm-v.25",
+            "vyjm-v.26",
+            "vyjm-z.11",
+            "vyjm-z.12",
+            "vyjm-z.13",
+            "vyjm-z.14"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.bay.family-all",
+      "titleKey": "skill.bay.family-all",
+      "strand": "word-meaning",
+      "generator": "family",
+      "params": {
+        "words": {
+          "grades": [3]
+        },
+        "families": [
+          "fam.ryba",
+          "fam.plavat",
+          "vyjm-b.bystryy",
+          "vyjm-l.lyzxe",
+          "vyjm-m.myslit",
+          "vyjm-p.trxpytit-se",
+          "vyjm-s.sypat",
+          "vyjm-v.vysokyy"
+        ],
+        "pick": 4,
+        "distractors": 3
+      }
+    },
+    {
+      "id": "sk.bay.pairs-family",
+      "titleKey": "skill.bay.pairs-family",
+      "strand": "word-meaning",
+      "generator": "pairs",
+      "params": {
+        "pair": "family",
+        "words": {
+          "words": [
+            "ryba",
+            "rybaarx",
+            "rybka",
+            "rybniik",
+            "plavat",
+            "odplavat",
+            "prxiplavat",
+            "plavky",
+            "bystryy",
+            "bystrxina",
+            "lyzxe",
+            "lyzxarx"
+          ],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.bay.relation-related",
+      "titleKey": "skill.bay.relation-related",
+      "strand": "word-meaning",
+      "generator": "relation",
+      "params": {
+        "relations": ["related"],
+        "words": {
+          "words": ["bystryy", "lyzxe", "sypat", "vysokyy", "myslit", "rybniik", "plavky", "ryba"],
+          "grades": [3]
+        }
+      }
+    },
+    {
+      "id": "sk.bay.odd-family",
+      "titleKey": "skill.bay.odd-family",
+      "strand": "word-meaning",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "family",
+        "words": {
+          "words": [
+            "ryba",
+            "rybaarx",
+            "rybka",
+            "rybniik",
+            "plavat",
+            "odplavat",
+            "prxiplavat",
+            "plavky"
+          ],
+          "grades": [3]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.bay.pairs-alike-all",
+      "titleKey": "skill.bay.pairs-alike-all",
+      "strand": "listed-words",
+      "generator": "pairs",
+      "params": {
+        "pair": "sound-alike",
+        "words": {
+          "words": [
+            "byyt",
+            "biit",
+            "bydlo",
+            "bidlo",
+            "myyt",
+            "miit",
+            "my",
+            "jaa",
+            "pyl",
+            "piit",
+            "syyrovyy",
+            "siirovyy",
+            "vyyr",
+            "viir",
+            "vyyskat",
+            "viiskat",
+            "vysiit",
+            "viset",
+            "vyyt",
+            "viit"
+          ],
+          "grades": [3]
+        },
+        "pairs": 8
+      }
+    },
+    {
+      "id": "sk.bay.alike-all",
+      "titleKey": "skill.bay.alike-all",
+      "strand": "listed-words",
+      "generator": "spell.sentence",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "alike.01",
+            "alike.02",
+            "alike.03",
+            "alike.04",
+            "alike.05",
+            "alike.18",
+            "alike.20",
+            "alike.21",
+            "alike.06",
+            "alike.07",
+            "alike.12",
+            "alike.13",
+            "alike.10",
+            "alike.11",
+            "alike.22",
+            "alike.08",
+            "alike.09",
+            "alike.14",
+            "alike.15",
+            "alike.19",
+            "alike.23",
+            "alike.24",
+            "alike.25"
+          ],
+          "grades": [3]
+        },
+        "rules": ["vyjm", "vyjm-prefix", "obojetna-i"]
+      }
+    },
+    {
+      "id": "sk.bay.relation-alike",
+      "titleKey": "skill.bay.relation-alike",
+      "strand": "listed-words",
+      "generator": "relation",
+      "params": {
+        "relations": ["sound-alike"],
+        "words": {
+          "words": [
+            "byyt",
+            "biit",
+            "bydlo",
+            "bidlo",
+            "myyt",
+            "miit",
+            "my",
+            "jaa",
+            "pyl",
+            "piit",
+            "syyrovyy",
+            "siirovyy",
+            "vyyr",
+            "viir",
+            "vyyskat",
+            "viiskat",
+            "vysiit",
+            "viset",
+            "vyyt",
+            "viit"
+          ],
+          "grades": [3]
+        }
+      }
+    },
+    {
+      "id": "sk.bay.pairs-synonym",
+      "titleKey": "skill.bay.pairs-synonym",
+      "strand": "word-meaning",
+      "generator": "pairs",
+      "params": {
+        "pair": "synonym",
+        "words": {
+          "words": [
+            "hezkyy",
+            "pexknyy",
+            "chlapec",
+            "hoch",
+            "veselyy",
+            "radostnyy",
+            "statecxnyy",
+            "odvaazxnyy",
+            "rychlyy",
+            "hbityy",
+            "malyy",
+            "drobnyy"
+          ],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.bay.pairs-antonym",
+      "titleKey": "skill.bay.pairs-antonym",
+      "strand": "word-meaning",
+      "generator": "pairs",
+      "params": {
+        "pair": "antonym",
+        "words": {
+          "words": [
+            "teplyy",
+            "studenyy",
+            "den",
+            "noc",
+            "plnyy",
+            "praazdnyy",
+            "texzxkyy",
+            "lehkyy",
+            "nahorxe",
+            "dole",
+            "otevrxiit",
+            "zavrxiit"
+          ],
+          "grades": [3]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.bay.relation-synonym-antonym",
+      "titleKey": "skill.bay.relation-synonym-antonym",
+      "strand": "word-meaning",
+      "generator": "relation",
+      "params": {
+        "relations": ["synonym", "antonym"],
+        "words": {
+          "words": [
+            "hezkyy",
+            "pexknyy",
+            "veselyy",
+            "radostnyy",
+            "teplyy",
+            "studenyy",
+            "den",
+            "noc",
+            "plnyy",
+            "praazdnyy"
+          ],
+          "grades": [3]
+        }
+      }
+    },
+    {
+      "id": "sk.bay.pairs-general",
+      "titleKey": "skill.bay.pairs-general",
+      "strand": "word-meaning",
+      "generator": "pairs",
+      "params": {
+        "pair": "general",
+        "words": {
+          "words": ["ryba", "ptaak", "ovoce", "naastroj", "naabytek"],
+          "grades": [3]
+        },
+        "pairs": 5
+      }
+    },
+    {
+      "id": "sk.bay.relation-general",
+      "titleKey": "skill.bay.relation-general",
+      "strand": "word-meaning",
+      "generator": "relation",
+      "params": {
+        "relations": ["general", "specific"],
+        "words": {
+          "words": [
+            "ryba",
+            "kapr",
+            "sxtika",
+            "pstruh",
+            "ptaak",
+            "racek",
+            "tucxnxaak",
+            "kachna",
+            "ovoce",
+            "jablko",
+            "hrusxka",
+            "banaan"
+          ],
+          "grades": [3]
+        }
+      }
+    },
+    {
+      "id": "sk.bay.relation-coordinate",
+      "titleKey": "skill.bay.relation-coordinate",
+      "strand": "word-meaning",
+      "generator": "relation",
+      "params": {
+        "relations": ["coordinate"],
+        "words": {
+          "words": [
+            "kapr",
+            "sxtika",
+            "pstruh",
+            "racek",
+            "tucxnxaak",
+            "kachna",
+            "jablko",
+            "hrusxka",
+            "banaan"
+          ],
+          "grades": [3]
+        }
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "hvezdice-rodinka",
+      "nameKey": "friend.hvezdice-rodinka",
+      "mnemonicKey": "friend.hvezdice-rodinka.mnemonic",
+      "region": "pearl-bay",
+      "skills": [
+        "sk.bay.relation-related",
+        "sk.bay.odd-family",
+        "sk.bay.relation-synonym-antonym",
+        "sk.bay.relation-general"
+      ],
+      "monster": "zeva-lakoma"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "zeva-lakoma",
+      "region": "pearl-bay",
+      "nameKey": "monster.zeva-lakoma",
+      "mood": "sulky",
+      "meter": 18,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.zeva-lakoma.joke.1",
+        "monster.zeva-lakoma.joke.2",
+        "monster.zeva-lakoma.joke.3",
+        "monster.zeva-lakoma.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "string-pearls",
+      "slot": "neck",
+      "assetId": "cosmetic/string-pearls",
+      "nameKey": "cosmetic.string-pearls",
+      "price": 475,
+      "unlock": "pearl-bay.1"
+    },
+    {
+      "id": "glasses-pearl",
+      "slot": "eyes",
+      "assetId": "cosmetic/glasses-pearl",
+      "nameKey": "cosmetic.glasses-pearl",
+      "price": 525,
+      "unlock": "pearl-bay.3"
+    },
+    {
+      "id": "shell-giant",
+      "slot": "grotto",
+      "assetId": "cosmetic/shell-giant",
+      "nameKey": "cosmetic.shell-giant",
+      "price": 575,
+      "unlock": "pearl-bay.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "hvezdice-hatched",
+      "nameKey": "sticker.hvezdice-hatched",
+      "page": "pearl-bay",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "hvezdice-rodinka",
+        "stage": "baby"
+      },
+      "icon": "sticker/starfish",
+      "color": "#c9a0dc",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "clam-shares",
+      "nameKey": "sticker.clam-shares",
+      "page": "pearl-bay",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "zeva-lakoma"
+      },
+      "icon": "sticker/open-clam",
+      "color": "#e8d7f1",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "silver-hundred",
+      "nameKey": "sticker.silver-hundred",
+      "page": "pearl-bay",
+      "criteria": {
+        "kind": "items-mastered",
+        "level": "silver",
+        "count": 100
+      },
+      "icon": "sticker/silver-pearls",
+      "color": "#b8c4d6",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ten-quests",
+      "nameKey": "sticker.ten-quests",
+      "page": "pearl-bay",
+      "criteria": {
+        "kind": "quests-claimed",
+        "count": 10
+      },
+      "icon": "sticker/scroll",
+      "color": "#d8b26e",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "ten-friends",
+      "nameKey": "sticker.ten-friends",
+      "page": "pearl-bay",
+      "criteria": {
+        "kind": "friends-stage",
+        "stage": "baby",
+        "count": 10
+      },
+      "icon": "sticker/ten-shells",
+      "color": "#b39ddb",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "fast-20",
+      "titleKey": "quest.fast-20",
+      "goal": "fast-answers",
+      "target": 20,
+      "coins": 5,
+      "weight": 6,
+      "unlock": "pearl-bay.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.pearl-bay-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "pearl-bay.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.pearl-bay-welcome",
+          "revision": "1",
+          "start": "pearl-bay-welcome-1",
+          "catalogs": {
+            "scene": ["scene/pearl-bay"],
+            "text": [
+              "story.pearl-bay-welcome.1",
+              "story.pearl-bay-welcome.2",
+              "story.pearl-bay-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.hvezdice-rodinka"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-hvezdice-rodinka",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.hvezdice-rodinka"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "pearl-bay-welcome-1",
+              "scene": "scene/pearl-bay",
+              "text": "story.pearl-bay-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-hvezdice-rodinka"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "pearl-bay-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "pearl-bay-welcome-2",
+              "scene": "scene/pearl-bay",
+              "text": "story.pearl-bay-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "pearl-bay-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "pearl-bay-welcome-3",
+              "scene": "scene/pearl-bay",
+              "text": "story.pearl-bay-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.zeva-lakoma",
+        "trigger": {
+          "kind": "level-start",
+          "level": "pearl-bay.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.zeva-lakoma",
+          "revision": "1",
+          "start": "zeva-lakoma-1",
+          "catalogs": {
+            "scene": ["scene/pearl-bay"],
+            "text": [
+              "story.zeva-lakoma.1",
+              "story.zeva-lakoma.2",
+              "story.zeva-lakoma.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "zeva-lakoma-1",
+              "scene": "scene/pearl-bay",
+              "text": "story.zeva-lakoma.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zeva-lakoma-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zeva-lakoma-2",
+              "scene": "scene/pearl-bay",
+              "text": "story.zeva-lakoma.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zeva-lakoma-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zeva-lakoma-3",
+              "scene": "scene/pearl-bay",
+              "text": "story.zeva-lakoma.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.zeva-lakoma-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "zeva-lakoma"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.zeva-lakoma-freed",
+          "revision": "1",
+          "start": "zeva-lakoma-freed-1",
+          "catalogs": {
+            "scene": ["scene/pearl-bay"],
+            "text": [
+              "story.zeva-lakoma-freed.1",
+              "story.zeva-lakoma-freed.2",
+              "story.zeva-lakoma-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "zeva-lakoma-freed-1",
+              "scene": "scene/pearl-bay",
+              "text": "story.zeva-lakoma-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zeva-lakoma-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zeva-lakoma-freed-2",
+              "scene": "scene/pearl-bay",
+              "text": "story.zeva-lakoma-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "zeva-lakoma-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "zeva-lakoma-freed-3",
+              "scene": "scene/pearl-bay",
+              "text": "story.zeva-lakoma-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.hvezdice-rodinka",
+        "grant": {
+          "kind": "egg",
+          "friend": "hvezdice-rodinka"
+        }
+      }
+    ]
+  }
+}

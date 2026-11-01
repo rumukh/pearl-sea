@@ -137,11 +137,13 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   every level (one monster level per region, lessons numbered 1..n) and, once the pack exists, with
   the pack on every level's objectives.
 - `test/unit/content/pack.test.ts`: the content pack validates, is the build of its sources
-  (`content/pack-src/pack.json` and the word bank) and is pinned by content hash (`REVISIONS`, as
-  Dragon Valley's `content.test.ts`); every archived revision stays unchanged, valid and with its
-  catalog keys; the authoring rules of [content.md](content.md) §3 hold (listed words and sentences
-  serve their skills, sentence gaps keep to the skill's rules, every skill is practised, ambiguous
-  points are taught in sentences, friends' sets are fed by problems and small enough to hatch).
+  (`content/pack-src/pack.json`, the region files and the word bank) and is pinned by content hash
+  (`REVISIONS`, as Dragon Valley's `content.test.ts`); every archived revision stays unchanged,
+  valid and with its catalog keys; the authoring rules of [content.md](content.md) §3 hold (listed
+  words and sentences serve their skills, sentence gaps keep to the skill's rules, every skill is
+  practised in a level or the placement check, ambiguous points are taught in sentences, every
+  problem item feeds a friend unless its skill is in the basket on purpose, friends' sets hatch in
+  their lessons).
 - `test/tooling/lexicon-check.test.ts`: the word bank passes the lexicon checker, each planted
   linguistic fault is reported, and the exit codes are right ([lexicon.md](lexicon.md) §1).
 - `test/tooling/vendor-sdk.test.ts`: exactly one vendored version, recorded as a clean build of the

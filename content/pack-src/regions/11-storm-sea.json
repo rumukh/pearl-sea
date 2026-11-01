@@ -1,0 +1,889 @@
+{
+  "objectives": [
+    {
+      "id": "obj.verbs.tense-forms",
+      "strand": "verbs",
+      "grade": 4,
+      "titleKey": "grownups.objective.verbs.tense-forms",
+      "rvp": ["ČJL-5-2-03"]
+    },
+    {
+      "id": "obj.verbs.mood",
+      "strand": "verbs",
+      "grade": 4,
+      "titleKey": "grownups.objective.verbs.mood",
+      "rvp": ["ČJL-5-2-03"]
+    },
+    {
+      "id": "obj.verbs.reflexive",
+      "strand": "verbs",
+      "grade": 4,
+      "titleKey": "grownups.objective.verbs.reflexive",
+      "rvp": ["ČJL-5-2-03"]
+    },
+    {
+      "id": "obj.standard.register",
+      "strand": "standard-czech",
+      "grade": 4,
+      "titleKey": "grownups.objective.standard.register",
+      "rvp": ["ČJL-5-2-04"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "storm-sea",
+      "order": 11,
+      "titleKey": "region.storm-sea",
+      "unlock": {
+        "after": ["dark-trench.monster"]
+      },
+      "monster": "vir-casoplet",
+      "map": "deep",
+      "grade": 4
+    }
+  ],
+  "levels": [
+    {
+      "id": "storm-sea.1",
+      "region": "storm-sea",
+      "order": 1,
+      "titleKey": "level.storm-sea.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.storm.tense-forms", "sk.storm.person"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.storm-sea-welcome",
+      "objectives": ["obj.verbs.tense-forms"]
+    },
+    {
+      "id": "storm-sea.2",
+      "region": "storm-sea",
+      "order": 2,
+      "titleKey": "level.storm-sea.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["storm-sea.1"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.storm.verb-form"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.verbs.tense-forms"]
+    },
+    {
+      "id": "storm-sea.3",
+      "region": "storm-sea",
+      "order": 3,
+      "titleKey": "level.storm-sea.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["storm-sea.2"]
+      },
+      "activities": [
+        {
+          "kind": "analysis",
+          "skills": ["sk.storm.mood-forms", "sk.storm.mood"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.verbs.mood"]
+    },
+    {
+      "id": "storm-sea.4",
+      "region": "storm-sea",
+      "order": 4,
+      "titleKey": "level.storm-sea.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["storm-sea.3"]
+      },
+      "activities": [
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.storm.nets-reflexive"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.storm.reflexive"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.verbs.reflexive"]
+    },
+    {
+      "id": "storm-sea.5",
+      "region": "storm-sea",
+      "order": 5,
+      "titleKey": "level.storm-sea.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["storm-sea.4"]
+      },
+      "activities": [
+        {
+          "kind": "memory-match",
+          "skills": ["sk.storm.pairs-standard"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "fishing-nets",
+          "skills": ["sk.storm.nets-register"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "analysis",
+          "skills": ["sk.storm.register"],
+          "count": 8,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "bug-hunt",
+          "skills": ["sk.storm.spisovne"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.standard.register"]
+    },
+    {
+      "id": "storm-sea.monster",
+      "region": "storm-sea",
+      "order": 6,
+      "titleKey": "level.storm-sea.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["storm-sea.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.storm.tense-forms",
+            "sk.storm.person",
+            "sk.storm.verb-form",
+            "sk.storm.mood-forms",
+            "sk.storm.mood",
+            "sk.storm.reflexive",
+            "sk.storm.register",
+            "sk.storm.spisovne"
+          ],
+          "count": 23,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": [],
+        "cosmetics": ["lighthouse-model"]
+      },
+      "monster": "vir-casoplet",
+      "storyBeat": "beat.vir-casoplet",
+      "objectives": [
+        "obj.verbs.tense-forms",
+        "obj.verbs.mood",
+        "obj.verbs.reflexive",
+        "obj.standard.register"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.storm.tense-forms",
+      "titleKey": "skill.storm.tense-forms",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "tense",
+        "context": "form",
+        "words": {
+          "words": ["skocxit", "jiit"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["pres", "past", "fut"]
+      }
+    },
+    {
+      "id": "sk.storm.person",
+      "titleKey": "skill.storm.person",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "person",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "verbs.17",
+            "verbs.18",
+            "verbs.19",
+            "verbs.20",
+            "verbs.21",
+            "verbs.22",
+            "verbs.23",
+            "verbs.24",
+            "verbs.25",
+            "verbs.26",
+            "verbs.27",
+            "verbs.28",
+            "verbs.29",
+            "verbs.30"
+          ],
+          "grades": [3, 4]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.storm.verb-form",
+      "titleKey": "skill.storm.verb-form",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "verb-form",
+        "context": "form",
+        "words": {
+          "words": ["plavat", "skocxit"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["pres", "past", "fut"]
+      }
+    },
+    {
+      "id": "sk.storm.mood-forms",
+      "titleKey": "skill.storm.mood-forms",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "mood",
+        "context": "form",
+        "words": {
+          "words": ["plavat"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": ["pres", "past", "fut", "imp", "cond"]
+      }
+    },
+    {
+      "id": "sk.storm.mood",
+      "titleKey": "skill.storm.mood",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "mood",
+        "context": "sentence",
+        "words": {},
+        "sentences": {
+          "sentences": [
+            "verbs.17",
+            "verbs.18",
+            "verbs.19",
+            "verbs.20",
+            "verbs.21",
+            "verbs.22",
+            "verbs.23",
+            "verbs.24",
+            "verbs.25",
+            "verbs.26",
+            "verbs.27",
+            "verbs.28",
+            "verbs.29",
+            "verbs.30",
+            "kind.12",
+            "kind.13",
+            "kind.14",
+            "kind.15",
+            "kind.16"
+          ],
+          "grades": [3, 4]
+        },
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.storm.reflexive",
+      "titleKey": "skill.storm.reflexive",
+      "strand": "verbs",
+      "generator": "classify",
+      "params": {
+        "dimension": "reflexive",
+        "context": "word",
+        "words": {
+          "words": [
+            "baat-se",
+            "smaat-se",
+            "diivat-se",
+            "pysxnit-se",
+            "ozyyvat-se",
+            "trxpytit-se",
+            "vsximnout-si",
+            "stexzxovat-si",
+            "plavat",
+            "skaakat",
+            "lovit",
+            "letext",
+            "plout",
+            "spaat"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.storm.nets-reflexive",
+      "titleKey": "skill.storm.nets-reflexive",
+      "strand": "verbs",
+      "generator": "sort",
+      "params": {
+        "dimension": "reflexive",
+        "context": "word",
+        "values": ["se", "si", "none"],
+        "words": {
+          "words": [
+            "baat-se",
+            "smaat-se",
+            "diivat-se",
+            "pysxnit-se",
+            "ozyyvat-se",
+            "trxpytit-se",
+            "vsximnout-si",
+            "stexzxovat-si",
+            "plavat",
+            "skaakat",
+            "lovit",
+            "letext",
+            "plout",
+            "spaat"
+          ],
+          "grades": [3, 4]
+        },
+        "fish": 9,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.storm.pairs-standard",
+      "titleKey": "skill.storm.pairs-standard",
+      "strand": "standard-czech",
+      "generator": "pairs",
+      "params": {
+        "pair": "standard",
+        "words": {
+          "topics": ["register"],
+          "registers": ["colloquial"],
+          "grades": [3, 4]
+        },
+        "pairs": 6
+      }
+    },
+    {
+      "id": "sk.storm.nets-register",
+      "titleKey": "skill.storm.nets-register",
+      "strand": "standard-czech",
+      "generator": "sort",
+      "params": {
+        "dimension": "register",
+        "context": "word",
+        "values": ["standard", "colloquial"],
+        "words": {
+          "topics": ["register"],
+          "registers": ["standard", "colloquial"],
+          "grades": [3, 4]
+        },
+        "fish": 10,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.storm.register",
+      "titleKey": "skill.storm.register",
+      "strand": "standard-czech",
+      "generator": "classify",
+      "params": {
+        "dimension": "register",
+        "context": "word",
+        "words": {
+          "topics": ["register"],
+          "registers": ["standard", "colloquial"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.storm.spisovne",
+      "titleKey": "skill.storm.spisovne",
+      "strand": "standard-czech",
+      "generator": "spell.mistake",
+      "params": {
+        "sentences": {
+          "sentences": [
+            "register.01",
+            "register.02",
+            "register.03",
+            "register.04",
+            "register.05",
+            "register.06",
+            "register.07",
+            "register.08",
+            "register.09",
+            "register.10",
+            "register.11"
+          ],
+          "grades": [3, 4]
+        },
+        "rules": ["spisovne"]
+      }
+    }
+  ],
+  "friends": [],
+  "monsters": [
+    {
+      "id": "vir-casoplet",
+      "region": "storm-sea",
+      "nameKey": "monster.vir-casoplet",
+      "mood": "laughing",
+      "meter": 18,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.vir-casoplet.joke.1",
+        "monster.vir-casoplet.joke.2",
+        "monster.vir-casoplet.joke.3",
+        "monster.vir-casoplet.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "hat-rain",
+      "slot": "head",
+      "assetId": "cosmetic/hat-rain",
+      "nameKey": "cosmetic.hat-rain",
+      "price": 590,
+      "unlock": "storm-sea.1"
+    },
+    {
+      "id": "goggles-storm",
+      "slot": "eyes",
+      "assetId": "cosmetic/goggles-storm",
+      "nameKey": "cosmetic.goggles-storm",
+      "price": 595,
+      "unlock": "storm-sea.3"
+    },
+    {
+      "id": "lighthouse-model",
+      "slot": "grotto",
+      "assetId": "cosmetic/lighthouse-model",
+      "nameKey": "cosmetic.lighthouse-model",
+      "price": 600,
+      "unlock": "storm-sea.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "delfin-grown",
+      "nameKey": "sticker.delfin-grown",
+      "page": "storm-sea",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "delfin-skokanek",
+        "stage": "grown"
+      },
+      "icon": "sticker/big-dolphin",
+      "color": "#546e7a",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "whirlpool-calm",
+      "nameKey": "sticker.whirlpool-calm",
+      "page": "storm-sea",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "vir-casoplet"
+      },
+      "icon": "sticker/calm-eddy",
+      "color": "#78909c",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "standard-words",
+      "nameKey": "sticker.standard-words",
+      "page": "storm-sea",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.storm.register",
+        "level": "silver",
+        "share": 100
+      },
+      "icon": "sticker/two-scrolls",
+      "color": "#90a4ae",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "twenty-inkoustici",
+      "nameKey": "sticker.twenty-inkoustici",
+      "page": "storm-sea",
+      "criteria": {
+        "kind": "inkoustici-splashed",
+        "count": 20
+      },
+      "icon": "sticker/ink-splash",
+      "color": "#5c6bc0",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "fast-30",
+      "titleKey": "quest.fast-30",
+      "goal": "fast-answers",
+      "target": 30,
+      "coins": 5,
+      "weight": 6,
+      "unlock": "storm-sea.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.storm-sea-welcome",
+        "trigger": {
+          "kind": "level-start",
+          "level": "storm-sea.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.storm-sea-welcome",
+          "revision": "1",
+          "start": "storm-sea-welcome-1",
+          "catalogs": {
+            "scene": ["scene/storm-sea"],
+            "text": [
+              "story.storm-sea-welcome.1",
+              "story.storm-sea-welcome.2",
+              "story.storm-sea-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "storm-sea-welcome-1",
+              "scene": "scene/storm-sea",
+              "text": "story.storm-sea-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "storm-sea-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "storm-sea-welcome-2",
+              "scene": "scene/storm-sea",
+              "text": "story.storm-sea-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "storm-sea-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "storm-sea-welcome-3",
+              "scene": "scene/storm-sea",
+              "text": "story.storm-sea-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.vir-casoplet",
+        "trigger": {
+          "kind": "level-start",
+          "level": "storm-sea.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.vir-casoplet",
+          "revision": "1",
+          "start": "vir-casoplet-1",
+          "catalogs": {
+            "scene": ["scene/storm-sea"],
+            "text": [
+              "story.vir-casoplet.1",
+              "story.vir-casoplet.2",
+              "story.vir-casoplet.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "vir-casoplet-1",
+              "scene": "scene/storm-sea",
+              "text": "story.vir-casoplet.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "vir-casoplet-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "vir-casoplet-2",
+              "scene": "scene/storm-sea",
+              "text": "story.vir-casoplet.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "vir-casoplet-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "vir-casoplet-3",
+              "scene": "scene/storm-sea",
+              "text": "story.vir-casoplet.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.vir-casoplet-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "vir-casoplet"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.vir-casoplet-freed",
+          "revision": "1",
+          "start": "vir-casoplet-freed-1",
+          "catalogs": {
+            "scene": ["scene/storm-sea"],
+            "text": [
+              "story.vir-casoplet-freed.1",
+              "story.vir-casoplet-freed.2",
+              "story.vir-casoplet-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "vir-casoplet-freed-1",
+              "scene": "scene/storm-sea",
+              "text": "story.vir-casoplet-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "vir-casoplet-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "vir-casoplet-freed-2",
+              "scene": "scene/storm-sea",
+              "text": "story.vir-casoplet-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "vir-casoplet-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "vir-casoplet-freed-3",
+              "scene": "scene/storm-sea",
+              "text": "story.vir-casoplet-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": []
+  }
+}

@@ -1,0 +1,1100 @@
+{
+  "objectives": [
+    {
+      "id": "obj.structure.root",
+      "strand": "word-structure",
+      "grade": 4,
+      "titleKey": "grownups.objective.structure.root",
+      "rvp": ["ČJL-5-2-02"]
+    },
+    {
+      "id": "obj.structure.prefix",
+      "strand": "word-structure",
+      "grade": 4,
+      "titleKey": "grownups.objective.structure.prefix",
+      "rvp": ["ČJL-5-2-02"]
+    },
+    {
+      "id": "obj.structure.suffix",
+      "strand": "word-structure",
+      "grade": 4,
+      "titleKey": "grownups.objective.structure.suffix",
+      "rvp": ["ČJL-5-2-02"]
+    },
+    {
+      "id": "obj.structure.ending",
+      "strand": "word-structure",
+      "grade": 4,
+      "titleKey": "grownups.objective.structure.ending",
+      "rvp": ["ČJL-5-2-02"]
+    }
+  ],
+  "regions": [
+    {
+      "id": "moon-caves",
+      "order": 8,
+      "titleKey": "region.moon-caves",
+      "unlock": {
+        "after": ["ice-sea.monster"]
+      },
+      "monster": "humr-nuzkar",
+      "map": "deep",
+      "grade": 4
+    }
+  ],
+  "levels": [
+    {
+      "id": "moon-caves.1",
+      "region": "moon-caves",
+      "order": 1,
+      "titleKey": "level.moon-caves.1",
+      "kind": "lesson",
+      "unlock": {
+        "after": []
+      },
+      "activities": [
+        {
+          "kind": "word-family",
+          "skills": ["sk.moon.family"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "word-shell",
+          "skills": ["sk.moon.shell-root"],
+          "count": 2,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.moon.odd-family"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": ["rak-korinek"],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": "beat.the-deep",
+      "objectives": ["obj.structure.root"]
+    },
+    {
+      "id": "moon-caves.2",
+      "region": "moon-caves",
+      "order": 2,
+      "titleKey": "level.moon-caves.2",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["moon-caves.1"]
+      },
+      "activities": [
+        {
+          "kind": "word-shell",
+          "skills": ["sk.moon.shell-prefix"],
+          "count": 3,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.moon.segment-prefix"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.structure.prefix"]
+    },
+    {
+      "id": "moon-caves.3",
+      "region": "moon-caves",
+      "order": 3,
+      "titleKey": "level.moon-caves.3",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["moon-caves.2"]
+      },
+      "activities": [
+        {
+          "kind": "word-shell",
+          "skills": ["sk.moon.shell-suffix"],
+          "count": 3,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.moon.segment-suffix"],
+          "count": 10,
+          "input": "choice",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.structure.suffix"]
+    },
+    {
+      "id": "moon-caves.4",
+      "region": "moon-caves",
+      "order": 4,
+      "titleKey": "level.moon-caves.4",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["moon-caves.3"]
+      },
+      "activities": [
+        {
+          "kind": "word-shell",
+          "skills": ["sk.moon.shell-ending"],
+          "count": 3,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "memory-match",
+          "skills": ["sk.moon.plural-pairs"],
+          "count": 1,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.moon.segment-ending"],
+          "count": 10,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": ["obj.structure.ending"]
+    },
+    {
+      "id": "moon-caves.5",
+      "region": "moon-caves",
+      "order": 5,
+      "titleKey": "level.moon-caves.5",
+      "kind": "lesson",
+      "unlock": {
+        "after": ["moon-caves.4"]
+      },
+      "activities": [
+        {
+          "kind": "word-shell",
+          "skills": ["sk.moon.shell-all"],
+          "count": 4,
+          "input": "auto",
+          "options": {}
+        },
+        {
+          "kind": "feeding",
+          "skills": ["sk.moon.segment-all"],
+          "count": 12,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [2, 4, 6],
+        "eggs": [],
+        "cosmetics": []
+      },
+      "monster": null,
+      "storyBeat": null,
+      "objectives": [
+        "obj.structure.root",
+        "obj.structure.prefix",
+        "obj.structure.suffix",
+        "obj.structure.ending"
+      ]
+    },
+    {
+      "id": "moon-caves.monster",
+      "region": "moon-caves",
+      "order": 6,
+      "titleKey": "level.moon-caves.monster",
+      "kind": "monster",
+      "unlock": {
+        "after": ["moon-caves.5"]
+      },
+      "activities": [
+        {
+          "kind": "battle",
+          "skills": [
+            "sk.moon.odd-family",
+            "sk.moon.segment-prefix",
+            "sk.moon.segment-suffix",
+            "sk.moon.segment-ending",
+            "sk.moon.segment-all"
+          ],
+          "count": 23,
+          "input": "auto",
+          "options": {}
+        }
+      ],
+      "stars": null,
+      "rewards": {
+        "coins": [4, 8, 12],
+        "eggs": ["rak-korinek"],
+        "cosmetics": ["lantern-shell"]
+      },
+      "monster": "humr-nuzkar",
+      "storyBeat": "beat.humr-nuzkar",
+      "objectives": [
+        "obj.structure.root",
+        "obj.structure.prefix",
+        "obj.structure.suffix",
+        "obj.structure.ending"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk.moon.family",
+      "titleKey": "skill.moon.family",
+      "strand": "word-structure",
+      "generator": "family",
+      "params": {
+        "words": {
+          "words": [
+            "ryba",
+            "rybka",
+            "rybniik",
+            "rybaarx",
+            "rybaarxskyy",
+            "rybii",
+            "rybicxka",
+            "voda",
+            "vodicxka",
+            "vodnii",
+            "vodniik",
+            "podvodnii",
+            "morxe",
+            "morxskyy",
+            "podmorxskyy",
+            "prxiimorxskyy",
+            "naamorxniik",
+            "hvexzda",
+            "hvexzdice",
+            "hvexzdaarx",
+            "hvexzdicxka",
+            "hvexzdnyy",
+            "rybiiz",
+            "vodiitko",
+            "perla",
+            "ostrov"
+          ],
+          "grades": [3, 4]
+        },
+        "families": ["fam.ryba", "fam.voda", "fam.morxe", "fam.hvexzda"],
+        "pick": 4,
+        "distractors": 2
+      }
+    },
+    {
+      "id": "sk.moon.odd-family",
+      "titleKey": "skill.moon.odd-family",
+      "strand": "word-structure",
+      "generator": "odd-one-out",
+      "params": {
+        "basis": "family",
+        "words": {
+          "words": [
+            "ryba",
+            "rybka",
+            "rybniik",
+            "rybaarx",
+            "rybaarxskyy",
+            "rybii",
+            "rybicxka",
+            "voda",
+            "vodicxka",
+            "vodnii",
+            "vodniik",
+            "podvodnii",
+            "morxe",
+            "morxskyy",
+            "podmorxskyy",
+            "prxiimorxskyy",
+            "naamorxniik",
+            "hvexzda",
+            "hvexzdice",
+            "hvexzdaarx",
+            "hvexzdicxka",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "size": 4
+      }
+    },
+    {
+      "id": "sk.moon.shell-root",
+      "titleKey": "skill.moon.shell-root",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": [
+            "ryba",
+            "rybka",
+            "rybniik",
+            "rybaarx",
+            "rybaarxskyy",
+            "rybii",
+            "rybicxka",
+            "voda",
+            "vodicxka",
+            "vodnii",
+            "vodniik",
+            "podvodnii",
+            "morxe",
+            "morxskyy",
+            "podmorxskyy",
+            "prxiimorxskyy",
+            "naamorxniik",
+            "hvexzda",
+            "hvexzdice",
+            "hvexzdaarx",
+            "hvexzdicxka",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "roles": ["root"]
+      }
+    },
+    {
+      "id": "sk.moon.shell-prefix",
+      "titleKey": "skill.moon.shell-prefix",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": ["podvodnii", "podmorxskyy", "prxiimorxskyy", "naamorxniik"],
+          "grades": [3, 4]
+        },
+        "roles": ["prefix"]
+      }
+    },
+    {
+      "id": "sk.moon.shell-suffix",
+      "titleKey": "skill.moon.shell-suffix",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": [
+            "rybka",
+            "rybniik",
+            "rybaarx",
+            "rybicxka",
+            "vodicxka",
+            "vodnii",
+            "vodniik",
+            "morxskyy",
+            "hvexzdice",
+            "hvexzdaarx",
+            "hvexzdicxka",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "roles": ["suffix"]
+      }
+    },
+    {
+      "id": "sk.moon.shell-ending",
+      "titleKey": "skill.moon.shell-ending",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": [
+            "ryba",
+            "rybka",
+            "rybniik",
+            "rybaarx",
+            "rybaarxskyy",
+            "rybii",
+            "rybicxka",
+            "voda",
+            "vodicxka",
+            "vodnii",
+            "vodniik",
+            "podvodnii",
+            "morxe",
+            "morxskyy",
+            "podmorxskyy",
+            "prxiimorxskyy",
+            "naamorxniik",
+            "hvexzda",
+            "hvexzdice",
+            "hvexzdaarx",
+            "hvexzdicxka",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "roles": ["ending"]
+      }
+    },
+    {
+      "id": "sk.moon.shell-all",
+      "titleKey": "skill.moon.shell-all",
+      "strand": "word-structure",
+      "generator": "segment",
+      "params": {
+        "words": {
+          "words": [
+            "ryba",
+            "rybka",
+            "rybniik",
+            "rybaarx",
+            "rybaarxskyy",
+            "rybii",
+            "rybicxka",
+            "voda",
+            "vodicxka",
+            "vodnii",
+            "vodniik",
+            "podvodnii",
+            "morxe",
+            "morxskyy",
+            "podmorxskyy",
+            "prxiimorxskyy",
+            "naamorxniik",
+            "hvexzda",
+            "hvexzdice",
+            "hvexzdaarx",
+            "hvexzdicxka",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "roles": ["prefix", "root", "suffix", "ending"]
+      }
+    },
+    {
+      "id": "sk.moon.segment-prefix",
+      "titleKey": "skill.moon.segment-prefix",
+      "strand": "word-structure",
+      "generator": "classify",
+      "params": {
+        "dimension": "segment",
+        "context": "word",
+        "words": {
+          "words": ["podvodnii", "podmorxskyy", "prxiimorxskyy"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["prefix", "root"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.moon.segment-suffix",
+      "titleKey": "skill.moon.segment-suffix",
+      "strand": "word-structure",
+      "generator": "classify",
+      "params": {
+        "dimension": "segment",
+        "context": "word",
+        "words": {
+          "words": [
+            "rybka",
+            "rybicxka",
+            "vodicxka",
+            "vodnii",
+            "morxskyy",
+            "hvexzdice",
+            "hvexzdicxka",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["root", "suffix"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.moon.segment-ending",
+      "titleKey": "skill.moon.segment-ending",
+      "strand": "word-structure",
+      "generator": "classify",
+      "params": {
+        "dimension": "segment",
+        "context": "word",
+        "words": {
+          "words": ["ryba", "voda", "morxe", "hvexzda", "rybka", "hvexzdice", "rybii", "vodnii"],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": ["root", "ending"],
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.moon.segment-all",
+      "titleKey": "skill.moon.segment-all",
+      "strand": "word-structure",
+      "generator": "classify",
+      "params": {
+        "dimension": "segment",
+        "context": "word",
+        "words": {
+          "words": [
+            "rybka",
+            "rybicxka",
+            "vodicxka",
+            "podvodnii",
+            "morxskyy",
+            "podmorxskyy",
+            "prxiimorxskyy",
+            "hvexzdice",
+            "hvexzdnyy"
+          ],
+          "grades": [3, 4]
+        },
+        "sentences": {},
+        "values": null,
+        "cells": null
+      }
+    },
+    {
+      "id": "sk.moon.plural-pairs",
+      "titleKey": "skill.moon.plural-pairs",
+      "strand": "word-structure",
+      "generator": "pairs",
+      "params": {
+        "pair": "plural",
+        "words": {
+          "words": ["ryba", "rybka", "rybniik", "rybaarx", "hvexzda", "hvexzdice", "vlna", "perla"],
+          "grades": [3, 4]
+        },
+        "pairs": 6
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "rak-korinek",
+      "nameKey": "friend.rak-korinek",
+      "mnemonicKey": "friend.rak-korinek.mnemonic",
+      "region": "moon-caves",
+      "skills": [
+        "sk.moon.family",
+        "sk.moon.odd-family",
+        "sk.moon.shell-root",
+        "sk.moon.segment-prefix"
+      ],
+      "monster": "humr-nuzkar"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "humr-nuzkar",
+      "region": "moon-caves",
+      "nameKey": "monster.humr-nuzkar",
+      "mood": "grumpy",
+      "meter": 18,
+      "reviewShare": 20,
+      "jokes": [
+        "monster.humr-nuzkar.joke.1",
+        "monster.humr-nuzkar.joke.2",
+        "monster.humr-nuzkar.joke.3",
+        "monster.humr-nuzkar.joke.4"
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "helmet-lamp",
+      "slot": "head",
+      "assetId": "cosmetic/helmet-lamp",
+      "nameKey": "cosmetic.helmet-lamp",
+      "price": 590,
+      "unlock": "moon-caves.1"
+    },
+    {
+      "id": "glasses-moon",
+      "slot": "eyes",
+      "assetId": "cosmetic/glasses-moon",
+      "nameKey": "cosmetic.glasses-moon",
+      "price": 595,
+      "unlock": "moon-caves.3"
+    },
+    {
+      "id": "lantern-shell",
+      "slot": "grotto",
+      "assetId": "cosmetic/lantern-shell",
+      "nameKey": "cosmetic.lantern-shell",
+      "price": 600,
+      "unlock": "moon-caves.monster"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "korinek-hatched",
+      "nameKey": "sticker.korinek-hatched",
+      "page": "moon-caves",
+      "criteria": {
+        "kind": "friend-stage",
+        "friend": "rak-korinek",
+        "stage": "baby"
+      },
+      "icon": "sticker/hermit-crab",
+      "color": "#b39ddb",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "lobster-freed",
+      "nameKey": "sticker.lobster-freed",
+      "page": "moon-caves",
+      "criteria": {
+        "kind": "monster-freed",
+        "monster": "humr-nuzkar"
+      },
+      "icon": "sticker/closed-scissors",
+      "color": "#9575cd",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "whole-word",
+      "nameKey": "sticker.whole-word",
+      "page": "moon-caves",
+      "criteria": {
+        "kind": "skill-mastered",
+        "skill": "sk.moon.shell-all",
+        "level": "bronze",
+        "share": 100
+      },
+      "icon": "sticker/word-shell",
+      "color": "#d1c4e9",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "placement-done",
+      "nameKey": "sticker.placement-done",
+      "page": "moon-caves",
+      "criteria": {
+        "kind": "placement-done"
+      },
+      "icon": "sticker/diving-badge",
+      "color": "#7e57c2",
+      "frame": "sticker/frame-shell"
+    },
+    {
+      "id": "five-hundred-coins",
+      "nameKey": "sticker.five-hundred-coins",
+      "page": "moon-caves",
+      "criteria": {
+        "kind": "coins-earned",
+        "count": 500
+      },
+      "icon": "sticker/coin-chest",
+      "color": "#e6b84a",
+      "frame": "sticker/frame-shell"
+    }
+  ],
+  "quests": [
+    {
+      "id": "correct-40",
+      "titleKey": "quest.correct-40",
+      "goal": "correct-answers",
+      "target": 40,
+      "coins": 5,
+      "weight": 6,
+      "unlock": "moon-caves.1"
+    }
+  ],
+  "story": {
+    "beats": [
+      {
+        "id": "beat.the-deep",
+        "trigger": {
+          "kind": "level-start",
+          "level": "moon-caves.1"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.the-deep",
+          "revision": "1",
+          "start": "the-deep-1",
+          "catalogs": {
+            "scene": ["scene/moon-caves"],
+            "text": ["story.the-deep.1", "story.the-deep.2", "story.the-deep.3", "story.next"],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "the-deep-1",
+              "scene": "scene/moon-caves",
+              "text": "story.the-deep.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "the-deep-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "the-deep-2",
+              "scene": "scene/moon-caves",
+              "text": "story.the-deep.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "the-deep-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "the-deep-3",
+              "scene": "scene/moon-caves",
+              "text": "story.the-deep.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.moon-caves-welcome",
+        "trigger": {
+          "kind": "after-beat",
+          "beat": "beat.the-deep"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.moon-caves-welcome",
+          "revision": "1",
+          "start": "moon-caves-welcome-1",
+          "catalogs": {
+            "scene": ["scene/moon-caves"],
+            "text": [
+              "story.moon-caves-welcome.1",
+              "story.moon-caves-welcome.2",
+              "story.moon-caves-welcome.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": ["egg.rak-korinek"],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [
+            {
+              "id": "claim-rak-korinek",
+              "kind": "claim",
+              "catalog": "reward",
+              "ref": "egg.rak-korinek"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "moon-caves-welcome-1",
+              "scene": "scene/moon-caves",
+              "text": "story.moon-caves-welcome.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": ["claim-rak-korinek"],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "moon-caves-welcome-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "moon-caves-welcome-2",
+              "scene": "scene/moon-caves",
+              "text": "story.moon-caves-welcome.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "moon-caves-welcome-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "moon-caves-welcome-3",
+              "scene": "scene/moon-caves",
+              "text": "story.moon-caves-welcome.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.humr-nuzkar",
+        "trigger": {
+          "kind": "level-start",
+          "level": "moon-caves.monster"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.humr-nuzkar",
+          "revision": "1",
+          "start": "humr-nuzkar-1",
+          "catalogs": {
+            "scene": ["scene/moon-caves"],
+            "text": [
+              "story.humr-nuzkar.1",
+              "story.humr-nuzkar.2",
+              "story.humr-nuzkar.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "humr-nuzkar-1",
+              "scene": "scene/moon-caves",
+              "text": "story.humr-nuzkar.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "humr-nuzkar-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "humr-nuzkar-2",
+              "scene": "scene/moon-caves",
+              "text": "story.humr-nuzkar.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "humr-nuzkar-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "humr-nuzkar-3",
+              "scene": "scene/moon-caves",
+              "text": "story.humr-nuzkar.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      },
+      {
+        "id": "beat.humr-nuzkar-freed",
+        "trigger": {
+          "kind": "monster-freed",
+          "monster": "humr-nuzkar"
+        },
+        "skippable": true,
+        "graph": {
+          "schema": 1,
+          "id": "story.humr-nuzkar-freed",
+          "revision": "1",
+          "start": "humr-nuzkar-freed-1",
+          "catalogs": {
+            "scene": ["scene/moon-caves"],
+            "text": [
+              "story.humr-nuzkar-freed.1",
+              "story.humr-nuzkar-freed.2",
+              "story.humr-nuzkar-freed.3",
+              "story.next"
+            ],
+            "asset": [],
+            "clue": [],
+            "fact": [],
+            "glossary": [],
+            "reward": [],
+            "completion": []
+          },
+          "flags": [],
+          "items": [],
+          "data": [],
+          "effects": [],
+          "nodes": [
+            {
+              "id": "humr-nuzkar-freed-1",
+              "scene": "scene/moon-caves",
+              "text": "story.humr-nuzkar-freed.1",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "humr-nuzkar-freed-2",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "humr-nuzkar-freed-2",
+              "scene": "scene/moon-caves",
+              "text": "story.humr-nuzkar-freed.2",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [
+                {
+                  "id": "next",
+                  "text": "story.next",
+                  "to": "humr-nuzkar-freed-3",
+                  "guard": null,
+                  "effects": []
+                }
+              ],
+              "automatic": [],
+              "resolveEnding": false
+            },
+            {
+              "id": "humr-nuzkar-freed-3",
+              "scene": "scene/moon-caves",
+              "text": "story.humr-nuzkar-freed.3",
+              "narration": null,
+              "revisit": "allow",
+              "entryEffects": [],
+              "choices": [],
+              "automatic": [],
+              "resolveEnding": false
+            }
+          ],
+          "maxAutomaticSteps": 4,
+          "endings": []
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "reward": "egg.rak-korinek",
+        "grant": {
+          "kind": "egg",
+          "friend": "rak-korinek"
+        }
+      }
+    ]
+  }
+}

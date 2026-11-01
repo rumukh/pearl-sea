@@ -320,7 +320,7 @@ def check_sentence(s, words):
             if t in orig:
                 continue
             an = analyze(t) or analyze(t[0].lower() + t[1:])
-            if an and rule not in ("shoda", "vzor", "predpona-predlozka", "mne-zajmeno", "spisovne"):
+            if an and rule not in ("shoda", "vzor", "predpona-predlozka", "mne-zajmeno", "spisovne", "spojka", "interpunkce"):
                 note("alt-is-word", where, f"rule {rule}: alternative '{t}' is a real word {sorted({raw(l) for l, _ in an})[:4]} in: {plain}")
     for mk in s.get("marks", []):
         tok = mk["t"]

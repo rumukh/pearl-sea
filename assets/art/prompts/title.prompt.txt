@@ -1,0 +1,8 @@
+# step 1: bg-title/bg-title-v1-s98011.png (seed 98011, Scene mode)
+Repaint this rough colour-blocking sketch as a finished, beautifully painted title-screen background for a cheerful children's undersea learning game about a magical sea of pearls. Keep exactly the same composition: bright, open turquoise water with gentle sunbeams across the whole upper part, left calm and empty for the game's title; at the bottom centre the Great Shell, a giant magical scallop shell open like a treasure box, pearly pink and cream, softly glowing and full of shining round pearls in white, pink and gold, resting on a small sandy mound; coral gardens and swaying kelp framing the left and right edges; open water at the middle left and the middle right where the game will place its characters; in the far bottom right, low on the sand, a small, soft, dark-violet cloud of magic ink drifting in the distance, mysterious but not scary.
+Style: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua blue, coral pink, sunny yellow, pearly pink and sand beige; magical, warm and inviting.
+No characters, no animals, no fish, no submarine, no people, no text, no letters, no logo, no title, no watermark, no border.
+
+# negative prompt
+blurry, low resolution, text, letters, words, title, logo, numbers, signature, watermark, border, frame, characters, animals, fish, people, submarine, dark, scary, photorealistic, 3d render
+

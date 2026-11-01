@@ -1,0 +1,67 @@
+{
+  "id": "hint",
+  "title": "Hint",
+  "description": "A soft glassy shimmer, E6 with a sparkle: a little help appears.",
+  "category": "soft",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5317,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.55,
+  "loudness": {
+    "measure": "momentary",
+    "target": -18
+  },
+  "instruments": {
+    "glass": {
+      "extends": "glass"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "hint",
+      "sends": {
+        "room": -8
+      },
+      "voices": [
+        {
+          "instrument": "glass",
+          "at": 0,
+          "gate": 0.3,
+          "pitch": "E6",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "sparkle",
+          "at": 0.06,
+          "pitch": "B7",
+          "velocity": 0.6
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

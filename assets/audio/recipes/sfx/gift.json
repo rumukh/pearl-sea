@@ -1,0 +1,195 @@
+{
+  "id": "gift",
+  "title": "Treasure chest",
+  "description": "A wooden lid creaks open, a harp runs up and gold sparkles spill out: a quest reward or the daily chest.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5251,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1.2,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "creak": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "saw"
+        },
+        {
+          "type": "noise",
+          "color": "pink",
+          "db": -8
+        }
+      ],
+      "filters": [
+        {
+          "type": "bandpass",
+          "freq": 600,
+          "q": 3
+        }
+      ],
+      "pitchEnv": [
+        [
+          0,
+          0
+        ],
+        [
+          0.22,
+          7,
+          1
+        ]
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0.6
+          ],
+          [
+            0.2,
+            1,
+            -1
+          ],
+          [
+            0.24,
+            0,
+            3
+          ]
+        ]
+      },
+      "vibrato": {
+        "rate": 23,
+        "depth": 0.6
+      },
+      "db": -10
+    },
+    "harp": {
+      "extends": "harp"
+    },
+    "glock": {
+      "extends": "glock"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "lid",
+      "voices": [
+        {
+          "instrument": "creak",
+          "at": 0,
+          "pitch": "G3",
+          "velocity": 0.8
+        }
+      ]
+    },
+    {
+      "name": "run",
+      "sends": {
+        "room": -9
+      },
+      "voices": [
+        {
+          "instrument": "harp",
+          "at": 0.25,
+          "pitch": "G5",
+          "velocity": 0.6
+        },
+        {
+          "instrument": "harp",
+          "at": 0.29,
+          "pitch": "A5",
+          "velocity": 0.66
+        },
+        {
+          "instrument": "harp",
+          "at": 0.33,
+          "pitch": "C6",
+          "velocity": 0.72
+        },
+        {
+          "instrument": "harp",
+          "at": 0.37,
+          "pitch": "D6",
+          "velocity": 0.78
+        },
+        {
+          "instrument": "harp",
+          "at": 0.41,
+          "pitch": "E6",
+          "velocity": 0.84
+        },
+        {
+          "instrument": "harp",
+          "at": 0.45,
+          "pitch": "G6",
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "name": "gold",
+      "db": -8,
+      "sends": {
+        "room": -6
+      },
+      "voices": [
+        {
+          "instrument": "glock",
+          "at": 0.5,
+          "pitch": "C7",
+          "velocity": 0.85
+        }
+      ],
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 7,
+        "start": 0.5,
+        "end": 0.95,
+        "distribution": "even",
+        "jitter": 0.6,
+        "pitches": [
+          "E7",
+          "G7",
+          "C8"
+        ],
+        "db": [
+          -8,
+          0
+        ],
+        "detune": 5
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.3,
+      "size": 0.7,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "id": "ink-splat",
+  "title": "Ink splat",
+  "description": "A comic wet \"splat\": a soft low thump, a dark splash and a little squelch. Funny, never scary.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5306,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.5,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "thump": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        }
+      ],
+      "pitchEnv": [
+        [
+          0,
+          7
+        ],
+        [
+          0.06,
+          0,
+          3
+        ]
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            1
+          ],
+          [
+            0.12,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "splat": {
+      "extends": "splash",
+      "sources": [
+        {
+          "type": "noise",
+          "color": "pink",
+          "filters": [
+            {
+              "type": "lowpass",
+              "freq": 1400,
+              "q": 0.8,
+              "env": [
+                [
+                  0,
+                  0.5
+                ],
+                [
+                  0.2,
+                  -1,
+                  2
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.003,
+            1
+          ],
+          [
+            0.05,
+            0.4,
+            -1
+          ],
+          [
+            0.25,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "squelch": {
+      "sources": [
+        {
+          "type": "fm",
+          "ratio": 1,
+          "modRatio": 1.5,
+          "index": 2,
+          "indexEnv": [
+            [
+              0,
+              1
+            ],
+            [
+              0.1,
+              0.2,
+              2
+            ]
+          ]
+        }
+      ],
+      "filters": [
+        {
+          "type": "lowpass",
+          "freq": 900,
+          "q": 1
+        }
+      ],
+      "pitchEnv": [
+        [
+          0,
+          3
+        ],
+        [
+          0.12,
+          -5,
+          2
+        ]
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.01,
+            1
+          ],
+          [
+            0.14,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -9
+    }
+  },
+  "tracks": [
+    {
+      "name": "splat",
+      "voices": [
+        {
+          "instrument": "thump",
+          "at": 0,
+          "pitch": "A2",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "splat",
+          "at": 0.005,
+          "velocity": 0.9
+        },
+        {
+          "instrument": "squelch",
+          "at": 0.06,
+          "pitch": "D4",
+          "velocity": 0.75
+        }
+      ]
+    }
+  ],
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ],
+    "maxLimitDb": 9
+  }
+}

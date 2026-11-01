@@ -1,0 +1,66 @@
+{
+  "id": "key",
+  "title": "Keypad tick",
+  "description": "A crisp little glassy tick on E6 for the on-screen letter keys.",
+  "category": "ui",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5002,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.18,
+  "loudness": {
+    "measure": "momentary",
+    "target": -21
+  },
+  "instruments": {
+    "tick": {
+      "sources": [
+        {
+          "type": "additive",
+          "partials": [
+            {
+              "ratio": 1,
+              "db": 0,
+              "t60": 0.13
+            },
+            {
+              "ratio": 2.76,
+              "db": -12,
+              "t60": 0.05
+            }
+          ]
+        }
+      ],
+      "amp": {
+        "a": 0.002,
+        "d": 0,
+        "s": 1,
+        "r": 0.04
+      },
+      "gate": 0.1
+    }
+  },
+  "tracks": [
+    {
+      "name": "key",
+      "voices": [
+        {
+          "instrument": "tick",
+          "at": 0,
+          "pitch": "E6",
+          "velocity": 0.8
+        }
+      ]
+    }
+  ],
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

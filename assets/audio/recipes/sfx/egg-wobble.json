@@ -1,0 +1,120 @@
+{
+  "id": "egg-wobble",
+  "title": "An egg arrives",
+  "description": "An egg floats in and wobbles: three soft kalimba bumps, G4 A4 G4, a bubble and a twinkle.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5301,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.8,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "kal": {
+      "extends": "kalimba",
+      "pitchEnv": [
+        [
+          0,
+          -0.6
+        ],
+        [
+          0.05,
+          0.3,
+          2
+        ],
+        [
+          0.1,
+          0
+        ]
+      ]
+    },
+    "bub": {
+      "extends": "bubble"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "wobble",
+      "sends": {
+        "room": -12
+      },
+      "voices": [
+        {
+          "instrument": "kal",
+          "at": 0,
+          "pitch": "G4",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "kal",
+          "at": 0.13,
+          "pitch": "A4",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "kal",
+          "at": 0.26,
+          "pitch": "G4",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "bub",
+          "at": 0.36,
+          "pitch": "C5",
+          "velocity": 0.6
+        }
+      ]
+    },
+    {
+      "name": "twinkle",
+      "db": -10,
+      "sends": {
+        "room": -6
+      },
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 3,
+        "start": 0.4,
+        "end": 0.6,
+        "distribution": "even",
+        "jitter": 0.4,
+        "pitches": [
+          "G7",
+          "C8"
+        ],
+        "order": "cycle",
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

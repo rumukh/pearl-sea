@@ -1,0 +1,143 @@
+{
+  "id": "bubble-shot",
+  "title": "Bublinka's bubble",
+  "description": "Bublinka shoots a bubble: a quick airy puff and a round bubble swooping up an octave.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5305,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.42,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "puff": {
+      "sources": [
+        {
+          "type": "noise",
+          "color": "pink",
+          "filters": [
+            {
+              "type": "bandpass",
+              "freq": 700,
+              "q": 1.2,
+              "env": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.08,
+                  1.5,
+                  -1
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.004,
+            1
+          ],
+          [
+            0.1,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -8
+    },
+    "shot": {
+      "extends": "bubble",
+      "pitchEnv": [
+        [
+          0,
+          -12
+        ],
+        [
+          0.16,
+          2,
+          -2
+        ],
+        [
+          0.2,
+          3
+        ]
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.003,
+            1
+          ],
+          [
+            0.08,
+            0.6,
+            -1
+          ],
+          [
+            0.26,
+            0,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  "tracks": [
+    {
+      "name": "shot",
+      "sends": {
+        "room": -14
+      },
+      "voices": [
+        {
+          "instrument": "puff",
+          "at": 0,
+          "velocity": 0.8
+        },
+        {
+          "instrument": "shot",
+          "at": 0.01,
+          "pitch": "E5",
+          "velocity": 0.9
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 0.7,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

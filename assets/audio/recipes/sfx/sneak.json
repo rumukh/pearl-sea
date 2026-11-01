@@ -1,0 +1,106 @@
+{
+  "id": "sneak",
+  "title": "Inkoustík ambush",
+  "description": "Four sneaky pizzicato tiptoes E3 G3 B3 E4 and a small splat: an Inkoustík jumps out. Playful, never scary.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5311,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.8,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "pizz": {
+      "extends": "pizz"
+    },
+    "splat": {
+      "extends": "splash",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.003,
+            1
+          ],
+          [
+            0.04,
+            0.4,
+            -1
+          ],
+          [
+            0.18,
+            0,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  "tracks": [
+    {
+      "name": "sneak",
+      "sends": {
+        "room": -14
+      },
+      "voices": [
+        {
+          "instrument": "pizz",
+          "at": 0,
+          "pitch": "E3",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "pizz",
+          "at": 0.12,
+          "pitch": "G3",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "pizz",
+          "at": 0.24,
+          "pitch": "B3",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "pizz",
+          "at": 0.36,
+          "pitch": "E4",
+          "velocity": 0.9
+        },
+        {
+          "instrument": "splat",
+          "at": 0.48,
+          "velocity": 0.8
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 0.8,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ],
+    "maxLimitDb": 9
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "id": "wash",
+  "title": "Ink washed away",
+  "description": "A watery swish washing the ink away, bubbles, and a clean glassy shine.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5307,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.8,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "water": {
+      "extends": "swish"
+    },
+    "bub": {
+      "extends": "bubble"
+    },
+    "glass": {
+      "extends": "glass"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "swish",
+      "voices": [
+        {
+          "instrument": "water",
+          "at": 0,
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "name": "bubbles",
+      "db": -12,
+      "scatter": {
+        "instrument": "bub",
+        "count": 4,
+        "start": 0.05,
+        "end": 0.35,
+        "distribution": "even",
+        "jitter": 0.5,
+        "pitches": [
+          "G5",
+          "C6",
+          "E6"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    },
+    {
+      "name": "shine",
+      "db": -6,
+      "sends": {
+        "room": -7
+      },
+      "voices": [
+        {
+          "instrument": "glass",
+          "at": 0.3,
+          "gate": 0.3,
+          "pitch": "E6",
+          "velocity": 0.8
+        }
+      ],
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 3,
+        "start": 0.32,
+        "end": 0.5,
+        "distribution": "even",
+        "jitter": 0.4,
+        "pitches": [
+          "G7",
+          "C8"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

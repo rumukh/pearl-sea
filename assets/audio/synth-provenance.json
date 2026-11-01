@@ -1,0 +1,1074 @@
+{
+  "schema": "pearl-sea-synth-provenance/1",
+  "works": "Original works: every effect is synthesized from the recipes in this repository. No samples, recordings, sample libraries, models or third-party audio are used.",
+  "generator": {
+    "name": "dragon-valley-audio-synth",
+    "version": "1.0.0",
+    "engine": "scripts/audio/synth (ported from Dragon Valley, MIT, same author)",
+    "command": "node scripts/audio/sfx.mjs",
+    "check": "node scripts/audio/sfx.mjs --check",
+    "determinism": "Only IEEE-754 basic arithmetic and seeded integer generators, so every platform renders identical PCM."
+  },
+  "encoding": {
+    "codec": "Vorbis (libvorbis through FFmpeg), quality 5, mono, 48000 Hz, no metadata",
+    "command": "ffmpeg -i <pcm.wav> -map_metadata -1 -fflags +bitexact -flags:a +bitexact -c:a libvorbis -q:a 5 <id>.ogg",
+    "policy": "An encoder's bytes depend on its version, so an effect is encoded again only when its PCM changes; encoded.from is the SHA-256 of the PCM WAV it was encoded from, and decodedTruePeakDbtp is measured on the decoded Ogg (4x oversampled)."
+  },
+  "patchLibrary": "assets/audio/recipes/_patches.json",
+  "recipeSha256": "SHA-256 of the canonical JSON (sorted keys, no whitespace) of a recipe with every patch it extends resolved",
+  "effects": [
+    {
+      "id": "sfx/blocked",
+      "file": "assets/audio/sfx/blocked.ogg",
+      "recipe": "assets/audio/recipes/sfx/blocked.json",
+      "recipeSha256": "7558c4bf53dcd76ebfe8ddc8c0608fd6058e6ee7430ed5caa5bf4e28d5fe207e",
+      "seed": 5004,
+      "samples": 17280,
+      "seconds": 0.36,
+      "loudnessLufs": -18.03,
+      "truePeakDbtp": -2.76,
+      "pcm": {
+        "bytes": 34604,
+        "sha256": "e8fedf882ae7a7e3ae119fd142507a17a5fe56bfd63fe16ba4073e7cf3e0927c"
+      },
+      "encoded": {
+        "from": "e8fedf882ae7a7e3ae119fd142507a17a5fe56bfd63fe16ba4073e7cf3e0927c",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2.66,
+        "bytes": 6684,
+        "sha256": "af892413b80d82b0612b35889e5208e19a6ff81d2ff494ceb42d71c4c45c765b"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/bloop",
+      "file": "assets/audio/sfx/bloop.ogg",
+      "recipe": "assets/audio/recipes/sfx/bloop.json",
+      "recipeSha256": "fa55daec5ab8279d9d38b857a92241b3240f22669935a23ba6f4eb3f7112f405",
+      "seed": 5005,
+      "samples": 26400,
+      "seconds": 0.55,
+      "loudnessLufs": -18,
+      "truePeakDbtp": -3.4,
+      "pcm": {
+        "bytes": 52844,
+        "sha256": "3e0ffbba4510166fb883899afe35b444a3046f4a3848197ae2d2fd48a299f2b5"
+      },
+      "encoded": {
+        "from": "3e0ffbba4510166fb883899afe35b444a3046f4a3848197ae2d2fd48a299f2b5",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -3.42,
+        "bytes": 7752,
+        "sha256": "401731e70850e6ffc7adb00eb50f752085a8788b6a142070cbd371e4a7c4cbd3"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/board-done",
+      "file": "assets/audio/sfx/board-done.ogg",
+      "recipe": "assets/audio/recipes/sfx/board-done.json",
+      "recipeSha256": "d352aa4f2c03489d12badc46568ef8a366ada12a82206492b3af3fb03bb61224",
+      "seed": 5315,
+      "samples": 36000,
+      "seconds": 0.75,
+      "loudnessLufs": -15.05,
+      "truePeakDbtp": -1.58,
+      "pcm": {
+        "bytes": 72044,
+        "sha256": "c407ae4c9e4b575af0da6bc149ea98e644e3527da39100b1ef881bb19f7e9e0d"
+      },
+      "encoded": {
+        "from": "c407ae4c9e4b575af0da6bc149ea98e644e3527da39100b1ef881bb19f7e9e0d",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.5,
+        "bytes": 10668,
+        "sha256": "bdca6cbc61d30e82a079d43b4d27f31f2cf864a56e4a287a65226cdac8784667"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/bubble-shot",
+      "file": "assets/audio/sfx/bubble-shot.ogg",
+      "recipe": "assets/audio/recipes/sfx/bubble-shot.json",
+      "recipeSha256": "594a39f2aabac47e33293cc461c2fe46e736f7300f0072676f38cfe7c3a35cd5",
+      "seed": 5305,
+      "samples": 20160,
+      "seconds": 0.42,
+      "loudnessLufs": -16,
+      "truePeakDbtp": -3.95,
+      "pcm": {
+        "bytes": 40364,
+        "sha256": "3406b67e04fee61420f0722c046d7218f51dd32eb1baa60601e9bc323e57f672"
+      },
+      "encoded": {
+        "from": "3406b67e04fee61420f0722c046d7218f51dd32eb1baa60601e9bc323e57f672",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -3.9,
+        "bytes": 7456,
+        "sha256": "eae71cb5485f32cf0cba40943002dc62353fe06cdd9ab6968622db6c4e8406ff"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/coin-shower",
+      "file": "assets/audio/sfx/coin-shower.ogg",
+      "recipe": "assets/audio/recipes/sfx/coin-shower.json",
+      "recipeSha256": "3bec35cf0d85365d6cdc2f8ca76efecb46d8fb24266081eba6317afc8b318188",
+      "seed": 5202,
+      "samples": 62400,
+      "seconds": 1.3,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -4.02,
+      "pcm": {
+        "bytes": 124844,
+        "sha256": "4e62adcd052472f4969e81f61ec807ba583a07c02ac5f0c8f0b329e700fd790a"
+      },
+      "encoded": {
+        "from": "4e62adcd052472f4969e81f61ec807ba583a07c02ac5f0c8f0b329e700fd790a",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.59,
+        "bytes": 17245,
+        "sha256": "522b2e3aac306fed4dc0ee0277b9106da44d656a0f7b4467feb39c65e4d12e1f"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/coin",
+      "file": "assets/audio/sfx/coin.ogg",
+      "recipe": "assets/audio/recipes/sfx/coin.json",
+      "recipeSha256": "e04c4ab1d247b22dd25a03338bdaca5d0545f6d268b731d5768fae27e99cd330",
+      "seed": 5201,
+      "samples": 28800,
+      "seconds": 0.6,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -3.1,
+      "pcm": {
+        "bytes": 57644,
+        "sha256": "fa4d89878b4168dbabf8c60f53a91209814e8ccfcf3919ac0cd129d4a883e1db"
+      },
+      "encoded": {
+        "from": "fa4d89878b4168dbabf8c60f53a91209814e8ccfcf3919ac0cd129d4a883e1db",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2.66,
+        "bytes": 9429,
+        "sha256": "00fd216c5eeacc91aa47d87cf49746fc577c357064bedf0f05e417e9361df54c"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/crown",
+      "file": "assets/audio/sfx/crown.ogg",
+      "recipe": "assets/audio/recipes/sfx/crown.json",
+      "recipeSha256": "a847fca266977ff7a4cc0470cae359c3357013a28a103af483dfbcaaf08c7061",
+      "seed": 5304,
+      "samples": 76800,
+      "seconds": 1.6,
+      "loudnessLufs": -16,
+      "truePeakDbtp": -4.42,
+      "pcm": {
+        "bytes": 153644,
+        "sha256": "f62187cd11214bd58a91671819c8fda22ecfa3da261a749f2541d0b42af37f80"
+      },
+      "encoded": {
+        "from": "f62187cd11214bd58a91671819c8fda22ecfa3da261a749f2541d0b42af37f80",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.5,
+        "bytes": 20547,
+        "sha256": "9c35e733210b23fc86ff652a0a19619cd78855edac55c68a45f03ff1f5299569"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/daily-goal",
+      "file": "assets/audio/sfx/daily-goal.ogg",
+      "recipe": "assets/audio/recipes/sfx/daily-goal.json",
+      "recipeSha256": "22ac99181a33a5e8fb83dace300fd0459e168f151d54fab86c7565abb05264c2",
+      "seed": 5271,
+      "samples": 62400,
+      "seconds": 1.3,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -3.34,
+      "pcm": {
+        "bytes": 124844,
+        "sha256": "26daaf0ba8e433092296d80c90c6705ea0c8817463e435fe69eae71f20d3c391"
+      },
+      "encoded": {
+        "from": "26daaf0ba8e433092296d80c90c6705ea0c8817463e435fe69eae71f20d3c391",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -3.16,
+        "bytes": 15211,
+        "sha256": "629a45351743413339a0003aca0dc38ac82cd955ff971434d370f2ddaf7cc62f"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/dress",
+      "file": "assets/audio/sfx/dress.ogg",
+      "recipe": "assets/audio/recipes/sfx/dress.json",
+      "recipeSha256": "571cb1cc810a7816b24c71f029b17569a645eb87def0f06fd318eaa9be51ec32",
+      "seed": 5313,
+      "samples": 24000,
+      "seconds": 0.5,
+      "loudnessLufs": -16.02,
+      "truePeakDbtp": -1.84,
+      "pcm": {
+        "bytes": 48044,
+        "sha256": "a65bbeb3236d799fafc826662d8b997fd03b06b3e78f405d8b9b42001a28f585"
+      },
+      "encoded": {
+        "from": "a65bbeb3236d799fafc826662d8b997fd03b06b3e78f405d8b9b42001a28f585",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2.07,
+        "bytes": 8533,
+        "sha256": "52675859577ca5ab41a16c8a027df3e41c61797132e9149bb41a7334479958a7"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/egg-wobble",
+      "file": "assets/audio/sfx/egg-wobble.ogg",
+      "recipe": "assets/audio/recipes/sfx/egg-wobble.json",
+      "recipeSha256": "fa5fc6682280856f42233b4fb1bcb7db35a675179102ee459c4579ffd5d1c681",
+      "seed": 5301,
+      "samples": 38400,
+      "seconds": 0.8,
+      "loudnessLufs": -16,
+      "truePeakDbtp": -4.26,
+      "pcm": {
+        "bytes": 76844,
+        "sha256": "376827fd3d73e59b097e58d0748eb601662d5b9dd540f0188d00695b0875721d"
+      },
+      "encoded": {
+        "from": "376827fd3d73e59b097e58d0748eb601662d5b9dd540f0188d00695b0875721d",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.23,
+        "bytes": 10410,
+        "sha256": "c260d960664929072a051855dd874b82f19189410c540d0128b40cc6d435cd96"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/fanfare",
+      "file": "assets/audio/sfx/fanfare.ogg",
+      "recipe": "assets/audio/recipes/sfx/fanfare.json",
+      "recipeSha256": "0f0a0cc83c3b953c94cb26f073bec48d88797afa619f2a2a6993d3632f0d7b8a",
+      "seed": 5221,
+      "samples": 67200,
+      "seconds": 1.4,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -4.16,
+      "pcm": {
+        "bytes": 134444,
+        "sha256": "f437424154c4a22abed786ed09edf6992bcd0994ddf8f0e8071801f5cefb1035"
+      },
+      "encoded": {
+        "from": "f437424154c4a22abed786ed09edf6992bcd0994ddf8f0e8071801f5cefb1035",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.04,
+        "bytes": 15678,
+        "sha256": "4b00a7e57a0ba0aa28842828472395b7e99e00b86952f7fd153fe78bcdbf96d1"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/gift",
+      "file": "assets/audio/sfx/gift.ogg",
+      "recipe": "assets/audio/recipes/sfx/gift.json",
+      "recipeSha256": "b2ede32cb8fa2848a7cdacf8de11708eff6fd7091ff71fa4a54fb880ce7280ae",
+      "seed": 5251,
+      "samples": 57600,
+      "seconds": 1.2,
+      "loudnessLufs": -15.02,
+      "truePeakDbtp": -1.8,
+      "pcm": {
+        "bytes": 115244,
+        "sha256": "54aaf4c6001e37b2050b92e43dfee160035cf4fe00fb978b58c8e8edafc665df"
+      },
+      "encoded": {
+        "from": "54aaf4c6001e37b2050b92e43dfee160035cf4fe00fb978b58c8e8edafc665df",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2.06,
+        "bytes": 16892,
+        "sha256": "e357e59826a80a522db870ebf2ff5634f890c2bf1a545e9887c6d0455e38b856"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/grand-fanfare",
+      "file": "assets/audio/sfx/grand-fanfare.ogg",
+      "recipe": "assets/audio/recipes/sfx/grand-fanfare.json",
+      "recipeSha256": "d0324a6373f6874eabbba3d1bdd6b5042800958e1b2b57fd2dc1cd936611e64f",
+      "seed": 5222,
+      "samples": 134400,
+      "seconds": 2.8,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -5.09,
+      "pcm": {
+        "bytes": 268844,
+        "sha256": "d1985df5625843825e5c3e32cb7911d8d22f12f1c3864f4cbf69bef74fe3653f"
+      },
+      "encoded": {
+        "from": "d1985df5625843825e5c3e32cb7911d8d22f12f1c3864f4cbf69bef74fe3653f",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -5.01,
+        "bytes": 34283,
+        "sha256": "8214a603e72190b615ddde0aff8ee7b46d5d98d2f57cfcb957b2cbed32e3be69"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/grow",
+      "file": "assets/audio/sfx/grow.ogg",
+      "recipe": "assets/audio/recipes/sfx/grow.json",
+      "recipeSha256": "ccfacb5c8e38b8f8c9d4a76b785e2731b6ed679df9f9d0381b825551e74c3c81",
+      "seed": 5303,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -16,
+      "truePeakDbtp": -3.43,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "fe16d9555e80e17aa6c3e55d999c1899f56fa93b1d341127ec03f4ffe99d67b4"
+      },
+      "encoded": {
+        "from": "fe16d9555e80e17aa6c3e55d999c1899f56fa93b1d341127ec03f4ffe99d67b4",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -3.74,
+        "bytes": 13251,
+        "sha256": "a14158beac72d67ecc35917960e34ec4a2f08ff5e7bf40efc07826dd954f7775"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/grumble",
+      "file": "assets/audio/sfx/grumble.ogg",
+      "recipe": "assets/audio/recipes/sfx/grumble.json",
+      "recipeSha256": "ea427e92dacd8110c9ef96da2921ed119dc009cd88e489a710a46747f2400d12",
+      "seed": 5310,
+      "samples": 45600,
+      "seconds": 0.95,
+      "loudnessLufs": -16,
+      "truePeakDbtp": -4.98,
+      "pcm": {
+        "bytes": 91244,
+        "sha256": "06eaea3b83c973743c6d310c46e190044917acff3ed4ad771391834f2260668a"
+      },
+      "encoded": {
+        "from": "06eaea3b83c973743c6d310c46e190044917acff3ed4ad771391834f2260668a",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.97,
+        "bytes": 12477,
+        "sha256": "9fdf82d40dd209077aab99a5c357d37e938c7c00fb6d2b4abb3ddea84ed08efb"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/hatch",
+      "file": "assets/audio/sfx/hatch.ogg",
+      "recipe": "assets/audio/recipes/sfx/hatch.json",
+      "recipeSha256": "acc527e25c6cea40c752c5bedadf64dcfd361ba38edf78ed85ec6c4866092067",
+      "seed": 5302,
+      "samples": 72000,
+      "seconds": 1.5,
+      "loudnessLufs": -16,
+      "truePeakDbtp": -4.76,
+      "pcm": {
+        "bytes": 144044,
+        "sha256": "30338b950f295f2c11d255c12bc2f6d368f99b8ae7ab67168d20df555db70c74"
+      },
+      "encoded": {
+        "from": "30338b950f295f2c11d255c12bc2f6d368f99b8ae7ab67168d20df555db70c74",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.75,
+        "bytes": 17775,
+        "sha256": "2cb8a9949b6ab537cefd7e44beea1601ee5f137ce654a0517848c7ef72b8bad1"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/hint",
+      "file": "assets/audio/sfx/hint.ogg",
+      "recipe": "assets/audio/recipes/sfx/hint.json",
+      "recipeSha256": "95f08b0512e4f0c70bc818a91e6497587f5037f6f42874e1bca9b79c9810dab2",
+      "seed": 5317,
+      "samples": 26400,
+      "seconds": 0.55,
+      "loudnessLufs": -18,
+      "truePeakDbtp": -8.88,
+      "pcm": {
+        "bytes": 52844,
+        "sha256": "a558cd00d26bf72b0242e0b4428071913e178898e50628b34bbad887d1efccfe"
+      },
+      "encoded": {
+        "from": "a558cd00d26bf72b0242e0b4428071913e178898e50628b34bbad887d1efccfe",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -8.91,
+        "bytes": 7073,
+        "sha256": "3f44bcd0ee832ffa17415e1476a4356a61700452f47d54d77189376b50183eeb"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/ink-splat",
+      "file": "assets/audio/sfx/ink-splat.ogg",
+      "recipe": "assets/audio/recipes/sfx/ink-splat.json",
+      "recipeSha256": "99f7abd4248667c72725239f378de7cd2ff5af68f2e75878d8a64c409ebc3281",
+      "seed": 5306,
+      "samples": 24000,
+      "seconds": 0.5,
+      "loudnessLufs": -16.38,
+      "truePeakDbtp": -1.6,
+      "pcm": {
+        "bytes": 48044,
+        "sha256": "edf35bc6f02f4afea2386f488351256f828f8fa5c2113c52652c568005489604"
+      },
+      "encoded": {
+        "from": "edf35bc6f02f4afea2386f488351256f828f8fa5c2113c52652c568005489604",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.45,
+        "bytes": 8153,
+        "sha256": "15508a3c0b15652965713a1f53d525256b10a8fcb4aedaed4acf79dddac04d9a"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/key",
+      "file": "assets/audio/sfx/key.ogg",
+      "recipe": "assets/audio/recipes/sfx/key.json",
+      "recipeSha256": "c4683eb11cd1e8099e20989c65fdda426d0661b3f7e2639390c8ab89b2b6cb19",
+      "seed": 5002,
+      "samples": 8640,
+      "seconds": 0.18,
+      "loudnessLufs": -21.04,
+      "truePeakDbtp": -2.12,
+      "pcm": {
+        "bytes": 17324,
+        "sha256": "93dbdadb529476c88d2799044ae31e736c52dd8de0f2f5a024fbd46bdab227f5"
+      },
+      "encoded": {
+        "from": "93dbdadb529476c88d2799044ae31e736c52dd8de0f2f5a024fbd46bdab227f5",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2.04,
+        "bytes": 5295,
+        "sha256": "2a36c337cb42b8da5c8073d3eb28bab0b51a660fd2ee48c6dbbf74fe8d970ab1"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/page",
+      "file": "assets/audio/sfx/page.ogg",
+      "recipe": "assets/audio/recipes/sfx/page.json",
+      "recipeSha256": "7d9ea615d55170294675240ca5d77ba64a5d31b510c0c333c55e30cd0bc90625",
+      "seed": 5312,
+      "samples": 15360,
+      "seconds": 0.32,
+      "loudnessLufs": -21.04,
+      "truePeakDbtp": -2.01,
+      "pcm": {
+        "bytes": 30764,
+        "sha256": "88cbe1b1005fd4c0ccf2fc56a007943ca843683667a51cf34b64293c3766ced1"
+      },
+      "encoded": {
+        "from": "88cbe1b1005fd4c0ccf2fc56a007943ca843683667a51cf34b64293c3766ced1",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2.14,
+        "bytes": 6911,
+        "sha256": "f79574b9c19e429d098451f9d60aa13bd0628bce3ef4d041c7ce617e1cf1729d"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/pearl-1",
+      "file": "assets/audio/sfx/pearl-1.ogg",
+      "recipe": "assets/audio/recipes/sfx/pearl-1.json",
+      "recipeSha256": "6f91c9d7f8d7cfe7d31d83955a6affef3dfd5916c304cf6587d617987783771a",
+      "seed": 5101,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -15.63,
+      "truePeakDbtp": -1.59,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "43099e18bfbe3fc51e2213d3771d5dd9be7352a1a543d1558b42cefc2a91f7e0"
+      },
+      "encoded": {
+        "from": "43099e18bfbe3fc51e2213d3771d5dd9be7352a1a543d1558b42cefc2a91f7e0",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.45,
+        "bytes": 12472,
+        "sha256": "ba4d343f98716cad716fc053b2cbcd551d21a60af27d8d1bd45e0cf7450fb618"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/pearl-2",
+      "file": "assets/audio/sfx/pearl-2.ogg",
+      "recipe": "assets/audio/recipes/sfx/pearl-2.json",
+      "recipeSha256": "29ad2444799be109180b552a7dd9f11489bdb137b33690c0dfe31d6ce771e0c6",
+      "seed": 5102,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -15.36,
+      "truePeakDbtp": -1.59,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "ec9d3ee60658ec43489712898b979ebeeb7b9feba4c9b7d4dcfbabecaa5dac9e"
+      },
+      "encoded": {
+        "from": "ec9d3ee60658ec43489712898b979ebeeb7b9feba4c9b7d4dcfbabecaa5dac9e",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.59,
+        "bytes": 12443,
+        "sha256": "851d4e016c1a760660217c4032b92da1da4af86392e14818bcf3542d62778941"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/pearl-3",
+      "file": "assets/audio/sfx/pearl-3.ogg",
+      "recipe": "assets/audio/recipes/sfx/pearl-3.json",
+      "recipeSha256": "35614006f2fc2cbec00ca7b6e6246dc0c255f57524f44955433835399e36789c",
+      "seed": 5103,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -15.94,
+      "truePeakDbtp": -1.58,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "d70500d197d099e2f0cf31c0db308d8926aee87f93ede822931e6246e46462be"
+      },
+      "encoded": {
+        "from": "d70500d197d099e2f0cf31c0db308d8926aee87f93ede822931e6246e46462be",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.51,
+        "bytes": 12633,
+        "sha256": "0297e43b9e569950bcc534fb5b814c9e441d2a437195e0d242e941cbad1e1f30"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/pearl-4",
+      "file": "assets/audio/sfx/pearl-4.ogg",
+      "recipe": "assets/audio/recipes/sfx/pearl-4.json",
+      "recipeSha256": "e699487fe33495229aff7c6ef8879c294624f217fb07dcb3af41f97c35bbf003",
+      "seed": 5104,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -15.64,
+      "truePeakDbtp": -1.59,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "2b620afb02a8c01eebec6bb4084b83edcd1b222e562c5ec8f49a0b1cce727de0"
+      },
+      "encoded": {
+        "from": "2b620afb02a8c01eebec6bb4084b83edcd1b222e562c5ec8f49a0b1cce727de0",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.25,
+        "bytes": 12697,
+        "sha256": "97aa6ba5e9c0d40f9bb73069807945d488c7ddf8bf69cc7920814cdffe67d15c"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/pearl-5",
+      "file": "assets/audio/sfx/pearl-5.ogg",
+      "recipe": "assets/audio/recipes/sfx/pearl-5.json",
+      "recipeSha256": "05b5e22b007c21016dc9118a941da22f0ac2051ead9ea2f32bbac257e9574b88",
+      "seed": 5105,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -15.03,
+      "truePeakDbtp": -1.61,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "f70c513e8100d1dfd25630d9ebf61f221a85c2f5bbb2f2707d767fbf5321f75d"
+      },
+      "encoded": {
+        "from": "f70c513e8100d1dfd25630d9ebf61f221a85c2f5bbb2f2707d767fbf5321f75d",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.48,
+        "bytes": 12913,
+        "sha256": "ff497ec7c59ea80179a9349d2cda3aef09a7371f6ac7f51568a0f7a128602d08"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/polish",
+      "file": "assets/audio/sfx/polish.ogg",
+      "recipe": "assets/audio/recipes/sfx/polish.json",
+      "recipeSha256": "978ac5213bef49969e4e86b8cbb2ecae634fd751570f0e910e75677cae6162a6",
+      "seed": 5314,
+      "samples": 24000,
+      "seconds": 0.5,
+      "loudnessLufs": -15.02,
+      "truePeakDbtp": -1.97,
+      "pcm": {
+        "bytes": 48044,
+        "sha256": "ed94336928d0de8c03cf97b36f37a129123835c99e431f96b6b341d08aab2a9a"
+      },
+      "encoded": {
+        "from": "ed94336928d0de8c03cf97b36f37a129123835c99e431f96b6b341d08aab2a9a",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.99,
+        "bytes": 7748,
+        "sha256": "b5ab8368d433f26902d14042bb8e3cb44cb01ed804dcbf7c790fcd25354f78c9"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/purchase",
+      "file": "assets/audio/sfx/purchase.ogg",
+      "recipe": "assets/audio/recipes/sfx/purchase.json",
+      "recipeSha256": "f655703e951060d249816fab98d050d489412f1a04478d4cd35130977b4453b1",
+      "seed": 5261,
+      "samples": 38400,
+      "seconds": 0.8,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -5.69,
+      "pcm": {
+        "bytes": 76844,
+        "sha256": "a6e59fd9fb96123c245f6339ba66047f19faa73436b62f1a16a42fb9aba5aa15"
+      },
+      "encoded": {
+        "from": "a6e59fd9fb96123c245f6339ba66047f19faa73436b62f1a16a42fb9aba5aa15",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -5.84,
+        "bytes": 11042,
+        "sha256": "1bbe8b6436a65c60efa1a8ffef3e8aadf0c16f34d4f32a8c235ed3145e9b2b48"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/race-finish",
+      "file": "assets/audio/sfx/race-finish.ogg",
+      "recipe": "assets/audio/recipes/sfx/race-finish.json",
+      "recipeSha256": "0110318c2cd4846cb98ca4e405c6c45c00c73ed4258fdc8bd33cb8269246cb8c",
+      "seed": 5316,
+      "samples": 48000,
+      "seconds": 1,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -6.94,
+      "pcm": {
+        "bytes": 96044,
+        "sha256": "767678e49f8b01d71725bb021d6f96b3db5d74147ea6e0b628b7e39a03122785"
+      },
+      "encoded": {
+        "from": "767678e49f8b01d71725bb021d6f96b3db5d74147ea6e0b628b7e39a03122785",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -6.93,
+        "bytes": 12627,
+        "sha256": "a40dbe3d02b54255897a74198614260055b87d5f9c993612e8fcaee0dc52008f"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/sneak",
+      "file": "assets/audio/sfx/sneak.ogg",
+      "recipe": "assets/audio/recipes/sfx/sneak.json",
+      "recipeSha256": "99f11133534caf17557c4b2c6bd45a0d8695a98fd18094f89a7d37e02883cf20",
+      "seed": 5311,
+      "samples": 38400,
+      "seconds": 0.8,
+      "loudnessLufs": -17.48,
+      "truePeakDbtp": -1.52,
+      "pcm": {
+        "bytes": 76844,
+        "sha256": "a592256dbe7c85f84d3e0b5ac7059cdb851120d83f8e9cd8e4189e699631b740"
+      },
+      "encoded": {
+        "from": "a592256dbe7c85f84d3e0b5ac7059cdb851120d83f8e9cd8e4189e699631b740",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.4,
+        "bytes": 11065,
+        "sha256": "075c6aac1615f54753280acc4f5a7f93e3f9acb5af2f4f5f40c32205c332bb2f"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/splash",
+      "file": "assets/audio/sfx/splash.ogg",
+      "recipe": "assets/audio/recipes/sfx/splash.json",
+      "recipeSha256": "4c8093af5e50652381e17a0c21de4018d4d510cdf0dbed8c4c6aafcae542ae5c",
+      "seed": 5309,
+      "samples": 31200,
+      "seconds": 0.65,
+      "loudnessLufs": -16.02,
+      "truePeakDbtp": -1.79,
+      "pcm": {
+        "bytes": 62444,
+        "sha256": "b71bc608ee083978f3a010e429de44e0c7f78ae8b0bf53bdac3a70d7528e387c"
+      },
+      "encoded": {
+        "from": "b71bc608ee083978f3a010e429de44e0c7f78ae8b0bf53bdac3a70d7528e387c",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.94,
+        "bytes": 10089,
+        "sha256": "d4609bd038200807fcdbb56636a0f0233afb22f8bebdbfe82c9f28de3f3ac266"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/star-1",
+      "file": "assets/audio/sfx/star-1.ogg",
+      "recipe": "assets/audio/recipes/sfx/star-1.json",
+      "recipeSha256": "7778cab339692488913d0913ceab60d40ee60f6df5aa52081fd469a47f2f44e1",
+      "seed": 5211,
+      "samples": 43200,
+      "seconds": 0.9,
+      "loudnessLufs": -15.01,
+      "truePeakDbtp": -1.58,
+      "pcm": {
+        "bytes": 86444,
+        "sha256": "d70893df29d5c0df0b24567c47c30d907d2b4ec18f14dc44ce89f0e2033180e5"
+      },
+      "encoded": {
+        "from": "d70893df29d5c0df0b24567c47c30d907d2b4ec18f14dc44ce89f0e2033180e5",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.54,
+        "bytes": 11609,
+        "sha256": "1bf152f42d3d5524727c0ed97cf2e76fa0b0a25a9a7ff1e0c885ce9f6ef20310"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/star-2",
+      "file": "assets/audio/sfx/star-2.ogg",
+      "recipe": "assets/audio/recipes/sfx/star-2.json",
+      "recipeSha256": "100144f4fff8f14ca2f1ebd5b085b9507122b790a614a72233eeca7243dc0521",
+      "seed": 5212,
+      "samples": 43200,
+      "seconds": 0.9,
+      "loudnessLufs": -15.01,
+      "truePeakDbtp": -1.57,
+      "pcm": {
+        "bytes": 86444,
+        "sha256": "751fbec65ace68f5c2c00dc0988177975491b2899bcceae8e1ed9b5b20d0b864"
+      },
+      "encoded": {
+        "from": "751fbec65ace68f5c2c00dc0988177975491b2899bcceae8e1ed9b5b20d0b864",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.86,
+        "bytes": 12273,
+        "sha256": "dec25fe8a3eeb7f08584f4641feea95104f6b3ffc6fc4c893cc32a30fd2498ae"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/star-3",
+      "file": "assets/audio/sfx/star-3.ogg",
+      "recipe": "assets/audio/recipes/sfx/star-3.json",
+      "recipeSha256": "1b2c67a695da6bd2f69f357d83d03d9bf256cacd3fbcd8c5778cf5b605a20d49",
+      "seed": 5213,
+      "samples": 43200,
+      "seconds": 0.9,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -3.62,
+      "pcm": {
+        "bytes": 86444,
+        "sha256": "461c2aebe8a3ab24354759373d47fb2f190f93001543f9b1160307ad08b8dee4"
+      },
+      "encoded": {
+        "from": "461c2aebe8a3ab24354759373d47fb2f190f93001543f9b1160307ad08b8dee4",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -3.66,
+        "bytes": 12475,
+        "sha256": "c482a9215fc561daeb3da7c3223e93da23a2a437e3b374a4b73673a4f27125b2"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/sticker",
+      "file": "assets/audio/sfx/sticker.ogg",
+      "recipe": "assets/audio/recipes/sfx/sticker.json",
+      "recipeSha256": "f5331d1b8d2d213f2bced00e959daa078294715444fc28c6d3f2efe30f2caccf",
+      "seed": 5241,
+      "samples": 33600,
+      "seconds": 0.7,
+      "loudnessLufs": -15.04,
+      "truePeakDbtp": -1.59,
+      "pcm": {
+        "bytes": 67244,
+        "sha256": "080ed0b259ff58e520d3b08044d5c708fc7e1968ef8d53731917ea1200a2fd0a"
+      },
+      "encoded": {
+        "from": "080ed0b259ff58e520d3b08044d5c708fc7e1968ef8d53731917ea1200a2fd0a",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.59,
+        "bytes": 11088,
+        "sha256": "ffeb02eed9b805e747973d06fb3b97e5af552c8bb1e25e2ea0e4b146779a1b69"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/swoosh",
+      "file": "assets/audio/sfx/swoosh.ogg",
+      "recipe": "assets/audio/recipes/sfx/swoosh.json",
+      "recipeSha256": "9dbe5e85ab782e3dd0bc8d118e5863ba0fc48750a9190911477cc47da4417ccc",
+      "seed": 5003,
+      "samples": 24000,
+      "seconds": 0.5,
+      "loudnessLufs": -21,
+      "truePeakDbtp": -3.48,
+      "pcm": {
+        "bytes": 48044,
+        "sha256": "e3393d3cd10d1bcb2f056456fd91e37ca6fc54178c2497f97549332d4cd8a202"
+      },
+      "encoded": {
+        "from": "e3393d3cd10d1bcb2f056456fd91e37ca6fc54178c2497f97549332d4cd8a202",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -3.87,
+        "bytes": 8872,
+        "sha256": "73280dae7c7714d07a3ff8efbfd326e0d8f502a575c5f34d02e53021f7aae845"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/tap",
+      "file": "assets/audio/sfx/tap.ogg",
+      "recipe": "assets/audio/recipes/sfx/tap.json",
+      "recipeSha256": "f249589a869af2aeeb33362be19d7c4ffc1b4c2c9df4d928bad63aec3eb0a597",
+      "seed": 5001,
+      "samples": 7680,
+      "seconds": 0.16,
+      "loudnessLufs": -21.22,
+      "truePeakDbtp": -1.6,
+      "pcm": {
+        "bytes": 15404,
+        "sha256": "2a4d4719b404d618db7b594a4641b54c4cf487186fc58bec5b6c9e95081a5360"
+      },
+      "encoded": {
+        "from": "2a4d4719b404d618db7b594a4641b54c4cf487186fc58bec5b6c9e95081a5360",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -1.56,
+        "bytes": 5271,
+        "sha256": "a82b83144e60fa294737f8d2916b7da98a43df4916c5d426bc20f7555c109f84"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/unlock",
+      "file": "assets/audio/sfx/unlock.ogg",
+      "recipe": "assets/audio/recipes/sfx/unlock.json",
+      "recipeSha256": "948909cdf7eb8d0195122a4931fd45231f11e4359a5b889c1a0dbc1cf968eed4",
+      "seed": 5231,
+      "samples": 72000,
+      "seconds": 1.5,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -5.04,
+      "pcm": {
+        "bytes": 144044,
+        "sha256": "9caff1986f4b7868fc828f8b2635ce87fa6fc01fda854dadaef30064261ff0be"
+      },
+      "encoded": {
+        "from": "9caff1986f4b7868fc828f8b2635ce87fa6fc01fda854dadaef30064261ff0be",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -4.99,
+        "bytes": 20247,
+        "sha256": "89ee04dd7f13125c51e6d14efe1e3c71a1ebbf1d4e6d290e3f43fc86f7d75f36"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/wash",
+      "file": "assets/audio/sfx/wash.ogg",
+      "recipe": "assets/audio/recipes/sfx/wash.json",
+      "recipeSha256": "611980cffb3bdb9ee038c761a52b2df21f7c5ea12d9fcba0adb5dc4d057a41e8",
+      "seed": 5307,
+      "samples": 38400,
+      "seconds": 0.8,
+      "loudnessLufs": -15,
+      "truePeakDbtp": -5.11,
+      "pcm": {
+        "bytes": 76844,
+        "sha256": "5e59fbac467c5624044f75d8eb3aa50729d39af17e85143d9b044d90b0f8bd4f"
+      },
+      "encoded": {
+        "from": "5e59fbac467c5624044f75d8eb3aa50729d39af17e85143d9b044d90b0f8bd4f",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -5.19,
+        "bytes": 10779,
+        "sha256": "8951266787a89f01b1e3f60da75ed05dcbb800804dcc022702d7a570099690f9"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    },
+    {
+      "id": "sfx/wipe",
+      "file": "assets/audio/sfx/wipe.ogg",
+      "recipe": "assets/audio/recipes/sfx/wipe.json",
+      "recipeSha256": "fc92a5f1e80c110aed004690da212b1afeb3e8498b5c31b783b20d99f2ab52fd",
+      "seed": 5308,
+      "samples": 15360,
+      "seconds": 0.32,
+      "loudnessLufs": -18.05,
+      "truePeakDbtp": -1.92,
+      "pcm": {
+        "bytes": 30764,
+        "sha256": "4e81841a1df945e8e6bd599b038675fb88f31d9a6be40626169f225931fe10ea"
+      },
+      "encoded": {
+        "from": "4e81841a1df945e8e6bd599b038675fb88f31d9a6be40626169f225931fe10ea",
+        "encoder": "ffmpeg version 2024-06-30-git-b818dff8d8-full_build-www.gyan.dev",
+        "vendor": "ffmpeg",
+        "decodedTruePeakDbtp": -2,
+        "bytes": 7048,
+        "sha256": "070d7306fa45292183c0aa5b2b32f40af0b58086127df16191ab9003eae36814"
+      },
+      "approval": {
+        "gate": "gate-sfx1-effects (2026-11-01)",
+        "answer": "Approve all 39 effects"
+      }
+    }
+  ]
+}

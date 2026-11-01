@@ -1,0 +1,51 @@
+{
+  "id": "page",
+  "title": "Story page",
+  "description": "A soft bubbly page turn for the next story beat.",
+  "category": "ui",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5312,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.32,
+  "loudness": {
+    "measure": "momentary",
+    "target": -21
+  },
+  "instruments": {
+    "brush": {
+      "extends": "brush"
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "page",
+      "voices": [
+        {
+          "instrument": "brush",
+          "at": 0,
+          "velocity": 0.8
+        },
+        {
+          "instrument": "bub",
+          "at": 0.1,
+          "pitch": "E5",
+          "velocity": 0.6
+        }
+      ]
+    }
+  ],
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

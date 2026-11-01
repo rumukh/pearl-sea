@@ -1,0 +1,120 @@
+{
+  "id": "polish",
+  "title": "Pearl polished",
+  "description": "A tiny squeak of polish and a bright glassy glint: a pearl shines again.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5314,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.5,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "squeak": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        }
+      ],
+      "pitchEnv": [
+        [
+          0,
+          0
+        ],
+        [
+          0.07,
+          7,
+          -1
+        ]
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.01,
+            1
+          ],
+          [
+            0.07,
+            0.6
+          ],
+          [
+            0.09,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -12
+    },
+    "glass": {
+      "extends": "glass"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "polish",
+      "sends": {
+        "room": -9
+      },
+      "voices": [
+        {
+          "instrument": "squeak",
+          "at": 0,
+          "pitch": "C7",
+          "velocity": 0.7
+        },
+        {
+          "instrument": "glass",
+          "at": 0.08,
+          "gate": 0.25,
+          "pitch": "G6",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "sparkle",
+          "at": 0.1,
+          "pitch": "C8",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "sparkle",
+          "at": 0.16,
+          "pitch": "G7",
+          "velocity": 0.6
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

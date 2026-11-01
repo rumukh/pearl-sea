@@ -1,0 +1,105 @@
+{
+  "id": "fanfare",
+  "title": "Level complete",
+  "description": "A short bright marimba and celesta run G4-C5-E5-G5 into C6 over C major, with bubbles. The shell follows it with one star sound per star earned.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5221,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1.4,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "marimba": {
+      "extends": "marimba"
+    },
+    "bell": {
+      "extends": "celesta"
+    },
+    "bass": {
+      "extends": "pluckBass"
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "melody",
+      "sends": {
+        "room": -12
+      },
+      "notes": {
+        "instrument": "marimba",
+        "tempo": 176,
+        "melody": "G4:s C5:s E5:s G5:e C6:q."
+      }
+    },
+    {
+      "name": "bell",
+      "db": -5,
+      "sends": {
+        "room": -9
+      },
+      "notes": {
+        "instrument": "bell",
+        "tempo": 176,
+        "melody": "G4:s C5:s E5:s G5:e C6:q."
+      }
+    },
+    {
+      "name": "bass",
+      "db": -6,
+      "notes": {
+        "instrument": "bass",
+        "tempo": 176,
+        "melody": "C3:e. G2:e C3:q."
+      }
+    },
+    {
+      "name": "bubbles",
+      "db": -12,
+      "scatter": {
+        "instrument": "bub",
+        "count": 4,
+        "start": 0.45,
+        "end": 0.9,
+        "distribution": "even",
+        "jitter": 0.5,
+        "pitches": [
+          "E5",
+          "G5",
+          "C6"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.2,
+      "size": 0.7,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

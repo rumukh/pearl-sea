@@ -1,0 +1,152 @@
+{
+  "id": "grow",
+  "title": "A friend grows up",
+  "description": "A glockenspiel arpeggio C6-E6-G6-C7-E7 rising with a soft swell and bubbles streaming up.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5303,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "glock": {
+      "extends": "glock"
+    },
+    "swell": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        },
+        {
+          "type": "osc",
+          "wave": "sine",
+          "octave": 1,
+          "db": -12
+        }
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            1,
+            -1
+          ],
+          [
+            0.6,
+            0,
+            2
+          ]
+        ]
+      },
+      "db": -12
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "rise",
+      "sends": {
+        "room": -10
+      },
+      "voices": [
+        {
+          "instrument": "glock",
+          "at": 0,
+          "pitch": "C6",
+          "velocity": 0.65
+        },
+        {
+          "instrument": "glock",
+          "at": 0.07,
+          "pitch": "E6",
+          "velocity": 0.72
+        },
+        {
+          "instrument": "glock",
+          "at": 0.14,
+          "pitch": "G6",
+          "velocity": 0.79
+        },
+        {
+          "instrument": "glock",
+          "at": 0.21,
+          "pitch": "C7",
+          "velocity": 0.86
+        },
+        {
+          "instrument": "glock",
+          "at": 0.28,
+          "pitch": "E7",
+          "velocity": 0.93
+        }
+      ]
+    },
+    {
+      "name": "swell",
+      "voices": [
+        {
+          "instrument": "swell",
+          "at": 0,
+          "pitch": "C5",
+          "velocity": 0.8
+        }
+      ]
+    },
+    {
+      "name": "bubbles",
+      "db": -12,
+      "scatter": {
+        "instrument": "bub",
+        "count": 6,
+        "start": 0,
+        "end": 0.6,
+        "distribution": "even",
+        "jitter": 0.5,
+        "pitches": [
+          "C5",
+          "E5",
+          "G5",
+          "C6",
+          "E6",
+          "G6"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

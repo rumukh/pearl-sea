@@ -11,18 +11,20 @@
  * bytes. Rules checked for every sound:
  *
  * - the ID follows the contract (`music/<loop>` on the music bus, `sfx/<name>` on effects);
- * - the file is a single Ogg Vorbis stream, mono, at the pack rate (48 kHz), whose only comment is
- *   the encoder tag;
+ * - the file is a single Vorbis stream, mono, at the pack rate (48 kHz), whose only comment is
+ *   the encoder tag; a synthesized effect is encoded from its recipe's output, which renders byte
+ *   for byte (scripts/audio/sfx.mjs);
  * - a loop is a whole number of frames at 22.05, 44.1 and 48 kHz, so a decoded loop never drifts;
  * - events and music states name known sounds, and music states name music;
  * - everything decoded at once (each sound as 32-bit float PCM at the pack rate) stays under
  *   DECODED_BUDGET_BYTES, well inside the SDK's 64 MiB decoded-audio budget.
  */
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { isMain, readJson, repositoryRoot } from '../lib/tools.mjs';
 import { readOggVorbis } from './lib/ogg.mjs';
+import { checkEffects, SFX_RECIPE_DIR } from './sfx.mjs';
 
 export const MANIFEST_PATH = 'assets/audio/manifest.json';
 export const RECIPE_PATH = 'assets/audio/recipes/_manifest.json';
@@ -135,6 +137,7 @@ export function buildAudioManifest(root = repositoryRoot) {
       `Decoded audio needs ${decodedBytes} bytes, over the ${DECODED_BUDGET_BYTES}-byte budget.`,
     );
   }
+  if (existsSync(join(root, ...SFX_RECIPE_DIR.split('/')))) problems.push(...checkEffects(root));
   const revision = `pack-${sha256(new TextEncoder().encode(sounds.map((s) => `${s.id} ${s.sha256}`).join('\n'))).slice(0, 16)}`;
   const manifest = {
     schema: MANIFEST_SCHEMA,

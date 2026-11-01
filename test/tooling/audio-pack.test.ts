@@ -1,8 +1,9 @@
 /**
  * S5's audio pack (docs/audio.md): the committed manifest is exactly what the generator builds
  * from the recipe and the committed files, the shell's reader accepts it, every shipped sound has
- * provenance with its digest, and the worst case (every sound decoded at once at the pack rate)
- * stays under 48 MiB.
+ * provenance with its digest and the user's approval (a model's provenance for the music, the
+ * synthesizer's for the effects, whose PCM regenerates byte for byte), and the worst case (every
+ * sound decoded at once at the pack rate) stays under 48 MiB.
  */
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -23,6 +24,7 @@ import {
   PACK_SAMPLE_RATE,
 } from '../../scripts/audio/manifest.mjs';
 import { readOggVorbis } from '../../scripts/audio/lib/ogg.mjs';
+import { checkEffects, SYNTH_PROVENANCE_PATH } from '../../scripts/audio/sfx.mjs';
 
 const repository = join(import.meta.dirname, '..', '..');
 
@@ -70,10 +72,24 @@ describe('audio pack', () => {
     expect(map.music.map((sound) => sound.id)).toContain('music/grotto');
     expect(map.effects.map((sound) => sound.id)).toContain('sfx/victory-sting');
     expect(map.musicStates['grotto']).toBe('music/grotto');
+    expect(map.events['answer.correct']?.pick).toBe('streak');
+    expect(map.events['level.completed']?.pick).toBe('sequence');
+    expect(map.events['coins.earned']?.pick).toBe('amount');
+    for (const cue of [
+      'ui.tap',
+      'ui.keypad',
+      'ui.navigate',
+      'ui.blocked',
+      'fx.bubble',
+      'fx.wipe',
+    ]) {
+      expect(map.events[cue]?.sounds.length, cue).toBeGreaterThan(0);
+    }
   });
 
   it('ships mono 48 kHz Vorbis without metadata, and loops of whole frames', () => {
     for (const sound of manifest.sounds) {
+      expect(sound.src, sound.id).toMatch(/\.ogg$/);
       const info = readOggVorbis(read(sound.src));
       expect(info.channels, sound.id).toBe(1);
       expect(info.sampleRate, sound.id).toBe(PACK_SAMPLE_RATE);
@@ -103,12 +119,31 @@ describe('audio pack', () => {
     const provenance = JSON.parse(read('assets/audio/provenance.json').toString('utf8')) as {
       sounds: ProvenanceSound[];
     };
+    const synthesized = JSON.parse(read(SYNTH_PROVENANCE_PATH).toString('utf8')) as {
+      effects: {
+        id: string;
+        file: string;
+        recipe: string;
+        pcm: { sha256: string };
+        encoded: { from: string; sha256: string } | null;
+        approval: { gate: string; answer: string } | null;
+      }[];
+    };
     for (const sound of manifest.sounds) {
+      const digest = createHash('sha256').update(read(sound.src)).digest('hex');
+      expect(sound.sha256, sound.id).toBe(digest);
+      const effect = synthesized.effects.find((candidate) => candidate.id === sound.id);
+      if (effect) {
+        expect(effect.encoded?.sha256, sound.id).toBe(digest);
+        expect(effect.encoded?.from, sound.id).toBe(effect.pcm.sha256);
+        expect(effect.file, sound.id).toBe(sound.src);
+        expect(read(effect.recipe).length, sound.id).toBeGreaterThan(0);
+        expect(effect.approval?.answer ?? '', sound.id).not.toBe('');
+        continue;
+      }
       const entry = provenance.sounds.find((candidate) => candidate.id === sound.id);
       expect(entry, sound.id).toBeDefined();
-      const digest = createHash('sha256').update(read(sound.src)).digest('hex');
       expect(entry?.sha256, sound.id).toBe(digest);
-      expect(sound.sha256, sound.id).toBe(digest);
       expect(`assets/audio/${entry?.file}`, sound.id).toBe(sound.src);
       expect(entry?.made.caption.length, sound.id).toBeGreaterThan(40);
       expect(entry?.made.modelOutput.sha256, sound.id).toMatch(/^[0-9a-f]{64}$/);
@@ -118,5 +153,9 @@ describe('audio pack', () => {
       ).toContain('encode');
       expect(entry?.approval.answer, sound.id).not.toBe('');
     }
+  });
+
+  it('encodes every effect from its recipe, which renders byte for byte', () => {
+    expect(checkEffects(repository)).toEqual([]);
   });
 });

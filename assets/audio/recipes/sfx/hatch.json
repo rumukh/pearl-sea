@@ -1,0 +1,194 @@
+{
+  "id": "hatch",
+  "title": "A friend hatches",
+  "description": "Three little cracks speeding up, a pop, and a happy celesta jingle C6-E6-G6-C7 with a chirp and bubbles: a sea friend hatches.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5302,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1.5,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "crack": {
+      "extends": "snap"
+    },
+    "pop": {
+      "extends": "bubble",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            1
+          ],
+          [
+            0.09,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "bell": {
+      "extends": "celesta"
+    },
+    "bub": {
+      "extends": "bubble"
+    },
+    "chirp": {
+      "extends": "voiceCute",
+      "pitchEnv": [
+        [
+          0,
+          -5
+        ],
+        [
+          0.09,
+          3,
+          -2
+        ],
+        [
+          0.16,
+          2
+        ]
+      ],
+      "amp": {
+        "a": 0.01,
+        "d": 0.05,
+        "s": 0.7,
+        "r": 0.06
+      },
+      "gate": 0.14,
+      "db": -6
+    }
+  },
+  "tracks": [
+    {
+      "name": "cracks",
+      "voices": [
+        {
+          "instrument": "crack",
+          "at": 0,
+          "velocity": 0.6
+        },
+        {
+          "instrument": "crack",
+          "at": 0.2,
+          "velocity": 0.7
+        },
+        {
+          "instrument": "crack",
+          "at": 0.32,
+          "velocity": 0.85
+        }
+      ]
+    },
+    {
+      "name": "pop",
+      "voices": [
+        {
+          "instrument": "pop",
+          "at": 0.42,
+          "pitch": "G4",
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "name": "jingle",
+      "sends": {
+        "room": -10
+      },
+      "voices": [
+        {
+          "instrument": "bell",
+          "at": 0.48,
+          "pitch": "C6",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "bell",
+          "at": 0.56,
+          "pitch": "E6",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "bell",
+          "at": 0.64,
+          "pitch": "G6",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "bell",
+          "at": 0.72,
+          "pitch": "C7",
+          "velocity": 0.95
+        }
+      ]
+    },
+    {
+      "name": "chirp",
+      "sends": {
+        "room": -12
+      },
+      "voices": [
+        {
+          "instrument": "chirp",
+          "at": 0.5,
+          "pitch": "C6",
+          "velocity": 0.8
+        }
+      ]
+    },
+    {
+      "name": "bubbles",
+      "db": -12,
+      "scatter": {
+        "instrument": "bub",
+        "count": 5,
+        "start": 0.45,
+        "end": 1,
+        "distribution": "even",
+        "jitter": 0.5,
+        "pitches": [
+          "E5",
+          "G5",
+          "C6",
+          "E6"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.2,
+      "size": 0.7,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

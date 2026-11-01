@@ -1,0 +1,78 @@
+{
+  "id": "purchase",
+  "title": "Bought",
+  "description": "Two shell-coin clinks and a cheerful kalimba \"thank you\" (C6, G6): an item bought at Mrož Vousáč's.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5261,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.8,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "ping": {
+      "extends": "coinPing"
+    },
+    "kal": {
+      "extends": "kalimba"
+    }
+  },
+  "tracks": [
+    {
+      "name": "buy",
+      "sends": {
+        "room": -13
+      },
+      "voices": [
+        {
+          "instrument": "ping",
+          "at": 0,
+          "pitch": "G6",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "ping",
+          "at": 0.05,
+          "pitch": "C7",
+          "velocity": 0.9
+        },
+        {
+          "instrument": "kal",
+          "at": 0.16,
+          "pitch": "C6",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "kal",
+          "at": 0.3,
+          "pitch": "G6",
+          "velocity": 0.95
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

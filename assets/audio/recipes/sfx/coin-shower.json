@@ -1,0 +1,100 @@
+{
+  "id": "coin-shower",
+  "title": "Coin shower",
+  "description": "A cascade of shell-coin pings on the C major pentatonic with bubbles rising through it, dense at first and thinning out. One sound for many coins.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5202,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1.3,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "ping": {
+      "extends": "coinPing"
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "shower",
+      "sends": {
+        "room": -14
+      },
+      "scatter": {
+        "instrument": "ping",
+        "count": 14,
+        "start": 0,
+        "end": 0.9,
+        "distribution": "decelerate",
+        "shape": 1.6,
+        "jitter": 0.6,
+        "pitches": [
+          "C6",
+          "D6",
+          "E6",
+          "G6",
+          "A6",
+          "C7"
+        ],
+        "db": [
+          -9,
+          0
+        ],
+        "velocity": [
+          0.6,
+          1
+        ],
+        "detune": 7
+      }
+    },
+    {
+      "name": "bubbles",
+      "db": -10,
+      "scatter": {
+        "instrument": "bub",
+        "count": 5,
+        "start": 0.05,
+        "end": 0.8,
+        "distribution": "even",
+        "jitter": 0.6,
+        "pitches": [
+          "C5",
+          "E5",
+          "G5",
+          "C6"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

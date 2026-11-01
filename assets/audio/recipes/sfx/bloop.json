@@ -1,0 +1,154 @@
+{
+  "id": "bloop",
+  "title": "Not quite",
+  "description": "Two soft bubbles, low then a little higher, a curious \"bloop?\", never a buzzer.",
+  "category": "soft",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5005,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.55,
+  "loudness": {
+    "measure": "momentary",
+    "target": -18
+  },
+  "instruments": {
+    "big": {
+      "extends": "bubble",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            1
+          ],
+          [
+            0.16,
+            0,
+            3
+          ]
+        ]
+      },
+      "pitchEnv": [
+        [
+          0,
+          -5
+        ],
+        [
+          0.1,
+          2,
+          -2
+        ]
+      ]
+    },
+    "round": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        },
+        {
+          "type": "osc",
+          "wave": "triangle",
+          "db": -16
+        }
+      ],
+      "filters": [
+        {
+          "type": "lowpass",
+          "freq": 1300,
+          "q": 0.6
+        }
+      ],
+      "amp": {
+        "a": 0.006,
+        "d": 0.08,
+        "s": 0.6,
+        "r": 0.08
+      },
+      "db": -8
+    }
+  },
+  "tracks": [
+    {
+      "name": "bloop",
+      "sends": {
+        "room": -16
+      },
+      "voices": [
+        {
+          "instrument": "big",
+          "at": 0,
+          "pitch": "D4",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "round",
+          "at": 0,
+          "gate": 0.08,
+          "pitch": "D4",
+          "velocity": 0.6
+        },
+        {
+          "instrument": "big",
+          "at": 0.15,
+          "pitch": "F4",
+          "velocity": 0.85,
+          "pitchEnv": [
+            [
+              0,
+              -4
+            ],
+            [
+              0.14,
+              3,
+              -2
+            ]
+          ]
+        },
+        {
+          "instrument": "round",
+          "at": 0.15,
+          "gate": 0.14,
+          "pitch": "F4",
+          "velocity": 0.7,
+          "pitchEnv": [
+            [
+              0,
+              -1
+            ],
+            [
+              0.12,
+              0.6,
+              2
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 0.8,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

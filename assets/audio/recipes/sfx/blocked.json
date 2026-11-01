@@ -1,0 +1,128 @@
+{
+  "id": "blocked",
+  "title": "Not now",
+  "description": "A soft, muffled underwater bonk and a low bubble: gently not now, never a buzzer.",
+  "category": "soft",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5004,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.36,
+  "loudness": {
+    "measure": "momentary",
+    "target": -18
+  },
+  "instruments": {
+    "thump": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        },
+        {
+          "type": "osc",
+          "wave": "triangle",
+          "db": -14
+        }
+      ],
+      "filters": [
+        {
+          "type": "lowpass",
+          "freq": 700,
+          "q": 0.6
+        }
+      ],
+      "pitchEnv": [
+        [
+          0,
+          5
+        ],
+        [
+          0.05,
+          0,
+          3
+        ]
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.003,
+            1
+          ],
+          [
+            0.18,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "bub": {
+      "extends": "bubble",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.002,
+            1
+          ],
+          [
+            0.12,
+            0,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  "tracks": [
+    {
+      "name": "bonk",
+      "sends": {
+        "room": -18
+      },
+      "voices": [
+        {
+          "instrument": "thump",
+          "at": 0,
+          "pitch": "D3",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "bub",
+          "at": 0.06,
+          "pitch": "A3",
+          "velocity": 0.6
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 0.7,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

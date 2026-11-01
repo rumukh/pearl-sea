@@ -1,0 +1,178 @@
+{
+  "id": "crown",
+  "title": "A friend is crowned",
+  "description": "A regal brass C major chord, a harp run and a glockenspiel crown of sparkles: the golden shell crown.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5304,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1.6,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "brass": {
+      "extends": "brass"
+    },
+    "harp": {
+      "extends": "harp"
+    },
+    "glock": {
+      "extends": "glock"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "chord",
+      "db": -4,
+      "sends": {
+        "room": -9
+      },
+      "voices": [
+        {
+          "instrument": "brass",
+          "at": 0,
+          "gate": 0.7,
+          "pitch": "C4",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "brass",
+          "at": 0,
+          "gate": 0.7,
+          "pitch": "E4",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "brass",
+          "at": 0,
+          "gate": 0.7,
+          "pitch": "G4",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "brass",
+          "at": 0,
+          "gate": 0.7,
+          "pitch": "C5",
+          "velocity": 0.85
+        }
+      ]
+    },
+    {
+      "name": "run",
+      "sends": {
+        "room": -8
+      },
+      "voices": [
+        {
+          "instrument": "harp",
+          "at": 0.08,
+          "pitch": "C5",
+          "velocity": 0.6
+        },
+        {
+          "instrument": "harp",
+          "at": 0.12,
+          "pitch": "E5",
+          "velocity": 0.65
+        },
+        {
+          "instrument": "harp",
+          "at": 0.16,
+          "pitch": "G5",
+          "velocity": 0.7
+        },
+        {
+          "instrument": "harp",
+          "at": 0.2,
+          "pitch": "C6",
+          "velocity": 0.75
+        },
+        {
+          "instrument": "harp",
+          "at": 0.24,
+          "pitch": "E6",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "harp",
+          "at": 0.28,
+          "pitch": "G6",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "harp",
+          "at": 0.32,
+          "pitch": "C7",
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "name": "crown",
+      "db": -6,
+      "sends": {
+        "room": -6
+      },
+      "voices": [
+        {
+          "instrument": "glock",
+          "at": 0.4,
+          "pitch": "C7",
+          "velocity": 0.9
+        },
+        {
+          "instrument": "glock",
+          "at": 0.46,
+          "pitch": "G7",
+          "velocity": 0.8
+        }
+      ],
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 8,
+        "start": 0.42,
+        "end": 1,
+        "distribution": "even",
+        "jitter": 0.6,
+        "pitches": [
+          "E7",
+          "G7",
+          "C8"
+        ],
+        "db": [
+          -8,
+          0
+        ],
+        "detune": 5
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.5,
+      "size": 0.75,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

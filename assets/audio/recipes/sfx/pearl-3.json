@@ -1,0 +1,100 @@
+{
+  "id": "pearl-3",
+  "title": "Correct answer, streak 3",
+  "description": "A droplet and a celesta \"ding-ding\", E5 to A5: step 3 of the rising C major pentatonic streak ladder.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5103,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "bell": {
+      "extends": "celesta"
+    },
+    "drop": {
+      "extends": "droplet"
+    },
+    "glint": {
+      "extends": "sparkle"
+    },
+    "body": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        }
+      ],
+      "amp": {
+        "a": 0.006,
+        "d": 0.55,
+        "s": 0,
+        "r": 0.05,
+        "dCurve": 4
+      },
+      "db": -12
+    }
+  },
+  "tracks": [
+    {
+      "name": "pearl",
+      "sends": {
+        "room": -13
+      },
+      "voices": [
+        {
+          "instrument": "drop",
+          "at": 0,
+          "pitch": "E5",
+          "transpose": 12,
+          "velocity": 0.5
+        },
+        {
+          "instrument": "bell",
+          "at": 0,
+          "pitch": "E5",
+          "velocity": 0.6
+        },
+        {
+          "instrument": "bell",
+          "at": 0.065,
+          "pitch": "A5",
+          "velocity": 0.95
+        },
+        {
+          "instrument": "body",
+          "at": 0.065,
+          "pitch": "A5",
+          "transpose": -12,
+          "velocity": 0.8
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ],
+    "maxLimitDb": 8
+  }
+}

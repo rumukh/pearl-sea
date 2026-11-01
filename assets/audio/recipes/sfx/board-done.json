@@ -1,0 +1,84 @@
+{
+  "id": "board-done",
+  "title": "Board done",
+  "description": "A quick marimba arpeggio C5-E5-G5-C6 and a bubble: a board, a round or a game finished.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5315,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.75,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "marimba": {
+      "extends": "marimba"
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "done",
+      "sends": {
+        "room": -12
+      },
+      "voices": [
+        {
+          "instrument": "marimba",
+          "at": 0,
+          "pitch": "C5",
+          "velocity": 0.7
+        },
+        {
+          "instrument": "marimba",
+          "at": 0.07,
+          "pitch": "E5",
+          "velocity": 0.78
+        },
+        {
+          "instrument": "marimba",
+          "at": 0.14,
+          "pitch": "G5",
+          "velocity": 0.86
+        },
+        {
+          "instrument": "marimba",
+          "at": 0.21,
+          "pitch": "C6",
+          "velocity": 0.94
+        },
+        {
+          "instrument": "bub",
+          "at": 0.3,
+          "pitch": "G5",
+          "velocity": 0.6
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

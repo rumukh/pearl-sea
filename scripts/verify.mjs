@@ -76,7 +76,7 @@ export const STEPS = [
   {
     id: 'audio',
     label:
-      'Check the audio pack (manifest up to date, mono 48 kHz Vorbis, whole-frame loops, budget)',
+      'Check the audio pack (manifest up to date, mono 48 kHz Vorbis, effects encoded from their recipes, whole-frame loops, budget)',
     args: ['scripts/audio/manifest.mjs', '--check'],
   },
   {

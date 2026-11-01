@@ -1,0 +1,88 @@
+{
+  "id": "grumble",
+  "title": "Monster grumble",
+  "description": "A grumpy, funny bassoon \"hrmmph\" sliding down with a wobble: a monster sulks at a joke. Silly, never scary.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5310,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.95,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "grump": {
+      "extends": "bassoon",
+      "pitchEnv": [
+        [
+          0,
+          2
+        ],
+        [
+          0.5,
+          -4,
+          1
+        ]
+      ],
+      "vibrato": {
+        "rate": 7,
+        "depth": 0.5
+      },
+      "amp": {
+        "a": 0.04,
+        "d": 0.1,
+        "s": 0.8,
+        "r": 0.15
+      },
+      "gate": 0.6
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "grumble",
+      "sends": {
+        "room": -14
+      },
+      "voices": [
+        {
+          "instrument": "grump",
+          "at": 0,
+          "pitch": "D3",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "bub",
+          "at": 0.68,
+          "pitch": "G3",
+          "velocity": 0.55
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 0.9,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

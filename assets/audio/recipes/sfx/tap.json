@@ -1,0 +1,99 @@
+{
+  "id": "tap",
+  "title": "Button tap",
+  "description": "A tiny soft bubble pop on A5 with a faint wet click, for buttons, choices and cards.",
+  "category": "ui",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5001,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.16,
+  "loudness": {
+    "measure": "momentary",
+    "target": -21
+  },
+  "instruments": {
+    "pop": {
+      "extends": "bubble",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            1
+          ],
+          [
+            0.06,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "click": {
+      "sources": [
+        {
+          "type": "noise",
+          "color": "white",
+          "filters": [
+            {
+              "type": "bandpass",
+              "freq": 3200,
+              "q": 1.2
+            }
+          ]
+        }
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.0005,
+            1
+          ],
+          [
+            0.006,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -10
+    }
+  },
+  "tracks": [
+    {
+      "name": "tap",
+      "voices": [
+        {
+          "instrument": "click",
+          "at": 0,
+          "pitch": "A5",
+          "velocity": 0.7
+        },
+        {
+          "instrument": "pop",
+          "at": 0.002,
+          "pitch": "A5",
+          "velocity": 0.85
+        }
+      ]
+    }
+  ],
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

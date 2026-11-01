@@ -30,8 +30,9 @@ tablets better.
 
 ## 2. Style and approval
 
-- One style for all: storybook gouache and watercolour, rounded friendly shapes, clean outlines on
-  characters, a turquoise, coral and sun palette that darkens toward the deep.
+- One style for all, style B as the user chose it ([plan.md](plan.md) §10): storybook gouache and
+  watercolour, rounded friendly shapes, a clean medium plum-brown outline on characters, no sticker
+  border, a turquoise, coral and sun palette that darkens toward the deep.
 - Monsters are grumpy and inky, never gory. Each is painted twice, inked and freed, and the freed
   form is derived from the approved inked master; a baby friend is derived from its approved
   grown-up. Briefs name real-animal features (the first moray test came out as a snake).
@@ -79,15 +80,16 @@ offline resource graph (exact bytes and SHA-256).
 - **Art catalog** `assets/art/catalog.json` (format `pearl-sea-art-catalog/1`; S5, planned): the
   published list of art IDs. Each entry is `{ id, kind, file, width, height, anchors? }`, where
   `kind` is `painted` or `svg`, `file` is relative to `assets/art/`, and an SVG's `width` and
-  `height` are its viewBox size. S5 lists its static SVG files (eggs, cosmetics, sticker art) here
-  beside the paintings, and S4 renders them. Painted friends carry the anchors `head`, `eyes` and
-  `neck`, each with `x` and `y` in 0..1000 of the image box, `scale` in percent (10..400) and
-  `rotate` in degrees (-180..180), where SVG cosmetics are placed. Content refers to art only by
-  these IDs, and the content gate cross-checks every reference, and the art the shell shows
-  directly (characters, avatars, the title and the grotto), once the catalog is published
-  (reported, or failing with `--strict-art`).
+  `height` are its viewBox size. S5 lists its static SVG files (eggs, cosmetics, the crown, sticker
+  art) here beside the paintings, and S4 renders them. Painted friends carry the anchors `head`,
+  `eyes` and `neck`, each with `x` and `y` in 0..1000 of the image box, `scale` in percent
+  (10..400) and `rotate` in degrees (-180..180), where SVG cosmetics are placed. Content refers to
+  art only by these IDs, and the content gate cross-checks every reference, and the art the shell
+  shows directly (characters, avatars, the title, the grotto and the crown), once the catalog is
+  published (reported, or failing with `--strict-art`).
 - **The cosmetic anchor scale**: a cosmetic SVG has a `0 0 100 100` viewBox with its attachment
-  point at the centre: a hat's brim centre, the goggles' bridge, a scarf's knot. The anchor puts
+  point at the centre: a hat's brim centre, the goggles' bridge, a scarf's knot, the centre of the
+  crown's base. The anchor puts
   that centre on its point, and at `scale` 100 the cosmetic is drawn 250/1000 of the painting's
   width wide (and as tall); at another scale, `scale` percent of that. Grotto decorations share the
   viewBox and sit on the grotto's spots instead of anchors. The catalog accepts a `cosmetic/*` entry
@@ -104,19 +106,20 @@ offline resource graph (exact bytes and SHA-256).
 
 Art IDs are built from the contract's canonical IDs ([contract.md](contract.md)):
 
-| Art ID                                                             | Kind    | What                                                                   |
-| ------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------- |
-| `friend/<friend>/baby`, `friend/<friend>/grown`                    | painted | the 18 sea friends; `crowned` is the grown art with an SVG shell crown |
-| `egg/<friend>`                                                     | SVG     | each friend's egg                                                      |
-| `monster/<monster>/inked`, `monster/<monster>/freed`               | painted | the 12 region monsters                                                 |
-| `inkoustik/<id>`                                                   | painted | the four Inkoustíci                                                    |
-| `scene/<region>`, `scene/grotto`, `scene/title`                    | painted | the 12 region scenes, Bublinka's home grotto, the title                |
-| `map/shallows`, `map/deep`                                         | painted | the sea maps of the 3rd and the 4th grade                              |
-| `character/osmicka`, `character/mroz-vousac`, `character/bublinka` | painted | Profesorka Osmička, Mrož Vousáč and the submarine Bublinka             |
-| `character/osmicka/happy`                                          | painted | Osmička cheering (praise, results)                                     |
-| `avatar/diver-1` … `avatar/diver-8`                                | painted | the diver avatars                                                      |
-| `cosmetic/<item>`                                                  | SVG     | hats, goggles, scarves, shell crowns, grotto decorations               |
-| `sticker/<sticker>`                                                | SVG     | the sticker album                                                      |
+| Art ID                                                             | Kind    | What                                                                    |
+| ------------------------------------------------------------------ | ------- | ----------------------------------------------------------------------- |
+| `friend/<friend>/baby`, `friend/<friend>/grown`                    | painted | the 18 sea friends; `crowned` is the grown art with the SVG shell crown |
+| `egg/<friend>`                                                     | SVG     | each friend's egg                                                       |
+| `monster/<monster>/inked`, `monster/<monster>/freed`               | painted | the 12 region monsters                                                  |
+| `inkoustik/<id>`                                                   | painted | the four Inkoustíci                                                     |
+| `scene/<region>`, `scene/grotto`, `scene/title`                    | painted | the 12 region scenes, Bublinka's home grotto, the title                 |
+| `map/shallows`, `map/deep`                                         | painted | the sea maps of the 3rd and the 4th grade                               |
+| `character/osmicka`, `character/mroz-vousac`, `character/bublinka` | painted | Profesorka Osmička, Mrož Vousáč and the submarine Bublinka              |
+| `character/osmicka/happy`                                          | painted | Osmička cheering (praise, results)                                      |
+| `avatar/diver-1` … `avatar/diver-8`                                | painted | the diver avatars                                                       |
+| `cosmetic/<item>`                                                  | SVG     | hats, goggles, scarves, shell crowns, grotto decorations                |
+| `cosmetic/shell-crown`                                             | SVG     | the crowned stage's golden crown, on the `head` anchor; never sold      |
+| `sticker/<sticker>`                                                | SVG     | the sticker album                                                       |
 
 ## 5. Provenance rules
 

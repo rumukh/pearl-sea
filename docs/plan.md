@@ -195,11 +195,13 @@ Shell (cloudy → bronze → silver → gold), Dragon Valley's Magic Window rebo
 | Profesorka Osmička, Mrož Vousáč, Bublinka | 4    | Qwen                                                     |
 | Diver avatars                            | 8     | Qwen                                                     |
 | Cut-outs                                 | all characters | `rembg` (local), alpha cleanup, WebP              |
-| Music loops (grotto, map, practice, monster battle, victory, finale) | 6 | ACE-Step 1.5 (local), instrumental |
-| SFX (bubbles, splash, pearl chime, ink splat, monster grumble …) | ~30 | Dragon Valley's deterministic synthesis (code) |
+| Music loops (grotto, map, practice, battle, finale), mono 48 kHz Ogg | 5 | ACE-Step 1.5 (local), instrumental; results, and a mood whose loop is missing (the finale's is optional), play the grotto loop |
+| Victory sting `sfx/victory-sting`, a 9-second one-shot when a monster is freed, mono 48 kHz Ogg | 1 | ACE-Step 1.5 (local), the approved victory take; no victory loop |
+| SFX (bubbles, splash, pearl chime, ink splat, monster grumble …), mono 48 kHz Ogg | ~30 | Dragon Valley's deterministic synthesis (code), re-voiced for water |
 
-- One style for all: storybook gouache and watercolour, rounded friendly shapes, clean outlines on
-  characters, a turquoise-coral-sun palette that darkens toward the deep.
+- One style for all, **style B** (§10): storybook gouache and watercolour, rounded friendly shapes,
+  a clean medium plum-brown outline on characters, no sticker border, a turquoise-coral-sun palette
+  that darkens toward the deep.
 - Measured here: **about 12 minutes per image** at full quality (50 steps), one GPU job at a time.
   About 92 images is roughly **18-24 GPU hours**, run in the background across days, vertical slice
   first (about 14 images, 3 hours).

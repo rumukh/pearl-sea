@@ -20,7 +20,7 @@ import { GRADES, INPUT_MODES, LEVEL_ACTIVITY_KINDS, STRANDS, isMinigameKind } fr
 import type { Dimension, GeneratorId, Grade, InputMode, LevelActivityKind, Strand } from './kinds';
 import { lexiconSchema, validateLexicon } from './lexicon';
 import type { Lexicon } from './lexicon';
-import { ART } from './media';
+import { ART, CROWN_ART_ID } from './media';
 import {
   artId,
   catalogKey,
@@ -968,7 +968,16 @@ export function validateContentData(data: Read<ContentData>): RuntimeDiagnostic[
     need('friends', f.id, 'monster', one(f.monster), monsters, 'monster');
   }
   for (const m of data.monsters) need('monsters', m.id, 'region', [m.region], regions, 'region');
-  for (const c of data.cosmetics) need('cosmetics', c.id, 'unlock', one(c.unlock), levels, 'level');
+  for (const c of data.cosmetics) {
+    need('cosmetics', c.id, 'unlock', one(c.unlock), levels, 'level');
+    if (c.assetId === CROWN_ART_ID) {
+      problem(
+        c.id,
+        'assetId',
+        `"${CROWN_ART_ID}" is the crowned stage's golden crown, never a cosmetic item (design §8.2).`,
+      );
+    }
+  }
   for (const s of data.stickers) {
     const c = s.criteria;
     need('stickers', s.id, 'page', [s.page], regions, 'region');

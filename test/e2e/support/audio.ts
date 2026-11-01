@@ -37,16 +37,25 @@ export interface AudioLog {
 /** Runs in the page before the game: records Web Audio. Self-contained (Playwright serialises it). */
 export function audioProbe(): void {
   const log: AudioLog = { contexts: 0, decoded: [], started: [], stopped: [], failed: [] };
+  Object.defineProperty(window, '__psQaAudio', {
+    value: { log: () => JSON.parse(JSON.stringify(log)) as AudioLog },
+  });
+  // An engine without Web Audio (Playwright's WebKit on Windows) has nothing to watch.
+  if (
+    typeof AudioContext !== 'function' ||
+    typeof BaseAudioContext !== 'function' ||
+    typeof AudioBufferSourceNode !== 'function'
+  ) {
+    return;
+  }
   const counts = log as { contexts: number };
   const Original = window.AudioContext;
-  if (typeof Original === 'function') {
-    window.AudioContext = new Proxy(Original, {
-      construct(target, args) {
-        counts.contexts += 1;
-        return Reflect.construct(target, args) as object;
-      },
-    });
-  }
+  window.AudioContext = new Proxy(Original, {
+    construct(target, args) {
+      counts.contexts += 1;
+      return Reflect.construct(target, args) as object;
+    },
+  });
   const context = BaseAudioContext.prototype;
   const decode = context.decodeAudioData;
   context.decodeAudioData = function (this: BaseAudioContext, ...args: unknown[]) {
@@ -86,9 +95,6 @@ export function audioProbe(): void {
     });
     return (stop as (...a: unknown[]) => void).apply(this, args);
   } as typeof source.stop;
-  Object.defineProperty(window, '__psQaAudio', {
-    value: { log: () => JSON.parse(JSON.stringify(log)) as AudioLog },
-  });
 }
 
 export async function audioLog(page: Page): Promise<AudioLog> {
@@ -114,4 +120,9 @@ export function manifestSound(id: string): ManifestSound {
 /** The sounds started so far, by manifest ID, in order. */
 export async function startedSounds(page: Page): Promise<string[]> {
   return (await audioLog(page)).started.map((played) => soundOf(played.duration));
+}
+
+/** Whether the engine has Web Audio at all (Playwright's WebKit on Windows has none). */
+export async function hasWebAudio(page: Page): Promise<boolean> {
+  return page.evaluate(() => typeof AudioContext === 'function');
 }

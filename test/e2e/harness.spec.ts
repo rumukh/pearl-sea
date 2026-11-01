@@ -8,7 +8,7 @@ import type { Page } from '@playwright/test';
 import { expect, test } from './support/fixtures';
 import type { FindingKind, Guard } from './support/guard';
 import { audit } from './support/a11y';
-import { audioLog, audioProbe, soundOf } from './support/audio';
+import { audioLog, audioProbe, hasWebAudio, soundOf } from './support/audio';
 import { layoutProblems } from './support/layout';
 import { ready } from './support/screens';
 
@@ -184,6 +184,10 @@ test.describe('the audio probe sees what the page plays', () => {
 
   test('a context, a decoded mono buffer, a loop started and stopped', async ({ page }) => {
     await boot(page);
+    test.skip(
+      !(await hasWebAudio(page)),
+      'This engine has no Web Audio (Playwright’s WebKit on Windows).',
+    );
     await page.evaluate(async () => {
       // Half a second of silence as a 48 kHz mono 16-bit WAV, made here.
       const samples = 24_000;

@@ -74,12 +74,6 @@ export const DEFECTS = {
     title:
       'The game is silent: the SDK refuses the audio pack’s sound IDs (“music/grotto” has a slash), so no music or victory sting ever plays',
   },
-  'PS-QA-03': {
-    owner: 'S2',
-    severity: 'major',
-    title:
-      'Results say “Správně: 9 / 5” after Inkoustová věta and Lov chyb: the view counts right answer steps against finished problems',
-  },
   'PS-QA-04': {
     owner: 'S4',
     severity: 'major',

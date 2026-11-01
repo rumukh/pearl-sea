@@ -15,6 +15,7 @@ import {
   AUDIO_MANIFEST,
   audioLog,
   audioProbe,
+  hasWebAudio,
   manifestSound,
   soundOf,
   startedSounds,
@@ -35,6 +36,13 @@ test.beforeEach(async ({ context }) => {
  * False when there is nothing more to check (no audio at all, or no decoder).
  */
 async function musicStarted(page: Page, testInfo: TestInfo): Promise<boolean> {
+  if (!(await hasWebAudio(page))) {
+    testInfo.annotations.push({
+      type: 'engine limitation',
+      description: 'this engine has no Web Audio; the game stays silent and works on',
+    });
+    return false;
+  }
   let unlocked = false;
   await unlessKnown(testInfo, 'PS-QA-02', async () => {
     await expect

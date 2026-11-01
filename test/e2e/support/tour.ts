@@ -423,13 +423,16 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     description: 'Lov chyb: now fix the wrong word',
   });
   await playRound(page, CHILD);
-  // Every Lov chyb problem has two steps, so the score shows whether it counts problems.
+  // Every Lov chyb problem has two steps: a score that pairs right steps with problems said
+  // "Správně: 10 / 5" (PS-QA-03, fixed by #27, which shows the right answers alone).
   expect(await throughStory(page)).toBe('screen-results');
   const score = (await page.getByTestId('results-score').textContent()) ?? '';
-  const [right, of] = (/(\d+) \/ (\d+)/.exec(score) ?? []).slice(1).map(Number);
-  await unlessKnown(test.info(), 'PS-QA-03', async () => {
-    expect(right!, `never more right than answered: “${score}”`).toBeLessThanOrEqual(of!);
-  });
+  const ratio = /(\d+) \/ (\d+)/.exec(score);
+  if (ratio) {
+    expect(Number(ratio[1]), `never more right than answered: “${score}”`).toBeLessThanOrEqual(
+      Number(ratio[2]),
+    );
+  }
   await untilHub(page);
 
   // The treasure chest, once today's goal is met.

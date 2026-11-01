@@ -29,20 +29,30 @@ import { compareCzech } from '../../src/rules/contract';
 
 test.use({ reducedMotion: 'reduce' });
 
-/** Press Tab until the control `testId` has focus; it must show a focus ring. */
-async function tabTo(page: Page, testId: string | RegExp, limit = 60): Promise<void> {
+/**
+ * Press Tab until the control `testId` has focus, and if focus leaves the page first, Shift+Tab
+ * back from where it was (a keyboard user goes both ways); it must show a focus ring.
+ */
+async function tabTo(page: Page, testId: string | RegExp, limit = 40): Promise<void> {
   const wanted = (id: string | null): boolean =>
     id !== null && (typeof testId === 'string' ? id === testId : testId.test(id));
-  for (let press = 0; press < limit; press++) {
-    const stop = await focusStop(page);
-    if (wanted(stop.id)) {
-      expect(stop.ring, `${stop.id} shows a focus ring`).toBe(true);
-      expect(stop.onScreen, `${stop.id} is on screen when focused`).toBe(true);
-      return;
+  for (const key of ['Tab', 'Shift+Tab'] as const) {
+    for (let press = 0; press < limit; press++) {
+      const stop = await focusStop(page);
+      if (wanted(stop.id)) {
+        expect(stop.ring, `${stop.id} shows a focus ring`).toBe(true);
+        expect(stop.onScreen, `${stop.id} is on screen when focused`).toBe(true);
+        return;
+      }
+      if (stop.page && press > 0) {
+        // Focus went to the browser's own controls: take the window back and turn around.
+        await page.bringToFront();
+        break;
+      }
+      await page.keyboard.press(key);
     }
-    await page.keyboard.press('Tab');
   }
-  throw new Error(`Tab never reached ${String(testId)}`);
+  throw new Error(`Tab and Shift+Tab never reached ${String(testId)}`);
 }
 
 /** Wait for the screen after `testId` to be shown (the stage not busy, another screen). */

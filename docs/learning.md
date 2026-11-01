@@ -14,6 +14,7 @@ over unchanged.
 | `adapter.ts`                                                   | the runtime adapter: legality (named rejection codes), one command per action, the `reask` job, `validateState`, content activation, `createGameHost` |
 | `view.ts`                                                      | `GameView` from state and content: the daily adventure's next step, rounds, friends, the Great Shell, the grown-ups' area                             |
 | `learning/items.ts`                                            | response buckets, Leitner boxes, the effort path, mastery levels, due items                                                                           |
+| `learning/migrate.ts`                                          | content activation: records under item IDs the contract retired merge into the items they stand for                                                   |
 | `learning/selection.ts`                                        | what a round serves next: tiers, the learning share, the focus egg, no repeats                                                                        |
 | `learning/generate.ts`                                         | the problem generators' registry, servable items, `problemFor`                                                                                        |
 | `learning/generators/spell.ts`                                 | `spell.word`, `spell.sentence`, `spell.mistake`                                                                                                       |
@@ -38,7 +39,10 @@ runtime's named streams (`problems`, `distractors`, `words`, `rewards`, `ambush`
 **Items** are the contract's item IDs (§5.4): `spell:<word>:<at>` for a word's spelling point,
 `gap:<sentence>:<n>` for a sentence gap that is not a word's point, `class:`, `rel:`, and the
 board-only `pair:`, `abc:`, `seg:`, `fam:`. A spelling point is one item wherever it is asked, so
-a sentence gap on _mlýn_ reviews `spell:mlyyn:2`.
+a sentence gap on _mlýn_ reviews `spell:mlyyn:2`, and a form is one item however many cells show it
+(_delfíni_ is `class:number:delfiin:pl1`, never `…:pl5`). Saves made before content 1.2.5 can hold
+records under such retired IDs; activating newer content merges them into the item they stand for
+(`learning/migrate.ts`, [contract.md](contract.md) §7.6).
 
 **Response buckets** (`responseBucket`): `miss`, or by time against the input's limits
 (`response.choice`, `.letters`, `.typed` with `perExtraLetterMs` per letter after the first). The
@@ -297,7 +301,8 @@ dimension, basis and relation, selection, boards and their adapters, the boards'
 ambushes, placement, Svačinka, steps and re-asks, the adapter's legality and commands),
 `test/traces/**` (golden command traces with named checks and mutation checks: a 3rd grader's first
 session with each lagoon egg, a 4th grader's first sessions, the lagoon slice end to end with the
-first Inkoustíci) and `test/migration/**` (a mid-round save, the next content revision). They run on
+first Inkoustíci) and `test/migration/**` (a mid-round save, the next content revision, a save
+with retired item IDs). They run on
 the rules' lagoon fixture (`test/fixtures/rules/lagoon-pack.ts`), the contract's mini pack and the
 game's pack (`realPack`); the harness's oracle answers from the lexicon's raw data, never from the
 code under test ([testing.md](testing.md)).

@@ -259,10 +259,11 @@ export function isCorrectAnswer(problem: Problem, step: number, value: AnswerVal
  * A classification's target and detail depend on what is classified (skills.ts
  * `CONTEXT_DIMENSIONS`): a word on its own is `class:pos:ryba`; a consonant letter is
  * `class:consonant:cx` (its `lexiconId`); a form names the word and its paradigm cell
- * (`class:person:plavat:past1`, lexicon.ts `formCells`); a token of a sentence names the sentence
- * and the token index (`class:case:s.ryby-1:0`); a whole sentence names the sentence
- * (`class:sentence-kind:s.ryby-1`); a part of a word names the word and the segment index
- * (`class:segment:vyletext:1`).
+ * (`class:person:plavat:past1`, lexicon.ts `formCells`), the first cell in paradigm order that
+ * shows the form, so a form shown by several cells is one item (skills.ts `canonicalItem`); a
+ * token of a sentence names the sentence and the token index (`class:case:s.ryby-1:0`); a whole
+ * sentence names the sentence (`class:sentence-kind:s.ryby-1`); a part of a word names the word
+ * and the segment index (`class:segment:vyletext:1`).
  */
 export const ITEM_KINDS = ['spell', 'gap', 'class', 'rel', 'pair', 'abc', 'seg', 'fam'] as const;
 export type ItemKind = (typeof ITEM_KINDS)[number];

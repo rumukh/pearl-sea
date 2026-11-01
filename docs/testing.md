@@ -138,7 +138,9 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   only what they show; composed past, future and conditional; the reflexive pronoun after the
   auxiliary) and each linguistic check against a planted mistake; every problem kind through its
   schema, incoherent problems refused, one expected answer per step, case-sensitive typed answers,
-  item IDs built and parsed; each generator's item universe and the parameter cross-checks; the
+  item IDs built and parsed; each generator's item universe (a form that several cells show is one
+  item, named by its first cell; `canonicalItem` maps a retired form item to it) and the parameter
+  cross-checks; the
   fixture pack valid and each class of authoring mistake reported with a named diagnostic; art and
   catalog keys collected, grammar terms included; the Czech plural categories and the catalog
   convention; days, the initial state (without the form of address or the language) and actions.
@@ -220,6 +222,15 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
 - `test/migration/next-revision.test.ts`: a mid-round save restored in a new process goes on with
   the same commits; the next content revision activates only at a safe boundary and keeps all
   progress; old saves keep their revision; a revision is never reused.
+- `test/migration/merged-forms.test.ts`: the shipped pack serves every form once (the seven
+  duplicate forms of 1.2.4 retired, each mapped to its kept item). A save on the newest archived
+  pack holding records under retired IDs restores. After the next revision activates:
+  - no retired ID is left, and each kept item holds the merged record;
+  - every other record and all other progress are untouched;
+  - every answer is still counted, and each form keeps its best pearl;
+  - no friend share, skill or objective mastered count drops, and merging again changes nothing.
+
+  The same holds when the save moves to the pack the site serves.
 
 ### Planned evidence
 

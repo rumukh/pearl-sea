@@ -38,8 +38,15 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
   const heading = h('h1', {
     className: 'ps-hub__greeting',
     testId: 'hub-greeting',
-    text: t('hub.greeting', { name: active.diver.name }),
+    text: t('hub.greeting'),
   });
+  // The child's own picture and name, as a label: a greeting by name would need the vocative.
+  const diverLabel = h(
+    'p',
+    { className: 'ps-hub__diver', testId: 'hub-diver' },
+    picture(app.art, ART.avatar(active.diver.avatar), { className: 'ps-avatar' }),
+    h('span', { className: 'ps-hub__diver-name', text: active.diver.name }),
+  );
 
   // ---- Friends ----------------------------------------------------------------------------
   const friendsSection = (current: GameView): HTMLElement => {
@@ -398,7 +405,7 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
     { className: 'ps-hub', testId: 'screen-hub' },
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene('grotto'))),
     topBar({
-      title: heading,
+      title: h('div', { className: 'ps-hub__title' }, heading, diverLabel),
       tools: [coins.element, saveStatus.element, goodbye],
       onError: app.kit.onError,
     }),

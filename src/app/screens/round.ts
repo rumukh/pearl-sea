@@ -143,6 +143,19 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
   });
   const answerSlot = h('div', { className: 'ps-round__answer', testId: 'answer' });
   const nextSlot = h('div', { className: 'ps-round__next' });
+  /** The problem on screen; its position (`data-index`, `data-step`) names it, never its item. */
+  const problemCard = h(
+    'div',
+    { className: 'ps-card ps-round__card', testId: 'problem' },
+    ambushSlot,
+    note,
+    h('div', { className: 'ps-round__ask' }, prompt, tools),
+    displaySlot,
+    hintSlot,
+    feedback,
+    answerSlot,
+    nextSlot,
+  );
 
   const timer = createResponseTimer();
   let tiles: TilesView | undefined;
@@ -302,9 +315,10 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
   // ---- one problem -------------------------------------------------------------------------------
   const hintButton = (problem: ProblemView): HTMLElement[] => {
     const hint = stepHint(problem.problem, problem.step);
-    if (!hint) return [];
+    const line = hint ? hintText(hint, t, text) : null;
+    if (line === null) return [];
     const show = (): void => {
-      hintSlot.textContent = hintText(hint, t, text);
+      hintSlot.textContent = line;
       hintSlot.hidden = false;
     };
     if (problem.hinted) show();
@@ -349,6 +363,8 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
 
   const showProblem = (problem: ProblemView): void => {
     shown = problem;
+    problemCard.dataset['index'] = String(problem.index);
+    problemCard.dataset['step'] = String(problem.step);
     releaseInput();
     setFeedback('none');
     nextSlot.replaceChildren();
@@ -565,6 +581,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       ),
     );
     const hint = stepHint(asked.problem, asked.step);
+    const hintLine = hint ? hintText(hint, t, text) : null;
     const said = missText(asked.problem, asked.step, result.expected, t, text);
     setFeedback(
       'miss',
@@ -580,7 +597,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         said.lead === null ? null : ' ',
         said.line,
       ),
-      hint ? h('span', { className: 'ps-feedback__hint', text: hintText(hint, t, text) }) : null,
+      hintLine === null ? null : h('span', { className: 'ps-feedback__hint', text: hintLine }),
     );
     if (result.ambush && !result.ambush.splashed) {
       app.kit.announcer.announce(t('ambush.stayed'));
@@ -724,7 +741,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     {
       className: `ps-round${battle ? ' ps-round--battle' : ''}`,
       testId: 'screen-round',
-      dataset: { activity, placement: String(placement) },
+      dataset: { activity, placement: String(placement), round: first.id },
     },
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene(regionId ?? 'grotto'))),
     topBar({
@@ -732,23 +749,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       tools: [streak, coins.element, saveStatus.element, pauseButton],
       onError: app.kit.onError,
     }),
-    h(
-      'section',
-      { className: 'ps-round__stage' },
-      companion,
-      h(
-        'div',
-        { className: 'ps-card ps-round__card', testId: 'problem' },
-        ambushSlot,
-        note,
-        h('div', { className: 'ps-round__ask' }, prompt, tools),
-        displaySlot,
-        hintSlot,
-        feedback,
-        answerSlot,
-        nextSlot,
-      ),
-    ),
+    h('section', { className: 'ps-round__stage' }, companion, problemCard),
     blots,
   );
   return {

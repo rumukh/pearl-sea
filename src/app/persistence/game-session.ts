@@ -21,6 +21,7 @@
  *   with `view()` instead of asking the host for a new copy at every redraw.
  */
 import { createSaveCheckpoint } from '@aegis/browser/checkpoint';
+import type { CheckpointMetadata } from '@aegis/browser/checkpoint';
 import { exportSave, migrateSave, SaveService } from '@aegis/browser/save';
 import type { SaveMigration, SavePolicy, SaveStorage } from '@aegis/browser/save';
 import { createRuntimeHost, isRuntimeSnapshot, requireValue, RuntimeFault } from '@aegis/runtime';
@@ -163,6 +164,27 @@ export async function validateSnapshot<S, A, V, C>(
   return content;
 }
 
+/**
+ * What every checkpoint of a profile's game records beside its snapshot: the `aegis.save`
+ * envelope's identity, content, schema and engine (the SDK's checkpoint adds `state`).
+ */
+export function checkpointMetadata<S, A, V, C>(
+  game: GameDefinition<S, A, V, C>,
+  profileId: string,
+  snapshot: RuntimeSnapshot,
+): CheckpointMetadata<null> {
+  return {
+    format: 'aegis.save',
+    formatVersion: 1,
+    gameId: game.gameId,
+    profileId,
+    contentRevision: snapshot.content.revision,
+    schemaVersion: snapshot.stateVersion,
+    engine: { id: ENGINE_ID, snapshotVersion: ENGINE_SNAPSHOT_VERSION, revision: ENGINE_REVISION },
+    resume: null,
+  };
+}
+
 export async function openGameSession<S, A, V, C>(
   storage: SaveStorage,
   game: GameDefinition<S, A, V, C>,
@@ -182,16 +204,9 @@ export async function openGameSession<S, A, V, C>(
   } catch (cause) {
     throw await recoveryFor('game', storage, policy, cause, validate, migrations);
   }
-  const checkpoint = createSaveCheckpoint<null>(saves, ({ snapshot }) => ({
-    format: 'aegis.save',
-    formatVersion: 1,
-    gameId: game.gameId,
-    profileId: profile.id,
-    contentRevision: snapshot.content.revision,
-    schemaVersion: snapshot.stateVersion,
-    engine: { id: ENGINE_ID, snapshotVersion: ENGINE_SNAPSHOT_VERSION, revision: ENGINE_REVISION },
-    resume: null,
-  }));
+  const checkpoint = createSaveCheckpoint<null>(saves, ({ snapshot }) =>
+    checkpointMetadata(game, profile.id, snapshot),
+  );
   const host = createRuntimeHost({
     adapter: game.adapter,
     content: start,

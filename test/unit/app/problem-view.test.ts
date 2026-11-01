@@ -311,4 +311,12 @@ describe('answers and hints in words', () => {
       'Vyjmenovaná slova a\u00a0slova příbuzná píšeme s\u00a0y.',
     );
   });
+
+  it('leaves out a hint whose words the pack lacks, never failing the round', () => {
+    expect(hintText({ kind: 'rule', rule: 'u-prejate' }, t, text)).toBeNull();
+    expect(hintText({ kind: 'pattern', pattern: 'zena' }, t, text)).toBeNull();
+    expect(hintText({ kind: 'case-question', case: 7 }, t, text)).toBeNull();
+    expect(hintText({ kind: 'listed', letter: 'z' }, t, text)).toBeNull();
+    expect(hintText({ kind: 'ten-ta-to', gender: 'f' }, t, text)).toBe(t('hint.tenTaTo'));
+  });
 });

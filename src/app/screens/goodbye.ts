@@ -99,7 +99,7 @@ export function goodbyeScreen(app: App, diverId: string): ScreenEntry {
           ...speakerButton(app, active.preferences.current(), () => lines.join(' '), 'diary-read'),
         ),
       );
-      const heading = h('h1', { text: t('goodbye.heading', { name: active.diver.name }) });
+      const heading = h('h1', { text: t('goodbye.heading') });
       const bye = candyButton({
         label: t('goodbye.bye'),
         icon: 'home',

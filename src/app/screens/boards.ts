@@ -1,14 +1,15 @@
 /**
  * Minigame rounds (docs/design.md §5.8-5.12) on the typed board of the rules' `MinigameRoundView`
  * (contract minigames.ts): Pexeso (memory match), Perlový náhrdelník (thread the word pearls in
- * order) and Rybářské sítě (sort the fish-words into nets). Every move goes to the rules as
- * `minigameMove { revision, move }`; the screen redraws from the view. Boards never punish: a
- * wrong pair, a wrong order or a fish in the wrong net stays on the board, gently marked, and can
- * be corrected.
+ * order), Rybářské sítě (sort the fish-words into nets), Ulita slov (cut a word into its parts
+ * and name them) and Slovní rodinka (pick the words of one family). Every move goes to the rules
+ * as `minigameMove { revision, move }`; the screen redraws from the view. Boards never punish: a
+ * wrong pair, a wrong order, a fish in the wrong net, a wrong cut or pick stays on the board,
+ * gently marked, and can be corrected.
  *
- * Touch and keyboard both work everywhere: cards and pearls are buttons; a pearl picked up is
- * put down by tapping its new place, or moved with the arrow keys; a fish is dragged into a net,
- * or tapped and then its net tapped.
+ * Touch and keyboard both work everywhere: cards, pearls, cuts, names and words are buttons; a
+ * pearl picked up is put down by tapping its new place, or moved with the arrow keys; a fish is
+ * dragged into a net, or tapped and then its net tapped.
  */
 import { taken } from '../controller/commands';
 import type { Screen } from '../router/router';
@@ -29,6 +30,9 @@ import type {
   MinigameMove,
   MinigameRoundView,
   NecklaceBoard,
+  SegmentRole,
+  WordFamilyBoard,
+  WordShellBoard,
 } from '../../rules/contract';
 import type { ContentText } from '../content/text';
 import { diverSaveStatus, topBar } from './common';
@@ -72,7 +76,11 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     valueText: (value, max) => t('board.progressValue', { value, max }),
     testId: 'board-progress',
   });
-  const boardSlot = h('div', { className: 'ps-board-slot', testId: 'board' });
+  const boardSlot = h('div', {
+    className: 'ps-board-slot',
+    testId: 'board',
+    dataset: { board: String(first.board) },
+  });
   const message = h('p', {
     className: 'ps-board__message',
     testId: 'board-message',
@@ -114,6 +122,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     }
     coins.set(view.coins);
     progress.update(round.board);
+    boardSlot.dataset['board'] = String(round.board);
     if (round.board !== lastBoard) {
       lastBoard = round.board;
       app.kit.cue('fx.board-done');
@@ -406,6 +415,194 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     });
   };
 
+  // ---- Ulita slov ------------------------------------------------------------------------------------
+  /**
+   * The word with a cut between every two letters (a toggle), the parts the cuts make, each named
+   * with one of the board's asked roles (tap the name again to take it off), and the empty
+   * "∅ koncovka" shell when endings are asked.
+   */
+  const shellBoard = (board: WordShellBoard): HTMLElement => {
+    const roleName = (role: SegmentRole): string => text(`grammar.segment.${role}`);
+    const word = h('div', {
+      className: 'ps-shell-word',
+      testId: 'shell-word',
+      dataset: { letters: String(board.letters.length) },
+      attributes: { role: 'group', 'aria-label': t('board.shellWord', { word: board.text }) },
+    });
+    board.letters.forEach((letter, index) => {
+      if (index > 0) {
+        const at = index;
+        const cut = board.cuts.includes(at);
+        const button = h('button', {
+          className: 'ps-shell-word__cut',
+          testId: `cut-${at}`,
+          dataset: { cut: String(cut) },
+          attributes: {
+            type: 'button',
+            'aria-pressed': String(cut),
+            'aria-label': t('board.shellCut', { before: board.letters[at - 1]!, after: letter }),
+          },
+        });
+        button.addEventListener('click', () => {
+          app.kit.cue('ui.tap');
+          void move({ type: cut ? 'uncut' : 'cut', at }).catch(app.kit.onError);
+        });
+        word.append(button);
+      }
+      word.append(
+        h('span', {
+          className: 'ps-shell-word__letter',
+          text: letter,
+          attributes: { 'aria-hidden': 'true' },
+        }),
+      );
+    });
+    if (board.roles.includes('ending')) {
+      const zero = h(
+        'button',
+        {
+          className: 'ps-shell-word__zero',
+          testId: 'zero-ending',
+          attributes: { type: 'button', 'aria-pressed': String(board.zeroEnding) },
+        },
+        h('span', {
+          className: 'ps-shell-word__zero-mark',
+          text: '∅',
+          attributes: { 'aria-hidden': 'true' },
+        }),
+        h('span', { text: t('board.shellZero') }),
+      );
+      zero.addEventListener('click', () => {
+        app.kit.cue('ui.tap');
+        void move({ type: 'zero-ending', on: !board.zeroEnding }).catch(app.kit.onError);
+      });
+      word.append(zero);
+    }
+    const parts = h(
+      'ol',
+      { className: 'ps-shell-parts', testId: 'shell-parts' },
+      ...board.parts.map((part, index) =>
+        h(
+          'li',
+          {
+            className: 'ps-shell-part',
+            testId: `part-${index}`,
+            dataset: { role: part.role ?? 'none' },
+          },
+          h('span', {
+            className: 'ps-shell-part__text',
+            text: part.text,
+            attributes: { lang: 'cs' },
+          }),
+          h(
+            'span',
+            {
+              className: 'ps-shell-part__roles',
+              attributes: {
+                role: 'group',
+                'aria-label': t('board.shellPart', { part: part.text }),
+              },
+            },
+            ...board.roles.map((role) => {
+              const named = part.role === role;
+              const button = h('button', {
+                className: 'ps-shell-role',
+                testId: `role-${index}-${role}`,
+                text: roleName(role),
+                attributes: { type: 'button', 'aria-pressed': String(named) },
+              });
+              button.addEventListener('click', () => {
+                app.kit.cue('ui.tap');
+                void move({ type: 'label', part: index, role: named ? null : role }).catch(
+                  app.kit.onError,
+                );
+              });
+              return button;
+            }),
+          ),
+        ),
+      ),
+    );
+    if (board.submitted) message.textContent = t('board.shellNotYet');
+    actions.replaceChildren(
+      candyButton({
+        label: t('board.check'),
+        icon: 'check',
+        variant: 'sun',
+        testId: 'board-submit',
+        onPress: () => move({ type: 'submit' }),
+        onError: app.kit.onError,
+      }),
+    );
+    return h(
+      'div',
+      { className: 'ps-shell-board' },
+      h('p', {
+        className: 'ps-board__task',
+        text: t('board.shellTask', { roles: board.roles.map(roleName).join(', ') }),
+      }),
+      word,
+      parts,
+    );
+  };
+
+  // ---- Slovní rodinka ----------------------------------------------------------------------------------
+  /** Pick every word of the head word's family; a pick toggles, the check says when it is right. */
+  const familyBoard = (board: WordFamilyBoard): HTMLElement => {
+    const picked = board.words.filter((word) => word.picked).length;
+    const words = board.words.map((word) => {
+      const button = h('button', {
+        className: 'ps-family-word',
+        testId: `family-${word.id}`,
+        text: word.text,
+        attributes: { type: 'button', lang: 'cs', 'aria-pressed': String(word.picked) },
+      });
+      button.addEventListener('click', () => {
+        app.kit.cue('ui.tap');
+        void move({ type: 'pick', word: word.id }).catch(app.kit.onError);
+      });
+      return button;
+    });
+    if (board.submitted) message.textContent = t('board.familyNotYet');
+    actions.replaceChildren(
+      candyButton({
+        label: t('board.check'),
+        icon: 'check',
+        variant: 'sun',
+        testId: 'board-submit',
+        onPress: () => move({ type: 'submit' }),
+        onError: app.kit.onError,
+      }),
+    );
+    return h(
+      'div',
+      { className: 'ps-family' },
+      h('p', {
+        className: 'ps-family__head',
+        testId: 'family-head',
+        text: board.head.text,
+        attributes: { lang: 'cs' },
+      }),
+      h('p', {
+        className: 'ps-board__task',
+        text: t('board.familyTask', { word: board.head.text }),
+      }),
+      h('p', {
+        className: 'ps-family__count',
+        testId: 'family-count',
+        text: t('board.familyCount', { picked, needed: board.needed }),
+      }),
+      h(
+        'div',
+        {
+          className: 'ps-family__words',
+          attributes: { role: 'group', 'aria-label': t('board.familyWords') },
+        },
+        ...words,
+      ),
+    );
+  };
+
   const draw = (board: BoardView): void => {
     const focusedId = (document.activeElement as HTMLElement | null)?.dataset['testid'];
     let content: HTMLElement;
@@ -418,6 +615,12 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
         break;
       case 'fishing-nets':
         content = netsBoard(board);
+        break;
+      case 'word-shell':
+        content = shellBoard(board);
+        break;
+      case 'word-family':
+        content = familyBoard(board);
         break;
       default:
         content = h('p', { className: 'ps-note', text: t('board.unknown') });
@@ -456,7 +659,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
   draw(first.current);
   const element = h(
     'main',
-    { className: 'ps-board', testId: 'screen-board', dataset: { activity: first.activity } },
+    { className: 'ps-board', testId: 'screen-board', dataset: { activity: first.activity, round: first.id } },
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene(regionId ?? 'grotto'))),
     topBar({
       title: h('div', { className: 'ps-round__header' }, heading, progress.element),

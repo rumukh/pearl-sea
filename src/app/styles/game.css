@@ -503,6 +503,32 @@
 
 /* ---- The grotto hub --------------------------------------------------------------------- */
 
+.ps-hub__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em 0.8em;
+  min-width: 0;
+}
+
+.ps-hub__greeting {
+  font-size: min(1.5rem, 7vw);
+}
+
+.ps-hub__diver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.15em 0.8em 0.15em 0.2em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ps-paper) 88%, transparent);
+  font-weight: 700;
+}
+
+.ps-hub__diver .ps-avatar {
+  width: 2em;
+}
+
 .ps-hub__layout {
   flex: 1;
   display: grid;
@@ -1795,6 +1821,198 @@
   font-size: 0.8rem;
   color: var(--ps-ink);
   background: var(--ps-miss);
+}
+
+/* Ulita slov: the word's letters with a cut toggle between every two, then its parts to name. */
+.ps-shell-board {
+  display: grid;
+  gap: 0.9em;
+}
+
+.ps-shell-word {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  row-gap: 0.4em;
+  font-size: min(2rem, 9vw);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ps-shell-word__letter {
+  display: grid;
+  place-items: center;
+  min-width: 0.8em;
+  padding: 0.25em 0.05em;
+  border-radius: 0.2em;
+  background: var(--ps-card);
+}
+
+/* A cut is a thin gap that becomes a bold coral line: at least 48 px tall, wider to the touch. */
+.ps-shell-word__cut {
+  position: relative;
+  width: 0.55em;
+  min-height: max(var(--ps-target), 1.5em);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-shell-word__cut::before {
+  content: '';
+  position: absolute;
+  inset: 0.2em calc(50% - 0.04em);
+  border-left: 0.08em dashed var(--ps-line-strong);
+}
+
+.ps-shell-word__cut::after {
+  content: '';
+  position: absolute;
+  inset: 0 -0.25em;
+}
+
+.ps-shell-word__cut[aria-pressed='true'] {
+  width: 0.9em;
+}
+
+.ps-shell-word__cut[aria-pressed='true']::before {
+  inset: 0 calc(50% - 0.09em);
+  border-left: 0.18em solid var(--ps-coral-deep);
+}
+
+.ps-shell-word__zero {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-height: var(--ps-target);
+  margin-inline-start: 0.4em;
+  padding: 0.15em 0.6em;
+  border: 0.12em dashed var(--ps-line-strong);
+  border-radius: 999px;
+  font-size: 0.5em;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-card);
+  cursor: pointer;
+}
+
+.ps-shell-word__zero-mark {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.ps-shell-word__zero[aria-pressed='true'] {
+  border-style: solid;
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary-soft);
+  box-shadow: inset 0 0 0 0.1em var(--ps-primary-deep);
+}
+
+.ps-shell-parts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-shell-part {
+  display: grid;
+  justify-items: center;
+  gap: 0.4em;
+  padding: 0.5em 0.6em;
+  border: 0.12em solid var(--ps-line);
+  border-radius: 1em;
+  background: var(--ps-card);
+}
+
+.ps-shell-part:not([data-role='none']) {
+  border-color: var(--ps-primary);
+}
+
+.ps-shell-part__text {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.ps-shell-part__roles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35em;
+}
+
+.ps-shell-role,
+.ps-family-word {
+  min-width: var(--ps-target);
+  min-height: var(--ps-target);
+  padding: 0.2em 0.7em;
+  border: 0.12em solid var(--ps-line-strong);
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--ps-ink);
+  background: var(--ps-paper);
+  box-shadow: 0 0.14em 0 var(--ps-line-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-shell-role {
+  font-size: 0.85rem;
+}
+
+/* Chosen: a filled pill with an inner ring, not only a colour. */
+.ps-shell-role[aria-pressed='true'],
+.ps-family-word[aria-pressed='true'] {
+  color: var(--ps-card);
+  border-color: var(--ps-primary-deep);
+  background: var(--ps-primary);
+  box-shadow:
+    inset 0 0 0 0.12em var(--ps-primary-deep),
+    0 0.14em 0 var(--ps-primary-deep);
+}
+
+/* Slovní rodinka: the family's head word, then the words to pick. */
+.ps-family {
+  display: grid;
+  justify-items: center;
+  gap: 0.6em;
+}
+
+.ps-family__head {
+  max-width: none;
+  padding: 0.25em 1em;
+  border: 0.14em solid var(--ps-sun-deep);
+  border-radius: 999px;
+  font-size: min(2rem, 9vw);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--ps-sun) 45%, var(--ps-card));
+}
+
+.ps-family__count {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ps-ink-soft);
+}
+
+.ps-family__words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em;
+}
+
+.ps-family-word {
+  font-size: 1.15rem;
+}
+
+.ps-family-word[aria-pressed='true']::before {
+  content: '✓ ';
 }
 
 /* ---- Results and the big moments -------------------------------------------------------- */

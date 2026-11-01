@@ -328,22 +328,29 @@ export function stepHint(problem: Problem, step: number): Hint | null {
   return problem.hint;
 }
 
-/** A hint in words (docs/design.md §5.3): a related word, a test form, a rhyme, a question. */
-export function hintText(hint: Hint, t: Translate, text: ContentText): string {
+/**
+ * A hint in words (docs/design.md §5.3): a related word, a test form, a rhyme, a question. Hints
+ * are optional help, so one whose content string the pack lacks is `null` and simply not shown,
+ * never an error in the middle of a round.
+ */
+export function hintText(hint: Hint, t: Translate, text: ContentText): string | null {
+  const content = (key: string): string | null => (text.has(key) ? text(key) : null);
   switch (hint.kind) {
     case 'family':
       return t('hint.family', { related: hint.related });
     case 'test-word':
       return t('hint.testWord', { test: hint.test });
     case 'listed':
-      return text(`grammar.listed.${hint.letter}`);
+      return content(`grammar.listed.${hint.letter}`);
     case 'ten-ta-to':
       return t('hint.tenTaTo');
     case 'case-question':
-      return text(`grammar.case-question.${hint.case}`);
-    case 'pattern':
-      return t('hint.pattern', { pattern: text(`grammar.pattern.${hint.pattern}`) });
+      return content(`grammar.case-question.${hint.case}`);
+    case 'pattern': {
+      const pattern = content(`grammar.pattern.${hint.pattern}`);
+      return pattern === null ? null : t('hint.pattern', { pattern });
+    }
     case 'rule':
-      return text(`grammar.rule.${hint.rule}`);
+      return content(`grammar.rule.${hint.rule}`);
   }
 }

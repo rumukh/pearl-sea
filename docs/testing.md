@@ -310,11 +310,17 @@ $env:PS_E2E_PORT = '4401'; npm run test:e2e       # a second run beside another 
 - **On CI** each engine is its own job (`npx playwright test --project=<engine>`, two workers,
   `test.only` forbidden, `PS_E2E_AUDIT=1`). The engines' system packages come from Ubuntu's mirror,
   which is at times very slow, so their `.deb` files are cached per engine, runner image and
-  Playwright version. A job has 40 minutes and its test step 25 (the screen walks photograph every
-  slice screen at four sizes), the guard against a hang. Each job uploads
-  `playwright-report-<engine>` (the HTML report, `test-results/results.json` and the QA summary),
-  `qa-screens-<engine>` (the walks' pictures and contact sheets) and, when something failed,
-  `playwright-traces-<engine>`; the QA reporter writes the job summary.
+  Playwright version. Each job uploads `playwright-report-<engine>` (the HTML report,
+  `test-results/results.json` and the QA summary), `qa-screens-<engine>` (the walks' pictures and
+  contact sheets) and, when something failed, `playwright-traces-<engine>`; the QA reporter writes
+  the job summary.
+- **Bounded on CI, so a hang cannot run on and a green run cannot end red** (PS-QA-21: PR #22's
+  Chromium job reported "15 passed" and its runner then never exited). Playwright's
+  `globalTimeout` is 30 minutes, twice WebKit's slowest run (15 minutes), so a run stuck in its
+  tests or their teardown fails with Playwright's own message. Once a run has reported, the QA
+  reporter, which reports first on CI, exits with the run's own status if the runner is still
+  alive two minutes later (`support/bounded-exit.ts`; `PS_E2E_EXIT_GRACE_MS` changes the grace).
+  The test step has 35 minutes and the job 50, the last guards.
 - **One run per port.** The web server (`scripts/serve.mjs --build`) builds into
   `out/e2e-site-<port>` and serves on port 4331 unless `PS_E2E_PORT` says otherwise; output goes to
   `test-results/` on the default port and to `out/e2e-results-<port>` on any other, so two local

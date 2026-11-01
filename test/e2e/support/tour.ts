@@ -37,7 +37,6 @@ import {
   wrongAnswer,
 } from './game';
 import { FAMILY_KEY, storeRecord } from './saves';
-import { unlessKnown } from './known-issues';
 import { enterGrownUps, ready } from './screens';
 import type { Stop } from './screens';
 
@@ -156,9 +155,8 @@ export async function firstDiveWalk(page: Page, visit: Visit): Promise<void> {
     play: true,
     description: 'The title: Perlové moře, Hrát and Pro dospělé',
   });
-  await unlessKnown(test.info(), 'PS-QA-07', async () => {
-    expect(await ringOverlap(page), 'Hrát’s focus ring stays clear of the tagline').toBe(0);
-  });
+  // Hrát's ring stays clear of the tagline (PS-QA-07, fixed by #36).
+  expect(await ringOverlap(page), 'Hrát’s focus ring stays clear of the tagline').toBe(0);
   await page.getByTestId('title-play').click();
   await expect(page.getByTestId('screen-editor')).toBeVisible();
   await visit({
@@ -398,12 +396,11 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
   expect(await pastResults(page)).toBe('screen-board');
   await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'memory-match');
   await visit({ name: '27-pexeso', play: true, description: 'Pexeso: pearl cards face down' });
-  await unlessKnown(test.info(), 'PS-QA-06', async () => {
-    await expect(
-      page.getByTestId('board').locator('.ps-board__task'),
-      'Pexeso says what makes a pair, as the other boards say what to do',
-    ).not.toBeEmpty({ timeout: 1_000 });
-  });
+  // Pexeso says what makes a pair, as the other boards say their task (PS-QA-06, fixed by #36).
+  await expect(
+    page.getByTestId('board-task'),
+    'Pexeso says what makes a pair, as the other boards say what to do',
+  ).not.toBeEmpty();
   const cards = await page
     .locator('[data-testid^="card-"]')
     .evaluateAll((all) => all.map((card) => card.getAttribute('data-testid')!));

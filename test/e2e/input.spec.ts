@@ -23,7 +23,6 @@ import {
   PACK,
 } from './support/game';
 import { rightNet } from '../traces/support';
-import { unlessKnown } from './support/known-issues';
 import { boot, CHILD, openLevel, seedFamily } from './support/tour';
 import { compareCzech } from '../../src/rules/contract';
 
@@ -289,26 +288,23 @@ test.describe('on a touch tablet', () => {
   });
 
   for (const motion of ['no-preference', 'reduce'] as const) {
+    // With less motion, a dragged fish used to swim back to the pool (PS-QA-09, fixed by #36).
     test(`fish dragged with a finger land in their nets (${motion === 'reduce' ? 'less motion' : 'normal motion'})`, async ({
       page,
-    }, testInfo) => {
+    }) => {
       test.setTimeout(180_000);
       await page.emulateMedia({ reducedMotion: motion });
       await dragBoard(page);
-      const dragAll = async (): Promise<void> => {
-        const nets = await boardOnScreen(page, CHILD);
-        if (nets.kind !== 'fishing-nets') throw new Error(`a ${nets.kind} board`);
-        for (const fish of nets.fish) {
-          const net = rightNet(PACK.data, nets, fish);
-          await fingerDrag(page, `fish-${fish.id}`, `net-${net}`);
-          await expect(
-            page.locator(`.ps-net-area[data-net="${net}"] [data-testid="fish-${fish.id}"]`),
-            `${fish.text} dragged onto its net lands there`,
-          ).toBeVisible({ timeout: 2_000 });
-        }
-      };
-      if (motion === 'reduce') await unlessKnown(testInfo, 'PS-QA-09', dragAll);
-      else await dragAll();
+      const nets = await boardOnScreen(page, CHILD);
+      if (nets.kind !== 'fishing-nets') throw new Error(`a ${nets.kind} board`);
+      for (const fish of nets.fish) {
+        const net = rightNet(PACK.data, nets, fish);
+        await fingerDrag(page, `fish-${fish.id}`, `net-${net}`);
+        await expect(
+          page.locator(`.ps-net-area[data-net="${net}"] [data-testid="fish-${fish.id}"]`),
+          `${fish.text} dragged onto its net lands there`,
+        ).toBeVisible({ timeout: 2_000 });
+      }
     });
   }
 });

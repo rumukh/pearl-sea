@@ -4,10 +4,10 @@
  *
  * - a new 3rd grader: the editor, the prologue, the first egg, the grotto and the whole first
  *   lesson of Slunná laguna (Perlový náhrdelník, Rybářské sítě, Krmení), with a slip on a board,
- *   a wrong answer that shows the right one, a reload that resumes the same step, and the friend
- *   hatching;
- * - a new 4th grader: the placement check, then Slovní rodinka and Ulita slov in Měsíční jeskyně,
- *   the 4th grade's first lesson;
+ *   a wrong answer that shows the right one, a reload that resumes the same step, Osmička cheering
+ *   beside the results, and the friend hatching;
+ * - a new 4th grader: the placement check (Osmička cheering a right answer), then Slovní rodinka
+ *   and Ulita slov in Měsíční jeskyně, the 4th grade's first lesson;
  * - a 3rd grader who has played every lesson of the lagoon (seeded from S2's trace player): the
  *   battle with Muréna Mumla (the ink meter, her jokes, an ink blot to wipe), her freeing, the
  *   friends' gallery and her diploma in the grown-ups' area.
@@ -36,6 +36,7 @@ import {
   wrongAnswer,
   answerStep,
 } from './support/game';
+import { ART, GUIDE_ID } from '../../src/rules/contract';
 import { observe } from './support/observe';
 import type { Observations } from './support/observe';
 import { enterGrownUps, noViolations, ready } from './support/screens';
@@ -112,6 +113,10 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
     await checkBoard(page);
   }
   expect(await solveBoards(page, CHILD)).toBe('screen-results');
+  // Osmička cheers beside the results of a finished round.
+  const guide = page.getByTestId('results-guide');
+  await expect(guide).toHaveAttribute('data-expression', 'happy');
+  await expect(guide.locator(`[data-art-id="${ART.character(GUIDE_ID, 'happy')}"]`)).toBeVisible();
   await noViolations(page, 'the results of a board round');
   await throughResults(page);
 
@@ -175,6 +180,17 @@ test('a new 4th grader takes the placement check, then plays Slovní rodinka and
   expect(await goAdventuring(page)).toBe('screen-round');
   await expect(page.getByTestId('screen-round')).toHaveAttribute('data-placement', 'true');
   await noViolations(page, 'the placement check');
+  // Osmička keeps the child company: she cheers a right answer until the next miss. One right
+  // answer of a step's three passes no step, so the child still starts at the beginning.
+  const osmicka = page.getByTestId('round-friend');
+  await expect(osmicka).toHaveAttribute('data-expression', 'idle');
+  await answerStep(page, CHILD);
+  await expect(osmicka).toHaveAttribute('data-expression', 'happy');
+  await expect(
+    osmicka.locator(`[data-art-id="${ART.character(GUIDE_ID, 'happy')}"]`),
+  ).toBeVisible();
+  await answerStep(page, CHILD, false);
+  await expect(osmicka).toHaveAttribute('data-expression', 'idle');
   for (let guard = 0; guard < 20 && (await shownScreen(page)) === 'screen-round'; guard++) {
     await answerStep(page, CHILD, false);
   }

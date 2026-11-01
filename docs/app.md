@@ -389,6 +389,14 @@ its own presentation; calls take turns, and a child opened for play waits for th
   the shell's checkpoint stores it (`support/saves.ts`). Every new screen passes axe, and each
   journey ends with no page or console error, no failed request and nothing sent to another
   origin.
+- **Browser, the art** (`test/e2e/art.spec.ts`): S5's next paintings rehearsed before they exist.
+  `support/art.ts` serves a catalog of main's art plus stand-ins in the real formats (the lagoon's
+  babies, the freed Muréna, Osmička cheering, the shallows map, the lagoon, the grotto and the
+  title: cut-outs trimmed to their own boxes, scenes and maps of 1664 × 928, dark and busy on
+  purpose). A seeded child plays through them: each is drawn from the catalog, the backdrops cover
+  their screens, region markers and level nodes stay on their spots, the inked and the freed
+  Muréna share their ground, Osmička cheers beside the results, and no text sits straight on a
+  painting (`textOffPaper`), with axe on every screen.
 - **Browser, the shell** (`test/e2e/grownups.spec.ts`): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
@@ -434,10 +442,30 @@ painting's width, centred on the anchor and turned by its `rotate`. A **sticker*
 its content record, as Dragon Valley's composer does (`stickerPicture`): in one 100 × 100 box, a
 flat disc in the sticker's `color` (centre 50, 50, radius 40) drawn by the shell, S5's `frame` SVG
 over it (its rim covers the disc's edge) and the `icon` SVG on top. An ID the catalog lacks is
-drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at its kind's size,
-marked "DEV <art id>" (`data-placeholder`), so S5's files drop in without code changes as the
-catalog grows. A catalog file outside `assets/art/` is ignored, and an unreadable catalog means
-placeholders everywhere.
+drawn as a **visibly labelled dev placeholder**: a simple shape of its kind at the size S5 ships it
+(scenes and maps 1664 × 928, docs/art.md §3), marked "DEV <art id>" (`data-placeholder`), so S5's
+files drop in without code changes as the catalog grows and nothing moves when they do. A catalog
+file outside `assets/art/` is ignored, and an unreadable catalog means placeholders everywhere.
+
+What the shell does so that real paintings drop in:
+
+- **Backdrops** cover their screen (`object-fit: cover`, standing on the bottom edge); a placeholder
+  scene is faded, a painting is shown at full strength. The title shows `scene/title` once the
+  catalog lists it and its own open water until then: the first screen never shows a placeholder.
+- **Text over a painting sits on paper** (at least 85 % opaque), because a painting's colours are
+  not the palette's and the deep regions are dark: the grotto's greeting, a round's or a board's
+  title and meter, locked regions on the map, every card and label.
+- **The map and a region's scene** are boards as tall as their painting is for its width, sized to
+  the screen by the painting's own ratio (`--ps-picture-ratio`); markers and level nodes sit in
+  thousandths of the painting (`game/map.ts`), so they stay on the open water S5 paints there.
+- **A monster's two forms** (`monsterForms`): S5 trims each cut-out to its own box, so the battle
+  and the freeing draw both in the inked painting's box, the freed one under the inked one, each
+  whole and standing on the box's ground, centred.
+- **Osmička cheering** (`character/osmicka/happy`): beside the results of a finished round (her
+  portrait after a stop or a rest), and in the placement check, whose questions she asks: she
+  cheers a right answer until the next miss.
+
+`test/e2e/art.spec.ts` rehearses S5's next batch before it exists (§15).
 
 ### 16.3 The screens
 
@@ -449,7 +477,7 @@ placeholders everywhere.
 | The sea map (shallows, deep), a region's levels, a level's intro                                                                         | `map.ts`, `region.ts`, `level.ts` |
 | Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`     |
 | Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                       |
-| Results with the big moments (hatching, a monster freed, a grade done)                                                                   | `results.ts`                      |
+| Results with the big moments (hatching, a monster freed, a grade done) and Osmička cheering                                              | `results.ts`                      |
 | U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                  |
 | Goodbye with the diary card                                                                                                              | `goodbye.ts`                      |
 
@@ -476,8 +504,8 @@ that is not right yet says so and leaves the board as it was.
 Layouts are touch-first for a landscape tablet. Each game screen is a size container, so a layout
 that needs room asks for it in `em` (`styles/game.css`): at 200 % text, as on a phone, the grotto
 and rounds become one column, the painted map becomes a list of region cards and a region's level
-nodes wrap in rows. Text on open water always sits on paper, targets are at least 48 px, and every
-state shows a shape or a word as well as a colour.
+nodes wrap in rows. Text on open water or a painting always sits on paper, targets are at least
+48 px, and every state shows a shape or a word as well as a colour.
 
 ### 16.4 Music and the painted maps
 

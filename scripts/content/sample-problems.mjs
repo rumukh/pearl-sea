@@ -164,9 +164,11 @@ export async function sampleProblems(options = {}) {
     if (!hint) return '—';
     switch (hint.kind) {
       case 'family':
-        return `příbuzné slovo: ${lemma(hint.related)}`;
+        // An example on another listed family, as the shell shows it.
+        return `příbuzné vyjmenované slovo, třeba ${lemma(hint.word)} → ${lemma(hint.related)}`;
       case 'test-word':
-        return `zkouška: ${hint.test}`;
+        // An example on another word of the rule, as the shell shows it.
+        return `jiný tvar slova, třeba ${lemma(hint.word)} → ${hint.test}`;
       case 'listed':
         return text(`grammar.listed.${hint.letter}`);
       case 'ten-ta-to':
@@ -177,8 +179,14 @@ export async function sampleProblems(options = {}) {
         return `${label('case', hint.case)}: ${text(`grammar.case-question.${hint.case}`)}`;
       case 'pattern':
         return `vzor ${label('pattern', hint.pattern)}`;
-      case 'rule':
-        return text(`grammar.rule.${hint.rule}`);
+      case 'rule': {
+        const line = text(`grammar.rule.${hint.rule}`);
+        const examples = hint.examples ?? [];
+        if (examples.length === 0) return line;
+        return hint.rule === 'spisovne' && examples.length === 2
+          ? `${line} Například: ${examples[0]}, ne ${examples[1]}.`
+          : `${line} Například: ${examples.join(', ')}.`;
+      }
       case 'method':
         return text(`grammar.method.${hint.method}`);
       case 'not-listed': {

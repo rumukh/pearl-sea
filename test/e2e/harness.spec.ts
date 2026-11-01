@@ -219,9 +219,12 @@ test.describe('the audio probe sees what the page plays', () => {
       !(await hasWebAudio(page)),
       'This engine has no Web Audio (Playwright’s WebKit on Windows).',
     );
-    await page.evaluate(async () => {
-      // Half a second of silence as a 48 kHz mono 16-bit WAV, made here.
-      const samples = 24_000;
+    // Silence of a length no manifest sound has, so the probe cannot take it for one of them.
+    const seconds = [0.25, 1.1, 2.2].find((length) => soundOf(length).startsWith('unknown'));
+    if (seconds === undefined) throw new Error('every planted length is a manifest sound’s');
+    const planted = Math.round(seconds * 48_000);
+    await page.evaluate(async (samples) => {
+      // The silence as a 48 kHz mono 16-bit WAV, made here.
       const bytes = new DataView(new ArrayBuffer(44 + samples * 2));
       const tag = (at: number, text: string): void => {
         for (let index = 0; index < 4; index++) bytes.setUint8(at + index, text.charCodeAt(index));
@@ -248,16 +251,16 @@ test.describe('the audio probe sees what the page plays', () => {
       source.start();
       source.stop();
       await context.close();
-    });
+    }, planted);
     const log = await audioLog(page);
     expect(log.contexts, 'the context the page made').toBe(1);
     expect(
-      log.decoded.map((buffer) => [Math.round(buffer.duration * 10) / 10, buffer.channels]),
-    ).toEqual([[0.5, 1]]);
+      log.decoded.map((buffer) => [Math.round(buffer.duration * 100) / 100, buffer.channels]),
+    ).toEqual([[seconds, 1]]);
     expect(log.started.map((played) => played.loop)).toEqual([true]);
     expect(log.stopped).toHaveLength(1);
-    expect(soundOf(log.started[0]!.duration), 'no manifest sound is half a second long').toBe(
-      'unknown (0.50 s)',
+    expect(soundOf(log.started[0]!.duration), 'no manifest sound is this long').toBe(
+      `unknown (${seconds.toFixed(2)} s)`,
     );
   });
 });

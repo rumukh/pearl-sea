@@ -1,0 +1,98 @@
+{
+  "id": "dress",
+  "title": "Dressed up",
+  "description": "A soft pop and a glockenspiel twinkle: a friend tries on a new hat, or the grotto gets a new decoration.",
+  "category": "character",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5313,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.5,
+  "loudness": {
+    "measure": "momentary",
+    "target": -16
+  },
+  "instruments": {
+    "pop": {
+      "extends": "bubble",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            1
+          ],
+          [
+            0.07,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "glock": {
+      "extends": "glock"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "dress",
+      "sends": {
+        "room": -10
+      },
+      "voices": [
+        {
+          "instrument": "pop",
+          "at": 0,
+          "pitch": "D5",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "glock",
+          "at": 0.06,
+          "pitch": "G6",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "sparkle",
+          "at": 0.12,
+          "pitch": "D7",
+          "velocity": 0.7
+        },
+        {
+          "instrument": "sparkle",
+          "at": 0.18,
+          "pitch": "G7",
+          "velocity": 0.6
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

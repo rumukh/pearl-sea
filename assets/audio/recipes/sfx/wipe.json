@@ -1,0 +1,156 @@
+{
+  "id": "wipe",
+  "title": "Ink blot wiped",
+  "description": "A short squeaky wipe, like a cloth on glass, with a tiny droplet.",
+  "category": "soft",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5308,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.32,
+  "loudness": {
+    "measure": "momentary",
+    "target": -18
+  },
+  "instruments": {
+    "rub": {
+      "sources": [
+        {
+          "type": "noise",
+          "color": "pink",
+          "filters": [
+            {
+              "type": "bandpass",
+              "freq": 1400,
+              "q": 2,
+              "env": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.08,
+                  1,
+                  -1
+                ],
+                [
+                  0.18,
+                  -0.3,
+                  2
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            1
+          ],
+          [
+            0.16,
+            0.6
+          ],
+          [
+            0.2,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -4
+    },
+    "squeak": {
+      "sources": [
+        {
+          "type": "osc",
+          "wave": "sine"
+        }
+      ],
+      "pitchEnv": [
+        [
+          0,
+          -2
+        ],
+        [
+          0.09,
+          2,
+          -1
+        ],
+        [
+          0.16,
+          0
+        ]
+      ],
+      "vibrato": {
+        "rate": 30,
+        "depth": 0.4
+      },
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            1
+          ],
+          [
+            0.13,
+            0.5
+          ],
+          [
+            0.16,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -12
+    },
+    "drop": {
+      "extends": "droplet"
+    }
+  },
+  "tracks": [
+    {
+      "name": "wipe",
+      "voices": [
+        {
+          "instrument": "rub",
+          "at": 0,
+          "velocity": 0.85
+        },
+        {
+          "instrument": "squeak",
+          "at": 0.02,
+          "pitch": "B6",
+          "velocity": 0.7
+        },
+        {
+          "instrument": "drop",
+          "at": 0.21,
+          "pitch": "G6",
+          "velocity": 0.45
+        }
+      ]
+    }
+  ],
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

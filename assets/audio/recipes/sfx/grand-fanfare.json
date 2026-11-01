@@ -1,0 +1,177 @@
+{
+  "id": "grand-fanfare",
+  "title": "Grade complete",
+  "description": "A big, happy marimba and brass flourish G4-C5-E5-G5, a turn over G major and a held C6 on C major, with glockenspiel and a rush of bubbles.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5222,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 2.8,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "marimba": {
+      "extends": "marimba"
+    },
+    "brass": {
+      "extends": "brass"
+    },
+    "bass": {
+      "extends": "pluckBass"
+    },
+    "kick": {
+      "extends": "kickSoft"
+    },
+    "glock": {
+      "extends": "glock"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "melody",
+      "sends": {
+        "room": -12
+      },
+      "notes": {
+        "instrument": "marimba",
+        "tempo": 160,
+        "melody": "G4:e C5:e E5:e G5:q. E5:e G5:e C6:h."
+      }
+    },
+    {
+      "name": "melody-brass",
+      "db": -7,
+      "sends": {
+        "room": -10
+      },
+      "notes": {
+        "instrument": "brass",
+        "tempo": 160,
+        "melody": "G4:e C5:e E5:e G5:q. E5:e G5:e C6:h."
+      }
+    },
+    {
+      "name": "chords",
+      "db": -8,
+      "sends": {
+        "room": -10
+      },
+      "notes": {
+        "instrument": "brass",
+        "tempo": 160,
+        "melody": "[C4,E4,G4]:h. [B3,D4,G4]:q [C4,E4,G4,C5]:h."
+      }
+    },
+    {
+      "name": "bass",
+      "db": -4,
+      "notes": {
+        "instrument": "bass",
+        "tempo": 160,
+        "melody": "C3:h. G2:q C3:h."
+      }
+    },
+    {
+      "name": "kick",
+      "db": -6,
+      "voices": [
+        {
+          "instrument": "kick",
+          "at": 0,
+          "velocity": 0.8
+        },
+        {
+          "instrument": "kick",
+          "at": 1.5,
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "name": "sparkle",
+      "db": -9,
+      "sends": {
+        "room": -6
+      },
+      "voices": [
+        {
+          "instrument": "glock",
+          "at": 1.5,
+          "pitch": "C7",
+          "velocity": 0.8
+        }
+      ],
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 6,
+        "start": 1.55,
+        "end": 2.2,
+        "distribution": "even",
+        "jitter": 0.6,
+        "pitches": [
+          "E7",
+          "G7",
+          "C7"
+        ],
+        "db": [
+          -8,
+          0
+        ]
+      }
+    },
+    {
+      "name": "bubbles",
+      "db": -11,
+      "scatter": {
+        "instrument": "bub",
+        "count": 8,
+        "start": 1.45,
+        "end": 2.4,
+        "distribution": "decelerate",
+        "shape": 1.4,
+        "jitter": 0.6,
+        "pitches": [
+          "C5",
+          "E5",
+          "G5",
+          "C6",
+          "E6"
+        ],
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.4,
+      "size": 0.75,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

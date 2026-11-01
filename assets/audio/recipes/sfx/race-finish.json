@@ -1,0 +1,92 @@
+{
+  "id": "race-finish",
+  "title": "Race finished",
+  "description": "A cheerful two-note whistle, a splash and a glockenspiel ding: the dolphin race is over.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5316,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "whistle": {
+      "extends": "flute",
+      "vibrato": {
+        "rate": 9,
+        "depth": 0.25
+      },
+      "amp": {
+        "a": 0.02,
+        "d": 0.05,
+        "s": 0.9,
+        "r": 0.06
+      }
+    },
+    "water": {
+      "extends": "splash"
+    },
+    "glock": {
+      "extends": "glock"
+    }
+  },
+  "tracks": [
+    {
+      "name": "finish",
+      "sends": {
+        "room": -12
+      },
+      "voices": [
+        {
+          "instrument": "whistle",
+          "at": 0,
+          "gate": 0.12,
+          "pitch": "G6",
+          "velocity": 0.8
+        },
+        {
+          "instrument": "whistle",
+          "at": 0.16,
+          "gate": 0.22,
+          "pitch": "C7",
+          "velocity": 0.9
+        },
+        {
+          "instrument": "water",
+          "at": 0.32,
+          "velocity": 0.7
+        },
+        {
+          "instrument": "glock",
+          "at": 0.36,
+          "pitch": "C7",
+          "velocity": 0.85
+        }
+      ]
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

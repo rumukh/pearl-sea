@@ -1,0 +1,201 @@
+{
+  "id": "unlock",
+  "title": "Region unlocked",
+  "description": "A magical harp glissando up the pentatonic, a glassy C-G chord, sparkles and a stream of rising bubbles: a new part of the sea opens.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5231,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 1.5,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "harp": {
+      "extends": "harp"
+    },
+    "glass": {
+      "extends": "glass"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    },
+    "bub": {
+      "extends": "bubble"
+    }
+  },
+  "tracks": [
+    {
+      "name": "gliss",
+      "sends": {
+        "room": -8
+      },
+      "voices": [
+        {
+          "instrument": "harp",
+          "at": 0,
+          "pitch": "C5",
+          "velocity": 0.55
+        },
+        {
+          "instrument": "harp",
+          "at": 0.045,
+          "pitch": "D5",
+          "velocity": 0.585
+        },
+        {
+          "instrument": "harp",
+          "at": 0.09,
+          "pitch": "E5",
+          "velocity": 0.62
+        },
+        {
+          "instrument": "harp",
+          "at": 0.135,
+          "pitch": "G5",
+          "velocity": 0.655
+        },
+        {
+          "instrument": "harp",
+          "at": 0.18,
+          "pitch": "A5",
+          "velocity": 0.69
+        },
+        {
+          "instrument": "harp",
+          "at": 0.225,
+          "pitch": "C6",
+          "velocity": 0.725
+        },
+        {
+          "instrument": "harp",
+          "at": 0.27,
+          "pitch": "D6",
+          "velocity": 0.76
+        },
+        {
+          "instrument": "harp",
+          "at": 0.315,
+          "pitch": "E6",
+          "velocity": 0.795
+        },
+        {
+          "instrument": "harp",
+          "at": 0.36,
+          "pitch": "G6",
+          "velocity": 0.83
+        },
+        {
+          "instrument": "harp",
+          "at": 0.405,
+          "pitch": "A6",
+          "velocity": 0.865
+        },
+        {
+          "instrument": "harp",
+          "at": 0.45,
+          "pitch": "C7",
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "name": "glass",
+      "db": -4,
+      "sends": {
+        "room": -6
+      },
+      "voices": [
+        {
+          "instrument": "glass",
+          "at": 0.5,
+          "gate": 0.6,
+          "pitch": "C6",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "glass",
+          "at": 0.53,
+          "gate": 0.6,
+          "pitch": "G6",
+          "velocity": 0.75
+        }
+      ]
+    },
+    {
+      "name": "sparkle",
+      "db": -10,
+      "sends": {
+        "room": -5
+      },
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 8,
+        "start": 0.45,
+        "end": 1.2,
+        "distribution": "even",
+        "jitter": 0.7,
+        "pitches": [
+          "C7",
+          "D7",
+          "E7",
+          "G7",
+          "A7"
+        ],
+        "db": [
+          -8,
+          0
+        ],
+        "detune": 5
+      }
+    },
+    {
+      "name": "bubbles",
+      "db": -12,
+      "scatter": {
+        "instrument": "bub",
+        "count": 7,
+        "start": 0,
+        "end": 0.9,
+        "distribution": "even",
+        "jitter": 0.5,
+        "pitches": [
+          "C5",
+          "D5",
+          "E5",
+          "G5",
+          "A5",
+          "C6"
+        ],
+        "order": "cycle",
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.8,
+      "size": 0.8,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

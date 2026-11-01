@@ -1,0 +1,171 @@
+{
+  "id": "sticker",
+  "title": "Sticker earned",
+  "description": "A quick peel, a soft pop and a twinkle: a new sticker lands in the album.",
+  "category": "feedback",
+  "kind": "sfx",
+  "bus": "effects",
+  "seed": 5241,
+  "sampleRate": 48000,
+  "oversample": 2,
+  "duration": 0.7,
+  "loudness": {
+    "measure": "momentary",
+    "target": -15
+  },
+  "instruments": {
+    "peel": {
+      "sources": [
+        {
+          "type": "noise",
+          "color": "pink",
+          "filters": [
+            {
+              "type": "bandpass",
+              "freq": 900,
+              "q": 1.4,
+              "env": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.09,
+                  2.2,
+                  -1
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.01,
+            0.5
+          ],
+          [
+            0.08,
+            1,
+            -1
+          ],
+          [
+            0.1,
+            0,
+            3
+          ]
+        ]
+      },
+      "db": -6
+    },
+    "pop": {
+      "extends": "bubble",
+      "amp": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.001,
+            1
+          ],
+          [
+            0.08,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    "glock": {
+      "extends": "glock"
+    },
+    "sparkle": {
+      "extends": "sparkle"
+    }
+  },
+  "tracks": [
+    {
+      "name": "sticker",
+      "sends": {
+        "room": -10
+      },
+      "voices": [
+        {
+          "instrument": "peel",
+          "at": 0,
+          "velocity": 0.8
+        },
+        {
+          "instrument": "pop",
+          "at": 0.11,
+          "pitch": "C5",
+          "velocity": 0.9
+        },
+        {
+          "instrument": "glock",
+          "at": 0.14,
+          "pitch": "G6",
+          "velocity": 0.85
+        },
+        {
+          "instrument": "glock",
+          "at": 0.2,
+          "pitch": "C7",
+          "velocity": 0.8
+        }
+      ]
+    },
+    {
+      "name": "twinkle",
+      "db": -10,
+      "sends": {
+        "room": -6
+      },
+      "scatter": {
+        "instrument": "sparkle",
+        "count": 4,
+        "start": 0.2,
+        "end": 0.45,
+        "distribution": "even",
+        "jitter": 0.5,
+        "pitches": [
+          "E7",
+          "G7",
+          "C8"
+        ],
+        "order": "cycle",
+        "db": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "buses": {
+    "room": {
+      "type": "reverb",
+      "decay": 1.1,
+      "size": 0.6,
+      "damping": 7000,
+      "predelay": 0.008,
+      "lowcut": 300,
+      "highcut": 8000
+    }
+  },
+  "master": {
+    "eq": [
+      {
+        "type": "highpass",
+        "freq": 130,
+        "q": 0.7
+      }
+    ]
+  }
+}

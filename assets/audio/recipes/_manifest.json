@@ -1,5 +1,5 @@
 {
-  "$comment": "Source for assets/audio/manifest.json (scripts/audio/manifest.mjs measures every file and writes the manifest). Sounds, tiers, music states and throttles are S5's. A screen mood the pack does not list (map, results, finale) plays the grotto loop (the shell's musicFor).",
+  "$comment": "Source for assets/audio/manifest.json (scripts/audio/manifest.mjs measures every file and writes the manifest). Sounds, tiers, events, music states and throttles are S5's; the shell maps rules events and its own ui.* and fx.* cues through this table. A screen mood the pack does not list (map, results, finale) plays the grotto loop (the shell's musicFor).",
   "packId": "pearl-sea-audio",
   "sampleRate": 48000,
   "channels": 1,
@@ -14,6 +14,26 @@
     }
   },
   "loudnessTargets": {
+    "feedback": {
+      "target": -15,
+      "measure": "momentary-max",
+      "use": "answer chimes, coins, stars, stickers, unlocks, fanfares, rewards"
+    },
+    "character": {
+      "target": -16,
+      "measure": "momentary-max",
+      "use": "eggs, hatching, growing, monsters, Inkoustíci, Bublinka's bubble"
+    },
+    "soft": {
+      "target": -18,
+      "measure": "momentary-max",
+      "use": "not quite, not now, hints, wiping: always gentle, never punishing"
+    },
+    "ui": {
+      "target": -21,
+      "measure": "momentary-max",
+      "use": "taps, keys, screen changes, story pages: frequent, so quiet"
+    },
     "music": {
       "target": -23,
       "measure": "integrated",
@@ -53,12 +73,501 @@
       "bus": "effects",
       "tier": "music",
       "loop": false
+    },
+    {
+      "id": "sfx/blocked",
+      "file": "sfx/blocked.ogg",
+      "bus": "effects",
+      "tier": "soft",
+      "loop": false
+    },
+    {
+      "id": "sfx/bloop",
+      "file": "sfx/bloop.ogg",
+      "bus": "effects",
+      "tier": "soft",
+      "loop": false
+    },
+    {
+      "id": "sfx/board-done",
+      "file": "sfx/board-done.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/bubble-shot",
+      "file": "sfx/bubble-shot.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/coin-shower",
+      "file": "sfx/coin-shower.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/coin",
+      "file": "sfx/coin.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/crown",
+      "file": "sfx/crown.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/daily-goal",
+      "file": "sfx/daily-goal.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/dress",
+      "file": "sfx/dress.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/egg-wobble",
+      "file": "sfx/egg-wobble.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/fanfare",
+      "file": "sfx/fanfare.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/gift",
+      "file": "sfx/gift.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/grand-fanfare",
+      "file": "sfx/grand-fanfare.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/grow",
+      "file": "sfx/grow.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/grumble",
+      "file": "sfx/grumble.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/hatch",
+      "file": "sfx/hatch.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/hint",
+      "file": "sfx/hint.ogg",
+      "bus": "effects",
+      "tier": "soft",
+      "loop": false
+    },
+    {
+      "id": "sfx/ink-splat",
+      "file": "sfx/ink-splat.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/key",
+      "file": "sfx/key.ogg",
+      "bus": "effects",
+      "tier": "ui",
+      "loop": false
+    },
+    {
+      "id": "sfx/page",
+      "file": "sfx/page.ogg",
+      "bus": "effects",
+      "tier": "ui",
+      "loop": false
+    },
+    {
+      "id": "sfx/pearl-1",
+      "file": "sfx/pearl-1.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/pearl-2",
+      "file": "sfx/pearl-2.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/pearl-3",
+      "file": "sfx/pearl-3.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/pearl-4",
+      "file": "sfx/pearl-4.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/pearl-5",
+      "file": "sfx/pearl-5.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/polish",
+      "file": "sfx/polish.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/purchase",
+      "file": "sfx/purchase.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/race-finish",
+      "file": "sfx/race-finish.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/sneak",
+      "file": "sfx/sneak.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/splash",
+      "file": "sfx/splash.ogg",
+      "bus": "effects",
+      "tier": "character",
+      "loop": false
+    },
+    {
+      "id": "sfx/star-1",
+      "file": "sfx/star-1.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/star-2",
+      "file": "sfx/star-2.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/star-3",
+      "file": "sfx/star-3.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/sticker",
+      "file": "sfx/sticker.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/swoosh",
+      "file": "sfx/swoosh.ogg",
+      "bus": "effects",
+      "tier": "ui",
+      "loop": false
+    },
+    {
+      "id": "sfx/tap",
+      "file": "sfx/tap.ogg",
+      "bus": "effects",
+      "tier": "ui",
+      "loop": false
+    },
+    {
+      "id": "sfx/unlock",
+      "file": "sfx/unlock.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/wash",
+      "file": "sfx/wash.ogg",
+      "bus": "effects",
+      "tier": "feedback",
+      "loop": false
+    },
+    {
+      "id": "sfx/wipe",
+      "file": "sfx/wipe.ogg",
+      "bus": "effects",
+      "tier": "soft",
+      "loop": false
     }
   ],
   "events": {
+    "answer.correct": {
+      "sounds": [
+        "sfx/pearl-1",
+        "sfx/pearl-2",
+        "sfx/pearl-3",
+        "sfx/pearl-4",
+        "sfx/pearl-5"
+      ],
+      "select": "streak"
+    },
+    "answer.incorrect": {
+      "sounds": [
+        "sfx/bloop"
+      ]
+    },
+    "hint.shown": {
+      "sounds": [
+        "sfx/hint"
+      ]
+    },
+    "round.completed": {
+      "sounds": [
+        "sfx/board-done"
+      ]
+    },
+    "level.completed": {
+      "sounds": [
+        "sfx/fanfare",
+        "sfx/star-1",
+        "sfx/star-2",
+        "sfx/star-3"
+      ],
+      "select": "sequence"
+    },
+    "region.unlocked": {
+      "sounds": [
+        "sfx/unlock"
+      ]
+    },
+    "placement.completed": {
+      "sounds": [
+        "sfx/board-done"
+      ]
+    },
+    "grade.completed": {
+      "sounds": [
+        "sfx/grand-fanfare"
+      ]
+    },
+    "ink.washed": {
+      "sounds": [
+        "sfx/wash"
+      ]
+    },
+    "ink.splashed": {
+      "sounds": [
+        "sfx/ink-splat"
+      ]
+    },
+    "arm.washed": {
+      "sounds": [
+        "sfx/wash"
+      ]
+    },
     "monster.freed": {
       "sounds": [
         "sfx/victory-sting"
+      ]
+    },
+    "monster.joked": {
+      "sounds": [
+        "sfx/grumble"
+      ]
+    },
+    "inkoustik.ambushed": {
+      "sounds": [
+        "sfx/sneak"
+      ]
+    },
+    "inkoustik.splashed": {
+      "sounds": [
+        "sfx/splash"
+      ]
+    },
+    "egg.received": {
+      "sounds": [
+        "sfx/egg-wobble"
+      ]
+    },
+    "friend.hatched": {
+      "sounds": [
+        "sfx/hatch"
+      ]
+    },
+    "friend.grew": {
+      "sounds": [
+        "sfx/grow"
+      ]
+    },
+    "friend.crowned": {
+      "sounds": [
+        "sfx/crown"
+      ]
+    },
+    "friend.dressed": {
+      "sounds": [
+        "sfx/dress"
+      ]
+    },
+    "grotto.decorated": {
+      "sounds": [
+        "sfx/dress"
+      ]
+    },
+    "pearl.polished": {
+      "sounds": [
+        "sfx/polish"
+      ]
+    },
+    "coins.earned": {
+      "sounds": [
+        "sfx/coin",
+        "sfx/coin-shower"
+      ],
+      "select": "amount"
+    },
+    "item.purchased": {
+      "sounds": [
+        "sfx/purchase"
+      ]
+    },
+    "sticker.earned": {
+      "sounds": [
+        "sfx/sticker"
+      ]
+    },
+    "quest.completed": {
+      "sounds": [
+        "sfx/board-done"
+      ]
+    },
+    "quest.claimed": {
+      "sounds": [
+        "sfx/gift"
+      ]
+    },
+    "daily.goal-reached": {
+      "sounds": [
+        "sfx/daily-goal"
+      ]
+    },
+    "chest.opened": {
+      "sounds": [
+        "sfx/gift"
+      ]
+    },
+    "story.advanced": {
+      "sounds": [
+        "sfx/page"
+      ]
+    },
+    "finale.completed": {
+      "sounds": [
+        "sfx/grand-fanfare"
+      ]
+    },
+    "minigame.completed": {
+      "sounds": [
+        "sfx/board-done"
+      ]
+    },
+    "race.finished": {
+      "sounds": [
+        "sfx/race-finish"
+      ]
+    },
+    "ui.tap": {
+      "sounds": [
+        "sfx/tap"
+      ]
+    },
+    "ui.keypad": {
+      "sounds": [
+        "sfx/key"
+      ]
+    },
+    "ui.navigate": {
+      "sounds": [
+        "sfx/swoosh"
+      ]
+    },
+    "ui.blocked": {
+      "sounds": [
+        "sfx/blocked"
+      ]
+    },
+    "fx.bubble": {
+      "sounds": [
+        "sfx/bubble-shot"
+      ]
+    },
+    "fx.wipe": {
+      "sounds": [
+        "sfx/wipe"
+      ]
+    },
+    "fx.board-done": {
+      "sounds": [
+        "sfx/board-done"
+      ]
+    },
+    "fx.chest": {
+      "sounds": [
+        "sfx/gift"
+      ]
+    },
+    "fx.buy": {
+      "sounds": [
+        "sfx/purchase"
       ]
     }
   },
@@ -72,6 +581,84 @@
     "crossfadeSeconds": 1.2
   },
   "voices": {
-    "throttle": {}
+    "note": "A rules event and a shell cue for the same moment (item.purchased and fx.buy, chest.opened and fx.chest, round.completed and fx.board-done) share a sound; its interval keeps the second one silent.",
+    "throttle": {
+      "sfx/tap": {
+        "minIntervalMs": 35,
+        "maxConcurrent": 2
+      },
+      "sfx/key": {
+        "minIntervalMs": 35,
+        "maxConcurrent": 2
+      },
+      "sfx/swoosh": {
+        "minIntervalMs": 150,
+        "maxConcurrent": 1
+      },
+      "sfx/coin": {
+        "minIntervalMs": 70,
+        "maxConcurrent": 3
+      },
+      "sfx/pearl-1": {
+        "minIntervalMs": 120,
+        "maxConcurrent": 2
+      },
+      "sfx/pearl-2": {
+        "minIntervalMs": 120,
+        "maxConcurrent": 2
+      },
+      "sfx/pearl-3": {
+        "minIntervalMs": 120,
+        "maxConcurrent": 2
+      },
+      "sfx/pearl-4": {
+        "minIntervalMs": 120,
+        "maxConcurrent": 2
+      },
+      "sfx/pearl-5": {
+        "minIntervalMs": 120,
+        "maxConcurrent": 2
+      },
+      "sfx/bubble-shot": {
+        "minIntervalMs": 80,
+        "maxConcurrent": 3
+      },
+      "sfx/wipe": {
+        "minIntervalMs": 60,
+        "maxConcurrent": 3
+      },
+      "sfx/splash": {
+        "minIntervalMs": 100,
+        "maxConcurrent": 2
+      },
+      "sfx/ink-splat": {
+        "minIntervalMs": 100,
+        "maxConcurrent": 2
+      },
+      "sfx/wash": {
+        "minIntervalMs": 150,
+        "maxConcurrent": 2
+      },
+      "sfx/dress": {
+        "minIntervalMs": 150,
+        "maxConcurrent": 2
+      },
+      "sfx/polish": {
+        "minIntervalMs": 100,
+        "maxConcurrent": 2
+      },
+      "sfx/purchase": {
+        "minIntervalMs": 400,
+        "maxConcurrent": 1
+      },
+      "sfx/gift": {
+        "minIntervalMs": 600,
+        "maxConcurrent": 1
+      },
+      "sfx/board-done": {
+        "minIntervalMs": 400,
+        "maxConcurrent": 1
+      }
+    }
   }
 }

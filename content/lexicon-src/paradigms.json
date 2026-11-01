@@ -812,6 +812,10 @@
       },
       "fut": ["polezu", "polezeš", "poleze", "polezeme", "polezete", "polezou"]
     },
+    "let": {
+      "sg": ["let", "letu", "letu", "let", "lete", "letu", "letem"],
+      "pl": ["lety", "letů", "letům", "lety", "lety", "letech", "lety"]
+    },
     "letext": {
       "inf": "letět",
       "pres": ["letím", "letíš", "letí", "letíme", "letíte", "letí"],
@@ -2075,6 +2079,20 @@
         "mi": "připomněly",
         "fpl": "připomněly",
         "npl": "připomněla"
+      }
+    },
+    "prxistavit": {
+      "inf": "přistavit",
+      "pres": ["přistavím", "přistavíš", "přistaví", "přistavíme", "přistavíte", "přistaví"],
+      "imp": ["přistav", "přistavme", "přistavte"],
+      "past": {
+        "m": "přistavil",
+        "f": "přistavila",
+        "n": "přistavilo",
+        "ma": "přistavili",
+        "mi": "přistavily",
+        "fpl": "přistavily",
+        "npl": "přistavila"
       }
     },
     "pstruh": {

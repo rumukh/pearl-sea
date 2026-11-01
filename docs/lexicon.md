@@ -133,7 +133,15 @@ the _ú/ů_ rules, the vowel's short and long form for `delka`, the consonant pa
 small and capital letter for `velke-pismeno`, the gap's own alternatives otherwise. When one of
 these spells another word or form of the bank (_být – bít_, _vila – víla_, _děti – dětí_, _dál –
 dal_), the word alone cannot decide, so the game asks that point only in a sentence. The checker
-lists these points (`model.ambiguous`, 28 now) and fails when one has no sentence with a gap on it.
+lists these points (`model.ambiguous`, 35 now) and fails when one has no sentence with a gap on it.
+A partner word is in the bank even when no exercise asks it, because the other word is then asked
+in a sentence. _let_ and _přistavit_ are there for _led_ and _přístav_; the review of the generated
+problems found them (§5).
+
+The names _Bublinka_ and _Osmička_ need the common nouns _bublinka_ and _osmička_ as partners. The
+contract's i/y check still reads a pair that differs only in a capital as an i/y pair. Until it
+can tell them apart, the two names are left out of the exercises that ask single words, so they
+are asked only in sentences.
 
 ### 2.3 Paradigms
 
@@ -320,7 +328,7 @@ word bank. It reports lemmas MorfFlex does not know, part of speech, gender and 
 every paradigm cell including `paradigms.json` and the `fut` forms (and standard forms a cell leaves
 out; MorfFlex's dual _očima, nohama_ counts as plural), unknown words in sentences, gap
 alternatives that are also real words, marks MorfFlex cannot confirm, whether colloquial words are
-non-standard, and DeriNet roots of family members and look-alikes. The final run (768 words, 566
+non-standard, and DeriNet roots of family members and look-alikes. The final run (770 words, 566
 sentences) found no unknown lemma or sentence word. The only paradigm cells outside MorfFlex are
 the capitalised names _Bublinka_ and _Osmička_ (MorfFlex has the common nouns), the plurals of
 _dítě_ and _oko_ (MorfFlex files them under the lemmas _děti_ and _oči_) and _hlemýždi_ (§2.3;
@@ -338,6 +346,15 @@ The IJP dictionary forbids automated lookups (robots.txt), so it was consulted b
 verifier and the IJP articles did the systematic work. MorfFlex caught two errors during authoring
 (_o racích_ → _o raccích_; the standard variants _lososové, krabové, útese, přístavě_).
 
+**Generated problems.** Before the playtest, the problems the rules make were read as a Czech
+teacher would (`scripts/content/sample-problems.mjs`, [content.md](content.md) §2). Every
+alternative a word asked alone can show was looked up in MorfFlex: its options and the keys of its
+letter pad, 739 in all. 60 are real words. Most are rare: _dup, duma, uhořet, pobít, zupa_.
+
+The common ones would make a spelling right for another word, so their partner words joined the
+bank (§2.2). For the lagoon these are _let_ and _přistavit_ (1.2.3). _Bublinka_ and _Osmička_
+(_bublinka_, _osmička_) are asked only in sentences.
+
 **Human review.** Three independent expert reviews of the Czech (the vyjmenovaná families, the
 3rd-grade spelling and meaning topics, the grammar topics) found no wrong spelling, form, family
 membership, gender, pattern, aspect, case, agreement or clause count. Each of their 23 points about
@@ -352,7 +369,7 @@ meaning, facts, naturalness and conventions was checked and corrected, for examp
 
 ## 6. Coverage
 
-`node scripts/lexicon/check.mjs --summary` prints the current counts: 768 words, 91 families, 566
+`node scripts/lexicon/check.mjs --summary` prints the current counts: 770 words, 91 families, 566
 sentences (Phase A ended with 517), every grade-3 and grade-4 topic of the plan (§2). By region:
 
 | Region            | Curriculum                                  | Data                                                                                                                                                   |

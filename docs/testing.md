@@ -149,6 +149,9 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   their lessons).
 - `test/tooling/lexicon-check.test.ts`: the word bank passes the lexicon checker, each planted
   linguistic fault is reported, and the exit codes are right ([lexicon.md](lexicon.md) §1).
+- `test/tooling/sample-problems.test.ts`: the problem sampler writes Slunná laguna the same way
+  twice, samples every problem skill without a failure, and asks _led_ only in a sentence
+  ([content.md](content.md) §2).
 - `test/tooling/vendor-sdk.test.ts`: exactly one vendored version, recorded as a clean build of the
   pinned commit; each tarball matches both `artifacts.json` and the literal pin; `package.json`,
   `package-lock.json` and `node_modules` name exactly this set.

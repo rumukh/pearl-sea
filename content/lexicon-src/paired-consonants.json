@@ -305,6 +305,16 @@
       "spell": "hla{d|t}ký",
       "rules": [{ "rule": "parova", "test": "hladit" }],
       "src": ["morfflex"]
+    },
+    {
+      "id": "let",
+      "lemma": "let",
+      "pos": "noun",
+      "gender": "m",
+      "animate": false,
+      "pattern": "hrad",
+      "note": "let ptáka nebo letadla; jiné je led, a proto se led ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
     }
   ],
   "sentences": [

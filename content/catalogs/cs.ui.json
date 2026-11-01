@@ -48,6 +48,7 @@
   "grownups.settings.voiceTest": "Vyzkoušet hlas",
   "grownups.settings.music": "Hudba",
   "grownups.settings.effects": "Zvuky",
+  "grownups.settings.soundUnavailable": "Zvuk se nepodařilo spustit, hra je teď tichá.",
   "grownups.settings.percent": "{percent} %",
   "grownups.settings.textSize": "Velikost písma",
   "grownups.settings.reducedMotion": "Méně pohybu na obrazovce",

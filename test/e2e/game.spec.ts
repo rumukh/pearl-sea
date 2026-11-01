@@ -43,8 +43,13 @@ import { observe } from './support/observe';
 import { FAMILY_KEY, familyPayload, storeRecord } from './support/saves';
 import type { Observations } from './support/observe';
 import { enterGrownUps, noViolations, ready } from './support/screens';
+import { fetchedSound, soundAfterFirstTap, soundFiles } from './support/sound';
 
 test.use({ reducedMotion: 'reduce' });
+
+/** The files of the grotto's music loop and the victory sting (S5's pack, docs/audio.md). */
+const GROTTO_LOOP = '/assets/audio/music/grotto.ogg';
+const VICTORY_STING = '/assets/audio/sfx/victory-sting.ogg';
 
 /** The first child made in a new family gets the first slot. */
 const CHILD = 'profile-1';
@@ -119,12 +124,18 @@ async function goAdventuring(page: Page): Promise<string> {
 test('a new 3rd grader dives in and hatches the first friend in Slunná laguna', async ({
   page,
   baseURL,
+  browserName,
 }) => {
   test.setTimeout(300_000);
   const seen = observe(page, new URL(baseURL!).origin);
+  const sounds = soundFiles(page);
   await page.goto('./');
   await ready(page, 'title');
+  // The first tap starts the sound: the grotto's loop is fetched for the title and the editor.
   await page.getByTestId('title-play').click();
+  if ((await soundAfterFirstTap(page, browserName)) === 'ready') {
+    await fetchedSound(sounds, GROTTO_LOOP);
+  }
   await expect(page.getByTestId('screen-editor')).toBeVisible();
   await noViolations(page, 'the editor');
   await page.getByTestId('back').click();
@@ -296,9 +307,11 @@ test('a new 4th grader takes the placement check, then plays Slovní rodinka and
 test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', async ({
   page,
   baseURL,
+  browserName,
 }) => {
   test.setTimeout(300_000);
   const seen = observe(page, new URL(baseURL!).origin);
+  const sounds = soundFiles(page);
   const lagoon = await lagoonPlayed();
   await page.goto('./');
   await ready(page, 'title');
@@ -306,6 +319,7 @@ test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', asy
   await page.reload();
   await ready(page, 'title');
   await page.getByTestId('title-play').click();
+  const sound = await soundAfterFirstTap(page, browserName);
   await ready(page, 'divers');
   await page.getByTestId(`diver-${CHILD}`).click();
   expect(await throughStory(page)).toBe('screen-hub');
@@ -340,11 +354,12 @@ test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', asy
   await blot.click();
   await expect(page.getByTestId('ink-splash')).toHaveCount(blots - 1);
 
-  // Washed clean: her freeing beat, then the results.
+  // Washed clean: her freeing beat, then the results, with the victory sting.
   await playRound(page, CHILD);
   expect(await throughStory(page)).toBe('screen-results');
   const freed = page.getByTestId('moment-freed');
   await expect(freed).toContainText('Inkoust je smytý! Muréna Mumla se usmívá.');
+  if (sound === 'ready') await fetchedSound(sounds, VICTORY_STING);
   await expect(page.getByTestId('moment-joke')).not.toBeEmpty();
   await noViolations(page, 'the freeing');
   await throughResults(page);

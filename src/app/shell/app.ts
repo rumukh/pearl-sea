@@ -249,7 +249,15 @@ export function createApp(options: AppOptions): App {
   if (splash) stage.append(splash);
   root.replaceChildren(stage, toasts.element, fx, dialogs, announcer.element);
 
-  const audio = createGameAudio({ baseUrl: env.baseUrl, map: options.audioMap });
+  // The audio's status is part of the readiness signal (`data-audio`): `ready` after the first tap.
+  const audio = createGameAudio({
+    baseUrl: env.baseUrl,
+    map: options.audioMap,
+    onStatus: (status) => {
+      bootStatus.dataset['audio'] = status;
+    },
+  });
+  bootStatus.dataset['audio'] = audio.status();
   const speech = createReadAloud(undefined, speechAliases(CS_UI));
   const storage = options.storage ?? new IndexedDbSaveStorage(SAVE_DATABASE);
   const family = new FamilyStore(storage);

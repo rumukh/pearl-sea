@@ -4,12 +4,13 @@
  * were validated (with rules on main), the reading font loaded (or its short wait ran out), and
  * the first screen is mounted and painted. The audio manifest and the art catalog are read first
  * (a missing or broken one means a silent game or placeholder art, never a failed boot). Nothing
- * is exposed on `window`, nothing is written to the console, and uncaught errors land on the
- * error screen.
+ * is exposed on `window`, the console gets a line only when the browser's sound service refuses
+ * the sound pack (see `audio/game-audio.ts`), and uncaught errors land on the error screen.
  *
  * The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
  * (`loading`, `ready`, `failed`), `data-screen` (the current screen), `data-font`, `data-base`
- * (the deployment base) and `data-content` (the content pack's revision, once there is one).
+ * (the deployment base), `data-content` (the content pack's revision, once there is one) and
+ * `data-audio` (the game audio's status).
  */
 import { applyPresentationPreferences } from '@aegis/browser/ui';
 import { requireValue, schema } from '@aegis/runtime';

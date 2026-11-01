@@ -1,0 +1,8 @@
+# step 1: bublinka/bublinka-default-b-s95001.png (seed 95001, Subjects mode)
+Use the grey reference only as a blank canvas. Paint one original cute cartoon vehicle for a cheerful children's learning game set under the sea: Bublinka, a little round yellow submarine. A chubby, rounded, egg-shaped hull in sunny lemon yellow, seen from the side in a slight three-quarter view, facing right. A big round front porthole window with a brass rim and soft blue glass showing an empty, cosy cockpit with no person inside; two small round side portholes; a short periscope on top; a small rounded tail fin and a little brass propeller at the back; a small brass bubble nozzle under the nose. Friendly, toy-like, rounded shapes. No face, no person, no text, no numbers.
+Storybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.
+The whole character is centred and fully inside the frame, occupying about 80 percent of the image height, nothing cropped. Plain flat light grey background. No environment, no water surface, no sand, no bubbles, no other animals, no text, no watermark.
+
+# negative prompt
+blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, face, eyes, mouth, person, pilot, military, torpedo, weapons, rust
+

@@ -1,0 +1,107 @@
+{
+  "format": "pearl-sea-art-catalog/1",
+  "entries": [
+    {
+      "id": "character/bublinka",
+      "kind": "painted",
+      "file": "characters/bublinka.webp",
+      "width": 1024,
+      "height": 847
+    },
+    {
+      "id": "character/osmicka",
+      "kind": "painted",
+      "file": "characters/osmicka.webp",
+      "width": 946,
+      "height": 983
+    },
+    {
+      "id": "friend/krab-tvrdak/grown",
+      "kind": "painted",
+      "file": "friends/krab-tvrdak-grown.webp",
+      "width": 1024,
+      "height": 835,
+      "anchors": {
+        "head": {
+          "x": 502,
+          "y": 31,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 502,
+          "y": 97,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 502,
+          "y": 566,
+          "scale": 60,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/meduzka-mekulka/grown",
+      "kind": "painted",
+      "file": "friends/meduzka-mekulka-grown.webp",
+      "width": 930,
+      "height": 882,
+      "anchors": {
+        "head": {
+          "x": 546,
+          "y": 43,
+          "scale": 110,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 547,
+          "y": 265,
+          "scale": 110,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 546,
+          "y": 381,
+          "scale": 70,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/zelva-obojka/grown",
+      "kind": "painted",
+      "file": "friends/zelva-obojka-grown.webp",
+      "width": 1024,
+      "height": 610,
+      "anchors": {
+        "head": {
+          "x": 314,
+          "y": 56,
+          "scale": 85,
+          "rotate": -6
+        },
+        "eyes": {
+          "x": 286,
+          "y": 313,
+          "scale": 100,
+          "rotate": -7
+        },
+        "neck": {
+          "x": 314,
+          "y": 597,
+          "scale": 60,
+          "rotate": -5
+        }
+      }
+    },
+    {
+      "id": "monster/murena-mumla/inked",
+      "kind": "painted",
+      "file": "monsters/murena-mumla-inked.webp",
+      "width": 1024,
+      "height": 872
+    }
+  ]
+}

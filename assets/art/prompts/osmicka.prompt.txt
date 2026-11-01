@@ -1,0 +1,14 @@
+# step 1: profesorka-osmicka/profesorka-osmicka-neutral-b-edit-s94013.png (seed 94013, Scene mode)
+Edit this picture of the octopus teacher Profesorka Osmička. Change one thing only: her raised arm on the left must end in a soft, rounded, curled octopus arm tip with little suckers, like her other arms, with no hand and no fingers; keep it raised in the same friendly explaining gesture. Also make the whole background plain, flat, evenly lit light grey with no glow in the corner. Keep everything else exactly the same: her face, glasses, smile, colours, all eight arms, the outline style, the painting style and the framing. No text, no watermark.
+
+# negative prompt
+hand, fingers, glove, extra arms, nine arms, seven arms, glow, light rays, vignette, sticker border, white outline, blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background
+
+# step 2: profesorka-osmicka/profesorka-osmicka-neutral-b-sketchv1-s94011.png (seed 94011, Scene mode)
+Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly eight graceful curling arms, all clearly visible and easy to count, with paler lilac suckers; one arm raised as if gently explaining something; round golden glasses. It shows Profesorka Osmička, a wise, kind octopus teacher, sitting upright and looking at the viewer with a warm, attentive smile. A soft violet-lilac body with a big rounded head, big friendly eyes behind the round golden glasses, and rosy cheeks.
+Storybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.
+Keep the plain flat light grey background around the character, nothing else: no shadow, no sun, no light rays, no water, no sand, no other animals, no text, no watermark.
+
+# negative prompt
+blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, squid, extra arms, book, pointer stick
+

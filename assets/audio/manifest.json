@@ -1,7 +1,7 @@
 {
   "schema": "pearl-sea-audio-manifest/1",
   "packId": "pearl-sea-audio",
-  "revision": "pack-82d15f97a1faaf45",
+  "revision": "pack-725681d1da928d6e",
   "sampleRate": 48000,
   "sounds": [
     {
@@ -29,6 +29,19 @@
       "channels": 1,
       "bytes": 625642,
       "sha256": "9c209c719c3d089e6b79371d2aed5c5df203ff7938f13d41a47b188e21f06b88"
+    },
+    {
+      "id": "music/map",
+      "src": "assets/audio/music/map.ogg",
+      "bus": "music",
+      "tier": "music",
+      "loop": true,
+      "durationSeconds": 36.566667,
+      "samples": 1755200,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bytes": 408746,
+      "sha256": "5ca406d1c416f753ef2e3e0d10df993ed29bef24b08ee16d04de8a95f259871a"
     },
     {
       "id": "music/practice",
@@ -790,6 +803,7 @@
   "music": {
     "states": {
       "grotto": "music/grotto",
+      "map": "music/map",
       "practice": "music/practice",
       "battle": "music/battle",
       "race": "music/battle"
@@ -878,7 +892,7 @@
     }
   },
   "decoded": {
-    "bytes": 39578972,
+    "bytes": 46599772,
     "budgetBytes": 50331648
   }
 }

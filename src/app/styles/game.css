@@ -33,6 +33,17 @@
   -webkit-user-drag: none;
 }
 
+/* A painting that arrives after its screen is shown fades in rather than popping in. */
+.ps-art__image[data-late='true'] {
+  animation: ps-art-in 450ms ease-out both;
+}
+
+@keyframes ps-art-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Until S5's paintings land, a placeholder says which art ID it stands for. */
 .ps-art__dev {
   position: absolute;
@@ -768,6 +779,19 @@
   list-style: none;
 }
 
+/* Under the friend, as narrow as its card, the week keeps its seven days in one row. */
+.ps-hub__friend > .ps-week {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.2em;
+  width: 100%;
+}
+
+.ps-hub__friend .ps-week__dot {
+  width: min(1.5em, 100%);
+  height: auto;
+  aspect-ratio: 1;
+}
+
 .ps-week__day {
   display: grid;
   justify-items: center;
@@ -864,7 +888,7 @@
       grid-template-areas:
         'friend today places'
         'adventure adventure adventure';
-      grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr) auto;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr) auto;
       grid-template-rows: auto auto;
       align-items: center;
       width: min(100%, 72em);
@@ -907,7 +931,7 @@
 
 /* A short landscape window draws the grotto's pictures and words a little smaller, never a
    button: the greeting and the diver's name share the top line, and today's card loses only
-   its visible heading ("Dnešní cíl" says it). */
+   its visible headings ("Dnešní cíl" and the quests' rows say them). */
 @media (orientation: landscape) and (min-width: 900px) and (max-height: 860px) {
   .ps-hub__greeting {
     font-size: min(1.1rem, 7vw);
@@ -937,7 +961,8 @@
     gap: 0.4em;
   }
 
-  .ps-hub__today > h2 {
+  .ps-hub__today > h2,
+  .ps-hub__today > h3 {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -946,8 +971,9 @@
     white-space: nowrap;
   }
 
-  .ps-hub__today h3 {
-    font-size: 0.9rem;
+  /* Dnešní výprava is sized by the window's height too, as Dragon Valley's, never under 48 px. */
+  .ps-hub__adventure .ps-button--big {
+    font-size: min(1.5rem, 7vw, 4.4vh);
   }
 
   .ps-quests {
@@ -967,15 +993,10 @@
   }
 }
 
-/* On the shortest windows the quests keep their list and lose only their visible title. */
+/* On the shortest windows (an iPad under Safari's bars) the friend steps back a little more. */
 @media (orientation: landscape) and (min-width: 900px) and (max-height: 700px) {
-  .ps-hub__today h3 {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
+  .ps-hub__featured {
+    width: min(13rem, 18vh, 60vw);
   }
 }
 
@@ -2953,9 +2974,11 @@
 
 /* ---- Less motion ------------------------------------------------------------------------ */
 
-/* Entrances that start faint do not run at all, and the wash ends washed. */
+/* Entrances that start faint do not run at all, and the wash ends washed: a late painting is
+   simply there. */
 :root[data-reduced-motion='true'] .ps-moment__art,
-:root[data-reduced-motion='true'] .ps-moment__wash .ps-monster-forms__inked {
+:root[data-reduced-motion='true'] .ps-moment__wash .ps-monster-forms__inked,
+:root[data-reduced-motion='true'] .ps-art__image[data-late='true'] {
   animation: none !important;
 }
 
@@ -2965,7 +2988,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ps-moment__art,
-  .ps-moment__wash .ps-monster-forms__inked {
+  .ps-moment__wash .ps-monster-forms__inked,
+  .ps-art__image[data-late='true'] {
     animation: none !important;
   }
 

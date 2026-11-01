@@ -1,8 +1,8 @@
 /**
  * Bublinka's home grotto (docs/design.md §4.2): the featured friend big, with how close it is to
  * growing (the rules' exact `next.have` of `next.need`), the other friends as a strip that opens
- * the friends' screen, the coin purse and save status, today's goal with the week's practised
- * days (a habit view, never a streak), the daily quests and the treasure chest, and one big
+ * the friends' screen and the week's practised days under it (a habit view, never a streak), the
+ * coin purse and save status, today's goal, the daily quests and the treasure chest, and one big
  * "Dnešní výprava" button that does what the game suggests next. The places of the sea are one
  * tap away: the map, U Mrože, the friends, the gallery, the album and the Great Shell.
  */
@@ -49,6 +49,32 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
   );
 
   // ---- Friends ----------------------------------------------------------------------------
+  /** The week's practised days (a habit view, never a streak), under the friend. */
+  const weekStrip = (current: GameView): HTMLElement | null => {
+    const daily = current.daily;
+    if (!daily) return null;
+    return h(
+      'ol',
+      { className: 'ps-week', testId: 'today-week', attributes: { 'aria-label': t('today.week') } },
+      ...WEEKDAYS.map((day, index) => {
+        const practised = daily.week[index] === true;
+        return h(
+          'li',
+          {
+            className: 'ps-week__day',
+            dataset: { practised: String(practised) },
+          },
+          h('span', { className: 'ps-week__dot', attributes: { 'aria-hidden': 'true' } }),
+          h('span', { className: 'ps-week__name', text: t(`day.${day}` as MessageKey) }),
+          h('span', {
+            className: 'ps-visually-hidden',
+            text: practised ? t('today.practised') : t('today.notPractised'),
+          }),
+        );
+      }),
+    );
+  };
+
   const friendsSection = (current: GameView): HTMLElement => {
     const featured = featuredFriend(current);
     if (!featured) {
@@ -56,6 +82,7 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
         'section',
         { className: 'ps-hub__friend', testId: 'hub-friend' },
         h('p', { className: 'ps-note', text: t('hub.noFriends') }),
+        weekStrip(current),
       );
     }
     const name = text(featured.nameKey);
@@ -106,6 +133,8 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
     }
     const others = current.friends.filter((friend) => friend.id !== featured.id);
     if (others.length > 0) parts.push(friendsStrip(others));
+    const week = weekStrip(current);
+    if (week) parts.push(week);
     return h('section', { className: 'ps-hub__friend', testId: 'hub-friend' }, ...parts);
   };
 
@@ -206,7 +235,7 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
     onError: app.kit.onError,
   });
 
-  // ---- Today: goal, week, quests, chest ---------------------------------------------------------
+  // ---- Today: goal, quests, chest ---------------------------------------------------------------
   const todaySection = (current: GameView): HTMLElement | null => {
     const daily = current.daily;
     if (!daily) return null;
@@ -217,30 +246,13 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
       valueText: (value, max) => t('today.goalValue', { value, max }),
       testId: 'today-goal',
     });
-    const week = h(
-      'ol',
-      { className: 'ps-week', testId: 'today-week', attributes: { 'aria-label': t('today.week') } },
-      ...WEEKDAYS.map((day, index) => {
-        const practised = daily.week[index] === true;
-        return h(
-          'li',
-          {
-            className: 'ps-week__day',
-            dataset: { practised: String(practised) },
-          },
-          h('span', { className: 'ps-week__dot', attributes: { 'aria-hidden': 'true' } }),
-          h('span', { className: 'ps-week__name', text: t(`day.${day}` as MessageKey) }),
-          h('span', {
-            className: 'ps-visually-hidden',
-            text: practised ? t('today.practised') : t('today.notPractised'),
-          }),
-        );
-      }),
-    );
     const quests = h(
       'ul',
       { className: 'ps-quests', testId: 'today-quests' },
       ...daily.quests.map((quest) => {
+        // A quest done shows its reward to claim where its count was (the check says it is
+        // done), as Dragon Valley's do: one line less on a tablet.
+        const claimable = quest.done && !quest.claimed;
         const row = h(
           'li',
           {
@@ -256,15 +268,17 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
             className: 'ps-quest__title',
             text: text.counted(quest.titleKey, quest.target),
           }),
-          h('span', {
-            className: 'ps-quest__progress',
-            text: t('today.questProgress', {
-              value: Math.min(quest.progress, quest.target),
-              max: quest.target,
-            }),
-          }),
+          claimable
+            ? null
+            : h('span', {
+                className: 'ps-quest__progress',
+                text: t('today.questProgress', {
+                  value: Math.min(quest.progress, quest.target),
+                  max: quest.target,
+                }),
+              }),
         );
-        if (quest.done && !quest.claimed) {
+        if (claimable) {
           row.append(
             candyButton({
               label: t.plural('today.claim', quest.coins),
@@ -308,7 +322,6 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
       { className: 'ps-card ps-hub__today', testId: 'hub-today' },
       h('h2', { text: t('today.heading') }),
       goal.element,
-      week,
       daily.quests.length > 0 ? h('h3', { text: t('today.quests') }) : null,
       daily.quests.length > 0 ? quests : null,
       chest,

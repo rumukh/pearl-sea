@@ -209,17 +209,27 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     } else {
       actions.replaceChildren();
     }
+    // What makes a pair, as the other boards say their task (PS-QA-06).
     return h(
       'div',
-      {
-        className: 'ps-memory',
-        dataset: { cards: String(board.cards.length) },
-        attributes: {
-          role: 'group',
-          'aria-label': t('board.memoryLabel', { matched: board.matched, pairs: board.pairs }),
+      { className: 'ps-memory-board' },
+      h('p', {
+        className: 'ps-board__task',
+        testId: 'board-task',
+        text: t(`board.pairTask.${board.pair}`),
+      }),
+      h(
+        'div',
+        {
+          className: 'ps-memory',
+          dataset: { cards: String(board.cards.length), pair: board.pair },
+          attributes: {
+            role: 'group',
+            'aria-label': t('board.memoryLabel', { matched: board.matched, pairs: board.pairs }),
+          },
         },
-      },
-      ...cards,
+        ...cards,
+      ),
     );
   };
 
@@ -416,15 +426,21 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     );
   };
 
-  /** Drag a fish onto a net with a finger or the mouse; a short press stays a tap. */
+  /**
+   * Drag a fish onto a net with a finger or the mouse; a short press stays a tap. One pointer is
+   * followed, and a cancelled gesture ends the drag without dropping anything, so no listener is
+   * left to turn the next tap into a drag.
+   */
   let dragged = false;
   const startDrag = (button: HTMLElement, fish: string): void => {
     button.addEventListener('pointerdown', (down) => {
       if (down.button !== 0) return;
       dragged = false;
+      const pointer = down.pointerId;
       const startX = down.clientX;
       const startY = down.clientY;
       const onMove = (event: PointerEvent): void => {
+        if (event.pointerId !== pointer) return;
         const dx = event.clientX - startX;
         const dy = event.clientY - startY;
         if (!dragged && Math.hypot(dx, dy) < 12) return;
@@ -432,15 +448,27 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
         button.dataset['dragging'] = 'true';
         button.style.transform = `translate(${dx}px, ${dy}px)`;
       };
-      const onUp = (event: PointerEvent): void => {
+      const finish = (): void => {
         document.removeEventListener('pointermove', onMove);
         document.removeEventListener('pointerup', onUp);
-        if (!dragged) return;
+        document.removeEventListener('pointercancel', onCancel);
         button.style.removeProperty('transform');
         delete button.dataset['dragging'];
-        button.style.visibility = 'hidden';
-        const under = document.elementFromPoint(event.clientX, event.clientY);
-        button.style.removeProperty('visibility');
+      };
+      const onCancel = (event: PointerEvent): void => {
+        if (event.pointerId !== pointer) return;
+        finish();
+        dragged = false;
+      };
+      const onUp = (event: PointerEvent): void => {
+        if (event.pointerId !== pointer) return;
+        finish();
+        if (!dragged) return;
+        // What lies under the pointer, the fish itself aside: with less motion its style still
+        // settles for a moment (a 1 ms transition), so it may be drawn there yet (PS-QA-09).
+        const under = document
+          .elementsFromPoint(event.clientX, event.clientY)
+          .find((element) => !button.contains(element));
         const area = under?.closest<HTMLElement>('[data-net]');
         const net = area ? Number(area.dataset['net']) : null;
         chosenFish = null;
@@ -455,6 +483,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
       };
       document.addEventListener('pointermove', onMove);
       document.addEventListener('pointerup', onUp);
+      document.addEventListener('pointercancel', onCancel);
     });
   };
 

@@ -272,7 +272,7 @@ test('a sound pack the browser’s sound service refuses is reported, never a qu
   await expect(page.getByTestId('boot-status')).toHaveAttribute('data-audio', 'unavailable');
   await enterGrownUps(page);
   await expect(page.getByTestId('sound-unavailable')).toHaveText(
-    'Zvuk se nepodařilo spustit, hra je teď tichá.',
+    'Zvuk se nepodařilo spustit. Hra teď běží bez zvuku.',
   );
   expect(seen.consoleErrors.some((line) => line.includes('could not be registered'))).toBe(true);
 });

@@ -67,8 +67,17 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     card.append(stars.element);
   }
   // Right answers are steps (each gap, the find and the fix of Lov chyb), while the round's
-  // `answered` counts whole problems: the card tells the right ones only.
-  if (round.type === 'problems' && round.progress.correct > 0) {
+  // `answered` counts whole problems: the card tells the right ones only. The placement check is
+  // no score for the child: it thanks them instead.
+  if (round.source.kind === 'placement') {
+    card.append(
+      h('p', {
+        className: 'ps-results__score',
+        testId: 'results-placement',
+        text: t('results.placement'),
+      }),
+    );
+  } else if (round.type === 'problems' && round.progress.correct > 0) {
     card.append(
       h('p', {
         className: 'ps-results__score',
@@ -154,7 +163,19 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
     }
   }
   if (news.length > 0) {
-    card.append(h('div', { className: 'ps-results__news', testId: 'results-news' }, ...news));
+    // On a short window a big day's news scroll inside the card, the button onward in view: a
+    // named region in the Tab order, so the keyboard can scroll it too.
+    card.append(
+      h(
+        'div',
+        {
+          className: 'ps-results__news',
+          testId: 'results-news',
+          attributes: { role: 'region', 'aria-label': t('results.news'), tabindex: '0' },
+        },
+        ...news,
+      ),
+    );
   }
 
   const go = async (): Promise<void> => {
@@ -197,7 +218,8 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
                 )
               : picture(app.art, ART.friend(event.data.friend, 'baby')),
           ),
-          h('h2', {
+          h('h1', {
+            className: 'ps-moment__title',
             text: t('results.hatched', { name: name(data.friends, event.data.friend) }),
           }),
         ),
@@ -214,7 +236,10 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
             className: 'ps-moment__art ps-moment__wash',
             alt: name(data.monsters, monster),
           }),
-          h('h2', { text: t('results.freed', { name: name(data.monsters, monster) }) }),
+          h('h1', {
+            className: 'ps-moment__title',
+            text: t('results.freed', { name: name(data.monsters, monster) }),
+          }),
           joke !== null && text.has(joke)
             ? h('p', { className: 'ps-moment__joke', testId: 'moment-joke', text: text(joke) })
             : null,
@@ -226,7 +251,10 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
         h(
           'section',
           { className: 'ps-moment ps-moment--grade', testId: 'moment-grade' },
-          h('h2', { text: t('results.grade', { grade: event.data.grade }) }),
+          h('h1', {
+            className: 'ps-moment__title',
+            text: t('results.grade', { grade: event.data.grade }),
+          }),
         ),
       );
     }

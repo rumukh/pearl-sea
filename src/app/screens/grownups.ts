@@ -43,6 +43,13 @@ import { diverBadge, downloadText, fileSlug, pickTextFile, topBar } from './comm
 /** Daily goals offered to grown-ups, in right answers (the game's own goal is kept too). */
 export const DAILY_GOALS = [10, 20, 30, 40, 50] as const;
 
+/**
+ * Whether the shell offers the dolphin race yet. The rules open it once Muréna Mumla is free, but
+ * it has no way in on screen until its screen joins (docs/app.md §16.5), so its switch in a
+ * child's settings waits too.
+ */
+export const RACE_ON_SCREEN = false as boolean;
+
 export function grownUpsScreen(
   app: App,
   initialTab: GrownUpsTab = 'settings',
@@ -251,14 +258,19 @@ export function grownUpsScreen(
             return null;
           };
         const goals = [...new Set([...DAILY_GOALS, settings.dailyGoal])].sort((a, b) => a - b);
-        const race = h('input', {
-          testId: 'setting-race',
-          attributes: { type: 'checkbox', role: 'switch' },
-        });
-        race.checked = settings.race;
-        race.addEventListener('change', () => {
-          void changeGame(setting({ key: 'race', value: race.checked })).catch(app.kit.onError);
-        });
+        // The race's switch waits for the race to have a way in on screen.
+        const race = RACE_ON_SCREEN
+          ? h('input', {
+              testId: 'setting-race',
+              attributes: { type: 'checkbox', role: 'switch' },
+            })
+          : null;
+        if (race) {
+          race.checked = settings.race;
+          race.addEventListener('change', () => {
+            void changeGame(setting({ key: 'race', value: race.checked })).catch(app.kit.onError);
+          });
+        }
         return h(
           'div',
           { className: 'ps-stack', testId: 'grownups-game-settings' },
@@ -289,12 +301,14 @@ export function grownUpsScreen(
               (value) => changeGame(setting({ key: 'dailyGoal', value: Number(value) })),
             ),
           ),
-          h(
-            'label',
-            { className: 'ps-switch' },
-            h('span', { text: g('grownups.game.race') }),
-            race,
-          ),
+          race
+            ? h(
+                'label',
+                { className: 'ps-switch' },
+                h('span', { text: g('grownups.game.race') }),
+                race,
+              )
+            : null,
           placementRerun(diver, settings.grade),
         );
       };

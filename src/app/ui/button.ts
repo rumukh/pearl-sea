@@ -63,6 +63,25 @@ export function candyButton(options: ButtonOptions): HTMLButtonElement {
   return button;
 }
 
+/**
+ * Show a pressed button as busy while its command takes a while (the first dive opens the game):
+ * its label reads `label` ("Chvilku…") and it takes no press, but it keeps focus, so the
+ * keyboard does not fall to the page. A second press is ignored anyway while the command runs.
+ * Returns the way back to the button as it was.
+ */
+export function showBusy(button: HTMLButtonElement, label: string): () => void {
+  const text = button.querySelector<HTMLElement>(':scope > span');
+  const before = text?.textContent ?? null;
+  if (text) text.textContent = label;
+  button.setAttribute('aria-disabled', 'true');
+  button.dataset['busy'] = 'true';
+  return () => {
+    if (text && before !== null) text.textContent = before;
+    button.removeAttribute('aria-disabled');
+    delete button.dataset['busy'];
+  };
+}
+
 /** A quiet text action for secondary grown-up choices. */
 export function linkButton(options: Omit<ButtonOptions, 'variant' | 'size'>): HTMLButtonElement {
   const button = createActionButton({

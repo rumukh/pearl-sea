@@ -80,6 +80,11 @@ export const STEPS = [
     args: ['scripts/audio/manifest.mjs', '--check'],
   },
   {
+    id: 'art',
+    label: 'Check the art catalog (up to date, every file measured, IDs and anchors, budget)',
+    args: ['scripts/art/catalog.mjs', '--check'],
+  },
+  {
     id: 'test',
     label: 'Unit, trace and tooling tests (Vitest)',
     args: [

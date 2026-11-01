@@ -1,0 +1,14 @@
+# step 1: zelva-obojka/zelva-obojka-adult-b-edit-s93013.png (seed 93013, Scene mode)
+Edit this picture of the sea turtle girl Želva Obojka. Make two changes only: first, her raised front flipper must be a smooth, rounded, paddle-shaped sea-turtle flipper with no fingers and no hand; second, redraw the plates on her domed shell so that the shell is made of exactly eight big plates in two rows of four, each plate clearly outlined in the same plum-brown line and easy to count. Keep everything else exactly the same: her face, smile, eyes, colours, pose, the other flippers, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.
+
+# negative prompt
+fingers, hand, extra plates, sticker border, white outline, glow, light rays, blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background
+
+# step 2: style-board/zelva-b-outline-s71001.png (seed 71001, Subjects mode)
+Use the grey reference only as a blank canvas. Paint one original cute cartoon character for a cheerful children's learning game set under the sea: Želva Obojka, a friendly young sea turtle girl who is at home both in the sea and on the sunny beach. She swims toward the viewer in a slight three-quarter view, all four flippers spread wide, her front right flipper raised in a happy wave, head lifted with a big warm smile. Big shiny dark-brown eyes with white highlights, rosy cheeks and a small, rounded beak-like mouth. Smooth sea-green skin with soft pale-green freckles, a cream-yellow belly plate, and a rounded, domed caramel-and-honey shell made of exactly eight big plates, each plate clearly outlined and easy to count.
+Storybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.
+The whole turtle is centred and fully inside the frame, occupying about 80 percent of the image height, nothing cropped. Plain flat light grey background. No environment, no water surface, no sand, no bubbles, no other animals, no text, no watermark.
+
+# negative prompt
+blurry, low resolution, duplicate subjects, two turtles, extra limbs, extra flippers, malformed anatomy, cropped body, text, letters, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline
+

@@ -1,0 +1,14 @@
+# step 1: krab-tvrdak/krab-tvrdak-adult-b-edit-s91013.png (seed 91013, Scene mode)
+Edit this picture of the crab boy Krab Tvrďák. Change one thing only: remove the two small black dot eyes on the front of his red shell, so that his only eyes are the two big eyes on the stalks above his shell; keep his smile and rosy cheeks on the shell. Keep everything else exactly the same: the seven white spikes, the claws, the legs, the colours, the outline style, the painting style, the framing and the plain light grey background. No text, no watermark.
+
+# negative prompt
+eyes on the shell, four eyes, extra eyes, extra spikes, glow, light rays, sticker border, white outline, blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background
+
+# step 2: krab-tvrdak/krab-tvrdak-adult-b-sketchv1-s91011.png (seed 91011, Scene mode)
+Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly seven hard, rounded, bone-white spikes along the upper rim of his shell, evenly spaced and easy to count; two big eyes on short eye stalks; two big raised claws; three short walking legs on each side. It shows Krab Tvrďák, a sturdy, good-natured little crab boy who is proud of his hard shell, flexing both claws with a confident, cheerful grin. A wide, rounded, glossy tomato-red shell with a cream-coloured underside, orange-red claws and legs, big shiny dark eyes with white highlights and rosy cheeks.
+Storybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.
+Keep the plain flat light grey background around the character, nothing else: no shadow, no sun, no light rays, no water, no sand, no other animals, no text, no watermark.
+
+# negative prompt
+blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, lobster, shrimp, spider, humanoid legs, feet, shoes, extra spikes, teeth
+

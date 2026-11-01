@@ -16,6 +16,7 @@ import type { DeepReadonly } from '@aegis/runtime';
 import { parseItemId, wordDimensionValue } from '../../contract';
 import type { Hint, ListedLetter, OddBasis, OddProblem, Skill, Word } from '../../contract';
 import { lexiconIndex, perPack } from '../index-cache';
+import { reflexiveClash, wordText } from '../item-info';
 import { shuffle } from '../random';
 import { kinFamilies, skillWords, suits, unambiguous } from './companions';
 import { cannotPractise } from './shared';
@@ -102,8 +103,11 @@ function basisPool(data: Data, skill: OddSkill): Entry[] {
   let pool = cache.get(skill.id);
   if (pool === undefined) {
     pool = skillWords(data, skill.id, skill.params.words).flatMap((word) => {
-      const value = unambiguous(data, word) ? basisValue(data, word, skill.params.basis) : null;
-      return value === null ? [] : [{ word, value, text: word.lemma.toLowerCase() }];
+      const basis = skill.params.basis;
+      const shownAlone =
+        unambiguous(data, word) && !(basis === 'reflexive' && reflexiveClash(data, word));
+      const value = shownAlone ? basisValue(data, word, basis) : null;
+      return value === null ? [] : [{ word, value, text: wordText(word, basis).toLowerCase() }];
     });
     cache.set(skill.id, pool);
   }
@@ -226,7 +230,7 @@ export function oddProblem(skill: OddSkill, item: string, sources: GeneratorSour
   return {
     kind: 'odd',
     basis: skill.params.basis,
-    words: shown.map((w) => ({ word: w.id, text: w.lemma })),
+    words: shown.map((w) => ({ word: w.id, text: wordText(w, skill.params.basis) })),
     correct: shown.indexOf(oddWord),
     hint,
   };

@@ -28,11 +28,27 @@ describe('before and at the start', () => {
     const player = new Player(PERFECT, 'legality');
     await expectRejected(player, { type: 'startLevel', level: 'sunny-lagoon.1' }, 'no-session');
     await expectRejected(player, { type: 'startSession', day: '2026-02-30' }, 'invalid-day');
-    // The grade may be set before the first session.
+    // Every setting may be set before the first session: the grown-ups may set up a child who has
+    // not played yet. Out-of-range values are still refused.
     expect(await player.act({ type: 'setSetting', setting: { key: 'grade', value: 3 } })).toBe(
       true,
     );
+    expect(await player.act({ type: 'setSetting', setting: { key: 'dailyGoal', value: 10 } })).toBe(
+      true,
+    );
+    expect(await player.act({ type: 'setSetting', setting: { key: 'race', value: false } })).toBe(
+      true,
+    );
+    await expectRejected(
+      player,
+      { type: 'setSetting', setting: { key: 'dailyGoal', value: 1000 } },
+      'invalid-setting',
+    );
+    expect(player.state().settings).toMatchObject({ grade: 3, dailyGoal: 10, race: false });
+    expect(player.state().day).toBeNull();
     await player.act({ type: 'startSession', day: '2026-11-02' });
+    expect(player.state().daily?.goal, 'the first day takes the goal set before it').toBe(10);
+    await player.act({ type: 'setSetting', setting: { key: 'race', value: true } });
     expect(player.view().story?.skippable).toBe(true);
     await player.choose(null);
     // The first-egg beat cannot be skipped: no level until it is read.

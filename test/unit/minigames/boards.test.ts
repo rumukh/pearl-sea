@@ -611,6 +611,45 @@ describe('making boards', () => {
     expect(failing).toEqual([]);
   });
 
+  it('shows a verb on the nets of se, si and none without its pronoun, never one that is another verb so', () => {
+    const real = realPack().data;
+    const words = new Map(real.lexicon.words.map((w) => [w.id, w]));
+    const bare = (id: string): string => {
+      const inf = words.get(id)!.verb!.paradigm!.inf;
+      return Array.isArray(inf) ? inf[0]! : (inf as string);
+    };
+    // The game's nets, and nets that also hold hrát and hrát si: both would be "hrát".
+    const game = real.skills.find((skill) => skill.id === 'sk.storm.nets-reflexive')!;
+    const clash: Skill = {
+      ...testSkill('reflexive-nets', 'verbs'),
+      generator: 'sort',
+      params: {
+        dimension: 'reflexive',
+        context: 'word',
+        values: ['se', 'si', 'none'],
+        words: {
+          words: ['hraat', 'hraat-si', 'baat-se', 'smaat-se', 'vsximnout-si', 'stexzxovat-si'],
+        },
+        fish: 4,
+        cells: null,
+      },
+    };
+    expect(skillItems(clash, real.lexicon)).toContain('class:reflexive:hraat-si');
+    const shown = new Set<string>();
+    for (const skill of [game, clash]) {
+      const pool = skillItems(skill, real.lexicon);
+      for (const seed of SEEDS) {
+        const def = made(makeBoard(request(real, 'fishing-nets', [skill], pool, seed)));
+        for (const fish of (def.config as unknown as SortingNetsConfig).fish) {
+          expect(fish.text, fish.item).toBe(bare(fish.word!));
+          expect(fish.item, 'hrát or hrát si?').not.toMatch(/:hraat/);
+          shown.add(fish.text);
+        }
+      }
+    }
+    expect([...shown]).toEqual(expect.arrayContaining(['bát', 'smát', 'všimnout', 'plavat']));
+  });
+
   it('canMakeBoard is false for an activity whose pool cannot make a board', () => {
     // The mini pack: its word shell plays; its Pexeso cannot, mlýn ↔ mlynář is its only pair.
     const miniShell = activity(MINI, 'moon-caves.1', 'word-shell');

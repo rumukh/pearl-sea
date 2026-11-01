@@ -2,19 +2,19 @@
  * Hints show the strategy, not just the answer (design §5.3, contract §5.3):
  *
  * - `vyjm`: the family word (mlynář → mlýn), or for a rhyme word its letter's school rhyme;
- * - `obojetna-i`: the rhyme of the consonant before the gap (the word is not in it);
+ * - `obojetna-i`: the rule line (not listed, so i), never the rhyme of y-words, which may hold a
+ *   look-alike (být for bít);
  * - `parova`, `u-uprostred`: the test word (hrad → hrady, dům → domy), when the point has one;
  * - `mne-zajmeno`: the case question; `shoda`: the subject with ten, ta, to; `vzor`: the pattern;
  * - every other rule: the rule in one line;
  * - classifications: the school question (ten, ta, to; the case question; the pattern).
  */
 import type { DeepReadonly } from '@aegis/runtime';
-import { LISTED_LETTERS, genderClass } from '../contract';
+import { genderClass } from '../contract';
 import type {
   Case,
   Dimension,
   Hint,
-  ListedLetter,
   SentenceGap,
   SpellingPoint,
   SpellingRule,
@@ -49,15 +49,11 @@ export function gapHint(
       }
       return ruleHint(rule);
     }
-    case 'obojetna-i': {
-      if (word && point && point.at > 0) {
-        const before = [...word.lemma.toLowerCase()][point.at - 1] ?? '';
-        if ((LISTED_LETTERS as readonly string[]).includes(before)) {
-          return { kind: 'listed', letter: before as ListedLetter };
-        }
-      }
+    case 'obojetna-i':
+      // Not the listed rhyme: it lists only y-words, so for an i it points the wrong way, and a
+      // look-alike in it (být for bít, mlýn for mlít) confirms the slip. The rule line states the
+      // step: not listed (nor related to a listed word), so i.
       return ruleHint(rule);
-    }
     case 'parova':
     case 'u-uprostred':
       return word && point?.test !== undefined

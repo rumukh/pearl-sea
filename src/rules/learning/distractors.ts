@@ -16,12 +16,14 @@
  *   alternatives as written in the lexicon.
  *
  * **Keys** are the big letter pad of the gap's rule (i í y ý, e é ě je, mě mně, u ú ů, a vowel's
- * short and long form, a consonant pair, lower and upper case, i y a for agreement, . ? ! , for
- * end marks); a gap whose answer is not one of its rule's keys (a whole token, a conjunction)
- * shows its own options as keys. Keys always include the answer and every alternative.
+ * short and long form, a consonant pair, lower and upper case, i y a for agreement); a gap whose
+ * answer is not one of its rule's keys (a whole token, a conjunction, an end mark) shows its own
+ * options as keys, in a fixed order (end marks . ? ! , then the alphabet), so the answer's place
+ * tells nothing. An end mark offers only its gap's marks: after a command, `.` is right too.
+ * Keys always include the answer and every alternative.
  */
 import type { RandomStream } from '@aegis/runtime';
-import { PAIRED_CONSONANTS } from '../contract';
+import { PAIRED_CONSONANTS, compareCzech } from '../contract';
 import type { SpellingRule } from '../contract';
 import { shuffle } from './random';
 
@@ -75,11 +77,25 @@ function basePad(rule: SpellingRule, correct: string): string[] | null {
     return pair ? [...pair] : null;
   }
   if (rule === 'shoda') return ['i', 'y', 'a'];
-  if (rule === 'interpunkce') return ['.', '?', '!', ','];
   return null;
 }
 
-/** The letter-pad keys of a gap: the rule's pad (in the answer's case) plus every option. */
+/** End marks in the order a pad shows them. */
+const MARK_ORDER: readonly string[] = ['.', '?', '!', ','];
+
+/** A gap's own options as keys: end marks first in `MARK_ORDER`, then in Czech alphabetical order. */
+function inFixedOrder(texts: readonly string[]): string[] {
+  const mark = (text: string) => {
+    const at = MARK_ORDER.indexOf(text);
+    return at === -1 ? MARK_ORDER.length : at;
+  };
+  return [...texts].sort((a, b) => mark(a) - mark(b) || compareCzech(a, b));
+}
+
+/**
+ * The letter-pad keys of a gap: the rule's pad (in the answer's case) plus every option; without a
+ * pad that holds the answer, the gap's own options in a fixed order.
+ */
 export function padKeys(
   rule: SpellingRule,
   correct: string,
@@ -93,8 +109,11 @@ export function padKeys(
     pad = basePad(rule, lower(correct));
     if (pad !== null && upper) pad = pad.map(capitalize);
   }
-  const keys = pad !== null && pad.includes(correct) ? [...pad] : [correct];
-  for (const text of [correct, ...alternatives]) if (!keys.includes(text)) keys.push(text);
+  if (pad === null || !pad.includes(correct)) {
+    return inFixedOrder([...new Set([correct, ...alternatives])]).slice(0, 12);
+  }
+  const keys = [...pad];
+  for (const text of alternatives) if (!keys.includes(text)) keys.push(text);
   return keys.slice(0, 12);
 }
 

@@ -200,7 +200,8 @@ blots and the letter pad, and the verbalizer reads them aloud. Every problem is 
 
 A **gap** is `{ correct, options, keys, rule, word, item, hint }`: `correct` is the right text (a
 letter group such as `ý`, `mně`, or a whole token such as `odplavala`), `options` are 2-4 choices
-in seeded order including `correct`, `keys` the letter pad's keys including `correct`, `rule` the
+in seeded order including `correct`, `keys` the letter pad's keys including `correct` (the rule's
+pad, or where it holds no answer the gap's own options in a fixed order), `rule` the
 spelling rule, `word` the lexicon word or null, and `item` the item the gap trains. A
 classification's `options` keep the dimension's school order (`DIMENSION_VALUES`: the cases 1-7,
 the parts of speech 1-10, the patterns by gender), never shuffled, so each value keeps its place on
@@ -855,7 +856,7 @@ action changes nothing, costs nothing and draws no randomness. Only answers cost
 | `claimQuest { quest }`                                 | 0     | quest done and unclaimed                                                                                 | pay the quest's coins                                                                           |
 | `openChest`                                            | 0     | the chest is ready (the daily goal reached)                                                              | a weighted grant from `rewards`                                                                 |
 | `storyChoice { beat, node, revision, choice \| null }` | 0     | the pending beat, its node and revision                                                                  | advance (or skip a skippable beat); grant rewards                                               |
-| `setSetting { setting }`                               | 0     | values in range; `grade` one the content serves, also before the first session, not in a placement round | `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4; progress, friends and coins stay)          |
+| `setSetting { setting }`                               | 0     | values in range, also before the first session; `grade` one the content serves, not in a placement round | `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4; progress, friends and coins stay)          |
 
 Rejections are runtime errors with stable codes, as in Dragon Valley (`no-session`, `invalid-day`,
 `story-pending`, `round-active`, `unknown-level`, `locked-level`, `no-problem`, `wrong-action`,

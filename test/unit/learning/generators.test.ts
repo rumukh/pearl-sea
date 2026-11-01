@@ -17,7 +17,6 @@ import { isDeepStrictEqual } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { createPrng } from '@aegis/core';
 import {
-  LISTED_LETTERS,
   PAIRED_CONSONANTS,
   compareCzech,
   expectedAnswer,
@@ -35,7 +34,6 @@ import type {
   GappedText,
   GapsProblem,
   Hint,
-  ListedLetter,
   MistakeProblem,
   Problem,
   Sentence,
@@ -170,8 +168,14 @@ function rulePad(rule: SpellingRule, correct: string): string[] {
   else if (rule === 'parova') {
     pad = PAIRED_CONSONANTS.find((pair) => (pair as readonly string[]).includes(lower)) ?? [];
   } else if (rule === 'shoda') pad = ['i', 'y', 'a'];
-  else if (rule === 'interpunkce') pad = ['.', '?', '!', ','];
   return correct === lower ? [...pad] : pad.map(capital);
+}
+
+/** End marks first (. ? ! ,), then Czech alphabetical: the order of a gap's own options as keys. */
+const MARKS = ['.', '?', '!', ','];
+function ownKeyOrder(a: string, b: string): number {
+  const mark = (text: string) => (MARKS.includes(text) ? MARKS.indexOf(text) : MARKS.length);
+  return mark(a) - mark(b) || compareCzech(a, b);
 }
 
 /**
@@ -250,12 +254,10 @@ function expectedHint(
       if (family.head !== word.id) return { kind: 'family', word: word.id, related: family.head };
       return family.letter !== null ? { kind: 'listed', letter: family.letter } : ruleHint;
     }
-    case 'obojetna-i': {
-      const before = word && point ? [...word.lemma.toLowerCase()][point.at - 1] : undefined;
-      return (LISTED_LETTERS as readonly (string | undefined)[]).includes(before)
-        ? { kind: 'listed', letter: before as ListedLetter }
-        : ruleHint;
-    }
+    case 'obojetna-i':
+      // The rule line, never the rhyme of y-words (S3's Czech QA: a look-alike in it, být for bít,
+      // would confirm the slip).
+      return ruleHint;
     case 'parova':
     case 'u-uprostred':
       return word && point?.test !== undefined
@@ -704,6 +706,10 @@ function checkGap(c: Case, where: Located, say: Say): void {
   const stray = keys.filter((key) => key !== where.correct && !where.alternatives.includes(key));
   if (stray.some((key) => !pad.includes(key))) {
     say('keys', `${label}: ${stray} are no keys of the ${where.rule} pad`);
+  }
+  // Own options (a whole word, an end mark) in a fixed order: the answer's place tells nothing.
+  if (!pad.includes(where.correct) && !isDeepStrictEqual(keys, [...keys].sort(ownKeyOrder))) {
+    say('keys', `${label}: the own options ${keys} are not in the fixed order`);
   }
 
   if (!isDeepStrictEqual(gap.hint, where.hint)) {
@@ -1329,7 +1335,8 @@ describe('distractors (design §6.6)', () => {
       ['parova', 'ch', ['h'], ['h', 'ch']],
       ['parova', 's', ['z'], ['s', 'z']],
       ['velke-pismeno', 'V', ['v'], ['v', 'V']],
-      ['interpunkce', '?', ['.'], ['.', '?', '!', ',']],
+      ['interpunkce', '?', ['.'], ['.', '?']],
+      ['interpunkce', '!', ['?'], ['?', '!']],
       ['spojka', 'ale', ['a', 'protože'], ['ale', 'a', 'protože']],
       ['predpona-predlozka', 'odplavala', ['od plavala'], ['odplavala', 'od plavala']],
       ['spisovne', 'mléko', ['mlíko'], ['mléko', 'mlíko']],
@@ -1339,6 +1346,27 @@ describe('distractors (design §6.6)', () => {
       expect(czech(keys), `${rule} ${correct}`).toEqual(czech(pad));
       expect(new Set(keys).size).toBe(keys.length);
     }
+  });
+
+  it("lists a gap's own options in one order whichever is right, end marks . ? ! first", () => {
+    // After a command a full stop is right too (Zavři dveře.), so the end mark pad is the gap's own.
+    expect(padKeys('interpunkce', '?', ['.'])).toEqual(['.', '?']);
+    expect(padKeys('interpunkce', '.', ['?'])).toEqual(['.', '?']);
+    expect(padKeys('interpunkce', '!', ['?'])).toEqual(['?', '!']);
+    expect(padKeys('interpunkce', ',', ['.'])).toEqual(['.', ',']);
+    // A whole word never stands first because it is the answer.
+    expect(padKeys('spojka', 'protože', ['ale'])).toEqual(['ale', 'protože']);
+    expect(padKeys('spojka', 'ale', ['protože'])).toEqual(['ale', 'protože']);
+    expect(padKeys('spojka', 'když', ['že'])).toEqual(['když', 'že']);
+    expect(padKeys('spojka', 'že', ['když'])).toEqual(['když', 'že']);
+    expect(padKeys('spisovne', 'mlíko', ['mléko'])).toEqual(
+      padKeys('spisovne', 'mléko', ['mlíko']),
+    );
+    expect(padKeys('predpona-predlozka', 'od plavala', ['odplavala'])).toEqual(
+      padKeys('predpona-predlozka', 'odplavala', ['od plavala']),
+    );
+    // A rule's own pad keeps its order (i í y ý), its answer anywhere on it.
+    expect(padKeys('tvrda', 'y', ['i'])).toEqual(['i', 'í', 'y', 'ý']);
   });
 });
 
@@ -1439,8 +1467,10 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the rhyme of the letter before an obojetna-i gap, when it has one', () => {
-    expect(hint(mini, 'biit')).toEqual({ kind: 'listed', letter: 'b' });
+  it('show the rule line for an obojetna-i gap, never the rhyme of y-words', () => {
+    // S3's Czech QA: the rhyme lists only y-words, so for an i it points the wrong way, and a
+    // look-alike in it (být for bít) confirms the slip.
+    expect(hint(mini, 'biit')).toEqual({ kind: 'rule', rule: 'obojetna-i' });
     const fialka = made('fialka', 'fialka');
     const point: SpellingPoint = { at: 1, correct: 'i', alt: ['y'], rule: 'obojetna-i' };
     expect(gapHint(mini, 'obojetna-i', fialka, point, null)).toEqual({

@@ -425,9 +425,14 @@ word of a list). **Minigames** (`memory-match`, `pearl-necklace`, `fishing-nets`
   _i í y ý_ (listed words, hard and soft consonants, pattern endings); _i y a_ (agreement);
   _e é ě je_ (_dě, bě, bje_); _mě mně_; _u ú ů_; a vowel's short and long form; a consonant pair
   (_d t_, _s z_); the small and capital letter; the writings together and apart; a seam's letters;
-  `.` `?` `!` and the comma (`interpunkce`); the conjunctions offered (`spojka`).
+  the gap's own end marks (`interpunkce`: a question's _? ._, a command's or wish's _! ?_; never all
+  four, since after a command a full stop is right too); the conjunctions offered (`spojka`). A
+  gap's own options (end marks, conjunctions, whole words) stand in a fixed order, so the answer's
+  place tells nothing.
 - **`typed`**: the Czech on-screen keyboard, QWERTZ with _ě š č ř ž ý á í é ú ů ď ť ň_, Shift and
-  space. Typed text is compared after NFC and trimming; case counts (`normalizeTyped`).
+  space. Typed text is compared after NFC and trimming; case counts (`normalizeTyped`). A gap that
+  is a whole word (a conjunction, _mě/mně_, a word with or without a space, a standard word) is
+  never typed: the child could not know which word to type, and another may be right too.
 
 `auto` resolves from the item's box: choice in boxes 0-1, letters from box 2 _(balance
 `input.lettersFromBox`, Dragon Valley's `keypadFromBox`)_, typed from box 4 _(`input.typedFromBox`)_.
@@ -451,7 +456,8 @@ request (_Poraď mi!_), after a miss, before a re-ask and before a taught proble
 | `pattern`       | the pattern and its ending              | _o hradech, o strojích_                    |
 | `rule`          | the rule in one line                    | _Po h, ch, k, r, d, t, n píšeme y._        |
 
-`vyjm` uses the family word (the rhyme for a head word), `obojetna-i` the rhyme, `parova` and
+`vyjm` uses the family word (the rhyme for a head word), `obojetna-i` the rule line (not the rhyme:
+it lists only y-words, and a look-alike in it, _být_ for _bít_, would confirm the slip), `parova` and
 `u-uprostred` a test word, `mne-zajmeno` the case question, `shoda` the subject with _ten, ta, to_
 (_ti psi, ty kočky_), `vzor` the pattern, the rest the rule; classifications show the school
 question.

@@ -447,6 +447,18 @@ full stop on the end-mark pad, typed whole-word gaps (conjunctions, _mě/mně_, 
 punctuation the classify context drops. Also hints that give the answer away or point at the
 look-alike, hint gaps, and punctuation inside Lov chyb tokens.
 
+**A hint must decide every item it serves.** The hints of the generated problems were read again
+once the rules showed them (catalog only, no revision):
+
+- Seven agreement sentences have several subjects (_Delfíni a želvy plavali_), where _ti, ty, ta_
+  before each word does not decide. The agreement rule line now says that one masculine animate
+  noun among them makes _-i_.
+- A sound-alike with _i_ (_bít, mít, vít, vír, vískat, dobít, bidlo, sírový_) shown with its gap
+  also spells its partner with _y_ (`b_t` is _být_ too), so a hint cannot call it neither listed
+  nor related. The _i/í_ rule line now says that sound-alikes are told apart by meaning: _být_
+  (_existovat_), _bít_ (_tlouct_).
+- A rule line's examples use verbs that no agreement item asks (_štěkali, padaly, utíkali_).
+
 **Kept on purpose.** These alternatives are rare words a child does not mean: _sípat, prosít,
 posýpat, vyset, sír_. A teacher would mark them wrong too, and the word read aloud decides. Also
 kept:

@@ -54,8 +54,10 @@ import {
   unservableItems,
 } from '../../../src/rules/learning/generate';
 import type { GeneratorSources } from '../../../src/rules/learning/generate';
+import { oddListedHint } from '../../../src/rules/learning/hints';
 import { lagoonPack, miniPack, realPack } from '../../fixtures/rules/packs';
 import { filledSentence, oracle } from '../../traces/support';
+import { expectedFamily } from './hint-oracle';
 
 const PACKS = [
   ['real', realPack().data],
@@ -603,8 +605,14 @@ function checkOdd(c: Case, problem: OddProblem, say: Say): void {
     }
   }
   const letter = item.family ? (rawOf(data).families.get(item.family.id)?.letter ?? null) : null;
-  const hint: Hint | null =
-    basis === 'listed' && letter !== null ? { kind: 'listed', letter } : null;
+  // A listed set: finding the related listed word, on a family none of the set's words is close
+  // to (hint-oracle.ts); never the rhyme of its letter, which names the set's listed words.
+  let hint: Hint | null = null;
+  if (basis === 'listed' && letter !== null) {
+    const others = shown.filter((word): word is Word => word !== undefined);
+    const example = expectedFamily(data, { word: item, point: null, sentence: null, others });
+    hint = example ? { kind: 'family', ...example } : { kind: 'rule', rule: 'vyjm' };
+  }
   if (!isDeepStrictEqual(problem.hint, hint)) {
     say('hint', `${JSON.stringify(problem.hint)}, the strategy ${JSON.stringify(hint)}`);
   }
@@ -938,6 +946,21 @@ describe('odd-one-out on the listed basis', () => {
       expect(problem.words.map((w) => w.word)).not.toContain('ryba');
       expect(problem.words[problem.correct]!.word).toBe('pes');
     }
+  });
+
+  it('hints finding the related listed word on a family none of the set’s words is close to, never the rhyme', () => {
+    // The rhyme of b would name být, bydlit and nábytek: the odd bít by elimination. A related
+    // word of another letter's family is the example: jazýček → jazyk.
+    const words = ['byyt', 'bydlit', 'naabytek', 'biit'].map((id) =>
+      real.lexicon.words.find((w) => w.id === id)!,
+    );
+    expect(oddListedHint(real, words[0]!, words)).toEqual({
+      kind: 'family',
+      word: 'jazyycxek',
+      related: 'jazyk',
+    });
+    // The mini pack's lettered families are all the set's: the rule line.
+    for (const seed of SEEDS) expect(odd(mini, seed).hint).toEqual({ kind: 'rule', rule: 'vyjm' });
   });
 });
 

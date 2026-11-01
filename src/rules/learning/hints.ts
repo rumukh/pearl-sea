@@ -1,16 +1,23 @@
 /**
- * Hints show the strategy, not just the answer (design §5.3, contract §5.3):
+ * Hints show the strategy, not just the answer (design §5.3, contract §5.3), and never the asked
+ * word, a revealing form of it or a member of its family: a hint that teaches by example takes the
+ * example from another family of the same rule (`hint-examples.ts`), else it is the rule line alone.
  *
- * - `vyjm`: the family word (mlynář → mlýn), or for a rhyme word its letter's school rhyme;
+ * - `vyjm`: for a related word, finding its listed word on another family (mlynář → mlýn); for a
+ *   listed word itself the rule line alone (its rhyme would list the word);
  * - `obojetna-i`: after a listed letter, that the word is not listed, shown with its gap (b_lý),
  *   unless the other letter makes another word (b_t: být; nab_t: nabýt; v_sela: vysela); never
- *   the rhyme of y-words, which may hold a look-alike (být for bít); else the rule line;
- * - `parova`, `u-uprostred`: the test word (hrad → hrady, dům → domy), when the point has one;
+ *   the rhyme of y-words, which may hold a look-alike (být for bít); else the rule line with a
+ *   sound-alike pair of other families;
+ * - `parova`, `u-uprostred`: saying another form, on another word of the rule (hrad → hrady,
+ *   dům → domy);
  * - `mne-zajmeno`: the case question; `shoda`: the subject's test, ti, ty, ta for a plural one,
  *   the rule line for several subjects; `vzor`: the pattern;
- * - every other rule: the rule in one line;
+ * - every other rule: the rule in one line, with up to two examples of other families;
  * - classifications: ten, ta, to for the gender; the method of the case, the pattern, the tense,
- *   the mood and the verb form (never the case question or the pattern, which are the answer).
+ *   the mood and the verb form (never the case question or the pattern, which are the answer);
+ * - an odd-one-out set on the listed basis: finding the related listed word, on a family none of
+ *   the set's words belongs to (never the rhyme, which names the set's listed words).
  */
 import type { DeepReadonly } from '@aegis/runtime';
 import { HINT_METHODS, LISTED_LETTERS, codePoints, genderClass } from '../contract';
@@ -24,6 +31,7 @@ import type {
   SpellingRule,
   Word,
 } from '../contract';
+import { familyExample, hintContext, ruleExamples, testWordExample } from './hint-examples';
 import { lexiconIndex, writtenForms } from './index-cache';
 import { gapToken } from './item-info';
 import type { ClassTarget } from './item-info';
@@ -99,14 +107,25 @@ export function gapHint(
   sentence: { parsed: ParsedSentence; gap: Read<SentenceGap> } | null,
 ): Hint {
   const lexicon = lexiconIndex(data);
+  const index = sentence ? sentence.parsed.sentence.gaps.indexOf(sentence.gap) : -1;
+  const context = hintContext(
+    word,
+    point,
+    sentence && index !== -1 ? { parsed: sentence.parsed, gap: index } : null,
+  );
+  /** The rule line, with examples of the rule from other families where any is safe. */
+  const ruleLine = (): Hint => {
+    const examples = ruleExamples(data, context, rule);
+    return examples.length > 0 ? { kind: 'rule', rule, examples } : ruleHint(rule);
+  };
   switch (rule) {
     case 'vyjm': {
+      // A related word: how to find its listed word, on another family (mlynář → mlýn). A listed
+      // word itself (or one of no family): the rule line alone, since its rhyme lists the word.
       const family = word?.family ? lexicon.families.get(word.family.id) : undefined;
-      if (word && family) {
-        if (family.head === word.id && family.letter !== null) {
-          return { kind: 'listed', letter: family.letter };
-        }
-        if (family.head !== word.id) return { kind: 'family', word: word.id, related: family.head };
+      if (word && family && family.letter !== null && family.head !== word.id) {
+        const example = familyExample(data, context);
+        if (example) return { kind: 'family', ...example };
       }
       return ruleHint(rule);
     }
@@ -134,13 +153,14 @@ export function gapHint(
           span: [point.at, point.at + codePoints(point.correct).length],
         };
       }
-      return ruleHint(rule);
+      return ruleLine();
     }
     case 'parova':
-    case 'u-uprostred':
-      return word && point?.test !== undefined
-        ? { kind: 'test-word', word: word.id, test: point.test }
-        : ruleHint(rule);
+    case 'u-uprostred': {
+      // Say another form, shown on another word of the rule (hrad → hrady), never the asked one.
+      const example = testWordExample(data, context, rule);
+      return example ? { kind: 'test-word', ...example } : ruleHint(rule);
+    }
     case 'mne-zajmeno':
       return sentence?.gap.case !== undefined
         ? { kind: 'case-question', case: sentence.gap.case as Case }
@@ -161,8 +181,19 @@ export function gapHint(
       return pattern ? { kind: 'pattern', pattern } : ruleHint(rule);
     }
     default:
-      return ruleHint(rule);
+      return ruleLine();
   }
+}
+
+/**
+ * The hint of an odd-one-out set on the listed basis, drawn for `word` among `shown`: how to find
+ * a word's listed word, on a related word of a family none of the set's words is close to
+ * (mlynář → mlýn), another letter's first; else the rule line. Never the rhyme of the set's
+ * letter: it names the set's listed words, so the odd one would be found by elimination.
+ */
+export function oddListedHint(data: Data, word: Read<Word>, shown: readonly Read<Word>[]): Hint {
+  const example = familyExample(data, hintContext(word, null, null, shown));
+  return example ? { kind: 'family', ...example } : ruleHint('vyjm');
 }
 
 /**

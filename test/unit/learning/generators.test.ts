@@ -63,6 +63,8 @@ import { itemIndex, lexiconIndex } from '../../../src/rules/learning/index-cache
 import type { ParsedSentence } from '../../../src/rules/learning/index-cache';
 import { lagoonPack, miniPack, realPack } from '../../fixtures/rules/packs';
 import { oracle } from '../../traces/support';
+import { expectedFamily, expectedRuleExamples, expectedTestWord } from './hint-oracle';
+import type { Asked } from './hint-oracle';
 
 const lagoon = lagoonPack().data;
 const mini = miniPack().data;
@@ -245,7 +247,9 @@ function matchesFilter(sentence: Sentence, filter: SentenceFilter): boolean {
 
 /**
  * The strategy a gap's hint shows (design §5.3). `inSentence` is the gap's word as its sentence
- * writes it, with each of the gap's alternatives in the gap (none for a word alone).
+ * writes it, with each of the gap's alternatives in the gap (none for a word alone); `index` is
+ * the gap's index in its sentence. A hint that teaches by example shows another word than any of
+ * the problem's (hint-oracle.ts), else the rule line alone.
  */
 function expectedHint(
   data: ContentData,
@@ -255,14 +259,49 @@ function expectedHint(
   gap: SentenceGap | null,
   sentence: Sentence | null,
   inSentence: readonly string[] = [],
+  index = -1,
+): Hint {
+  const key = `${rule} ${word?.id} ${point?.at} ${sentence?.id} ${index}`;
+  let cache = hintCache.get(data);
+  if (cache === undefined) hintCache.set(data, (cache = new Map()));
+  const known = cache.get(key);
+  if (known) return known;
+  const hint = strategyOf(data, rule, word, point, gap, sentence, inSentence, index);
+  cache.set(key, hint);
+  return hint;
+}
+
+const hintCache = new Map<ContentData, Map<string, Hint>>();
+
+function strategyOf(
+  data: ContentData,
+  rule: SpellingRule,
+  word: Word | null,
+  point: SpellingPoint | null,
+  gap: SentenceGap | null,
+  sentence: Sentence | null,
+  inSentence: readonly string[],
+  index: number,
 ): Hint {
   const ruleHint: Hint = { kind: 'rule', rule };
+  const asked: Asked = {
+    word,
+    point,
+    sentence: sentence && index >= 0 ? { sentence, gap: index } : null,
+  };
+  /** The rule line, with examples of other families where any is safe. */
+  const ruleLine = (): Hint => {
+    const examples = expectedRuleExamples(data, rule, asked);
+    return examples.length > 0 ? { kind: 'rule', rule, examples } : ruleHint;
+  };
   switch (rule) {
     case 'vyjm': {
+      // A related word: finding its listed word, shown on another family. A listed word itself:
+      // the rule line alone, since the rhyme of its letter would list it.
       const family = data.lexicon.families.find((f) => f.id === word?.family?.id);
-      if (word === null || family === undefined) return ruleHint;
-      if (family.head !== word.id) return { kind: 'family', word: word.id, related: family.head };
-      return family.letter !== null ? { kind: 'listed', letter: family.letter } : ruleHint;
+      if (word === null || family?.letter == null || family.head === word.id) return ruleHint;
+      const example = expectedFamily(data, asked);
+      return example ? { kind: 'family', ...example } : ruleHint;
     }
     case 'obojetna-i': {
       // After a listed letter: not listed, shown with its gap; never the rhyme of y-words (S3's
@@ -270,7 +309,7 @@ function expectedHint(
       // so wherever the other letter makes another word: the word itself (b_t is být too), a word
       // of its sound-alike family the lexicon may lack (nab_t: nabýt, from být; IJP), or the word
       // as its sentence writes it (v_sela: vysela, of vysít).
-      if (word === null || point === null) return ruleHint;
+      if (word === null || point === null) return ruleLine();
       const raw = rawOf(data);
       const before = [...word.lemma.toLowerCase()][point.at - 1];
       const others = point.alt.map((alt) => respell(word, point, alt));
@@ -291,13 +330,14 @@ function expectedHint(
             word: word.id,
             span: [point.at, point.at + [...point.correct].length],
           }
-        : ruleHint;
+        : ruleLine();
     }
     case 'parova':
-    case 'u-uprostred':
-      return word && point?.test !== undefined
-        ? { kind: 'test-word', word: word.id, test: point.test }
-        : ruleHint;
+    case 'u-uprostred': {
+      // Saying another form, shown on another word of the rule (hrad → hrady), never the asked one.
+      const example = expectedTestWord(data, rule, asked);
+      return example ? { kind: 'test-word', ...example } : ruleHint;
+    }
     case 'mne-zajmeno':
       return gap?.case !== undefined ? { kind: 'case-question', case: gap.case } : ruleHint;
     case 'shoda': {
@@ -313,7 +353,7 @@ function expectedHint(
     case 'vzor':
       return word?.noun?.pattern ? { kind: 'pattern', pattern: word.noun.pattern } : ruleHint;
     default:
-      return ruleHint;
+      return ruleLine();
   }
 }
 
@@ -565,7 +605,16 @@ function sentenceGap(data: ContentData, filled: Filled, index: number, gap: Gap)
     alternatives: parsed.alternatives,
     rule: annotation.rule,
     item: sentenceItem(filled.sentence, index),
-    hint: expectedHint(data, annotation.rule, word, point, annotation, filled.sentence, inSentence),
+    hint: expectedHint(
+      data,
+      annotation.rule,
+      word,
+      point,
+      annotation,
+      filled.sentence,
+      inSentence,
+      index,
+    ),
   };
 }
 
@@ -1554,10 +1603,32 @@ describe('hints (design §5.3)', () => {
   });
   const hint = (data: ContentData, id: string, rule = pointOf(data, id).rule) =>
     gapHint(data, rule, word(data, id), pointOf(data, id), null);
+  /** The hint of gap `index` of a sentence of the game's pack. */
+  const inSentence = (id: string, index = 0) => {
+    const parsed = lexiconIndex(real).sentences.get(id)!;
+    const gap = parsed.sentence.gaps[index]!;
+    const entry = gap.word === null ? null : word(real, gap.word);
+    const point = entry?.spelling?.find((p) => p.at === gap.point) ?? null;
+    return gapHint(real, gap.rule, entry, point, { parsed, gap });
+  };
 
-  it('show the family word for vyjm, the rhyme for a head word', () => {
-    expect(hint(mini, 'mlynaarx')).toEqual({ kind: 'family', word: 'mlynaarx', related: 'mlyyn' });
-    expect(hint(mini, 'mlyyn')).toEqual({ kind: 'listed', letter: 'l' });
+  it('show finding the related listed word on another family for vyjm, the rule line alone for a listed word', () => {
+    // A grade 3 noun of another letter's family (never a function word such as aby): mlynář is
+    // shown bydlení → bydlit, a b word jazýček → jazyk.
+    expect(hint(real, 'mlynaarx')).toEqual({
+      kind: 'family',
+      word: 'bydlenii',
+      related: 'bydlit',
+    });
+    expect(hint(real, 'bydlenii')).toEqual({
+      kind: 'family',
+      word: 'jazyycxek',
+      related: 'jazyk',
+    });
+    // A listed word itself: the rule line alone, since the rhyme of its letter lists it.
+    expect(hint(real, 'mlyyn')).toEqual({ kind: 'rule', rule: 'vyjm' });
+    // The mini pack has no related word of another family: the rule line alone.
+    expect(hint(mini, 'mlynaarx')).toEqual({ kind: 'rule', rule: 'vyjm' });
     const lonely = made('byt', 'byt', {
       spelling: [{ at: 1, correct: 'y', alt: ['i'], rule: 'vyjm' }],
     });
@@ -1565,6 +1636,32 @@ describe('hints (design §5.3)', () => {
       kind: 'rule',
       rule: 'vyjm',
     });
+  });
+
+  it('take no example from the family of another gap’s word: it would give that gap away', () => {
+    // Ml_nář má b_dliště: bydlení → bydlit, mlynář's example alone, would spell the second gap.
+    const text = 'Ml{y|i}nář má b{y|i}dliště u řeky.';
+    const two = {
+      sentence: {
+        id: 's.two',
+        grade: 3,
+        topics: [],
+        text,
+        gaps: [
+          { rule: 'vyjm', word: 'mlynaarx', point: 2 },
+          { rule: 'vyjm', word: 'bydlisxtex', point: 1 },
+        ],
+      },
+      parsed: parseGappedText(text),
+      words: ['Mlynář', 'má', 'bydliště', 'u', 'řeky'],
+    } as unknown as ParsedSentence;
+    const mlynar = word(real, 'mlynaarx');
+    expect(
+      gapHint(real, 'vyjm', mlynar, pointOf(real, 'mlynaarx'), {
+        parsed: two,
+        gap: two.sentence.gaps[0]!,
+      }),
+    ).toEqual({ kind: 'family', word: 'bylinka', related: 'bylina' });
   });
 
   it('say after a listed letter that an obojetna-i word is not listed, shown with its gap, never the rhyme of y-words', () => {
@@ -1578,19 +1675,21 @@ describe('hints (design §5.3)', () => {
       word: 'biilyy',
       span: [1, 2],
     });
-    // b_t is být too, a listed word: the rule line, which tells such words apart by meaning.
+    // b_t is být too, a listed word: the rule line, which tells such words apart by meaning, with
+    // a sound-alike pair of other families (the y-word first). The mini pack has none but být
+    // and bít, bít's own: the rule line alone.
+    expect(hint(real, 'biit')).toEqual({
+      kind: 'rule',
+      rule: 'obojetna-i',
+      examples: ['bydlo', 'bidlo'],
+    });
     expect(hint(mini, 'biit')).toEqual({ kind: 'rule', rule: 'obojetna-i' });
-    // After f, which lists no words: the rule line.
+    // After f, which lists no words, or without a word: the rule line, with být, bít there.
     const fialka = made('fialka', 'fialka');
     const point: SpellingPoint = { at: 1, correct: 'i', alt: ['y'], rule: 'obojetna-i' };
-    expect(gapHint(mini, 'obojetna-i', fialka, point, null)).toEqual({
-      kind: 'rule',
-      rule: 'obojetna-i',
-    });
-    expect(gapHint(mini, 'obojetna-i', null, null, null)).toEqual({
-      kind: 'rule',
-      rule: 'obojetna-i',
-    });
+    const pair: Hint = { kind: 'rule', rule: 'obojetna-i', examples: ['být', 'bít'] };
+    expect(gapHint(mini, 'obojetna-i', fialka, point, null)).toEqual(pair);
+    expect(gapHint(mini, 'obojetna-i', null, null, null)).toEqual(pair);
   });
 
   it('in the game, give the rule line to the obojetna-i words whose other letter makes another word', () => {
@@ -1640,15 +1739,68 @@ describe('hints (design §5.3)', () => {
     expect(changed).toEqual(['alike.25 rule']);
   });
 
-  it('show a test word for parova and u-uprostred', () => {
-    expect(hint(lagoon, 'hrad')).toEqual({ kind: 'test-word', word: 'hrad', test: 'hrady' });
-    expect(hint(lagoon, 'zub')).toEqual({ kind: 'test-word', word: 'zub', test: 'zuby' });
-    expect(hint(lagoon, 'duom')).toEqual({ kind: 'test-word', word: 'duom', test: 'domy' });
+  it('show saying another form for parova and u-uprostred, on another word of the rule', () => {
+    // Another deciding letter first (hrad: d, so zub → zuby), never the asked word's own test.
+    expect(hint(lagoon, 'hrad')).toEqual({ kind: 'test-word', word: 'zub', test: 'zuby' });
+    expect(hint(lagoon, 'zub')).toEqual({ kind: 'test-word', word: 'hrad', test: 'hrady' });
+    expect(hint(lagoon, 'duom')).toEqual({ kind: 'test-word', word: 'stuol', test: 'stoly' });
+    // S6's dub: had → hadi, a test that is a form of its word before a related word's (hádka →
+    // hádat); dům and kůň, whose points have no test, show the other's form with o.
+    expect(hint(real, 'dub')).toEqual({ kind: 'test-word', word: 'had', test: 'hadi' });
+    expect(hint(real, 'duom')).toEqual({ kind: 'test-word', word: 'kuonx', test: 'koně' });
+    expect(hint(real, 'kuonx')).toEqual({ kind: 'test-word', word: 'duom', test: 'domu' });
+    // The asked point's own test does not matter; with no other word of the rule, the rule line.
     const untested: SpellingPoint = { at: 3, correct: 'd', alt: ['t'], rule: 'parova' };
-    expect(gapHint(lagoon, 'parova', word(lagoon, 'hrad'), untested, null)).toEqual({
+    expect(gapHint(lagoon, 'parova', word(lagoon, 'hrad'), untested, null)).toEqual(
+      hint(lagoon, 'hrad'),
+    );
+    expect(hint(mini, 'pes')).toEqual({ kind: 'rule', rule: 'parova' });
+  });
+
+  it('show a rule line its examples: other names than the sentence’s, other families, no look-alike', () => {
+    // capitals.06, Řeka V_ltava teče přes P_rahu: neither name, nor Alík (_l, like Vltava).
+    expect(inSentence('capitals.06')).toEqual({
       kind: 'rule',
-      rule: 'parova',
+      rule: 'velke-pismeno',
+      examples: ['Brno', 'Bublinka'],
     });
+    expect(hint(real, 'petr')).toEqual({
+      kind: 'rule',
+      rule: 'velke-pismeno',
+      examples: ['Alík', 'Brno'],
+    });
+    // úkryt and příjemně look like úkol and jemně around the gap (S3's rule); jemně has one.
+    expect(hint(real, 'uukol')).toEqual({
+      kind: 'rule',
+      rule: 'u-zacatek',
+      examples: ['úhoř', 'úlovek'],
+    });
+    expect(hint(real, 'jemnex')).toEqual({ kind: 'rule', rule: 'mne', examples: ['pomněnka'] });
+    // rozkaz (z): prefixes with d first.
+    expect(hint(real, 'rozkaz')).toEqual({
+      kind: 'rule',
+      rule: 'predpona-souhlaska',
+      examples: ['nadpis', 'odpočinek'],
+    });
+    // One written together and one apart, of other sentences; the standard form, then the
+    // colloquial one, of another sentence.
+    expect(inSentence('prefix.01')).toEqual({
+      kind: 'rule',
+      rule: 'predpona-predlozka',
+      examples: ['podplula', 'do zátoky'],
+    });
+    expect(inSentence('register.01')).toEqual({
+      kind: 'rule',
+      rule: 'spisovne',
+      examples: ['okno', 'vokno'],
+    });
+    expect(inSentence('register.09')).toEqual({
+      kind: 'rule',
+      rule: 'spisovne',
+      examples: ['velký', 'velkej'],
+    });
+    // The lagoon's neúplný is its only u-predpona word: the rule line alone.
+    expect(hint(lagoon, 'neuuplnyy')).toEqual({ kind: 'rule', rule: 'u-predpona' });
   });
 
   it('show the case question for mne-zajmeno, ti-ty-ta for one plural subject of shoda and the rule for several, the pattern for vzor', () => {
@@ -1722,8 +1874,10 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the rule in one line otherwise', () => {
-    const strategies: readonly SpellingRule[] = [
+  it('show the rule line alone for the rules of a sound or a syllable, a punctuation mark or a conjunction', () => {
+    // Their lines name no word to imitate, and for interpunkce and spojka an example would be the
+    // answer itself (S3).
+    const exampled: readonly SpellingRule[] = [
       'vyjm',
       'obojetna-i',
       'parova',
@@ -1731,12 +1885,21 @@ describe('hints (design §5.3)', () => {
       'mne-zajmeno',
       'shoda',
       'vzor',
+      'velke-pismeno',
+      'u-zacatek',
+      'u-predpona',
+      'vyjm-prefix',
+      'predpona-souhlaska',
+      'bje-vje',
+      'mne',
+      'predpona-predlozka',
+      'spisovne',
     ];
     let checked = 0;
-    for (const data of [lagoon, mini]) {
+    for (const data of [lagoon, mini, real]) {
       for (const entry of data.lexicon.words) {
         for (const point of entry.spelling ?? []) {
-          if (strategies.includes(point.rule)) continue;
+          if (exampled.includes(point.rule)) continue;
           expect(gapHint(data, point.rule, entry, point, null), entry.id).toEqual({
             kind: 'rule',
             rule: point.rule,
@@ -1745,6 +1908,16 @@ describe('hints (design §5.3)', () => {
         }
       }
     }
-    expect(checked).toBeGreaterThan(40);
+    for (const parsed of lexiconIndex(real).sentences.values()) {
+      for (const gap of parsed.sentence.gaps) {
+        if (gap.rule !== 'interpunkce' && gap.rule !== 'spojka') continue;
+        expect(gapHint(real, gap.rule, null, null, { parsed, gap })).toEqual({
+          kind: 'rule',
+          rule: gap.rule,
+        });
+        checked++;
+      }
+    }
+    expect(checked).toBeGreaterThan(100);
   });
 });

@@ -451,31 +451,47 @@ choices and pad keys, letters type, Enter confirms, Backspace deletes.
 ### 5.3 Hints: the strategy
 
 A `hint` shows the strategy, not just the answer. Hints are free, never reduce rewards, and come on
-request (_Poraď mi!_), after a miss, before a re-ask and before a taught problem (§6.4).
+request (_Poraď mi!_), after a miss, before a re-ask and before a taught problem (§6.4). A hint
+never shows the asked word, a revealing form of it or a member of its family: it teaches the method
+on another word of the same rule and another family, none of the problem's words (for names, none
+the sentence holds), chosen from the lexicon, the same every time; where no word is safe, the rule
+line alone.
 
-| Hint            | Shows                                   | Example                                                    |
-| --------------- | --------------------------------------- | ---------------------------------------------------------- |
-| `family`        | a related word that proves the spelling | _mlýn → mlynář_; _zapomenout → zapomněl_                   |
-| `test-word`     | a form that makes the sound clear       | _hrad → hrady_, _led → ledy_, _dům → domy_                 |
-| `listed`        | the school rhyme of a letter            | _být, bydlit, obyvatel, byt, příbytek…_                    |
-| `ten-ta-to`     | the gender test; for a plural subject   | _ten pes, ta ryba, to moře_; _ti, ty, ta_                  |
-| `case-question` | the case question                       | _komu? čemu? → Dej to mně._                                |
-| `pattern`       | the pattern and its ending              | _o hradech, o strojích_                                    |
-| `rule`          | the rule in one line                    | _Po h, ch, k, r, d, t, n píšeme y._                        |
-| `method`        | how to find the answer, step by step    | _the case questions in turn_                               |
-| `not-listed`    | the word is not listed, with its gap    | _Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._ |
+| Hint            | Shows                                         | Example                                                              |
+| --------------- | --------------------------------------------- | -------------------------------------------------------------------- |
+| `family`        | finding the related listed word, on another   | _Najdi příbuzné vyjmenované slovo, třeba bydlení → bydlit._          |
+| `test-word`     | saying another form, on another word          | _Řekni si jiný tvar slova, třeba hrad → hrady._                      |
+| `listed`        | the school rhyme of a letter (no longer made) | _být, bydlit, obyvatel, byt, příbytek…_                              |
+| `ten-ta-to`     | the gender test; for a plural subject         | _ten pes, ta ryba, to moře_; _ti, ty, ta_                            |
+| `case-question` | the case question                             | _komu? čemu? → Dej to mně._                                          |
+| `pattern`       | the pattern and its ending                    | _o hradech, o strojích_                                              |
+| `rule`          | the rule in one line, examples of others      | _Vlastní jména píšeme s velkým písmenem. Například: Brno, Bublinka._ |
+| `method`        | how to find the answer, step by step          | _the case questions in turn_                                         |
+| `not-listed`    | the word is not listed, with its gap          | _Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._           |
 
-`vyjm` uses the family word (the rhyme for a head word); `obojetna-i` after a listed letter says the
+`vyjm` shows, for a related word, finding the listed word on another family, a grade 3 noun of
+another letter first (_bydlení → bydlit_ for _ml_nář_), and the rule line alone for a listed word
+itself (the rhyme would list it; Perlový náhrdelník teaches the rhyme); `obojetna-i` after a listed
+letter says the
 word is not listed, shown with its gap, never spelled out (not the rhyme: it lists only y-words, and
 a look-alike in it, _být_ for _bít_, would confirm the slip), and elsewhere the rule line, as
 wherever the other letter makes another word: the word itself (_b_t_ is _být_ too), a word of its
 sound-alike family the lexicon may lack (_nab_t_: _nabýt_, from _být_; IJP decides prefixed verbs
 from _být_ and _bít_ by meaning), or the word as its sentence writes it (_v_sela_: _vysela_, of
-_vysít_), since the rule line tells such words apart by their meaning; `parova`
-and `u-uprostred` a test word, `mne-zajmeno` the case question, `shoda` the subject's test, _ti, ty,
+_vysít_), since the rule line tells such words apart by their meaning, with a sound-alike pair of
+other families (_Například: bydlo, bidlo._); `parova`
+and `u-uprostred` another word's test form (another letter first, so the example never hands over
+the letter: _had → hadi_ when _dub_ is asked, _chléb → chleba_ when _hrad_ is), `mne-zajmeno` the
+case question, `shoda` the subject's test, _ti, ty,
 ta_ for a plural subject (_ti psi, ty kočky_; _ten, ta, to_ would give _to dítě_ for _děti_), and
 the rule line for several subjects (_delfíni a želvy_), which are not decided word by word; `vzor`
-the pattern, the rest the rule. Classifications show the gender test, or the method of the case,
+the pattern, the rest the rule, with up to two examples of other families where its line teaches by
+example (names, _ú_ at the start and after a prefix, _vy-/vý-_, the prefixes' _d_ and _z_, _bje/vje_,
+_mně_, a prefix or a preposition, standard Czech: _Například: velký, ne velkej._), never a word that
+only looks like the asked one around its gap (_měkkýš_ for _měkký_, _výhra_ for _vyhrát_). An
+odd-one-out set on the listed basis shows finding the related listed word on a family none of its
+words is close to, never the rhyme, which would name its listed words and leave the odd one by
+elimination. Classifications show the gender test, or the method of the case,
 the pattern, the tense, the mood or the verb form (`grammar.method.<method>`): never the case
 question or the pattern, which name the answer. A sound-alike relation shows how such words differ.
 
@@ -657,7 +673,8 @@ next problem.
 A miss is re-asked about **3 problems later** _(`reask.delay`)_, at most **2 a round**
 _(`reask.maxPerRound`)_, strategy first, in a fresh problem (the word alone where possible); leaving
 the round cancels it. **Teach, then ask** (`teach`; not in the race or the placement check): the
-first problem of each listed family (its rhyme line first), of each classification (_ten, ta, to_
+first problem of each listed family (Perlový náhrdelník, which opens its lesson, threads the rhyme),
+of each classification (_ten, ta, to_
 before the first gender, a case's question before that case), of each 4th-grade rule (`bje-vje`,
 `mne`, `mne-zajmeno`, `predpona-predlozka`, `predpona-souhlaska`, `shoda`, `vzor`, `spisovne`) and
 of each sentence rule (`interpunkce`, `spojka`); an item a board credited has been met. The 2nd-grade

@@ -563,9 +563,11 @@ a Lov chyb, an odd one out, a related word). Read-aloud says a gap as a pause, n
 A miss is "Skoro!" with the right answer and the strategy that helps; nothing is ever lost.
 Nápověda asks the rules once a problem (they take one hint each); a later tap shows it again. A
 hint shown before a miss is said once: the miss's feedback carries its line, and the hint's own box
-gives way. A hint is a strategy, never the answer: a related word, a test form, a listed-words
-rhyme, _ten, ta, nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern,
-a rule, a method to follow (S3's `grammar.method.*` lines), or a word that is not listed with its
+gives way. A hint is a strategy, never the answer nor the asked word: a related listed word or a
+test form shown on another word (_Najdi příbuzné vyjmenované slovo, třeba bydlení → bydlit._),
+_ten, ta, nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern,
+a rule with up to two examples of other words (_Například: Brno, Bublinka._; _Například: velký, ne
+velkej._), a method to follow (S3's `grammar.method.*` lines), or a word that is not listed with its
 gap blanked (_Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._). Punctuation the rules
 give beside a sentence's words (`marks`: _Delfíne, skoč!_) follows each word outside the highlight
 and the word buttons, and is read aloud with it.

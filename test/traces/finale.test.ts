@@ -45,10 +45,12 @@ vi.setConfig({ testTimeout: 300_000 });
  * this trace (seed `golden-finales`, the finale fixture on the lagoon fixture 0.1.0); re-pinned
  * when the Krakatice's battle count became the design's 40 (the contract allowed 30 before), and
  * the trajectory when Lov chyb's punctuation moved from its tokens into `marks`
- * (be8a19c3a1fdddce before; folding the marks back into the tokens gives it again).
+ * (be8a19c3a1fdddce before; folding the marks back into the tokens gives it again) and when hints
+ * took their examples from other families (f68a7cb0c42ecaf2 before; with every hint neutralized,
+ * the old and the new rules both give d90aea382003ed47).
  */
 const GOLDEN_HASH = '65c4e9180da5809d';
-const GOLDEN_TRAJECTORY = 'f68a7cb0c42ecaf2';
+const GOLDEN_TRAJECTORY = '9d7acb3bd68638ec';
 
 const SEED = 'golden-finales';
 const EGG = 'krab-tvrdak';

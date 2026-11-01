@@ -720,6 +720,46 @@
       "kind": "hyponyms",
       "general": "naastroj",
       "specific": ["kytara", "housle", "buben", "fleetna"]
+    },
+    {
+      "id": "ant.smutny-radostny",
+      "kind": "antonyms",
+      "words": ["smutnyy", "radostnyy"]
+    },
+    {
+      "id": "ant.vesely-zarmouceny",
+      "kind": "antonyms",
+      "words": ["veselyy", "zarmoucenyy"]
+    },
+    {
+      "id": "ant.konec-pocatek",
+      "kind": "antonyms",
+      "words": ["konec", "pocxaatek"]
+    },
+    {
+      "id": "ant.maly-veliky",
+      "kind": "antonyms",
+      "words": ["malyy", "velikyy"]
+    },
+    {
+      "id": "ant.velky-drobny",
+      "kind": "antonyms",
+      "words": ["velkyy", "drobnyy"]
+    },
+    {
+      "id": "ant.pomaly-hbity",
+      "kind": "antonyms",
+      "words": ["pomalyy", "hbityy"]
+    },
+    {
+      "id": "ant.radostny-zarmouceny",
+      "kind": "antonyms",
+      "words": ["radostnyy", "zarmoucenyy"]
+    },
+    {
+      "id": "ant.veliky-drobny",
+      "kind": "antonyms",
+      "words": ["velikyy", "drobnyy"]
     }
   ]
 }

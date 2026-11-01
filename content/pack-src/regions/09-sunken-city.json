@@ -505,7 +505,7 @@
       "generator": "spell.word",
       "params": {
         "words": {
-          "words": ["pomnexnka", "jemnex"],
+          "words": ["pomnexnka", "jemnex", "prxiijemnex", "skromnex", "rozumnex", "tajemnex"],
           "grades": [3, 4]
         },
         "rules": ["mne"],

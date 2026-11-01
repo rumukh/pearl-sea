@@ -128,6 +128,14 @@
         { "form": "vysel", "word": "vysiit" },
         { "form": "visel", "word": "viset" }
       ]
+    },
+    {
+      "id": "alike.opylovat-opilovat",
+      "kind": "sound-alikes",
+      "forms": [
+        { "form": "opylovat", "word": "opylovat" },
+        { "form": "opilovat", "word": "opilovat" }
+      ]
     }
   ],
   "sentences": [

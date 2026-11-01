@@ -1134,6 +1134,51 @@ export function checkLexicon(options = {}) {
     }
   }
 
+  // Synonyms and antonyms are closed: a synonym of a synonym is a synonym, and a synonym of an
+  // antonym is an antonym. Otherwise a relation problem could offer a second right answer as a
+  // wrong one (smutný × veselý, veselý = radostný, so smutný × radostný).
+  {
+    /** @type {Map<string, Set<string>>} */
+    const synonyms = new Map();
+    /** @type {Map<string, Set<string>>} */
+    const antonyms = new Map();
+    /** @param {Map<string, Set<string>>} map @param {string} a @param {string} b */
+    const link = (map, a, b) => {
+      if (!map.has(a)) map.set(a, new Set());
+      map.get(a)?.add(b);
+    };
+    for (const { data } of topics) {
+      for (const set of data.sets ?? []) {
+        const ids = set.words ?? [];
+        if (set.kind === 'synonyms') {
+          for (const a of ids) for (const b of ids) if (a !== b) link(synonyms, a, b);
+        } else if (set.kind === 'antonyms' && ids.length === 2) {
+          link(antonyms, ids[0], ids[1]);
+          link(antonyms, ids[1], ids[0]);
+        }
+      }
+    }
+    const reported = new Set();
+    /** @param {string} kind @param {string} a @param {string} c @param {string} via */
+    const missing = (kind, a, c, via) => {
+      const key = [kind, ...[a, c].sort()].join('|');
+      if (reported.has(key)) return;
+      reported.add(key);
+      fail(
+        `${kind} ${a}`,
+        `"${c}" is a synonym of "${via}": record ${a} ${kind === 'synonyms' ? '=' : '×'} ${c} as ${kind}`,
+      );
+    };
+    for (const [a, bs] of synonyms)
+      for (const b of bs)
+        for (const c of synonyms.get(b) ?? [])
+          if (c !== a && !synonyms.get(a)?.has(c)) missing('synonyms', a, c, b);
+    for (const [a, bs] of antonyms)
+      for (const b of bs)
+        for (const c of synonyms.get(b) ?? [])
+          if (!antonyms.get(a)?.has(c)) missing('antonyms', a, c, b);
+  }
+
   // ---------------------------------------------------------------------------------------------
   // Sentences
 

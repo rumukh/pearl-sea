@@ -1,6 +1,6 @@
 {
   "id": "pearl-sea",
-  "revision": "1.2.3",
+  "revision": "1.2.4",
   "schemaVersion": 1,
   "data": {
     "grades": [
@@ -3268,6 +3268,8 @@
               "eva",
               "aliik",
               "ferda",
+              "bublinka.ponorka",
+              "osmicxka.profesorka",
               "vltava",
               "praha",
               "cxesko",
@@ -3305,7 +3307,6 @@
               "obydlii",
               "bydlo",
               "obyyvacii",
-              "pobyt",
               "byyvat",
               "ubytovat",
               "bystrxina",
@@ -3714,7 +3715,18 @@
         "generator": "spell.word",
         "params": {
           "words": {
-            "words": ["petr", "eva", "aliik", "ferda", "vltava", "praha", "cxesko", "snexzxka"],
+            "words": [
+              "petr",
+              "eva",
+              "aliik",
+              "ferda",
+              "bublinka.ponorka",
+              "osmicxka.profesorka",
+              "vltava",
+              "praha",
+              "cxesko",
+              "snexzxka"
+            ],
             "grades": [3]
           },
           "rules": ["velke-pismeno"],
@@ -3940,7 +3952,11 @@
               "liipa",
               "klid",
               "list",
-              "lisxka"
+              "lisxka",
+              "bitva",
+              "bidlo",
+              "liinyy",
+              "pliice"
             ],
             "grades": [3]
           },
@@ -4000,7 +4016,6 @@
               "obydlii",
               "bydlo",
               "obyyvacii",
-              "pobyt",
               "byyvat",
               "ubytovat",
               "bystrxina",
@@ -4028,7 +4043,6 @@
               "obydlii",
               "bydlo",
               "obyyvacii",
-              "pobyt",
               "byyvat",
               "ubytovat",
               "bystrxina",
@@ -4083,7 +4097,7 @@
         "generator": "spell.word",
         "params": {
           "words": {
-            "words": ["biilyy", "obilii", "rozbiit", "nabiit", "biit", "bitva", "bidlo"],
+            "words": ["biilyy", "obilii", "rozbiit", "biit", "bitva", "bidlo"],
             "grades": [3]
           },
           "rules": ["obojetna-i"],
@@ -4128,7 +4142,8 @@
               "alike.05",
               "alike.18",
               "alike.20",
-              "alike.21"
+              "alike.21",
+              "vyjm-b.35"
             ],
             "grades": [3]
           },
@@ -4839,7 +4854,10 @@
               "mince",
               "piisek",
               "piraat",
-              "piirko"
+              "piirko",
+              "milyy",
+              "smiich",
+              "pilnyy"
             ],
             "grades": [3]
           },
@@ -6784,8 +6802,8 @@
               "verbs.04",
               "verbs.05",
               "verbs.06",
-              "verbs.07",
-              "verbs.08"
+              "verbs.31",
+              "verbs.32"
             ],
             "grades": [3]
           },
@@ -6811,15 +6829,15 @@
               "verbs.05",
               "verbs.06",
               "verbs.07",
-              "verbs.08",
               "verbs.09",
-              "verbs.10",
               "verbs.11",
               "verbs.12",
               "verbs.13",
               "verbs.14",
               "verbs.15",
-              "verbs.16"
+              "verbs.16",
+              "verbs.31",
+              "verbs.32"
             ],
             "grades": [3]
           },
@@ -6839,15 +6857,15 @@
           "sentences": {
             "sentences": [
               "verbs.07",
-              "verbs.08",
               "verbs.09",
-              "verbs.10",
               "verbs.11",
               "verbs.12",
               "verbs.13",
               "verbs.14",
               "verbs.15",
-              "verbs.16"
+              "verbs.16",
+              "verbs.31",
+              "verbs.32"
             ],
             "grades": [3]
           },
@@ -6904,7 +6922,6 @@
               "kind.08",
               "kind.09",
               "kind.10",
-              "kind.11",
               "kind.12",
               "kind.13",
               "kind.14",
@@ -7664,7 +7681,10 @@
         "strand": "prefixes",
         "generator": "spell.word",
         "params": {
-          "words": { "words": ["pomnexnka", "jemnex"], "grades": [3, 4] },
+          "words": {
+            "words": ["pomnexnka", "jemnex", "prxiijemnex", "skromnex", "rozumnex", "tajemnex"],
+            "grades": [3, 4]
+          },
           "rules": ["mne"],
           "maxGaps": 1,
           "choices": 2
@@ -8447,19 +8467,16 @@
           "sentences": {
             "sentences": [
               "verbs.17",
-              "verbs.18",
               "verbs.19",
               "verbs.20",
               "verbs.21",
               "verbs.22",
-              "verbs.23",
               "verbs.24",
               "verbs.25",
               "verbs.26",
               "verbs.27",
               "verbs.28",
-              "verbs.29",
-              "verbs.30"
+              "verbs.29"
             ],
             "grades": [3, 4]
           },
@@ -8507,14 +8524,11 @@
           "sentences": {
             "sentences": [
               "verbs.17",
-              "verbs.18",
               "verbs.19",
-              "verbs.20",
               "verbs.21",
               "verbs.22",
               "verbs.23",
               "verbs.24",
-              "verbs.25",
               "verbs.26",
               "verbs.27",
               "verbs.28",
@@ -8780,7 +8794,6 @@
               "agree.02",
               "agree.03",
               "agree.04",
-              "agree.05",
               "agree.06",
               "agree.07",
               "agree.08",
@@ -9201,8 +9214,7 @@
           "sk.lagoon.letters-both",
           "sk.lagoon.abc",
           "sk.lagoon.bpvm",
-          "sk.lagoon.capitals",
-          "sk.lagoon.capital-mistakes"
+          "sk.lagoon.capitals"
         ],
         "monster": "murena-mumla"
       },
@@ -14857,7 +14869,7 @@
           "id": "blyyskavice",
           "lemma": "blýskavice",
           "pos": "noun",
-          "grade": 3,
+          "grade": 4,
           "topics": ["vyjmenovana-l"],
           "tags": [],
           "src": ["ijp-100", "morfflex"],
@@ -15003,6 +15015,40 @@
                 "bubliny",
                 "bublinách",
                 "bublinami"
+              ]
+            }
+          }
+        },
+        {
+          "id": "bublinka",
+          "lemma": "bublinka",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["capitals"],
+          "tags": [],
+          "src": ["ssjc", "morfflex"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": [
+                "bublinka",
+                "bublinky",
+                "bublince",
+                "bublinku",
+                "bublinko",
+                "bublince",
+                "bublinkou"
+              ],
+              "pl": [
+                "bublinky",
+                "bublinek",
+                "bublinkám",
+                "bublinky",
+                "bublinky",
+                "bublinkách",
+                "bublinkami"
               ]
             }
           }
@@ -18872,6 +18918,62 @@
           "spelling": [{ "at": 1, "correct": "í", "alt": ["ý"], "rule": "obojetna-i" }]
         },
         {
+          "id": "liiska",
+          "lemma": "líska",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["vyjmenovana-l"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": ["líska", "lísky", "lísce", "lísku", "lísko", "lísce", "lískou"],
+              "pl": ["lísky", "lísek", "lískám", "lísky", "lísky", "lískách", "lískami"]
+            }
+          }
+        },
+        {
+          "id": "liizat",
+          "lemma": "lízat",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-l"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "verb": {
+            "aspect": "impf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "lízat",
+              "pres": [
+                ["lízám", "lížu"],
+                ["lízáš", "lížeš"],
+                ["lízá", "líže"],
+                ["lízáme", "lížeme"],
+                ["lízáte", "lížete"],
+                ["lízají", "lížou"]
+              ],
+              "imp": [
+                ["lízej", "liž"],
+                ["lízejme", "ližme"],
+                ["lízejte", "ližte"]
+              ],
+              "past": {
+                "m": "lízal",
+                "f": "lízala",
+                "n": "lízalo",
+                "ma": "lízali",
+                "mi": "lízaly",
+                "fpl": "lízaly",
+                "npl": "lízala"
+              }
+            }
+          }
+        },
+        {
           "id": "list",
           "lemma": "list",
           "pos": "noun",
@@ -19592,6 +19694,33 @@
           },
           "family": { "id": "fam.miit", "role": "head" },
           "spelling": [{ "at": 1, "correct": "í", "alt": ["ý"], "rule": "obojetna-i" }]
+        },
+        {
+          "id": "miivat",
+          "lemma": "mívat",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-m"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "verb": {
+            "aspect": "impf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "mívat",
+              "pres": ["mívám", "míváš", "mívá", "míváme", "míváte", "mívají"],
+              "imp": ["mívej", "mívejme", "mívejte"],
+              "past": {
+                "m": "míval",
+                "f": "mívala",
+                "n": "mívalo",
+                "ma": "mívali",
+                "mi": "mívaly",
+                "fpl": "mívaly",
+                "npl": "mívala"
+              }
+            }
+          }
         },
         {
           "id": "mile",
@@ -22068,6 +22197,40 @@
           "src": ["morfflex"]
         },
         {
+          "id": "opilovat",
+          "lemma": "opilovat",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-p"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "verb": {
+            "aspect": "pf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "opilovat",
+              "pres": [
+                ["opiluji", "opiluju"],
+                "opiluješ",
+                "opiluje",
+                "opilujeme",
+                "opilujete",
+                "opilují"
+              ],
+              "imp": ["opiluj", "opilujme", "opilujte"],
+              "past": {
+                "m": "opiloval",
+                "f": "opilovala",
+                "n": "opilovalo",
+                "ma": "opilovali",
+                "mi": "opilovaly",
+                "fpl": "opilovaly",
+                "npl": "opilovala"
+              }
+            }
+          }
+        },
+        {
           "id": "opylovat",
           "lemma": "opylovat",
           "pos": "verb",
@@ -22102,6 +22265,32 @@
           },
           "family": { "id": "vyjm-p.pyl", "role": "related" },
           "spelling": [{ "at": 2, "correct": "y", "alt": ["i"], "rule": "vyjm" }]
+        },
+        {
+          "id": "osmicxka",
+          "lemma": "osmička",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["capitals"],
+          "tags": [],
+          "src": ["ssjc", "morfflex"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": ["osmička", "osmičky", "osmičce", "osmičku", "osmičko", "osmičce", "osmičkou"],
+              "pl": [
+                "osmičky",
+                "osmiček",
+                "osmičkám",
+                "osmičky",
+                "osmičky",
+                "osmičkách",
+                "osmičkami"
+              ]
+            }
+          }
         },
         {
           "id": "osmicxka.profesorka",
@@ -24148,6 +24337,16 @@
           "spelling": [{ "at": 4, "correct": "y", "alt": ["i"], "rule": "vyjm" }]
         },
         {
+          "id": "prxiijemnex",
+          "lemma": "příjemně",
+          "pos": "adv",
+          "grade": 4,
+          "topics": ["e-caron"],
+          "tags": [],
+          "src": ["ijp-126", "morfflex"],
+          "spelling": [{ "at": 6, "correct": "ně", "alt": ["ě"], "rule": "mne" }]
+        },
+        {
           "id": "prxiimorxskyy",
           "lemma": "přímořský",
           "pos": "adj",
@@ -25044,6 +25243,16 @@
           "spelling": [{ "at": 4, "correct": "y", "alt": ["i"], "rule": "vyjm" }]
         },
         {
+          "id": "rozumnex",
+          "lemma": "rozumně",
+          "pos": "adv",
+          "grade": 4,
+          "topics": ["e-caron"],
+          "tags": [],
+          "src": ["ijp-126", "morfflex"],
+          "spelling": [{ "at": 5, "correct": "ně", "alt": ["ě"], "rule": "mne" }]
+        },
+        {
           "id": "rozzxvyykat",
           "lemma": "rozžvýkat",
           "pos": "verb",
@@ -25608,6 +25817,16 @@
           }
         },
         {
+          "id": "skromnex",
+          "lemma": "skromně",
+          "pos": "adv",
+          "grade": 4,
+          "topics": ["e-caron"],
+          "tags": [],
+          "src": ["ijp-126", "morfflex"],
+          "spelling": [{ "at": 5, "correct": "ně", "alt": ["ě"], "rule": "mne" }]
+        },
+        {
           "id": "skrxiinx",
           "lemma": "skříň",
           "pos": "noun",
@@ -25654,6 +25873,33 @@
           "topics": ["parts-of-speech"],
           "tags": ["sea"],
           "src": ["morfflex"]
+        },
+        {
+          "id": "slepit",
+          "lemma": "slepit",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-p"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "verb": {
+            "aspect": "pf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "slepit",
+              "pres": ["slepím", "slepíš", "slepí", "slepíme", "slepíte", "slepí"],
+              "imp": ["slep", "slepme", "slepte"],
+              "past": {
+                "m": "slepil",
+                "f": "slepila",
+                "n": "slepilo",
+                "ma": "slepili",
+                "mi": "slepily",
+                "fpl": "slepily",
+                "npl": "slepila"
+              }
+            }
+          }
         },
         {
           "id": "slepyysx",
@@ -26979,6 +27225,16 @@
           "src": ["morfflex"]
         },
         {
+          "id": "tajemnex",
+          "lemma": "tajemně",
+          "pos": "adv",
+          "grade": 4,
+          "topics": ["e-caron"],
+          "tags": [],
+          "src": ["ijp-126", "morfflex"],
+          "spelling": [{ "at": 5, "correct": "ně", "alt": ["ě"], "rule": "mne" }]
+        },
+        {
           "id": "tam",
           "lemma": "tam",
           "pos": "adv",
@@ -28149,6 +28405,51 @@
             }
           },
           "spelling": [{ "at": 1, "correct": "ě", "alt": ["je"], "rule": "be-pe-ve-me" }]
+        },
+        {
+          "id": "vexdext",
+          "lemma": "vědět",
+          "pos": "verb",
+          "grade": 3,
+          "topics": ["vyjmenovana-v"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "verb": {
+            "aspect": "impf",
+            "reflexive": null,
+            "paradigm": {
+              "inf": "vědět",
+              "pres": ["vím", "víš", "ví", "víme", "víte", "vědí"],
+              "imp": ["věz", "vězme", "vězte"],
+              "past": {
+                "m": "věděl",
+                "f": "věděla",
+                "n": "vědělo",
+                "ma": "věděli",
+                "mi": "věděly",
+                "fpl": "věděly",
+                "npl": "věděla"
+              }
+            }
+          }
+        },
+        {
+          "id": "vexta",
+          "lemma": "věta",
+          "pos": "noun",
+          "grade": 3,
+          "topics": ["e-caron"],
+          "tags": [],
+          "src": ["morfflex", "ssc"],
+          "noun": {
+            "gender": "f",
+            "numbers": "both",
+            "pattern": "zena",
+            "paradigm": {
+              "sg": ["věta", "věty", "větě", "větu", "věto", "větě", "větou"],
+              "pl": ["věty", "vět", "větám", "věty", "věty", "větách", "větami"]
+            }
+          }
         },
         {
           "id": "vidext",
@@ -32606,14 +32907,15 @@
           "id": "e-caron.37",
           "grade": 4,
           "topics": ["e-caron"],
-          "text": "Dej {mně|mě} tu mušli, prosím.",
+          "text": "Tu mušli dej {mně|mě}, ne krabovi.",
           "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }],
           "tokens": [
-            { "t": "Dej" },
-            { "t": "mně", "word": "jaa", "pos": "pron" },
-            { "t": "tu" },
+            { "t": "Tu" },
             { "t": "mušli" },
-            { "t": "prosím" }
+            { "t": "dej" },
+            { "t": "mně", "word": "jaa", "pos": "pron" },
+            { "t": "ne" },
+            { "t": "krabovi" }
           ]
         },
         {
@@ -32688,12 +32990,14 @@
           "id": "e-caron.43",
           "grade": 4,
           "topics": ["e-caron"],
-          "text": "Delfín {mně|mě} pomohl.",
+          "text": "Delfín pomohl {mně|mě}, ne tobě.",
           "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }],
           "tokens": [
             { "t": "Delfín" },
+            { "t": "pomohl" },
             { "t": "mně", "word": "jaa", "pos": "pron" },
-            { "t": "pomohl" }
+            { "t": "ne" },
+            { "t": "tobě" }
           ]
         },
         {
@@ -34782,10 +35086,11 @@
           "id": "prefix.12",
           "grade": 4,
           "topics": ["prefixes"],
-          "text": "Na otázku neznám o{d|t}pověď.",
+          "text": "Na tuhle otázku neznám o{d|t}pověď.",
           "gaps": [{ "rule": "predpona-souhlaska", "word": "odpovexdx", "point": 1 }],
           "tokens": [
             { "t": "Na" },
+            { "t": "tuhle" },
             { "t": "otázku" },
             { "t": "neznám" },
             { "t": "odpověď", "word": "odpovexdx", "pos": "noun", "gender": "f" }
@@ -36139,10 +36444,10 @@
           "id": "kind.19",
           "grade": 3,
           "topics": ["sentences"],
-          "text": "Ať najdeš tu nejkrásnější perlu{!|?}",
+          "text": "Kéž najdeš tu nejkrásnější perlu{!|?}",
           "gaps": [{ "rule": "interpunkce", "word": null }],
           "tokens": [
-            { "t": "Ať" },
+            { "t": "Kéž" },
             { "t": "najdeš", "word": "najiit", "pos": "verb", "member": "predicate" },
             { "t": "tu" },
             { "t": "nejkrásnější" },
@@ -36156,10 +36461,10 @@
           "id": "kind.20",
           "grade": 3,
           "topics": ["sentences"],
-          "text": "Ať vyhraješ závod s delfíny{!|?}",
+          "text": "Kéž vyhraješ závod s delfíny{!|?}",
           "gaps": [{ "rule": "interpunkce", "word": null }],
           "tokens": [
-            { "t": "Ať" },
+            { "t": "Kéž" },
             { "t": "vyhraješ", "word": "vyhraat", "pos": "verb", "member": "predicate" },
             { "t": "závod" },
             { "t": "s" },
@@ -36250,7 +36555,7 @@
           "id": "conj.05",
           "grade": 3,
           "topics": ["sentences"],
-          "text": "Krab plaval ke břehu, {ale|protože} vlny ho vracely.",
+          "text": "Krab plaval ke břehu, {ale|protože} vlny ho vracely zpátky.",
           "gaps": [{ "rule": "spojka", "word": "ale" }],
           "tokens": [
             { "t": "Krab" },
@@ -36260,7 +36565,8 @@
             { "t": "ale", "word": "ale", "pos": "conj" },
             { "t": "vlny" },
             { "t": "ho" },
-            { "t": "vracely", "member": "predicate" }
+            { "t": "vracely", "member": "predicate" },
+            { "t": "zpátky" }
           ],
           "kind": "statement",
           "predicates": [1, 7],
@@ -37714,6 +38020,49 @@
             { "t": "jsme" },
             { "t": "se" },
             { "t": "plavat" }
+          ]
+        },
+        {
+          "id": "verbs.31",
+          "grade": 3,
+          "topics": ["verbs"],
+          "text": "Zítra půjdeme k moři.",
+          "gaps": [],
+          "tokens": [
+            { "t": "Zítra" },
+            {
+              "t": "půjdeme",
+              "word": "jiit",
+              "pos": "verb",
+              "number": "pl",
+              "person": 1,
+              "tense": "future",
+              "mood": "indicative"
+            },
+            { "t": "k" },
+            { "t": "moři" }
+          ]
+        },
+        {
+          "id": "verbs.32",
+          "grade": 3,
+          "topics": ["verbs"],
+          "text": "Racek zítra poletí k ostrovu.",
+          "gaps": [],
+          "tokens": [
+            { "t": "Racek" },
+            { "t": "zítra" },
+            {
+              "t": "poletí",
+              "word": "letext",
+              "pos": "verb",
+              "number": "sg",
+              "person": 3,
+              "tense": "future",
+              "mood": "indicative"
+            },
+            { "t": "k" },
+            { "t": "ostrovu" }
           ]
         },
         {
@@ -40619,7 +40968,15 @@
           ["texzxkyy", "lehkyy"],
           ["silnyy", "slabyy"],
           ["dobryy", "zlyy"],
-          ["leeto", "zima"]
+          ["leeto", "zima"],
+          ["smutnyy", "radostnyy"],
+          ["veselyy", "zarmoucenyy"],
+          ["konec", "pocxaatek"],
+          ["malyy", "velikyy"],
+          ["velkyy", "drobnyy"],
+          ["pomalyy", "hbityy"],
+          ["radostnyy", "zarmoucenyy"],
+          ["velikyy", "drobnyy"]
         ],
         "hierarchies": [
           {
@@ -40657,7 +41014,8 @@
           [
             { "word": "vysiit", "form": "vysel" },
             { "word": "viset", "form": "visel" }
-          ]
+          ],
+          ["opylovat", "opilovat"]
         ]
       }
     }

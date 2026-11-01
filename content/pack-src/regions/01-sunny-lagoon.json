@@ -606,7 +606,18 @@
       "generator": "spell.word",
       "params": {
         "words": {
-          "words": ["petr", "eva", "aliik", "ferda", "vltava", "praha", "cxesko", "snexzxka"],
+          "words": [
+            "petr",
+            "eva",
+            "aliik",
+            "ferda",
+            "bublinka.ponorka",
+            "osmicxka.profesorka",
+            "vltava",
+            "praha",
+            "cxesko",
+            "snexzxka"
+          ],
           "grades": [3]
         },
         "rules": ["velke-pismeno"],
@@ -816,13 +827,7 @@
       "nameKey": "friend.zelva-obojka",
       "mnemonicKey": "friend.zelva-obojka.mnemonic",
       "region": "sunny-lagoon",
-      "skills": [
-        "sk.lagoon.letters-both",
-        "sk.lagoon.abc",
-        "sk.lagoon.bpvm",
-        "sk.lagoon.capitals",
-        "sk.lagoon.capital-mistakes"
-      ],
+      "skills": ["sk.lagoon.letters-both", "sk.lagoon.abc", "sk.lagoon.bpvm", "sk.lagoon.capitals"],
       "monster": "murena-mumla"
     }
   ],

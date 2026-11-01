@@ -31,12 +31,15 @@ describe('the problem sampler', () => {
     expect(first.files.get('battles.md'), 'Muréna Mumla’s battle').toContain('Muréna Mumla');
   }, 120_000);
 
-  it('asks led, whose t spells the word let, only in a sentence', async () => {
+  it('asks led (let) and the names Bublinka and Osmička only in a sentence', async () => {
     const { files } = await sampleProblems({ regions: ['sunny-lagoon'], perSkill: 20, boards: 0 });
     const lagoon = files.get('01-sunny-lagoon.md') ?? '';
     expect(lagoon).toContain('věta paired.03: Moře pokryl tenký le[1].');
     expect(lagoon, 'never led alone').not.toContain('slovo: le[1]');
+    expect(lagoon).toContain('věta capitals.04: Ponorka [1]ublinka se ponořila.');
+    expect(lagoon).toContain('věta capitals.05: Profesorka [1]smička učí malé rybky.');
     expect(lagoon, 'never Bublinka alone').not.toContain('slovo: [1]ublinka');
+    expect(lagoon, 'never Osmička alone').not.toContain('slovo: [1]smička');
     expect(lagoon, 'no single word an option turns into another word').not.toContain('(bez věty!)');
   }, 120_000);
 });

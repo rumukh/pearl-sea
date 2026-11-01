@@ -374,9 +374,11 @@ order: a pending beat; the first friend's choice (`first-friend`, answered with
 `chooseFirstFriend`); the placement check (a 4th grader who has not done it); **Svačinka** for
 hungry friends and the basket at the start of the day; the next glowing level until one is done
 today; a minigame for variety once (`startLevel { level, activity }`, which never completes a level
-again; it replays the finished board whose items are most due, which is how items only boards train
-are reviewed, §6.5); the **treasure chest** once the daily goal is met; Svačinka again while an item
-is starving; the next level again **while today's success is at least 70 %** (pacing; below it the
+again; it replays the finished board whose items wait most, due or never met, which is how items
+only boards train are reviewed and first met, §6.5; on a day with no level to play it comes only
+when such items wait); the **treasure chest** once the daily goal is met; Svačinka again while an
+item is starving, and a board while an item only boards train is starving (at most three boards a
+day); the next level again **while today's success is at least 70 %** (pacing; below it the
 adventure reviews the last three finished levels instead, and a level under way always continues);
 then free play. After the goal the friends get **sleepy** (an expression, never a lock). A time
 limit set by the grown-ups ends the round gently (`endRound{ reason: 'time-limit' }`).
@@ -607,7 +609,8 @@ As in Dragon Valley: the success band is 70-85 %, with a target of **82 %** _(`m
 between 10 and 50 % with the last 20 answers. **Protecting success** below 70 %: likeliest
 successes first, smaller snacks, reviews and re-asks by choice, no further new levels that day.
 **Review guarantee**: a known item (box 2+) 4 days past its review is _starving_ and comes first
-everywhere; Svačinka comes before new levels.
+everywhere (a board threads it first); Svačinka comes before new levels, and for an item only
+boards train a board does.
 **No repeats** within 2 problems _(`noRepeatWithin`)_, a word's items counting as one; new here,
 sound-alike partners are never served back to back unless one problem shows both. Skills
 interleave. **The focus egg**: learning draws prefer the chosen egg's never-right items while it is
@@ -669,7 +672,8 @@ region's, except for Delfín Skokánek: his skills include the 4th-grade verbs a
 boards train (`abc:`, `pair:`, `seg:`, `fam:`, and consonant letters no classification asks) are
 never served as single problems: they count for growth and shine in the Great Shell, a friend is
 hungry only for items Svačinka can serve, and the daily adventure's variety minigame reviews them
-by replaying the board whose items are most due (§4.2). **Open point** (raised with the
+by replaying the board whose items wait most (§4.2); each board threads its own skill's words,
+starving ones first, then the chosen egg's, then the ones due or never met. **Open point** (raised with the
 coordinator): keeping Dragon Valley's adult rule for `grown` may leave friends babies for weeks;
 the learner simulation measures the time to `grown` before v1.
 

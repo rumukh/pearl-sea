@@ -85,10 +85,18 @@ export function earnedStage(
   return stage;
 }
 
-/** Grow every owned friend whose earned stage is above its current one (never shrink). */
+/**
+ * Grow every owned friend whose earned stage is above its current one (never shrink). The chosen
+ * first friend goes first, so when one step hatches several eggs, the child's own egg hatches
+ * first (as first tastes and the boards' focus warm it first).
+ */
 export function applyGrowth(ctx: Ctx, index: Index): void {
   const day = ctx.state.day ?? 0;
-  for (const friend of ctx.content.data.friends) {
+  const first = ctx.state.onboarding.firstFriend;
+  const friends = [...ctx.content.data.friends].sort(
+    (a, b) => Number(b.id === first) - Number(a.id === first),
+  );
+  for (const friend of friends) {
     const owned = ctx.state.friends[friend.id];
     if (!owned) continue;
     const earned = earnedStage(ctx.state, ctx.content.data, friend, index);

@@ -6,14 +6,16 @@
  * lesson 1 or the monster) and the other lagoon eggs arrive. The adventure then goes to the deep:
  * Měsíční jeskyně 1, where Kořínek's egg arrives with the welcome and **hatches in this first
  * session**, while the chosen lagoon egg stays an egg. On the next days the child follows the
- * daily adventure (Svačinka, the level, the chest): Svačinka's first tastes serve the chosen
- * egg's items first, and the chosen lagoon egg **hatches in a later session**, in Svačinka, before
- * the other lagoon eggs.
+ * daily adventure (Svačinka, a board, the chest): Svačinka's first tastes serve the chosen egg's
+ * items first, the day's board (the placed lessons' nets, whose letters the child never met)
+ * threads her letters first, and the chosen lagoon egg **hatches in a later session**, before the
+ * other lagoon eggs (a step that hatches several eggs hatches the child's own first).
  *
  * Named checks come first; the golden hash and trajectory are change detectors checked last.
  */
 import { afterAll, describe, expect, it, vi } from 'vitest';
 import { pearlSeaAdapter } from '../../src/rules/adapter';
+import { isMinigameKind } from '../../src/rules/contract';
 import type { GameView } from '../../src/rules/contract';
 import { itemIndex, itemsOf } from '../../src/rules/learning/index-cache';
 import { PERFECT, Player, trajectoryDigest } from './support';
@@ -22,8 +24,8 @@ import type { Adapter } from './support';
 vi.setConfig({ testTimeout: 300_000 });
 
 /** Pinned literals (docs/testing.md, "When a golden moves"). */
-const GOLDEN_HASH = 'cb5e99994bbee78a';
-const GOLDEN_TRAJECTORY = '053034008200b2ad';
+const GOLDEN_HASH = '1cdbe9207ad8b207';
+const GOLDEN_TRAJECTORY = '7f5244ab2c0888bb';
 
 const SEED = 'golden-fourth-grader';
 const EGG = 'zelva-obojka';
@@ -215,8 +217,12 @@ function checks(o: Observation): Record<string, boolean> {
       o.hatches.some((h) => h.friend === KORINEK && h.day === DAYS[0]),
     'the chosen lagoon egg did not hatch in the first session':
       o.stageAfterFirstSession[EGG] === 'egg' && !first.hatched.includes(EGG),
-    'the chosen lagoon egg hatched in a later session, in Svačinka':
-      eggHatch !== undefined && eggHatch.day > DAYS[0]! && eggHatch.activity === 'snack',
+    'the chosen lagoon egg hatched in a later session, after Svačinka’s first tastes':
+      eggHatch !== undefined &&
+      eggHatch.day > DAYS[0]! &&
+      eggHatch.activity !== null &&
+      (eggHatch.activity === 'snack' || isMinigameKind(eggHatch.activity)) &&
+      tastesBeforeHatch.length > 0,
     'the chosen lagoon egg hatched before the other lagoon eggs': lagoonHatches[0]?.friend === EGG,
     "Svačinka's first tastes served the chosen egg's items before the others'":
       tastesBeforeHatch.length > 0 &&
@@ -255,7 +261,9 @@ describe('mutation checks: the named checks fail when a capability is missing', 
   it('without Svačinka the chosen lagoon egg does not hatch', async () => {
     const observation = await play(pearlSeaAdapter, SEED, { snacks: false });
     const failed = failedChecks(observation);
-    expect(failed).toContain('the chosen lagoon egg hatched in a later session, in Svačinka');
+    expect(failed).toContain(
+      'the chosen lagoon egg hatched in a later session, after Svačinka’s first tastes',
+    );
     expect(failed).not.toContain(
       "Kořínek's egg came with the deep and hatched in the first session",
     );

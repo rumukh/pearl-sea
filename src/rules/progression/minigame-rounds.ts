@@ -12,15 +12,40 @@ import { EVENTS } from '../contract';
 import type { MinigameActivityKind, MinigameRound, RoundSource } from '../contract';
 import { creditItem } from '../learning/credit';
 import { itemsOf } from '../learning/index-cache';
-import { focusItems } from '../learning/selection';
+import { isDue } from '../learning/items';
+import { focusItems, starving } from '../learning/selection';
 import { earnCoins } from '../economy/rewards';
 import { MINIGAMES, boardCredits, makeBoard } from '../minigames/boards';
 import { ROUND_ALLOWANCE } from './problems';
-import type { Ctx, Index, ReadState } from '../types';
+import type { Ctx, Data, Index, ReadState } from '../types';
 
 export function activeMinigameRound(ctx: Ctx): MinigameRound | null {
   const round = ctx.state.round;
   return round !== null && round.type === 'minigame' && round.status === 'active' ? round : null;
+}
+
+/**
+ * What a board threads first: starving items (the review guarantee: first everywhere, design
+ * §6.3); else an egg's items it never answered right (hatching, the chosen egg first,
+ * `focusItems`); else the items waiting for a board, due or never answered, since items only
+ * boards train are reviewed and first met only on boards.
+ */
+export function boardFocus(
+  state: ReadState,
+  data: Data,
+  index: Index,
+  pool: readonly string[],
+): string[] | null {
+  const day = state.day ?? 0;
+  const starved = pool.filter((item) => starving(state.items[item], day));
+  if (starved.length > 0) return starved;
+  const eggs = focusItems(state, data, index, pool);
+  if (eggs !== null) return eggs;
+  const waiting = pool.filter((item) => {
+    const record = state.items[item];
+    return record === undefined || isDue(record, day);
+  });
+  return waiting.length > 0 ? waiting : null;
 }
 
 function nextBoard(
@@ -45,7 +70,7 @@ function nextBoard(
     board,
     boards: round.boards,
     pool,
-    focus: focusItems(ctx.state, data, index, pool),
+    focus: boardFocus(ctx.state, data, index, pool),
     skills: data.skills.filter((skill) => round.skills.includes(skill.id)),
     previous,
     state: ctx.state,

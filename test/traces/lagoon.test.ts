@@ -25,8 +25,8 @@ import type { Recorded, Served, Style } from './support';
 vi.setConfig({ testTimeout: 300_000 });
 
 /** Pinned literals (docs/testing.md, "When a golden moves"). */
-const GOLDEN_HASH = '32e7fe046c47fe78';
-const GOLDEN_TRAJECTORY = '6001e3b5dfeadf7a';
+const GOLDEN_HASH = '3e39d1b03b1f527c';
+const GOLDEN_TRAJECTORY = 'd2aa58e91b187117';
 
 const SEED = 'slice-b';
 const LESSONS = [

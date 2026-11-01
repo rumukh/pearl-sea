@@ -130,9 +130,11 @@ the activity's draw. `mix` rounds take likely successes (due and known items, bo
 items in the learning share, which moves between `mix.minLearningShare` and `maxLearningShare` with
 the success of the last `mix.window` answers against `successTarget`; below 70 % recent success
 (`LOW_SUCCESS`) the likeliest successes come first, snacks are shorter and reviews and re-asks are
-asked by choice. A starving item (box 2+, 4 days past due) is the first choice whenever a round
-draws a due or known item; Svačinka's first tastes and a mixed round's learning draws keep their
-turns (as in Dragon Valley). `weakest` takes the
+asked by choice; Svačinka serves its likeliest successes first already below `successTarget`
+(`belowTarget`), since most answers are its reviews once levels pile up. A starving item (box 2+, 4
+days past due) is the first choice whenever a round draws a due or known item; Svačinka's first
+tastes and a mixed round's learning draws keep their turns (as in Dragon Valley). `weakest` takes
+the
 least mastered items. **The focus egg**: learning draws prefer the never-right items of the chosen
 first egg while it is an egg (then the oldest egg's), among eggs the round practises; the placement
 check warms it on every other problem. **No repeats**: an item never comes back within
@@ -173,11 +175,18 @@ its tastes.
 check while pending; Svačinka at the start of the day; the next glowing level until one is done
 today; once a day a board replay, for variety after a level or, on a day without one, while a
 finished board's items wait (the board with the most items waiting: due, or board-only and never
-answered); the chest once the goal is reached; the review guarantee: Svačinka while an item it
-serves starves, and a board while a board-only item starves (the board with the most of them, at
-most `STARVING_BOARDS` 3 boards a day, so an item a board cannot thread never fills the day); more
+answered); the chest once the goal is reached; the review guarantee: a board while a board-only
+item starves (the board with the most of them, at most `STARVING_BOARDS` 6 boards a day, so an item
+a board cannot thread never fills the day), then Svačinka while an item it serves starves; more
 levels while today's success is at least 70 % (a level under way always continues), else a review
 (Svačinka, or an activity of the last three finished levels, rotating); then free play.
+
+**Pacing** (`levelsHeld`, design §4.2): new levels, the day's first too, wait while recent success
+is below 70 % (`lowSuccess`) or more than `BACKLOG_LIMIT` 40 items Svačinka can serve are due
+(`reviewBacklog`), except on the first day of practice and every `PACE_EVERY`-th (3rd) day
+(`daysPracticed`), so every child moves on at least every third day and a 4th grader's first lesson
+follows the placement check. A held day offers Svačinka or a review instead; a level under way is
+never held.
 
 **The race** opens after `race.unlockAfter`: known items first (box 2+, then any answered right
 before), at most `race.maxProblems`, single gaps on the letter pad, ended by the shell with
@@ -244,7 +253,7 @@ word's `fam:` item too, so every item of a family skill can be learned.
 ## 9. Sea friends, the economy and the story
 
 A friend's set is the union of its skills' items (`friendSet`). Growth follows `balance.growth`
-(baby at 30 % seen, grown at 80 % silver with its monster freed, crowned at 100 % gold with its
+(baby at 30 % seen, grown at 70 % bronze with its monster freed, crowned at 100 % gold with its
 monster freed); friends never shrink. A hatched friend is hungry when `hungry.minDue` of its
 servable items are due. Coins come only from playing (§4, stars, monsters, ambushes, quests, the
 chest, the placement check, story rewards); U Mrože sells what `cosmetic.unlock` has opened, each

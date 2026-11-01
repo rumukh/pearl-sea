@@ -1,9 +1,10 @@
 /**
  * The daily adventure's big button (`hub.next`, design §4.2): new levels in order while the day
- * goes well, the treasure chest as soon as the daily goal is met, Svačinka first on a new day, the
- * next level once a day even after a hard start, a minigame for variety once, and below 70 % of
- * today's answers right a review of the last finished levels instead of anything new, though a
- * level under way always continues; free play when nothing is left.
+ * goes well, the treasure chest as soon as the daily goal is met, Svačinka first on a new day, a
+ * minigame for variety once, and below 70 % of today's answers right a review of the last
+ * finished levels instead of anything new, though a level under way always continues; after a
+ * hard day new levels wait (pacing) until the third day of practice; free play when nothing is
+ * left. test/unit/progression/pacing.test.ts covers the pacing rules one by one.
  */
 import { describe, expect, it, vi } from 'vitest';
 import type { NextStep } from '../../../src/rules/contract';
@@ -112,17 +113,25 @@ describe('a hard day', () => {
     await player.dispose();
   });
 
-  it('starts the next day with Svačinka, then one new level, then a minigame for variety, then reviews', async () => {
+  it('holds new levels after a hard day, reviewing instead, and brings one on the third day of practice', async () => {
     const player = new Player(HALF, 'adventure');
     await player.begin('krab-tvrdak');
     await player.playLevel('sunny-lagoon.1');
     await player.act({ type: 'startSession', day: '2026-11-03' });
     await player.settleStory();
-    const day = await follow(player, 4);
-    expect(day.map((d) => d.step).slice(0, 2)).toEqual(['snack', 'level:sunny-lagoon.2']);
-    expect(day[2]!.step).toMatch(/^replay:/);
-    expect(['pearl-necklace', 'fishing-nets', 'memory-match']).toContain(day[2]!.activity);
-    expect(day[3]!.step === 'snack' || day[3]!.step.startsWith('replay:')).toBe(true);
+    const second = await follow(player, 4);
+    const steps = second.map((d) => d.step);
+    expect(steps[0], 'Svačinka first').toBe('snack');
+    expect(
+      steps.every((step) => step === 'snack' || step.startsWith('replay:')),
+      `day 2 reviews: ${steps.join(', ')}`,
+    ).toBe(true);
+    await player.act({ type: 'startSession', day: '2026-11-04' });
+    await player.settleStory();
+    const third = (await follow(player, 2)).map((d) => d.step);
+    expect(third, 'the third day of practice brings the next level').toContain(
+      'level:sunny-lagoon.2',
+    );
     expect(player.failures).toEqual([]);
     await player.dispose();
   });

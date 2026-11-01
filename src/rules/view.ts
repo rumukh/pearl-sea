@@ -41,7 +41,7 @@ import type {
 import { itemIndex, itemSkills, itemsOf, perPack, sortText } from './learning/index-cache';
 import { itemLabel } from './learning/item-info';
 import { MASTERY_RANK, atLeast, isDue, masteryLevel, polishedToday } from './learning/items';
-import { lowToday, starving } from './learning/selection';
+import { lowSuccess, lowToday, starving } from './learning/selection';
 import { MINIGAMES, boardView } from './minigames/boards';
 import { completedGrades } from './progression/grades';
 import {
@@ -88,12 +88,15 @@ export function firstFriendChoices(data: Data): string[] {
  * there is something to snack on (a hungry friend, or due items in Osmička's basket), the next
  * glowing level until one is done today, then once a day a board replay (for variety after a
  * level, or because a finished board's items wait: due, or never met), the chest once the goal is
- * reached, then the review guarantee: Svačinka while a known item it can serve is starving, a
- * board while a known item only boards train is starving (at most `STARVING_BOARDS` boards a
- * day), and more new levels unless today's success is below 70 % (`lowToday`; a level already
- * under way is always continued). Below it the adventure reviews instead: Svačinka when there is
- * something to snack on, else a replay of an activity of the last finished levels. Then free
- * play. Pacing only chooses the suggestion: every open level stays playable from the map.
+ * reached, then the review guarantee: a board while a known item only boards train is starving
+ * (at most `STARVING_BOARDS` boards a day), Svačinka while a known item it can serve is starving,
+ * and more new levels unless today's success is below 70 % (`lowToday`; a level already under way
+ * is always continued). Below it the adventure reviews instead: Svačinka when there is something
+ * to snack on, else a replay of an activity of the last finished levels. Then free play.
+ *
+ * **Pacing** (`levelsHeld`): new levels, the day's first too, wait while recent success is below
+ * the band or the reviews pile up, except on the first day of practice and every `PACE_EVERY`-th
+ * day. Pacing only chooses the suggestion: every open level stays playable from the map.
  */
 function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): NextStep {
   if (state.story.pending !== null) return { kind: 'story', beat: state.story.pending };
@@ -110,7 +113,9 @@ function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): N
   if (snack && daily !== null && daily.answers === 0) return { kind: 'snack', friend: null };
   const levelsToday = daily?.levels ?? 0;
   const level = nextLevel(state, data);
-  if (level !== null && levelsToday === 0) return { kind: 'level', level };
+  const underway = level !== null && state.run?.level === level;
+  const held = !underway && levelsHeld(state, data);
+  if (level !== null && levelsToday === 0 && !held) return { kind: 'level', level };
   if (daily !== null && daily.minigames === 0) {
     // Once a day a board: for variety after a level, and on any day when a finished board's items
     // wait for it (items only boards train are reviewed and first met so, design §6.5).
@@ -120,17 +125,17 @@ function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): N
     }
   }
   if (daily?.chest === 'ready') return { kind: 'chest' };
-  const underway = level !== null && state.run?.level === level;
-  // The review guarantee: known items four days past their review are fed before anything new.
-  if (!underway && snack && anyStarving(state, data)) return { kind: 'snack', friend: null };
+  // The review guarantee: known items four days past their review are fed before anything new,
+  // those only boards train by their boards first (a board threads them), then Svačinka.
   if (!underway && (daily?.minigames ?? 0) < STARVING_BOARDS) {
     const starved = starvingReplay(state, data, index);
     if (starved !== null) {
       return { kind: 'minigame', level: starved.level, activity: starved.activity };
     }
   }
+  if (!underway && snack && anyStarving(state, data)) return { kind: 'snack', friend: null };
   if (level === null) return { kind: 'free-play' };
-  if (underway || !lowToday(state)) return { kind: 'level', level };
+  if (underway || (!lowToday(state) && !held)) return { kind: 'level', level };
   if (snack) return { kind: 'snack', friend: null };
   const review = reviewReplay(state, data, index) ?? minigameReplay(state, data, index);
   return review !== null
@@ -139,10 +144,42 @@ function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): N
 }
 
 /**
+ * Items due for review (answered right before, their review day come, and servable by Svačinka)
+ * above which new levels wait (pacing, design §4.2): the reviews come first while they pile up.
+ */
+export const BACKLOG_LIMIT = 40;
+
+/** Every `PACE_EVERY`-th day of practice brings a new level all the same (design §4.2). */
+export const PACE_EVERY = 3;
+
+/** The review backlog: items Svačinka can serve whose review day has come. */
+export function reviewBacklog(state: ReadState, data: Data): number {
+  const day = state.day ?? 0;
+  const servable = servableItems(data);
+  let due = 0;
+  for (const [item, record] of Object.entries(state.items)) {
+    if (servable.has(item) && isDue(record, day)) due += 1;
+  }
+  return due;
+}
+
+/**
+ * Pacing (design §4.2): whether new levels wait today, because recent success is below the band
+ * (`lowSuccess`) or more than `BACKLOG_LIMIT` items are due. The first day of practice never
+ * waits (a 4th grader's first lesson, and Kořínek's hatching, follows the placement check, whose
+ * misses would hold it, design §4.1), nor does every `PACE_EVERY`-th day, which brings a new level
+ * all the same (`daysPracticed` counts today from the day's first session).
+ */
+export function levelsHeld(state: ReadState, data: Data): boolean {
+  if (state.daysPracticed <= 1 || state.daysPracticed % PACE_EVERY === 0) return false;
+  return lowSuccess(state, data) || reviewBacklog(state, data) > BACKLOG_LIMIT;
+}
+
+/**
  * Boards a day at most that the review guarantee asks for (design §6.3): enough to feed the items
  * only boards train once they starve, and a bound if a board cannot thread one of them.
  */
-export const STARVING_BOARDS = 3;
+export const STARVING_BOARDS = 6;
 
 /** The finished levels, the furthest first, whose activities a low day's review rotates through. */
 export const REVIEW_LEVELS = 3;

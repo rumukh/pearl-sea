@@ -20,8 +20,10 @@
  * after bít), so the pair is told apart by meaning, not by memory of the last answer.
  *
  * Below the success band (recent success under `LOW_SUCCESS`) the mix protects the child's
- * success: a due item missed last time counts as a learning item (`mixTier`), and due reviews,
- * learning draws and snacks serve the likeliest successes first (`likely`).
+ * success: a due item missed last time counts as a learning item (`mixTier`), and due reviews and
+ * learning draws serve the likeliest successes first (`likely`). Svačinka does so already below
+ * the mix's target (`belowTarget`): most of a child's answers are its reviews once the levels
+ * pile up, and the most overdue first would hold success at the band's lower edge.
  *
  * The review guarantee comes before both orders: a known item (box 2+) that has waited
  * `STARVING_DAYS` past its review day is `starving` and is the next review wherever reviews are
@@ -111,6 +113,16 @@ export function lowToday(state: ReadState): boolean {
 export function lowSuccess(state: ReadState, data: Data): boolean {
   const success = recentSuccess(state, data);
   return success !== null && success < LOW_SUCCESS;
+}
+
+/**
+ * Whether recent success is below the mix's target (`mix.successTarget`): Svačinka then serves
+ * the likeliest successes first (design §6.3), so a long review backlog does not hold the child at
+ * the band's lower edge.
+ */
+export function belowTarget(state: ReadState, data: Data): boolean {
+  const success = recentSuccess(state, data);
+  return success !== null && success < data.balance.mix.successTarget;
 }
 
 /** Whether the last answer to the item was a miss. */

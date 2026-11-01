@@ -55,6 +55,17 @@ UI playtest of main `8d6b61d` found PS-QA-15 to PS-QA-18.
 - **S2's rule changes for S3's language QA** (in progress, S2): reflexive _se_ and _si_,
   punctuation marks, and hints that gave the answer away. To verify once they land, in the problem
   sampler's output and the walks.
+- **Baseline for the hints** (main `75cd107`, content 1.2.5; a browser probe that opened Nápověda
+  on every gap problem of six adventures each for a 3rd grader after four lagoon lessons and a
+  placed 4th grader, Edge): 41 hints, 32 rule lines and 9 test words ("Zkus si říct: …"), none
+  empty or with a raw key. 14 spell out the very word being asked:
+  - rule lines whose examples are the asked word: "Vlastní jména píšeme s velkým písmenem: Petr,
+    Alík, Praha, Vltava." while asking for Alík, Petr or Praha; "… Často se střídá s o: dům –
+    domy." for dům; "Po předponě píšeme ú stejně jako na začátku slova: neúspěch." for neúspěch;
+  - test words written out with the answer in them: "Zkus si říct: duby." for dub, and hadi,
+    hrady, krabi, ledy (by design of the method; whether to write them is S2's and S3's call).
+
+  The same probe, rerun when S2's change lands, shows what changed.
 
 ## Not in the slice yet (not defects)
 

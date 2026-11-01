@@ -70,12 +70,23 @@ function extent(page: Page): Promise<Extent> {
   }));
 }
 
-/** At each landscape size the page needs no scrolling either way (reported, the walk goes on). */
+/**
+ * At each landscape size the page needs no scrolling either way (reported, the walk goes on). A
+ * browser may take some frames to carry a resize into its viewport units (headless Chromium on
+ * Linux kept the last height's `100dvh` floor for a moment), so a size that overflows gets up to a
+ * second to settle before it counts.
+ */
 async function fits(page: Page, where: string): Promise<void> {
+  const overflows = (seen: Extent): boolean =>
+    seen.height > seen.window.height || seen.width > seen.window.width;
   for (const size of LANDSCAPE) {
     await page.setViewportSize(size);
     await painted(page);
-    const seen = await extent(page);
+    let seen = await extent(page);
+    for (let waited = 0; overflows(seen) && waited < 1000; waited += 100) {
+      await page.waitForTimeout(100);
+      seen = await extent(page);
+    }
     const at = `${where} at ${size.width} × ${size.height}`;
     expect.soft(seen.height, `${at} needs page scrolling`).toBeLessThanOrEqual(seen.window.height);
     expect.soft(seen.width, `${at} scrolls sideways`).toBeLessThanOrEqual(seen.window.width);

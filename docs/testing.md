@@ -24,14 +24,16 @@ after one fails, and records each step in `.verify-report.json` (never committed
 4. **format**: Prettier (LF everywhere);
 5. **content**: `scripts/validate-content.mjs --strict-coverage`: catalogs and their variant
    convention, Czech typography, reading-font coverage and English for every grown-ups' string; the
-   curriculum's coverage (every objective of curriculum.md needs a lesson and a monster level); and,
-   once S3 ships the pack, the pack under the domain contract (with the lexicon's linguistic
-   checks), its strings, its history, its coverage and its agreement with curriculum.md; art
-   references once S5 publishes the art catalog ([architecture.md](architecture.md) §3);
-6. **test**: Vitest (unit and tooling now; trace, simulation and migration later). The run is
+   curriculum's coverage (every objective of curriculum.md needs a lesson and a monster level); the
+   pack under the domain contract (with the lexicon's linguistic checks), its strings, its history,
+   its coverage and its agreement with curriculum.md; art references once S5 publishes the art
+   catalog ([architecture.md](architecture.md) §3);
+6. **lexicon**: `scripts/lexicon/check.mjs`: the word bank's linguistic checks
+   ([lexicon.md](lexicon.md) §1);
+7. **test**: Vitest (unit and tooling now; trace, simulation and migration later). The run is
    audited: every `*.test.ts` file under `test/` outside `test/e2e/` must have run, nothing may be
    skipped or left as todo, every test must pass and at least one must;
-7. **lockfile**: every registry URL in `package-lock.json` is `https://registry.npmjs.org/`.
+8. **lockfile**: every registry URL in `package-lock.json` is `https://registry.npmjs.org/`.
 
 `node scripts/verify.mjs --only <prefix>` runs the steps whose ID starts with the prefix
 (`npm run typecheck` runs the four typecheck steps) and writes no record. CI audits the record again
@@ -69,7 +71,7 @@ understand why the hash moved, then pin the new literals and write the reason an
 values in the commit message. Content changes move the golden because the pack's hash is part of
 every snapshot: `npm run content:bump -- <revision>` gives the change its own revision and archives
 the deployed pack in `content/history/`; then pin the new revision's content hash in `REVISIONS`
-(`test/unit/contract/content.test.ts`, planned with the pack) and re-pin the traces. An SDK update
+(`test/unit/content/pack.test.ts`) and re-pin the traces. An SDK update
 can move goldens too ([sdk-update.md](sdk-update.md)).
 
 ## 3. What each test folder is for
@@ -134,6 +136,14 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   each objective in its grade's sea, gives Krakatice one arm per strand, agrees with design.md on
   every level (one monster level per region, lessons numbered 1..n) and, once the pack exists, with
   the pack on every level's objectives.
+- `test/unit/content/pack.test.ts`: the content pack validates, is the build of its sources
+  (`content/pack-src/pack.json` and the word bank) and is pinned by content hash (`REVISIONS`, as
+  Dragon Valley's `content.test.ts`); every archived revision stays unchanged, valid and with its
+  catalog keys; the authoring rules of [content.md](content.md) §3 hold (listed words and sentences
+  serve their skills, sentence gaps keep to the skill's rules, every skill is practised, ambiguous
+  points are taught in sentences, friends' sets are fed by problems and small enough to hatch).
+- `test/tooling/lexicon-check.test.ts`: the word bank passes the lexicon checker, each planted
+  linguistic fault is reported, and the exit codes are right ([lexicon.md](lexicon.md) §1).
 - `test/tooling/vendor-sdk.test.ts`: exactly one vendored version, recorded as a clean build of the
   pinned commit; each tarball matches both `artifacts.json` and the literal pin; `package.json`,
   `package-lock.json` and `node_modules` name exactly this set.
@@ -147,8 +157,6 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
 
 ### Planned evidence
 
-- **Contract with the real pack** (S3): the pack's revisions pinned by content hash (`REVISIONS`),
-  as Dragon Valley's `content.test.ts` does.
 - **Generators and distractors** (S2): exhaustive over the lexicon: every word and skill yields a
   valid problem; distractors are unique and never the answer.
 - **Lexicon** (S3): each linguistic check of the content gate rejects a planted mistake.

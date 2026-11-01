@@ -183,7 +183,8 @@
       "lemma": "Vysočina",
       "pos": "noun",
       "gender": "f",
-      "proper": "place",
+      "numbers": "sg",
+      "proper": "mountain",
       "family": "vyjm-v.vysokyy",
       "role": "member",
       "spell": "V{y|i}sočina",
@@ -218,6 +219,7 @@
       "lemma": "vytí",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "staveni",
       "family": "vyjm-v.vyyt",
       "role": "member",
@@ -243,6 +245,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "family": "vyjm-v.vyyskat",
       "role": "member",
@@ -446,6 +449,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "family": "vyjm-v.povyk",
       "role": "head",
@@ -581,16 +585,6 @@
       "animate": false,
       "pattern": "hrad",
       "spell": "v{í|ý}tr",
-      "rules": ["obojetna-i"],
-      "src": ["ijp-103", "morfflex"]
-    },
-    {
-      "id": "viila",
-      "lemma": "víla",
-      "pos": "noun",
-      "gender": "f",
-      "pattern": "zena",
-      "spell": "v{í|ý}la",
       "rules": ["obojetna-i"],
       "src": ["ijp-103", "morfflex"]
     },
@@ -766,11 +760,6 @@
       "gaps": [{ "rule": "obojetna-i", "word": "vidext" }]
     },
     {
-      "id": "vyjm-v.24",
-      "text": "V jeskyni žije mořská v{í|ý}la.",
-      "gaps": [{ "rule": "obojetna-i", "word": "viila" }]
-    },
-    {
       "id": "vyjm-v.25",
       "text": "Delfín je v{í|ý}těz závodu.",
       "gaps": [{ "rule": "obojetna-i", "word": "viitexz" }]
@@ -779,6 +768,16 @@
       "id": "vyjm-v.26",
       "text": "Ploutve delfína zv{í|ý}řily písek.",
       "gaps": [{ "rule": "obojetna-i", "word": "zviirxit" }]
+    },
+    {
+      "id": "vyjm-v.27",
+      "text": "Psi na pobřeží začali v{ý|í}t na měsíc.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyt" }]
+    },
+    {
+      "id": "vyjm-v.28",
+      "text": "Na skále je v{ý|í}ří hnízdo.",
+      "gaps": [{ "rule": "vyjm", "word": "vyyrxii" }]
     }
   ]
 }

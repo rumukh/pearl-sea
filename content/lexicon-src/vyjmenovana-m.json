@@ -196,6 +196,7 @@
       "lemma": "mytí",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "staveni",
       "family": "vyjm-m.myyt",
       "role": "member",
@@ -412,6 +413,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "family": "vyjm-m.hmyz",
       "role": "head",
@@ -613,6 +615,7 @@
       "lemma": "chmýří",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "staveni",
       "family": "vyjm-m.chmyyrxii",
       "role": "head",
@@ -637,6 +640,7 @@
       "lemma": "Litomyšl",
       "pos": "noun",
       "gender": "f",
+      "numbers": "sg",
       "proper": "town",
       "family": "vyjm-m.litomysxl",
       "role": "head",
@@ -693,6 +697,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "spell": "sm{í|ý}ch",
       "rules": ["obojetna-i"],
@@ -858,6 +863,11 @@
         { "rule": "vyjm", "word": "myslivec" },
         { "rule": "vyjm", "word": "mysxaak" }
       ]
+    },
+    {
+      "id": "vyjm-m.29",
+      "text": "Po m{y|i}tí byly mušle zase čisté.",
+      "gaps": [{ "rule": "vyjm", "word": "mytii" }]
     }
   ]
 }

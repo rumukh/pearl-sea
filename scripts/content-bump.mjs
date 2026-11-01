@@ -21,7 +21,7 @@
  * ref first). Running it again changes nothing.
  *
  * Afterwards pin the new revision's content hash in `REVISIONS` in
- * test/unit/contract/content.test.ts (the failing test prints it) and re-pin the golden traces:
+ * test/unit/content/pack.test.ts (the failing test prints it) and re-pin the golden traces:
  * the content hash is part of every snapshot.
  */
 import { spawnSync } from 'node:child_process';
@@ -145,7 +145,7 @@ if (isMain(import.meta.url)) {
         : `Nothing to do: the pack is ${result.to} and ${result.archived} is archived.`,
     );
     console.log(
-      'Next: pin the new revision in REVISIONS (test/unit/contract/content.test.ts prints its ' +
+      'Next: pin the new revision in REVISIONS (test/unit/content/pack.test.ts prints its ' +
         'hash), re-pin the golden traces (the content hash is in every snapshot), npm run verify.',
     );
   } catch (error) {

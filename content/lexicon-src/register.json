@@ -27,6 +27,7 @@
       "lemma": "mléko",
       "pos": "noun",
       "gender": "n",
+      "numbers": "sg",
       "pattern": "mesto",
       "src": ["ssc", "morfflex"]
     },

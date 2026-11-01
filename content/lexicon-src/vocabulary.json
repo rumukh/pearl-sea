@@ -191,18 +191,7 @@
     { "id": "suffix", "cs": "přípona" },
     { "id": "ending", "cs": "koncovka" }
   ],
-  "properKinds": [
-    "person",
-    "animal",
-    "character",
-    "town",
-    "place",
-    "river",
-    "lake",
-    "mountain",
-    "country",
-    "sea"
-  ],
+  "properKinds": ["person", "animal", "town", "river", "mountain", "country", "sea", "character"],
   "setKinds": [
     "alphabet",
     "synonyms",

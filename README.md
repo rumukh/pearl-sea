@@ -50,7 +50,7 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 | --------------- | --------------------------------------------------------------------------------------------------- |
 | `src/rules/`    | Deterministic, DOM-free game rules and the domain contract (`contract/`)                            |
 | `src/app/`      | Browser shell: DOM/SVG screens, styles, the offline worker (`sw.ts`)                                |
-| `content/`      | Data: catalogs and the Czech word bank (`lexicon-src/`); the content pack and its history follow    |
+| `content/`      | Data: the content pack, built from `pack-src/` and the Czech word bank (`lexicon-src/`); catalogs   |
 | `assets/`       | Runtime fonts (and later art and audio) with provenance                                             |
 | `scripts/`      | Node tooling: build, serve, verify, check-site, content validation, lexicon checks, lockfile, fonts |
 | `test/`         | Vitest unit and tooling tests, Playwright end-to-end tests (`e2e/`)                                 |
@@ -66,6 +66,7 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 | [curriculum.md](docs/curriculum.md)     | Czech-language objectives for grades 3 and 4, RVP ZV outcomes, the level mapping      |
 | [contract.md](docs/contract.md)         | The domain contract every session builds on, and who owns what                        |
 | [lexicon.md](docs/lexicon.md)           | The verified Czech word bank: fields, school conventions, sources, coverage           |
+| [content.md](docs/content.md)           | Authoring content: the pack's sources and build, revisions, rules, the regions        |
 | [architecture.md](docs/architecture.md) | Layers, the command loop, persistence and same-origin isolation, offline, the build   |
 | [testing.md](docs/testing.md)           | The gate and the testing discipline                                                   |
 | [assets.md](docs/assets.md)             | Art, audio and fonts: local models only, provenance                                   |

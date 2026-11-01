@@ -196,6 +196,7 @@
       "pos": "noun",
       "gender": "m",
       "animate": false,
+      "numbers": "sg",
       "pattern": "hrad",
       "note": "keř s bobulemi, není příbuzné se slovem ryba",
       "src": ["derinet", "morfflex"]

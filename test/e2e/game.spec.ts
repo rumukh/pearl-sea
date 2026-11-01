@@ -10,11 +10,13 @@
  *   and Ulita slov in Měsíční jeskyně, the 4th grade's first lesson;
  * - a 3rd grader who has played every lesson of the lagoon (seeded from S2's trace player): the
  *   battle with Muréna Mumla (the ink meter, her jokes, an ink blot to wipe), her freeing, the
- *   friends' gallery and her diploma in the grown-ups' area.
+ *   friends' gallery and her diploma in the grown-ups' area; and the same child at Pexeso, which
+ *   names what makes a pair and waits for two cards that are no pair to be turned back.
  *
  * Every new screen passes axe's WCAG 2.1 A and AA rules, with less motion as a family that asks
  * for it sees the game. No errors, no failed requests, nothing sent to another origin.
  */
+import { readFileSync } from 'node:fs';
 import { expect, test } from './support/fixtures';
 import type { Page } from '@playwright/test';
 import {
@@ -22,6 +24,7 @@ import {
   boardOnScreen,
   checkBoard,
   createChild,
+  dragFish,
   give,
   fourthGraderPlaced,
   lagoonPlayed,
@@ -53,6 +56,12 @@ const VICTORY_STING = '/assets/audio/sfx/victory-sting.ogg';
 
 /** The first child made in a new family gets the first slot. */
 const CHILD = 'profile-1';
+
+/** The child's Czech lines, as the screens show them (no-break spaces aside). */
+const CS: Readonly<Record<string, string>> = JSON.parse(
+  readFileSync(new URL('../../content/catalogs/cs.ui.json', import.meta.url), 'utf8'),
+) as Record<string, string>;
+const shown = (text: string | null): string => (text ?? '').replace(/\u00a0/g, ' ');
 
 function nothingWentWrong(seen: Observations): void {
   expect(seen.pageErrors, 'uncaught page errors').toEqual([]);
@@ -141,7 +150,22 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
   await page.getByTestId('back').click();
   await ready(page, 'title');
 
+  // "Ponořit se!" says "Chvilku…" while the first save and the game load (a moment on a first
+  // visit); a mutation record keeps it, however quickly the game opens.
+  await page.evaluate(() => {
+    const scope = globalThis as { psBusy?: string[] };
+    scope.psBusy = [];
+    new MutationObserver(() => {
+      const save = document.querySelector<HTMLElement>('[data-testid="diver-save"]');
+      if (save?.dataset['busy'] === 'true') {
+        scope.psBusy!.push(`${save.textContent} (${save.getAttribute('aria-disabled')})`);
+      }
+    }).observe(document.body, { subtree: true, childList: true, attributes: true });
+  });
   await createChild(page, { name: 'Ema', avatar: 'diver-2', address: 'girl', grade: 3 });
+  expect(await page.evaluate(() => (globalThis as { psBusy?: string[] }).psBusy)).toContain(
+    'Chvilku… (true)',
+  );
   expect(await shownScreen(page)).toBe('screen-story');
   await expect(page.getByTestId('story-line')).not.toBeEmpty();
   await noViolations(page, 'the prologue');
@@ -176,10 +200,13 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
   await noViolations(page, 'the results of a board round');
   await throughResults(page);
 
-  // Rybářské sítě.
+  // Rybářské sítě, the first board's fish dragged onto their nets: with less motion too, each
+  // lands in the net it is dropped on (PS-QA-09).
   expect(await throughStory(page)).toBe('screen-board');
   await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'fishing-nets');
   await noViolations(page, 'Rybářské sítě');
+  await dragFish(page, await boardOnScreen(page, CHILD));
+  await checkBoard(page);
   expect(await solveBoards(page, CHILD)).toBe('screen-results');
   await throughResults(page);
 
@@ -235,6 +262,8 @@ test('a new 4th grader takes the placement check, then plays Slovní rodinka and
   await expect(page.getByTestId('adventure-next')).not.toBeEmpty();
   expect(await goAdventuring(page)).toBe('screen-round');
   await expect(page.getByTestId('screen-round')).toHaveAttribute('data-placement', 'true');
+  // The check counts its parts, not problems.
+  await expect(page.getByTestId('round-progress')).toContainText('Části');
   await noViolations(page, 'the placement check');
   // Osmička keeps the child company: she cheers a right answer until the next miss. One right
   // answer of a step's three passes no step, so the child still starts at the beginning.
@@ -251,6 +280,11 @@ test('a new 4th grader takes the placement check, then plays Slovní rodinka and
     await answerStep(page, CHILD, false);
   }
   expect(await shownScreen(page)).toBe('screen-results');
+  // The check is no score for the child: its results thank them instead.
+  await expect(page.getByTestId('results-placement')).toHaveText(
+    'Díky! Osmička teď ví, kde začneš.',
+  );
+  await expect(page.getByTestId('results-score')).toHaveCount(0);
   await throughResults(page);
   expect(await throughStory(page)).toBe('screen-hub');
 
@@ -291,6 +325,15 @@ test('a new 4th grader takes the placement check, then plays Slovní rodinka and
   expect(await throughStory(page)).toBe('screen-board');
   await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'word-shell');
   await noViolations(page, 'Ulita slov');
+  // Every cut between two letters is a whole 48 px target (PS-QA-01).
+  const cuts = await page.locator('[data-testid^="cut-"]').evaluateAll((all) =>
+    all.map((cut) => {
+      const box = cut.getBoundingClientRect();
+      return Math.min(box.width, box.height);
+    }),
+  );
+  expect(cuts.length).toBeGreaterThan(0);
+  expect(Math.min(...cuts)).toBeGreaterThanOrEqual(48);
   await page.getByTestId('board-submit').click();
   await expect(page.getByTestId('board-message')).toHaveText('Ještě ne. Zkus části opravit.');
   const shell = await boardOnScreen(page, CHILD);
@@ -380,6 +423,13 @@ test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', asy
 
   await enterGrownUps(page);
   await page.getByTestId('grownups-tab-progress').click();
+  // The 3rd grader's goals are open; the 4th grade's wait folded, so the tab stays short.
+  await expect(
+    page.getByTestId('progress-goals-3').locator('[data-testid^="goal-"]').first(),
+  ).toBeVisible();
+  await expect(
+    page.getByTestId('progress-goals-4').locator('[data-testid^="goal-"]').first(),
+  ).toBeHidden();
   await noViolations(page, 'the grown-ups’ progress');
   await page.getByTestId('diploma-murena-mumla').click();
   await ready(page, 'print');
@@ -387,6 +437,70 @@ test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', asy
     'Za odvahu v souboji s příšerou: Muréna Mumla.',
   );
   await noViolations(page, 'the diploma');
+  nothingWentWrong(seen);
+});
+
+test('Pexeso says what makes a pair, and two cards that are no pair are turned back', async ({
+  page,
+  baseURL,
+}) => {
+  test.setTimeout(240_000);
+  const seen = observe(page, new URL(baseURL!).origin);
+  const lagoon = await lagoonPlayed();
+  await page.goto('./');
+  await ready(page, 'title');
+  await seedChild(page, { id: CHILD, name: 'Ema', avatar: 'diver-2', address: 'girl' }, lagoon);
+  await page.reload();
+  await ready(page, 'title');
+  await page.getByTestId('title-play').click();
+  await ready(page, 'divers');
+  await page.getByTestId(`diver-${CHILD}`).click();
+  expect(await throughStory(page)).toBe('screen-hub');
+  await page.getByTestId('place-map').click();
+  await ready(page, 'map');
+  await page.getByTestId('region-sunny-lagoon').click();
+  await ready(page, 'region');
+  await page.getByTestId('level-sunny-lagoon.5').click();
+  await ready(page, 'level');
+  await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
+
+  // Slunná laguna 5: Krmení, then Pexeso.
+  expect(await throughStory(page)).toBe('screen-round');
+  await playRound(page, CHILD);
+  expect(await throughStory(page)).toBe('screen-results');
+  await throughResults(page);
+  expect(await throughStory(page)).toBe('screen-board');
+  await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'memory-match');
+  const board = await boardOnScreen(page, CHILD);
+  if (board.kind !== 'memory-match') throw new Error(`a ${board.kind} board`);
+  // The board says what makes a pair (PS-QA-06), as the other boards say their task.
+  expect(shown(await page.getByTestId('board-task').textContent())).toBe(
+    CS[`board.pairTask.${board.pair}`],
+  );
+  await noViolations(page, 'Pexeso');
+
+  // Two cards that are no pair stay up, with no timer, until the child turns them back.
+  for (let guard = 0; (await page.getByTestId('board-clear').count()) === 0; guard++) {
+    if (guard >= board.pairs) throw new Error('no two cards turned were a mismatch');
+    const open = page.locator('[data-testid="board"] [data-testid^="card-"][data-matched="false"]');
+    const pick = [
+      (await open.nth(0).getAttribute('data-testid'))!,
+      (await open.nth(1).getAttribute('data-testid'))!,
+    ];
+    for (const card of pick) {
+      await page.getByTestId(card).click();
+      await expect(
+        page.locator(`[data-testid="${card}"]:is([data-up="true"], [data-matched="true"])`),
+      ).toHaveCount(1);
+    }
+  }
+  await expect(page.getByTestId('board-message')).toHaveText(CS['board.mismatch']!);
+  await noViolations(page, 'Pexeso with two cards that are no pair');
+  await page.getByTestId('board-clear').click();
+  await expect(page.getByTestId('board-clear')).toHaveCount(0);
+  await expect(
+    page.locator('[data-testid="board"] [data-up="true"][data-matched="false"]'),
+  ).toHaveCount(0);
   nothingWentWrong(seen);
 });
 

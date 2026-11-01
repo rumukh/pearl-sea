@@ -138,42 +138,54 @@ export async function progressSections(
         ),
   );
 
+  // The goals of the child's grade are open; the other grade's wait folded, so the tab stays short.
   const goals = GRADES.flatMap((grade) => {
     const objectives = progress.objectives.filter(
       (objective) => objective.grade === grade && objective.items > 0,
     );
     if (objectives.length === 0) return [];
-    return [
-      section(
-        g('grownups.progress.goals', { grade }),
-        `progress-goals-${grade}`,
+    const title = g('grownups.progress.goals', { grade });
+    const list = h(
+      'ul',
+      { className: 'ps-grownups__list' },
+      ...objectives.map((objective) =>
         h(
-          'ul',
-          { className: 'ps-grownups__list' },
-          ...objectives.map((objective) =>
-            h(
-              'li',
-              {
-                className: 'ps-grownups__row ps-grownups__row--stack',
-                testId: `goal-${objective.objective}`,
-              },
-              createMeter({
-                label: text(objective.titleKey),
-                max: objective.items,
-                value: objective.mastered,
-                valueText: (value, max) =>
-                  g('grownups.progress.goalValue', { mastered: value, items: max }),
-              }).element,
-              objective.accuracy > 0
-                ? h('span', {
-                    className: 'ps-note',
-                    text: g('grownups.progress.goalAccuracy', { accuracy: objective.accuracy }),
-                  })
-                : null,
-            ),
-          ),
+          'li',
+          {
+            className: 'ps-grownups__row ps-grownups__row--stack',
+            testId: `goal-${objective.objective}`,
+          },
+          createMeter({
+            label: text(objective.titleKey),
+            max: objective.items,
+            value: objective.mastered,
+            valueText: (value, max) =>
+              g('grownups.progress.goalValue', { mastered: value, items: max }),
+          }).element,
+          objective.accuracy > 0
+            ? h('span', {
+                className: 'ps-note',
+                text: g('grownups.progress.goalAccuracy', { accuracy: objective.accuracy }),
+              })
+            : null,
         ),
-        h('p', { className: 'ps-note', text: g('grownups.progress.goalsNote') }),
+      ),
+    );
+    const note = h('p', { className: 'ps-note', text: g('grownups.progress.goalsNote') });
+    if (grade === view.settings.grade) {
+      return [section(title, `progress-goals-${grade}`, list, note)];
+    }
+    return [
+      h(
+        'section',
+        { className: 'ps-card ps-grownups__section', testId: `progress-goals-${grade}` },
+        h(
+          'details',
+          { className: 'ps-grownups__fold' },
+          h('summary', { className: 'ps-grownups__summary', text: title }),
+          list,
+          note,
+        ),
       ),
     ];
   });

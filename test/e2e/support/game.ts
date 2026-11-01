@@ -591,6 +591,33 @@ export async function playPexeso(page: Page): Promise<void> {
   throw new Error('the Pexeso board did not end');
 }
 
+/**
+ * Drag every fish of Rybářské sítě onto its net with the mouse, as a child drags with a finger,
+ * each one landing in the net it was dropped on.
+ */
+export async function dragFish(page: Page, board: BoardView): Promise<void> {
+  if (board.kind !== 'fishing-nets') throw new Error(`a ${board.kind} board`);
+  const slot = page.getByTestId('board');
+  const middle = async (testId: string): Promise<{ x: number; y: number }> => {
+    const box = await slot.getByTestId(testId).boundingBox();
+    if (!box) throw new Error(`${testId} is not on the screen`);
+    return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+  };
+  for (const fish of board.fish) {
+    const net = rightNet(PACK.data, board, fish);
+    const from = await middle(`fish-${fish.id}`);
+    const to = await middle(`net-${net}`);
+    await page.mouse.move(from.x, from.y);
+    await page.mouse.down();
+    await page.mouse.move(to.x, to.y, { steps: 8 });
+    await page.mouse.up();
+    await expect(
+      slot.locator(`.ps-net-area[data-net="${net}"] [data-testid="fish-${fish.id}"]`),
+      `fish ${fish.id} lands in net ${net}`,
+    ).toBeVisible();
+  }
+}
+
 /** Solve every board of the round on screen; resolves to the screen that follows. */
 export async function solveBoards(page: Page, profileId: string): Promise<string> {
   for (let guard = 0; guard < 10; guard++) {

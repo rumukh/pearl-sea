@@ -130,6 +130,13 @@
   cursor: progress;
 }
 
+/* A busy button says "Chvilku…" and stays warm: it is working, not unavailable. */
+.ps-button[data-busy='true'] {
+  cursor: progress;
+  filter: none;
+  opacity: 0.85;
+}
+
 .ps-button--sun {
   --face: var(--ps-sun);
   --lip: var(--ps-sun-deep);

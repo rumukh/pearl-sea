@@ -183,7 +183,10 @@ game is saved.
   `prefers-reduced-motion` or the child's own setting: durations collapse to 1 ms, and the
   entrances of screens, dialogs and toasts do not run at all, since even a 1 ms fade draws its
   faint first frame (`styles/base.css`). A control's face lifts on hover and sinks when pressed
-  while its hit area stays at rest. Words stay whole at 200 % text; rows wrap.
+  while its hit area stays at rest. A button whose command takes a moment can say so (`showBusy` in
+  `ui/button.ts`): "Ponořit se!" in the profile editor reads "Chvilku…" while the first save and
+  the game open, takes no second press and keeps the focus. Words stay whole at 200 % text; rows
+  wrap.
 - **Feedback never relies on colour alone**: a right choice is green with a check badge, a miss
   warm orange with a "?" badge (never red), stars are filled or outlined, pressed choices have a
   ring as well as a colour.
@@ -350,15 +353,16 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
   are none and how to add one); each child's settings: the game's grade (3 or 4: where the child
   starts and what the game suggests; content that does not serve a grade, or a placement round,
   keeps the old one and says why; the grade picked in the editor goes to the game when this area
-  first reads it, so the grade shown is the one the child plays), daily goal and the dolphin race,
-  and the placement check again
+  first reads it, so the grade shown is the one the child plays), daily goal (the dolphin race's
+  switch waits until the race has a way in on screen, §16.5), and the placement check again
   for a grade that has one (it starts the next time the child plays; a round or a story under way
   keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes
   (with a note when sound could not start, §9), text size, less motion, a time limit for one
   sitting.
 - **Pokrok / Progress** (`grownups/progress.ts`), per child: days practised, answers, monsters
-  freed and the grade; the last 14 days of practice (right answers of all); each goal of the 3rd
-  and 4th grade (pearls mastered, silver and gold, of the goal's items, and the success rate);
+  freed and the grade; the last 14 days of practice (right answers of all); each goal of the
+  child's grade (pearls mastered, silver and gold, of the goal's items, and the success rate), with
+  the other grade's goals folded under their heading (a `details`), so the tab stays short;
   where the child goes wrong most, with printable flashcards; diplomas to print.
 - **Zálohy / Backups**: per child, save a backup, load one (after a confirmation), erase progress;
   browser storage with usage and a request to keep the data.
@@ -395,23 +399,28 @@ its own presentation; calls take turns, and a child opened for play waits for th
   archives and a browser without `DecompressionStream` reject, and a retry fetches again).
 - **DOM** (`test/unit/app/dom/`, happy-dom): the router, the announcer, choice tiles (letters and
   digits), the number pad, the Czech keyboard, the whole gate dialog, tabs, meters, stars and the
-  coin counter, toasts, icons, a rebuilt panel keeping focus, print sheets, the save status pill
-  and the read-aloud button.
+  coin counter, toasts, icons, a busy button, a rebuilt panel keeping focus, print sheets, the save
+  status pill and the read-aloud button.
 - **Browser, the game** (`test/e2e/game.spec.ts`, Playwright): journeys played the way a child
-  plays, every answer given on screen. A new 3rd grader goes from the editor through the prologue,
-  the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked too
-  early, the nets, Krmení with Nápověda tapped twice and no complaint, a wrong answer that shows
-  the right one and a reload that resumes the same step) up to the friend hatching, with Osmička
+  plays, every answer given on screen. A new 3rd grader goes from the editor ("Ponořit se!" saying
+  "Chvilku…" while the game opens) through the prologue, the first egg and the grotto into the
+  first lesson of Slunná laguna (a necklace checked too early, the nets with every fish dragged
+  onto its net with less motion, Krmení with Nápověda tapped twice and no complaint, a wrong
+  answer that shows the right one and a reload that resumes the same step) up to the friend
+  hatching, with Osmička
   cheering beside the results; its first tap unlocks the sound and the grotto loop is fetched
   (`support/sound.ts`: Chromium, whose headless mode has an audio output too, must say `ready`;
   an engine with no audio here, such as Playwright's WebKit on Windows with no `AudioContext`, may
   stay `blocked`, never `unavailable` or `silent`, and the files are checked whenever the sound is
-  `ready`). A new 4th grader takes the placement check (Osmička cheering a right
-  answer) and plays Slovní rodinka (quick taps all counted) and Ulita slov in Měsíční jeskyně. A
+  `ready`). A new 4th grader takes the placement check (its meter counting parts, Osmička cheering
+  a right answer, its results thanking the child with no count) and plays Slovní rodinka (quick
+  taps all counted) and Ulita slov (every cut a whole 48 px target) in Měsíční jeskyně. A
   3rd grader who has played every lesson of the lagoon washes Muréna Mumla clean (the ink meter,
   her joke, an ink blot wiped), frees her into the gallery to the victory sting (its file is
-  fetched) and prints her diploma from the
-  grown-ups' area. A second window on the same child shows "Hra je otevřená jinde" on a story beat
+  fetched) and prints her diploma from the grown-ups' area, whose Pokrok shows the 3rd grade's
+  goals and folds the 4th's. The same child replays Slunná laguna 5 to Pexeso, whose task line
+  names the pair, and two cards that are no pair wait for "Otočit zpět". A second window on the
+  same child shows "Hra je otevřená jinde" on a story beat
   and reopens the saved game. A grown-up runs a placed 4th grader's placement check again, and
   leaving it says kindly what stays; a grade a grown-up chooses before the first dive is the grade
   the child plays. What is right comes from the
@@ -424,6 +433,15 @@ its own presentation; calls take turns, and a child opened for play waits for th
   journey ends with no page or console error, no failed request and nothing sent to another
   origin (`support/observe.ts`). A request the page cancelled itself is noted, never failed:
   Chromium reports a sound whose file the page has already read whole as `net::ERR_ABORTED`.
+- **Browser, the fit** (`test/e2e/fit.spec.ts`): S6's PS-QA-04 and PS-QA-05 as regression
+  checks, Dragon Valley's way. At each landscape size of §16.3 the page needs no scrolling either
+  way at 100 % text, measured at the tallest states each screen reaches: the title, the editor,
+  the eggs, the grotto (a first egg, a first friend, a whole lagoon with a monster to free), every
+  kind of board (Pexeso with two cards that are no pair, Slovní rodinka with its words picked,
+  Ulita slov cut), Krmení with its hint and a miss at once, the battle with an ink blot and a miss,
+  a round an Inkoustík ambushes (a child played in Node until one does) with a miss, the placement
+  check with a miss and its results, the hatching, the freeing and the results. At 200 % text on a
+  phone the grotto, U Mrože and a round with Nápověda and a miss keep to the screen's width.
 - **Browser, the art** (`test/e2e/art.spec.ts`): S5's next paintings rehearsed before they exist.
   `support/art.ts` serves a catalog of main's art plus stand-ins in the real formats (the lagoon's
   babies, the freed Muréna, Osmička cheering, the shallows map, the lagoon, the grotto and the
@@ -527,34 +545,57 @@ take focus, so a physical keyboard works the same), a category, or a word to pic
 a Lov chyb, an odd one out, a related word). Read-aloud says a gap as a pause, never the spelling.
 A miss is "Skoro!" with the right answer and the strategy that helps; nothing is ever lost.
 Nápověda asks the rules once a problem (they take one hint each); a later tap shows it again. A
-hint is a strategy, never the answer: a related word, a test form, a listed-words rhyme, _ten, ta,
-nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern, a rule, a method
-to follow (S3's `grammar.method.*` lines), or a word that is not listed with its gap blanked
-(_Slovo b_lý mezi vyjmenovanými není._). Punctuation the rules give beside a sentence's words
-(`marks`: _Delfíne, skoč!_) follows each word outside the highlight and the word buttons, and is
-read aloud with it.
-Leaving the placement check from the pause ends it for good and keeps what it placed, and the pause
-dialog says so kindly: a grown-up can run it again from Pro dospělé (§14).
+hint shown before a miss is said once: the miss's feedback carries its line, and the hint's own box
+gives way. A hint is a strategy, never the answer: a related word, a test form, a listed-words
+rhyme, _ten, ta, nebo to?_ (_ti, ty, nebo ta?_ for a plural subject), a case question, a pattern,
+a rule, a method to follow (S3's `grammar.method.*` lines), or a word that is not listed with its
+gap blanked (_Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._). Punctuation the rules
+give beside a sentence's words (`marks`: _Delfíne, skoč!_) follows each word outside the highlight
+and the word buttons, and is read aloud with it.
+The placement check's meter counts its parts (_Části 2 / 8_), not problems, and its results thank
+the child (_Díky! Osmička teď ví, kde začneš._) instead of counting right answers: the check is no
+score. Leaving it from the pause ends it for good and keeps what it placed, and the pause dialog
+says so kindly: a grown-up can run it again from Pro dospělé (§14).
 
 In a battle Bublinka's bubbles wash the monster: the ink meter fills, the freed form shows through
 as the ink fades, the monster's harmless ink blots wait on the screen until the child wipes them
 away, and its jokes (`BattleView.jokeKey`) appear in a speech bubble; at the end the inked painting
-washes off in the results to the victory sting (§9) and the freed monster tells its last joke. A
-board sends each move as
+washes off in the results to the victory sting (§9) and the freed monster tells its last joke. Each
+big moment (a hatching, a monster freed, a grade done) has the screen's level-one heading while it
+shows. A board sends each move as
 `minigameMove` and redraws from the view, in the order the moves were made (`controller/moves.ts`):
 a quick tap while the move before it is saving waits for it rather than being lost, and is dropped
 only when its board is done or the rules no longer allow it. Pearls and fish move by tapping or with
-the keyboard, fish also by dragging. After a check that is not right yet, the pearls already in their place wear
+the keyboard, fish also by dragging: a drop lands on what lies under the pointer besides the fish
+itself (`elementsFromPoint`), so the 1 ms transitions of less motion never send a fish back to the
+pool (PS-QA-09), and a cancelled gesture ends the drag without leaving a listener behind. Pexeso
+says what makes a pair (`board.pairTask.<pair kind>`, one line for each of the contract's
+`PAIR_KINDS`), as the other boards say their task. After a check that is not right yet, the pearls
+already in their place wear
 a check mark (`inPlace`). In Ulita slov the child cuts the word between its letters (never inside
 "ch"), names each part with one of the asked roles and marks a zero ending ("nulová koncovka") when
-endings are asked; in Slovní rodinka the child picks every word related to the head word. A check
-that is not right yet says so and leaves the board as it was.
+endings are asked; each cut is a whole 48 px target that reaches over the letters' edges, the word's
+spacing kept (PS-QA-01). In Slovní rodinka the child picks every word related to the head word. A
+check that is not right yet says so and leaves the board as it was.
 
-Layouts are touch-first for a landscape tablet. Each game screen is a size container, so a layout
-that needs room asks for it in `em` (`styles/game.css`): at 200 % text, as on a phone, the grotto
-and rounds become one column, the painted map becomes a list of region cards and a region's level
-nodes wrap in rows. Text on open water or a painting always sits on paper, targets are at least
-48 px, and every state shows a shape or a word as well as a colour.
+Layouts are touch-first for a landscape tablet. On a landscape window at least 900 px wide every
+child's screen fits at 100 % text without page scrolling, every control in view: at 1024 × 768,
+1024 × 698 (an iPad's under Safari's bars), 1180 × 820, 1280 × 800, 1366 × 657 and 1536 × 730
+(`test/e2e/fit.spec.ts`; S6's PS-QA-04 and PS-QA-05). The grotto sets the friend beside today's
+card, the places down the right and Dnešní výprava with its note along the bottom; the friends'
+strip gives way to the "Kamarádi" place beside it, which opens the same screen. A round sets the
+companion beside the problem card, with an Inkoustík's ambush standing under it rather than in the
+card, and its title shares a line with its meter. The profile editor sets kluk/holka beside the
+grade, the pictures in one row and, with room, "Ponořit se!" in the same row. The results card
+never runs past the screen: a big day's news scroll inside it (a named region in the Tab order),
+the button onward in view. A short landscape window (up to 860 px high) draws words, pictures and
+the letter pad a little smaller, never a target, and today's card in the grotto loses only its
+visible heading. Each game screen is a size container, so a layout that needs room asks for it in
+`em` (`styles/game.css`): at 125 % text and more the landscape layouts give way as the room runs
+out, and at 200 % text, as on a phone, the grotto and rounds become one column (they may scroll,
+never sideways: a round's tools and U Mrože's line wrap), the painted map becomes a list of region
+cards and a region's level nodes wrap in rows. Text on open water or a painting always sits on
+paper, targets are at least 48 px, and every state shows a shape or a word as well as a colour.
 
 ### 16.4 Music and the painted maps
 
@@ -564,8 +605,9 @@ picture (`game/map.ts`): S5 paints open water there.
 
 ### 16.5 Still to come
 
-The dolphin race (in no level of the pack yet, and with no way in on screen), the snack basket's
-details and the finale join in the next pull request.
+The dolphin race (in no level of the pack yet, and with no way in on screen: until it has one, its
+switch in a child's settings waits too, `RACE_ON_SCREEN` in `screens/grownups.ts`), the snack
+basket's details and the finale join in a later pull request.
 
 ## 17. SDK notes
 

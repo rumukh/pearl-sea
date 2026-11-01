@@ -43,6 +43,11 @@
   margin-top: 0.9em;
 }
 
+/* "Hrát" has the focus on arrival: its ring (outline and offset) stays clear of the tagline. */
+.ps-title__card > .ps-button {
+  margin-top: 0.75em;
+}
+
 .ps-title__soon {
   margin-top: 0.7em;
   font-weight: 700;
@@ -281,6 +286,23 @@
 
 .ps-grownups__section h2 {
   color: var(--ps-primary-deep);
+}
+
+/* A folded section (the other grade's goals): its summary reads like a heading, a whole target,
+   with the browser's own disclosure triangle. */
+.ps-grownups__summary {
+  min-height: var(--ps-target);
+  padding-block: 0.3em;
+  font-size: min(1.4rem, 7vw);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--ps-primary-deep);
+  cursor: pointer;
+}
+
+.ps-grownups__fold > .ps-grownups__list,
+.ps-grownups__fold > .ps-note {
+  margin-top: 0.75em;
 }
 
 /* A section's own buttons keep their size instead of stretching across the card. */

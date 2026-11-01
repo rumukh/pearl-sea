@@ -7,7 +7,7 @@
  * Stored records are written the way the shell writes them (support/saves.ts).
  */
 import { readFileSync } from 'node:fs';
-import { expect, test } from '@playwright/test';
+import { expect, test } from './support/fixtures';
 import type { Page } from '@playwright/test';
 import { observe } from './support/observe';
 import { FAMILY_KEY, familyPayload, storeRecord } from './support/saves';

@@ -201,15 +201,44 @@ export async function seedChild(
 
 /** A 3rd grader who has played every lesson of Slunná laguna, up to its monster. */
 export async function lagoonPlayed(): Promise<RuntimeSnapshot> {
-  const player = new Player(PERFECT, 'e2e-lagoon', GAME.adapter, GAME.content);
+  return levelsPlayed(LAGOON_LESSONS, 'e2e-lagoon');
+}
+
+/** Slunná laguna's lessons, in order (without the monster's level). */
+export const LAGOON_LESSONS: readonly string[] = PACK.data.levels
+  .filter((level) => level.region === 'sunny-lagoon' && level.kind !== 'monster')
+  .sort((a, b) => a.order - b.order)
+  .map((level) => level.id);
+
+/**
+ * A 3rd grader who played the whole lagoon, Muréna Mumla's battle too, missing one answer in
+ * five: progress with words to practise and a monster's diploma for the grown-ups' area.
+ */
+export async function lagoonFreed(): Promise<RuntimeSnapshot> {
+  return levelsPlayed([...LAGOON_LESSONS, 'sunny-lagoon.monster'], 'e2e-freed', 'krab-tvrdak', 5);
+}
+
+/**
+ * A 3rd grader who chose `egg` and played `levels` in order on SEED_DAY (S2's trace player on
+ * the real pack), then went home: the snapshot a save of that child holds. `slips` makes every
+ * n-th answer a miss, as a child who is still learning gives them.
+ */
+export async function levelsPlayed(
+  levels: readonly string[],
+  seed = 'e2e-levels',
+  egg = 'krab-tvrdak',
+  slips = 0,
+): Promise<RuntimeSnapshot> {
+  const style =
+    slips > 0
+      ? { ...PERFECT, right: (n: number) => n % slips !== 0, elapsedMs: () => 2500 }
+      : PERFECT;
+  const player = new Player(style, seed, GAME.adapter, GAME.content);
   try {
-    if (!(await player.begin('krab-tvrdak', SEED_DAY))) {
+    if (!(await player.begin(egg, SEED_DAY))) {
       throw new Error(`the seeded child could not begin: ${player.failures.join(', ')}`);
     }
-    const lessons = PACK.data.levels
-      .filter((level) => level.region === 'sunny-lagoon' && level.kind !== 'monster')
-      .sort((a, b) => a.order - b.order);
-    for (const level of lessons) await player.playLevel(level.id);
+    for (const level of levels) await player.playLevel(level);
     if (player.failures.length > 0) {
       throw new Error(`the seeded child got stuck: ${player.failures.join(', ')}`);
     }
@@ -217,6 +246,14 @@ export async function lagoonPlayed(): Promise<RuntimeSnapshot> {
   } finally {
     await player.dispose();
   }
+}
+
+/** From the title, choose a child already in the family and play: resolves to the screen. */
+export async function openChild(page: Page, profileId: string): Promise<string> {
+  await page.getByTestId('title-play').click();
+  await expect(page.getByTestId('screen-divers')).toBeVisible();
+  await page.getByTestId(`diver-${profileId}`).click();
+  return throughStory(page);
 }
 
 // ------------------------------------------------------------------------------ problems
@@ -467,8 +504,68 @@ export async function arrangeBoard(page: Page, board: BoardView): Promise<void> 
       }
       return;
     case 'memory-match':
-      throw new Error('Pexeso is not played by these tests');
+      throw new Error('Pexeso is played turn by turn: playPexeso');
   }
+}
+
+/**
+ * Turn two Pexeso cards on screen and wait for the game's answer: a pair (both stay matched), a
+ * mismatch ("Otočit zpět" appears), or the next board once the last pair is found.
+ */
+export async function turnPair(
+  page: Page,
+  first: string,
+  second: string,
+): Promise<'pair' | 'miss'> {
+  const board = await page.getByTestId('board').getAttribute('data-board');
+  await page.getByTestId(first).click();
+  await expect(page.getByTestId(first)).toHaveAttribute('data-up', 'true');
+  await page.getByTestId(second).click();
+  await page.waitForFunction(
+    ({ second, board }) => {
+      const slot = document.querySelector<HTMLElement>('[data-testid="board"]');
+      if (!slot || slot.dataset['board'] !== board) return true;
+      const card = document.querySelector<HTMLElement>(`[data-testid="${second}"]`);
+      return (
+        !card ||
+        card.dataset['matched'] === 'true' ||
+        document.querySelector('[data-testid="board-clear"]') !== null
+      );
+    },
+    { second, board },
+    { timeout: 20_000 },
+  );
+  return (await page.getByTestId('board-clear').count()) > 0 ? 'miss' : 'pair';
+}
+
+/**
+ * Play the Pexeso board on screen to its end the way a child with a perfect memory but no
+ * answer key would: try the first open card with each other open card it has not been tried
+ * with, turning a mismatch back with "Otočit zpět". The game itself says what is a pair, so the
+ * test never needs to know.
+ */
+export async function playPexeso(page: Page): Promise<void> {
+  const tried = new Set<string>();
+  const board = await page.getByTestId('board').getAttribute('data-board');
+  for (let guard = 0; guard < 200; guard++) {
+    const slot = page.getByTestId('board');
+    if ((await shownScreen(page)) !== 'screen-board') return;
+    if ((await slot.getAttribute('data-board')) !== board) return;
+    if ((await page.getByTestId('board-clear').count()) > 0) {
+      await page.getByTestId('board-clear').click();
+      await expect(page.getByTestId('board-clear')).toHaveCount(0);
+      continue;
+    }
+    const open = await slot
+      .locator('[data-testid^="card-"][data-matched="false"]')
+      .evaluateAll((cards) => cards.map((card) => card.getAttribute('data-testid')!));
+    if (open.length === 0) return;
+    const first = open[0]!;
+    const second = open.slice(1).find((card) => !tried.has(`${first}|${card}`));
+    if (!second) throw new Error(`no untried card for ${first}`);
+    if ((await turnPair(page, first, second)) === 'miss') tried.add(`${first}|${second}`);
+  }
+  throw new Error('the Pexeso board did not end');
 }
 
 /** Solve every board of the round on screen; resolves to the screen that follows. */
@@ -476,6 +573,11 @@ export async function solveBoards(page: Page, profileId: string): Promise<string
   for (let guard = 0; guard < 10; guard++) {
     const screen = await shownScreen(page);
     if (screen !== 'screen-board') return screen;
+    const activity = await page.getByTestId('screen-board').getAttribute('data-activity');
+    if (activity === 'memory-match') {
+      await playPexeso(page);
+      continue;
+    }
     await arrangeBoard(page, await boardOnScreen(page, profileId));
     await checkBoard(page);
   }

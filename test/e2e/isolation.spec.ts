@@ -7,7 +7,7 @@
  *
  * test/unit/persistence/origin-isolation.test.ts proves the names themselves cannot collide.
  */
-import { expect, test } from '@playwright/test';
+import { expect, test } from './support/fixtures';
 import type { Page } from '@playwright/test';
 
 interface Storage {

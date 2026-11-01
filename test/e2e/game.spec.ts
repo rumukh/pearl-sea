@@ -15,7 +15,7 @@
  * Every new screen passes axe's WCAG 2.1 A and AA rules, with less motion as a family that asks
  * for it sees the game. No errors, no failed requests, nothing sent to another origin.
  */
-import { expect, test } from '@playwright/test';
+import { expect, test } from './support/fixtures';
 import type { Page } from '@playwright/test';
 import {
   arrangeBoard,

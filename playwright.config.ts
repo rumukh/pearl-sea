@@ -30,9 +30,17 @@ const allEngines: Project[] = [
 const systemBrowser: Project[] = [
   { name: `chromium-${channel}`, use: { ...devices['Desktop Chrome'], channel } },
 ];
+// The QA reporter (test/e2e/support/qa-reporter.ts) writes qa-summary.md beside the results: the
+// known defects, slow tests, performance and accessibility advice, and the job summary on CI.
+const qa: ReporterDescription = ['./test/e2e/support/qa-reporter.ts'];
 const reporters: ReporterDescription[] = ci
-  ? [['list'], ['html', { open: 'never' }], ['json', { outputFile: 'test-results/results.json' }]]
-  : [['list']];
+  ? [
+      ['list'],
+      ['html', { open: 'never' }],
+      ['json', { outputFile: 'test-results/results.json' }],
+      qa,
+    ]
+  : [['list'], qa];
 
 export default defineConfig({
   testDir: 'test/e2e',

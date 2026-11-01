@@ -2,9 +2,9 @@
  * The finales on the rules' lagoon fixture (design §3.7, §3.12, §7.2, §7.3, §9.1): the lagoon
  * fixture (lagoon-pack.ts) with
  *
- * - Ledové moře (`ice-sea`, the 3rd grade, after Murena Mumla): one lesson and Mořská saň Ledana,
+ * - Ledové moře (`ice-sea`, the 3rd grade, after Muréna Mumla): one lesson and Mořská saň Ledana,
  *   the 3rd grade's finale (`arms: 6`, `gradeFinale: 3`, meter 18, battle count 24);
- * - Měsíční jeskyně unlocked after Ledana's level rather than Murena's (design §9.1), still the 4th
+ * - Měsíční jeskyně unlocked after Ledana's level rather than Muréna's (design §9.1), still the 4th
  *   grade's start;
  * - Krakatičí propast (`kraken-abyss`, the 4th grade, after Humr Nůžkař): the Krakatice Inkoustová,
  *   the grand finale (`arms: 10`, `finale`, meter 30);

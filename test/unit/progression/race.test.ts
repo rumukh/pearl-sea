@@ -1,5 +1,5 @@
 /**
- * Závod s delfíny (design §5.14): it opens with Murena freed (and only while the grown-ups leave it
+ * Závod s delfíny (design §5.14): it opens with Muréna freed (and only while the grown-ups leave it
  * on), asks known items one gap at a time on the letter pad at least, never re-asks or teaches,
  * ends on the shell's `time-up`, and keeps the child's best score.
  */

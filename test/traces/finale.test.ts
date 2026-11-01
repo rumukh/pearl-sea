@@ -3,7 +3,7 @@
  * §7.3, §9.1, §9.3), on the finale fixture (test/fixtures/rules/finale-pack.ts).
  *
  * On 2026-11-02 a 3rd grader who answers everything right chooses Krab's egg and plays Slunná
- * laguna (lessons 1-6 and Murena Mumla), Ledové moře 1 and Ledana's battle: six icicles, three
+ * laguna (lessons 1-6 and Muréna Mumla), Ledové moře 1 and Ledana's battle: six icicles, three
  * right answers melting each, icicle k serving only the battle's k-th skill (no review share),
  * jokes at the start, after every 5th blot and when she is freed. Freeing her completes the 3rd
  * grade once (`grade.completed`, the hub's certificate, her freed beat) and opens the deep. On
@@ -548,7 +548,7 @@ function journeyChecks(o: Observation): Record<string, boolean> {
     );
   return {
     'every step was accepted at the expected logical turn': p.failures.length === 0,
-    'the sea opened region by region: Ledové moře with Murena, the deep with Ledana, the abyss with Humr':
+    'the sea opened region by region: Ledové moře with Muréna, the deep with Ledana, the abyss with Humr':
       same(
         p.data_('region.unlocked').map((e) => (e as { region: string }).region),
         ['ice-sea', 'moon-caves', 'kraken-abyss'],
@@ -709,7 +709,7 @@ describe('mutation checks: the named checks fail when a capability is missing', 
     await played.player.dispose();
   });
 
-  it('with Měsíční jeskyně opening after Murena rather than Ledana, the deep check fails', async () => {
+  it('with Měsíční jeskyně opening after Muréna rather than Ledana, the deep check fails', async () => {
     const played = await ledanaAhead(
       finalePack((data) => {
         data.regions.find((r) => r.id === 'moon-caves')!.unlock = {

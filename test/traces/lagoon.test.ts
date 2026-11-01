@@ -2,12 +2,12 @@
  * Golden trace: the Slunná laguna slice end to end, then the first Inkoustíci.
  *
  * On 2026-11-02 a 3rd grader chooses Krab's egg and plays the whole lagoon in one go (lessons 1-6
- * and Murena Mumla's battle), answering mostly right with a slip now and then. The trace checks
+ * and Muréna Mumla's battle), answering mostly right with a slip now and then. The trace checks
  * the slice's promises (design §3.1, §4.1, §7.1, §7.4): every lesson completes, the other two
  * eggs float back as lesson 3 starts and every lagoon friend hatches; the battle washes one blot
  * per right answer and never refills on a miss, splashes a harmless blot every 4 answers, tells a
  * joke at the start, after the 5th and 10th right answer and when freed (cycling, never the same
- * joke twice in a row), and frees Murena, which opens the deep, the race and the Inkoustíci. Then
+ * joke twice in a row), and frees Muréna, which opens the deep, the race and the Inkoustíci. Then
  * the child opens the treasure chest and plays Měsíční jeskyně 1, where an Inkoustík ambushes a
  * Krmení problem (never before the third problem, at most one a round) and a right answer splashes
  * it away for a bonus coin; on 2026-11-03 Svačinka feeds the hungry friends.
@@ -185,13 +185,13 @@ function checks(o: Observation): Record<string, boolean> {
       jokes.every((joke, i) => i === 0 || joke !== jokes[i - 1]),
     'a harmless blot splashed after every 4th answer': splashesInPlace && answers.length >= 4,
     'the battle stayed within its kindness cap': answers.length <= o.meter + 5,
-    'Murena was freed: the gallery, her sticker and the deep opened':
+    'Muréna was freed: the gallery, her sticker and the deep opened':
       tape.includes('freed') &&
       state.monsters[MURENA] !== undefined &&
       state.stickers['sticker.murena-sings'] !== undefined &&
       p.data_('region.unlocked').some((e) => (e as { region: string }).region === 'moon-caves'),
-    'the race opened with Murena': o.afterMurena.hub.race.available,
-    'no Inkoustík came before Murena was freed, nor in a battle':
+    'the race opened with Muréna': o.afterMurena.hub.race.available,
+    'no Inkoustík came before Muréna was freed, nor in a battle':
       !beforeMurena.some((e) => e.type === 'inkoustik.ambushed') &&
       !o.battle.some((e) => e.type === 'inkoustik.ambushed'),
     'an Inkoustík ambushed a cave Krmení problem from the third on': o.caves.some(
@@ -245,7 +245,7 @@ describe('mutation checks: the named checks fail when a capability is missing', 
     const observation = await play(calm);
     const failed = failedChecks(observation);
     expect(failed).toContain('an Inkoustík ambushed a cave Krmení problem from the third on');
-    expect(failed).not.toContain('Murena was freed: the gallery, her sticker and the deep opened');
+    expect(failed).not.toContain('Muréna was freed: the gallery, her sticker and the deep opened');
     await observation.player.dispose();
   });
 

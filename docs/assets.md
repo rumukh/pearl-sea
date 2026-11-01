@@ -74,7 +74,9 @@ offline resource graph (exact bytes and SHA-256).
   about 0.1 MB for every older revision), or the build fails: prefer WebP for painted art, SVG for flat art and
   Ogg/Opus for audio, and keep music loops short.
 - Licence files that must travel with a file (`OFL.txt` next to the fonts) are shipped. The build
-  also writes `licenses.txt` with the game's and the Aegis SDK's MIT notices.
+  also writes `licenses.txt` with the game's and the Aegis SDK's MIT notices, the credits for the
+  local art and music models (Qwen-Image-Edit-2511 in WanGP, rembg and U²-Net, ACE-Step 1.5) and a
+  pointer to the font's licence.
 
 ## 4. Interfaces with code
 

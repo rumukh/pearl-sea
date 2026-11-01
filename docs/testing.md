@@ -103,7 +103,9 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   from the installed tarballs and the worker from the public offline export, pinned to the revision
   and to this game's namespace and message, never Dragon Valley's; a Czech page with the reading
   font and `cs.ui.json` in the graph and no provenance shipped; the pack, its catalogs and the
-  history archives shipped (archives as `data`) and none of the content sources; reproducible
+  history archives shipped (archives as `data`) and none of the content sources; `licenses.txt`
+  with the game's and the SDK's notices, the font's licence and the art and music credits;
+  reproducible
   revisions; forbidden modules refused; drifted bytes (even at the same length), extra files and
   bad bases rejected; no overwrite without `--clean`.
 - `test/tooling/content-bump.test.ts`: in a throwaway git repository, the deployed pack is archived

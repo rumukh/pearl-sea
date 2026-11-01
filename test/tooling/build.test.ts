@@ -134,6 +134,21 @@ describe('scripts/build.mjs', () => {
     expect(sources.filter((src) => /\/content\/(lexicon-src|pack-src)\//.test(src))).toEqual([]);
   });
 
+  it('credits the SDK, the reading font and the local art and music models in licenses.txt', () => {
+    const licenses = readFileSync(join(site.directory, 'licenses.txt'), 'utf8');
+    expect(licenses).toContain(readFileSync(join(repository, 'LICENSE'), 'utf8').trim());
+    for (const credit of [
+      'Aegis SDK',
+      'Qwen-Image-Edit-2511 by the Qwen team (Apache-2.0)',
+      'WanGP by DeepBeepMeep',
+      'rembg (MIT) and U²-Net (Apache-2.0)',
+      'ACE-Step 1.5 (MIT)',
+      'SIL Open Font License 1.1, as OFL.txt',
+    ]) {
+      expect(licenses, credit).toContain(credit);
+    }
+  });
+
   it('builds reproducibly: the same tree yields the same offline revision', async () => {
     const again = await buildSite({ outDir: join(directory, 'again'), base: BASE });
     expect(again.revision).toBe(site.revision);

@@ -207,7 +207,8 @@ export async function buildSite(options = {}) {
         readFileSync(join(root, 'LICENSE'), 'utf8').trim(),
         'Aegis SDK (@aegis/core, @aegis/runtime, @aegis/narrative, @aegis/browser), bundled in app.js and sw.js',
         readFileSync(join(root, 'node_modules', '@aegis', 'core', 'LICENSE'), 'utf8').trim(),
-        'Fonts, art and audio carry their own licenses next to the files under assets/.',
+        "Art and music: made locally and offline. The paintings were made with Qwen-Image-Edit-2511 by the Qwen team (Apache-2.0), run in WanGP by DeepBeepMeep, and cut out with rembg (MIT) and U²-Net (Apache-2.0). The music was made with ACE-Step 1.5 (MIT). Each file's provenance is recorded in the repository.",
+        'The reading font, Pearl Reading (a renamed subset of Andika), carries its licence, the SIL Open Font License 1.1, as OFL.txt next to its files under assets/fonts/pearl-reading/.',
       ].join('\n\n') + '\n',
     );
     const provisional = describeResources(stage, base);

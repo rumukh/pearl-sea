@@ -185,7 +185,7 @@ export async function sampleProblems(options = {}) {
         // As the shell shows it: the word with its gap, never spelled out.
         const letters = [...lemma(hint.word)];
         const gapped = [...letters.slice(0, hint.span[0]), '_', ...letters.slice(hint.span[1])];
-        return `slovo ${gapped.join('')} mezi vyjmenovanými není`;
+        return `slovo ${gapped.join('')} není vyjmenované ani příbuzné s vyjmenovaným`;
       }
       default:
         return JSON.stringify(hint);

@@ -256,10 +256,18 @@ function expectedHint(
     }
     case 'obojetna-i': {
       // After a listed letter: not listed, shown with its gap; never the rhyme of y-words (S3's
-      // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line.
+      // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line, and
+      // so where the gap with an alternative spells another word (b_t is být too).
       const letters = word ? [...word.lemma.toLowerCase()] : [];
       const before = point && point.at > 0 ? letters[point.at - 1] : undefined;
-      return word && point && before !== undefined && 'blmpsvz'.includes(before)
+      const twin =
+        word !== null &&
+        point !== null &&
+        point.alt.some((alt) => {
+          const other = respell(word, point, alt);
+          return other !== word.lemma && rawOf(data).spellings.has(other);
+        });
+      return word && point && before !== undefined && 'blmpsvz'.includes(before) && !twin
         ? {
             kind: 'not-listed',
             word: word.id,
@@ -275,9 +283,10 @@ function expectedHint(
     case 'mne-zajmeno':
       return gap?.case !== undefined ? { kind: 'case-question', case: gap.case } : ruleHint;
     case 'shoda': {
-      // A plural subject's test: ti, ty, ta (ty děti → -y), never to dítě.
-      const subject = gap?.subjects?.[0];
-      const token = subject === undefined ? undefined : sentence?.tokens?.[subject];
+      // One subject's test: ti, ty, ta for a plural one (ty děti → -y), never to dítě. Several
+      // subjects (delfíni a želvy) get the rule line.
+      if (gap?.subjects?.length !== 1) return ruleHint;
+      const token = sentence?.tokens?.[gap.subjects[0]!];
       if (token?.gender === undefined) return ruleHint;
       return token.number === 'pl'
         ? { kind: 'ten-ta-to', gender: token.gender, plural: true }
@@ -1533,8 +1542,17 @@ describe('hints (design §5.3)', () => {
 
   it('say after a listed letter that an obojetna-i word is not listed, shown with its gap, never the rhyme of y-words', () => {
     // S3's Czech QA: the rhyme lists only y-words, so for an i it points the wrong way, and a
-    // look-alike in it (být for bít) confirms the slip. The shell shows b_t, never bít.
-    expect(hint(mini, 'biit')).toEqual({ kind: 'not-listed', word: 'biit', span: [1, 2] });
+    // look-alike in it (být for bít) confirms the slip. The shell shows b_lý, never bílý.
+    const bily = made('biilyy', 'bílý', {
+      spelling: [{ at: 1, correct: 'í', alt: ['ý'], rule: 'obojetna-i' }],
+    });
+    expect(gapHint(mini, 'obojetna-i', bily, bily.spelling![0]!, null)).toEqual({
+      kind: 'not-listed',
+      word: 'biilyy',
+      span: [1, 2],
+    });
+    // b_t is být too, a listed word: the rule line, which tells such words apart by meaning.
+    expect(hint(mini, 'biit')).toEqual({ kind: 'rule', rule: 'obojetna-i' });
     // After f, which lists no words: the rule line.
     const fialka = made('fialka', 'fialka');
     const point: SpellingPoint = { at: 1, correct: 'i', alt: ['y'], rule: 'obojetna-i' };
@@ -1548,6 +1566,26 @@ describe('hints (design §5.3)', () => {
     });
   });
 
+  it('in the game, give the rule line to the eight obojetna-i words whose gap is a listed word too', () => {
+    // S3's count: 48 obojetna-i words after a listed letter, of which these spell a y-word with
+    // the point's alternative (bít → být, vír → výr …).
+    const twins = new Set<string>();
+    let notListed = 0;
+    for (const entry of real.lexicon.words) {
+      for (const point of entry.spelling ?? []) {
+        if (point.rule !== 'obojetna-i' || point.at === 0) continue;
+        if (!'blmpsvz'.includes([...entry.lemma.toLowerCase()][point.at - 1]!)) continue;
+        const found = gapHint(real, 'obojetna-i', entry, point, null);
+        if (found.kind === 'not-listed') notListed += 1;
+        else twins.add(entry.lemma);
+      }
+    }
+    expect([...twins].sort()).toEqual(
+      ['bidlo', 'bít', 'dobít', 'mít', 'sírový', 'vír', 'vískat', 'vít'].sort(),
+    );
+    expect(notListed).toBeGreaterThanOrEqual(40);
+  });
+
   it('show a test word for parova and u-uprostred', () => {
     expect(hint(lagoon, 'hrad')).toEqual({ kind: 'test-word', word: 'hrad', test: 'hrady' });
     expect(hint(lagoon, 'zub')).toEqual({ kind: 'test-word', word: 'zub', test: 'zuby' });
@@ -1559,7 +1597,7 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the case question for mne-zajmeno, ti-ty-ta for a plural subject of shoda, the pattern for vzor', () => {
+  it('show the case question for mne-zajmeno, ti-ty-ta for one plural subject of shoda and the rule for several, the pattern for vzor', () => {
     const dej = {
       sentence: {
         id: 's.dej',
@@ -1597,6 +1635,29 @@ describe('hints (design §5.3)', () => {
     expect(
       gapHint(mini, 'shoda', null, null, { parsed: singular, gap: ryby.sentence.gaps[0]! }),
     ).toEqual({ kind: 'ten-ta-to', gender: 'f' });
+    // Several subjects are not decided word by word (ti delfíni a ty želvy): the rule line.
+    const text = 'Delfíni a želvy plaval{i|y} spolu.';
+    const both = {
+      sentence: {
+        id: 's.both',
+        grade: 4,
+        topics: [],
+        text,
+        gaps: [{ rule: 'shoda', word: null, subjects: [0, 2] }],
+        tokens: [
+          { t: 'Delfíni', pos: 'noun', number: 'pl', gender: 'ma', member: 'subject' },
+          { t: 'a', pos: 'conj' },
+          { t: 'želvy', pos: 'noun', number: 'pl', gender: 'f', member: 'subject' },
+          { t: 'plavali', pos: 'verb', number: 'pl', member: 'predicate' },
+          { t: 'spolu', pos: 'adv' },
+        ],
+      },
+      parsed: parseGappedText(text),
+      words: ['Delfíni', 'a', 'želvy', 'plavali', 'spolu'],
+    } as unknown as ParsedSentence;
+    expect(
+      gapHint(mini, 'shoda', null, null, { parsed: both, gap: both.sentence.gaps[0]! }),
+    ).toEqual({ kind: 'rule', rule: 'shoda' });
     const stroj = made('stroj', 'stroj', {
       noun: { gender: 'm', animate: false, numbers: 'both', pattern: 'stroj' },
     });

@@ -446,23 +446,26 @@ choices and pad keys, letters type, Enter confirms, Backspace deletes.
 A `hint` shows the strategy, not just the answer. Hints are free, never reduce rewards, and come on
 request (_Poraď mi!_), after a miss, before a re-ask and before a taught problem (§6.4).
 
-| Hint            | Shows                                   | Example                                    |
-| --------------- | --------------------------------------- | ------------------------------------------ |
-| `family`        | a related word that proves the spelling | _mlýn → mlynář_; _zapomenout → zapomněl_   |
-| `test-word`     | a form that makes the sound clear       | _hrad → hrady_, _led → ledy_, _dům → domy_ |
-| `listed`        | the school rhyme of a letter            | _být, bydlit, obyvatel, byt, příbytek…_    |
-| `ten-ta-to`     | the gender test; for a plural subject   | _ten pes, ta ryba, to moře_; _ti, ty, ta_  |
-| `case-question` | the case question                       | _komu? čemu? → Dej to mně._                |
-| `pattern`       | the pattern and its ending              | _o hradech, o strojích_                    |
-| `rule`          | the rule in one line                    | _Po h, ch, k, r, d, t, n píšeme y._        |
-| `method`        | how to find the answer, step by step    | _the case questions in turn_               |
-| `not-listed`    | the word is not listed, with its gap    | _Slovo b_lý mezi vyjmenovanými není._      |
+| Hint            | Shows                                   | Example                                                    |
+| --------------- | --------------------------------------- | ---------------------------------------------------------- |
+| `family`        | a related word that proves the spelling | _mlýn → mlynář_; _zapomenout → zapomněl_                   |
+| `test-word`     | a form that makes the sound clear       | _hrad → hrady_, _led → ledy_, _dům → domy_                 |
+| `listed`        | the school rhyme of a letter            | _být, bydlit, obyvatel, byt, příbytek…_                    |
+| `ten-ta-to`     | the gender test; for a plural subject   | _ten pes, ta ryba, to moře_; _ti, ty, ta_                  |
+| `case-question` | the case question                       | _komu? čemu? → Dej to mně._                                |
+| `pattern`       | the pattern and its ending              | _o hradech, o strojích_                                    |
+| `rule`          | the rule in one line                    | _Po h, ch, k, r, d, t, n píšeme y._                        |
+| `method`        | how to find the answer, step by step    | _the case questions in turn_                               |
+| `not-listed`    | the word is not listed, with its gap    | _Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._ |
 
 `vyjm` uses the family word (the rhyme for a head word); `obojetna-i` after a listed letter says the
 word is not listed, shown with its gap, never spelled out (not the rhyme: it lists only y-words, and
-a look-alike in it, _být_ for _bít_, would confirm the slip), and elsewhere the rule line; `parova`
+a look-alike in it, _být_ for _bít_, would confirm the slip), and elsewhere the rule line, as where
+the gap with its other letter is another word (_b_t_ is _být_ too), since the rule line tells such
+words apart by their meaning; `parova`
 and `u-uprostred` a test word, `mne-zajmeno` the case question, `shoda` the subject's test, _ti, ty,
-ta_ for a plural subject (_ti psi, ty kočky_; _ten, ta, to_ would give _to dítě_ for _děti_), `vzor`
+ta_ for a plural subject (_ti psi, ty kočky_; _ten, ta, to_ would give _to dítě_ for _děti_), and
+the rule line for several subjects (_delfíni a želvy_), which are not decided word by word; `vzor`
 the pattern, the rest the rule. Classifications show the gender test, or the method of the case,
 the pattern, the tense, the mood or the verb form (`grammar.method.<method>`): never the case
 question or the pattern, which name the answer. A sound-alike relation shows how such words differ.

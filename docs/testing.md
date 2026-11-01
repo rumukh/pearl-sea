@@ -172,6 +172,11 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
 - `test/e2e/isolation.spec.ts`: Dragon Valley's save and offline caches, seeded under their real
   names, survive this game's boots unchanged; every database, cache and worker scope belongs to one
   of the two games, and localStorage stays empty.
+- `test/e2e/history.spec.ts`: a save made on the newest archived revision (played in Node by S2's
+  trace player on the decompressed archive) opens in the browser: the shell fetches
+  `content/history/<revision>.json.gz` as a gzip file without a Content-Encoding, decompresses it
+  with `DecompressionStream`, restores the save and, at the grotto, moves it to the newest pack
+  with the chosen friend and the completed lesson kept.
 
 ### The rules' tests (S2)
 

@@ -11,7 +11,7 @@
  *   host restore it, passing `durableRevision` because the record was read back from storage.
  * - Anything that fails becomes `RecoveryRequired`: the original bytes stay untouched.
  * - Old saves restore with their own content pack: one the definition holds, or one fetched on
- *   demand (`loadHistory`: the build's `content/history/<revision>.json`). Then
+ *   demand (`loadHistory`: the build's gzip archive `content/history/<revision>.json.gz`). Then
  *   `activateLatestContent()` moves them to the newest pack at a safe boundary (the grotto,
  *   never mid-round) through the adapter's own `activateContent` migration. A pinned pack that
  *   cannot be fetched, or does not match the save, leaves the save untouched for recovery.
@@ -40,7 +40,7 @@ export const ENGINE_ID = 'aegis-runtime';
 export const ENGINE_SNAPSHOT_VERSION = 1;
 export const ENGINE_REVISION = 'runtime-1';
 
-/** A revision a shipped pack can be named by: `content/history/<revision>.json`. */
+/** A revision a shipped pack can be named by: `content/history/<revision>.json.gz`. */
 export const SHIPPED_REVISION = /^(?!.*\.\.)[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$/;
 
 export interface GameDefinition<S, A, V, C> {

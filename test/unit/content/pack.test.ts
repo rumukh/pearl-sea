@@ -70,7 +70,7 @@ const BOARD_ITEMS_ON_PURPOSE: Readonly<Record<string, readonly string[]>> = {
 
 /**
  * The lesson each friend hatches in (design §3; the first lagoon egg in lesson 1, §4.1). Delfín
- * and the Klauni hatch one lesson later than design §3 says, since their sets hold the lessons
+ * and the Klauni hatch after the lesson that gives their egg, since their sets hold the lessons
  * after it too (docs/content.md §6).
  */
 const HATCH: Readonly<Record<string, string>> = {

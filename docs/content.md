@@ -46,7 +46,9 @@ are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`; the balance of the pacing stu
 lagoon points the word alone cannot decide, asked only in sentences, are `1.2.3`; the Czech QA of
 regions 2-12, with _Bublinka_ and _Osmička_ back in Krmení (§7), is `1.2.4`. `1.2.5` changes no
 data: the contract now serves a form that several cells show as one item, and saves that activate
-`1.2.5` merge their records of the retired form items (contract §7.6). To change content:
+`1.2.5` merge their records of the retired form items (contract §7.6); families that mark the
+words of one root, so that no hint takes one as another's example (§7), are `1.2.6`. To change
+content:
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from
@@ -477,6 +479,17 @@ generated problems were read again once the rules showed them (catalog only, no 
   `pack.test.ts` checks every rule line against what its rule's problems show. The only exception
   is the two forms the `mne-zajmeno` line teaches, _mně_ and _mě_: every one of its gaps offers
   both.
+- An example comes from another family, and only families tell the rules which words share a
+  root. The review of the examples the rules chose (S2's #46) found two that did, between words
+  the lexicon had left without a family: _pomněnka_ for _zapomněl_ and _vzpomněl_, which shows
+  the very letters _pomně_, and _odplavala_ for _zaplavat si_. Content `1.2.6` gives every group
+  of spelling words with one root its family: _zaplavat si_ joins _plavat_, and six new
+  ordinary families join _zapomenout, vzpomenout si, připomenout, pomněnka_ (SSJČ: _pomníti_,
+  _zapomněti_); _vědět, odpověď, předpověď_; _psát, nadpis, podpis_; _vjet, vjezd, objet_;
+  _objevit, objev_; _hrát, hrát si, vyhrát, výhra, hřiště_ (DeriNet). Two rule lines changed with
+  them. The line of the prefixes' _d_ and _z_ says _končí vždy na d_: its _píšeme_ is a form of
+  _psát_, which is now the family of _nadpis_. The _ú_ line names the compound too (_po první
+  části složeného slova_), as `u-predpona` covers _trojúhelník_ (lexicon.md §2.2).
 
 **Kept on purpose.** These alternatives are rare words a child does not mean: _sípat, prosít,
 posýpat, vyset, sír_. A teacher would mark them wrong too, and the word read aloud decides. Also

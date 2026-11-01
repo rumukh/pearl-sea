@@ -56,6 +56,8 @@
       "id": "hraat",
       "lemma": "hrát",
       "pos": "verb",
+      "family": "fam.hraat",
+      "role": "head",
       "aspect": "impf",
       "paradigm": {
         "inf": "hrát",
@@ -77,6 +79,8 @@
       "id": "hraat-si",
       "lemma": "hrát si",
       "pos": "verb",
+      "family": "fam.hraat",
+      "role": "member",
       "aspect": "impf",
       "reflexive": "si",
       "paradigm": {
@@ -289,6 +293,8 @@
       "id": "psaat",
       "lemma": "psát",
       "pos": "verb",
+      "family": "fam.psaat",
+      "role": "head",
       "aspect": "impf",
       "paradigm": {
         "inf": "psát",

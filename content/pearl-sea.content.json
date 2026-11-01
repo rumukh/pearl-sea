@@ -1,6 +1,6 @@
 {
   "id": "pearl-sea",
-  "revision": "1.2.5",
+  "revision": "1.2.6",
   "schemaVersion": 1,
   "data": {
     "grades": [
@@ -17173,7 +17173,8 @@
                 "npl": "hrála"
               }
             }
-          }
+          },
+          "family": { "id": "fam.hraat", "role": "head" }
         },
         {
           "id": "hraat-si",
@@ -17200,7 +17201,8 @@
                 "npl": "hrála"
               }
             }
-          }
+          },
+          "family": { "id": "fam.hraat", "role": "related" }
         },
         {
           "id": "hrad",
@@ -17256,7 +17258,8 @@
               "sg": ["hřiště", "hřiště", "hřišti", "hřiště", "hřiště", "hřišti", "hřištěm"],
               "pl": ["hřiště", "hřišť", "hřištím", "hřiště", "hřiště", "hřištích", "hřišti"]
             }
-          }
+          },
+          "family": { "id": "fam.hraat", "role": "related" }
         },
         {
           "id": "humr",
@@ -20903,6 +20906,7 @@
               "pl": ["nadpisy", "nadpisů", "nadpisům", "nadpisy", "nadpisy", "nadpisech", "nadpisy"]
             }
           },
+          "family": { "id": "fam.psaat", "role": "related" },
           "segments": [
             ["prefix", "nad"],
             ["root", "pis"],
@@ -21585,6 +21589,7 @@
               }
             }
           },
+          "family": { "id": "fam.vjet", "role": "related" },
           "spelling": [{ "at": 2, "correct": "je", "alt": ["ě"], "rule": "bje-vje" }]
         },
         {
@@ -21605,6 +21610,7 @@
               "pl": ["objevy", "objevů", "objevům", "objevy", "objevy", "objevech", "objevy"]
             }
           },
+          "family": { "id": "fam.objevit", "role": "related" },
           "segments": [
             ["prefix", "ob"],
             ["root", "jev"],
@@ -21638,6 +21644,7 @@
               }
             }
           },
+          "family": { "id": "fam.objevit", "role": "head" },
           "spelling": [{ "at": 2, "correct": "je", "alt": ["ě"], "rule": "bje-vje" }]
         },
         {
@@ -22074,6 +22081,7 @@
               ]
             }
           },
+          "family": { "id": "fam.vexdext", "role": "related" },
           "spelling": [{ "at": 1, "correct": "d", "alt": ["t"], "rule": "predpona-souhlaska" }]
         },
         {
@@ -23493,6 +23501,7 @@
               "pl": ["podpisy", "podpisů", "podpisům", "podpisy", "podpisy", "podpisech", "podpisy"]
             }
           },
+          "family": { "id": "fam.psaat", "role": "related" },
           "segments": [
             ["prefix", "pod"],
             ["root", "pis"],
@@ -23732,6 +23741,7 @@
               ]
             }
           },
+          "family": { "id": "fam.zapomenout", "role": "related" },
           "spelling": [{ "at": 3, "correct": "ně", "alt": ["ě"], "rule": "mne" }]
         },
         {
@@ -24084,6 +24094,7 @@
               ]
             }
           },
+          "family": { "id": "fam.vexdext", "role": "related" },
           "spelling": [{ "at": 3, "correct": "d", "alt": ["t"], "rule": "predpona-souhlaska" }]
         },
         {
@@ -24465,7 +24476,8 @@
                 "npl": "připomněla"
               }
             }
-          }
+          },
+          "family": { "id": "fam.zapomenout", "role": "related" }
         },
         {
           "id": "prxistavit",
@@ -24535,7 +24547,8 @@
                 "npl": "psala"
               }
             }
-          }
+          },
+          "family": { "id": "fam.psaat", "role": "head" }
         },
         {
           "id": "pstruh",
@@ -28431,7 +28444,8 @@
                 "npl": "věděla"
               }
             }
-          }
+          },
+          "family": { "id": "fam.vexdext", "role": "head" }
         },
         {
           "id": "vexta",
@@ -28717,6 +28731,7 @@
               }
             }
           },
+          "family": { "id": "fam.vjet", "role": "head" },
           "spelling": [{ "at": 1, "correct": "je", "alt": ["ě"], "rule": "bje-vje" }]
         },
         {
@@ -28737,6 +28752,7 @@
               "pl": ["vjezdy", "vjezdů", "vjezdům", "vjezdy", "vjezdy", "vjezdech", "vjezdy"]
             }
           },
+          "family": { "id": "fam.vjet", "role": "related" },
           "segments": [
             ["prefix", "v"],
             ["root", "jezd"],
@@ -29292,6 +29308,7 @@
               }
             }
           },
+          "family": { "id": "fam.hraat", "role": "related" },
           "spelling": [{ "at": 1, "correct": "y", "alt": ["i"], "rule": "vyjm-prefix" }]
         },
         {
@@ -29705,6 +29722,7 @@
               "pl": ["výhry", "výher", "výhrám", "výhry", "výhry", "výhrách", "výhrami"]
             }
           },
+          "family": { "id": "fam.hraat", "role": "related" },
           "spelling": [{ "at": 1, "correct": "ý", "alt": ["í"], "rule": "vyjm-prefix" }]
         },
         {
@@ -30098,7 +30116,8 @@
                 "npl": "vzpomněla"
               }
             }
-          }
+          },
+          "family": { "id": "fam.zapomenout", "role": "related" }
         },
         {
           "id": "z",
@@ -30301,7 +30320,8 @@
                 "npl": "zaplavala"
               }
             }
-          }
+          },
+          "family": { "id": "fam.plavat", "role": "related" }
         },
         {
           "id": "zapomenout",
@@ -30335,7 +30355,8 @@
                 "npl": "zapomněla"
               }
             }
-          }
+          },
+          "family": { "id": "fam.zapomenout", "role": "head" }
         },
         {
           "id": "zapyyrxit-se",
@@ -32192,6 +32213,66 @@
           "order": null,
           "core": false,
           "root": "ostrov",
+          "kin": [],
+          "src": ["derinet"]
+        },
+        {
+          "id": "fam.zapomenout",
+          "letter": null,
+          "head": "zapomenout",
+          "order": null,
+          "core": false,
+          "root": "pomen/pomn",
+          "kin": [],
+          "src": ["ssjc"]
+        },
+        {
+          "id": "fam.vexdext",
+          "letter": null,
+          "head": "vexdext",
+          "order": null,
+          "core": false,
+          "root": "věd/věď",
+          "kin": [],
+          "src": ["derinet"]
+        },
+        {
+          "id": "fam.psaat",
+          "letter": null,
+          "head": "psaat",
+          "order": null,
+          "core": false,
+          "root": "ps/pis",
+          "kin": [],
+          "src": ["derinet"]
+        },
+        {
+          "id": "fam.vjet",
+          "letter": null,
+          "head": "vjet",
+          "order": null,
+          "core": false,
+          "root": "jet/jezd",
+          "kin": [],
+          "src": ["derinet"]
+        },
+        {
+          "id": "fam.objevit",
+          "letter": null,
+          "head": "objevit",
+          "order": null,
+          "core": false,
+          "root": "jev",
+          "kin": [],
+          "src": ["derinet"]
+        },
+        {
+          "id": "fam.hraat",
+          "letter": null,
+          "head": "hraat",
+          "order": null,
+          "core": false,
+          "root": "hr/hř",
           "kin": [],
           "src": ["derinet"]
         }

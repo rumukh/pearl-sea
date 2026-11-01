@@ -84,14 +84,14 @@ The music is Ogg Vorbis, mono at 48 kHz: 1.86 MB on the wire, decoded on first p
 samples in memory, 4 bytes a sample (S5's manifest: 33.0 MB, 31.5 MiB, for all four sounds, of a
 48 MiB budget).
 
-| After                                  | Decoded  | Buffers | Edge | Firefox |
-| -------------------------------------- | -------- | ------- | ---- | ------- |
-| The grotto and a lesson                | 19.3 MiB | 2       | Yes  | Yes     |
-| The grotto, Muréna's battle, the sting | 23.3 MiB | 3       | Yes  | Yes     |
-| All four sounds (from the manifest)    | 31.5 MiB | 4       |      |         |
+| After                                  | Decoded  | Buffers | Edge | Firefox | WebKit (CI) |
+| -------------------------------------- | -------- | ------- | ---- | ------- | ----------- |
+| The grotto and a lesson                | 19.3 MiB | 2       | Yes  | Yes     | Yes         |
+| The grotto, Muréna's battle, the sting | 23.3 MiB | 3       | Yes  | Yes     | Yes         |
+| All four sounds (from the manifest)    | 31.5 MiB | 4       |      |         |             |
 
-Playwright's WebKit on Windows has no Web Audio, so it decodes nothing; Safari on an iPad plays Ogg
-Vorbis from iPadOS 18.4.
+The same in every engine; WebKit's figures are from CI on Ubuntu, as Playwright's WebKit on Windows
+has no Web Audio. Safari on an iPad plays Ogg Vorbis from iPadOS 18.4.
 
 ## Not measured
 

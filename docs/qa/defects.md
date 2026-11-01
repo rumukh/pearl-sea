@@ -147,12 +147,12 @@ S4 takes them in this order: PS-QA-04, 05 and 06 first, then 09, 01 and the mino
 
 ## Fixed
 
-| ID       | Severity | Owner | Defect                                                                          | Fixed by                         |
-| -------- | -------- | ----- | ------------------------------------------------------------------------------- | -------------------------------- |
-| PS-QA-02 | blocker  | S4    | The game was silent: no music and no victory sting ever played                  | #33, verified in `audio.spec.ts` |
-| PS-QA-03 | major    | S2    | Results said "Správně: 9 / 5" after Inkoustová věta and "10 / 5" after Lov chyb | #27, units documented by #31     |
-| PS-QA-10 | minor    | S3    | Freeing Muréna said the same news twice in a row                                | #32                              |
-| PS-QA-11 | minor    | S2    | design.md said 1-3 coins from the chest in §8.1 and 2-6 in §8.4                 | #31 (1-3 is meant)               |
+| ID       | Severity | Owner | Defect                                                                          | Fixed by                                                          |
+| -------- | -------- | ----- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| PS-QA-02 | blocker  | S4    | The game was silent: no music and no victory sting ever played                  | #33, verified in `audio.spec.ts` in Edge, Firefox and CI's WebKit |
+| PS-QA-03 | major    | S2    | Results said "Správně: 9 / 5" after Inkoustová věta and "10 / 5" after Lov chyb | #27, units documented by #31                                      |
+| PS-QA-10 | minor    | S3    | Freeing Muréna said the same news twice in a row                                | #32                                                               |
+| PS-QA-11 | minor    | S2    | design.md said 1-3 coins from the chest in §8.1 and 2-6 in §8.4                 | #31 (1-3 is meant)                                                |
 
 - **PS-QA-02**: the SDK's `requireId` (`/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/`) refused the slash
   in the contract's sound IDs (`music/grotto`), and `ensure()` in `src/app/audio/game-audio.ts`

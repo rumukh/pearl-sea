@@ -4,7 +4,7 @@
  * their area. The profiles and the dive into the sea join this screen with the game screens.
  */
 import { openGrownUpsGate } from '../grownups/gate-dialog';
-import { linkButton } from '../ui/button';
+import { candyButton, linkButton } from '../ui/button';
 import { h } from '../ui/dom';
 import type { ScreenEntry } from '../router/router';
 import type { App } from '../shell/app';
@@ -38,6 +38,25 @@ export function titleScreen(app: App): ScreenEntry {
         },
         onError: app.kit.onError,
       });
+      // With rules and content the dive begins here; until then the title says the sea is coming.
+      const play = app.content()
+        ? candyButton({
+            label: t('title.play'),
+            icon: 'play',
+            variant: 'sun',
+            size: 'big',
+            testId: 'title-play',
+            onPress: async () => {
+              app.audio.unlock();
+              await app.router.push(
+                app.family.state().profiles.length > 0
+                  ? app.screens.divers()
+                  : app.screens.editor(null),
+              );
+            },
+            onError: app.kit.onError,
+          })
+        : h('p', { className: 'ps-title__soon', text: t('title.soon') });
       const element = h(
         'main',
         { className: 'ps-title', testId: 'title-screen' },
@@ -49,7 +68,7 @@ export function titleScreen(app: App): ScreenEntry {
           h('p', { className: 'ps-title__subtitle', text: t('title.subtitle') }),
           pearls,
           h('p', { className: 'ps-title__tagline', text: t('title.tagline') }),
-          h('p', { className: 'ps-title__soon', text: t('title.soon') }),
+          play,
         ),
         h('div', { className: 'ps-title__corner' }, grownUps),
       );
@@ -58,7 +77,8 @@ export function titleScreen(app: App): ScreenEntry {
         title: t('app.title'),
         field: 'sea',
         region: 'sunny-lagoon',
-        music: 'title',
+        music: 'grotto',
+        focusTarget: () => (play instanceof HTMLButtonElement ? play : null),
       };
     },
   };

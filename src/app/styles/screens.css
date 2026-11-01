@@ -309,6 +309,23 @@
   border: 0.08em solid var(--ps-line);
 }
 
+/* A meter in a row (a day, a goal) takes the room beside its notes; in a stacked row, the width. */
+.ps-grownups__row .ps-meter {
+  flex: 1 1 14em;
+  width: auto;
+  max-width: 30em;
+}
+
+.ps-grownups__row--stack > .ps-meter {
+  flex: none;
+  width: min(100%, 30em);
+}
+
+.ps-grownups__word {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 .ps-grownups__row--stack {
   flex-direction: column;
   align-items: flex-start;

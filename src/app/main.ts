@@ -1,19 +1,27 @@
 /**
  * Boot. Readiness is real: the boot status turns "ready" only after the family record was read
- * (or found unreadable, which shows the recovery screen), the reading font loaded (or its short
- * wait ran out), and the first screen is mounted and painted. The audio manifest is read first
- * (a missing or broken one means a silent game, never a failed boot). Nothing is exposed on
- * `window`, nothing is written to the console, and uncaught errors land on the error screen.
+ * (or found unreadable, which shows the recovery screen), the game's content pack and strings
+ * were validated (with rules on main), the reading font loaded (or its short wait ran out), and
+ * the first screen is mounted and painted. The audio manifest and the art catalog are read first
+ * (a missing or broken one means a silent game or placeholder art, never a failed boot). Nothing
+ * is exposed on `window`, nothing is written to the console, and uncaught errors land on the
+ * error screen.
  *
  * The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
- * (`loading`, `ready`, `failed`), `data-screen` (the current screen), `data-font` and
- * `data-base` (the deployment base).
+ * (`loading`, `ready`, `failed`), `data-screen` (the current screen), `data-font`, `data-base`
+ * (the deployment base) and `data-content` (the content pack's revision, once there is one).
  */
 import { applyPresentationPreferences } from '@aegis/browser/ui';
 import { requireValue, schema } from '@aegis/runtime';
+import { loadArtLibrary } from './art/library';
 import { loadAudioMap } from './audio/manifest';
+import { createHistoryLoader } from './content/history';
+import { loadContentPack } from './content/load';
+import { loadContentCatalogs } from './content/text';
 import { loadFonts } from './design/fonts';
 import { applyTokens } from './design/tokens';
+import { pearlSeaGame } from './game/definition';
+import { RULES } from './game/rules';
 import { DEFAULT_PRESENTATION } from './persistence/preferences';
 import { RecoveryRequired } from './persistence/recovery';
 import type { ScreenEntry } from './router/router';
@@ -24,6 +32,7 @@ import { afterPaint, h } from './ui/dom';
 import './styles/base.css';
 import './styles/components.css';
 import './styles/screens.css';
+import './styles/game.css';
 
 const basePath = schema.string({
   minLength: 1,
@@ -85,12 +94,25 @@ async function boot(root: HTMLElement, status: HTMLElement): Promise<void> {
     return;
   }
   const fonts = loadFonts(env.baseUrl);
-  const audioMap = await loadAudioMap(env.baseUrl);
-  const app = createApp({ env, root, bootStatus: status, audioMap });
+  const [audioMap, art] = await Promise.all([
+    loadAudioMap(env.baseUrl),
+    loadArtLibrary(env.baseUrl),
+  ]);
+  const app = createApp({ env, root, bootStatus: status, audioMap, art });
   app.screens = createScreens(app);
   let first: ScreenEntry;
   try {
     await app.family.open();
+    // With rules, the game's content: the pack and its strings, validated before any screen.
+    if (RULES) {
+      const pack = await loadContentPack(env.baseUrl);
+      const catalogs = await loadContentCatalogs(env.baseUrl, pack.data);
+      app.useContent(
+        pearlSeaGame(RULES, pack, [], createHistoryLoader(env.baseUrl, pack)),
+        catalogs,
+      );
+      status.dataset['content'] = pack.revision;
+    }
     first = app.screens.title();
   } catch (error) {
     // An unreadable family record asks a grown-up; nothing is replaced by itself.

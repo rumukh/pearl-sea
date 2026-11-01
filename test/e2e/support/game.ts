@@ -1,0 +1,483 @@
+/**
+ * Playing Perlové moře in a real browser, the way a child does: through the editor, the story,
+ * the grotto, rounds and boards, with every answer given on screen.
+ *
+ * What is right comes from the game itself: the save the page stored (the shell saves every
+ * step before it moves on) is read back and restored into a runtime host in Node, and its view
+ * says what the problem or board on screen asks. Screens name what they show by position only
+ * (`data-round`, `data-index`, `data-step`, `data-board`), never by item, so nothing on the page
+ * gives an answer away. Boards are solved from the board view and the lexicon, as S2's trace
+ * player solves them.
+ *
+ * A seeded child skips ahead: S2's `Player` plays the real pack in Node, and its snapshot is
+ * stored as the shell's checkpoint would store it (`saves.ts`).
+ */
+import { readFileSync } from 'node:fs';
+import { importSave } from '@aegis/browser/save';
+import { createRuntimeHost, parseContentJson, requireValue } from '@aegis/runtime';
+import type { RuntimeSnapshot } from '@aegis/runtime';
+import { expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { pearlSeaGame } from '../../../src/app/game/definition';
+import type { PearlSeaGame, PearlSeaPack } from '../../../src/app/game/definition';
+import { gamePolicy } from '../../../src/app/persistence/game-session';
+import { pearlSeaAdapter } from '../../../src/rules/adapter';
+import { compareCzech, contentRegistration } from '../../../src/rules/contract';
+import type {
+  AnswerValue,
+  BoardView,
+  DiverAvatar,
+  FormOfAddress,
+  GameView,
+  Grade,
+  MinigameRoundView,
+  ProblemView,
+  ProfileId,
+} from '../../../src/rules/contract';
+import { PERFECT, Player, rightNet, shellParts } from '../../traces/support';
+import { FAMILY_KEY, familyPayload, gamePayload, readRecord, storeRecord } from './saves';
+
+const PACK_FILE = new URL('../../../content/pearl-sea.content.json', import.meta.url);
+
+/** The content pack the site serves. */
+export const PACK: PearlSeaPack = requireValue(
+  parseContentJson(readFileSync(PACK_FILE, 'utf8'), contentRegistration, 'pearl-sea.content.json'),
+);
+export const GAME: PearlSeaGame = pearlSeaGame(pearlSeaAdapter, PACK);
+
+/** A day long past for seeded games: the page's own day is always a later one. */
+export const SEED_DAY = '2026-01-05';
+
+// ------------------------------------------------------------------------------ the stored game
+
+/** The game as the page stored it for `profileId` (restored in Node), or `null` before a save. */
+export async function storedView(page: Page, profileId: string): Promise<GameView | null> {
+  const payload = await readRecord(page, { gameId: GAME.gameId, profileId });
+  if (payload === null) return null;
+  const envelope = importSave(payload, gamePolicy(GAME, profileId));
+  const host = createRuntimeHost({ adapter: GAME.adapter, content: GAME.content, seed: 'oracle' });
+  try {
+    requireValue(await host.restore(envelope.state));
+    return host.getView();
+  } finally {
+    await host.dispose();
+  }
+}
+
+/** Wait until the stored game shows what `pick` looks for, and return that. */
+async function untilStored<T>(
+  page: Page,
+  profileId: string,
+  pick: (view: GameView) => T | undefined,
+  what: string,
+): Promise<T> {
+  let found: T | undefined;
+  await expect
+    .poll(
+      async () => {
+        const view = await storedView(page, profileId);
+        found = view === null ? undefined : pick(view);
+        return found !== undefined;
+      },
+      { message: `the stored game reaches ${what}`, timeout: 15_000 },
+    )
+    .toBe(true);
+  return found!;
+}
+
+// ------------------------------------------------------------------------------ screens
+
+/** The screen on the stage once no navigation is under way (its `screen-…` test ID). */
+export async function shownScreen(page: Page): Promise<string> {
+  const handle = await page.waitForFunction(
+    () => {
+      const stage = document.querySelector('[data-testid="stage"]');
+      if (!stage || stage.getAttribute('aria-busy') === 'true') return null;
+      const screen = stage.querySelector<HTMLElement>('[data-testid^="screen-"]');
+      return screen?.dataset['testid'] ?? null;
+    },
+    undefined,
+    { timeout: 20_000 },
+  );
+  return (await handle.jsonValue()) as string;
+}
+
+/** Act, then wait until the screen `testId` on the stage now is gone or has been rebuilt. */
+export async function leaveScreen(
+  page: Page,
+  testId: string,
+  act: () => Promise<void>,
+): Promise<void> {
+  await page.evaluate((testId) => {
+    const screen = document.querySelector<HTMLElement>(`[data-testid="${testId}"]`);
+    if (screen) screen.dataset['e2eLeaving'] = 'true';
+  }, testId);
+  await act();
+  await expect(page.locator(`[data-testid="${testId}"][data-e2e-leaving]`)).toHaveCount(0, {
+    timeout: 20_000,
+  });
+}
+
+/** Read on through story beats (skipping what may be skipped) until the game shows another screen. */
+export async function throughStory(page: Page): Promise<string> {
+  for (let guard = 0; guard < 40; guard++) {
+    const screen = await shownScreen(page);
+    if (screen !== 'screen-story') return screen;
+    const line = await page.getByTestId('story-line').textContent();
+    const skip = page.getByTestId('story-skip');
+    const onward = (await skip.count()) > 0 ? skip : page.getByTestId('story-next');
+    const button =
+      (await onward.count()) > 0 ? onward : page.locator('[data-testid^="story-choice-"]');
+    await page.evaluate(() => {
+      const screen = document.querySelector<HTMLElement>('[data-testid="screen-story"]');
+      if (screen) screen.dataset['e2eLeaving'] = 'true';
+    });
+    await button.first().click();
+    // A beat's closing line comes on the same screen; anything else rebuilds it.
+    await page.waitForFunction(
+      (before) => {
+        const screen = document.querySelector('[data-testid="screen-story"][data-e2e-leaving]');
+        return (
+          !screen || screen.querySelector('[data-testid="story-line"]')?.textContent !== before
+        );
+      },
+      line,
+      { timeout: 20_000 },
+    );
+  }
+  throw new Error('the story did not end');
+}
+
+/** Through the results: every big moment, then on (the next activity, or home). */
+export async function throughResults(page: Page): Promise<void> {
+  await expect(page.getByTestId('screen-results')).toBeVisible();
+  for (let guard = 0; guard < 10; guard++) {
+    const moment = page.getByTestId('moment-next');
+    if ((await moment.count()) === 0) break;
+    await moment.click();
+  }
+  await leaveScreen(page, 'screen-results', () => page.getByTestId('results-next').click());
+}
+
+// ------------------------------------------------------------------------------ children
+
+export interface Child {
+  readonly name: string;
+  readonly avatar: DiverAvatar;
+  readonly address: FormOfAddress;
+  readonly grade: Grade;
+}
+
+/** Make a new child in the editor, from the title screen, and dive in. */
+export async function createChild(page: Page, child: Child): Promise<void> {
+  await page.getByTestId('title-play').click();
+  const editor = page.getByTestId('screen-editor');
+  await expect(editor).toBeVisible();
+  await page.getByTestId('diver-name').fill(child.name);
+  await page.getByTestId(`avatar-${child.avatar}`).click();
+  await page.getByTestId(`address-${child.address}`).click();
+  await page.getByTestId(`grade-${child.grade}`).click();
+  await leaveScreen(page, 'screen-editor', () => page.getByTestId('diver-save').click());
+}
+
+/** A child already in the family record and with a stored game at `snapshot`. */
+export async function seedChild(
+  page: Page,
+  child: Omit<Child, 'grade'> & { readonly id: ProfileId },
+  snapshot: RuntimeSnapshot,
+): Promise<void> {
+  const { id, name, avatar, address } = child;
+  await storeRecord(
+    page,
+    FAMILY_KEY,
+    await familyPayload({ profiles: [{ id, name, avatar, address }], grownUpsLanguage: 'cs' }),
+  );
+  await storeRecord(
+    page,
+    { gameId: GAME.gameId, profileId: id },
+    await gamePayload(GAME, id, snapshot),
+  );
+}
+
+/** A 3rd grader who has played every lesson of Slunná laguna, up to its monster. */
+export async function lagoonPlayed(): Promise<RuntimeSnapshot> {
+  const player = new Player(PERFECT, 'e2e-lagoon', GAME.adapter, GAME.content);
+  try {
+    if (!(await player.begin('krab-tvrdak', SEED_DAY))) {
+      throw new Error(`the seeded child could not begin: ${player.failures.join(', ')}`);
+    }
+    const lessons = PACK.data.levels
+      .filter((level) => level.region === 'sunny-lagoon' && level.kind !== 'monster')
+      .sort((a, b) => a.order - b.order);
+    for (const level of lessons) await player.playLevel(level.id);
+    if (player.failures.length > 0) {
+      throw new Error(`the seeded child got stuck: ${player.failures.join(', ')}`);
+    }
+    return player.host.snapshot();
+  } finally {
+    await player.dispose();
+  }
+}
+
+// ------------------------------------------------------------------------------ problems
+
+/** The problem step on screen, as the stored game has it (with its answers). */
+export async function problemOnScreen(page: Page, profileId: string): Promise<ProblemView> {
+  const round = await page.getByTestId('screen-round').getAttribute('data-round');
+  const card = page.getByTestId('problem');
+  const index = Number(await card.getAttribute('data-index'));
+  const step = Number(await card.getAttribute('data-step'));
+  return untilStored(
+    page,
+    profileId,
+    (view) => {
+      const current = view.round;
+      return current?.type === 'problems' &&
+        current.id === round &&
+        current.problem?.index === index &&
+        current.problem.step === step
+        ? current.problem
+        : undefined;
+    },
+    `problem ${index}, step ${step}`,
+  );
+}
+
+/** The right answer to a problem at its step. */
+export function rightAnswer(view: ProblemView): AnswerValue {
+  const { problem, step } = view;
+  switch (problem.kind) {
+    case 'gaps':
+      return { kind: 'text', value: problem.gaps[step]!.correct };
+    case 'mistake':
+      return step === 0
+        ? { kind: 'pick', index: problem.wrong }
+        : { kind: 'text', value: problem.fix.correct };
+    case 'classify':
+      return { kind: 'option', value: problem.correct };
+    case 'odd':
+    case 'relation':
+      return { kind: 'pick', index: problem.correct };
+  }
+}
+
+/** A wrong answer a child could give: another offered choice, key or word. */
+export function wrongAnswer(view: ProblemView): AnswerValue {
+  const { problem, step } = view;
+  const right = rightAnswer(view);
+  switch (right.kind) {
+    case 'pick': {
+      const count =
+        problem.kind === 'mistake'
+          ? problem.tokens.length
+          : problem.kind === 'odd'
+            ? problem.words.length
+            : problem.kind === 'relation'
+              ? problem.options.length
+              : 1;
+      return { kind: 'pick', index: (right.index + 1) % count };
+    }
+    case 'option':
+      return {
+        kind: 'option',
+        value: problem.kind === 'classify' ? problem.options.find((o) => o !== right.value)! : '',
+      };
+    case 'text': {
+      const gap =
+        problem.kind === 'gaps'
+          ? problem.gaps[step]!
+          : problem.kind === 'mistake'
+            ? problem.fix
+            : null;
+      const pool = gap === null ? [] : view.input === 'letters' ? gap.keys : gap.options;
+      return {
+        kind: 'text',
+        value: view.input === 'typed' ? `${right.value}x` : pool.find((o) => o !== right.value)!,
+      };
+    }
+  }
+}
+
+/** Give an answer on screen: a choice tile, a key of the letter pad, a typed word or a word pick. */
+export async function give(page: Page, view: ProblemView, value: AnswerValue): Promise<void> {
+  const answer = page.getByTestId('answer');
+  switch (value.kind) {
+    case 'pick':
+      await answer.getByTestId(`pick-${value.index}`).click();
+      return;
+    case 'option':
+      await answer.getByTestId(`option-${value.value}`).click();
+      return;
+    case 'text':
+      if (view.input === 'typed') {
+        await answer.getByTestId('typed-field').fill(value.value);
+        await answer.getByTestId('typed-ok').click();
+      } else {
+        const prefix = view.input === 'letters' ? 'key' : 'choice';
+        await answer.getByTestId(`${prefix}-${value.value}`).click();
+      }
+      return;
+  }
+}
+
+/**
+ * Answer the step on screen, right or wrong, and wait until the round moves on: the next step
+ * or problem, or another screen once the round is over. A wrong answer is taken back with "Dál".
+ */
+export async function answerStep(
+  page: Page,
+  profileId: string,
+  right = true,
+): Promise<ProblemView> {
+  const view = await problemOnScreen(page, profileId);
+  await give(page, view, right ? rightAnswer(view) : wrongAnswer(view));
+  if (!right) {
+    await expect(page.getByTestId('feedback')).toHaveAttribute('data-kind', 'miss');
+    await page.getByTestId('round-next').click();
+  }
+  await movedOn(page, view);
+  return view;
+}
+
+/** Wait until the round shows another step or problem than sked, or another screen. */
+export async function movedOn(page: Page, asked: ProblemView): Promise<void> {
+  await page.waitForFunction(
+    ({ index, step }) => {
+      const card = document.querySelector<HTMLElement>('[data-testid="problem"]');
+      return !card || card.dataset['index'] !== index || card.dataset['step'] !== step;
+    },
+    { index: String(asked.index), step: String(asked.step) },
+    { timeout: 20_000 },
+  );
+}
+
+/** Answer every step right until the round is over; resolves to the screen that follows. */
+export async function playRound(page: Page, profileId: string): Promise<string> {
+  for (let guard = 0; guard < 120; guard++) {
+    const screen = await shownScreen(page);
+    if (screen !== 'screen-round') return screen;
+    await answerStep(page, profileId);
+  }
+  throw new Error('the round did not end');
+}
+
+// ------------------------------------------------------------------------------ boards
+
+/** The board on screen, as the stored game has it. */
+export async function boardOnScreen(page: Page, profileId: string): Promise<BoardView> {
+  const round = await page.getByTestId('screen-board').getAttribute('data-round');
+  const board = Number(await page.getByTestId('board').getAttribute('data-board'));
+  return untilStored(
+    page,
+    profileId,
+    (view) => {
+      const current = view.round;
+      return current?.type === 'minigame' && current.id === round && current.board === board
+        ? (current as MinigameRoundView).current
+        : undefined;
+    },
+    `board ${board}`,
+  );
+}
+
+/** Check the board as it is, and wait for the next board or the screen after the last. */
+export async function checkBoard(page: Page): Promise<void> {
+  const board = await page.getByTestId('board').getAttribute('data-board');
+  await page.getByTestId('board-submit').click();
+  await page.waitForFunction(
+    (board) => {
+      const slot = document.querySelector<HTMLElement>('[data-testid="board"]');
+      return !slot || slot.dataset['board'] !== board;
+    },
+    board,
+    { timeout: 20_000 },
+  );
+}
+
+/** The pearls' right order: alphabetical (ch after h), or the order of the school rhyme. */
+function necklaceOrder(board: Extract<BoardView, { kind: 'pearl-necklace' }>): string[] {
+  const words = PACK.data.lexicon.words;
+  const families = PACK.data.lexicon.families;
+  const rhyme = (word: string): number => {
+    const family = words.find((w) => w.id === word)?.family?.id;
+    return families.find((f) => f.id === family)?.order ?? 0;
+  };
+  const sorted =
+    board.order === 'alphabet'
+      ? [...board.pearls].sort((a, b) => compareCzech(a.text, b.text))
+      : [...board.pearls].sort((a, b) => rhyme(a.word) - rhyme(b.word));
+  return sorted.map((pearl) => pearl.id);
+}
+
+/** Make the board right on screen, move by move, without checking it. */
+export async function arrangeBoard(page: Page, board: BoardView): Promise<void> {
+  const slot = page.getByTestId('board');
+  switch (board.kind) {
+    case 'pearl-necklace': {
+      const order = necklaceOrder(board);
+      const places = slot.locator('.ps-necklace__string > li > button');
+      for (const [index, id] of order.entries()) {
+        if ((await places.nth(index).getAttribute('data-testid')) === `pearl-${id}`) continue;
+        await slot.getByTestId(`pearl-${id}`).click();
+        await places.nth(index).click();
+        await expect(places.nth(index)).toHaveAttribute('data-testid', `pearl-${id}`);
+      }
+      return;
+    }
+    case 'fishing-nets':
+      for (const fish of board.fish) {
+        const net = rightNet(PACK.data, board, fish);
+        await slot.getByTestId(`fish-${fish.id}`).click();
+        await slot.getByTestId(`net-${net}`).click();
+        await expect(
+          slot.locator(`.ps-net-area[data-net="${net}"] [data-testid="fish-${fish.id}"]`),
+        ).toBeVisible();
+      }
+      return;
+    case 'word-shell': {
+      const word = PACK.data.lexicon.words.find((w) => w.id === board.word)!;
+      const target = shellParts(word.segments ?? [], board.roles);
+      for (const at of target.cuts) {
+        await slot.getByTestId(`cut-${at}`).click();
+        await expect(slot.getByTestId(`cut-${at}`)).toHaveAttribute('aria-pressed', 'true');
+      }
+      for (const [part, role] of target.labels.entries()) {
+        if (role === null) continue;
+        await slot.getByTestId(`role-${part}-${role}`).click();
+        await expect(slot.getByTestId(`role-${part}-${role}`)).toHaveAttribute(
+          'aria-pressed',
+          'true',
+        );
+      }
+      if (target.zeroEnding) {
+        await slot.getByTestId('zero-ending').click();
+        await expect(slot.getByTestId('zero-ending')).toHaveAttribute('aria-pressed', 'true');
+      }
+      return;
+    }
+    case 'word-family':
+      for (const entry of board.words) {
+        const word = PACK.data.lexicon.words.find((w) => w.id === entry.word);
+        if (word?.family?.id !== board.family) continue;
+        await slot.getByTestId(`family-${entry.id}`).click();
+        await expect(slot.getByTestId(`family-${entry.id}`)).toHaveAttribute(
+          'aria-pressed',
+          'true',
+        );
+      }
+      return;
+    case 'memory-match':
+      throw new Error('Pexeso is not played by these tests');
+  }
+}
+
+/** Solve every board of the round on screen; resolves to the screen that follows. */
+export async function solveBoards(page: Page, profileId: string): Promise<string> {
+  for (let guard = 0; guard < 10; guard++) {
+    const screen = await shownScreen(page);
+    if (screen !== 'screen-board') return screen;
+    await arrangeBoard(page, await boardOnScreen(page, profileId));
+    await checkBoard(page);
+  }
+  throw new Error('the boards did not end');
+}

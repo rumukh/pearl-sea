@@ -10,6 +10,7 @@ import { h } from '../ui/dom';
 import { icon } from '../ui/icons';
 import type { IconName } from '../ui/icons';
 import type { UiKit } from '../ui/kit';
+import type { ActiveDiver, App } from '../shell/app';
 
 export function topBar(options: {
   readonly back?: { readonly label: string; onPress(): void | Promise<void>; testId?: string };
@@ -149,6 +150,20 @@ export function diverBadge(diver: Diver): HTMLElement {
     }),
     h('span', { className: 'ps-diver-badge__name', text: diver.name }),
   );
+}
+
+/**
+ * The save status of the active child's game. When another window saved first, reopening the
+ * game reads what is stored and shows it from the play screen.
+ */
+export function diverSaveStatus(
+  app: App,
+  active: ActiveDiver,
+): { readonly element: HTMLElement; dispose(): void } {
+  return createSaveStatus(app.kit, active.game, active.commands, async () => {
+    await app.closeDiver();
+    await app.router.reset(app.screens.play(active.diver.id));
+  });
 }
 
 /** Offer `text` as a file download without putting a link into the page. */

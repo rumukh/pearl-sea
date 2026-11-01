@@ -12,14 +12,42 @@ import { describe, expect, it } from 'vitest';
 import { CS_UI as cs, EN_UI as en } from '../../../src/app/i18n/messages';
 import { GROWN_UPS_TABS } from '../../../src/app/shell/app';
 import {
+  ACTIVITY_KINDS,
   catalogProblems,
+  DIMENSIONS,
+  FRIEND_STAGES,
   GROWN_UPS_KEY_PREFIX,
+  MASTERY_LEVELS,
   placeholders,
+  SEA_MAPS,
   splitCatalogKey,
+  STRANDS,
+  WEARABLE_SLOTS,
+  WORD_RELATIONS,
 } from '../../../src/rules/contract';
 
 /** Keys built at runtime from a vocabulary, so they never appear literally in the source. */
 const DYNAMIC_PREFIXES = ['grownups.tab.', 'grownups.language.cs', 'grownups.language.en'];
+
+/**
+ * Message families the screens build from the contract's vocabularies (`activity.<kind>`, …):
+ * each needs a message for every value, and those keys are used by construction.
+ */
+const FAMILIES: Readonly<Record<string, readonly string[]>> = {
+  'activity.': ACTIVITY_KINDS,
+  'round.classify.': DIMENSIONS,
+  'round.relation.': WORD_RELATIONS,
+  'stage.': FRIEND_STAGES,
+  'grow.': FRIEND_STAGES.filter((stage) => stage !== 'egg'),
+  'strand.': STRANDS,
+  'shell.count.': MASTERY_LEVELS,
+  'friends.slot.': WEARABLE_SLOTS,
+  'map.': SEA_MAPS,
+  'day.': ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+};
+const FAMILY_KEYS = new Set(
+  Object.entries(FAMILIES).flatMap(([prefix, values]) => values.map((value) => prefix + value)),
+);
 
 function sentences(text: string): string[] {
   return text
@@ -76,12 +104,18 @@ describe('the Czech catalog', () => {
     expect(cs['grownups.language.en']).toBe('English');
   });
 
+  it('has a message for every value of the contract’s vocabularies the screens name', () => {
+    const missing = [...FAMILY_KEYS].filter((key) => cs[key] === undefined);
+    expect(missing).toEqual([]);
+  });
+
   it('uses every message somewhere in the shell', () => {
     const source = sourceFiles(join('src', 'app'))
       .map((path) => readFileSync(path, 'utf8'))
       .join('\n');
     const unused = keys.filter(
       (key) =>
+        !FAMILY_KEYS.has(key) &&
         !DYNAMIC_PREFIXES.some((prefix) => key.startsWith(prefix)) &&
         !source.includes(`'${key}'`) &&
         !source.includes(`'${splitCatalogKey(key).base}'`),

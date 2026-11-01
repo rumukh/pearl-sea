@@ -110,6 +110,17 @@ export function createTranslator(options: TranslatorOptions = {}): Translate {
   return translator<MessageKey, PluralKey>(options);
 }
 
+/**
+ * A translator over any catalog whose keys come as data (S3's content strings,
+ * content/text.ts), with the same grammar as the shell's own: the child's form of address, the
+ * plural form, and Czech typesetting.
+ */
+export function createCatalogTranslator(
+  options: TranslatorOptions & { readonly catalog: Catalog },
+): Translator<string, string> {
+  return translator<string, string>(options);
+}
+
 export function createGrownUpTranslator(language: Language): GrownUpTranslate {
   return translator<GrownUpKey, GrownUpPluralKey>(
     language === 'en'

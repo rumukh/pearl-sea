@@ -1,0 +1,297 @@
+/**
+ * The game in a real browser, played the way a child plays it: every tap and key on screen, every
+ * step saved before the game moves on. Three journeys through the slice:
+ *
+ * - a new 3rd grader: the editor, the prologue, the first egg, the grotto and the whole first
+ *   lesson of Slunná laguna (Perlový náhrdelník, Rybářské sítě, Krmení), with a slip on a board,
+ *   a wrong answer that shows the right one, a reload that resumes the same step, and the friend
+ *   hatching;
+ * - a new 4th grader: the placement check, then Slovní rodinka and Ulita slov in Měsíční jeskyně,
+ *   the 4th grade's first lesson;
+ * - a 3rd grader who has played every lesson of the lagoon (seeded from S2's trace player): the
+ *   battle with Muréna Mumla (the ink meter, her jokes, an ink blot to wipe), her freeing, the
+ *   friends' gallery and her diploma in the grown-ups' area.
+ *
+ * Every new screen passes axe's WCAG 2.1 A and AA rules, with less motion as a family that asks
+ * for it sees the game. No errors, no failed requests, nothing sent to another origin.
+ */
+import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import {
+  arrangeBoard,
+  boardOnScreen,
+  checkBoard,
+  createChild,
+  give,
+  lagoonPlayed,
+  leaveScreen,
+  movedOn,
+  playRound,
+  problemOnScreen,
+  seedChild,
+  shownScreen,
+  solveBoards,
+  throughResults,
+  throughStory,
+  wrongAnswer,
+  answerStep,
+} from './support/game';
+import { observe } from './support/observe';
+import type { Observations } from './support/observe';
+import { enterGrownUps, noViolations, ready } from './support/screens';
+
+test.use({ reducedMotion: 'reduce' });
+
+/** The first child made in a new family gets the first slot. */
+const CHILD = 'profile-1';
+
+function nothingWentWrong(seen: Observations): void {
+  expect(seen.pageErrors, 'uncaught page errors').toEqual([]);
+  expect(seen.consoleErrors, 'console errors').toEqual([]);
+  expect(seen.foreignRequests, 'requests to another origin').toEqual([]);
+  expect(seen.failedRequests, 'failed or 4xx/5xx requests').toEqual([]);
+}
+
+/** From the story after the egg's choice on to the grotto. */
+async function chooseEgg(page: Page, egg?: string): Promise<void> {
+  expect(await throughStory(page)).toBe('screen-eggs');
+  await noViolations(page, 'the eggs');
+  const choice = egg
+    ? page.getByTestId(`egg-${egg}`)
+    : page.locator('[data-testid^="egg-"]').first();
+  await choice.click();
+  await leaveScreen(page, 'screen-eggs', () => page.getByTestId('eggs-next').click());
+  expect(await throughStory(page)).toBe('screen-hub');
+}
+
+/** Dnešní výprava: whatever the game has for today, past any story beat. */
+async function goAdventuring(page: Page): Promise<string> {
+  await leaveScreen(page, 'screen-hub', () => page.getByTestId('adventure').click());
+  return throughStory(page);
+}
+
+test('a new 3rd grader dives in and hatches the first friend in Slunná laguna', async ({
+  page,
+  baseURL,
+}) => {
+  test.setTimeout(300_000);
+  const seen = observe(page, new URL(baseURL!).origin);
+  await page.goto('./');
+  await ready(page, 'title');
+  await page.getByTestId('title-play').click();
+  await expect(page.getByTestId('screen-editor')).toBeVisible();
+  await noViolations(page, 'the editor');
+  await page.getByTestId('back').click();
+  await ready(page, 'title');
+
+  await createChild(page, { name: 'Ema', avatar: 'diver-2', address: 'girl', grade: 3 });
+  expect(await shownScreen(page)).toBe('screen-story');
+  await expect(page.getByTestId('story-line')).not.toBeEmpty();
+  await noViolations(page, 'the prologue');
+  await chooseEgg(page, 'krab-tvrdak');
+
+  await expect(page.getByTestId('hub-greeting')).toHaveText('Ahoj! Kam se dnes ponoříme?');
+  await expect(page.getByTestId('hub-diver').locator('.ps-hub__diver-name')).toHaveText('Ema');
+  await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-friend', 'krab-tvrdak');
+  await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-stage', 'egg');
+  await noViolations(page, 'the grotto');
+
+  // Perlový náhrdelník: a check before the pearls are in order says so, and nothing is lost.
+  expect(await goAdventuring(page)).toBe('screen-board');
+  await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'pearl-necklace');
+  await noViolations(page, 'Perlový náhrdelník');
+  const necklace = await boardOnScreen(page, CHILD);
+  if (necklace.kind !== 'pearl-necklace') throw new Error(`a ${necklace.kind} board`);
+  await page.getByTestId('board-submit').click();
+  const message = page.getByTestId('board-message');
+  await expect(message).toHaveText(
+    /^(Ještě ne\. Zkus pořadí opravit\.|Hotovo! Jde se na další\.)$/,
+  );
+  if ((await message.textContent())!.startsWith('Ještě ne')) {
+    await arrangeBoard(page, necklace);
+    await checkBoard(page);
+  }
+  expect(await solveBoards(page, CHILD)).toBe('screen-results');
+  await noViolations(page, 'the results of a board round');
+  await throughResults(page);
+
+  // Rybářské sítě.
+  expect(await throughStory(page)).toBe('screen-board');
+  await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'fishing-nets');
+  await noViolations(page, 'Rybářské sítě');
+  expect(await solveBoards(page, CHILD)).toBe('screen-results');
+  await throughResults(page);
+
+  // Krmení: one right, one wrong (the right one is shown), then a reload resumes the same step.
+  expect(await throughStory(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'feeding');
+  await noViolations(page, 'Krmení');
+  await answerStep(page, CHILD);
+  const asked = await problemOnScreen(page, CHILD);
+  await give(page, asked, wrongAnswer(asked));
+  const feedback = page.getByTestId('feedback');
+  await expect(feedback).toHaveAttribute('data-kind', 'miss');
+  await expect(feedback).toContainText('Skoro!');
+  await expect(feedback).toContainText('Správně je:');
+  await noViolations(page, 'a wrong answer');
+  await page.getByTestId('round-next').click();
+  await movedOn(page, asked);
+
+  const before = await problemOnScreen(page, CHILD);
+  await page.reload();
+  await ready(page, 'title');
+  await page.getByTestId('title-play').click();
+  await ready(page, 'divers');
+  await noViolations(page, 'the divers');
+  await page.getByTestId(`diver-${CHILD}`).click();
+  expect(await shownScreen(page)).toBe('screen-round');
+  const after = await problemOnScreen(page, CHILD);
+  expect([after.index, after.step, after.item]).toEqual([before.index, before.step, before.item]);
+
+  await playRound(page, CHILD);
+  expect(await throughStory(page)).toBe('screen-results');
+  const hatch = page.getByTestId('moment-hatch');
+  await expect(hatch).toContainText('Hurá! Vajíčko se vylíhlo: Krab Tvrďák!');
+  await noViolations(page, 'the friend hatching');
+  await throughResults(page);
+  expect(await throughStory(page)).toBe('screen-hub');
+  await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-stage', 'baby');
+  nothingWentWrong(seen);
+});
+
+test('a new 4th grader takes the placement check, then plays Slovní rodinka and Ulita slov', async ({
+  page,
+  baseURL,
+}) => {
+  test.setTimeout(300_000);
+  const seen = observe(page, new URL(baseURL!).origin);
+  await page.goto('./');
+  await ready(page, 'title');
+  await createChild(page, { name: 'Tomáš', avatar: 'diver-5', address: 'boy', grade: 4 });
+  await chooseEgg(page);
+
+  // The placement check: a child who does not know yet starts at the 4th grade's beginning.
+  await expect(page.getByTestId('adventure-next')).not.toBeEmpty();
+  expect(await goAdventuring(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-placement', 'true');
+  await noViolations(page, 'the placement check');
+  for (let guard = 0; guard < 20 && (await shownScreen(page)) === 'screen-round'; guard++) {
+    await answerStep(page, CHILD, false);
+  }
+  expect(await shownScreen(page)).toBe('screen-results');
+  await throughResults(page);
+  expect(await throughStory(page)).toBe('screen-hub');
+
+  // Měsíční jeskyně 1: Slovní rodinka first. A check with words missing says so.
+  expect(await goAdventuring(page)).toBe('screen-board');
+  await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'word-family');
+  await expect(page.getByTestId('family-count')).toContainText('Vybraná slova: 0 /');
+  await noViolations(page, 'Slovní rodinka');
+  await page.getByTestId('board-submit').click();
+  await expect(page.getByTestId('board-message')).toHaveText(
+    'Ještě ne. Která slova jsou příbuzná?',
+  );
+  await arrangeBoard(page, await boardOnScreen(page, CHILD));
+  await noViolations(page, 'Slovní rodinka with words picked');
+  await checkBoard(page);
+  expect(await solveBoards(page, CHILD)).toBe('screen-results');
+  await throughResults(page);
+
+  // Ulita slov: the word is cut and its parts named.
+  expect(await throughStory(page)).toBe('screen-board');
+  await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'word-shell');
+  await noViolations(page, 'Ulita slov');
+  await page.getByTestId('board-submit').click();
+  await expect(page.getByTestId('board-message')).toHaveText('Ještě ne. Zkus části opravit.');
+  const shell = await boardOnScreen(page, CHILD);
+  await arrangeBoard(page, shell);
+  await noViolations(page, 'Ulita slov with the word cut');
+  await checkBoard(page);
+  expect(await solveBoards(page, CHILD)).toBe('screen-results');
+  await throughResults(page);
+  expect(await throughStory(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'feeding');
+  nothingWentWrong(seen);
+});
+
+test('Muréna Mumla is washed clean, joins the gallery and earns a diploma', async ({
+  page,
+  baseURL,
+}) => {
+  test.setTimeout(300_000);
+  const seen = observe(page, new URL(baseURL!).origin);
+  const lagoon = await lagoonPlayed();
+  await page.goto('./');
+  await ready(page, 'title');
+  await seedChild(page, { id: CHILD, name: 'Ema', avatar: 'diver-2', address: 'girl' }, lagoon);
+  await page.reload();
+  await ready(page, 'title');
+  await page.getByTestId('title-play').click();
+  await ready(page, 'divers');
+  await page.getByTestId(`diver-${CHILD}`).click();
+  expect(await throughStory(page)).toBe('screen-hub');
+
+  await page.getByTestId('place-map').click();
+  await ready(page, 'map');
+  await noViolations(page, 'the sea map');
+  await page.getByTestId('region-sunny-lagoon').click();
+  await ready(page, 'region');
+  await noViolations(page, 'Slunná laguna');
+  await page.getByTestId('level-sunny-lagoon.monster').click();
+  await ready(page, 'level');
+  await noViolations(page, 'the monster’s level');
+  await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
+
+  expect(await throughStory(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'battle');
+  await expect(page.getByTestId('battle-monster')).toHaveAttribute('data-monster', 'murena-mumla');
+  await expect(page.getByTestId('monster-joke')).not.toBeEmpty();
+  await noViolations(page, 'the battle');
+
+  // The ink meter fills with every right answer; now and then she splashes a blot to wipe away.
+  const meter = page.getByTestId('round-progress');
+  for (let guard = 0; guard < 30 && (await page.getByTestId('ink-splash').count()) === 0; guard++) {
+    await answerStep(page, CHILD);
+  }
+  const blot = page.getByTestId('ink-splash').first();
+  await expect(blot).toBeVisible();
+  await expect(meter).not.toHaveAttribute('aria-valuenow', '0');
+  await noViolations(page, 'the battle with an ink blot');
+  const blots = await page.getByTestId('ink-splash').count();
+  await blot.click();
+  await expect(page.getByTestId('ink-splash')).toHaveCount(blots - 1);
+
+  // Washed clean: her freeing beat, then the results.
+  await playRound(page, CHILD);
+  expect(await throughStory(page)).toBe('screen-results');
+  const freed = page.getByTestId('moment-freed');
+  await expect(freed).toContainText('Inkoust je smytý! Muréna Mumla se usmívá.');
+  await expect(page.getByTestId('moment-joke')).not.toBeEmpty();
+  await noViolations(page, 'the freeing');
+  await throughResults(page);
+  expect(await throughStory(page)).toBe('screen-hub');
+
+  await page.getByTestId('place-gallery').click();
+  await expect(page.getByTestId('screen-gallery')).toBeVisible();
+  await expect(page.getByTestId('gallery-murena-mumla')).toHaveAttribute('data-freed', 'true');
+  await noViolations(page, 'the friends’ gallery');
+  await page.getByTestId('back').click();
+  await expect(page.getByTestId('screen-hub')).toBeVisible();
+  await page.getByTestId('hub-goodbye').click();
+  await expect(page.getByTestId('screen-goodbye')).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Dnešní ponor končí.');
+  await noViolations(page, 'goodbye');
+  await page.getByTestId('goodbye-bye').click();
+  await ready(page, 'title');
+
+  await enterGrownUps(page);
+  await page.getByTestId('grownups-tab-progress').click();
+  await noViolations(page, 'the grown-ups’ progress');
+  await page.getByTestId('diploma-murena-mumla').click();
+  await ready(page, 'print');
+  await expect(page.getByTestId('print-sheet')).toContainText(
+    'Za odvahu v souboji s příšerou: Muréna Mumla.',
+  );
+  await noViolations(page, 'the diploma');
+  nothingWentWrong(seen);
+});

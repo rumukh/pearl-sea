@@ -46,6 +46,35 @@ export function sentenceTarget(plain: string, dimension: Dimension): string {
   return dimension === 'sentence-kind' ? text.replace(/[\s.?!…]+$/u, '') : text;
 }
 
+/** The longest punctuation a token is followed by (`marks`, contract §5.1). */
+const MAX_MARK = 4;
+
+/**
+ * The punctuation written right after each token of a sentence (`''` for none), read from its
+ * filled text: _Delfíne, skoč!_ with the tokens Delfíne, skoč gives `,` and `!`. `null` when the
+ * tokens do not line up with the text, or something other than punctuation stands between them.
+ */
+export function tokenMarks(plain: string, tokens: readonly string[]): string[] | null {
+  const between = (text: string): string | null => {
+    const mark = text.replace(/\s+/gu, '');
+    return /^[^\p{L}\p{N}]*$/u.test(mark) && [...mark].length <= MAX_MARK ? mark : null;
+  };
+  const marks: string[] = [];
+  let cursor = 0;
+  for (const [index, token] of tokens.entries()) {
+    const at = plain.indexOf(token, cursor);
+    if (at === -1) return null;
+    const before = between(plain.slice(cursor, at));
+    if (before === null || (index === 0 && before !== '')) return null;
+    if (index > 0) marks.push(before);
+    cursor = at + token.length;
+  }
+  const last = between(plain.slice(cursor));
+  if (last === null) return null;
+  marks.push(last);
+  return marks;
+}
+
 /** How a target is shown: `target`, `context` and `span`, or `null` when it cannot be shown. */
 function shown(
   target: ClassTarget,
@@ -80,9 +109,11 @@ function shown(
       ) {
         return null;
       }
+      const marks = tokenMarks(target.sentence.parsed.plain, tokens);
       return {
         target: { word: target.token.word ?? null, text: target.token.t },
-        context: { tokens, at: target.index },
+        context:
+          marks === null ? { tokens, at: target.index } : { tokens, at: target.index, marks },
         span: null,
       };
     }

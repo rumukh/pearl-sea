@@ -37,29 +37,50 @@ import type {
   WordRelation,
 } from './language';
 import type { TextPart } from './lexicon';
-import { contentId, int, lazy, nullable, oneOf } from './schema';
+import { contentId, int, lazy, nullable, objectWithOptional, oneOf, refine } from './schema';
 
 // ---------------------------------------------------------------------------------------------
 // Hints
+
+/**
+ * The methods a `method` hint names, each a content line `grammar.method.<method>` (S3 writes them):
+ * the case questions asked in turn, the pattern from the gender and the 1st and 2nd case, the
+ * tense, the mood and the verb form by their tests, and how sound-alike words differ.
+ */
+export const HINT_METHODS = [
+  'case',
+  'pattern',
+  'tense',
+  'mood',
+  'verb-form',
+  'sound-alike',
+] as const;
+export type HintMethod = (typeof HINT_METHODS)[number];
 
 /**
  * A hint shows the strategy, not just the answer (docs/design.md §5.3):
  * - `family`: a related word that proves the spelling (mlýn → mlynář);
  * - `test-word`: a form that makes the sound clear (hrad → hrady, led → ledy);
  * - `listed`: the school rhyme of the listed words after `letter`;
- * - `ten-ta-to`: the gender test (ten pes, ta ryba, to moře);
+ * - `ten-ta-to`: the gender test (ten pes, ta ryba, to moře); with `plural`, the test of a plural
+ *   subject (ti psi, ty ryby, ta kuřata) for agreement;
  * - `case-question`: the case question (kdo? co?, koho? čeho?, …);
  * - `pattern`: the pattern and its ending (o hradech, o strojích);
- * - `rule`: the general explanation of a spelling rule.
+ * - `rule`: the general explanation of a spelling rule;
+ * - `method`: how to find the answer step by step (`HINT_METHODS`), never the answer;
+ * - `not-listed`: the word is not a listed word (nor related to one), so i: shown with the gap's
+ *   letters blanked (`span`, code points of the lemma: b_lý), never spelled out.
  */
 export type Hint =
   | { kind: 'family'; word: string; related: string }
   | { kind: 'test-word'; word: string; test: string }
   | { kind: 'listed'; letter: ListedLetter }
-  | { kind: 'ten-ta-to'; gender: GenderClass }
+  | { kind: 'ten-ta-to'; gender: GenderClass; plural?: true }
   | { kind: 'case-question'; case: Case }
   | { kind: 'pattern'; pattern: NounPattern }
-  | { kind: 'rule'; rule: SpellingRule };
+  | { kind: 'rule'; rule: SpellingRule }
+  | { kind: 'method'; method: HintMethod }
+  | { kind: 'not-listed'; word: string; span: [number, number] };
 
 // ---------------------------------------------------------------------------------------------
 // Problems
@@ -104,7 +125,12 @@ export interface ClassifyProblem {
    * `context`.
    */
   target: WordRef;
-  context: { tokens: string[]; at: number } | null;
+  /**
+   * The sentence of a token target: its tokens, the highlighted one `at`, and `marks`, the
+   * punctuation written right after each token (`''` for none: _Delfíne, skoč!_ is
+   * `['Delfíne', 'skoč']` with `[',', '!']`), without which an address reads as a subject.
+   */
+  context: { tokens: string[]; at: number; marks?: string[] } | null;
   /** For `segment`: the highlighted part of the word, `[start, end)` in code points. */
   span: [number, number] | null;
   /**
@@ -141,6 +167,11 @@ export interface MistakeProblem {
   sentence: string;
   /** The sentence as shown, one token spelled wrong. */
   tokens: string[];
+  /**
+   * The punctuation right after each token (`''` for none). With `marks`, `tokens` and `around`
+   * hold no marks (_dosita_ and `.`, not _dosita._); without it, a token keeps its marks.
+   */
+  marks?: string[];
   /** Index of the wrong token (step 1: find it). */
   wrong: number;
   /** The fix (step 2): a gap whose `correct` replaces the wrong token's misspelled part. */
@@ -354,16 +385,31 @@ export function parseItemId(id: string): ParsedItem | null {
 
 const shortText = schema.string({ minLength: 1, maxLength: 48 });
 const tokenText = schema.string({ minLength: 1, maxLength: 64 });
+/** The punctuation after a token: no letter, digit or space, at most 4 characters, or none. */
+const mark = refine(schema.string({ maxLength: 4 }), (text) =>
+  /^[^\p{L}\p{N}\s]*$/u.test(text) ? null : 'Expected punctuation only.',
+);
+const marks = schema.array(mark, { min: 1, max: 32 });
+/** A non-empty `[start, end)` span of code points within a word. */
+const wordSpan = refine(
+  schema.array(int(0, 63), { min: 2, max: 2 }) as unknown as Schema<[number, number]>,
+  ([start, end]) => (start < end ? null : 'Expected start < end.'),
+);
 
 export const hintSchema: Schema<Hint> = schema.union(
   schema.object({ kind: schema.literal('family'), word: contentId, related: contentId }),
   schema.object({ kind: schema.literal('test-word'), word: contentId, test: shortText }),
   schema.object({ kind: schema.literal('listed'), letter: oneOf(LISTED_LETTERS) }),
-  schema.object({ kind: schema.literal('ten-ta-to'), gender: oneOf(GENDER_CLASSES) }),
+  objectWithOptional(
+    { kind: schema.literal('ten-ta-to'), gender: oneOf(GENDER_CLASSES) },
+    { plural: schema.literal(true) },
+  ),
   schema.object({ kind: schema.literal('case-question'), case: int(1, 7) as Schema<Case> }),
   schema.object({ kind: schema.literal('pattern'), pattern: oneOf(NOUN_PATTERNS) }),
   schema.object({ kind: schema.literal('rule'), rule: oneOf(SPELLING_RULES) }),
-);
+  schema.object({ kind: schema.literal('method'), method: oneOf(HINT_METHODS) }),
+  schema.object({ kind: schema.literal('not-listed'), word: contentId, span: wordSpan }),
+) as Schema<Hint>;
 
 const textPartSchema: Schema<TextPart> = schema.union(
   schema.object({ kind: schema.literal('text'), text: schema.string({ maxLength: 240 }) }),
@@ -410,6 +456,12 @@ function coherent(problem: Problem): string | null {
       if (problem.context && problem.context.at >= problem.context.tokens.length) {
         return 'The highlighted token is out of range.';
       }
+      if (
+        problem.context?.marks &&
+        problem.context.marks.length !== problem.context.tokens.length
+      ) {
+        return 'Every token has one mark entry.';
+      }
       return null;
     case 'odd':
     case 'relation':
@@ -417,6 +469,9 @@ function coherent(problem: Problem): string | null {
         ? null
         : 'The answer index is out of range.';
     case 'mistake':
+      if (problem.marks && problem.marks.length !== problem.tokens.length) {
+        return 'Every token has one mark entry.';
+      }
       return problem.wrong < problem.tokens.length ? gapOk(problem.fix) : 'No such token.';
   }
 }
@@ -432,7 +487,7 @@ const problemUnion: Schema<Problem> = schema.union(
     kind: schema.literal('classify'),
     dimension: oneOf(DIMENSIONS),
     target: classifyTargetSchema,
-    context: nullable(schema.object({ tokens, at: int(0, 31) })),
+    context: nullable(objectWithOptional({ tokens, at: int(0, 31) }, { marks })),
     span: nullable(
       schema.array(int(0, 63), { min: 2, max: 2 }) as unknown as Schema<[number, number]>,
     ),
@@ -455,16 +510,20 @@ const problemUnion: Schema<Problem> = schema.union(
     correct: int(0, 5),
     hint: nullable(hintSchema),
   }),
-  schema.object({
-    kind: schema.literal('mistake'),
-    sentence: contentId,
-    tokens,
-    wrong: int(0, 31),
-    fix: gapSchema,
-    around: schema.array(schema.string({ maxLength: 64 }), { min: 2, max: 2 }) as unknown as Schema<
-      [string, string]
-    >,
-  }),
+  objectWithOptional(
+    {
+      kind: schema.literal('mistake'),
+      sentence: contentId,
+      tokens,
+      wrong: int(0, 31),
+      fix: gapSchema,
+      around: schema.array(schema.string({ maxLength: 64 }), {
+        min: 2,
+        max: 2,
+      }) as unknown as Schema<[string, string]>,
+    },
+    { marks },
+  ),
 );
 
 export const problemSchema: Schema<Problem> = lazy(() => ({

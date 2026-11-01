@@ -352,5 +352,11 @@ export function hintText(hint: Hint, t: Translate, text: ContentText): string | 
     }
     case 'rule':
       return content(`grammar.rule.${hint.rule}`);
+    // S2's placeholders until the shell renders these kinds (contract §5.3): the method's content
+    // line, and the obojetná-i rule line for a word that is not listed.
+    case 'method':
+      return content(`grammar.method.${hint.method}`);
+    case 'not-listed':
+      return content('grammar.rule.obojetna-i');
   }
 }

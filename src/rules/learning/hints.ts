@@ -2,19 +2,22 @@
  * Hints show the strategy, not just the answer (design §5.3, contract §5.3):
  *
  * - `vyjm`: the family word (mlynář → mlýn), or for a rhyme word its letter's school rhyme;
- * - `obojetna-i`: the rule line (not listed, so i), never the rhyme of y-words, which may hold a
- *   look-alike (být for bít);
+ * - `obojetna-i`: after a listed letter, that the word is not listed, shown with its gap (b_lý);
+ *   never the rhyme of y-words, which may hold a look-alike (být for bít); else the rule line;
  * - `parova`, `u-uprostred`: the test word (hrad → hrady, dům → domy), when the point has one;
- * - `mne-zajmeno`: the case question; `shoda`: the subject with ten, ta, to; `vzor`: the pattern;
+ * - `mne-zajmeno`: the case question; `shoda`: the subject's test, ti, ty, ta for a plural one;
+ *   `vzor`: the pattern;
  * - every other rule: the rule in one line;
- * - classifications: the school question (ten, ta, to; the case question; the pattern).
+ * - classifications: ten, ta, to for the gender; the method of the case, the pattern, the tense,
+ *   the mood and the verb form (never the case question or the pattern, which are the answer).
  */
 import type { DeepReadonly } from '@aegis/runtime';
-import { genderClass } from '../contract';
+import { HINT_METHODS, LISTED_LETTERS, codePoints, genderClass } from '../contract';
 import type {
   Case,
   Dimension,
   Hint,
+  HintMethod,
   SentenceGap,
   SpellingPoint,
   SpellingRule,
@@ -49,11 +52,26 @@ export function gapHint(
       }
       return ruleHint(rule);
     }
-    case 'obojetna-i':
+    case 'obojetna-i': {
       // Not the listed rhyme: it lists only y-words, so for an i it points the wrong way, and a
-      // look-alike in it (být for bít, mlýn for mlít) confirms the slip. The rule line states the
-      // step: not listed (nor related to a listed word), so i.
+      // look-alike in it (být for bít, mlýn for mlít) confirms the slip. After a listed letter the
+      // hint says the word is not listed, shown with its gap; elsewhere the rule line.
+      const letters = word ? codePoints(word.lemma.toLowerCase()) : [];
+      const before = point && point.at > 0 ? letters[point.at - 1] : undefined;
+      if (
+        word &&
+        point &&
+        before !== undefined &&
+        (LISTED_LETTERS as readonly string[]).includes(before)
+      ) {
+        return {
+          kind: 'not-listed',
+          word: word.id,
+          span: [point.at, point.at + codePoints(point.correct).length],
+        };
+      }
       return ruleHint(rule);
+    }
     case 'parova':
     case 'u-uprostred':
       return word && point?.test !== undefined
@@ -64,10 +82,13 @@ export function gapHint(
         ? { kind: 'case-question', case: sentence.gap.case as Case }
         : ruleHint(rule);
     case 'shoda': {
+      // A plural subject's test is ti, ty, ta (ty děti → -y); ten, ta, to would give to dítě.
       const subject = sentence?.gap.subjects?.[0];
-      const gender =
-        subject === undefined ? undefined : sentence?.parsed.sentence.tokens?.[subject]?.gender;
-      return gender !== undefined ? { kind: 'ten-ta-to', gender } : ruleHint(rule);
+      const token = subject === undefined ? undefined : sentence?.parsed.sentence.tokens?.[subject];
+      if (token?.gender === undefined) return ruleHint(rule);
+      return token.number === 'pl'
+        ? { kind: 'ten-ta-to', gender: token.gender, plural: true }
+        : { kind: 'ten-ta-to', gender: token.gender };
     }
     case 'vzor': {
       const pattern = word?.noun?.pattern;
@@ -78,7 +99,11 @@ export function gapHint(
   }
 }
 
-/** The hint of a classification: the school question of its dimension, or `null`. */
+/**
+ * The hint of a classification: ten, ta, to for the gender; for the case, the pattern, the tense,
+ * the mood and the verb form the method (`HINT_METHODS`), since their school question or the
+ * pattern would name the answer; else `null`.
+ */
 export function classHint(dimension: Dimension, target: ClassTarget): Hint | null {
   if (dimension === 'gender' || dimension === 'gender-class') {
     if (target.kind === 'word' && target.word.noun) {
@@ -92,11 +117,8 @@ export function classHint(dimension: Dimension, target: ClassTarget): Hint | nul
     }
     return null;
   }
-  if (dimension === 'case' && 'value' in target) {
-    return { kind: 'case-question', case: Number(target.value) as Case };
-  }
-  if (dimension === 'pattern' && target.kind === 'word' && target.word.noun?.pattern) {
-    return { kind: 'pattern', pattern: target.word.noun.pattern };
+  if ((HINT_METHODS as readonly string[]).includes(dimension)) {
+    return { kind: 'method', method: dimension as HintMethod };
   }
   return null;
 }

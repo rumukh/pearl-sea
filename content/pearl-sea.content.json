@@ -1,6 +1,6 @@
 {
   "id": "pearl-sea",
-  "revision": "1.2.0",
+  "revision": "1.2.1",
   "schemaVersion": 1,
   "data": {
     "grades": [
@@ -3153,7 +3153,7 @@
               "sk.storm.register",
               "sk.kraken.member"
             ],
-            "count": 30,
+            "count": 40,
             "input": "auto",
             "options": {}
           }

@@ -42,7 +42,7 @@ A save pins the exact pack it was played with (ID, revision and content hash), a
 so **every content change merged to `main` gets a new revision** (MAJOR.MINOR.PATCH: patch for
 balance or text, minor for new levels or regions; contract §7.6). The vertical slice, Slunná laguna,
 is `1.0.0`; regions 2-6 are `1.1.0`; regions 7-12, the 4th grade's start and the placement check
-are `1.2.0`. To change content:
+are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`. To change content:
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from
@@ -298,10 +298,8 @@ lets him grow up.
 majáku._); agreement (`shoda`) and the gender of subjects; simple and compound sentences; then the
 great reviews of spelling and grammar. The spelling review adds 13 grade-4 related words to the
 listed words, the prefixes, _bje, vje, mně_, agreement and _dobýt × dobít_. The Krakatice has ten
-arms, one skill per strand in order (`arms: 10`, `finale`, meter 30, no review). Her cap is 30, the
-contract's limit for an activity (design §7.1 says 40); the rules never end a battle before meter
-
-- 5. `beat.finale` takes the place of her freed beat.
+arms, one skill per strand in order (`arms: 10`, `finale`, meter 30, no review), and her cap is 40
+problems (design §7.1). `beat.finale` takes the place of her freed beat.
 
 **Placement.** Eight steps of three problems for the 4th grade (design §9.2), each passed at 66 %
 (two of three, as the rules round down). In order:

@@ -845,7 +845,8 @@ something); _Pět inkoustíků_ adds the criterion `inkoustici-splashed`.
 Three quests a day (the `rewards` stream, from unlocked templates, never two alike): N right
 answers, N quick answers, feed N snacks, play a minigame, finish a level, N right in a row, and
 (new) splash an Inkoustík. Unclaimed quests are paid the next day. The **treasure chest** (_truhla
-s pokladem_) opens after the daily goal (default 30 right answers) with 2-6 coins _(`chest`)_.
+s pokladem_) opens after the daily goal (default 30 right answers) with 1-3 coins _(`chest`;
+Dragon Valley's 2-6 halved for the 50-80 coins a session of §8.1, balance-report.md §8)_.
 
 ### 8.5 Printables
 

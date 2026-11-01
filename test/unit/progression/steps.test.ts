@@ -99,6 +99,31 @@ describe('a sentence with several gaps', () => {
   });
 });
 
+describe('the round’s progress (contract §12)', () => {
+  it('counts finished problems in `answered` (the unit of `target`) and right steps in `correct`', async () => {
+    // S6's PS-QA-03: the two units must never be shown as one ratio (9 / 5 after Lov chyb).
+    const player = await lagoonFour(2);
+    const progress = () => (player.view().round as ProblemRoundView).progress;
+    expect(onScreen(player)?.problem.kind).toBe('mistake');
+    expect(progress()).toMatchObject({ answered: 0, correct: 0 });
+    await player.answerAs(true);
+    expect(progress(), 'the find alone finishes no problem').toMatchObject({
+      answered: 0,
+      correct: 1,
+    });
+    await player.answerAs(true);
+    expect(progress(), 'find and fix: one problem, two right steps').toMatchObject({
+      answered: 1,
+      correct: 2,
+    });
+    await player.answerAs(false);
+    await player.answerAs(true);
+    expect(progress(), 'a wrong find, a right fix').toMatchObject({ answered: 2, correct: 3 });
+    expect(player.failures).toEqual([]);
+    await player.dispose();
+  });
+});
+
 describe('Lov chyb', () => {
   it('trains the fix’s item once, with the worse answer; a wrong find still leads to the fix', async () => {
     const player = await lagoonFour(2);

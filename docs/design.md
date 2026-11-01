@@ -460,9 +460,11 @@ request (_Poraď mi!_), after a miss, before a re-ask and before a taught proble
 
 `vyjm` uses the family word (the rhyme for a head word); `obojetna-i` after a listed letter says the
 word is not listed, shown with its gap, never spelled out (not the rhyme: it lists only y-words, and
-a look-alike in it, _být_ for _bít_, would confirm the slip), and elsewhere the rule line, as where
-the gap with its other letter is another word (_b_t_ is _být_ too), since the rule line tells such
-words apart by their meaning; `parova`
+a look-alike in it, _být_ for _bít_, would confirm the slip), and elsewhere the rule line, as
+wherever the other letter makes another word: the word itself (_b_t_ is _být_ too), a word of its
+sound-alike family the lexicon may lack (_nab_t_: _nabýt_, from _být_; IJP decides prefixed verbs
+from _být_ and _bít_ by meaning), or the word as its sentence writes it (_v_sela_: _vysela_, of
+_vysít_), since the rule line tells such words apart by their meaning; `parova`
 and `u-uprostred` a test word, `mne-zajmeno` the case question, `shoda` the subject's test, _ti, ty,
 ta_ for a plural subject (_ti psi, ty kočky_; _ten, ta, to_ would give _to dítě_ for _děti_), and
 the rule line for several subjects (_delfíni a želvy_), which are not decided word by word; `vzor`

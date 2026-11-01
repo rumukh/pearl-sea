@@ -251,8 +251,10 @@ A hint shows the strategy, not just the answer (design.md):
 turn, the pattern from the gender and the 1st and 2nd case, and so on. A classification of the
 case, the pattern, the tense, the mood or the verb form hints its method, since the case question
 or the pattern would name the answer; a sound-alike relation hints `sound-alike`. An `obojetna-i`
-gap after a listed letter hints `not-listed`, unless the word with one of the point's alternatives
-in the gap is another lexicon spelling (_b_t_ is _být_ too: then the rule line); `span` is
+gap after a listed letter hints `not-listed`, unless the other letter makes another word: the
+lemma with one of the point's alternatives is another lexicon spelling (_b_t_: _být_) or ends like
+the head of its family's `soundAlike` family (_nab_t_: _nabýt_), or the gap's word in its sentence
+is another word's spelling (_v_sela_: _vysela_); then the rule line. `span` is
 `[start, end)` in code points of the lemma, the gap's letters. Agreement (`shoda`) hints
 `ten-ta-to` for one subject and the rule line for several.
 

@@ -94,6 +94,25 @@ interface Raw {
 
 const raws = new Map<ContentData, Raw>();
 
+/** A word as written: its lemma and every cell of its paradigm (variants included). */
+function writtenRaw(word: Word): string[] {
+  const cells: (string | readonly string[])[] = [
+    ...(word.noun?.paradigm?.sg ?? []),
+    ...(word.noun?.paradigm?.pl ?? []),
+  ];
+  const verb = word.verb?.paradigm;
+  if (verb) {
+    cells.push(
+      verb.inf,
+      ...verb.pres,
+      ...verb.imp,
+      ...Object.values(verb.past),
+      ...(verb.fut ?? []),
+    );
+  }
+  return [word.lemma, ...cells.flatMap((cell) => (typeof cell === 'string' ? [cell] : cell))];
+}
+
 function rawOf(data: ContentData): Raw {
   const known = raws.get(data);
   if (known !== undefined) return known;
@@ -112,20 +131,7 @@ function rawOf(data: ContentData): Raw {
     sentences.set(sentence.id, { sentence, parsed, plain, starts });
   }
   const spellings = new Set<string>();
-  const add = (cells: readonly (string | readonly string[])[]) => {
-    for (const cell of cells)
-      for (const text of typeof cell === 'string' ? [cell] : cell) {
-        spellings.add(text);
-      }
-  };
-  for (const word of data.lexicon.words) {
-    spellings.add(word.lemma);
-    add([...(word.noun?.paradigm?.sg ?? []), ...(word.noun?.paradigm?.pl ?? [])]);
-    const verb = word.verb?.paradigm;
-    if (verb) {
-      add([verb.inf, ...verb.pres, ...verb.imp, ...Object.values(verb.past), ...(verb.fut ?? [])]);
-    }
-  }
+  for (const word of data.lexicon.words) for (const text of writtenRaw(word)) spellings.add(text);
   for (const pair of data.lexicon.relations.soundAlikes) {
     for (const ref of pair) if (typeof ref !== 'string') spellings.add(ref.form);
   }
@@ -237,7 +243,10 @@ function matchesFilter(sentence: Sentence, filter: SentenceFilter): boolean {
   );
 }
 
-/** The strategy a gap's hint shows (design §5.3). */
+/**
+ * The strategy a gap's hint shows (design §5.3). `inSentence` is the gap's word as its sentence
+ * writes it, with each of the gap's alternatives in the gap (none for a word alone).
+ */
 function expectedHint(
   data: ContentData,
   rule: SpellingRule,
@@ -245,6 +254,7 @@ function expectedHint(
   point: SpellingPoint | null,
   gap: SentenceGap | null,
   sentence: Sentence | null,
+  inSentence: readonly string[] = [],
 ): Hint {
   const ruleHint: Hint = { kind: 'rule', rule };
   switch (rule) {
@@ -257,17 +267,25 @@ function expectedHint(
     case 'obojetna-i': {
       // After a listed letter: not listed, shown with its gap; never the rhyme of y-words (S3's
       // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line, and
-      // so where the gap with an alternative spells another word (b_t is být too).
-      const letters = word ? [...word.lemma.toLowerCase()] : [];
-      const before = point && point.at > 0 ? letters[point.at - 1] : undefined;
-      const twin =
-        word !== null &&
-        point !== null &&
-        point.alt.some((alt) => {
-          const other = respell(word, point, alt);
-          return other !== word.lemma && rawOf(data).spellings.has(other);
-        });
-      return word && point && before !== undefined && 'blmpsvz'.includes(before) && !twin
+      // so wherever the other letter makes another word: the word itself (b_t is být too), a word
+      // of its sound-alike family the lexicon may lack (nab_t: nabýt, from být; IJP), or the word
+      // as its sentence writes it (v_sela: vysela, of vysít).
+      if (word === null || point === null) return ruleHint;
+      const raw = rawOf(data);
+      const before = [...word.lemma.toLowerCase()][point.at - 1];
+      const others = point.alt.map((alt) => respell(word, point, alt));
+      const twin = others.some((other) => other !== word.lemma && raw.spellings.has(other));
+      const family = data.lexicon.families.find((f) => f.id === word.family?.id);
+      const alike = data.lexicon.families.find((f) => f.id === family?.soundAlike);
+      const head = alike ? raw.words.get(alike.head)?.lemma.toLowerCase() : undefined;
+      const sounds = head !== undefined && others.some((o) => o.toLowerCase().endsWith(head));
+      const own = new Set(writtenRaw(word).map((text) => text.toLowerCase()));
+      const written = inSentence.some(
+        (token) =>
+          !own.has(token.toLowerCase()) &&
+          (raw.spellings.has(token) || raw.spellings.has(token.toLowerCase())),
+      );
+      return point.at > 0 && 'blmpsvz'.includes(before!) && !twin && !sounds && !written
         ? {
             kind: 'not-listed',
             word: word.id,
@@ -527,6 +545,15 @@ function sentenceGap(data: ContentData, filled: Filled, index: number, gap: Gap)
       ? null
       : (word?.spelling?.find((p) => p.at === annotation.point) ?? null);
   const parsed = filled.parsed.gaps[index]!;
+  // The gap's word as its sentence writes it, with each alternative in the gap.
+  const start = filled.starts[index]!;
+  const inSentence = parsed.alternatives.map((alt) => {
+    const text =
+      filled.plain.slice(0, start) + alt + filled.plain.slice(start + parsed.correct.length);
+    const from = text.lastIndexOf(' ', start - 1) + 1;
+    const to = text.indexOf(' ', start + alt.length);
+    return text.slice(from, to === -1 ? undefined : to).replace(/[^\p{L}\p{N}]+$/u, '');
+  });
   return {
     gap,
     kind: 'sentence',
@@ -538,7 +565,7 @@ function sentenceGap(data: ContentData, filled: Filled, index: number, gap: Gap)
     alternatives: parsed.alternatives,
     rule: annotation.rule,
     item: sentenceItem(filled.sentence, index),
-    hint: expectedHint(data, annotation.rule, word, point, annotation, filled.sentence),
+    hint: expectedHint(data, annotation.rule, word, point, annotation, filled.sentence, inSentence),
   };
 }
 
@@ -1566,9 +1593,10 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('in the game, give the rule line to the eight obojetna-i words whose gap is a listed word too', () => {
-    // S3's count: 48 obojetna-i words after a listed letter, of which these spell a y-word with
-    // the point's alternative (bít → být, vír → výr …).
+  it('in the game, give the rule line to the obojetna-i words whose other letter makes another word', () => {
+    // S3's count: 48 obojetna-i words after a listed letter. These spell a word of the lexicon
+    // with the point's alternative (bít → být, vír → výr …) or end like the head of their
+    // sound-alike family (nabít → nabýt, rozbít → rozbýt: from být, decided by meaning, IJP).
     const twins = new Set<string>();
     let notListed = 0;
     for (const entry of real.lexicon.words) {
@@ -1581,9 +1609,35 @@ describe('hints (design §5.3)', () => {
       }
     }
     expect([...twins].sort()).toEqual(
-      ['bidlo', 'bít', 'dobít', 'mít', 'sírový', 'vír', 'vískat', 'vít'].sort(),
+      ['bidlo', 'bít', 'dobít', 'mít', 'nabít', 'rozbít', 'sírový', 'vír', 'vískat', 'vít'].sort(),
     );
-    expect(notListed).toBeGreaterThanOrEqual(40);
+    expect(notListed).toBeGreaterThanOrEqual(35);
+    // bitva, mlít, vířit and zvířit stay not listed: bytva, mlýt, výřit end like no head.
+    for (const lemma of ['bitva', 'mlít', 'vířit', 'zvířit']) {
+      const entry = real.lexicon.words.find((w) => w.lemma === lemma);
+      expect(entry, lemma).toBeDefined();
+      const point = entry!.spelling!.find((p) => p.rule === 'obojetna-i')!;
+      expect(gapHint(real, 'obojetna-i', entry!, point, null).kind, lemma).toBe('not-listed');
+    }
+  });
+
+  it('in the game, give the rule line in a sentence whose word with the other letter is another word', () => {
+    // alike.25: Na stožáru v_sela pirátská vlajka. visela (viset) or vysela (vysít): naming the
+    // lemma v_set would give the answer. Every other such sentence gap is decided by its word.
+    const words = new Map(real.lexicon.words.map((w) => [w.id, w]));
+    const changed: string[] = [];
+    for (const parsed of lexiconIndex(real).sentences.values()) {
+      parsed.sentence.gaps.forEach((gap) => {
+        if (gap.rule !== 'obojetna-i' || gap.word === null || gap.point === undefined) return;
+        const entry = words.get(gap.word);
+        const point = entry?.spelling?.find((p) => p.at === gap.point);
+        if (entry === undefined || point === undefined) return;
+        const alone = gapHint(real, 'obojetna-i', entry, point, null);
+        const there = gapHint(real, 'obojetna-i', entry, point, { parsed, gap });
+        if (alone.kind !== there.kind) changed.push(`${parsed.sentence.id} ${there.kind}`);
+      });
+    }
+    expect(changed).toEqual(['alike.25 rule']);
   });
 
   it('show a test word for parova and u-uprostred', () => {

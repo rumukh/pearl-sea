@@ -120,8 +120,9 @@ _mně_, a word with or without a space, a standard word) is never typed: the chi
 which word to type, and another one may be right too. Hints follow design §5.3: `vyjm` the family
 word (the rhyme for a head word); `obojetna-i` after a listed letter `not-listed` with the gap's
 `span` (never the rhyme, which lists only y-words and may hold a look-alike: _být_ for _bít_), else
-the rule line, also where the gap with the point's alternative spells another lexicon word (_b_t_:
-_být_); `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
+the rule line, also wherever the other letter makes another word: the lemma (_b_t_: _být_), a word
+of its family's sound-alike family (_nab_t_: _nabýt_), or the gap's word in its sentence (_v_sela_:
+_vysela_); `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
 _ten, ta, to_ (`plural` for a plural subject: _ti, ty, ta_) for one subject and the rule line for
 several, `vzor` the pattern, other rules the
 rule. Classifications hint the gender test, or the `method` of the case, the pattern, the tense,

@@ -256,7 +256,7 @@ part-of-speech `classify` skills and `odd-pos` (the nets credit the same items) 
 | Ježík Syčík        | `pirate-wreck.1`   | 36  | 11               | 11   | 20                                 |
 | Vydra Výskalka     | `pirate-wreck.3`   | 50  | 11               | 15   | 20                                 |
 | Jazyk Jazýček      | `pirate-wreck.5`   | 23  | 4 (and 6 `fam:`) | 7    | 15                                 |
-| Hvězdice Rodinka   | `pearl-bay.2`      | 39  | 0                | 12   | 16                                 |
+| Hvězdice Rodinka   | `pearl-bay.2`      | 40  | 0                | 12   | 16                                 |
 | Kalmar Desetiruký  | `volcanic-vents.1` | 56  | 0                | 17   | 26                                 |
 
 A region's first friend's egg is claimed in its welcome beat; a later egg is the reward of the
@@ -344,10 +344,10 @@ A step never places a region's lesson 1 or a monster level. Its skill is one of 
 
 | Friend                 | Hatches          | Set | 30 % | Lessons up to the hatch can credit | Holds                                                                                 |
 | ---------------------- | ---------------- | --- | ---- | ---------------------------------- | ------------------------------------------------------------------------------------- |
-| Tuleň Pádík            | `ice-sea.1`      | 102 | 31   | 36                                 | gender, number, the cases in sentences and forms (also Temný příkop 5), plural Pexeso |
+| Tuleň Pádík            | `ice-sea.1`      | 97  | 30   | 36                                 | gender, number, the cases in sentences and forms (also Temný příkop 5), plural Pexeso |
 | Delfín Skokánek        | `ice-sea.4`      | 58  | 18   | 22                                 | person, tense, the infinitive, the reflexive verbs                                    |
 | Rak poustevník Kořínek | `moon-caves.1`   | 50  | 15   | 20                                 | family boards and odd ones out, root shells, prefix or root                           |
-| Štítovec Přísavka      | `sunken-city.1`  | 50  | 15   | 20                                 | prefix or preposition, the odd part of speech, the prefixes' consonants, bje/vje, mně |
+| Štítovec Přísavka      | `sunken-city.1`  | 54  | 17   | 20                                 | prefix or preposition, the odd part of speech, the prefixes' consonants, bje/vje, mně |
 | Klipka Vzorná          | `dark-trench.1`  | 57  | 18   | 22                                 | the patterns, the endings by pattern                                                  |
 | Klauni Dvojčata        | `kraken-abyss.2` | 46  | 14   | 23                                 | subject and predicate, agreement                                                      |
 

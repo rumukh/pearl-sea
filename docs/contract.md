@@ -955,7 +955,10 @@ and words carry their Czech text from the lexicon.
   ladder; for minigame rounds the board count, the raw `projectMinigame` view (`minigame`, whose
   `revision` every move carries) and the typed board `current` (§12.1). The battle's `jokeKey` is
   the joke on screen (the one `monster.joked` just told: at the start until the first answer, after
-  a 5th right answer until the next one, and once freed), else `null`.
+  a 5th right answer until the next one, and once freed), else `null`. The progress counts in two
+  units: `answered` is finished problems, the unit of `target`; `correct` and `streak` are right
+  answer steps (each gap, the find and the fix of Lov chyb), so `correct` can exceed `answered`
+  and the two are never shown as a ratio.
 - `friends`: owned friends with stage, expression, mastery shares (percent, rounded down),
   hunger, due items, outfit and the next stage's exact counts (`have` of `need`).
 - `shell`: the **Great Shell** (Velká lastura): pearls by strand and skill (`counts` per mastery

@@ -44,7 +44,9 @@ balance or text, minor for new levels or regions; contract §7.6). The vertical 
 is `1.0.0`; regions 2-6 are `1.1.0`; regions 7-12, the 4th grade's start and the placement check
 are `1.2.0`; the Krakatice's cap of 40 is `1.2.1`; the balance of the pacing study is `1.2.2`; four
 lagoon points the word alone cannot decide, asked only in sentences, are `1.2.3`; the Czech QA of
-regions 2-12, with _Bublinka_ and _Osmička_ back in Krmení (§7), is `1.2.4`. To change content:
+regions 2-12, with _Bublinka_ and _Osmička_ back in Krmení (§7), is `1.2.4`. `1.2.5` changes no
+data: the contract now serves a form that several cells show as one item, and saves that activate
+`1.2.5` merge their records of the retired form items (contract §7.6). To change content:
 
 1. Edit the sources and rebuild the pack.
 2. Run `npm run content:bump -- <revision>` (fetch first). It archives the deployed pack from

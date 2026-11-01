@@ -4,9 +4,18 @@
  * crossfade, music lowered while read-aloud speaks, silence while paused, and a clean slate on
  * clear. The silent map never creates an audio context at all.
  */
+import { readFileSync } from 'node:fs';
+import { createNarration } from '@aegis/browser/audio';
 import type { NarrationController, NarrationState } from '@aegis/browser/audio';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createGameAudio, DUCK_LEVEL, musicFor } from '../../../src/app/audio/game-audio';
+import {
+  createGameAudio,
+  DUCK_LEVEL,
+  musicFor,
+  sdkPack,
+  sdkSoundId,
+} from '../../../src/app/audio/game-audio';
+import { parseAudioManifest } from '../../../src/app/audio/manifest';
 import type { AudioMap } from '../../../src/app/audio/sound-map';
 import { STUB_AUDIO_MAP } from '../../../src/app/audio/stub-map';
 
@@ -94,6 +103,7 @@ const STING_MAP: AudioMap = {
 
 afterEach(() => {
   vi.useRealTimers();
+  vi.restoreAllMocks();
 });
 
 describe('game audio', () => {
@@ -126,10 +136,10 @@ describe('game audio', () => {
     fake.finishUnlock();
     await flush();
     expect(audio.status()).toBe('ready');
-    expect(fake.calls).toEqual(['music music/grotto']);
+    expect(fake.calls).toEqual(['music music:grotto']);
     expect(fake.controller.setAtmosphere).toHaveBeenCalledWith({
       packId: 'ps-audio',
-      asset: 'music/grotto',
+      asset: 'music:grotto',
       fadeSeconds: 1.2,
     });
 
@@ -141,10 +151,10 @@ describe('game audio', () => {
     audio.cue('monster.freed');
     await flush();
     expect(fake.calls).toEqual([
-      'music music/grotto',
-      'effect sfx/chime',
-      'effect sfx/coin',
-      'effect sfx/coin',
+      'music music:grotto',
+      'effect sfx:chime',
+      'effect sfx:coin',
+      'effect sfx:coin',
     ]);
     expect(fake.controller.registerPack).toHaveBeenCalledWith(
       expect.objectContaining({ id: 'ps-audio', lines: [] }),
@@ -158,7 +168,7 @@ describe('game audio', () => {
     audio.setMusic('round');
     audio.setMusic('battle');
     await flush();
-    expect(fake.calls).toEqual(['music music/grotto', 'music silence']);
+    expect(fake.calls).toEqual(['music music:grotto', 'music silence']);
   });
 
   it('plays the grotto loop for a mood the pack does not list, and silence only when asked', async () => {
@@ -169,7 +179,7 @@ describe('game audio', () => {
     audio.setMusic('victory');
     audio.setMusic(null);
     await flush();
-    expect(fake.calls).toEqual(['music music/grotto', 'music silence']);
+    expect(fake.calls).toEqual(['music music:grotto', 'music silence']);
     const base = { ...MAP, musicStates: { battle: 'music/grotto' } };
     expect(musicFor(base, 'map')).toBeNull();
     expect(musicFor(MAP, 'toString')).toBe('music/grotto');
@@ -182,11 +192,11 @@ describe('game audio', () => {
     const audio = await ready(fake, () => now);
     audio.cue('level.completed', { count: 1 });
     await flush();
-    expect(fake.calls).toEqual(['effect sfx/fanfare']);
+    expect(fake.calls).toEqual(['effect sfx:fanfare']);
     now += 500;
     vi.advanceTimersByTime(500);
     await flush();
-    expect(fake.calls).toEqual(['effect sfx/fanfare', 'effect sfx/star-1']);
+    expect(fake.calls).toEqual(['effect sfx:fanfare', 'effect sfx:star-1']);
 
     audio.cue('level.completed', { count: 1 });
     audio.clear();
@@ -194,9 +204,9 @@ describe('game audio', () => {
     vi.advanceTimersByTime(1000);
     await flush();
     expect(fake.calls).toEqual([
-      'effect sfx/fanfare',
-      'effect sfx/star-1',
-      'effect sfx/fanfare',
+      'effect sfx:fanfare',
+      'effect sfx:star-1',
+      'effect sfx:fanfare',
       'clear',
     ]);
   });
@@ -211,7 +221,7 @@ describe('game audio', () => {
     audio.resume();
     audio.clear();
     await flush();
-    expect(fake.calls).toEqual(['music music/grotto', 'pause', 'resume', 'music silence', 'clear']);
+    expect(fake.calls).toEqual(['music music:grotto', 'pause', 'resume', 'music silence', 'clear']);
   });
 
   it('stops the battle loop before the victory sting, and brings the music asked for back after it', async () => {
@@ -225,10 +235,10 @@ describe('game audio', () => {
     audio.sting('monster.freed');
     await flush();
     expect(fake.calls).toEqual([
-      'music music/battle',
-      'music music/grotto',
+      'music music:battle',
+      'music music:grotto',
       'music silence',
-      'effect sfx/victory-sting',
+      'effect sfx:victory-sting',
     ]);
     // Music asked for during the sting waits for its end.
     audio.setMusic('battle');
@@ -240,7 +250,7 @@ describe('game audio', () => {
     now += 1;
     vi.advanceTimersByTime(1);
     await flush();
-    expect(fake.calls.slice(4)).toEqual(['music music/grotto']);
+    expect(fake.calls.slice(4)).toEqual(['music music:grotto']);
   });
 
   it('keeps the music silent for the rest of a sting paused with the game', async () => {
@@ -258,9 +268,9 @@ describe('game audio', () => {
     audio.resume();
     await flush();
     expect(fake.calls).toEqual([
-      'music music/grotto',
+      'music music:grotto',
       'music silence',
-      'effect sfx/victory-sting',
+      'effect sfx:victory-sting',
       'pause',
       'resume',
     ]);
@@ -271,7 +281,7 @@ describe('game audio', () => {
     now += 1;
     vi.advanceTimersByTime(1);
     await flush();
-    expect(fake.calls.slice(5)).toEqual(['music music/grotto']);
+    expect(fake.calls.slice(5)).toEqual(['music music:grotto']);
   });
 
   it('lets a new child’s music play at once after a sting, and leaves the music to a silent sting', async () => {
@@ -286,11 +296,11 @@ describe('game audio', () => {
     audio.setMusic('grotto');
     await flush();
     expect(fake.calls).toEqual([
-      'music music/grotto',
+      'music music:grotto',
       'music silence',
-      'effect sfx/victory-sting',
+      'effect sfx:victory-sting',
       'clear',
-      'music music/grotto',
+      'music music:grotto',
     ]);
     now += 9000;
     vi.advanceTimersByTime(9000);
@@ -335,7 +345,8 @@ describe('game audio', () => {
     expect(audio.status()).toBe('ready');
   });
 
-  it('carries on when the service cannot be created at all', () => {
+  it('carries on when the service cannot be created at all, and says so on the console', () => {
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const audio = createGameAudio({
       baseUrl: 'http://localhost/',
       map: MAP,
@@ -346,5 +357,93 @@ describe('game audio', () => {
     audio.unlock();
     audio.cue('answer.correct');
     expect(audio.status()).toBe('unavailable');
+    expect(errors).toHaveBeenCalledOnce();
+  });
+
+  it('reports a pack the SDK refuses on the console and as unavailable, never quietly', () => {
+    const fake = fakeNarration();
+    fake.controller.registerPack.mockImplementation(() => {
+      throw new Error('id must be a bounded stable identifier.');
+    });
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const statuses: string[] = [];
+    const audio = createGameAudio({
+      baseUrl: 'http://localhost/',
+      map: MAP,
+      narration: fake.factory,
+      onStatus: (status) => statuses.push(status),
+    });
+    audio.unlock();
+    audio.setMusic('grotto');
+    audio.cue('answer.correct');
+    expect(audio.status()).toBe('unavailable');
+    expect(statuses).toEqual(['unavailable']);
+    expect(errors).toHaveBeenCalledOnce();
+    expect(String(errors.mock.calls[0]![0])).toContain('could not be registered');
+    expect(fake.controller.unlock).not.toHaveBeenCalled();
+  });
+
+  it('tells every change of its status', async () => {
+    const fake = fakeNarration();
+    fake.controller.unlock.mockImplementationOnce(() => Promise.reject(new Error('blocked')));
+    const statuses: string[] = [];
+    const audio = createGameAudio({
+      baseUrl: 'http://localhost/',
+      map: MAP,
+      narration: fake.factory,
+      onStatus: (status) => statuses.push(status),
+    });
+    audio.unlock();
+    await flush();
+    audio.unlock();
+    fake.finishUnlock();
+    await flush();
+    expect(statuses).toEqual(['blocked', 'ready']);
+  });
+});
+
+describe('the committed sound pack and the SDK', () => {
+  const committed = JSON.parse(
+    readFileSync(new URL('../../../assets/audio/manifest.json', import.meta.url), 'utf8'),
+  ) as { readonly sounds: readonly { readonly id: string }[] };
+  const map = parseAudioManifest(committed);
+
+  it('registers every sound under its own ID that the SDK itself accepts', () => {
+    const ids = [...map.effects, ...map.music].map((sound) => sound.id);
+    expect([...ids].sort()).toEqual(committed.sounds.map((sound) => sound.id).sort());
+    expect(ids).toContain('music/grotto');
+    expect(ids).toContain('sfx/victory-sting');
+    expect(new Set(ids.map(sdkSoundId)).size).toBe(ids.length);
+    expect(sdkSoundId('music/grotto')).toBe('music:grotto');
+    // The SDK's own validation decides, never a copy of its pattern.
+    expect(() =>
+      createNarration({
+        baseUrl: 'http://localhost/pearl-sea/',
+        onState: () => undefined,
+      }).registerPack(sdkPack(map)),
+    ).not.toThrow();
+    // The contract's IDs as they are, which kept the game silent (PS-QA-02).
+    const raw = { ...sdkPack(map), assets: map.music.map(({ id, src }) => ({ id, src })) };
+    expect(() =>
+      createNarration({
+        baseUrl: 'http://localhost/pearl-sea/',
+        onState: () => undefined,
+      }).registerPack(raw),
+    ).toThrow(/stable identifier/);
+  });
+
+  it('stays ready to unlock over the real service', () => {
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const statuses: string[] = [];
+    const audio = createGameAudio({
+      baseUrl: 'http://localhost/pearl-sea/',
+      map,
+      onStatus: (status) => statuses.push(status),
+    });
+    // Volumes register the pack with the service; only the first tap makes an AudioContext.
+    audio.setVolumes({ music: 1, effects: 1 });
+    expect(audio.status()).toBe('locked');
+    expect(statuses).toEqual([]);
+    expect(errors).not.toHaveBeenCalled();
   });
 });

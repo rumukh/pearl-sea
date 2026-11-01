@@ -504,6 +504,14 @@ export function grownUpsScreen(
             'setting-effects',
             'effects',
           ),
+          // A sound pack this browser's sound service refused: the volumes would do nothing.
+          app.audio.status() === 'unavailable'
+            ? h('p', {
+                className: 'ps-note',
+                testId: 'sound-unavailable',
+                text: g('grownups.settings.soundUnavailable'),
+              })
+            : null,
           field(
             g('grownups.settings.textSize'),
             segmented(

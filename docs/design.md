@@ -60,11 +60,18 @@ Valley. An egg a beat gives is claimed in its first node, so skipping still give
 | `beat.<region>-welcome` (×12) | first start of a region's lesson 1         | The region, a new friend's egg if any, the monster's ink               |
 | `beat.sunny-lagoon-eggs`      | first start of the lagoon's lesson 3       | The two other lagoon eggs float back                                   |
 | `beat.<monster>` (×12)        | first start of a monster level             | The monster grumbles, shows its ink trick and a first joke             |
-| `beat.<monster>-freed` (×11)  | a monster freed (all but the Krakatice)    | The ink runs off; thanks; the gallery; the way onward opens            |
-| `beat.san-ledana-freed`       | (one of the above)                         | The 3rd grade's finale: _3. třída hotová!_ and a certificate           |
+| `beat.<monster>-freed` (×11)  | a monster freed (all but the Krakatice)    | The monster's change; thanks; what lies ahead                          |
+| `beat.san-ledana-freed`       | (one of the above)                         | The 3rd grade's finale: the whole third grade done and a certificate   |
 | `beat.the-deep`               | first start of the Moon Caves' lesson 1    | Bublinka lights her lamps and dives into the deep                      |
 | `beat.inkoustici`             | after Muréna Mumla's freed beat (optional) | Introduces the Inkoustíci, who arrive with `ambush.unlockAfter` (§7.4) |
 | `beat.finale`                 | the Krakatice freed                        | She was lonely; now the guardian; the shell shines; credits            |
+
+A freed beat plays just before the results, which say that the ink is washed off, that the monster
+now lives in the friends' gallery, which sticker it earns and which region opens. So the beat
+repeats none of that: it shows the change in the monster (_Ďas Lucerník už nikoho neláká do tmy._),
+its thanks and what lies ahead (_Za útesem se vlní Chaluhový les._), and Ledana's says that the whole
+third grade is done (_Celá třetí třída je za tebou. Dostaneš diplom!_), while the results and the
+sticker say _3. třída hotová_.
 
 Triggers may carry `grades`; v1 gives both grades the same beats, and whether a 4th grader's
 first-egg beat should differ is an open point (§4.1). A 4th grader meets `beat.the-deep` in the
@@ -779,8 +786,10 @@ the gallery and is not raised.
 
 Her ink froze into **six icicles** (detail added here; `arms: 6`, `gradeFinale: 3`), three right
 answers melting one, one per 3rd-grade strand of her objectives: `letters-sounds`, `listed-words`,
-`parts-of-speech`, `nouns`, `verbs`, `sentences`. No review share. Her freed beat ends the 3rd
-grade (_3. třída hotová!_ and a certificate) and the deep opens. For a 4th grader she is free
+`parts-of-speech`, `nouns`, `verbs`, `sentences`. No review share. Freeing her ends the 3rd grade
+and opens the deep: her freed beat says that the whole third grade is done and promises a
+certificate, then the results (_3. třída hotová! Hurá!_) and the sticker _3. třída hotová_ follow
+(§2.1). For a 4th grader she is free
 practice.
 
 ### 7.4 Inkoustíci: ambushes

@@ -51,8 +51,10 @@ when the family record cannot be read.
 The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
 (`loading`, `ready`, `failed`), `data-screen` (the current screen: `title`, `grownups`, `print`,
 `recovery`, `error`), `data-font` (`loaded`, `timeout`, `failed`, `unsupported`), `data-base` and
-`data-content` (the content pack's revision, once there is one). `ready` only after the first
-screen is mounted and painted. Nothing is put on `window`; nothing is written to the console.
+`data-content` (the content pack's revision, once there is one) and `data-audio` (the game
+audio's status: `silent`, `locked`, `ready`, `blocked` or `unavailable`, §9). `ready` only after
+the first screen is mounted and painted. Nothing is put on `window`, and the console gets a line
+only when the browser's sound service refuses the sound pack (§9).
 Uncaught errors and rejections land on the error screen. When even the shell cannot start, a
 built-in Czech line and a retry button remain.
 
@@ -214,7 +216,11 @@ One `createNarration` instance (`audio/game-audio.ts`) with an `AudioContext` at
 mono 48 kHz Ogg) where the browser allows it, unlocked by the first tap or key. Music and effects
 volumes come from the child's preferences; music is lowered to 35 % while read-aloud speaks. Nothing
 plays while paused or hidden; `clear()` drops pending sounds at a restore or a change of child.
-Every failure is contained.
+Every failure is contained, and all but one are quiet. A pack the SDK refuses when it is
+registered is a defect of the build, never of the device, so it is not left silent: it is written
+to the console (`console.error`, which the browser tests' console guard catches), the status turns
+`unavailable` (`data-audio` on the boot status), and each child's settings in the grown-ups' area
+say the game is silent for now.
 
 S5's manifest is the contract's `AUDIO_MANIFEST_PATH` (`assets/audio/manifest.json`), schema
 `AUDIO_MANIFEST_SCHEMA` (**`pearl-sea-audio-manifest/1`**, Dragon Valley's format under this game's
@@ -224,7 +230,13 @@ sound), music states with a crossfade, and per-sound throttles. Sound IDs follow
 `AUDIO_ID_PATTERN`: effects are `sfx/<name>` and music loops `music/<loop>` (the contract's
 `MUSIC_IDS`: `music/grotto`, `music/map`, `music/practice`, `music/battle`, `music/finale`; results
 and missing moods play `music/grotto`, and a freed monster gets the one-shot `sfx/victory-sting`); a
-manifest that names a sound otherwise is refused as a whole. S5 owns the pack, its manifest generator and
+manifest that names a sound otherwise is refused as a whole. The SDK takes asset IDs only as
+stable identifiers (`/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/`, no `/`), so contract sound IDs cross
+into it as `sdkSoundId` gives them, `/` turned into `:` (`music/grotto` is `music:grotto`), at
+registration, for music states and for effects alike. `AUDIO_ID_PATTERN` has no `:`, so the
+mapping is one-to-one; the manifest, the event map and everything else in the shell keep the
+contract's IDs. A unit test registers the committed manifest with the SDK's own `registerPack`.
+S5 owns the pack, its manifest generator and
 `docs/audio.md`; the shell owns the runtime map, which events it cues and when. S5's slice pack
 holds the grotto, practice and battle loops and the victory sting; a manifest with no sounds keeps
 the game silent, and then no `AudioContext` is ever created.
@@ -341,8 +353,9 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
   first reads it, so the grade shown is the one the child plays), daily goal and the dolphin race,
   and the placement check again
   for a grade that has one (it starts the next time the child plays; a round or a story under way
-  keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes,
-  text size, less motion, a time limit for one sitting.
+  keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes
+  (with a note when sound could not start, §9), text size, less motion, a time limit for one
+  sitting.
 - **Pokrok / Progress** (`grownups/progress.ts`), per child: days practised, answers, monsters
   freed and the grade; the last 14 days of practice (right answers of all); each goal of the 3rd
   and 4th grade (pearls mastered, silver and gold, of the goal's items, and the success rate);
@@ -369,7 +382,10 @@ its own presentation; calls take turns, and a child opened for play waits for th
   tiny counting game (`fixtures.ts`: checkpoints, retry without repeating the action, stale views,
   pause, restore, content activation, backups); profile data (backup, load, erase); backups; save
   status; the day record; storage sizes; the gate; moves; the number pad's state; the sound map,
-  game audio (moods and the grotto fallback) and the audio manifest; voices and read-aloud;
+  game audio (moods, the grotto fallback, status changes, a refused pack reported to the console)
+  and the audio manifest, whose committed pack is registered with the SDK's own `registerPack`
+  (every sound ID crosses as a stable identifier; the contract's raw IDs are refused); voices and
+  read-aloud;
   aliases; print layouts and printables; the About build id. The game screens' logic runs on
   contract-typed view fixtures (`game-views.ts`): problem views (steps, prompts, ink-blot gaps,
   read-aloud, hints), view readings and the adventure, map spots, timers, art and the art catalog,
@@ -386,10 +402,15 @@ its own presentation; calls take turns, and a child opened for play waits for th
   the first egg and the grotto into the first lesson of Slunná laguna (a necklace checked too
   early, the nets, Krmení with Nápověda tapped twice and no complaint, a wrong answer that shows
   the right one and a reload that resumes the same step) up to the friend hatching, with Osmička
-  cheering beside the results. A new 4th grader takes the placement check (Osmička cheering a right
+  cheering beside the results; its first tap unlocks the sound and the grotto loop is fetched
+  (`support/sound.ts`: Chromium, whose headless mode has an audio output too, must say `ready`;
+  an engine with no audio here, such as Playwright's WebKit on Windows with no `AudioContext`, may
+  stay `blocked`, never `unavailable` or `silent`, and the files are checked whenever the sound is
+  `ready`). A new 4th grader takes the placement check (Osmička cheering a right
   answer) and plays Slovní rodinka (quick taps all counted) and Ulita slov in Měsíční jeskyně. A
   3rd grader who has played every lesson of the lagoon washes Muréna Mumla clean (the ink meter,
-  her joke, an ink blot wiped), frees her into the gallery and prints her diploma from the
+  her joke, an ink blot wiped), frees her into the gallery to the victory sting (its file is
+  fetched) and prints her diploma from the
   grown-ups' area. A second window on the same child shows "Hra je otevřená jinde" on a story beat
   and reopens the saved game. A grown-up runs a placed 4th grader's placement check again, and
   leaving it says kindly what stays; a grade a grown-up chooses before the first dive is the grade
@@ -401,7 +422,8 @@ its own presentation; calls take turns, and a child opened for play waits for th
   trace helpers; the seeded child is played by S2's trace `Player` on the real pack and stored as
   the shell's checkpoint stores it (`support/saves.ts`). Every new screen passes axe, and each
   journey ends with no page or console error, no failed request and nothing sent to another
-  origin.
+  origin (`support/observe.ts`). A request the page cancelled itself is noted, never failed:
+  Chromium reports a sound whose file the page has already read whole as `net::ERR_ABORTED`.
 - **Browser, the art** (`test/e2e/art.spec.ts`): S5's next paintings rehearsed before they exist.
   `support/art.ts` serves a catalog of main's art plus stand-ins in the real formats (the lagoon's
   babies, the freed Muréna, Osmička cheering, the shallows map, the lagoon, the grotto and the
@@ -413,8 +435,11 @@ its own presentation; calls take turns, and a child opened for play waits for th
 - **Browser, the shell** (`test/e2e/grownups.spec.ts`): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
-  download, offline installation into this game's caches and scope, and the recovery screen for
-  an unreadable family record; axe WCAG 2.1 A and AA on every screen. The spec runs with less
+  download, offline installation into this game's caches and scope, the recovery screen for
+  an unreadable family record, and a sound pack the SDK refuses (one over its 4096-sound budget,
+  which the shell's own checks pass): the boot status says `unavailable`, the grown-ups' area
+  says the game is silent, and the console has the line; axe WCAG 2.1 A and AA on every screen.
+  The spec runs with less
   motion; the gate, a new screen and a toast must appear at full strength at once (read before
   the first frame), and axe waits until nothing is fading (no `data-entering`, no running
   animation), since it would measure half-faded colours. It waits up to 20 s for readiness: boot

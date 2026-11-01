@@ -234,3 +234,43 @@ test('a family record that cannot be read asks a grown-up and replaces nothing b
   await page.reload();
   await ready(page, 'title');
 });
+
+test('a sound pack the browser’s sound service refuses is reported, never a quiet failure', async ({
+  page,
+  baseURL,
+}) => {
+  const seen = observe(page, new URL(baseURL!).origin);
+  // A pack over the SDK's declaration budget (4096 sounds): the shell's own checks pass it, and
+  // the sound service refuses it when the pack is registered.
+  await page.route('**/assets/audio/manifest.json', async (route) => {
+    const response = await route.fetch();
+    const manifest = (await response.json()) as { sounds: Record<string, unknown>[] };
+    const extra = Array.from({ length: 4097 }, (_, index) => ({
+      ...manifest.sounds.find((sound) => sound['bus'] === 'effects'),
+      id: `sfx/extra-${index}`,
+      src: `assets/audio/sfx/extra-${index}.ogg`,
+    }));
+    await route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({ ...manifest, sounds: [...manifest.sounds, ...extra] }),
+    });
+  });
+  await page.goto('./');
+  await ready(page, 'title');
+  await storeRecord(
+    page,
+    FAMILY_KEY,
+    await familyPayload({
+      profiles: [{ id: 'profile-1', name: 'Ema', avatar: 'diver-2', address: 'girl', grade: 3 }],
+      grownUpsLanguage: 'cs',
+    }),
+  );
+  await page.reload();
+  await ready(page, 'title');
+  await expect(page.getByTestId('boot-status')).toHaveAttribute('data-audio', 'unavailable');
+  await enterGrownUps(page);
+  await expect(page.getByTestId('sound-unavailable')).toHaveText(
+    'Zvuk se nepodařilo spustit, hra je teď tichá.',
+  );
+  expect(seen.consoleErrors.some((line) => line.includes('could not be registered'))).toBe(true);
+});

@@ -90,7 +90,7 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
     say(key);
     autoRead();
     const next = candyButton({
-      label: t('story.next'),
+      label: t('storyScreen.next'),
       icon: 'forward',
       variant: 'sun',
       size: 'big',
@@ -119,7 +119,7 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
     // A line with no choice of its own goes on with the beat's single way forward.
     actions.append(
       candyButton({
-        label: t('story.next'),
+        label: t('storyScreen.next'),
         icon: 'forward',
         variant: 'sun',
         size: 'big',
@@ -132,7 +132,7 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
   if (story.skippable) {
     actions.append(
       candyButton({
-        label: t('story.skip'),
+        label: t('storyScreen.skip'),
         variant: 'paper',
         size: 'small',
         testId: 'story-skip',
@@ -143,7 +143,7 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
   }
 
   say(story.text);
-  const heading = h('h1', { className: 'ps-visually-hidden', text: t('story.heading') });
+  const heading = h('h1', { className: 'ps-visually-hidden', text: t('storyScreen.heading') });
   const element = h(
     'main',
     { className: 'ps-story', testId: 'screen-story', dataset: { beat: story.beat } },
@@ -163,7 +163,7 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
   );
   return {
     element,
-    title: t('story.heading'),
+    title: t('storyScreen.heading'),
     field: 'sea',
     region: null,
     music: 'grotto',

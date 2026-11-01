@@ -36,7 +36,7 @@ export function firstFriendScreen(app: App, active: ActiveDiver): Screen {
       ? t('eggs.chosen', { name: text(name.nameKey) })
       : t('eggs.chosenPlain');
     const next = candyButton({
-      label: t('story.next'),
+      label: t('storyScreen.next'),
       icon: 'forward',
       variant: 'sun',
       size: 'big',

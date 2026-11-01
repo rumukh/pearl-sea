@@ -10,7 +10,7 @@ import type { FindingKind, Guard } from './support/guard';
 import { audit } from './support/a11y';
 import { audioLog, audioProbe, hasWebAudio, soundOf } from './support/audio';
 import { layoutProblems } from './support/layout';
-import { ready } from './support/screens';
+import { ready, resize } from './support/screens';
 
 function seen(guard: Guard, kind: FindingKind, pattern: RegExp): boolean {
   return guard.all().some((finding) => finding.kind === kind && pattern.test(finding.detail));
@@ -174,6 +174,29 @@ test.describe('the accessibility audit and the layout checks see planted faults'
   test('a clean title has no layout problems (the checks do not cry wolf)', async ({ page }) => {
     await boot(page);
     expect(await layoutProblems(page)).toEqual([]);
+  });
+
+  test('a resized page is measured at its new size, its 100dvh floors caught up', async ({
+    page,
+  }) => {
+    // Measured as soon as the window reports a new size, the page's `100dvh` floors mostly keep
+    // the old window's height for a moment, in every engine; resize() waits until they follow.
+    await boot(page);
+    for (const [width, height] of [
+      [1024, 768],
+      [1440, 900],
+      [390, 844],
+      [1280, 800],
+      [1024, 768],
+    ] as const) {
+      await resize(page, width, height);
+      const floors = await page.evaluate(() =>
+        ['body', '#app'].map((selector) =>
+          parseFloat(getComputedStyle(document.querySelector(selector)!).minHeight),
+        ),
+      );
+      expect(floors, `the 100dvh floors at ${width} × ${height}`).toEqual([height, height]);
+    }
   });
 });
 

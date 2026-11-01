@@ -22,39 +22,43 @@ main `a729482` (content 1.2.5, after #27-#34) the same day.
 
 ## Open
 
-| ID       | Severity | Owner  | Defect                                                                                            | Pinned by                                                         |
-| -------- | -------- | ------ | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| PS-QA-04 | major    | S4     | The grotto does not fit a landscape tablet: its places are below the fold                         | `screens.spec.ts`, every grotto stop at 1280 × 800 and 1024 × 768 |
-| PS-QA-05 | major    | S4     | Rounds, boards and results need scrolling on a landscape tablet (Dál after a miss below the fold) | `screens.spec.ts`, every play stop at both tablet sizes           |
-| PS-QA-06 | major    | S4     | Pexeso never says what makes a pair                                                               | `screens.spec.ts` › the lagoon (stop 27)                          |
-| PS-QA-09 | major    | S4     | With less motion, a fish dragged onto a net often swims back to the pool                          | `input.spec.ts` › fish dragged with a finger (less motion)        |
-| PS-QA-01 | major    | S4     | Ulita slov's cut points are 19-43 px wide, under the 48 px target                                 | `screens.spec.ts` › a 4th grader (stops 57, 58)                   |
-| PS-QA-07 | minor    | S4     | On the title, Hrát's focus ring cuts through the tagline                                          | `screens.spec.ts` › the first dive (stop 01)                      |
-| PS-QA-08 | minor    | S4     | At 200 % text on a phone, rounds scroll sideways and U Mrože's greeting does not wrap             | `screens.spec.ts` › 200 % text                                    |
-| PS-QA-12 | minor    | S4, S3 | Inkoustová věta says "Doplň chybějící písmena." for a sentence with one gap                       | (copy; S3's wording is with S4)                                   |
-| PS-QA-13 | minor    | S4     | The grown-ups' settings show "Závod s delfíny", switched on, for a race that has no way in yet    | (screens 61, 68)                                                  |
-| PS-QA-14 | minor    | S4     | When the hint was shown, the miss feedback repeats the same strategy line under it                | (screen 16 at 1024 × 768)                                         |
+| ID       | Severity | Owner  | Defect                                                                                         | Pinned by                                                         |
+| -------- | -------- | ------ | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| PS-QA-04 | major    | S4     | The grotto does not fit a landscape tablet: its places are below the fold                      | `screens.spec.ts`, every grotto stop at 1280 × 800 and 1024 × 768 |
+| PS-QA-05 | major    | S4     | Rounds and battles need scrolling on a landscape tablet (Dál after a miss below the fold)      | `screens.spec.ts`, every play stop at both tablet sizes           |
+| PS-QA-06 | major    | S4     | Pexeso never says what makes a pair                                                            | `screens.spec.ts` › the lagoon (stop 27)                          |
+| PS-QA-09 | major    | S4     | With less motion, a fish dragged onto a net often swims back to the pool                       | `input.spec.ts` › fish dragged with a finger (less motion)        |
+| PS-QA-01 | major    | S4     | Ulita slov's cut points are 19-43 px wide, under the 48 px target                              | `screens.spec.ts` › a 4th grader (stops 57, 58)                   |
+| PS-QA-07 | minor    | S4     | On the title, Hrát's focus ring cuts through the tagline                                       | `screens.spec.ts` › the first dive (stop 01)                      |
+| PS-QA-08 | minor    | S4     | At 200 % text on a phone, rounds scroll sideways and U Mrože's greeting does not wrap          | `screens.spec.ts` › 200 % text                                    |
+| PS-QA-12 | minor    | S4, S3 | Inkoustová věta says "Doplň chybějící písmena." for a sentence with one gap                    | (copy; S3's wording is with S4)                                   |
+| PS-QA-13 | minor    | S4     | The grown-ups' settings show "Závod s delfíny", switched on, for a race that has no way in yet | (screens 61, 68)                                                  |
+| PS-QA-14 | minor    | S4     | When the hint was shown, the miss feedback repeats the same strategy line under it             | (screen 16 at 1024 × 768)                                         |
 
 S4 takes them in this order: PS-QA-04, 05 and 06 first, then 09, 01 and the minor ones.
 
 ### PS-QA-04: the grotto does not fit a landscape tablet (major, S4)
 
 - **Repro**: the grotto at 1280 × 800: the places row (Mapa, U Mrože, Kamarádi, Galerie, Album,
-  Velká lastura) starts at about y = 825, below the fold ([34](screens/34-grotto-quests.webp) is
-  899 px tall). At 1024 × 768 the hub falls to one column (its container is narrower than 42em,
-  1,008 px) and is 1,425-1,566 px tall: the places are two screens down
-  (`out/qa-screens/<project>/tablet-small/22-grotto-new-day.png`). Safari on an iPad shows about
-  70 px less than the screen.
+  Velká lastura) starts at about y = 825, below the fold: the grotto is 824-899 px tall
+  ([34](screens/34-grotto-quests.webp) is 899). At 1024 × 768 the hub falls to one column (its
+  container is narrower than 42em, 1,008 px) and is 1,436-1,577 px tall: the places are two
+  screens down (`out/qa-screens/<project>/tablet-small/22-grotto-new-day.png`). Safari on an iPad
+  shows about 70 px less than the screen.
 - **Why it matters**: a child who does not scroll never finds the map, the shop, the friends, the
   gallery, the album or the Great Shell. Dragon Valley's playtest found the same and fixed it.
 
-### PS-QA-05: rounds, boards and results scroll on a landscape tablet (major, S4)
+### PS-QA-05: rounds and battles scroll on a landscape tablet (major, S4)
 
-- **Repro** (page heights): at 1024 × 768 Krmení 807 px, with the hint shown 885, after a miss
-  1,086 (Dál about 250 px below the fold; it takes focus, so the page scrolls to it), Svačinka with
-  an Inkoustík 1,027 (the letter pad's second row below the fold), the placement check 785, Pexeso
-  with a mismatch 800, results 800. At 1280 × 800: a miss 809, a hint 844, an ambush 818, Slovní
-  rodinka with words picked 844, the placement's results 844.
+- **Repro** (page heights on main `a729482`): at 1024 × 768 Krmení 825 px, with the hint shown
+  903, after a miss 1,104 (Dál below the fold; it takes focus, so the page scrolls to it), a pause
+  825, Svačinka 921, Muréna's battle 786 and with ink blots 801, an Inkoustík's ambush 1,045 (the
+  letter pad's second row below the fold). At 1280 × 800: a miss 827, an ambush 836.
+- **Corrected**: the first report also named results, Pexeso, the placement check and Slovní
+  rodinka (800 px at 1024 × 768, 844 px at 1280 × 800). Those were the walk's own error: every
+  engine applies a resize to the page's `100dvh` styles a moment late, and the walk measured the
+  page before they followed, at the height of the window before. The walks now wait for them
+  (`resize()` in `test/e2e/support/screens.ts`), and two runs measure every stop alike.
 - **Suggested fix**: a round that fits 1024 × 768 (smaller friend and problem card when space is
   short, the feedback beside the pad rather than under it).
 

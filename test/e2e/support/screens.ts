@@ -165,6 +165,42 @@ export async function settle(page: Page): Promise<void> {
   });
 }
 
+/**
+ * Resize the window and wait until the page lays out at the new size. Every engine carries a
+ * resize into the page's `dvh` styles a moment late (up to 0.4 s here; S4 found it in
+ * fit.spec.ts): measured at once, a screen with a `100dvh` floor is as tall as the window before.
+ * A canary sized `100dvh`, made before the resize, goes stale with them, so the page has caught
+ * up once it measures the new height. A size that never settles is measured as it is.
+ */
+export async function resize(page: Page, width: number, height: number): Promise<void> {
+  await page.evaluate(() => {
+    const canary = document.createElement('div');
+    canary.id = 'ps-qa-dvh-canary';
+    canary.setAttribute('aria-hidden', 'true');
+    canary.style.cssText =
+      'position:fixed;top:0;left:0;width:1px;height:100dvh;visibility:hidden;pointer-events:none';
+    document.body.append(canary);
+    void canary.getBoundingClientRect().height;
+  });
+  await page.setViewportSize({ width, height });
+  await page
+    .waitForFunction(
+      ([w, h]) => {
+        const canary = document.getElementById('ps-qa-dvh-canary');
+        return (
+          innerWidth === w &&
+          innerHeight === h &&
+          canary !== null &&
+          Math.abs(canary.getBoundingClientRect().height - h) < 1
+        );
+      },
+      [width, height] as const,
+      { timeout: 2_000, polling: 50 },
+    )
+    .catch(() => undefined);
+  await page.evaluate(() => document.getElementById('ps-qa-dvh-canary')?.remove());
+}
+
 export interface CheckOptions {
   readonly screenshots: boolean;
   readonly axe: boolean;
@@ -208,7 +244,7 @@ export async function checkStop(
   );
   expect.soft(looping, `animations that keep running with less motion on ${stop.name}`).toEqual([]);
   for (const viewport of [...viewports.slice(1), viewports[0]!]) {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await resize(page, viewport.width, viewport.height);
     await settle(page);
     const where = `${options.set ? `${options.set}/` : ''}${stop.name} (${viewport.label})`;
     heights[viewport.id] = await page.evaluate(() => document.documentElement.scrollHeight);

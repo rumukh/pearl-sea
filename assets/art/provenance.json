@@ -42,6 +42,1022 @@
   ],
   "assets": [
     {
+      "id": "avatar/diver-1",
+      "file": "avatars/diver-1.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 19772,
+      "sha256": "895b33aa0ac148f1c313a4334d8bce809bcd492875e057cb99e4a1f4fd71cf12",
+      "anchors": null,
+      "promptFile": "prompts/diver-1.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "bdd41d577353d0c3654ae3708012eb47e7b1ad0722c1be17d4f919c94e22d194",
+          "sheetCell": [
+            0,
+            0
+          ],
+          "circleCentre": [
+            210.86,
+            230.63
+          ],
+          "circleRadius": 199.32,
+          "cutRadius": 197.82,
+          "iouWithDisc": 0.9985
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            400,
+            400
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 36.42,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-2",
+      "file": "avatars/diver-2.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 18160,
+      "sha256": "d57b191f69e246c9f47873a27a2c31869e0353a5fbcff3a1f81bb962850d96d4",
+      "anchors": null,
+      "promptFile": "prompts/diver-2.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "7eba99b8596b73813da9d72959300f8bbda091d753fa526b02c8b339cb02917b",
+          "sheetCell": [
+            1,
+            0
+          ],
+          "circleCentre": [
+            626.77,
+            230.64
+          ],
+          "circleRadius": 199.29,
+          "cutRadius": 197.79,
+          "iouWithDisc": 0.9983
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            400,
+            400
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 38.39,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-3",
+      "file": "avatars/diver-3.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 17648,
+      "sha256": "8383f4585d6d20c540eff77c59c57050dc1c5ed0163016cb44ab2e7e497e3a5a",
+      "anchors": null,
+      "promptFile": "prompts/diver-3.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "ea09a46810ead979c14b15fab401d88c7304d371672e34a383a5b19f8dd9dda0",
+          "sheetCell": [
+            2,
+            0
+          ],
+          "circleCentre": [
+            1042.93,
+            230.59
+          ],
+          "circleRadius": 199.34,
+          "cutRadius": 197.84,
+          "iouWithDisc": 0.9986
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            400,
+            400
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 37.97,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-4",
+      "file": "avatars/diver-4.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 17522,
+      "sha256": "262d196aaf309ddddde35443a300cfd6e8841fd42362c39b088877c14a86da57",
+      "anchors": null,
+      "promptFile": "prompts/diver-4.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "2c03fa013deb115733e5cdea5c811de77d4077148209da9575f27596f5f578ee",
+          "sheetCell": [
+            3,
+            0
+          ],
+          "circleCentre": [
+            1459.24,
+            230.67
+          ],
+          "circleRadius": 199.33,
+          "cutRadius": 197.83,
+          "iouWithDisc": 0.9987
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            400,
+            400
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 36.7,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-5",
+      "file": "avatars/diver-5.webp",
+      "width": 401,
+      "height": 401,
+      "bytes": 17438,
+      "sha256": "5635c2e59552954a629f862f722f67c6544c7d107f65c38b1eae0f75e0504814",
+      "anchors": null,
+      "promptFile": "prompts/diver-5.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "7bc573169e774842dc609b7cabf6a4945eb6f0b7d60f62964137e00c3b35cfb2",
+          "sheetCell": [
+            0,
+            1
+          ],
+          "circleCentre": [
+            209.79,
+            696.62
+          ],
+          "circleRadius": 199.57,
+          "cutRadius": 198.07,
+          "iouWithDisc": 0.9965
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            401,
+            401
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            401,
+            401
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 38.82,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-6",
+      "file": "avatars/diver-6.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 20326,
+      "sha256": "31022461e00729ae6cd3c50b07e099ee2b5a9c20181e6d363afde491e33e72aa",
+      "anchors": null,
+      "promptFile": "prompts/diver-6.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "aff5f43b7448063f8afec637cdc47353f097b8f9028dbd977f79632f553790ba",
+          "sheetCell": [
+            1,
+            1
+          ],
+          "circleCentre": [
+            625.78,
+            696.71
+          ],
+          "circleRadius": 199.49,
+          "cutRadius": 197.99,
+          "iouWithDisc": 0.997
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            400,
+            400
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 37.91,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-7",
+      "file": "avatars/diver-7.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 18468,
+      "sha256": "30b7fd078819759cd5ac1de2097fdcfa6062db48bf8cf5ab0592d757df4d780c",
+      "anchors": null,
+      "promptFile": "prompts/diver-7.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "9f66ad169e1be655ee76df41c9b8b70d83590b92edfecf729069aeea19f1f3d1",
+          "sheetCell": [
+            2,
+            1
+          ],
+          "circleCentre": [
+            1041.3,
+            696.89
+          ],
+          "circleRadius": 199.35,
+          "cutRadius": 197.85,
+          "iouWithDisc": 0.9955
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            400,
+            400
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 37.76,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
+      "id": "avatar/diver-8",
+      "file": "avatars/diver-8.webp",
+      "width": 401,
+      "height": 401,
+      "bytes": 18024,
+      "sha256": "978176b0c5e2e14861fe5328f00e4c1b328df4788248b7fc8e74d721fd2c7364",
+      "anchors": null,
+      "promptFile": "prompts/diver-8.prompt.txt",
+      "approvedImage": {
+        "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+        "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b"
+      },
+      "lineage": [
+        {
+          "image": "avatars/avatars-sheet-b-sketchv1-s99502.png",
+          "sha256": "95b0cdf32fd4f40bc74f179a8be00a6cb9550669d75606f5338d021969f4891b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished sheet of eight round portrait avatars for a cheerful children's learning game set under the sea. Keep exactly the same layout: eight round brass porthole frames with rivets, in two rows of four, each in the same place and the same size as in the sketch, on the plain light grey background. In each porthole is a different friendly child diver, about eight years old, shown head and shoulders and facing the viewer with a big, happy smile, a diving mask pushed up on the forehead and a wetsuit collar, against soft turquoise water. Top row, left to right: a girl with fair skin, freckles and orange curly hair in two puffs, a turquoise wetsuit and a yellow mask; a boy with dark brown skin and short black curly hair, an orange wetsuit and a blue mask; a girl with light brown skin and a long black ponytail, a purple wetsuit and a pink mask; a boy with fair skin and messy blond hair, a green wetsuit and an orange mask. Bottom row, left to right: a girl with dark brown skin and black hair in a high bun, a coral-red wetsuit and a turquoise mask; a boy with light olive skin and wavy brown hair, a yellow wetsuit and a red mask; a child with fair skin and a short brown bob, a pink wetsuit and a green mask; a girl with brown skin and long dark braids, a blue wetsuit and a purple mask. Every child has a clearly different face, hair and skin tone and their own gear colours; simple, big, readable features with large eyes, so each portrait still reads when it is small.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the children and their main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the portholes, with no glow, no light rays, no vignette and no shadow. No text, no letters, no numbers, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, glow, light rays, vignette, adult, teenager, scary, duplicate faces, identical faces, merged faces, distorted face, malformed face, hands, fingers, missing frames, cropped frames, extra frames",
+          "seed": 99502,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "avatars/ref-avatars-sheet-sketch-v1.png",
+              "role": "layout and composition sketch of the eight avatars (Pillow colour blocking, sketches.py avatars), repainted in place",
+              "sha256": "953810bc14febb8ce230295738bc930a4285347bdb79f16b49e9557c184c00b3",
+              "sketch": "scripts/art/authoring/sketches.py avatars (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/avatar_cut.py (sha256 ca915a2918840b38d99baea626ac6d7faa8c1c6ae29b5ee0b56ecfafa6ddb1bb): the porthole frame's silhouette, a fitted disc, cut out anti-aliased at 4x",
+          "cutoutSha256": "1181a926f76faea710234570b26adb8155edbd1872b09889b3668a93d82dc146",
+          "sheetCell": [
+            3,
+            1
+          ],
+          "circleCentre": [
+            1458.5,
+            696.69
+          ],
+          "circleRadius": 199.58,
+          "cutRadius": 198.08,
+          "iouWithDisc": 0.9972
+        },
+        {
+          "step": "trim",
+          "box": [
+            0,
+            0,
+            401,
+            401
+          ],
+          "marginPx": 8,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            401,
+            401
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 38.23,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate4-avatars",
+        "decidedAt": "2026-11-01T15:28:01.0586968+01:00",
+        "question": "Gate 4, the eight diver avatars for the profile editor (images avatars-A.jpg and avatars-B.jpg in my gate-avatars folder). Each shows the same eight children in brass portholes (mixed hair, skin and gear colours), with all eight shown at 64 px underneath. A has softer smiles and is closer to the storybook style; B has bigger faces and toothy grins, so it reads a little better when small. Which set should I use?",
+        "answer": "Avatars B: bigger faces and toothy grins",
+        "chosen": "Avatars B"
+      }
+    },
+    {
       "id": "character/bublinka",
       "file": "characters/bublinka.webp",
       "width": 1024,
@@ -95,14 +1111,18 @@
             {
               "image": "_refs/plain-grey-200-1328.png",
               "role": "blank light-grey canvas only (no subject; sets the square framing and the plain background)",
-              "sha256": "da6a9778a2e9dd08a71b6edd490a003b0d9132bb3990a62e79fb3190da849694"
+              "sha256": "da6a9778a2e9dd08a71b6edd490a003b0d9132bb3990a62e79fb3190da849694",
+              "sketch": "scripts/art/authoring/sketches.py plain-grey (reproduced byte for byte when shipped)"
             }
           ],
           "date": "2026-11-01",
           "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
         }
       ],
-      "sketchScript": null,
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
       "processing": [
         {
           "step": "cut-out",
@@ -121,7 +1141,7 @@
             1110
           ],
           "marginPx": 25,
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
@@ -131,7 +1151,7 @@
             1024,
             847
           ],
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
@@ -145,7 +1165,7 @@
             "VP8 "
           ],
           "metadata": "none",
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         }
       ],
       "approval": {
@@ -256,7 +1276,8 @@
             {
               "image": "profesorka-osmicka/ref-profesorka-osmicka-neutral-sketch-v1.png",
               "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py osmicka), repainted in place",
-              "sha256": "40ee100b7c4926da0a07c570ab7bd2b102f3748023cca546edd8d57cebfcbabb"
+              "sha256": "40ee100b7c4926da0a07c570ab7bd2b102f3748023cca546edd8d57cebfcbabb",
+              "sketch": "scripts/art/authoring/sketches.py osmicka (reproduced byte for byte when shipped)"
             }
           ],
           "date": "2026-10-31",
@@ -265,7 +1286,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "c866b240456f5ce54adcf0e5cf6e2be9134f782c167c4ea81ab79b8eeb449d41"
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
       },
       "processing": [
         {
@@ -285,7 +1306,7 @@
             1193
           ],
           "marginPx": 19,
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
@@ -295,7 +1316,7 @@
             946,
             983
           ],
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
@@ -309,7 +1330,7 @@
             "VP8 "
           ],
           "metadata": "none",
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         }
       ],
       "approval": {
@@ -331,19 +1352,19 @@
         "head": {
           "x": 502,
           "y": 31,
-          "scale": 95,
+          "scale": 125,
           "rotate": 0
         },
         "eyes": {
           "x": 502,
           "y": 97,
-          "scale": 100,
+          "scale": 120,
           "rotate": 0
         },
         "neck": {
           "x": 502,
           "y": 566,
-          "scale": 60,
+          "scale": 90,
           "rotate": 0
         }
       },
@@ -439,7 +1460,8 @@
             {
               "image": "krab-tvrdak/ref-krab-tvrdak-adult-sketch-v1.png",
               "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py krab), repainted in place",
-              "sha256": "a3a02cfee139a93409c6dea8e0d923d0192e3920873e6dcd5a69c24c0d187fa4"
+              "sha256": "a3a02cfee139a93409c6dea8e0d923d0192e3920873e6dcd5a69c24c0d187fa4",
+              "sketch": "scripts/art/authoring/sketches.py krab (reproduced byte for byte when shipped)"
             }
           ],
           "date": "2026-10-31",
@@ -448,7 +1470,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "c866b240456f5ce54adcf0e5cf6e2be9134f782c167c4ea81ab79b8eeb449d41"
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
       },
       "processing": [
         {
@@ -468,7 +1490,7 @@
             1172
           ],
           "marginPx": 23,
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
@@ -478,7 +1500,7 @@
             1024,
             835
           ],
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
@@ -492,7 +1514,7 @@
             "VP8 "
           ],
           "metadata": "none",
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         }
       ],
       "approval": {
@@ -514,19 +1536,19 @@
         "head": {
           "x": 546,
           "y": 43,
-          "scale": 110,
+          "scale": 140,
           "rotate": 0
         },
         "eyes": {
           "x": 547,
           "y": 265,
-          "scale": 110,
+          "scale": 170,
           "rotate": 0
         },
         "neck": {
           "x": 546,
           "y": 381,
-          "scale": 70,
+          "scale": 100,
           "rotate": 0
         }
       },
@@ -576,7 +1598,8 @@
             {
               "image": "meduzka-mekulka/ref-meduzka-mekulka-adult-sketch-v2.png",
               "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py meduzka2), repainted in place",
-              "sha256": "8900e4cc90b6807116a1fe711856a587f5bd053a0dbab13f7403ec81b90a589c"
+              "sha256": "8900e4cc90b6807116a1fe711856a587f5bd053a0dbab13f7403ec81b90a589c",
+              "sketch": "scripts/art/authoring/sketches.py meduzka2 (reproduced byte for byte when shipped)"
             }
           ],
           "date": "2026-11-01",
@@ -585,7 +1608,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "c866b240456f5ce54adcf0e5cf6e2be9134f782c167c4ea81ab79b8eeb449d41"
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
       },
       "processing": [
         {
@@ -605,7 +1628,7 @@
             1116
           ],
           "marginPx": 18,
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
@@ -615,7 +1638,7 @@
             930,
             882
           ],
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
@@ -629,7 +1652,7 @@
             "VP8 "
           ],
           "metadata": "none",
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         }
       ],
       "approval": {
@@ -651,19 +1674,19 @@
         "head": {
           "x": 314,
           "y": 56,
-          "scale": 85,
+          "scale": 100,
           "rotate": -6
         },
         "eyes": {
           "x": 286,
           "y": 313,
-          "scale": 100,
+          "scale": 110,
           "rotate": -7
         },
         "neck": {
           "x": 314,
           "y": 597,
-          "scale": 60,
+          "scale": 75,
           "rotate": -5
         }
       },
@@ -759,14 +1782,18 @@
             {
               "image": "_refs/plain-grey-200-1328.png",
               "role": "blank light-grey canvas only (no subject; sets the square framing and the plain background)",
-              "sha256": "da6a9778a2e9dd08a71b6edd490a003b0d9132bb3990a62e79fb3190da849694"
+              "sha256": "da6a9778a2e9dd08a71b6edd490a003b0d9132bb3990a62e79fb3190da849694",
+              "sketch": "scripts/art/authoring/sketches.py plain-grey (reproduced byte for byte when shipped)"
             }
           ],
           "date": "2026-10-31",
           "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
         }
       ],
-      "sketchScript": null,
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
       "processing": [
         {
           "step": "cut-out",
@@ -785,7 +1812,7 @@
             1042
           ],
           "marginPx": 24,
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
@@ -795,7 +1822,7 @@
             1024,
             610
           ],
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
@@ -809,7 +1836,7 @@
             "VP8 "
           ],
           "metadata": "none",
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         }
       ],
       "approval": {
@@ -818,6 +1845,197 @@
         "question": "Gate 2 – the slice character masters in style B (images batch1-candidates.jpg and batch1-in-the-lagoon.jpg in my gate2 folder). Krab Tvrďák has 7 spikes, Medúzka Měkulka 9 tentacles, Želva Obojka 8 shell plates and Profesorka Osmička 8 arms. Bublinka has two takes. Murena Mumla (inked) has two takes; A is the most moray-like but has a pale belly and a carrot-like tail tip. Babies, Murena's freed form and Osmička's happy face will be derived from whichever masters you approve. Which masters should I use?",
         "answer": "Approve the recommended set: Krab A, Medúzka A, Želva A, Osmička A, Bublinka A, Murena A (Recommended)",
         "chosen": "Želva A"
+      }
+    },
+    {
+      "id": "map/shallows",
+      "file": "maps/shallows.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 144282,
+      "sha256": "8d293ee2a126e8ce5e641bbb69add45bcf01b70e9282fb54321c60ed3489d253",
+      "anchors": null,
+      "promptFile": "prompts/shallows.prompt.txt",
+      "approvedImage": {
+        "image": "bg-map-grade3/bg-map-grade3-v2-edit2-s96025.png",
+        "sha256": "521fff9648f40c0f5d005e42a8ceb61a092a1afdecf38a04db8dbc57bc26c1d4"
+      },
+      "lineage": [
+        {
+          "image": "bg-map-grade3/bg-map-grade3-v2-edit2-s96025.png",
+          "sha256": "521fff9648f40c0f5d005e42a8ceb61a092a1afdecf38a04db8dbc57bc26c1d4",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this painted sea map. Change one thing only: remove the small white sign with scribbles inside the round pad of water on the coral island at the lower left, so that the pad holds only calm, clear turquoise water like the other pads. Keep everything else exactly the same: every pad, path, island, the ship, the shell, the corals, the kelp, the volcanoes, the ice, the colours, the storybook gouache and watercolour style and the framing. No text, no letters, no signs, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, signs, labels, cards, watermark, signature, photorealistic, 3d render, dark, gloomy, extra objects, submarine, people, characters, animals",
+          "seed": 96025,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-map-grade3/bg-map-grade3-v2-edit-s96023.png",
+              "role": "source image edited in place: approved Map A (gate 3b), s96023, which still has a small sign with scribbles in the lagoon pad",
+              "sha256": "7a306a9fa4b012645f9ee688fab109038fbb0202016eea6528d796e9e1a05d56"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "bg-map-grade3/bg-map-grade3-v2-edit-s96023.png",
+          "sha256": "7a306a9fa4b012645f9ee688fab109038fbb0202016eea6528d796e9e1a05d56",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this painted sea map. Change one thing only: remove the small blank card or sign inside the round sandy pad at the top right, so that the pad holds only calm, clear turquoise water like the other pads. Keep everything else exactly the same: every pad, path, island, the ship, the shell, the corals, the kelp, the volcanoes, the ice, the colours, the storybook gouache and watercolour style and the framing. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark, gloomy, extra objects, submarine, people, characters, animals",
+          "seed": 96023,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-map-grade3/bg-map-grade3-v2-s96021.png",
+              "role": "source image edited in place: bg-map-grade3-v2-s96021.png",
+              "sha256": "38027ecb4e2127320ba6b5e0ec495a3046c0dcb4e0adb542f6ea74201b75fc26"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "bg-map-grade3/bg-map-grade3-v2-s96021.png",
+          "sha256": "38027ecb4e2127320ba6b5e0ec495a3046c0dcb4e0adb542f6ea74201b75fc26",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted illustrated map for a cheerful children's undersea learning game, seen from above like a storybook treasure map of a sunny shallow sea. Keep exactly the same composition and the same positions: seven small round pools of calm, clear, light turquoise water, each ringed by a soft sandy rim, connected in order by one winding pale sandy trail. Keep the inside of every pool calm, plain and uncluttered, because the game places a label card on each pool. Around each pool, outside its rim, paint the place it belongs to, exactly where the sketch shows it: in the bottom left a sunny lagoon with pink and orange corals; above and to the right of it a colourful coral reef ringing its pool; at the middle left a swaying green kelp forest beside its pool; at the top middle an old wooden pirate ship lying on a sandbank beside its pool; in the middle right a bay of giant pearly seashells with pearls; at the right dark volcanic rocks with little warm glowing vents and rising bubbles; in the top right a cool sea with white ice floes. Between the places, clear turquoise water of different depths with soft light ripples.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua, coral pink, sunny yellow and sand beige; gentle and inviting, never dark or scary.\nNo text, no letters, no labels, no numbers, no compass rose, no map frame or border, no characters, no animals, no people, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, words, labels, numbers, signature, watermark, map frame, border, compass rose, characters, animals, fish, people, submarine, monster, dark, scary, photorealistic, 3d render",
+          "seed": 96021,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-map-grade3/ref-bg-map-grade3-sketch-v2.png",
+              "role": "composition sketch laid out on the shell's spots (src/app/game/map.ts), repainted in place",
+              "sha256": "586ec4b50bd309195d5f4e676cb80aef84916082b51886198d397088b24958e1",
+              "sketch": "scripts/art/authoring/sketches.py map-grade3b (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 40.97,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate3b-map-grotto",
+        "decidedAt": "2026-11-01T15:32:17.2733382+01:00",
+        "question": "Gate 3b, the grade-3 sea map and Bublinka's home grotto (image gate3b-map-grotto.jpg in my gate3 folder). Both maps have a round pad of open water under every grade-3 region marker, connected by sandy paths. Map A has more open sea; Map B shows the edge of the ice sea at the right. The grotto has the arch to the sea, shelves with shells and glowing pearls, and an open sand floor for the friends and decorations. Which map should I use, with this grotto?",
+        "answer": "Map A and the grotto (Recommended)",
+        "chosen": "Map A",
+        "note": "The user approved Map A, take s96023. The shipped file is its in-place defect fix s96025: a small sign with pseudo-letters removed from the lagoon pad, at the coordinator's request (\"a defect fix on the approved take, not a new creative choice\")."
       }
     },
     {
@@ -874,7 +2092,8 @@
             {
               "image": "murena-mumla/ref-murena-mumla-inked-sketch-v5.png",
               "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py moray2), repainted in place",
-              "sha256": "a165f5c5271ab765ea3d1c98efbfd1557b06dba81214557ec439c38d80978db8"
+              "sha256": "a165f5c5271ab765ea3d1c98efbfd1557b06dba81214557ec439c38d80978db8",
+              "sketch": "scripts/art/authoring/sketches.py moray2 (reproduced byte for byte when shipped)"
             }
           ],
           "date": "2026-11-01",
@@ -883,7 +2102,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "c866b240456f5ce54adcf0e5cf6e2be9134f782c167c4ea81ab79b8eeb449d41"
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
       },
       "processing": [
         {
@@ -903,7 +2122,7 @@
             1328
           ],
           "marginPx": 23,
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "scale",
@@ -913,7 +2132,7 @@
             1024,
             872
           ],
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         },
         {
           "step": "encode",
@@ -927,7 +2146,7 @@
             "VP8 "
           ],
           "metadata": "none",
-          "tool": "scripts/art/authoring/ship_art.py (sha256 1aaab55d14cec94c5715f5ae352372b72a3a53feb93772b948f0bacfe03f274c)"
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
         }
       ],
       "approval": {
@@ -936,6 +2155,392 @@
         "question": "Gate 2 – the slice character masters in style B (images batch1-candidates.jpg and batch1-in-the-lagoon.jpg in my gate2 folder). Krab Tvrďák has 7 spikes, Medúzka Měkulka 9 tentacles, Želva Obojka 8 shell plates and Profesorka Osmička 8 arms. Bublinka has two takes. Murena Mumla (inked) has two takes; A is the most moray-like but has a pale belly and a carrot-like tail tip. Babies, Murena's freed form and Osmička's happy face will be derived from whichever masters you approve. Which masters should I use?",
         "answer": "Approve the recommended set: Krab A, Medúzka A, Želva A, Osmička A, Bublinka A, Murena A (Recommended)",
         "chosen": "Murena A"
+      }
+    },
+    {
+      "id": "scene/grotto",
+      "file": "scenes/grotto.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 120978,
+      "sha256": "19b729a808fbecdb117e2323e453076cad813d0de419fc8a0da08ce52adab0f5",
+      "anchors": null,
+      "promptFile": "prompts/grotto.prompt.txt",
+      "approvedImage": {
+        "image": "bg-grotto/bg-grotto-edit-nochest-s97014.png",
+        "sha256": "63c49509849d02e553fbc1dc6032356e65d0af986b4b5a302820e37b0b8ebdc9"
+      },
+      "lineage": [
+        {
+          "image": "bg-grotto/bg-grotto-edit-nochest-s97014.png",
+          "sha256": "63c49509849d02e553fbc1dc6032356e65d0af986b4b5a302820e37b0b8ebdc9",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this painting of Bublinka's home grotto under the sea. Change one thing only: remove the small wooden treasure chest on the sand at the lower right, and paint plain smooth sand, a few small pebbles and the same soft shading there instead. Keep everything else exactly the same: the arch, the open sea, the light rays, the shelves with the shells and glowing pearls, the corals, the stones, the colours, the storybook gouache and watercolour style and the framing. No text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark, gloomy, extra objects, submarine, people, characters, animals",
+          "seed": 97014,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-grotto/bg-grotto-edit-nosub-s97013.png",
+              "role": "source image edited in place: bg-grotto-edit-nosub-s97013.png",
+              "sha256": "8f9c5c35004da58aaf815bc14fb639035723a10194fb1a2f66ae63be0a57d5e1"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "bg-grotto/bg-grotto-edit-nosub-s97013.png",
+          "sha256": "8f9c5c35004da58aaf815bc14fb639035723a10194fb1a2f66ae63be0a57d5e1",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this painted background of a cosy undersea grotto. Remove the yellow submarine in the middle completely, together with its shadow, and fill its place with the same smooth, empty, sunlit sandy floor and the same calm water seen through the arch, so that the middle of the floor is open and empty. Keep everything else exactly the same: the blue-violet cave walls, the arch with the bright sea and sunbeams, the ledges with shells, sea grass and pearl lanterns, the corals, the pebbles, the treasure chest, the painting style and the colours. No characters, no animals, no fish, no submarine, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "submarine, vehicle, boat, characters, animals, fish, people, text, letters, watermark, blurry, low resolution, photorealistic, 3d render",
+          "seed": 97013,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-grotto/bg-grotto-v1-s97012.png",
+              "role": "source image edited in place: grotto take s97012 (a submarine appeared despite the prompt)",
+              "sha256": "54102a5b078146c9834b8f2e896e6ea450d6d8d5da7da29f5e16ecd15aa0ac3f"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "bg-grotto/bg-grotto-v1-s97012.png",
+          "sha256": "54102a5b078146c9834b8f2e896e6ea450d6d8d5da7da29f5e16ecd15aa0ac3f",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's undersea learning game: the cosy home grotto of a little yellow submarine, where friendly sea creatures live. Keep exactly the same composition: rounded cave walls of soft blue-violet rock framing the scene; a big arched opening at the back centre with bright turquoise sea and sunbeams; flat rock ledges on the left and right walls; warm glowing pearl lanterns; a soft sandy floor across the bottom with an open, empty middle where the game will place its sea friends; a small anemone garden at each side and a little treasure chest on the right. Add cosy details on the walls and ledges only: shell decorations, small sea-grass tufts, smooth pebbles and a few tiny bubbles.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes; warm, magical and inviting, with turquoise, lilac, coral and sunny-gold tones; never dark or scary.\nNo characters, no animals, no fish, no people, no submarine, no text, no letters, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, words, labels, numbers, signature, watermark, map frame, border, compass rose, characters, animals, fish, people, submarine, dark, scary, photorealistic, 3d render",
+          "seed": 97012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-grotto/ref-bg-grotto-sketch-v1.png",
+              "role": "composition sketch (Pillow colour blocking, sketches.py grotto), repainted in place",
+              "sha256": "7f155d9670a12fc41f5dcd8fe763d1abcb85c8ae1e3544043f69caf31eb4af4c",
+              "sketch": "scripts/art/authoring/sketches.py grotto (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 41.72,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate3b-map-grotto",
+        "decidedAt": "2026-11-01T15:32:17.2733382+01:00",
+        "question": "Gate 3b, the grade-3 sea map and Bublinka's home grotto (image gate3b-map-grotto.jpg in my gate3 folder). Both maps have a round pad of open water under every grade-3 region marker, connected by sandy paths. Map A has more open sea; Map B shows the edge of the ice sea at the right. The grotto has the arch to the sea, shelves with shells and glowing pearls, and an open sand floor for the friends and decorations. Which map should I use, with this grotto?",
+        "answer": "Map A and the grotto (Recommended)",
+        "chosen": "Grotto"
+      }
+    },
+    {
+      "id": "scene/sunny-lagoon",
+      "file": "scenes/sunny-lagoon.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 132546,
+      "sha256": "80ab2bfccf8079d6ebd69cf62e7876062cc54a83ea7668b2de55dcf63c04ae8c",
+      "anchors": null,
+      "promptFile": "prompts/sunny-lagoon.prompt.txt",
+      "approvedImage": {
+        "image": "bg-sunny-lagoon/bg-sunny-lagoon-v2-s41011.png",
+        "sha256": "7252d2d796e19ef3aab2030f970007f5600bf9c280d3533502e4f6cb92c93c7b"
+      },
+      "lineage": [
+        {
+          "image": "bg-sunny-lagoon/bg-sunny-lagoon-v2-s41011.png",
+          "sha256": "7252d2d796e19ef3aab2030f970007f5600bf9c280d3533502e4f6cb92c93c7b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Slunná laguna, a sunny, shallow tropical lagoon seen from inside the water. Keep exactly the same composition: bright sunbeams slanting down from the shimmering surface; a wide, calm, open band of clear turquoise water and smooth sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner a rocky ledge with swaying kelp and a purple sea fan; in the bottom-right corner a lush garden of branching pink, orange and purple corals with a yellow sea star; at the right edge a big rounded reef rock with a dark, mysterious hole in it, where a sea monster lives, mysterious but not scary; the soft sandy sea floor along the bottom with a few seashells and pebbles. Tiny bubbles rising, gentle caustic light ripples on the sand.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua blue, coral pink, sunny yellow and sand beige, gentle depth haze toward the back. Calm, magical and inviting.\nNo fish, no animals, no people, no characters, no monster, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, words, labels, numbers, signature, watermark, map frame, border, compass rose, characters, animals, fish, people, submarine, monster, dark, scary, photorealistic, 3d render",
+          "seed": 41011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-sunny-lagoon/ref-bg-sunny-lagoon-sketch-v2.png",
+              "role": "composition sketch laid out on the shell's spots (src/app/game/map.ts), repainted in place",
+              "sha256": "f8d9d31c630e0ade3c878c87eaab9b8d8ce4d8816699787150e59020b46c090c",
+              "sketch": "scripts/art/authoring/sketches.py lagoon2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 40.07,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate3a-lagoon-title",
+        "decidedAt": "2026-11-01T14:19:58.9183593+01:00",
+        "question": "Gate 3a, the Slunná laguna scene and the title backdrop (image gate3a-lagoon-title.jpg in my gate3 folder). In both lagoon takes the seven level nodes and their route sit on open water and sand, and the monster's node sits above Murena's cave; A has more open water. Both titles show a glowing pearl shell with open water above for the title text and the ink creeping in; in Title A the ink is a little ink creature. Which lagoon and which title should I use?",
+        "answer": "Lagoon A and Title A (Recommended)",
+        "chosen": "Lagoon A"
+      }
+    },
+    {
+      "id": "scene/title",
+      "file": "scenes/title.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 119118,
+      "sha256": "c9333f58cb0dc88a092c9ffb61bf389997f4c4caca74eb99fa65166d5ee9828e",
+      "anchors": null,
+      "promptFile": "prompts/title.prompt.txt",
+      "approvedImage": {
+        "image": "bg-title/bg-title-v1-s98011.png",
+        "sha256": "d437e7db812c9ba1d7dbc33a0e75a481e95d0056da6e49239821985347d90265"
+      },
+      "lineage": [
+        {
+          "image": "bg-title/bg-title-v1-s98011.png",
+          "sha256": "d437e7db812c9ba1d7dbc33a0e75a481e95d0056da6e49239821985347d90265",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted title-screen background for a cheerful children's undersea learning game about a magical sea of pearls. Keep exactly the same composition: bright, open turquoise water with gentle sunbeams across the whole upper part, left calm and empty for the game's title; at the bottom centre the Great Shell, a giant magical scallop shell open like a treasure box, pearly pink and cream, softly glowing and full of shining round pearls in white, pink and gold, resting on a small sandy mound; coral gardens and swaying kelp framing the left and right edges; open water at the middle left and the middle right where the game will place its characters; in the far bottom right, low on the sand, a small, soft, dark-violet cloud of magic ink drifting in the distance, mysterious but not scary.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua blue, coral pink, sunny yellow, pearly pink and sand beige; magical, warm and inviting.\nNo characters, no animals, no fish, no submarine, no people, no text, no letters, no logo, no title, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, words, title, logo, numbers, signature, watermark, border, frame, characters, animals, fish, people, submarine, dark, scary, photorealistic, 3d render",
+          "seed": 98011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-title/ref-bg-title-sketch-v1.png",
+              "role": "composition sketch (Pillow colour blocking, sketches.py title), repainted in place",
+              "sha256": "a6634d8c146e6f3e072929be90d8532d1b23f34bf19ff2c61d1826fda6eef024",
+              "sketch": "scripts/art/authoring/sketches.py title (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "e6853fdfcb21cb09c664094bc7f7143a48815f2a2a7f6330ed31f6d28170a273"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 39.71,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate3a-lagoon-title",
+        "decidedAt": "2026-11-01T14:19:58.9183593+01:00",
+        "question": "Gate 3a, the Slunná laguna scene and the title backdrop (image gate3a-lagoon-title.jpg in my gate3 folder). In both lagoon takes the seven level nodes and their route sit on open water and sand, and the monster's node sits above Murena's cave; A has more open water. Both titles show a glowing pearl shell with open water above for the title text and the ink creeping in; in Title A the ink is a little ink creature. Which lagoon and which title should I use?",
+        "answer": "Lagoon A and Title A (Recommended)",
+        "chosen": "Title A"
       }
     }
   ]

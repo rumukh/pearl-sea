@@ -418,9 +418,170 @@ def zelva2(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def avatars(out, route_json=None):
+    """Eight diver avatars on one 16:9 sheet: round brass porthole frames in two rows of four, each
+    with a child's head and shoulders, a diving mask pushed up on the forehead and a wetsuit collar,
+    big simple features so the portraits read at 64 px."""
+    img = Image.new("RGB", (W, H), GREY)
+    d = ImageDraw.Draw(img)
+    kids = [  # skin, hair, hair style, wetsuit, mask
+        ((250, 214, 188), (226, 110, 40), "puffs", (40, 180, 190), (250, 205, 60)),
+        ((118, 74, 50), (30, 24, 24), "short-curly", (245, 140, 60), (60, 130, 220)),
+        ((214, 164, 120), (28, 24, 30), "ponytail", (150, 100, 210), (245, 120, 170)),
+        ((252, 220, 196), (240, 200, 90), "messy", (90, 190, 110), (245, 150, 50)),
+        ((96, 62, 46), (24, 20, 22), "bun", (240, 96, 90), (50, 200, 200)),
+        ((226, 178, 136), (110, 70, 40), "wavy", (250, 210, 70), (230, 72, 72)),
+        ((240, 196, 162), (120, 76, 44), "bob", (245, 150, 190), (90, 200, 120)),
+        ((160, 104, 70), (46, 30, 24), "braids", (70, 140, 230), (150, 110, 220)),
+    ]
+    for i, (skin, hair, style, suit, mask) in enumerate(kids):
+        cx, cy = 208 + 416 * (i % 4), 232 + 464 * (i // 4)
+        d.ellipse([cx - 198, cy - 198, cx + 198, cy + 198], fill=(196, 152, 74))           # brass ring
+        for k in range(8):
+            a = math.radians(22.5 + k * 45)
+            rx, ry = cx + 186 * math.cos(a), cy + 186 * math.sin(a)
+            d.ellipse([rx - 8, ry - 8, rx + 8, ry + 8], fill=(150, 110, 50))              # rivets
+        disc = Image.new("L", (W, H), 0)
+        ImageDraw.Draw(disc).ellipse([cx - 172, cy - 172, cx + 172, cy + 172], fill=255)
+        portrait = Image.new("RGB", (W, H), (150, 214, 226))
+        p = ImageDraw.Draw(portrait)
+        p.ellipse([cx - 150, cy + 70, cx + 150, cy + 300], fill=suit)                      # shoulders
+        p.rectangle([cx - 34, cy + 40, cx + 34, cy + 100], fill=skin)                     # neck
+        p.ellipse([cx - 64, cy + 82, cx + 64, cy + 122], fill=tuple(int(c * 0.8) for c in suit))  # collar
+        if style == "braids":
+            for s in (-1, 1):
+                p.rectangle([cx + s * 84 - 18, cy - 10, cx + s * 84 + 18, cy + 130], fill=hair)
+        if style == "ponytail":
+            p.ellipse([cx + 60, cy - 60, cx + 140, cy + 60], fill=hair)
+        p.ellipse([cx - 92, cy - 120, cx + 92, cy + 70], fill=hair)                       # hair mass
+        if style == "puffs":
+            for s in (-1, 1):
+                p.ellipse([cx + s * 96 - 46, cy - 150, cx + s * 96 + 46, cy - 58], fill=hair)
+        if style == "bun":
+            p.ellipse([cx - 44, cy - 178, cx + 44, cy - 98], fill=hair)
+        if style == "messy":
+            for k in range(5):
+                x = cx - 80 + k * 40
+                p.polygon([(x - 20, cy - 96), (x + 4, cy - 140), (x + 20, cy - 96)], fill=hair)
+        p.ellipse([cx - 76, cy - 72, cx + 76, cy + 84], fill=skin)                         # face
+        p.rounded_rectangle([cx - 92, cy - 108, cx + 92, cy - 64], radius=20, fill=mask)  # mask strap and frame
+        for s in (-1, 1):
+            p.ellipse([cx + s * 40 - 32, cy - 112, cx + s * 40 + 32, cy - 60], fill=(185, 232, 246))
+        eye(p, cx - 30, cy + 2, 17)
+        eye(p, cx + 30, cy + 2, 17)
+        p.chord([cx - 34, cy + 16, cx + 34, cy + 62], 10, 170, fill=(150, 40, 60))           # open smile
+        cheeks(p, [(cx - 52, cy + 34), (cx + 52, cy + 34)], r=16)
+        img.paste(portrait, (0, 0), disc)
+    img.filter(ImageFilter.GaussianBlur(1.0)).save(out)
+
+
 def ndimage_dilate(mask, r):
     from scipy import ndimage
     return ndimage.binary_dilation(mask, iterations=r)
+
+
+def krab_baby(out, route_json=None):
+    """Krab Tvrdak as a hatchling: a rounder shell, exactly seven small rim spikes, short eye
+    stalks with big eyes, small raised claws and three stubby legs per side."""
+    img, d = canvas()
+    red, cream, spike, leg = (226, 62, 48), (247, 230, 192), (252, 248, 236), (236, 104, 58)
+    cx, cy, rx, ry = 664, 760, 290, 240
+    for side in (-1, 1):
+        for k in range(3):
+            x0 = cx + side * (170 + 48 * k)
+            thick_path(d, [(x0, cy + 120), (x0 + side * (60 + 22 * k), cy + 210), (x0 + side * (80 + 30 * k), cy + 265)], 54, 44, leg)
+    for side in (-1, 1):
+        thick_path(d, [(cx + side * 250, cy - 40), (cx + side * 330, cy - 130), (cx + side * 370, 575)], 58, 54, leg)
+        ccx, ccy = cx + side * 385, 500
+        d.ellipse([ccx - 82, ccy - 74, ccx + 82, ccy + 74], fill=red)
+        d.polygon([(ccx, ccy), (ccx + side * 14, ccy - 88), (ccx + side * 88, ccy - 34)], fill=GREY)
+    d.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], fill=red)
+    d.ellipse([cx - 228, cy + 52, cx + 228, cy + 226], fill=cream)
+    for k in range(7):
+        a = math.radians(162 - k * (144 / 6))
+        bx, by = cx + rx * math.cos(a), cy - ry * math.sin(a)
+        nx, ny = math.cos(a) * ry, -math.sin(a) * rx
+        n = math.hypot(nx, ny)
+        nx, ny = nx / n, ny / n
+        tx, ty = -ny, nx
+        d.polygon([(bx - tx * 32, by - ty * 32), (bx + nx * 76, by + ny * 76), (bx + tx * 32, by + ty * 32)], fill=spike)
+    for ex in (600, 728):
+        d.line([(ex + (10 if ex < 664 else -10), 540), (ex, 380)], fill=red, width=36)
+        eye(d, ex, 350, 64)
+    smile(d, cx, 690, 62, 36)
+    cheeks(d, [(560, 700), (768, 700)], r=30)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def meduzka_baby(out, route_json=None):
+    """Meduzka Mekulka as a hatchling: a big round bell, big eyes and exactly nine short, chubby,
+    clearly separated tentacles, each with one curl at the tip."""
+    img, d = canvas()
+    cols = [(246, 150, 192), (192, 160, 238), (250, 188, 150)]
+    for k in range(9):
+        u = (k - 4) / 4.0
+        x0 = 664 + u * 262
+        length = 290 - 50 * abs(u)
+        spread = u * 230
+        pts = []
+        for t in np.linspace(0, 1, 10):
+            x = x0 + spread * t ** 1.3 + 14 * math.sin(t * 4.2 + k * 0.9) * (0.3 + t)
+            pts.append((x, 625 + length * t))
+        thick_path(d, pts, 46, 34, cols[k % 3], samples=10)
+        tx, ty = pts[-1]
+        side = -1 if u < 0 else 1
+        curl = [(tx + side * 28 * math.cos(a) - side * 28, ty + 28 * math.sin(a)) for a in np.linspace(0, math.pi * 1.4, 8)]
+        thick_path(d, [(tx, ty)] + curl, 34, 26, cols[k % 3], samples=6)
+    bell = [(664 + 300 * math.cos(a), 610 - 280 * math.sin(a)) for a in np.linspace(0, math.pi, 50)]
+    scallop = [(364 + 600 * t, 625 + 16 * math.sin(t * math.pi * 10)) for t in np.linspace(0, 1, 60)]
+    d.polygon(bell + scallop, fill=(240, 178, 222))
+    d.ellipse([460, 380, 620, 470], fill=(250, 214, 238))
+    eye(d, 582, 520, 64)
+    eye(d, 746, 520, 64)
+    smile(d, 664, 588, 46, 30)
+    cheeks(d, [(496, 590), (832, 590)], r=30)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def zelva_baby(out, route_json=None):
+    """Zelva Obojka as a hatchling, facing left like her master: a big round head, a small domed
+    shell tiled by exactly eight plates (four columns, two rows) and short paddle flippers."""
+    img, d = canvas()
+    skin, cream, rim = (118, 204, 150), (246, 232, 168), (178, 108, 52)
+    plates = [np.array((226, 156, 72)), np.array((242, 190, 96))]
+    thick_path(d, [(1010, 730), (1110, 770), (1170, 790)], 96, 56, skin)      # rear flippers
+    thick_path(d, [(940, 790), (990, 880), (1010, 930)], 96, 56, skin)
+    thick_path(d, [(690, 790), (650, 880), (635, 925)], 100, 58, skin)        # lower front flipper
+    d.ellipse([590, 700, 1040, 850], fill=cream)                              # belly plate
+    cx, cy, rx, ry = 820, 630, 270, 205
+    d.ellipse([cx - rx - 18, cy - ry - 18, cx + rx + 18, cy + ry + 18], fill=rim)
+    arr = np.asarray(img).copy()
+    yy, xx = np.mgrid[0:arr.shape[0], 0:arr.shape[1]]
+    ny = (yy - cy) / ry
+    inside = ((xx - cx) / rx) ** 2 + ny ** 2 <= 1.0
+    half = np.sqrt(np.clip(1 - ny ** 2, 1e-6, 1))
+    nx = (xx - cx) / (rx * half)
+    col = np.clip(((nx + 1) / 2 * 4).astype(int), 0, 3)
+    row = (ny + 0.12 * (1 - nx ** 2) > 0.0).astype(int)
+    cell = col + 4 * row
+    for k in range(8):
+        arr[inside & (cell == k)] = plates[(k + k // 4) % 2]
+    edge = np.zeros_like(inside)
+    edge[1:, :] |= cell[1:, :] != cell[:-1, :]
+    edge[:, 1:] |= cell[:, 1:] != cell[:, :-1]
+    edge = ndimage_dilate(edge & inside, 5)
+    arr[edge & inside] = PLUM
+    img = Image.fromarray(arr)
+    d = ImageDraw.Draw(img)
+    d.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], outline=PLUM, width=10)
+    thick_path(d, [(600, 710), (460, 740), (330, 725)], 120, 64, skin)       # front flipper, forward
+    thick_path(d, [(600, 600), (560, 585), (520, 570)], 150, 140, skin)     # short thick neck
+    d.ellipse([215, 340, 555, 660], fill=skin)                              # big round head
+    eye(d, 326, 482, 58, iris=(120, 70, 40))
+    eye(d, 446, 488, 54, iris=(120, 70, 40))
+    smile(d, 386, 578, 46, 28)
+    cheeks(d, [(274, 566), (502, 572)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
 def title(out, route_json=None):
@@ -640,5 +801,7 @@ if __name__ == "__main__":
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
     {"map-grade3": map3, "map-grade3b": map3b, "lagoon2": lagoon2, "grotto": grotto, "moray": moray,
      "moray2": moray2, "krab": krab, "meduzka": meduzka, "meduzka2": meduzka2, "zelva": zelva,
-     "zelva2": zelva2, "osmicka": osmicka, "title": title, "plain-grey": plain_grey}[name](out, rj)
+     "zelva2": zelva2, "osmicka": osmicka, "title": title, "plain-grey": plain_grey,
+     "krab-baby": krab_baby, "meduzka-baby": meduzka_baby, "zelva-baby": zelva_baby,
+     "avatars": avatars}[name](out, rj)
     print(out)

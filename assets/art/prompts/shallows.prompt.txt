@@ -1,0 +1,20 @@
+# step 1: bg-map-grade3/bg-map-grade3-v2-edit2-s96025.png (seed 96025, Scene mode)
+Edit this painted sea map. Change one thing only: remove the small white sign with scribbles inside the round pad of water on the coral island at the lower left, so that the pad holds only calm, clear turquoise water like the other pads. Keep everything else exactly the same: every pad, path, island, the ship, the shell, the corals, the kelp, the volcanoes, the ice, the colours, the storybook gouache and watercolour style and the framing. No text, no letters, no signs, no watermark.
+
+# negative prompt
+blurry, low resolution, text, letters, numbers, signs, labels, cards, watermark, signature, photorealistic, 3d render, dark, gloomy, extra objects, submarine, people, characters, animals
+
+# step 2: bg-map-grade3/bg-map-grade3-v2-edit-s96023.png (seed 96023, Scene mode)
+Edit this painted sea map. Change one thing only: remove the small blank card or sign inside the round sandy pad at the top right, so that the pad holds only calm, clear turquoise water like the other pads. Keep everything else exactly the same: every pad, path, island, the ship, the shell, the corals, the kelp, the volcanoes, the ice, the colours, the storybook gouache and watercolour style and the framing. No text, no watermark.
+
+# negative prompt
+blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark, gloomy, extra objects, submarine, people, characters, animals
+
+# step 3: bg-map-grade3/bg-map-grade3-v2-s96021.png (seed 96021, Scene mode)
+Repaint this rough colour-blocking sketch as a finished, beautifully painted illustrated map for a cheerful children's undersea learning game, seen from above like a storybook treasure map of a sunny shallow sea. Keep exactly the same composition and the same positions: seven small round pools of calm, clear, light turquoise water, each ringed by a soft sandy rim, connected in order by one winding pale sandy trail. Keep the inside of every pool calm, plain and uncluttered, because the game places a label card on each pool. Around each pool, outside its rim, paint the place it belongs to, exactly where the sketch shows it: in the bottom left a sunny lagoon with pink and orange corals; above and to the right of it a colourful coral reef ringing its pool; at the middle left a swaying green kelp forest beside its pool; at the top middle an old wooden pirate ship lying on a sandbank beside its pool; in the middle right a bay of giant pearly seashells with pearls; at the right dark volcanic rocks with little warm glowing vents and rising bubbles; in the top right a cool sea with white ice floes. Between the places, clear turquoise water of different depths with soft light ripples.
+Style: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua, coral pink, sunny yellow and sand beige; gentle and inviting, never dark or scary.
+No text, no letters, no labels, no numbers, no compass rose, no map frame or border, no characters, no animals, no people, no watermark.
+
+# negative prompt
+blurry, low resolution, text, letters, words, labels, numbers, signature, watermark, map frame, border, compass rose, characters, animals, fish, people, submarine, monster, dark, scary, photorealistic, 3d render
+

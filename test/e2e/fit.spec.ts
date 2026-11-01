@@ -4,8 +4,9 @@
  * is in view. The sizes are tablets in landscape (1024 × 768; 1024 × 698, an iPad's under Safari's
  * bars; 1180 × 820; 1280 × 800) and laptop windows (1366 × 657, 1536 × 730). Each journey stops at
  * the tallest states a screen can reach: a hint and a miss at once, a battle's miss with an ink
- * blot, an Inkoustík's ambush, the placement check, every kind of board, the big moments and the
- * results. At 200 % text on a phone, a round and U Mrože keep to the screen's width.
+ * blot, an Inkoustík's ambush, the placement check, every kind of board, the big moments, the
+ * results, and the grotto with today's rewards to claim and the chest (S6's PS-QA-19). At 200 %
+ * text on a phone, a round and U Mrože keep to the screen's width.
  */
 import type { Page } from '@playwright/test';
 import type { RuntimeSnapshot } from '@aegis/runtime';
@@ -20,7 +21,9 @@ import {
   createChild,
   give,
   lagoonPlayed,
+  lagoonPlayedToday,
   leaveScreen,
+  pageDay,
   playRound,
   problemOnScreen,
   seedChild,
@@ -32,7 +35,7 @@ import {
   wrongAnswer,
 } from './support/game';
 import { expect, test } from './support/fixtures';
-import { enterGrownUps, ready } from './support/screens';
+import { enterGrownUps, ready, resize } from './support/screens';
 import { PERFECT, Player } from '../traces/support';
 
 test.use({ reducedMotion: 'reduce' });
@@ -72,27 +75,20 @@ function extent(page: Page): Promise<Extent> {
 }
 
 /**
- * At each landscape size the page needs no scrolling either way (reported, the walk goes on). A
- * browser may take some frames to carry a resize into its viewport units (headless Chromium on
- * Linux kept the last height's `100dvh` floor for a moment), so a size that overflows gets up to a
- * second to settle before it counts.
+ * At each landscape size the page needs no scrolling either way (reported, the walk goes on).
+ * Every engine carries a resize into the page's `dvh` styles a moment late, so a size is measured
+ * once the page has followed it (`resize` in support/screens.ts).
  */
 async function fits(page: Page, where: string): Promise<void> {
-  const overflows = (seen: Extent): boolean =>
-    seen.height > seen.window.height || seen.width > seen.window.width;
   for (const size of LANDSCAPE) {
-    await page.setViewportSize(size);
+    await resize(page, size.width, size.height);
     await painted(page);
-    let seen = await extent(page);
-    for (let waited = 0; overflows(seen) && waited < 1000; waited += 100) {
-      await page.waitForTimeout(100);
-      seen = await extent(page);
-    }
+    const seen = await extent(page);
     const at = `${where} at ${size.width} × ${size.height}`;
     expect.soft(seen.height, `${at} needs page scrolling`).toBeLessThanOrEqual(seen.window.height);
     expect.soft(seen.width, `${at} scrolls sideways`).toBeLessThanOrEqual(seen.window.width);
   }
-  await page.setViewportSize(LANDSCAPE[0]);
+  await resize(page, LANDSCAPE[0].width, LANDSCAPE[0].height);
   await painted(page);
 }
 
@@ -247,6 +243,22 @@ test('the grotto of a whole lagoon, the battle and the freeing fit a landscape s
   await page.getByTestId('moment-next').click();
   await expect(page.getByTestId('results-card')).toBeVisible();
   await fits(page, 'the results of the battle');
+});
+
+test('the grotto with today’s rewards to claim and the chest fits a landscape screen', async ({
+  page,
+}) => {
+  // S6's PS-QA-19: three quests' coins to claim and the chest waiting made the grotto 20 px too
+  // tall at 1024 × 768.
+  test.setTimeout(240_000);
+  await page.setViewportSize(LANDSCAPE[0]);
+  await page.goto('./');
+  await ready(page, 'title');
+  await openChild(page, await lagoonPlayedToday(await pageDay(page)));
+  expect(await throughStory(page)).toBe('screen-hub');
+  await expect(page.locator('[data-testid^="quest-claim-"]')).toHaveCount(3);
+  await expect(page.getByTestId('chest-open')).toBeVisible();
+  await fits(page, 'the grotto with three rewards to claim and the chest');
 });
 
 test('an Inkoustík’s ambush and Pexeso fit a landscape screen', async ({ page }) => {

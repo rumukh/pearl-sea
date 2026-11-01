@@ -72,9 +72,21 @@ game can read, evict or overwrite the other's saves or offline files. The storag
 | [testing.md](docs/testing.md)               | The gate and the testing discipline                                                   |
 | [balance-report.md](docs/balance-report.md) | The learner simulation's measurements, findings and balance proposals                 |
 | [assets.md](docs/assets.md)                 | Art, audio and fonts: local models only, provenance                                   |
+| [art.md](docs/art.md)                       | The painted and SVG art: style, pipeline, catalog and anchors, provenance, licences   |
+| [audio.md](docs/audio.md)                   | The music and sounds: the pack, its manifest, loudness and memory, how it was made    |
 | [sdk-update.md](docs/sdk-update.md)         | Updating the pinned Aegis SDK                                                         |
 
 ## License
 
 MIT. The reading font Pearl Reading is a renamed subset of Andika (SIL Open Font License 1.1, see
 `assets/fonts/pearl-reading/`); art and audio carry recorded provenance.
+
+## Credits
+
+The art and music were made locally and offline, never with a cloud service. The paintings were
+made with [Qwen-Image-Edit-2511](https://huggingface.co/Qwen/Qwen-Image-Edit-2511) by the Qwen team
+(Apache-2.0), run in [WanGP](https://github.com/deepbeepmeep/Wan2GP) by DeepBeepMeep, and cut out
+with [rembg](https://github.com/danielgatis/rembg) (MIT) and
+[U²-Net](https://github.com/xuebinqin/U-2-Net) (Apache-2.0). The music was made with
+[ACE-Step 1.5](https://github.com/ace-step/ACE-Step-1.5) (MIT). Each file's provenance is recorded
+next to it ([art.md](docs/art.md), [audio.md](docs/audio.md)).

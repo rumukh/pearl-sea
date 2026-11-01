@@ -45,8 +45,10 @@ reads S5's audio manifest and art catalog (a missing or broken one means a silen
 placeholder art, never a failed boot), and opens the family record. With the rules wired
 (`game/rules.ts`) it loads and validates the content pack and its strings (every key the pack uses
 must resolve) meanwhile, since on a slow device both take seconds; both finish before the first
-screen. The first screen is the title, or the recovery screen
-when the family record cannot be read.
+screen. The title's painting, once the catalog lists it, is fetched and decoded meanwhile too
+(`preloadPictures` in `art/library.ts`), never waited for: on a slow connection the title is there
+with it instead of over bare sea (S6's PS-QA-20). The first screen is the title, or the recovery
+screen when the family record cannot be read.
 
 The hidden `boot-status` element is the readiness signal for tests and tools: `data-state`
 (`loading`, `ready`, `failed`), `data-screen` (the current screen: `title`, `grownups`, `print`,
@@ -68,7 +70,8 @@ overtaken by a newer one is discarded before it mounts, so double taps cannot in
 Mounting goes through the SDK's `replaceProjection` (stops speech and one-shot audio, clears
 announcements, moves focus to the screen's heading or chosen target) after `assertChildSafeView`
 checks the tree (no outbound links, no embeds). Before the swap the router waits up to 320 ms for
-the new screen's pictures to decode while the old screen stays in view. A screen declares its
+the new screen's pictures to decode while the old screen stays in view; a painting that arrives
+later fades in (§16.2). A screen declares its
 title, page field (`sea`, `desk` for the grown-ups, `abyss` for recovery and errors), region
 accent, music state and **language**: the page's `lang` follows the screen, Czech for children and
 the grown-ups' choice in their area, so dialogs, toasts and screen readers follow it too.
@@ -392,7 +395,8 @@ its own presentation; calls take turns, and a child opened for play waits for th
   read-aloud;
   aliases; print layouts and printables; the About build id. The game screens' logic runs on
   contract-typed view fixtures (`game-views.ts`): problem views (steps, prompts, ink-blot gaps,
-  read-aloud, hints), view readings and the adventure, map spots, timers, art and the art catalog,
+  read-aloud, hints), view readings and the adventure, map spots, timers, art and the art catalog
+  (a screen's painting fetched ahead of it, a late one fading in),
   content strings and the diary card; the archived packs (`content-history.test.ts`: every shipped
   gzip archive decompresses through the platform's `DecompressionStream` to exactly the bytes zlib
   reads and loads as its pack, once; truncated, already decompressed, missing or wrong-revision
@@ -436,11 +440,13 @@ its own presentation; calls take turns, and a child opened for play waits for th
   spec imports `test` and `expect` from `support/fixtures.ts`, whose automatic guard (S6's,
   [testing.md](testing.md)) also fails a test on any console message, CSP violation or navigation
   away; a test that provokes one on purpose says so with `guard.allow`.
-- **Browser, the fit** (`test/e2e/fit.spec.ts`): S6's PS-QA-04 and PS-QA-05 as regression
-  checks, Dragon Valley's way. At each landscape size of §16.3 the page needs no scrolling either
-  way at 100 % text, measured at the tallest states each screen reaches: the title, the editor,
-  the eggs, the grotto (a first egg, a first friend, a whole lagoon with a monster to free), every
-  kind of board (Pexeso with two cards that are no pair, Slovní rodinka with its words picked,
+- **Browser, the fit** (`test/e2e/fit.spec.ts`): S6's PS-QA-04, PS-QA-05 and PS-QA-19 as
+  regression checks, Dragon Valley's way. At each landscape size of §16.3 the page needs no
+  scrolling either way at 100 % text, measured once the page has followed the resize
+  (`resize` in `support/screens.ts`) at the tallest states each screen reaches: the title, the
+  editor, the eggs, the grotto (a first egg, a first friend, a whole lagoon with a monster to free,
+  and a lagoon played today: three rewards to claim and the chest, seeded on the page's own date),
+  every kind of board (Pexeso with two cards that are no pair, Slovní rodinka with its words picked,
   Ulita slov cut), Krmení with its hint and a miss at once, the battle with an ink blot and a miss,
   a round an Inkoustík ambushes (a child played in Node until one does) with a miss, the placement
   check with a miss and its results, the hatching, the freeing and the results. At 200 % text on a
@@ -452,7 +458,10 @@ its own presentation; calls take turns, and a child opened for play waits for th
   purpose). A seeded child plays through them: each is drawn from the catalog, the backdrops cover
   their screens, region markers and level nodes stay on their spots, the inked and the freed
   Muréna share their ground, Osmička cheers beside the results, and no text sits straight on a
-  painting (`textOffPaper`), with axe on every screen.
+  painting (`textOffPaper`), with axe on every screen. On a slow connection (the title's painting
+  held 1.5 s, the content 3 s) the title's painting is decoded the moment the title appears and
+  is fetched once (PS-QA-20); a painting held until its screen is shown fades in, and with less
+  motion is simply there.
 - **Browser, the shell** (`test/e2e/grownups.spec.ts`): the gate (cancel, a wrong answer, the
   right one), the area in English kept over a reload while the game stays Czech, a child's
   settings (changed from the keyboard, which stays on the switch) kept and carried by a backup
@@ -511,6 +520,11 @@ What the shell does so that real paintings drop in:
 - **Backdrops** cover their screen (`object-fit: cover`, standing on the bottom edge); a placeholder
   scene is faded, a painting is shown at full strength. The title shows `scene/title` once the
   catalog lists it and its own open water until then: the first screen never shows a placeholder.
+  Its painting is fetched at boot, while the content loads (§2).
+- **A painting that arrives late fades in** (`fadeInIfLate`): one the page already has is drawn at
+  once, one that arrives while the router waits for its screen (§3) is there when the screen is,
+  and one that arrives after its screen is shown fades in over 450 ms instead of popping in; with
+  less motion it is simply there.
 - **Text over a painting sits on paper** (at least 85 % opaque), because a painting's colours are
   not the palette's and the deep regions are dark: the grotto's greeting, a round's or a board's
   title and meter, locked regions on the map, every card and label.
@@ -532,7 +546,7 @@ What the shell does so that real paintings drop in:
 | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
 | Children and the profile editor (name, picture, kluk/holka/nechci říct, 3. or 4. třída)                                                  | `divers.ts`, `editor.ts`          |
 | Story beats with read-aloud, the first egg                                                                                               | `story.ts`, `eggs.ts`             |
-| The grotto: the featured friend and its growth, Dnešní výprava, today (goal, week, quests, chest), the places                            | `hub.ts`                          |
+| The grotto: the featured friend, its growth and the week, Dnešní výprava, today (goal, quests, chest), the places                        | `hub.ts`                          |
 | The sea map (shallows, deep), a region's levels, a level's intro                                                                         | `map.ts`, `region.ts`, `level.ts` |
 | Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`     |
 | Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                       |
@@ -584,16 +598,20 @@ check that is not right yet says so and leaves the board as it was.
 Layouts are touch-first for a landscape tablet. On a landscape window at least 900 px wide every
 child's screen fits at 100 % text without page scrolling, every control in view: at 1024 × 768,
 1024 × 698 (an iPad's under Safari's bars), 1180 × 820, 1280 × 800, 1366 × 657 and 1536 × 730
-(`test/e2e/fit.spec.ts`; S6's PS-QA-04 and PS-QA-05). The grotto sets the friend beside today's
-card, the places down the right and Dnešní výprava with its note along the bottom; the friends'
-strip gives way to the "Kamarádi" place beside it, which opens the same screen. A round sets the
+(`test/e2e/fit.spec.ts`; S6's PS-QA-04, PS-QA-05 and PS-QA-19). The grotto sets the friend with
+its week beside today's card, the places down the right and Dnešní výprava with its note along
+the bottom; the friends' strip gives way to the "Kamarádi" place beside it, which opens the same
+screen. A quest done shows its reward to claim where its count was, as Dragon Valley's do, so the
+grotto with every reward to claim and the chest waiting fits too. A round sets the
 companion beside the problem card, with an Inkoustík's ambush standing under it rather than in the
 card, and its title shares a line with its meter. The profile editor sets kluk/holka beside the
 grade, the pictures in one row and, with room, "Ponořit se!" in the same row. The results card
 never runs past the screen: a big day's news scroll inside it (a named region in the Tab order),
 the button onward in view. A short landscape window (up to 860 px high) draws words, pictures and
-the letter pad a little smaller, never a target, and today's card in the grotto loses only its
-visible heading. Each game screen is a size container, so a layout that needs room asks for it in
+the letter pad a little smaller (Dnešní výprava by the window's height), never a target, and
+today's card in the grotto loses only its visible headings; on the shortest (up to 700 px) the
+grotto's friend steps back a little more. Each game screen is a size container, so a layout that
+needs room asks for it in
 `em` (`styles/game.css`): at 125 % text and more the landscape layouts give way as the room runs
 out, and at 200 % text, as on a phone, the grotto and rounds become one column (they may scroll,
 never sideways: a round's tools and U Mrože's line wrap), the painted map becomes a list of region

@@ -20,7 +20,7 @@ is still planned. Who owns which path is in [contract.md](contract.md) §2.
 flowchart LR
   subgraph Content["content/ JSON"]
     pack["pearl-sea.content.json"]
-    hist["history/*.json"]
+    hist["history/*.json.gz"]
     cat["catalogs/cs.*.json, en.*.json"]
   end
   subgraph Rules["src/rules: deterministic, DOM-free"]
@@ -97,12 +97,12 @@ yields the same hashes on every machine and browser.
 
 ## 3. Content, catalogs and language
 
-| Path                                             | Contents                                                                                  |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| `content/pearl-sea.content.json`                 | the content pack: the annotated Czech lexicon, levels, story and activities (S3, planned) |
-| `content/history/<revision>.json`                | every shipped pack, byte for byte, for save migration (written by `npm run content:bump`) |
-| `content/catalogs/cs.ui.json`, `cs.content.json` | Czech: every string of the game                                                           |
-| `content/catalogs/en.ui.json`, `en.content.json` | English, only keys starting `grownups.`: the grown-ups' area has an English switch        |
+| Path                                             | Contents                                                                                                   |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `content/pearl-sea.content.json`                 | the content pack: the annotated Czech lexicon, levels, story and activities (S3, planned)                  |
+| `content/history/<revision>.json.gz`             | every shipped pack, byte for byte, gzip-compressed, for save migration (written by `npm run content:bump`) |
+| `content/catalogs/cs.ui.json`, `cs.content.json` | Czech: every string of the game                                                                            |
+| `content/catalogs/en.ui.json`, `en.content.json` | English, only keys starting `grownups.`: the grown-ups' area has an English switch                         |
 
 Today only `cs.ui.json` exists (the title screen); the other catalogs come with the content (S3) and
 the full shell (S4). The child's UI is Czech, because Czech is the subject; the grown-ups' area is
@@ -125,7 +125,8 @@ and checks:
 - once S3 ships it, the content pack under the contract's registration (schema, references,
   reachability, skills, activities, balance and the lexicon's linguistic checks), every catalog key
   it uses (grammar terms included) in Czech, its story lines within the child profile (at most 10
-  words a sentence), and the archived packs in `content/history/`;
+  words a sentence), and the archived packs in `content/history/` (gzip archives that decompress
+  to valid packs named by their revision, and nothing else);
 - art references against `assets/art/catalog.json` once S5 publishes it (reported, or failing with
   `--strict-art`);
 - curriculum coverage: every objective of [curriculum.md](curriculum.md) has a lesson and a monster
@@ -246,15 +247,15 @@ cover the new name too. The storage quota, the `navigator.storage.persist()` gra
 
 ## 8. Build, deploy and the gate
 
-| Command                                                  | What it does                                                                                                                                                                        |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run build -- --base /pearl-sea/`                    | esbuild bundles of `src/app/main.ts` and the worker, copies content and runtime assets, writes `licenses.txt` and the resource graph, and moves the verified site into `dist-site/` |
-| `npm run serve`                                          | builds into `out/dev-site-*` and serves on `http://127.0.0.1:4330/` with the same CSP; rebuilds on change (refresh after "rebuilt"). Dragon Valley uses 4320                        |
-| `npm run verify`                                         | the gate: build, typecheck (rules, app, worker, tests), lint, format, content, Vitest, lockfile ([testing.md](testing.md) §1)                                                       |
-| `npm run test:e2e`                                       | Playwright at the Pages base on port 4331 (system Edge locally; Chromium, Firefox and WebKit on CI)                                                                                 |
-| `npm run content:bump -- <revision>`                     | gives a content change its own revision and archives the deployed pack in `content/history/`                                                                                        |
-| `npm run fonts:subset -- --source <Andika-7.000 folder>` | rebuilds the reading font ([assets.md](assets.md) §6)                                                                                                                               |
-| `npm run lockfile:fix`                                   | rewrites corporate-feed URLs in `package-lock.json` to the public registry ([sdk-update.md](sdk-update.md))                                                                         |
+| Command                                                  | What it does                                                                                                                                                                                                                                             |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run build -- --base /pearl-sea/`                    | esbuild bundles of `src/app/main.ts` and the worker, copies the content a player needs (the pack, its catalogs and the history archives) and runtime assets, writes `licenses.txt` and the resource graph, and moves the verified site into `dist-site/` |
+| `npm run serve`                                          | builds into `out/dev-site-*` and serves on `http://127.0.0.1:4330/` with the same CSP; rebuilds on change (refresh after "rebuilt"). Dragon Valley uses 4320                                                                                             |
+| `npm run verify`                                         | the gate: build, typecheck (rules, app, worker, tests), lint, format, content, Vitest, lockfile ([testing.md](testing.md) §1)                                                                                                                            |
+| `npm run test:e2e`                                       | Playwright at the Pages base on port 4331 (system Edge locally; Chromium, Firefox and WebKit on CI)                                                                                                                                                      |
+| `npm run content:bump -- <revision>`                     | gives a content change its own revision and archives the deployed pack, gzip-compressed, in `content/history/`                                                                                                                                           |
+| `npm run fonts:subset -- --source <Andika-7.000 folder>` | rebuilds the reading font ([assets.md](assets.md) §6)                                                                                                                                                                                                    |
+| `npm run lockfile:fix`                                   | rewrites corporate-feed URLs in `package-lock.json` to the public registry ([sdk-update.md](sdk-update.md))                                                                                                                                              |
 
 A build is staged next to its output and moved into place only after the finished site has been
 re-read and verified; `--clean` replaces only a previous Pearl Sea build.
@@ -275,7 +276,7 @@ src/rules/                contract/ (storage names, the domain contract); the ru
 src/app/                  main.ts, index.html, sw.ts, design/, i18n/, styles/ (+ S4's screens, …)
 assets/                   fonts/pearl-reading/ now; art/ and audio/ with provenance (S5)
 scripts/                  build, serve, verify, check-site, validate-content, content-bump,
-                          canonicalise-lockfile, fonts/, lib/ (site, tools, curriculum)
+                          canonicalise-lockfile, fonts/, lib/ (site, tools, curriculum, history)
 test/                     unit/, tooling/, e2e/, fixtures/ (+ traces/, sim/, migration/ later)
 docs/                     plan, design, curriculum, contract, architecture, testing, assets,
                           sdk-update; images/ (style tests)

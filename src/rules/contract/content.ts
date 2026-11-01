@@ -4,11 +4,11 @@
  *
  * Adding levels, regions, skills, words, sentences, friends, stickers or cosmetics is a JSON edit
  * plus a new pack `revision`. Only a new generator, activity kind or criterion kind needs code. A
- * save pins the exact pack (id, revision, hash) it was played with; shipped packs are archived
- * under `content/history/<revision>.json` and every one of them must stay valid under this
- * schema, so the schema only ever grows by adding union variants or optional fields
- * (docs/contract.md §7.6). The structure is Dragon Valley's, with sea friends for dragons,
- * monsters for bosses, the Inkoustíci and the lexicon added.
+ * save pins the exact pack (id, revision, hash) it was played with; shipped packs are archived,
+ * gzip-compressed, as `content/history/<revision>.json.gz` (`contentHistoryPath`) and every one
+ * of them must stay valid under this schema, so the schema only ever grows by adding union
+ * variants or optional fields (docs/contract.md §7.6). The structure is Dragon Valley's, with sea
+ * friends for dragons, monsters for bosses, the Inkoustíci and the lexicon added.
  */
 import { failure, schema, success, validateReferences } from '@aegis/runtime';
 import type { ContentRegistration, DeepReadonly, RuntimeDiagnostic, Schema } from '@aegis/runtime';
@@ -45,6 +45,17 @@ type Read<T> = DeepReadonly<T>;
 export const CONTENT_PACK_ID = 'pearl-sea';
 /** The pack's file, under `content/`. */
 export const CONTENT_FILE = 'pearl-sea.content.json';
+/**
+ * Content history (docs/contract.md §7.6): every revision that was deployed is archived here for
+ * save migration, as the deployed pack's exact bytes, gzip-compressed (one gzip member, no file
+ * name, modification time 0, OS byte 255).
+ */
+export const CONTENT_HISTORY_DIRECTORY = 'content/history';
+export const CONTENT_HISTORY_EXTENSION = '.json.gz';
+/** The archive of a deployed revision, below the deployment base. */
+export function contentHistoryPath(revision: string): string {
+  return `${CONTENT_HISTORY_DIRECTORY}/${revision}${CONTENT_HISTORY_EXTENSION}`;
+}
 /** Content data schema version. Frozen at 1: the schema evolves only compatibly (see above). */
 export const CONTENT_SCHEMA_VERSION = 1;
 

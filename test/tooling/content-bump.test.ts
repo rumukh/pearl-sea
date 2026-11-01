@@ -1,14 +1,17 @@
 /**
  * npm run content:bump (scripts/content-bump.mjs): a content change gets a revision of its own,
- * and the pack it replaces is archived exactly as it was deployed, so saves made on it keep
- * restoring. Each test works in a throwaway git repository whose `main` holds the deployed pack.
+ * and the pack it replaces is archived exactly as it was deployed (gzip-compressed,
+ * scripts/lib/history.mjs), so saves made on it keep restoring. Each test works in a throwaway git
+ * repository whose `main` holds the deployed pack.
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { gzipSync } from 'node:zlib';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { bumpContent } from '../../scripts/content-bump.mjs';
+import { compressArchive, readArchive } from '../../scripts/lib/history.mjs';
 
 /** A deployed pack as prettier writes it; `data` has a `revision` of its own that must stay. */
 const DEPLOYED = `{
@@ -46,7 +49,10 @@ function git(...args: string[]): void {
 }
 
 const pack = () => readFileSync(join(root, 'content', 'pearl-sea.content.json'), 'utf8');
-const archive = (revision: string) => join(root, 'content', 'history', `${revision}.json`);
+const archive = (revision: string) => join(root, 'content', 'history', `${revision}.json.gz`);
+/** What an archive holds, decompressed. */
+const archived = (revision: string) =>
+  readArchive(readFileSync(archive(revision))).toString('utf8');
 const writePack = (text: string) =>
   writeFileSync(join(root, 'content', 'pearl-sea.content.json'), text);
 
@@ -73,14 +79,13 @@ describe('npm run content:bump', () => {
     writePack(CHANGED);
     const result = bumpContent({ root, revision: '1.1.0', from: 'main' });
     expect(result).toEqual({
-      archived: 'content/history/1.0.0.json',
+      archived: 'content/history/1.0.0.json.gz',
       from: '1.0.0',
       to: '1.1.0',
       changed: true,
     });
-    expect(readFileSync(archive('1.0.0'), 'utf8'), 'the archive is what main deployed').toBe(
-      DEPLOYED,
-    );
+    expect(archived('1.0.0'), 'the archive holds what main deployed').toBe(DEPLOYED);
+    expect(readFileSync(archive('1.0.0'))[9], 'no OS byte from the machine that ran it').toBe(255);
     expect(pack(), 'only the top-level revision line changes').toBe(
       CHANGED.replace('"revision": "1.0.0"', '"revision": "1.1.0"'),
     );
@@ -90,9 +95,13 @@ describe('npm run content:bump', () => {
     bumpContent({ root, revision: '1.0.1', from: 'main' });
     const bumped = pack();
     expect(bumped).toBe(DEPLOYED.replace('"revision": "1.0.0"', '"revision": "1.0.1"'));
+    const written = readFileSync(archive('1.0.0'));
     expect(bumpContent({ root, revision: '1.0.1', from: 'main' }).changed).toBe(false);
     expect(pack()).toBe(bumped);
-    expect(readFileSync(archive('1.0.0'), 'utf8')).toBe(DEPLOYED);
+    expect(readFileSync(archive('1.0.0')).equals(written), 'the archive is not rewritten').toBe(
+      true,
+    );
+    expect(archived('1.0.0')).toBe(DEPLOYED);
   });
 
   it('refuses a revision that is malformed or not newer than the deployed one', () => {
@@ -114,12 +123,27 @@ describe('npm run content:bump', () => {
   it('never changes an archived pack', () => {
     writePack(CHANGED);
     mkdirSync(join(root, 'content', 'history'));
-    writeFileSync(archive('1.0.0'), CHANGED);
+    writeFileSync(archive('1.0.0'), compressArchive(Buffer.from(CHANGED)));
     expect(() => bumpContent({ root, revision: '1.1.0', from: 'main' })).toThrow(
-      /an archived pack never changes/,
+      /1\.0\.0\.json\.gz differs from the pack deployed as 1\.0\.0 \(main\): an archived pack never changes/,
     );
-    expect(readFileSync(archive('1.0.0'), 'utf8')).toBe(CHANGED);
+    expect(archived('1.0.0')).toBe(CHANGED);
+    writeFileSync(archive('1.0.0'), DEPLOYED);
+    expect(() => bumpContent({ root, revision: '1.1.0', from: 'main' })).toThrow(
+      /is not a readable archive \(not a gzip file\): an archived pack never changes/,
+    );
+    expect(readFileSync(archive('1.0.0'), 'utf8')).toBe(DEPLOYED);
     expect(pack(), 'nothing written').toBe(CHANGED);
+  });
+
+  it('keeps an archive compressed differently, since only the decompressed bytes count', () => {
+    writePack(CHANGED);
+    mkdirSync(join(root, 'content', 'history'));
+    const other = gzipSync(DEPLOYED, { level: 1 });
+    other[9] = 255;
+    writeFileSync(archive('1.0.0'), other);
+    expect(bumpContent({ root, revision: '1.1.0', from: 'main' }).changed).toBe(true);
+    expect(readFileSync(archive('1.0.0')).equals(other), 'the archive is kept as it is').toBe(true);
   });
 
   it('refuses a branch whose pack is behind the deployed one', () => {

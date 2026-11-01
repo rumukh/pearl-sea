@@ -7,7 +7,8 @@
  * Output (default `dist-site/`):
  *   index.html            shell from src/app/index.html (base, offline revision and CSP filled in)
  *   app.js, app.css       esbuild bundle of src/app/main.ts
- *   content/**.json       content packs, history and catalogs (copied verbatim)
+ *   content/              the pack, its catalogs and the gzip-compressed history archives (copied
+ *                         verbatim; the authoring sources in content/ are not shipped)
  *   assets/**             runtime art, audio and fonts (authoring metadata is not shipped)
  *   resource-graph.json   every file above with bytes + SHA-256 (validated by the SDK validator)
  *   sw.js                 offline worker bundled from the PUBLIC @aegis/browser/offline/worker export
@@ -55,6 +56,16 @@ const NOT_SHIPPED = [
   /(^|\/)[^/]*provenance[^/]*\.json$/i,
   /(^|\/)(recipes|source|sources|prompts)\//i,
   /\.(mjs|cjs|ts)$/i,
+];
+
+/**
+ * The content a player needs, relative to content/: the pack, its catalogs and the archived packs
+ * that old saves restore with. The word bank and the pack's sources stay in the repository.
+ */
+const SHIPPED_CONTENT = [
+  /^pearl-sea\.content\.json$/,
+  /^catalogs\/[^/]+\.json$/,
+  /^history\/[^/]+\.json\.gz$/,
 ];
 
 const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((name) => `node:${name}`)]);
@@ -177,7 +188,7 @@ export async function buildSite(options = {}) {
     });
     const appInputs = checkInputs(app.metafile, 'App');
     const content = copyTree(join(root, 'content'), join(stage, 'content'), (path) =>
-      path.endsWith('.json'),
+      SHIPPED_CONTENT.some((pattern) => pattern.test(path)),
     );
     const assets = copyTree(
       join(root, 'assets'),

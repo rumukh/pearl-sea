@@ -69,6 +69,7 @@ const KIND_BY_EXTENSION = {
   m4a: 'audio',
   opus: 'audio',
   json: 'data',
+  gz: 'data',
   webmanifest: 'data',
   txt: 'data',
 };

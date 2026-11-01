@@ -6,9 +6,11 @@
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { gzipSync } from 'node:zlib';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { collectArtIds, collectCatalogKeys, SHELL_ART_IDS } from '../../src/rules/contract';
 import type { ContentData } from '../../src/rules/contract';
+import { compressArchive } from '../../scripts/lib/history.mjs';
 import {
   czechTypographyProblems,
   FONT_PROVENANCE,
@@ -167,6 +169,14 @@ describe('scripts/validate-content.mjs with a content pack', () => {
   const pack = (): { revision: string; data: ContentData } => JSON.parse(fixture);
   const writePack = (value: unknown, name = 'pearl-sea.content.json') =>
     writeFileSync(join(root, 'content', name), JSON.stringify(value));
+  /** Archive a pack as npm run content:bump does, under content/history/. */
+  const writeArchive = (value: unknown, name: string) => {
+    mkdirSync(join(root, 'content', 'history'), { recursive: true });
+    writeFileSync(
+      join(root, 'content', 'history', name),
+      compressArchive(Buffer.from(JSON.stringify(value))),
+    );
+  };
   const strings = (keys: readonly string[]) => Object.fromEntries(keys.map((key) => [key, 'Text']));
   const keysOf = (value: { data: ContentData }) =>
     collectCatalogKeys(value.data).map(({ key }) => key);
@@ -205,8 +215,7 @@ describe('scripts/validate-content.mjs with a content pack', () => {
   });
 
   it('accepts a valid pack whose strings, history and curriculum agree', async () => {
-    mkdirSync(join(root, 'content', 'history'));
-    writePack(pack(), 'history/0.0.1.json');
+    writeArchive(pack(), '0.0.1.json.gz');
     const { errors, warnings, summary } = await validateContentTree({ root, strictCoverage: true });
     expect(errors).toEqual([]);
     expect(warnings).toEqual([
@@ -244,12 +253,23 @@ describe('scripts/validate-content.mjs with a content pack', () => {
     writePack(pack());
     const keys = keysOf(pack()).filter((key) => key !== 'region.moon-caves');
     catalog('cs.content.json', strings(keys));
-    mkdirSync(join(root, 'content', 'history'));
-    writePack(pack(), 'history/0.0.0.json');
+    writeArchive(pack(), '0.0.0.json.gz');
     expect((await validateContentTree({ root })).errors).toEqual([
       'catalogs: no Czech "region.moon-caves" (region moon-caves)',
-      'history/0.0.0.json: file name must be its revision',
-      'history/0.0.0.json: the catalogs lost "region.moon-caves" (region moon-caves), which a save restored with this pack still shows',
+      'history/0.0.0.json.gz: file name must be its revision',
+      'history/0.0.0.json.gz: the catalogs lost "region.moon-caves" (region moon-caves), which a save restored with this pack still shows',
+    ]);
+  });
+
+  it('keeps content/history to archives that every gzip reader reads alike', async () => {
+    writeArchive(pack(), '0.0.1.json.gz');
+    writePack(pack(), 'history/0.0.1.json');
+    const linux = gzipSync(JSON.stringify(pack()));
+    linux[9] = 3;
+    writeFileSync(join(root, 'content', 'history', '0.0.2.json.gz'), linux);
+    expect((await validateContentTree({ root })).errors).toEqual([
+      'history/0.0.1.json: content/history holds only <revision>.json.gz archives, written by npm run content:bump',
+      'history/0.0.2.json.gz: the gzip header names an operating system',
     ]);
   });
 

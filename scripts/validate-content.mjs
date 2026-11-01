@@ -20,8 +20,9 @@
  *    registration: schema, references, unlock reachability, skill item universes, activities,
  *    balance sanity and the lexicon's linguistic checks; every catalog key it uses resolves in
  *    Czech; story lines keep to the child profile (@aegis/narrative `CHILD_PROFILE`: at most 10
- *    words a sentence); every archived pack in content/history/ stays valid, is named by its
- *    revision and keeps its catalog keys.
+ *    words a sentence); content/history/ holds only `<revision>.json.gz` archives in the format of
+ *    lib/history.mjs, and every archived pack stays valid, is named by its revision and keeps its
+ *    catalog keys.
  * 6. Art references (the pack's and the shell's, media.ts SHELL_ART_IDS) are checked against
  *    assets/art/catalog.json once the art pipeline publishes it: reported, or failing the gate
  *    with --strict-art.
@@ -40,6 +41,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { curriculumProblems, packMappingProblems, parseCurriculum } from './lib/curriculum.mjs';
+import { HISTORY_DIRECTORY, archiveName, archivedRevision, readArchive } from './lib/history.mjs';
 import { isMain, repositoryRoot } from './lib/tools.mjs';
 
 export const LOCALES = ['cs', 'en'];
@@ -271,10 +273,14 @@ export async function validateContentTree(options = {}) {
   let pack = null;
   const packName = domain.CONTENT_FILE;
   const packFile = join(root, 'content', packName);
-  const historyDir = join(root, 'content', 'history');
-  const shipped = existsSync(historyDir)
-    ? readdirSync(historyDir).filter((name) => name.endsWith('.json'))
-    : [];
+  const historyDir = join(root, ...HISTORY_DIRECTORY.split('/'));
+  const historyFiles = existsSync(historyDir) ? readdirSync(historyDir).sort() : [];
+  const shipped = historyFiles.filter((name) => archivedRevision(name) !== null);
+  for (const name of historyFiles.filter((file) => archivedRevision(file) === null)) {
+    errors.push(
+      `history/${name}: content/history holds only <revision>${archiveName('')} archives, written by npm run content:bump`,
+    );
+  }
   if (!existsSync(packFile)) {
     warnings.push(
       `content/${packName} is not shipped yet: the pack, art and pack coverage were not checked`,
@@ -306,16 +312,20 @@ export async function validateContentTree(options = {}) {
       }
     }
     for (const name of shipped) {
-      const archived = domain.parseContentJson(
-        readFileSync(join(historyDir, name), 'utf8'),
-        domain.contentRegistration,
-        name,
-      );
+      /** @type {string} */
+      let text;
+      try {
+        text = readArchive(readFileSync(join(historyDir, name))).toString('utf8');
+      } catch (error) {
+        errors.push(`history/${name}: ${error instanceof Error ? error.message : String(error)}`);
+        continue;
+      }
+      const archived = domain.parseContentJson(text, domain.contentRegistration, name);
       if (!archived.ok) {
         errors.push(`history/${name}: no longer valid under the current schema`);
         continue;
       }
-      if (`${archived.value.revision}.json` !== name) {
+      if (archiveName(archived.value.revision) !== name) {
         errors.push(`history/${name}: file name must be its revision`);
       } else if (
         archived.value.revision === pack.revision &&

@@ -32,6 +32,9 @@ const MIME = {
   mjs: 'text/javascript; charset=utf-8',
   css: 'text/css; charset=utf-8',
   json: 'application/json; charset=utf-8',
+  // Archived packs are served as the gzip files they are, never with a Content-Encoding, as
+  // GitHub Pages serves them: the offline installer hashes the bytes the browser hands over.
+  gz: 'application/gzip',
   webmanifest: 'application/manifest+json; charset=utf-8',
   map: 'application/json; charset=utf-8',
   txt: 'text/plain; charset=utf-8',

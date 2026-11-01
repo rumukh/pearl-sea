@@ -4,68 +4,18 @@
  * installation into this game's own caches, and the recovery screen for a family record that
  * cannot be read. Every screen passes axe's WCAG 2.1 A and AA rules.
  *
- * Stored records are written the way the shell writes them: the payloads come from the app's own
- * record code (src/app/persistence/records.ts) over the SDK's memory storage, then go into the
- * page's IndexedDB under the SDK's layout (database `pearl-sea`, store `saves`).
+ * Stored records are written the way the shell writes them (support/saves.ts).
  */
 import { readFileSync } from 'node:fs';
-import AxeBuilder from '@axe-core/playwright';
-import { MemorySaveStorage } from '@aegis/browser/save';
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
-import { FAMILY_RECORD } from '../../src/app/persistence/family';
-import type { FamilyState } from '../../src/app/persistence/family';
-import { recordPolicy, RecordStore } from '../../src/app/persistence/records';
-import { SAVE_DATABASE } from '../../src/rules/contract';
 import { observe } from './support/observe';
+import { FAMILY_KEY, familyPayload, storeRecord } from './support/saves';
+import { enterGrownUps, noViolations, ready } from './support/screens';
 
 // Every check here runs with less motion, as a family that asks for it sees the game. The smoke
 // suite keeps the default motion.
 test.use({ reducedMotion: 'reduce' });
-
-/**
- * Readiness waits longer than `expect`'s 10 s: Firefox's first IndexedDB open in a new context
- * takes seconds on a busy machine.
- */
-async function ready(page: Page, screen: string): Promise<void> {
-  const status = page.getByTestId('boot-status');
-  await expect(status, 'the shell reports ready').toHaveAttribute('data-state', 'ready', {
-    timeout: 20_000,
-  });
-  await expect(status).toHaveAttribute('data-screen', screen);
-}
-
-/**
- * Wait until nothing on the page is still fading: axe would measure half-faded colours. The
- * router marks a new screen `data-entering` for its first moments; a toast leaving fades out.
- */
-async function settled(page: Page): Promise<void> {
-  await expect(page.locator('[data-entering]')).toHaveCount(0);
-  await page.evaluate(async () => {
-    const running = document
-      .getAnimations()
-      .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
-      .map((animation) => animation.finished.catch(() => undefined));
-    await Promise.race([Promise.all(running), new Promise((resolve) => setTimeout(resolve, 2000))]);
-  });
-}
-
-async function noViolations(page: Page, what: string): Promise<void> {
-  await settled(page);
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-    .analyze();
-  expect(
-    results.violations.map(
-      (violation) =>
-        `${violation.id}: ${violation.help} | ` +
-        violation.nodes
-          .map((node) => `${node.target.join(' ')} — ${node.failureSummary ?? ''}`)
-          .join(' | '),
-    ),
-    `axe violations: ${what}`,
-  ).toEqual([]);
-}
 
 /**
  * Start watching for `selector`. The returned function gives the element's opacity at the moment
@@ -90,59 +40,6 @@ async function watchArrival(page: Page, selector: string): Promise<() => Promise
       const scope = globalThis as { psArrivals?: Record<string, Promise<string>> };
       return scope.psArrivals![selector]!;
     }, selector);
-}
-
-/** Through the gate: hold the lock from the keyboard, then answer the question. */
-async function enterGrownUps(page: Page): Promise<void> {
-  await page.getByTestId('title-grownups').click();
-  const hold = page.getByTestId('gate-hold');
-  await expect(hold).toBeFocused();
-  await page.keyboard.down(' ');
-  const question = page.getByTestId('gate-question');
-  await expect(question).toBeVisible();
-  await page.keyboard.up(' ');
-  const a = Number(await question.getAttribute('data-a'));
-  const b = Number(await question.getAttribute('data-b'));
-  await page.keyboard.type(String(a * b));
-  await page.keyboard.press('Enter');
-  await ready(page, 'grownups');
-}
-
-/** The stored payload the shell itself would write for a family record. */
-async function familyPayload(state: FamilyState): Promise<string> {
-  const storage = new MemorySaveStorage();
-  const store = new RecordStore(storage, FAMILY_RECORD);
-  await store.load();
-  await store.save(state);
-  return (await storage.read(recordPolicy(FAMILY_RECORD))).current!.payload;
-}
-
-/** Put a family record into this game's database, as the SDK keeps it. */
-async function storeFamily(page: Page, payload: string): Promise<void> {
-  await page.evaluate(
-    async ({ database, key, payload }) => {
-      await new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open(database, 1);
-        request.onupgradeneeded = () => request.result.createObjectStore('saves');
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => {
-          const db = request.result;
-          const transaction = db.transaction('saves', 'readwrite');
-          transaction.objectStore('saves').put({ current: { revision: 1, payload } }, key);
-          transaction.oncomplete = () => {
-            db.close();
-            resolve();
-          };
-          transaction.onerror = () => reject(transaction.error);
-        };
-      });
-    },
-    {
-      database: SAVE_DATABASE,
-      key: JSON.stringify([FAMILY_RECORD.gameId, FAMILY_RECORD.profileId]),
-      payload,
-    },
-  );
 }
 
 test('the gate lets a grown-up in only after holding the lock and answering', async ({
@@ -236,8 +133,9 @@ test('the grown-ups’ area speaks English when chosen, and keeps it, while the 
 test('a child’s settings are kept for that child, and a backup carries them', async ({ page }) => {
   await page.goto('./');
   await ready(page, 'title');
-  await storeFamily(
+  await storeRecord(
     page,
+    FAMILY_KEY,
     await familyPayload({
       profiles: [{ id: 'profile-1', name: 'Ema', avatar: 'diver-2', address: 'girl', grade: 3 }],
       grownUpsLanguage: 'cs',
@@ -308,7 +206,7 @@ test('a family record that cannot be read asks a grown-up and replaces nothing b
 }) => {
   await page.goto('./');
   await ready(page, 'title');
-  await storeFamily(page, '{"broken": true');
+  await storeRecord(page, FAMILY_KEY, '{"broken": true');
   await page.reload();
   await ready(page, 'recovery');
   const recovery = page.getByTestId('screen-recovery');

@@ -83,8 +83,10 @@ record names its strings by catalog key: `region.<id>`, `level.<id>`, `skill.<re
 `friend.<id>` and `friend.<id>.mnemonic`, `monster.<id>` and `monster.<id>.joke.<n>`,
 `inkoustik.<name>`, `cosmetic.<id>`, `sticker.<id>`, `quest.<id>`, `story.<beat>.<n>` and
 `story.next`, and objectives `grownups.objective.<strand>.<id>` with an English twin. A skill also
-shows the grammar keys of its rules and values: `grammar.rule.<rule>` (the strategy after a miss)
-and `grammar.<dimension>.<value>` (contract §7.4).
+shows the grammar keys of its rules and values: `grammar.rule.<rule>` (the strategy after a miss),
+`grammar.<dimension>.<value>` (contract §7.4) and `grammar.method.<id>`, the hint of a case,
+pattern, tense, mood or verb-form classification and of a sound-alike relation. A method hint shows
+how to find the answer and never names it, so its examples use a verb no item asks (_malovat_).
 
 **Czech.** The child is addressed with _ty_; a bare key is neutral (no _naučil(a)_), with optional
 `.boy`/`.girl` pairs (design §10). Monsters and friends agree in gender with their names (_Muréna

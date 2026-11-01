@@ -30,6 +30,7 @@ export const EVENTS = {
   inkSplashed: 'ink.splashed',
   armWashed: 'arm.washed',
   monsterFreed: 'monster.freed',
+  monsterJoked: 'monster.joked',
   inkoustikAmbushed: 'inkoustik.ambushed',
   inkoustikSplashed: 'inkoustik.splashed',
   // Friends and the Great Shell
@@ -83,6 +84,11 @@ export interface EventPayloads {
   /** One arm of a many-armed monster is clean (Krakatice). */
   'arm.washed': { monster: string; arm: number; arms: number };
   'monster.freed': { monster: string };
+  /**
+   * The monster tells a joke (a catalog key): at the start of a battle, after every 5th right answer
+   * and when it is washed clean. A one-shot: BattleView.jokeKey redraws the bubble after a reload.
+   */
+  'monster.joked': { monster: string; joke: string };
   'inkoustik.ambushed': { inkoustik: string; item: string };
   'inkoustik.splashed': { inkoustik: string; coins: number };
   'egg.received': { friend: string };

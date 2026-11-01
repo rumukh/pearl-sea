@@ -364,22 +364,22 @@ three choices.
 A 4th grader: profile (grade 4) → prologue → the same egg choice → **Ukaž, co umíš** (§9.2; its
 letters step serves the chosen egg's items on every other problem) → `beat.the-deep` → Měsíční
 jeskyně 1, where **Kořínek hatches**. The lagoon egg hatches in the next sessions from Svačinka's
-first tastes (§5.15). **Open point** (raised with the coordinator): a 4th grader's chosen lagoon
-egg does not hatch in the first session; only Kořínek does.
+first tastes (§5.15): the chosen egg's tastes come first. Only Kořínek hatches in the first session;
+a golden trace checks both hatches.
 
 ### 4.2 The daily adventure (_Dnešní výprava_)
 
 One big button, about 10-15 minutes. `hub.next` (contract §12) decides, in Dragon Valley's priority
-order: a
-pending beat; the first friend's choice (`first-friend`, answered with `chooseFirstFriend`); the
-placement check (a 4th grader who has not done it); **Svačinka** for hungry friends and the basket
-at the start of the day; the next glowing level until one is done today; a minigame for variety
-once (`startLevel { level, activity }`, which never completes a level again); the **treasure
-chest** once the daily goal is met; Svačinka again while an item is starving; the next level again
-**while today's success is at least 70 %** (pacing; below it the adventure reviews the last three
-finished levels instead, and a level under way always continues); then free play. After the goal
-the friends get **sleepy** (an expression, never a lock). A time limit set by the grown-ups ends
-the round gently (`endRound{ reason: 'time-limit' }`).
+order: a pending beat; the first friend's choice (`first-friend`, answered with
+`chooseFirstFriend`); the placement check (a 4th grader who has not done it); **Svačinka** for
+hungry friends and the basket at the start of the day; the next glowing level until one is done
+today; a minigame for variety once (`startLevel { level, activity }`, which never completes a level
+again; it replays the finished board whose items are most due, which is how items only boards train
+are reviewed, §6.5); the **treasure chest** once the daily goal is met; Svačinka again while an item
+is starving; the next level again **while today's success is at least 70 %** (pacing; below it the
+adventure reviews the last three finished levels instead, and a level under way always continues);
+then free play. After the goal the friends get **sleepy** (an expression, never a lock). A time
+limit set by the grown-ups ends the round gently (`endRound{ reason: 'time-limit' }`).
 
 The hub is the **home grotto** (`scene/grotto`): the featured friend with its next stage (the
 rules' exact `next.have` of `next.need`), the other friends, the week, today's goal and quests, the
@@ -516,8 +516,8 @@ nets in the 3rd grade, `gender-class` in the 4th, part of speech, inflected or n
 standard or colloquial, pattern, reflexive pronoun), consonant letters (`consonant`: fish _h, ch, k_
 … into hard, soft and both-way nets) or forms (`form`: number, tense, person, …). Tap-then-tap and
 keys work too. Hauling in (`submit`) sends fish in a wrong net swimming back (`wrong`). 4-12 fish; a
-coin a fish; credits as Dragon Valley's boards (right on the first haul is ok, later is slow); drag
-by `createPlacement`.
+coin a fish; a fish caught on a first haul with no fish in a wrong net is fast, on a first haul
+that sent some back ok, on a later haul slow; drag by `createPlacement`.
 
 ### 5.11 Ulita slov (`word-shell`): custom `ps.word-builder` (4th grade)
 
@@ -665,9 +665,13 @@ A friend's set is the union of its skills' items, and its `monster` is the one w
 it grow up (each rule is `{ stage, share, mastery, monster }`). That monster is the friend's
 region's, except for Delfín Skokánek: his skills include the 4th-grade verbs and his monster is Vír
 Časoplet, so he grows up in Bouřlivé moře. Friends never shrink; a friend with a due item is
-**hungry** _(`hungry.minDue` 1)_; an item practised today is not due again that day. **Open point**
-(raised with the coordinator): keeping Dragon Valley's adult rule for `grown` may leave friends
-babies for weeks; the learner simulation measures the time to `grown` before v1.
+**hungry** _(`hungry.minDue` 1)_; an item practised today is not due again that day. Items only
+boards train (`abc:`, `pair:`, `seg:`, `fam:`, and consonant letters no classification asks) are
+never served as single problems: they count for growth and shine in the Great Shell, a friend is
+hungry only for items Svačinka can serve, and the daily adventure's variety minigame reviews them
+by replaying the board whose items are most due (§4.2). **Open point** (raised with the
+coordinator): keeping Dragon Valley's adult rule for `grown` may leave friends babies for weeks;
+the learner simulation measures the time to `grown` before v1.
 
 ### 6.6 Generators and distractors
 
@@ -722,9 +726,10 @@ ends when the monster is clean or, as a kindness cap, after `count` problems (at
 with a flourish. Every 4 answers _(`battle.splashEvery`)_ the monster flicks a **harmless ink blot**
 onto the scene, never over the problem, the controls or the progress; a tap wipes it with a squeak,
 or it fades after 4 s; blots are hidden from screen readers and plain with reduced motion. The
-monster tells a **joke** at the start, after every 5th right answer and when freed, never during
-feedback. When clean it **transforms** on screen (ink runs off; a cross-fade with reduced motion),
-thanks the child and joins the **friends' gallery**. Retry any time for stars. Meters and caps
+monster tells a **joke** at the start, after every 5th right answer and when freed (going round
+its jokes, never the same one twice in a row), never during feedback. When clean it **transforms**
+on screen (ink runs off; a cross-fade with reduced motion), thanks the child and joins the
+**friends' gallery**. Retry any time for stars. Meters and caps
 (content): 15/20 for the first three, 18/23 for the others, Chobotnice Napodobnice 20/25, Ledana
 18/24, the Krakatice 30/40.
 

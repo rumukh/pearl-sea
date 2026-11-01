@@ -179,6 +179,10 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   `content/history/<revision>.json.gz` as a gzip file without a Content-Encoding, decompresses it
   with `DecompressionStream`, restores the save and, at the grotto, moves it to the newest pack
   with the chosen friend and the completed lesson kept.
+- `test/e2e/upgrade.spec.ts`: a save of state version 1, stored as a build of that version stored
+  it, with a round in flight on a step whose hint named the asked word, opens in the browser on
+  that step without the hint and plays on, and the next checkpoint stores the current version; a
+  backup file of it loaded in Pro dospělé does the same.
 
 ### The rules' tests (S2)
 

@@ -140,6 +140,12 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   be opened is replaced through its recovery). The game save is reached through `GameRecords`,
   made from the game definition, so a backup carries the child's game as stored; a shell without
   the rules would carry preferences only and refuse a backup with a game.
+- **Older saves** (`game/definition.ts`): a game save of an older state version is upgraded
+  wherever the shell reads one (a load, a backup loaded or saved, recovery) by `SAVE_MIGRATIONS`,
+  one step per version (the contract's `migrateSnapshot`, docs/contract.md §7.6); the next
+  checkpoint stores the current version. Version 2 clears from a problem on screen the hints that
+  named the asked word (`family`, `test-word`, `listed`), so a round in flight plays on without
+  them (`test/e2e/upgrade.spec.ts`).
 - **Day** (`day.ts`): when a child's day starts, the shell notes which items already shine and how
   far each sea friend has grown; the diary card is the difference from the view. It holds nothing
   the game save does not, so an unreadable record is replaced without asking anyone, and a failed
@@ -449,13 +455,19 @@ its own presentation; calls take turns, and a child opened for play waits for th
   editor, the eggs, the grotto (a first egg, a first friend, a whole lagoon with a monster to free,
   and a lagoon played today: three rewards to claim and the chest, seeded on the page's own date),
   every kind of board (Pexeso with two cards that are no pair, Slovní rodinka with its words picked,
-  Ulita slov cut), Krmení with its hint and a miss at once, the longest hint the packs carry
-  (shoda's rule in Krakatičí propast 2, a 4th grader whose grown-ups opened the region ahead) with
-  a miss under an ink sentence and under a Lov chyb's fix, its endings' hyphens kept whole, the
-  battle with an ink blot and a miss,
+  Ulita slov cut), Krmení with its hint and a miss at once, a rule's long hint (shoda's in
+  Krakatičí propast 2, a 4th grader whose grown-ups opened the region ahead) with a miss under an
+  ink sentence, the tallest problem layout, and under a Lov chyb's fix, its endings' hyphens kept
+  whole, the battle with an ink blot and a miss,
   a round an Inkoustík ambushes (a child played in Node until one does) with a miss, the placement
   check with a miss and its results, the hatching, the freeing and the results. At 200 % text on a
   phone the grotto, U Mrože and a round with Nápověda and a miss keep to the screen's width.
+- **Browser, older saves** (`test/e2e/upgrade.spec.ts`): a save of state version 1, stored as a
+  build of that version stored it (the SDK's envelope under that version's policy), with a lagoon
+  round in flight on a step whose `test-word` or `family` hint version 1 made of the asked word. It
+  opens on that step without the hint (no Nápověda), plays on, and the next checkpoint stores the
+  current version; a backup file of that save loaded in Pro dospělé does the same. Without the
+  migration both fail on the hint.
 - **Browser, the art** (`test/e2e/art.spec.ts`): S5's next paintings rehearsed before they exist.
   `support/art.ts` serves a catalog of main's art plus stand-ins in the real formats (the lagoon's
   babies, the freed Muréna, Osmička cheering, the shallows map, the lagoon, the grotto and the

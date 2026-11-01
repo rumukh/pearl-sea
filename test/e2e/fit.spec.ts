@@ -3,8 +3,8 @@
  * Dragon Valley's playtest checks): at 100 % text the page itself never scrolls, so every control
  * is in view. The sizes are tablets in landscape (1024 × 768; 1024 × 698, an iPad's under Safari's
  * bars; 1180 × 820; 1280 × 800) and laptop windows (1366 × 657, 1536 × 730). Each journey stops at
- * the tallest states a screen can reach: a hint and a miss at once (the longest hint too, shoda's
- * rule in Krakatičí propast), a battle's miss with an ink blot, an Inkoustík's ambush, the
+ * the tallest states a screen can reach: a hint and a miss at once (a rule's long hint too,
+ * shoda's in Krakatičí propast), a battle's miss with an ink blot, an Inkoustík's ambush, the
  * placement check, every kind of board, the big moments, the results, and the grotto with today's
  * rewards to claim and the chest (S6's PS-QA-19). At 200 % text on a phone, a round and U Mrože
  * keep to the screen's width.
@@ -364,9 +364,10 @@ test('a new 4th grader’s placement check and Měsíční jeskyně fit a landsc
   await fits(page, 'Ulita slov with the word cut');
 });
 
-test('the longest hint, with a miss, fits a landscape screen', async ({ page }) => {
-  // Shoda's rule is a paragraph (273 characters): with a miss under an ink sentence it pushed
-  // "Dál" 52 px under a 1024 × 698 window. A long hint is set smaller in a short window (round.ts
+test('a rule’s long hint, with a miss, fits a landscape screen', async ({ page }) => {
+  // Shoda's rule, a paragraph, under an ink sentence (the tallest problem layout; a taught problem
+  // shows its note too) and under a Lov chyb's fix. At 273 characters it pushed "Dál" 52 px under
+  // a 1024 × 698 window. A long hint is set smaller in a short window (round.ts
   // LONG_HINT_CHARACTERS), and its endings (-i, -y, -a) never leave their hyphen at a line's end.
   test.setTimeout(300_000);
   await page.setViewportSize(LANDSCAPE[0]);

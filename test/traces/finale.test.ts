@@ -12,13 +12,12 @@
  * kept, `beat.finale`, the map, the gallery and the finale sticker) and no level left to glow.
  * Replaying both finales afterwards completes nothing again. From the save just before the
  * Krakatice, a child who misses every answer meets the kindness cap: after max(count, meter + 5)
- * problems the flourish washes all ten arms, frees her and completes the finale all the same,
- * taking nothing away.
+ * problems (the design's 40) the flourish washes all ten arms, frees her and completes the finale
+ * all the same, taking nothing away.
  *
  * Named checks come first; the golden hash and trajectory are change detectors checked last. Arm
  * skills that share items (S3's packs share items between word and sentence skills) still ask
- * each arm's items through its own skill. The last block keeps a contract question raised with
- * the coordinator as a check of the designed behaviour that fails today (`it.fails`).
+ * each arm's items through its own skill.
  */
 import { afterAll, describe, expect, it, vi } from 'vitest';
 import type { ContentPack, RuntimeSnapshot } from '@aegis/runtime';
@@ -43,10 +42,11 @@ vi.setConfig({ testTimeout: 300_000 });
 
 /**
  * Pinned literals (docs/testing.md, "When a golden moves"), captured from the first green run of
- * this trace (seed `golden-finales`, the finale fixture on the lagoon fixture 0.1.0).
+ * this trace (seed `golden-finales`, the finale fixture on the lagoon fixture 0.1.0); re-pinned
+ * when the Krakatice's battle count became the design's 40 (the contract allowed 30 before).
  */
-const GOLDEN_HASH = 'fc5e0cc1277dc7b3';
-const GOLDEN_TRAJECTORY = 'c36f0512cda5aa51';
+const GOLDEN_HASH = '65c4e9180da5809d';
+const GOLDEN_TRAJECTORY = 'be8a19c3a1fdddce';
 
 const SEED = 'golden-finales';
 const EGG = 'krab-tvrdak';
@@ -584,6 +584,7 @@ const failedOf = (results: Record<string, boolean>): string[] =>
 
 const CAP_NAMES = {
   cap: 'a child who misses every answer gets max(count, meter + 5) problems, then the battle ends',
+  forty: 'the cap: the Krakatice’s battle asks the design’s 40 problems at most (design §3.12)',
 };
 
 /** The kindness cap at the finale (design §7.1, docs/learning.md §7). */
@@ -600,6 +601,7 @@ function capChecks(c: Capped): Record<string, boolean> {
   return {
     'the cap: every step was accepted at the expected logical turn': p.failures.length === 0,
     [CAP_NAMES.cap]: f.problems === cap && f.steps.length === cap && f.steps.every((s) => !s.right),
+    [CAP_NAMES.forty]: count === 40 && f.problems === 40,
     'the cap: a miss washed nothing, no blot and no arm, until the flourish':
       ofType(f.events, 'ink.washed').length === 0 &&
       ofType(f.events, 'arm.washed').length === 0 &&
@@ -837,15 +839,5 @@ describe('arm skills that share items (S3’s packs share items between word and
       })
       .map((s) => `${s.item} as a ${s.shape} on arm ${s.arm + 1} (${SHARED_ARM_SKILLS[s.arm]})`);
     expect(strays).toEqual([]);
-  });
-});
-
-describe('a contract question raised with the coordinator (it.fails until decided)', () => {
-  it.fails('the Krakatice’s designed cap of 40 problems can be authored (design §3.12)', () => {
-    expect(() =>
-      finalePack((data) => {
-        data.levels.find((l) => l.id === KRAKATICE_LEVEL)!.activities[0]!.count = 40;
-      }),
-    ).not.toThrow();
   });
 });

@@ -17,8 +17,7 @@
  * lagoon's dě tě ně skill (which may ask two gaps of dítě) by rule, so the Krakatice has ten.
  * Neither finale has a review share (design §7.2, §7.3).
  *
- * The design's cap for the Krakatice is 40 problems, but an activity's `count` is at most 30 in
- * the contract, so her battle counts 30 (cap max(30, 30 + 5) = 35).
+ * The Krakatice's battle counts the design's 40 problems (cap max(40, 30 + 5) = 40).
  */
 import type { ContentPack } from '@aegis/runtime';
 import type { NarrativeGraph } from '@aegis/narrative';
@@ -56,11 +55,11 @@ export const KRAKATICE_ARM_SKILLS: readonly string[] = [
   'sk.lagoon.paired',
 ];
 
-/** The finales' meters and battle counts (design §3.7, §3.12; the count capped by the contract). */
+/** The finales' meters and battle counts (design §3.7, §3.12). */
 const LEDANA_METER = 18;
 const LEDANA_COUNT = 24;
 const KRAKATICE_METER = 30;
-const KRAKATICE_COUNT = 30;
+const KRAKATICE_COUNT = 40;
 
 /** dě tě ně and the soft di ti ni of the lagoon's words, one gap each. */
 const splitSkills: Skill[] = [

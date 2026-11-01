@@ -93,6 +93,21 @@ describe('content validation reports', () => {
     expectDiagnostic(pack, 'empty-skill', 'sk.hard-soft');
   });
 
+  it('an activity count outside 1-40 (the Krakatice’s battle counts 40, design §3.12)', () => {
+    const battle = (pack: Pack) =>
+      pack.data.levels
+        .find((l) => l.id === 'sunny-lagoon.monster')!
+        .activities.find((a) => a.kind === 'battle')!;
+    const longest = fresh();
+    battle(longest).count = 40;
+    expect(diagnostics(longest)).toEqual([]);
+    for (const count of [0, 41]) {
+      const pack = fresh();
+      battle(pack).count = count;
+      expect(diagnostics(pack).length, `count ${count}`).toBeGreaterThan(0);
+    }
+  });
+
   it('a monster level that does not end with its battle', () => {
     const pack = fresh();
     pack.data.levels

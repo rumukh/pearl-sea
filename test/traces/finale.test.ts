@@ -43,10 +43,12 @@ vi.setConfig({ testTimeout: 300_000 });
 /**
  * Pinned literals (docs/testing.md, "When a golden moves"), captured from the first green run of
  * this trace (seed `golden-finales`, the finale fixture on the lagoon fixture 0.1.0); re-pinned
- * when the Krakatice's battle count became the design's 40 (the contract allowed 30 before).
+ * when the Krakatice's battle count became the design's 40 (the contract allowed 30 before), and
+ * the trajectory when Lov chyb's punctuation moved from its tokens into `marks`
+ * (be8a19c3a1fdddce before; folding the marks back into the tokens gives it again).
  */
 const GOLDEN_HASH = '65c4e9180da5809d';
-const GOLDEN_TRAJECTORY = 'be8a19c3a1fdddce';
+const GOLDEN_TRAJECTORY = 'f68a7cb0c42ecaf2';
 
 const SEED = 'golden-finales';
 const EGG = 'krab-tvrdak';

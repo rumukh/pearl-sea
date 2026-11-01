@@ -9,6 +9,7 @@ import {
   CONSONANT_IDS,
   CONTEXT_DIMENSIONS,
   DIMENSIONS,
+  canonicalItem,
   isRegisterSkill,
   skillItems,
   skillSchema,
@@ -265,7 +266,11 @@ describe('skill items', () => {
           cells,
         },
       });
-    expect(tenseNets(null)).toHaveLength(12);
+    // The perfective future and the past: vyletí is 3sg and 3pl, one fish (pres3).
+    expect(tenseNets(null)).toEqual([
+      ...[1, 2, 3, 4, 5, 6].map((n) => `class:tense:vyletext:past${n}`),
+      ...[1, 2, 3, 4, 5].map((n) => `class:tense:vyletext:pres${n}`),
+    ]);
     expect(tenseNets(['past'])).toEqual(
       [1, 2, 3, 4, 5, 6].map((n) => `class:tense:vyletext:past${n}`),
     );
@@ -278,6 +283,96 @@ describe('skill items', () => {
         params: { words: {}, families: ['mlyyn'], pick: 2, distractors: 2 },
       }),
     ).toEqual(['fam:mlynaarx', 'fam:mlyyn']);
+  });
+});
+
+describe('form items', () => {
+  const numberOfForms = (words: string[], cells: string[] | null = null) =>
+    items({
+      generator: 'classify',
+      params: {
+        dimension: 'number',
+        context: 'form',
+        words: { words },
+        sentences: {},
+        values: null,
+        cells,
+      },
+    } as SkillSpec);
+
+  it('are one item per form a word shows: the first cell in paradigm order that shows it', () => {
+    // mlýn is sg1 and sg4, mlýny pl1, pl4, pl5 and pl7; ryby (sg2, pl1, pl4, pl5) shows no number,
+    // and rybě is sg3 and sg6.
+    expect(numberOfForms(['mlyyn', 'ryba'])).toEqual([
+      'class:number:mlyyn:pl1',
+      'class:number:mlyyn:pl2',
+      'class:number:mlyyn:pl3',
+      'class:number:mlyyn:pl6',
+      'class:number:mlyyn:sg1',
+      'class:number:mlyyn:sg2',
+      'class:number:mlyyn:sg3',
+      'class:number:mlyyn:sg5',
+      'class:number:mlyyn:sg6',
+      'class:number:mlyyn:sg7',
+      'class:number:ryba:pl2',
+      'class:number:ryba:pl3',
+      'class:number:ryba:pl6',
+      'class:number:ryba:pl7',
+      'class:number:ryba:sg1',
+      'class:number:ryba:sg3',
+      'class:number:ryba:sg4',
+      'class:number:ryba:sg5',
+      'class:number:ryba:sg7',
+    ]);
+    expect(numberOfForms(['mlyyn'], ['pl'])).toEqual([
+      'class:number:mlyyn:pl1',
+      'class:number:mlyyn:pl2',
+      'class:number:mlyyn:pl3',
+      'class:number:mlyyn:pl6',
+    ]);
+  });
+
+  it('name the item a retired form item stands for', () => {
+    const stands = (item: string) => canonicalItem(item, lexicon);
+    expect(stands('class:number:mlyyn:sg4')).toBe('class:number:mlyyn:sg1');
+    expect(stands('class:number:mlyyn:pl7')).toBe('class:number:mlyyn:pl1');
+    expect(stands('class:number:ryba:sg6')).toBe('class:number:ryba:sg3');
+    expect(stands('class:tense:vyletext:pres6')).toBe('class:tense:vyletext:pres3');
+    expect(stands('class:person:vyletext:pres6')).toBe('class:person:vyletext:pres3');
+    for (const item of [
+      'class:number:mlyyn:sg1',
+      'class:number:mlyyn:sg9',
+      'class:number:nobody:sg4',
+      'class:number:mlyyn',
+      'class:case:s.ryby-1:0',
+      'class:segment:vyletext:0',
+      'class:gender:ryba',
+      'spell:ryba:1',
+      'not an item',
+    ]) {
+      expect(stands(item), item).toBe(item);
+    }
+  });
+
+  it('stand for themselves in every form skill', () => {
+    const forms = [
+      ...(['number', 'case', 'person', 'tense', 'mood', 'verb-form', 'finiteness'] as const).map(
+        (dimension) =>
+          items({
+            generator: 'classify',
+            params: {
+              dimension,
+              context: 'form',
+              words: {},
+              sentences: {},
+              values: null,
+              cells: null,
+            },
+          } as SkillSpec),
+      ),
+    ].flat();
+    expect(forms.length).toBeGreaterThan(50);
+    for (const item of forms) expect(canonicalItem(item, lexicon), item).toBe(item);
   });
 });
 

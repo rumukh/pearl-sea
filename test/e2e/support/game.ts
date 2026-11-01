@@ -256,6 +256,29 @@ export async function openChild(page: Page, profileId: string): Promise<string> 
   return throughStory(page);
 }
 
+/** A 4th grader past the placement check (nothing placed), at the deep sea's first level. */
+export async function fourthGraderPlaced(): Promise<RuntimeSnapshot> {
+  const player = new Player(PERFECT, 'e2e-grade-4', GAME.adapter, GAME.content);
+  try {
+    await player.act({ type: 'setSetting', setting: { key: 'grade', value: 4 } });
+    if (!(await player.begin('krab-tvrdak', SEED_DAY))) {
+      throw new Error(`the seeded child could not begin: ${player.failures.join(', ')}`);
+    }
+    await player.act({ type: 'startActivity', activity: { kind: 'placement' } });
+    for (let guard = 0; guard < 30 && player.view().round?.status === 'active'; guard++) {
+      await player.answerAs(false);
+    }
+    await player.act({ type: 'endRound', reason: 'done' });
+    await player.settleStory();
+    if (player.failures.length > 0 || player.view().onboarding.placement !== 'done') {
+      throw new Error(`the placement check did not end: ${player.failures.join(', ')}`);
+    }
+    return player.host.snapshot();
+  } finally {
+    await player.dispose();
+  }
+}
+
 // ------------------------------------------------------------------------------ problems
 
 /** The problem step on screen, as the stored game has it (with its answers). */

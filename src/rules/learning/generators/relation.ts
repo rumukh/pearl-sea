@@ -264,6 +264,6 @@ export function relationProblem(
     target: { ...shown.ref },
     options: options.map((option) => ({ ...option.ref })),
     correct: options.indexOf(p.answer),
-    hint: null,
+    hint: p.relation === 'sound-alike' ? { kind: 'method', method: 'sound-alike' } : null,
   };
 }

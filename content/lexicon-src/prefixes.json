@@ -241,7 +241,7 @@
     },
     {
       "id": "prefix.12",
-      "text": "Na otázku neznám o{d|t}pověď.",
+      "text": "Na tuhle otázku neznám o{d|t}pověď.",
       "gaps": [{ "rule": "predpona-souhlaska", "word": "odpovexdx" }]
     },
     {

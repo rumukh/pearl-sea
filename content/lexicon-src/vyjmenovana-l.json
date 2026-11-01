@@ -278,6 +278,7 @@
     {
       "id": "blyyskavice",
       "lemma": "blýskavice",
+      "grade": 4,
       "pos": "noun",
       "gender": "f",
       "pattern": "ruze",
@@ -756,6 +757,23 @@
       "rules": ["obojetna-i"],
       "forms": ["plících"],
       "src": ["ijp-103", "morfflex"]
+    },
+    {
+      "id": "liizat",
+      "lemma": "lízat",
+      "pos": "verb",
+      "aspect": "impf",
+      "note": "pes líže misku; jiné je lyže, a proto se lyže ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
+    },
+    {
+      "id": "liiska",
+      "lemma": "líska",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "note": "keř s lískovými oříšky; jiné je lyska, pták, a proto se lyska ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
     }
   ],
   "sentences": [

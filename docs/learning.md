@@ -14,6 +14,7 @@ over unchanged.
 | `adapter.ts`                                                   | the runtime adapter: legality (named rejection codes), one command per action, the `reask` job, `validateState`, content activation, `createGameHost` |
 | `view.ts`                                                      | `GameView` from state and content: the daily adventure's next step, rounds, friends, the Great Shell, the grown-ups' area                             |
 | `learning/items.ts`                                            | response buckets, Leitner boxes, the effort path, mastery levels, due items                                                                           |
+| `learning/migrate.ts`                                          | content activation: records under item IDs the contract retired merge into the items they stand for                                                   |
 | `learning/selection.ts`                                        | what a round serves next: tiers, the learning share, the focus egg, no repeats                                                                        |
 | `learning/generate.ts`                                         | the problem generators' registry, servable items, `problemFor`                                                                                        |
 | `learning/generators/spell.ts`                                 | `spell.word`, `spell.sentence`, `spell.mistake`                                                                                                       |
@@ -38,7 +39,10 @@ runtime's named streams (`problems`, `distractors`, `words`, `rewards`, `ambush`
 **Items** are the contract's item IDs (§5.4): `spell:<word>:<at>` for a word's spelling point,
 `gap:<sentence>:<n>` for a sentence gap that is not a word's point, `class:`, `rel:`, and the
 board-only `pair:`, `abc:`, `seg:`, `fam:`. A spelling point is one item wherever it is asked, so
-a sentence gap on _mlýn_ reviews `spell:mlyyn:2`.
+a sentence gap on _mlýn_ reviews `spell:mlyyn:2`, and a form is one item however many cells show it
+(_delfíni_ is `class:number:delfiin:pl1`, never `…:pl5`). Saves made before content 1.2.5 can hold
+records under such retired IDs; activating newer content merges them into the item they stand for
+(`learning/migrate.ts`, [contract.md](contract.md) §7.6).
 
 **Response buckets** (`responseBucket`): `miss`, or by time against the input's limits
 (`response.choice`, `.letters`, `.typed` with `perExtraLetterMs` per letter after the first). The
@@ -72,15 +76,20 @@ ok answer) can go unannounced; scheduling never reads it.
   at the drawn gap and filled at the other), filled one by one; with `single` only the drawn gap. A
   re-ask of a sentence item asks the word alone where it is not ambiguous (`request.alone`).
 - **`spell.mistake`**: a sentence with the drawn gap written as one of its authored alternatives;
-  the tokens are the sentence split at spaces (a gap's own spaces stay in its token). Step 0 picks
+  the tokens are the sentence split at spaces (a gap's own spaces stay in its token), each token's
+  punctuation its mark (`marks`: _dosita_ with `.`), so a word button never holds a comma or an end
+  mark; a slip in the punctuation itself keeps every mark in its token. Step 0 picks
   the wrong token, step 1 writes the gap right; a wrong find still leads to the fix.
 - **`classify`**: the skill's `values` (every value of the dimension when `null`) in the dimension's
   school order (`DIMENSION_VALUES`), never shuffled; the target as the child reads it: the consonant
-  letter, the word, the form (`formCells`), a token of its sentence (`context`), a part of the word
+  letter, the word, the form (`formCells`), a token of its sentence (`context`, with each token's
+  `marks`, the punctuation right after it, read from the filled sentence: the comma of address
+  decides _Delfíne, skoč!_), a part of the word
   (`span`, a zero ending the empty span after the last letter), or the whole sentence (`word:
 null`, at most 240 characters, without its end mark for `sentence-kind`). A word on its own is
-  never one written like another lexicon word. Hints: _ten, ta, to_ for gender, the case question,
-  the pattern.
+  never one written like another lexicon word. Hints: _ten, ta, to_ for gender; the `method` of
+  the case, the pattern, the tense, the mood and the verb form (never the case question or the
+  pattern, which name the answer).
 - **`odd-one-out`**: 3 to the skill's `size` words, the drawn item's word among the ones that
   belong, exactly one differing on the basis (a word dimension, the family, listed or not). The
   companions are the skill's words (a family set may add its family's other members, of the
@@ -103,9 +112,24 @@ A word gap offers the skill's `choices` (2-4): the right text and the rule's alt
 case; for `be-pe-ve-me` the slip one hears, _je_ after _b, p, v_ and _ně_ after _m_). A
 sentence gap offers `1 +` its authored alternatives, at most the grade's `input.choices`, so a
 sentence never offers a spelling its author did not foresee. `keys` (the letter pad) are the rule's
-pad in the answer's case plus every option. Hints follow design §5.3: `vyjm` the family word (the
-rhyme for a head word), `obojetna-i` the rhyme, `parova` and `u-uprostred` the test word,
-`mne-zajmeno` the case question, `shoda` _ten, ta, to_, `vzor` the pattern, other rules the rule.
+pad in the answer's case plus every option. A gap whose rule has no pad holding its answer (a whole
+word, an end mark) shows its own options instead, in a fixed order (end marks _. ? ! ,_, then the
+alphabet), so the answer's place on the pad tells nothing; an end mark offers only its gap's marks,
+since after a command a full stop is right too. A gap that is a whole word (a conjunction, _mě_ or
+_mně_, a word with or without a space, a standard word) is never typed: the child could not know
+which word to type, and another one may be right too. Hints follow design §5.3: `vyjm` the family
+word (the rhyme for a head word); `obojetna-i` after a listed letter `not-listed` with the gap's
+`span` (never the rhyme, which lists only y-words and may hold a look-alike: _být_ for _bít_), else
+the rule line, also wherever the other letter makes another word: the lemma (_b_t_: _být_), a word
+of its family's sound-alike family (_nab_t_: _nabýt_), or the gap's word in its sentence (_v_sela_:
+_vysela_); `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
+_ten, ta, to_ (`plural` for a plural subject: _ti, ty, ta_) for one subject and the rule line for
+several, `vzor` the pattern, other rules the
+rule. Classifications hint the gender test, or the `method` of the case, the pattern, the tense,
+the mood and the verb form; a sound-alike relation hints its `method`.
+A verb asked for its reflexive pronoun is shown without it (_bát_, not _bát se_), alone, on a net or
+in an odd-one-out set; a verb that shown so is another lexicon verb with another pronoun (_hrát_,
+_hrát si_) is not asked.
 
 ### 3.2 Servable and board-only items
 
@@ -282,7 +306,8 @@ dimension, basis and relation, selection, boards and their adapters, the boards'
 ambushes, placement, Svačinka, steps and re-asks, the adapter's legality and commands),
 `test/traces/**` (golden command traces with named checks and mutation checks: a 3rd grader's first
 session with each lagoon egg, a 4th grader's first sessions, the lagoon slice end to end with the
-first Inkoustíci) and `test/migration/**` (a mid-round save, the next content revision). They run on
+first Inkoustíci) and `test/migration/**` (a mid-round save, the next content revision, a save
+with retired item IDs). They run on
 the rules' lagoon fixture (`test/fixtures/rules/lagoon-pack.ts`), the contract's mini pack and the
 game's pack (`realPack`); the harness's oracle answers from the lexicon's raw data, never from the
 code under test ([testing.md](testing.md)).

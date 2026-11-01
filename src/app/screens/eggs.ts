@@ -11,6 +11,7 @@ import { candyButton } from '../ui/button';
 import { h } from '../ui/dom';
 import { ART, GUIDE_ID } from '../../rules/contract';
 import type { ContentData } from '../../rules/contract';
+import { cornerSaveStatus } from './common';
 import { speakerButton } from './speaker';
 
 export function firstFriendScreen(app: App, active: ActiveDiver): Screen {
@@ -68,10 +69,12 @@ export function firstFriendScreen(app: App, active: ActiveDiver): Screen {
   });
 
   const heading = h('h1', { className: 'ps-story__heading', text: t('eggs.heading') });
+  const saveStatus = cornerSaveStatus(app, active);
   const element = h(
     'main',
     { className: 'ps-story ps-eggs', testId: 'screen-eggs' },
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene('grotto'))),
+    saveStatus.element,
     h(
       'section',
       { className: 'ps-story__stage' },
@@ -110,5 +113,6 @@ export function firstFriendScreen(app: App, active: ActiveDiver): Screen {
     region: 'sunny-lagoon',
     music: 'grotto',
     focusTarget: () => eggs.find((egg) => !egg.disabled) ?? heading,
+    dispose: saveStatus.dispose,
   };
 }

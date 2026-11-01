@@ -406,6 +406,51 @@
       "pos": "pron",
       "forms": ["mě", "mne", "mně", "mi", "mnou"],
       "src": ["ijp-650", "morfflex"]
+    },
+    {
+      "id": "vexta",
+      "lemma": "věta",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "note": "pět vět; jiné je vjet, a proto se vjet ptá jen ve větě",
+      "src": ["morfflex", "ssc"]
+    },
+    {
+      "id": "prxiijemnex",
+      "lemma": "příjemně",
+      "pos": "adv",
+      "grade": 4,
+      "spell": "příjem{ně|ě}",
+      "rules": ["mne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "skromnex",
+      "lemma": "skromně",
+      "pos": "adv",
+      "grade": 4,
+      "spell": "skrom{ně|ě}",
+      "rules": ["mne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "rozumnex",
+      "lemma": "rozumně",
+      "pos": "adv",
+      "grade": 4,
+      "spell": "rozum{ně|ě}",
+      "rules": ["mne"],
+      "src": ["ijp-126", "morfflex"]
+    },
+    {
+      "id": "tajemnex",
+      "lemma": "tajemně",
+      "pos": "adv",
+      "grade": 4,
+      "spell": "tajem{ně|ě}",
+      "rules": ["mne"],
+      "src": ["ijp-126", "morfflex"]
     }
   ],
   "sentences": [
@@ -611,7 +656,7 @@
     {
       "id": "e-caron.37",
       "grade": 4,
-      "text": "Dej {mně|mě} tu mušli, prosím.",
+      "text": "Tu mušli dej {mně|mě}, ne krabovi.",
       "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }]
     },
     {
@@ -647,7 +692,7 @@
     {
       "id": "e-caron.43",
       "grade": 4,
-      "text": "Delfín {mně|mě} pomohl.",
+      "text": "Delfín pomohl {mně|mě}, ne tobě.",
       "gaps": [{ "rule": "mne-zajmeno", "word": "jaa", "case": 3 }]
     },
     {

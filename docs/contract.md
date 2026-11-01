@@ -190,25 +190,35 @@ blots and the letter pad, and the verbalizer reads them aloud. Every problem is 
 
 ### 5.1 Problem kinds
 
-| Kind       | What the child does                                                                       | Fields                                                                                                           | Steps             |
-| ---------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `gaps`     | fills the ink-blot gaps of a word or sentence, one gap per step (Krmení, Inkoustová věta) | `sentence` (ID or null), `parts` (text and gap parts), `gaps[]`                                                  | one per gap (1-3) |
-| `classify` | names one dimension of a word, a form, a token or a sentence (Určování)                   | `dimension`, `target {word, text}`, `context {tokens, at}` or null, `span` or null, `options`, `correct`, `hint` | 1                 |
-| `odd`      | picks the word that does not belong                                                       | `basis` (a dimension, `family` or `listed`), `words[]`, `correct` (index), `hint`                                | 1                 |
-| `relation` | picks the synonym, antonym, general word, … of a word                                     | `relation`, `target`, `options[]`, `correct` (index), `hint`                                                     | 1                 |
-| `mistake`  | taps the word the ink spelled wrong, then fixes it (Lov chyb)                             | `sentence`, `tokens` (one misspelled), `wrong` (index), `fix` (a gap), `around` (the token split around the fix) | 2: find, then fix |
+| Kind       | What the child does                                                                       | Fields                                                                                                                     | Steps             |
+| ---------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `gaps`     | fills the ink-blot gaps of a word or sentence, one gap per step (Krmení, Inkoustová věta) | `sentence` (ID or null), `parts` (text and gap parts), `gaps[]`                                                            | one per gap (1-3) |
+| `classify` | names one dimension of a word, a form, a token or a sentence (Určování)                   | `dimension`, `target {word, text}`, `context {tokens, at, marks?}` or null, `span` or null, `options`, `correct`, `hint`   | 1                 |
+| `odd`      | picks the word that does not belong                                                       | `basis` (a dimension, `family` or `listed`), `words[]`, `correct` (index), `hint`                                          | 1                 |
+| `relation` | picks the synonym, antonym, general word, … of a word                                     | `relation`, `target`, `options[]`, `correct` (index), `hint`                                                               | 1                 |
+| `mistake`  | taps the word the ink spelled wrong, then fixes it (Lov chyb)                             | `sentence`, `tokens` (one misspelled), `marks?`, `wrong` (index), `fix` (a gap), `around` (the token split around the fix) | 2: find, then fix |
 
 A **gap** is `{ correct, options, keys, rule, word, item, hint }`: `correct` is the right text (a
 letter group such as `ý`, `mně`, or a whole token such as `odplavala`), `options` are 2-4 choices
-in seeded order including `correct`, `keys` the letter pad's keys including `correct`, `rule` the
+in seeded order including `correct`, `keys` the letter pad's keys including `correct` (the rule's
+pad, or where it holds no answer the gap's own options in a fixed order), `rule` the
 spelling rule, `word` the lexicon word or null, and `item` the item the gap trains. A
 classification's `options` keep the dimension's school order (`DIMENSION_VALUES`: the cases 1-7,
 the parts of speech 1-10, the patterns by gender), never shuffled, so each value keeps its place on
 screen. A classification of a whole sentence (`sentence-kind`, `clauses`) shows the sentence itself
 as its `target` (`word: null`, `text` up to 240 characters; for `sentence-kind` without its end
 mark, which would give the kind away) and has no `context`; every other `target` and word is a
-token of at most 64 characters. `problemSchema` checks the fields and that the problem is coherent:
-the answer is offered, every gap appears exactly once and in order, indices are in range.
+token of at most 64 characters. **Marks** (`marks`, optional) are the punctuation written right
+after each token (`''` for none, at most 4 characters, never a letter, a digit or a space), one
+entry per token: _Delfíne, skoč!_ is `tokens: ['Delfíne', 'skoč']`, `marks: [',', '!']`. Without
+the comma of address, _Delfíni pojďte_ reads as a subject. A classification's `context` carries
+them; Lov chyb's `marks`, when present, means its `tokens` and `around` hold no marks (_dosita_
+and `.`, not _dosita._). The rules give Lov chyb `marks` unless its slip is the punctuation itself
+(an end mark) or a token starts with a mark (an opening quote): then every token keeps its marks.
+The shell writes each token, then its mark, outside the highlight.
+`problemSchema` checks the fields and that the problem is coherent:
+the answer is offered, every gap appears exactly once and in order, indices are in range, and
+`marks` has one entry per token.
 
 ### 5.2 Answers and steps
 
@@ -225,15 +235,28 @@ does not answer `V`. A problem's steps are answered one by one; a wrong step is 
 
 A hint shows the strategy, not just the answer (design.md):
 
-| Hint            | Shows                                                   |
-| --------------- | ------------------------------------------------------- |
-| `family`        | a related word that proves the spelling (mlýn → mlynář) |
-| `test-word`     | a form that makes the sound clear (hrad → hrady)        |
-| `listed`        | the school rhyme of the listed words of a letter        |
-| `ten-ta-to`     | the gender test (ten pes, ta ryba, to moře)             |
-| `case-question` | the case question (koho? čeho?)                         |
-| `pattern`       | the pattern and its ending (o hradech, o strojích)      |
-| `rule`          | the general explanation of a spelling rule              |
+| Hint            | Shows                                                                                                 |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `family`        | a related word that proves the spelling (mlýn → mlynář)                                               |
+| `test-word`     | a form that makes the sound clear (hrad → hrady)                                                      |
+| `listed`        | the school rhyme of the listed words of a letter                                                      |
+| `ten-ta-to`     | the gender test (ten pes, ta ryba, to moře); with `plural: true` a plural subject's (ti, ty, ta)      |
+| `case-question` | the case question (koho? čeho?)                                                                       |
+| `pattern`       | the pattern and its ending (o hradech, o strojích)                                                    |
+| `rule`          | the general explanation of a spelling rule                                                            |
+| `method`        | how to find the answer (`HINT_METHODS`: case, pattern, tense, mood, verb-form, sound-alike), never it |
+| `not-listed`    | the word is not a listed word, so i: the lemma with `span` blanked (b_lý), never spelled out          |
+
+`method` is the content line `grammar.method.<method>`, with no parameters: the case questions in
+turn, the pattern from the gender and the 1st and 2nd case, and so on. A classification of the
+case, the pattern, the tense, the mood or the verb form hints its method, since the case question
+or the pattern would name the answer; a sound-alike relation hints `sound-alike`. An `obojetna-i`
+gap after a listed letter hints `not-listed`, unless the other letter makes another word: the
+lemma with one of the point's alternatives is another lexicon spelling (_b_t_: _být_) or ends like
+the head of its family's `soundAlike` family (_nab_t_: _nabýt_), or the gap's word in its sentence
+is another word's spelling (_v_sela_: _vysela_); then the rule line. `span` is
+`[start, end)` in code points of the lemma, the gap's letters. Agreement (`shoda`) hints
+`ten-ta-to` for one subject and the rule line for several.
 
 ### 5.4 Item IDs and mastery
 
@@ -255,7 +278,9 @@ is shown. `ITEM_ID_PATTERN` is `<kind>:<content ID parts>` (at most 128 characte
 
 A classification's target and detail depend on what is classified (§6.2): a word on its own is
 `class:pos:ryba`; a consonant letter `class:consonant:cx` (the letter's `lexiconId`); a form names
-the word and its paradigm cell (`class:person:plavat:past1`, §8.6); a token of a sentence names the
+the word and its paradigm cell (`class:person:plavat:past1`, §8.6), the first cell in paradigm order
+that shows the form, so a form that several cells show is one item (`canonicalItem`, §6); a token
+of a sentence names the
 sentence and the token index (`class:case:s.ryby-1:0`); a whole sentence names the sentence
 (`class:sentence-kind:s.ryby-1`); a part of a word names the word and the segment index
 (`class:segment:vyletext:1`). A sound-alike relation or pair that names a word form (§8.5) has the
@@ -279,7 +304,13 @@ after `silverDays`, the days at least `gapDays` apart; never gold), counted in t
 A skill is `{ id, titleKey, strand, generator, params }`. The generator decides the problem family;
 its parameters are checked by `SKILL_PARAM_SCHEMAS[generator]` and by cross-field rules.
 `skillItems(skill, lexicon)` enumerates the skill's item universe (sorted, unique, bounded by the
-lexicon); content validation rejects a skill whose universe is empty. Words are selected by a
+lexicon); content validation rejects a skill whose universe is empty. A form that several cells of
+a word show is **one item**, named by the first of those cells in paradigm order: cells that show
+the same text keep the same values (§8.6), so they ask the same question (_delfíni_ is `pl1` and
+`pl5`; only `class:number:delfiin:pl1` is served). `canonicalItem(id, lexicon)` names the item an
+ID stands for: itself, or for a form item the first cell that shows the same form. Until content
+1.2.5 the universe had both cells, and saves can still hold records under the retired IDs (§7.6).
+Words are selected by a
 **word filter** `{ words?, topics?, tags?, pos?, families?, letters?, grades?, aspects?, registers?,
 core?, exclude? }` and sentences by a **sentence filter** `{ sentences?, topics?, grades? }`; every
 present field narrows the selection (`aspects` keeps to verbs of those aspects: a 3rd-grade tense
@@ -526,7 +557,8 @@ those a skill can show, and the gate requires them): a category value `v` of dim
 `grammar.gender-class.mi`); a case also has its question, `grammar.case-question.<n>`; a spelling rule's
 hint is `grammar.rule.<rule>`, and the listed-word rule shows each letter's school rhyme,
 `grammar.listed.<letter>`; relations are `grammar.relation.<relation>` and word parts
-`grammar.segment.<role>`.
+`grammar.segment.<role>`; a method hint is `grammar.method.<method>`, needed by the
+classifications of a dimension with a method and by sound-alike relations (`grammarKeys`).
 
 Czech text follows Czech typography („…“, ‚…‘, …, –, no space before punctuation) and uses only
 characters of the reading font (Pearl Reading, the Andika subset); the gate checks both.
@@ -622,6 +654,17 @@ As in Dragon Valley:
   for an old save), stage the current pack, restore the save, then at the hub (no round, no pending
   beat, no pending jobs) activate the current pack. With append-only IDs no transformation is
   needed; a revision that retires an ID migrates the state there.
+- **Retired item IDs.** An item ID retires when the contract merges two items, as content 1.2.5
+  did for forms that several cells show (§6): the archived packs are unchanged, but the universe
+  no longer serves the other cells. A save with such records still restores, since `validateState`
+  only checks that item IDs parse. On activation the adapter merges each record into the item it
+  stands for (`canonicalItem`; `learning/migrate.ts`), in sorted order. If the kept item has no
+  record, the retired record moves to it. If both have records, the better one survives whole
+  (the higher mastery level, then the higher box; the kept item's own on a tie) and the other's
+  `seen` and `correct` are added to it. No answer leaves the grown-ups' totals and no pearl of a
+  form gets duller. `rightDays` are not added, so a day is never counted twice. A save without
+  retired IDs is unchanged. Content 1.2.5 changes nothing but the revision, so that every save on
+  1.2.4 or older activates it and merges.
 - **State compatibility.** New state fields are optional with a default that old saves get by
   omission. A change an old snapshot cannot continue under bumps `STATE_VERSION` (now 1) and adds a
   step to `STATE_MIGRATIONS`; `migrateProfileState` and `migrateSnapshot` (which rewrites the
@@ -719,7 +762,8 @@ Composed forms use the masculine participle (a generator may show the feminine o
 without changing the cell); the reflexive pronoun follows the auxiliary (`myl jsem se`,
 `budu se mýt`, `myl by se`). Each cell carries only the values the form shows unambiguously: a form
 shared by several cells (ryby: sg2, pl1, pl4, pl5; vyletí: 3sg and 3pl) keeps only the values those
-cells agree on, so no problem asks what a form cannot tell. Past forms with an auxiliary and every
+cells agree on, so no problem asks what a form cannot tell, and it is one item, named by the first
+of its cells (§6). Past forms with an auxiliary and every
 conditional are compound (`verb-form`), the others simple. Cells come in **groups** (`FORM_GROUPS`,
 `formGroup(cell)`: `sg`, `pl`, `inf`, `pres`, `fut`, `past`, `imp`, `cond`) that skills choose
 (§6.2). An imperfective verb whose future is not budu + infinitive must list `fut`
@@ -855,7 +899,7 @@ action changes nothing, costs nothing and draws no randomness. Only answers cost
 | `claimQuest { quest }`                                 | 0     | quest done and unclaimed                                                                                 | pay the quest's coins                                                                           |
 | `openChest`                                            | 0     | the chest is ready (the daily goal reached)                                                              | a weighted grant from `rewards`                                                                 |
 | `storyChoice { beat, node, revision, choice \| null }` | 0     | the pending beat, its node and revision                                                                  | advance (or skip a skippable beat); grant rewards                                               |
-| `setSetting { setting }`                               | 0     | values in range; `grade` one the content serves, also before the first session, not in a placement round | `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4; progress, friends and coins stay)          |
+| `setSetting { setting }`                               | 0     | values in range, also before the first session; `grade` one the content serves, not in a placement round | `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4; progress, friends and coins stay)          |
 
 Rejections are runtime errors with stable codes, as in Dragon Valley (`no-session`, `invalid-day`,
 `story-pending`, `round-active`, `unknown-level`, `locked-level`, `no-problem`, `wrong-action`,
@@ -911,7 +955,10 @@ and words carry their Czech text from the lexicon.
   ladder; for minigame rounds the board count, the raw `projectMinigame` view (`minigame`, whose
   `revision` every move carries) and the typed board `current` (§12.1). The battle's `jokeKey` is
   the joke on screen (the one `monster.joked` just told: at the start until the first answer, after
-  a 5th right answer until the next one, and once freed), else `null`.
+  a 5th right answer until the next one, and once freed), else `null`. The progress counts in two
+  units: `answered` is finished problems, the unit of `target`; `correct` and `streak` are right
+  answer steps (each gap, the find and the fix of Lov chyb), so `correct` can exceed `answered`
+  and the two are never shown as a ratio.
 - `friends`: owned friends with stage, expression, mastery shares (percent, rounded down),
   hunger, due items, outfit and the next stage's exact counts (`have` of `need`).
 - `shell`: the **Great Shell** (Velká lastura): pearls by strand and skill (`counts` per mastery

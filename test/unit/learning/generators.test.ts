@@ -17,7 +17,6 @@ import { isDeepStrictEqual } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { createPrng } from '@aegis/core';
 import {
-  LISTED_LETTERS,
   PAIRED_CONSONANTS,
   compareCzech,
   expectedAnswer,
@@ -35,7 +34,6 @@ import type {
   GappedText,
   GapsProblem,
   Hint,
-  ListedLetter,
   MistakeProblem,
   Problem,
   Sentence,
@@ -96,6 +94,25 @@ interface Raw {
 
 const raws = new Map<ContentData, Raw>();
 
+/** A word as written: its lemma and every cell of its paradigm (variants included). */
+function writtenRaw(word: Word): string[] {
+  const cells: (string | readonly string[])[] = [
+    ...(word.noun?.paradigm?.sg ?? []),
+    ...(word.noun?.paradigm?.pl ?? []),
+  ];
+  const verb = word.verb?.paradigm;
+  if (verb) {
+    cells.push(
+      verb.inf,
+      ...verb.pres,
+      ...verb.imp,
+      ...Object.values(verb.past),
+      ...(verb.fut ?? []),
+    );
+  }
+  return [word.lemma, ...cells.flatMap((cell) => (typeof cell === 'string' ? [cell] : cell))];
+}
+
 function rawOf(data: ContentData): Raw {
   const known = raws.get(data);
   if (known !== undefined) return known;
@@ -114,20 +131,7 @@ function rawOf(data: ContentData): Raw {
     sentences.set(sentence.id, { sentence, parsed, plain, starts });
   }
   const spellings = new Set<string>();
-  const add = (cells: readonly (string | readonly string[])[]) => {
-    for (const cell of cells)
-      for (const text of typeof cell === 'string' ? [cell] : cell) {
-        spellings.add(text);
-      }
-  };
-  for (const word of data.lexicon.words) {
-    spellings.add(word.lemma);
-    add([...(word.noun?.paradigm?.sg ?? []), ...(word.noun?.paradigm?.pl ?? [])]);
-    const verb = word.verb?.paradigm;
-    if (verb) {
-      add([verb.inf, ...verb.pres, ...verb.imp, ...Object.values(verb.past), ...(verb.fut ?? [])]);
-    }
-  }
+  for (const word of data.lexicon.words) for (const text of writtenRaw(word)) spellings.add(text);
   for (const pair of data.lexicon.relations.soundAlikes) {
     for (const ref of pair) if (typeof ref !== 'string') spellings.add(ref.form);
   }
@@ -170,8 +174,14 @@ function rulePad(rule: SpellingRule, correct: string): string[] {
   else if (rule === 'parova') {
     pad = PAIRED_CONSONANTS.find((pair) => (pair as readonly string[]).includes(lower)) ?? [];
   } else if (rule === 'shoda') pad = ['i', 'y', 'a'];
-  else if (rule === 'interpunkce') pad = ['.', '?', '!', ','];
   return correct === lower ? [...pad] : pad.map(capital);
+}
+
+/** End marks first (. ? ! ,), then Czech alphabetical: the order of a gap's own options as keys. */
+const MARKS = ['.', '?', '!', ','];
+function ownKeyOrder(a: string, b: string): number {
+  const mark = (text: string) => (MARKS.includes(text) ? MARKS.indexOf(text) : MARKS.length);
+  return mark(a) - mark(b) || compareCzech(a, b);
 }
 
 /**
@@ -233,7 +243,10 @@ function matchesFilter(sentence: Sentence, filter: SentenceFilter): boolean {
   );
 }
 
-/** The strategy a gap's hint shows (design §5.3). */
+/**
+ * The strategy a gap's hint shows (design §5.3). `inSentence` is the gap's word as its sentence
+ * writes it, with each of the gap's alternatives in the gap (none for a word alone).
+ */
 function expectedHint(
   data: ContentData,
   rule: SpellingRule,
@@ -241,6 +254,7 @@ function expectedHint(
   point: SpellingPoint | null,
   gap: SentenceGap | null,
   sentence: Sentence | null,
+  inSentence: readonly string[] = [],
 ): Hint {
   const ruleHint: Hint = { kind: 'rule', rule };
   switch (rule) {
@@ -251,9 +265,32 @@ function expectedHint(
       return family.letter !== null ? { kind: 'listed', letter: family.letter } : ruleHint;
     }
     case 'obojetna-i': {
-      const before = word && point ? [...word.lemma.toLowerCase()][point.at - 1] : undefined;
-      return (LISTED_LETTERS as readonly (string | undefined)[]).includes(before)
-        ? { kind: 'listed', letter: before as ListedLetter }
+      // After a listed letter: not listed, shown with its gap; never the rhyme of y-words (S3's
+      // Czech QA: a look-alike in it, být for bít, would confirm the slip). Else the rule line, and
+      // so wherever the other letter makes another word: the word itself (b_t is být too), a word
+      // of its sound-alike family the lexicon may lack (nab_t: nabýt, from být; IJP), or the word
+      // as its sentence writes it (v_sela: vysela, of vysít).
+      if (word === null || point === null) return ruleHint;
+      const raw = rawOf(data);
+      const before = [...word.lemma.toLowerCase()][point.at - 1];
+      const others = point.alt.map((alt) => respell(word, point, alt));
+      const twin = others.some((other) => other !== word.lemma && raw.spellings.has(other));
+      const family = data.lexicon.families.find((f) => f.id === word.family?.id);
+      const alike = data.lexicon.families.find((f) => f.id === family?.soundAlike);
+      const head = alike ? raw.words.get(alike.head)?.lemma.toLowerCase() : undefined;
+      const sounds = head !== undefined && others.some((o) => o.toLowerCase().endsWith(head));
+      const own = new Set(writtenRaw(word).map((text) => text.toLowerCase()));
+      const written = inSentence.some(
+        (token) =>
+          !own.has(token.toLowerCase()) &&
+          (raw.spellings.has(token) || raw.spellings.has(token.toLowerCase())),
+      );
+      return point.at > 0 && 'blmpsvz'.includes(before!) && !twin && !sounds && !written
+        ? {
+            kind: 'not-listed',
+            word: word.id,
+            span: [point.at, point.at + [...point.correct].length],
+          }
         : ruleHint;
     }
     case 'parova':
@@ -264,9 +301,14 @@ function expectedHint(
     case 'mne-zajmeno':
       return gap?.case !== undefined ? { kind: 'case-question', case: gap.case } : ruleHint;
     case 'shoda': {
-      const subject = gap?.subjects?.[0];
-      const gender = subject === undefined ? undefined : sentence?.tokens?.[subject]?.gender;
-      return gender !== undefined ? { kind: 'ten-ta-to', gender } : ruleHint;
+      // One subject's test: ti, ty, ta for a plural one (ty děti → -y), never to dítě. Several
+      // subjects (delfíni a želvy) get the rule line.
+      if (gap?.subjects?.length !== 1) return ruleHint;
+      const token = sentence?.tokens?.[gap.subjects[0]!];
+      if (token?.gender === undefined) return ruleHint;
+      return token.number === 'pl'
+        ? { kind: 'ten-ta-to', gender: token.gender, plural: true }
+        : { kind: 'ten-ta-to', gender: token.gender };
     }
     case 'vzor':
       return word?.noun?.pattern ? { kind: 'pattern', pattern: word.noun.pattern } : ruleHint;
@@ -503,6 +545,15 @@ function sentenceGap(data: ContentData, filled: Filled, index: number, gap: Gap)
       ? null
       : (word?.spelling?.find((p) => p.at === annotation.point) ?? null);
   const parsed = filled.parsed.gaps[index]!;
+  // The gap's word as its sentence writes it, with each alternative in the gap.
+  const start = filled.starts[index]!;
+  const inSentence = parsed.alternatives.map((alt) => {
+    const text =
+      filled.plain.slice(0, start) + alt + filled.plain.slice(start + parsed.correct.length);
+    const from = text.lastIndexOf(' ', start - 1) + 1;
+    const to = text.indexOf(' ', start + alt.length);
+    return text.slice(from, to === -1 ? undefined : to).replace(/[^\p{L}\p{N}]+$/u, '');
+  });
   return {
     gap,
     kind: 'sentence',
@@ -514,7 +565,7 @@ function sentenceGap(data: ContentData, filled: Filled, index: number, gap: Gap)
     alternatives: parsed.alternatives,
     rule: annotation.rule,
     item: sentenceItem(filled.sentence, index),
-    hint: expectedHint(data, annotation.rule, word, point, annotation, filled.sentence),
+    hint: expectedHint(data, annotation.rule, word, point, annotation, filled.sentence, inSentence),
   };
 }
 
@@ -551,6 +602,8 @@ function locateSentence(data: ContentData, problem: GapsProblem, say: Say): Loca
 /**
  * The fix of a mistake: the shown sentence must be the sentence with exactly one authored
  * alternative swapped in, the wrong token the one holding it, and the fix must give it back.
+ * Each token's punctuation is its mark (`marks`): tokens start and end with a letter or digit, and
+ * marks are punctuation only; only a slip in punctuation itself keeps the marks in its tokens.
  */
 function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Located[] {
   const filled = rawOf(data).sentences.get(problem.sentence);
@@ -558,7 +611,10 @@ function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Lo
     say('mistake', `no sentence ${problem.sentence}`);
     return [];
   }
-  const shown = problem.tokens.join(' ');
+  const marks = problem.marks;
+  const join = (tokens: readonly string[]) =>
+    tokens.map((token, i) => `${token}${marks?.[i] ?? ''}`).join(' ');
+  const shown = join(problem.tokens);
   const swaps: { index: number; alt: string }[] = [];
   filled.parsed.gaps.forEach((gap, index) => {
     const start = filled.starts[index]!;
@@ -577,13 +633,22 @@ function locateMistake(data: ContentData, problem: MistakeProblem, say: Say): Lo
   const token = shown.slice(0, filled.starts[index]).split(' ').length - 1;
   if (problem.wrong !== token) say('mistake', `wrong is ${problem.wrong}, the slip is in ${token}`);
   if (problem.tokens.some((t) => t.length === 0)) say('mistake', `an empty token in "${shown}"`);
+  if (marks === undefined) {
+    // Only a slip in punctuation (an end mark) leaves the marks in the tokens.
+    if (!/[^\p{L}\p{N}\s]/u.test(`${alt}${correct}`)) say('mistake', `no marks in "${shown}"`);
+  } else {
+    const bare = /^[\p{L}\p{N}](?:.*[\p{L}\p{N}])?$/u;
+    const strays = problem.tokens.filter((t) => !bare.test(t));
+    if (strays.length > 0) say('mistake', `tokens holding marks: ${strays.join(' ')}`);
+    if (marks.some((m) => !/^[^\p{L}\p{N}\s]{0,4}$/u.test(m))) say('mistake', `marks ${marks}`);
+  }
   const [before, after] = problem.around;
   if (`${before}${alt}${after}` !== problem.tokens[problem.wrong]) {
     say('mistake', `around ${JSON.stringify(problem.around)} is not the wrong token's`);
   }
-  const fixed = problem.tokens
-    .map((t, i) => (i === problem.wrong ? `${before}${correct}${after}` : t))
-    .join(' ');
+  const fixed = join(
+    problem.tokens.map((t, i) => (i === problem.wrong ? `${before}${correct}${after}` : t)),
+  );
   if (fixed !== filled.plain) say('mistake', `the fix gives "${fixed}", not "${filled.plain}"`);
   if (problem.fix.correct !== correct) say('mistake', `the fix is "${problem.fix.correct}"`);
   return [sentenceGap(data, filled, index, problem.fix)];
@@ -704,6 +769,10 @@ function checkGap(c: Case, where: Located, say: Say): void {
   const stray = keys.filter((key) => key !== where.correct && !where.alternatives.includes(key));
   if (stray.some((key) => !pad.includes(key))) {
     say('keys', `${label}: ${stray} are no keys of the ${where.rule} pad`);
+  }
+  // Own options (a whole word, an end mark) in a fixed order: the answer's place tells nothing.
+  if (!pad.includes(where.correct) && !isDeepStrictEqual(keys, [...keys].sort(ownKeyOrder))) {
+    say('keys', `${label}: the own options ${keys} are not in the fixed order`);
   }
 
   if (!isDeepStrictEqual(gap.hint, where.hint)) {
@@ -1196,37 +1265,74 @@ describe('the tokens of a mistake (mistakeTokens)', () => {
   it('split the shown sentence at spaces and find the wrong token and the text around the slip', () => {
     const ticho = made('T{i|y}chá r{y|i}ba spí pod kamenem.');
     expect(mistakeTokens(ticho, 0, 'y')).toEqual({
-      tokens: ['Tychá', 'ryba', 'spí', 'pod', 'kamenem.'],
+      tokens: ['Tychá', 'ryba', 'spí', 'pod', 'kamenem'],
+      marks: ['', '', '', '', '.'],
       index: 0,
       around: ['T', 'chá'],
     });
     expect(mistakeTokens(ticho, 1, 'i')).toEqual({
-      tokens: ['Tichá', 'riba', 'spí', 'pod', 'kamenem.'],
+      tokens: ['Tichá', 'riba', 'spí', 'pod', 'kamenem'],
+      marks: ['', '', '', '', '.'],
       index: 1,
       around: ['r', 'ba'],
     });
     expect(mistakeTokens(made('Řeka {V|v}ltava teče přes celé Čechy.'), 0, 'v')).toEqual({
-      tokens: ['Řeka', 'vltava', 'teče', 'přes', 'celé', 'Čechy.'],
+      tokens: ['Řeka', 'vltava', 'teče', 'přes', 'celé', 'Čechy'],
+      marks: ['', '', '', '', '', '.'],
       index: 1,
       around: ['', 'ltava'],
     });
     expect(mistakeTokens(made('Na pláži stojí písečný hra{d|t}.'), 0, 't')).toEqual({
-      tokens: ['Na', 'pláži', 'stojí', 'písečný', 'hrat.'],
+      tokens: ['Na', 'pláži', 'stojí', 'písečný', 'hrat'],
+      marks: ['', '', '', '', '.'],
       index: 4,
-      around: ['hra', '.'],
+      around: ['hra', ''],
     });
   });
 
-  it("keep a slip's own space inside its token, and an end mark with its word", () => {
+  it('give each token its punctuation as its mark: the comma of address, of clauses, the end mark', () => {
+    // S3's Czech QA: ~dosita.~ and the fix dos[ ]ta. showed the end mark as part of the word.
+    expect(mistakeTokens(made('Krabe, pojď sem, r{y|i}chle!'), 0, 'i')).toEqual({
+      tokens: ['Krabe', 'pojď', 'sem', 'richle'],
+      marks: [',', '', ',', '!'],
+      index: 3,
+      around: ['r', 'chle'],
+    });
+    expect(mistakeTokens(made('Vlk se najedl dos{y|i}ta.'), 0, 'i')).toEqual({
+      tokens: ['Vlk', 'se', 'najedl', 'dosita'],
+      marks: ['', '', '', '.'],
+      index: 3,
+      around: ['dos', 'ta'],
+    });
+  });
+
+  it("keep a slip's own space inside its token, and the marks in the tokens when the slip is a mark or a token starts with one", () => {
     expect(mistakeTokens(made('Delfín {odplaval|od plaval} od lodi.'), 0, 'od plaval')).toEqual({
-      tokens: ['Delfín', 'od plaval', 'od', 'lodi.'],
+      tokens: ['Delfín', 'od plaval', 'od', 'lodi'],
+      marks: ['', '', '', '.'],
       index: 1,
       around: ['', ''],
     });
+    // A slip in the end mark itself: the wrong token is the word with its mark.
     expect(mistakeTokens(made('Kdo to tam plave{?|.}'), 0, '.')).toEqual({
       tokens: ['Kdo', 'to', 'tam', 'plave.'],
+      marks: null,
       index: 3,
       around: ['plave', ''],
+    });
+    // An opening quote has no token before it to follow.
+    expect(mistakeTokens(made('Řekl: „P{y|i}šný krab.“'), 0, 'i')).toEqual({
+      tokens: ['Řekl:', '„Pišný', 'krab.“'],
+      marks: null,
+      index: 1,
+      around: ['„P', 'šný'],
+    });
+    // A mark longer than the contract's 4 characters.
+    expect(mistakeTokens(made('R{y|i}ba plave.....'), 0, 'i')).toEqual({
+      tokens: ['Riba', 'plave.....'],
+      marks: null,
+      index: 0,
+      around: ['R', 'ba'],
     });
   });
 });
@@ -1329,7 +1435,8 @@ describe('distractors (design §6.6)', () => {
       ['parova', 'ch', ['h'], ['h', 'ch']],
       ['parova', 's', ['z'], ['s', 'z']],
       ['velke-pismeno', 'V', ['v'], ['v', 'V']],
-      ['interpunkce', '?', ['.'], ['.', '?', '!', ',']],
+      ['interpunkce', '?', ['.'], ['.', '?']],
+      ['interpunkce', '!', ['?'], ['?', '!']],
       ['spojka', 'ale', ['a', 'protože'], ['ale', 'a', 'protože']],
       ['predpona-predlozka', 'odplavala', ['od plavala'], ['odplavala', 'od plavala']],
       ['spisovne', 'mléko', ['mlíko'], ['mléko', 'mlíko']],
@@ -1339,6 +1446,27 @@ describe('distractors (design §6.6)', () => {
       expect(czech(keys), `${rule} ${correct}`).toEqual(czech(pad));
       expect(new Set(keys).size).toBe(keys.length);
     }
+  });
+
+  it("lists a gap's own options in one order whichever is right, end marks . ? ! first", () => {
+    // After a command a full stop is right too (Zavři dveře.), so the end mark pad is the gap's own.
+    expect(padKeys('interpunkce', '?', ['.'])).toEqual(['.', '?']);
+    expect(padKeys('interpunkce', '.', ['?'])).toEqual(['.', '?']);
+    expect(padKeys('interpunkce', '!', ['?'])).toEqual(['?', '!']);
+    expect(padKeys('interpunkce', ',', ['.'])).toEqual(['.', ',']);
+    // A whole word never stands first because it is the answer.
+    expect(padKeys('spojka', 'protože', ['ale'])).toEqual(['ale', 'protože']);
+    expect(padKeys('spojka', 'ale', ['protože'])).toEqual(['ale', 'protože']);
+    expect(padKeys('spojka', 'když', ['že'])).toEqual(['když', 'že']);
+    expect(padKeys('spojka', 'že', ['když'])).toEqual(['když', 'že']);
+    expect(padKeys('spisovne', 'mlíko', ['mléko'])).toEqual(
+      padKeys('spisovne', 'mléko', ['mlíko']),
+    );
+    expect(padKeys('predpona-predlozka', 'od plavala', ['odplavala'])).toEqual(
+      padKeys('predpona-predlozka', 'odplavala', ['od plavala']),
+    );
+    // A rule's own pad keeps its order (i í y ý), its answer anywhere on it.
+    expect(padKeys('tvrda', 'y', ['i'])).toEqual(['i', 'í', 'y', 'ý']);
   });
 });
 
@@ -1439,14 +1567,77 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the rhyme of the letter before an obojetna-i gap, when it has one', () => {
-    expect(hint(mini, 'biit')).toEqual({ kind: 'listed', letter: 'b' });
+  it('say after a listed letter that an obojetna-i word is not listed, shown with its gap, never the rhyme of y-words', () => {
+    // S3's Czech QA: the rhyme lists only y-words, so for an i it points the wrong way, and a
+    // look-alike in it (být for bít) confirms the slip. The shell shows b_lý, never bílý.
+    const bily = made('biilyy', 'bílý', {
+      spelling: [{ at: 1, correct: 'í', alt: ['ý'], rule: 'obojetna-i' }],
+    });
+    expect(gapHint(mini, 'obojetna-i', bily, bily.spelling![0]!, null)).toEqual({
+      kind: 'not-listed',
+      word: 'biilyy',
+      span: [1, 2],
+    });
+    // b_t is být too, a listed word: the rule line, which tells such words apart by meaning.
+    expect(hint(mini, 'biit')).toEqual({ kind: 'rule', rule: 'obojetna-i' });
+    // After f, which lists no words: the rule line.
     const fialka = made('fialka', 'fialka');
     const point: SpellingPoint = { at: 1, correct: 'i', alt: ['y'], rule: 'obojetna-i' };
     expect(gapHint(mini, 'obojetna-i', fialka, point, null)).toEqual({
       kind: 'rule',
       rule: 'obojetna-i',
     });
+    expect(gapHint(mini, 'obojetna-i', null, null, null)).toEqual({
+      kind: 'rule',
+      rule: 'obojetna-i',
+    });
+  });
+
+  it('in the game, give the rule line to the obojetna-i words whose other letter makes another word', () => {
+    // S3's count: 48 obojetna-i words after a listed letter. These spell a word of the lexicon
+    // with the point's alternative (bít → být, vír → výr …) or end like the head of their
+    // sound-alike family (nabít → nabýt, rozbít → rozbýt: from být, decided by meaning, IJP).
+    const twins = new Set<string>();
+    let notListed = 0;
+    for (const entry of real.lexicon.words) {
+      for (const point of entry.spelling ?? []) {
+        if (point.rule !== 'obojetna-i' || point.at === 0) continue;
+        if (!'blmpsvz'.includes([...entry.lemma.toLowerCase()][point.at - 1]!)) continue;
+        const found = gapHint(real, 'obojetna-i', entry, point, null);
+        if (found.kind === 'not-listed') notListed += 1;
+        else twins.add(entry.lemma);
+      }
+    }
+    expect([...twins].sort()).toEqual(
+      ['bidlo', 'bít', 'dobít', 'mít', 'nabít', 'rozbít', 'sírový', 'vír', 'vískat', 'vít'].sort(),
+    );
+    expect(notListed).toBeGreaterThanOrEqual(35);
+    // bitva, mlít, vířit and zvířit stay not listed: bytva, mlýt, výřit end like no head.
+    for (const lemma of ['bitva', 'mlít', 'vířit', 'zvířit']) {
+      const entry = real.lexicon.words.find((w) => w.lemma === lemma);
+      expect(entry, lemma).toBeDefined();
+      const point = entry!.spelling!.find((p) => p.rule === 'obojetna-i')!;
+      expect(gapHint(real, 'obojetna-i', entry!, point, null).kind, lemma).toBe('not-listed');
+    }
+  });
+
+  it('in the game, give the rule line in a sentence whose word with the other letter is another word', () => {
+    // alike.25: Na stožáru v_sela pirátská vlajka. visela (viset) or vysela (vysít): naming the
+    // lemma v_set would give the answer. Every other such sentence gap is decided by its word.
+    const words = new Map(real.lexicon.words.map((w) => [w.id, w]));
+    const changed: string[] = [];
+    for (const parsed of lexiconIndex(real).sentences.values()) {
+      parsed.sentence.gaps.forEach((gap) => {
+        if (gap.rule !== 'obojetna-i' || gap.word === null || gap.point === undefined) return;
+        const entry = words.get(gap.word);
+        const point = entry?.spelling?.find((p) => p.at === gap.point);
+        if (entry === undefined || point === undefined) return;
+        const alone = gapHint(real, 'obojetna-i', entry, point, null);
+        const there = gapHint(real, 'obojetna-i', entry, point, { parsed, gap });
+        if (alone.kind !== there.kind) changed.push(`${parsed.sentence.id} ${there.kind}`);
+      });
+    }
+    expect(changed).toEqual(['alike.25 rule']);
   });
 
   it('show a test word for parova and u-uprostred', () => {
@@ -1460,7 +1651,7 @@ describe('hints (design §5.3)', () => {
     });
   });
 
-  it('show the case question for mne-zajmeno, ten-ta-to for shoda, the pattern for vzor', () => {
+  it('show the case question for mne-zajmeno, ti-ty-ta for one plural subject of shoda and the rule for several, the pattern for vzor', () => {
     const dej = {
       sentence: {
         id: 's.dej',
@@ -1484,7 +1675,43 @@ describe('hints (design §5.3)', () => {
     const ryby = lexiconIndex(mini).sentences.get('s.ryby-1')!;
     expect(
       gapHint(mini, 'shoda', null, null, { parsed: ryby, gap: ryby.sentence.gaps[0]! }),
+    ).toEqual({ kind: 'ten-ta-to', gender: 'f', plural: true });
+    // A singular subject keeps ten, ta, to.
+    const singular = {
+      ...ryby,
+      sentence: {
+        ...ryby.sentence,
+        tokens: ryby.sentence.tokens!.map((token, at) =>
+          at === 0 ? { ...token, number: 'sg' as const } : token,
+        ),
+      },
+    } as ParsedSentence;
+    expect(
+      gapHint(mini, 'shoda', null, null, { parsed: singular, gap: ryby.sentence.gaps[0]! }),
     ).toEqual({ kind: 'ten-ta-to', gender: 'f' });
+    // Several subjects are not decided word by word (ti delfíni a ty želvy): the rule line.
+    const text = 'Delfíni a želvy plaval{i|y} spolu.';
+    const both = {
+      sentence: {
+        id: 's.both',
+        grade: 4,
+        topics: [],
+        text,
+        gaps: [{ rule: 'shoda', word: null, subjects: [0, 2] }],
+        tokens: [
+          { t: 'Delfíni', pos: 'noun', number: 'pl', gender: 'ma', member: 'subject' },
+          { t: 'a', pos: 'conj' },
+          { t: 'želvy', pos: 'noun', number: 'pl', gender: 'f', member: 'subject' },
+          { t: 'plavali', pos: 'verb', number: 'pl', member: 'predicate' },
+          { t: 'spolu', pos: 'adv' },
+        ],
+      },
+      parsed: parseGappedText(text),
+      words: ['Delfíni', 'a', 'želvy', 'plavali', 'spolu'],
+    } as unknown as ParsedSentence;
+    expect(
+      gapHint(mini, 'shoda', null, null, { parsed: both, gap: both.sentence.gaps[0]! }),
+    ).toEqual({ kind: 'rule', rule: 'shoda' });
     const stroj = made('stroj', 'stroj', {
       noun: { gender: 'm', animate: false, numbers: 'both', pattern: 'stroj' },
     });

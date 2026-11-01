@@ -35,9 +35,13 @@ const text = createContentText({
     'grammar.rule.vyjm': 'Vyjmenovaná slova a slova příbuzná píšeme s y.',
     'grammar.case-question.2': 'koho? čeho?',
     'grammar.pattern.hrad': 'hrad',
+    'grammar.method.case': 'Zkus pádové otázky.',
   },
   en: {},
 });
+
+/** The lemmas of the lexicon words the hints below name. */
+const lemmaOf = (word: string): string | null => ({ biilyy: 'bílý' })[word] ?? null;
 
 function blots(element: HTMLElement): { state: string; text: string }[] {
   return [...element.querySelectorAll<HTMLElement>('.ps-blot')].map((blot) => ({
@@ -229,6 +233,37 @@ describe('the problem on screen', () => {
     expect(blots(fix)).toEqual([{ state: 'current', text: '\u00a0' }]);
   });
 
+  it('writes the punctuation given beside the tokens after them, outside the highlight', () => {
+    const address = problemView({
+      ...PLAVE,
+      context: { tokens: ['Delfíne', 'skoč'], at: 0, marks: [',', '!'] },
+    });
+    const shown = problemDisplay(address, t);
+    expect(shown.querySelector('.ps-problem__mark')?.textContent).toBe('Delfíne');
+    expect(shown.textContent).toBe('Delfíne, skoč!');
+    expect(spokenProblem(address, t)).toBe(`${t('round.classify.pos')} Delfíne, skoč!`);
+
+    const hunt: MistakeProblem = {
+      ...MLIN,
+      tokens: ['Stojí', 'tu', 'mlín'],
+      marks: ['', '', '.'],
+      wrong: 2,
+      around: ['ml', 'n'],
+    };
+    expect(stepAnswer(problemView(hunt, { step: 0 }), text)).toEqual({
+      kind: 'pick',
+      words: ['Stojí', 'tu', 'mlín'],
+      inSentence: true,
+      marks: ['', '', '.'],
+    });
+    expect(problemDisplay(problemView(hunt, { step: 0 }), t).textContent).toBe('Stojí tu mlín.');
+    const fix = problemDisplay(problemView(hunt, { step: 1 }), t);
+    expect(fix.querySelector('.ps-problem__fix')?.textContent).toBe('ml\u00a0n');
+    expect(fix.textContent).toBe('Stojí tu ml\u00a0n.');
+    expect(spokenProblem(problemView(hunt, { step: 0 }), t)).toBe(
+      `${t('round.prompt.find')} Stojí tu mlín.`,
+    );
+  });
   it('highlights the word to classify in its sentence, or a part of a word', () => {
     const inSentence = problemDisplay(problemView(PLAVE), t);
     expect(inSentence.querySelector('.ps-problem__mark')?.textContent).toBe('plave');
@@ -294,29 +329,45 @@ describe('answers and hints in words', () => {
   });
 
   it('turns every kind of hint into a strategy line', () => {
-    expect(hintText({ kind: 'family', word: 'mlyn', related: 'mlynář' }, t, text)).toContain(
-      'mlynář',
-    );
-    expect(hintText({ kind: 'test-word', word: 'hrad', test: 'hrady' }, t, text)).toContain(
-      'hrady',
-    );
-    expect(hintText({ kind: 'listed', letter: 'm' }, t, text)).toBe(
+    expect(
+      hintText({ kind: 'family', word: 'mlyn', related: 'mlynář' }, t, text, lemmaOf),
+    ).toContain('mlynář');
+    expect(
+      hintText({ kind: 'test-word', word: 'hrad', test: 'hrady' }, t, text, lemmaOf),
+    ).toContain('hrady');
+    expect(hintText({ kind: 'listed', letter: 'm' }, t, text, lemmaOf)).toBe(
       'Po m píšeme y ve vyjmenovaných slovech: my, mýt, myš…',
     );
-    expect(hintText({ kind: 'ten-ta-to', gender: 'f' }, t, text)).toBe(t('hint.tenTaTo'));
-    expect(hintText({ kind: 'case-question', case: 2 }, t, text)).toBe('koho? čeho?');
-    expect(hintText({ kind: 'pattern', pattern: 'hrad' }, t, text)).toContain('hrad');
+    expect(hintText({ kind: 'ten-ta-to', gender: 'f' }, t, text, lemmaOf)).toBe(t('hint.tenTaTo'));
+    expect(hintText({ kind: 'case-question', case: 2 }, t, text, lemmaOf)).toBe('koho? čeho?');
+    expect(hintText({ kind: 'pattern', pattern: 'hrad' }, t, text, lemmaOf)).toContain('hrad');
     // Czech typesetting keeps one-letter words with the next word (a slova, s y).
-    expect(hintText({ kind: 'rule', rule: 'vyjm' }, t, text)).toBe(
+    expect(hintText({ kind: 'rule', rule: 'vyjm' }, t, text, lemmaOf)).toBe(
       'Vyjmenovaná slova a\u00a0slova příbuzná píšeme s\u00a0y.',
     );
   });
 
+  it('turns the newer hints into lines too: a method, a plural agreement, a word not listed', () => {
+    expect(hintText({ kind: 'method', method: 'case' }, t, text, lemmaOf)).toBe(
+      'Zkus pádové otázky.',
+    );
+    expect(hintText({ kind: 'method', method: 'mood' }, t, text, lemmaOf)).toBeNull();
+    expect(hintText({ kind: 'ten-ta-to', gender: 'f', plural: true }, t, text, lemmaOf)).toBe(
+      'Řekni si: ti, ty, nebo ta?',
+    );
+    // The word that is not listed is shown with its gap blanked: spelled out, it is the answer.
+    expect(hintText({ kind: 'not-listed', word: 'biilyy', span: [1, 2] }, t, text, lemmaOf)).toBe(
+      'Slovo b_lý mezi vyjmenovanými není.',
+    );
+    expect(
+      hintText({ kind: 'not-listed', word: 'neznamy', span: [1, 2] }, t, text, lemmaOf),
+    ).toBeNull();
+  });
   it('leaves out a hint whose words the pack lacks, never failing the round', () => {
-    expect(hintText({ kind: 'rule', rule: 'u-prejate' }, t, text)).toBeNull();
-    expect(hintText({ kind: 'pattern', pattern: 'zena' }, t, text)).toBeNull();
-    expect(hintText({ kind: 'case-question', case: 7 }, t, text)).toBeNull();
-    expect(hintText({ kind: 'listed', letter: 'z' }, t, text)).toBeNull();
-    expect(hintText({ kind: 'ten-ta-to', gender: 'f' }, t, text)).toBe(t('hint.tenTaTo'));
+    expect(hintText({ kind: 'rule', rule: 'u-prejate' }, t, text, lemmaOf)).toBeNull();
+    expect(hintText({ kind: 'pattern', pattern: 'zena' }, t, text, lemmaOf)).toBeNull();
+    expect(hintText({ kind: 'case-question', case: 7 }, t, text, lemmaOf)).toBeNull();
+    expect(hintText({ kind: 'listed', letter: 'z' }, t, text, lemmaOf)).toBeNull();
+    expect(hintText({ kind: 'ten-ta-to', gender: 'f' }, t, text, lemmaOf)).toBe(t('hint.tenTaTo'));
   });
 });

@@ -91,6 +91,24 @@
       "src": ["ijp-181"]
     },
     {
+      "id": "bublinka",
+      "lemma": "bublinka",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "note": "malá bublina ve vodě; jiné je Bublinka, jméno ponorky, a proto se Bublinka ptá jen ve větě",
+      "src": ["ssjc", "morfflex"]
+    },
+    {
+      "id": "osmicxka",
+      "lemma": "osmička",
+      "pos": "noun",
+      "gender": "f",
+      "pattern": "zena",
+      "note": "číslice osm; jiné je Osmička, jméno profesorky, a proto se Osmička ptá jen ve větě",
+      "src": ["ssjc", "morfflex"]
+    },
+    {
       "id": "praha",
       "lemma": "Praha",
       "pos": "noun",

@@ -4,7 +4,8 @@
  *
  * The options are the skill's `values` (every value of the dimension when it lists none) in the
  * dimension's school order (`DIMENSION_VALUES`), never shuffled, so each value keeps its place on
- * screen. The target is shown as the child reads it: the letter, the word, the form, the token in
+ * screen. The target is shown as the child reads it: the letter, the word (a verb asked for its
+ * reflexive pronoun without it: bát), the form, the token in
  * its sentence (`context`), a part of a word as its `span` (a zero ending is the empty span after
  * the last letter), or the sentence itself (for `sentence-kind` without its end mark, which would
  * give the kind away).
@@ -13,7 +14,7 @@ import type { DeepReadonly } from '@aegis/runtime';
 import { DIMENSION_VALUES } from '../../contract';
 import type { ClassifyProblem, Dimension, Skill } from '../../contract';
 import { classHint } from '../hints';
-import { classTarget } from '../item-info';
+import { classTarget, reflexiveClash, wordText } from '../item-info';
 import type { ClassTarget } from '../item-info';
 import { unambiguous } from './companions';
 import { cannotPractise } from './shared';
@@ -45,6 +46,35 @@ export function sentenceTarget(plain: string, dimension: Dimension): string {
   return dimension === 'sentence-kind' ? text.replace(/[\s.?!…]+$/u, '') : text;
 }
 
+/** The longest punctuation a token is followed by (`marks`, contract §5.1). */
+const MAX_MARK = 4;
+
+/**
+ * The punctuation written right after each token of a sentence (`''` for none), read from its
+ * filled text: _Delfíne, skoč!_ with the tokens Delfíne, skoč gives `,` and `!`. `null` when the
+ * tokens do not line up with the text, or something other than punctuation stands between them.
+ */
+export function tokenMarks(plain: string, tokens: readonly string[]): string[] | null {
+  const between = (text: string): string | null => {
+    const mark = text.replace(/\s+/gu, '');
+    return /^[^\p{L}\p{N}]*$/u.test(mark) && [...mark].length <= MAX_MARK ? mark : null;
+  };
+  const marks: string[] = [];
+  let cursor = 0;
+  for (const [index, token] of tokens.entries()) {
+    const at = plain.indexOf(token, cursor);
+    if (at === -1) return null;
+    const before = between(plain.slice(cursor, at));
+    if (before === null || (index === 0 && before !== '')) return null;
+    if (index > 0) marks.push(before);
+    cursor = at + token.length;
+  }
+  const last = between(plain.slice(cursor));
+  if (last === null) return null;
+  marks.push(last);
+  return marks;
+}
+
 /** How a target is shown: `target`, `context` and `span`, or `null` when it cannot be shown. */
 function shown(
   target: ClassTarget,
@@ -55,7 +85,7 @@ function shown(
       return { target: { word: null, text: target.letter }, context: null, span: null };
     case 'word':
       return {
-        target: { word: target.word.id, text: target.word.lemma },
+        target: { word: target.word.id, text: wordText(target.word, dimension) },
         context: null,
         span: null,
       };
@@ -79,9 +109,11 @@ function shown(
       ) {
         return null;
       }
+      const marks = tokenMarks(target.sentence.parsed.plain, tokens);
       return {
         target: { word: target.token.word ?? null, text: target.token.t },
-        context: { tokens, at: target.index },
+        context:
+          marks === null ? { tokens, at: target.index } : { tokens, at: target.index, marks },
         span: null,
       };
     }
@@ -96,12 +128,20 @@ function shown(
 /**
  * Whether the skill can ask `item`: a target the lexicon has, shown within bounds, its value
  * offered; a word on its own (or a part of it) never written like another lexicon word, whose
- * value could differ (stát, the noun and the verb).
+ * value could differ (stát, the noun and the verb); a verb asked for its reflexive pronoun never
+ * shown bare like another verb with another one (hrát, hrát si).
  */
 export function classifyServable(data: Data, params: Params, item: string): boolean {
   const target = classTarget(data, item);
   if (target === null) return false;
   if ((target.kind === 'word' || target.kind === 'segment') && !unambiguous(data, target.word)) {
+    return false;
+  }
+  if (
+    params.dimension === 'reflexive' &&
+    target.kind === 'word' &&
+    reflexiveClash(data, target.word)
+  ) {
     return false;
   }
   const options = classifyOptions(params);

@@ -535,8 +535,8 @@
             "verbs.04",
             "verbs.05",
             "verbs.06",
-            "verbs.07",
-            "verbs.08"
+            "verbs.31",
+            "verbs.32"
           ],
           "grades": [3]
         },
@@ -562,15 +562,15 @@
             "verbs.05",
             "verbs.06",
             "verbs.07",
-            "verbs.08",
             "verbs.09",
-            "verbs.10",
             "verbs.11",
             "verbs.12",
             "verbs.13",
             "verbs.14",
             "verbs.15",
-            "verbs.16"
+            "verbs.16",
+            "verbs.31",
+            "verbs.32"
           ],
           "grades": [3]
         },
@@ -590,15 +590,15 @@
         "sentences": {
           "sentences": [
             "verbs.07",
-            "verbs.08",
             "verbs.09",
-            "verbs.10",
             "verbs.11",
             "verbs.12",
             "verbs.13",
             "verbs.14",
             "verbs.15",
-            "verbs.16"
+            "verbs.16",
+            "verbs.31",
+            "verbs.32"
           ],
           "grades": [3]
         },
@@ -662,7 +662,6 @@
             "kind.08",
             "kind.09",
             "kind.10",
-            "kind.11",
             "kind.12",
             "kind.13",
             "kind.14",

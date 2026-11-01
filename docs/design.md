@@ -425,9 +425,14 @@ word of a list). **Minigames** (`memory-match`, `pearl-necklace`, `fishing-nets`
   _i í y ý_ (listed words, hard and soft consonants, pattern endings); _i y a_ (agreement);
   _e é ě je_ (_dě, bě, bje_); _mě mně_; _u ú ů_; a vowel's short and long form; a consonant pair
   (_d t_, _s z_); the small and capital letter; the writings together and apart; a seam's letters;
-  `.` `?` `!` and the comma (`interpunkce`); the conjunctions offered (`spojka`).
+  the gap's own end marks (`interpunkce`: a question's _? ._, a command's or wish's _! ?_; never all
+  four, since after a command a full stop is right too); the conjunctions offered (`spojka`). A
+  gap's own options (end marks, conjunctions, whole words) stand in a fixed order, so the answer's
+  place tells nothing.
 - **`typed`**: the Czech on-screen keyboard, QWERTZ with _ě š č ř ž ý á í é ú ů ď ť ň_, Shift and
-  space. Typed text is compared after NFC and trimming; case counts (`normalizeTyped`).
+  space. Typed text is compared after NFC and trimming; case counts (`normalizeTyped`). A gap that
+  is a whole word (a conjunction, _mě/mně_, a word with or without a space, a standard word) is
+  never typed: the child could not know which word to type, and another may be right too.
 
 `auto` resolves from the item's box: choice in boxes 0-1, letters from box 2 _(balance
 `input.lettersFromBox`, Dragon Valley's `keypadFromBox`)_, typed from box 4 _(`input.typedFromBox`)_.
@@ -441,20 +446,31 @@ choices and pad keys, letters type, Enter confirms, Backspace deletes.
 A `hint` shows the strategy, not just the answer. Hints are free, never reduce rewards, and come on
 request (_Poraď mi!_), after a miss, before a re-ask and before a taught problem (§6.4).
 
-| Hint            | Shows                                   | Example                                    |
-| --------------- | --------------------------------------- | ------------------------------------------ |
-| `family`        | a related word that proves the spelling | _mlýn → mlynář_; _zapomenout → zapomněl_   |
-| `test-word`     | a form that makes the sound clear       | _hrad → hrady_, _led → ledy_, _dům → domy_ |
-| `listed`        | the school rhyme of a letter            | _být, bydlit, obyvatel, byt, příbytek…_    |
-| `ten-ta-to`     | the gender test                         | _ten pes, ta ryba, to moře_                |
-| `case-question` | the case question                       | _komu? čemu? → Dej to mně._                |
-| `pattern`       | the pattern and its ending              | _o hradech, o strojích_                    |
-| `rule`          | the rule in one line                    | _Po h, ch, k, r, d, t, n píšeme y._        |
+| Hint            | Shows                                   | Example                                                    |
+| --------------- | --------------------------------------- | ---------------------------------------------------------- |
+| `family`        | a related word that proves the spelling | _mlýn → mlynář_; _zapomenout → zapomněl_                   |
+| `test-word`     | a form that makes the sound clear       | _hrad → hrady_, _led → ledy_, _dům → domy_                 |
+| `listed`        | the school rhyme of a letter            | _být, bydlit, obyvatel, byt, příbytek…_                    |
+| `ten-ta-to`     | the gender test; for a plural subject   | _ten pes, ta ryba, to moře_; _ti, ty, ta_                  |
+| `case-question` | the case question                       | _komu? čemu? → Dej to mně._                                |
+| `pattern`       | the pattern and its ending              | _o hradech, o strojích_                                    |
+| `rule`          | the rule in one line                    | _Po h, ch, k, r, d, t, n píšeme y._                        |
+| `method`        | how to find the answer, step by step    | _the case questions in turn_                               |
+| `not-listed`    | the word is not listed, with its gap    | _Slovo b_lý není vyjmenované ani příbuzné s vyjmenovaným._ |
 
-`vyjm` uses the family word (the rhyme for a head word), `obojetna-i` the rhyme, `parova` and
-`u-uprostred` a test word, `mne-zajmeno` the case question, `shoda` the subject with _ten, ta, to_
-(_ti psi, ty kočky_), `vzor` the pattern, the rest the rule; classifications show the school
-question.
+`vyjm` uses the family word (the rhyme for a head word); `obojetna-i` after a listed letter says the
+word is not listed, shown with its gap, never spelled out (not the rhyme: it lists only y-words, and
+a look-alike in it, _být_ for _bít_, would confirm the slip), and elsewhere the rule line, as
+wherever the other letter makes another word: the word itself (_b_t_ is _být_ too), a word of its
+sound-alike family the lexicon may lack (_nab_t_: _nabýt_, from _být_; IJP decides prefixed verbs
+from _být_ and _bít_ by meaning), or the word as its sentence writes it (_v_sela_: _vysela_, of
+_vysít_), since the rule line tells such words apart by their meaning; `parova`
+and `u-uprostred` a test word, `mne-zajmeno` the case question, `shoda` the subject's test, _ti, ty,
+ta_ for a plural subject (_ti psi, ty kočky_; _ten, ta, to_ would give _to dítě_ for _děti_), and
+the rule line for several subjects (_delfíni a želvy_), which are not decided word by word; `vzor`
+the pattern, the rest the rule. Classifications show the gender test, or the method of the case,
+the pattern, the tense, the mood or the verb form (`grammar.method.<method>`): never the case
+question or the pattern, which name the answer. A sound-alike relation shows how such words differ.
 
 ### 5.4 Krmení (`feeding`): the core
 
@@ -480,7 +496,9 @@ steps train the fix's item. The mistake is always one of the sentence's annotate
 (`{correct|alt}`), a plausible slip, never a random typo. In Bouřlivé moře the slip can be a
 colloquial word in a standard sentence (`spisovne`: _Ke snídani mám mlíko._ → _mléko_). A tap on a
 right word says _Tohle slovo je v pořádku._, counts as a miss and the fix follows (as Dragon
-Valley's wrong operation pick). 4-6 sentences; `spell.mistake`.
+Valley's wrong operation pick). The words are the buttons; commas and end marks stand beside them,
+never inside: the child taps _dosita_, not _dosita._, and fixes _dos_ta_. 4-6 sentences;
+`spell.mistake`.
 
 ### 5.7 Určování (`analysis`)
 
@@ -827,7 +845,8 @@ something); _Pět inkoustíků_ adds the criterion `inkoustici-splashed`.
 Three quests a day (the `rewards` stream, from unlocked templates, never two alike): N right
 answers, N quick answers, feed N snacks, play a minigame, finish a level, N right in a row, and
 (new) splash an Inkoustík. Unclaimed quests are paid the next day. The **treasure chest** (_truhla
-s pokladem_) opens after the daily goal (default 30 right answers) with 2-6 coins _(`chest`)_.
+s pokladem_) opens after the daily goal (default 30 right answers) with 1-3 coins _(`chest`;
+Dragon Valley's 2-6 halved for the 50-80 coins a session of §8.1, balance-report.md §8)_.
 
 ### 8.5 Printables
 

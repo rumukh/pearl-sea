@@ -384,7 +384,11 @@
             "liipa",
             "klid",
             "list",
-            "lisxka"
+            "lisxka",
+            "bitva",
+            "bidlo",
+            "liinyy",
+            "pliice"
           ],
           "grades": [3]
         },
@@ -444,7 +448,6 @@
             "obydlii",
             "bydlo",
             "obyyvacii",
-            "pobyt",
             "byyvat",
             "ubytovat",
             "bystrxina",
@@ -472,7 +475,6 @@
             "obydlii",
             "bydlo",
             "obyyvacii",
-            "pobyt",
             "byyvat",
             "ubytovat",
             "bystrxina",
@@ -527,7 +529,7 @@
       "generator": "spell.word",
       "params": {
         "words": {
-          "words": ["biilyy", "obilii", "rozbiit", "nabiit", "biit", "bitva", "bidlo"],
+          "words": ["biilyy", "obilii", "rozbiit", "biit", "bitva", "bidlo"],
           "grades": [3]
         },
         "rules": ["obojetna-i"],
@@ -575,7 +577,8 @@
             "alike.05",
             "alike.18",
             "alike.20",
-            "alike.21"
+            "alike.21",
+            "vyjm-b.35"
           ],
           "grades": [3]
         },

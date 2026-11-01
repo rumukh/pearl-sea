@@ -610,7 +610,7 @@
     },
     {
       "id": "kind.19",
-      "text": "Ať najdeš tu nejkrásnější perlu{!|?}",
+      "text": "Kéž najdeš tu nejkrásnější perlu{!|?}",
       "kind": "wish",
       "clauses": 1,
       "gaps": [{ "rule": "interpunkce" }],
@@ -618,7 +618,7 @@
     },
     {
       "id": "kind.20",
-      "text": "Ať vyhraješ závod s delfíny{!|?}",
+      "text": "Kéž vyhraješ závod s delfíny{!|?}",
       "kind": "wish",
       "clauses": 1,
       "gaps": [{ "rule": "interpunkce" }],
@@ -670,7 +670,7 @@
     },
     {
       "id": "conj.05",
-      "text": "Krab plaval ke břehu, {ale|protože} vlny ho vracely.",
+      "text": "Krab plaval ke břehu, {ale|protože} vlny ho vracely zpátky.",
       "kind": "statement",
       "clauses": 2,
       "gaps": [{ "rule": "spojka", "word": "ale" }],

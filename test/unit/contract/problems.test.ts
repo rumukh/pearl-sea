@@ -9,6 +9,8 @@ import {
   classItem,
   expectedAnswer,
   gapItem,
+  grammarKeys,
+  hintSchema,
   isCorrectAnswer,
   itemIdSchema,
   pairItem,
@@ -18,7 +20,13 @@ import {
   relationItem,
   spellItem,
 } from '../../../src/rules/contract';
-import type { Gap, Problem } from '../../../src/rules/contract';
+import type {
+  ClassifyProblem,
+  Gap,
+  MistakeProblem,
+  Problem,
+  Skill,
+} from '../../../src/rules/contract';
 
 const gap = (over: Partial<Gap> = {}): Gap => ({
   correct: 'ý',
@@ -193,6 +201,74 @@ describe('problems', () => {
       expect(answerValueSchema.parse(value).ok, JSON.stringify(value)).toBe(true);
     }
     expect(answerValueSchema.parse({ kind: 'text', value: '' }).ok).toBe(false);
+  });
+
+  it('take the hints of §5.3: a method, the plural subject’s test, a word that is not listed', () => {
+    for (const hint of [
+      { kind: 'method', method: 'case' },
+      { kind: 'method', method: 'sound-alike' },
+      { kind: 'ten-ta-to', gender: 'n', plural: true },
+      { kind: 'ten-ta-to', gender: 'n' },
+      { kind: 'not-listed', word: 'biilyy', span: [1, 2] },
+    ]) {
+      const parsed = hintSchema.parse(hint);
+      expect(parsed.ok, JSON.stringify(hint)).toBe(true);
+      if (parsed.ok) expect(parsed.value).toEqual(hint);
+    }
+    for (const bad of [
+      { kind: 'method', method: 'gender' },
+      { kind: 'ten-ta-to', gender: 'n', plural: false },
+      { kind: 'not-listed', word: 'biilyy', span: [2, 2] },
+      { kind: 'not-listed', word: 'biilyy', span: [1, 70] },
+      { kind: 'not-listed', word: 'biilyy' },
+    ]) {
+      expect(hintSchema.parse(bad).ok, JSON.stringify(bad)).toBe(false);
+    }
+  });
+
+  it('carry the punctuation after each token: one entry per token, never a letter', () => {
+    const classify = problems[2] as ClassifyProblem;
+    const marked = (marks: string[]): Problem => ({
+      ...classify,
+      context: { ...classify.context!, marks },
+    });
+    expect(problemSchema.parse(marked(['', '', '.'])).ok).toBe(true);
+    expect(problemSchema.parse(marked(['', '.'])).ok, 'one entry short').toBe(false);
+    expect(problemSchema.parse(marked(['', 'a', '.'])).ok, 'a letter').toBe(false);
+    expect(problemSchema.parse(marked(['', ' ', '.'])).ok, 'a space').toBe(false);
+    const mistake = problems[5] as MistakeProblem;
+    const split: MistakeProblem = {
+      ...mistake,
+      tokens: ['Mlín', 'stojí', 'u', 'moře'],
+      marks: ['', '', '', '.'],
+    };
+    expect(problemSchema.parse(split).ok).toBe(true);
+    expect(problemSchema.parse({ ...split, marks: ['', '', '.'] }).ok).toBe(false);
+  });
+
+  it('need the content lines of the method hints its skills can show', () => {
+    const skill = (generator: string, params: object) =>
+      ({ id: 'sk.x', titleKey: 'skill.x', strand: 'nouns', generator, params }) as Skill;
+    const classify = (dimension: string) =>
+      skill('classify', {
+        dimension,
+        context: 'word',
+        words: {},
+        sentences: {},
+        values: null,
+        cells: null,
+      });
+    expect(grammarKeys(classify('case'))).toContain('grammar.method.case');
+    expect(grammarKeys(classify('pattern'))).toContain('grammar.method.pattern');
+    expect(
+      grammarKeys(classify('gender')).filter((key) => key.startsWith('grammar.method.')),
+    ).toEqual([]);
+    const relation = (relations: string[]) =>
+      skill('relation', { relations, words: {}, choices: 3 });
+    expect(grammarKeys(relation(['sound-alike', 'synonym']))).toContain(
+      'grammar.method.sound-alike',
+    );
+    expect(grammarKeys(relation(['synonym']))).not.toContain('grammar.method.sound-alike');
   });
 });
 

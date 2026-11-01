@@ -3,7 +3,7 @@
  * and the monster's ink blot last. Each node says its number, whether it is done (with its
  * stars), open or locked; the level the game suggests glows. A node opens the level's intro.
  */
-import { picture } from '../art/picture';
+import { picture, pictureSize } from '../art/picture';
 import { findRegion } from '../game/view';
 import { levelSpots } from '../game/map';
 import type { ScreenEntry } from '../router/router';
@@ -12,13 +12,14 @@ import { h, svg } from '../ui/dom';
 import { icon, starIcon } from '../ui/icons';
 import { ART } from '../../rules/contract';
 import type { LevelCard } from '../../rules/contract';
-import { topBar } from './common';
+import { diverSaveStatus, topBar } from './common';
 
 export function regionScreen(app: App, diverId: string, regionId: string): ScreenEntry {
   return {
     key: `region:${diverId}:${regionId}`,
     async build(context) {
       const active = await app.openDiver(diverId);
+      const saveStatus = diverSaveStatus(app, active);
       const t = app.kit.t;
       const text = app.content()!.text;
       const view = active.game.view();
@@ -95,6 +96,15 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
         }),
       );
       const heading = h('h1', { text: text(region.titleKey) });
+      const board = h(
+        'div',
+        { className: 'ps-region__board', testId: 'region-board' },
+        picture(app.art, ART.scene(region.id), { className: 'ps-region__picture' }),
+        path,
+        ...nodes,
+      );
+      const [width, height] = pictureSize(app.art, ART.scene(region.id));
+      board.style.setProperty('--picture-ratio', String(width / height));
       const element = h(
         'main',
         { className: 'ps-region', testId: 'screen-region', dataset: { region: region.id } },
@@ -103,15 +113,10 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
             ? { label: t('common.back'), onPress: () => app.router.back() }
             : undefined,
           title: heading,
+          tools: [saveStatus.element],
           onError: app.kit.onError,
         }),
-        h(
-          'div',
-          { className: 'ps-region__board', testId: 'region-board' },
-          picture(app.art, ART.scene(region.id), { className: 'ps-region__picture' }),
-          path,
-          ...nodes,
-        ),
+        board,
       );
       return {
         element,
@@ -119,6 +124,7 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
         field: 'sea',
         region: region.id,
         music: 'map',
+        dispose: saveStatus.dispose,
         focusTarget: () =>
           nodes.find((node) => node.dataset['glowing'] === 'true') ??
           nodes.find((node) => !node.disabled) ??

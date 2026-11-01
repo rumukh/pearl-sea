@@ -7,8 +7,16 @@
  */
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import type { RuntimeSnapshot } from '@aegis/runtime';
-import { inputFor } from '../../../src/rules/progression/problems';
-import type { Problem, ProblemRoundView } from '../../../src/rules/contract';
+import { inputFor, typeable } from '../../../src/rules/progression/problems';
+import type {
+  Gap,
+  Problem,
+  ProblemRoundView,
+  SpellingRule,
+  TextPart,
+} from '../../../src/rules/contract';
+import { lexiconIndex } from '../../../src/rules/learning/index-cache';
+import { realPack } from '../../fixtures/rules/packs';
 import type { Player } from '../../traces/support';
 import { playerFrom, saveAfter } from './saves';
 
@@ -87,6 +95,31 @@ describe('a sentence with several gaps', () => {
       found = true;
     }
     expect(found).toBe(true);
+    await player.dispose();
+  });
+});
+
+describe('the round’s progress (contract §12)', () => {
+  it('counts finished problems in `answered` (the unit of `target`) and right steps in `correct`', async () => {
+    // S6's PS-QA-03: the two units must never be shown as one ratio (9 / 5 after Lov chyb).
+    const player = await lagoonFour(2);
+    const progress = () => (player.view().round as ProblemRoundView).progress;
+    expect(onScreen(player)?.problem.kind).toBe('mistake');
+    expect(progress()).toMatchObject({ answered: 0, correct: 0 });
+    await player.answerAs(true);
+    expect(progress(), 'the find alone finishes no problem').toMatchObject({
+      answered: 0,
+      correct: 1,
+    });
+    await player.answerAs(true);
+    expect(progress(), 'find and fix: one problem, two right steps').toMatchObject({
+      answered: 1,
+      correct: 2,
+    });
+    await player.answerAs(false);
+    await player.answerAs(true);
+    expect(progress(), 'a wrong find, a right fix').toMatchObject({ answered: 2, correct: 3 });
+    expect(player.failures).toEqual([]);
     await player.dispose();
   });
 });
@@ -202,5 +235,92 @@ describe('the input of a problem', () => {
     expect(inputFor({ ...base, round: 'choice', box: 5 })).toBe('choice');
     expect(inputFor({ ...base, round: 'letters', box: 0 })).toBe('letters');
     expect(inputFor({ ...base, box: 5, gaps: false })).toBe('choice');
+  });
+});
+
+describe('what can be typed (design §5.2)', () => {
+  const gap = (correct: string, rule: SpellingRule = 'vyjm'): Gap => ({
+    correct,
+    options: [correct, '·'],
+    keys: [correct, '·'],
+    rule,
+    word: null,
+    item: 'gap:s:0',
+    hint: null,
+  });
+  const text = (value: string): TextPart => ({ kind: 'text', text: value });
+  const blot = (index: number): TextPart => ({ kind: 'gap', gap: index });
+  const gaps = (parts: TextPart[], ...list: Gap[]): Problem => ({
+    kind: 'gaps',
+    sentence: 's',
+    parts,
+    gaps: list,
+  });
+
+  it('types letters within a word whose other letters show', () => {
+    expect(typeable(gaps([text('ml'), blot(0), text('n')], gap('ý')))).toBe(true);
+    expect(typeable(gaps([text('Na louce b'), blot(0), text('la kráva.')], gap('ě')))).toBe(true);
+    expect(typeable(gaps([blot(0), text('lice.')], gap('U', 'u-zacatek')))).toBe(true);
+    // Two blots side by side are inside one word.
+    expect(typeable(gaps([text('m'), blot(0), blot(1), text('n')], gap('l'), gap('ý')))).toBe(true);
+  });
+
+  it('never types a gap that is a whole word, nor an end mark', () => {
+    const conjunction = gap('když', 'spojka');
+    expect(
+      typeable(
+        gaps([text('Delfín vyskočil z vody, '), blot(0), text(' uviděl loď.')], conjunction),
+      ),
+    ).toBe(false);
+    expect(typeable(gaps([text('Dej to '), blot(0), text('.')], gap('mně', 'mne-zajmeno')))).toBe(
+      false,
+    );
+    expect(typeable(gaps([blot(0), text(' je tu.')], gap('Okno', 'spisovne')))).toBe(false);
+    expect(typeable(gaps([text('Kde bydlíš'), blot(0)], gap('?', 'interpunkce')))).toBe(false);
+    // One untypeable gap keeps the whole problem on the pad.
+    expect(
+      typeable(gaps([text('ml'), blot(0), text('n a '), blot(1), text('.')], gap('ý'), gap('mně'))),
+    ).toBe(false);
+  });
+
+  it('types the fix of Lov chyb only within the word', () => {
+    const mistake = (around: [string, string], correct: string): Problem => ({
+      kind: 'mistake',
+      sentence: 's',
+      tokens: ['Vlk', 'se', 'najedl', 'dosyta.'],
+      wrong: 3,
+      fix: gap(correct),
+      around,
+    });
+    expect(typeable(mistake(['dos', 'ta.'], 'y'))).toBe(true);
+    expect(typeable(mistake(['', ''], 'odplavala'))).toBe(false);
+    expect(typeable(mistake(['', ','], 'protože'))).toBe(false);
+    expect(typeable(mistake(['', '.'], 'mně'))).toBe(false);
+  });
+
+  it('in the game’s sentences: every gap of a conjunction, mě/mně, a writing apart or a standard word is whole, no other', () => {
+    const real = realPack().data;
+    const WHOLE: readonly SpellingRule[] = [
+      'spojka',
+      'mne-zajmeno',
+      'predpona-predlozka',
+      'spisovne',
+    ];
+    const wrong: string[] = [];
+    for (const sentence of lexiconIndex(real).sentences.values()) {
+      sentence.sentence.gaps.forEach((annotation, index) => {
+        const parts: TextPart[] = sentence.parsed.parts.map((part) =>
+          part.kind === 'text'
+            ? part
+            : part.gap === index
+              ? blot(0)
+              : text(sentence.parsed.gaps[part.gap]!.correct),
+        );
+        const typed = typeable(gaps(parts, gap(sentence.parsed.gaps[index]!.correct)));
+        const expected = !WHOLE.includes(annotation.rule) && annotation.rule !== 'interpunkce';
+        if (typed !== expected) wrong.push(`${sentence.sentence.id}#${index} ${annotation.rule}`);
+      });
+    }
+    expect(wrong).toEqual([]);
   });
 });

@@ -235,6 +235,12 @@ const faults: Fault[] = [
       (sentence(d, 'conj.05').text = 'Krab plaval ke břehu {ale|protože} vlny ho vracely.'),
     reported: 'a comma goes before "ale"',
   },
+  {
+    name: 'an antonym missing for a synonym of the antonym',
+    file: 'meaning.json',
+    change: (d) => (d.sets = d.sets.filter((s: any) => s.id !== 'ant.smutny-radostny')),
+    reported: 'record smutnyy × radostnyy as antonyms',
+  },
 ];
 
 describe('scripts/lexicon/check.mjs', () => {

@@ -113,6 +113,48 @@ function rawOf(data: ContentData): Raw {
 const homograph = (data: ContentData, word: Word) =>
   rawOf(data).homographs.has(word.lemma.toLowerCase());
 
+/** A verb as a reflexive classification shows it: the infinitive without se or si (bát se → bát). */
+function bareOf(word: Word): string {
+  const inf = word.verb?.paradigm?.inf;
+  const first = Array.isArray(inf) ? inf[0] : inf;
+  return first ?? word.lemma.replace(/ s[ei]$/u, '');
+}
+
+/** Whether a verb shown bare is also a lexicon verb with another reflexive value (hrát, hrát si). */
+function bareClash(data: ContentData, word: Word): boolean {
+  const key = bareOf(word).toLowerCase();
+  const values = new Set(
+    data.lexicon.words
+      .filter((other) => other.verb !== undefined && bareOf(other).toLowerCase() === key)
+      .map((other) => other.verb!.reflexive ?? 'none'),
+  );
+  return values.size > 1;
+}
+
+/** How a word stands alone when `dimension` is asked of it: its lemma, a reflexive verb bare. */
+const shownAlone = (word: Word, dimension: string) =>
+  dimension === 'reflexive' && word.verb !== undefined ? bareOf(word) : word.lemma;
+
+/**
+ * The punctuation after each word of a filled sentence, the oracle's way: the text split into
+ * runs of letters and runs of marks, each run of marks going to the word before it. `null` when
+ * those words are not `tokens` (or a mark comes first).
+ */
+function marksOf(plain: string, tokens: readonly string[]): string[] | null {
+  const words: string[] = [];
+  const marks: string[] = [];
+  for (const run of plain.match(/[^\s\p{P}\p{S}]+|[\p{P}\p{S}]+/gu) ?? []) {
+    if (/^[\p{P}\p{S}]+$/u.test(run)) {
+      if (words.length === 0) return null;
+      marks[marks.length - 1] += run;
+    } else {
+      words.push(run);
+      marks.push('');
+    }
+  }
+  return isDeepStrictEqual(words, [...tokens]) ? marks : null;
+}
+
 /** Whether two families share a root (`kin`, listed on either side). */
 function kin(data: ContentData, a: string | undefined, b: string | undefined): boolean {
   if (a === undefined || b === undefined) return false;
@@ -371,9 +413,12 @@ function classTargetOf(
     const at = Number(parsed.detail);
     const token = tokens[at];
     if (token === undefined) return null;
+    const texts = tokens.map((t) => t.t);
+    const marks = marksOf(filledSentence(c.data, sentence.id).plain, texts);
+    if (marks === null) say('target', `the tokens of ${sentence.id} are not its words`);
     return {
       target: { word: token.word ?? null, text: token.t },
-      context: { tokens: tokens.map((t) => t.t), at },
+      context: marks === null ? { tokens: texts, at } : { tokens: texts, at, marks },
       span: null,
     };
   }
@@ -399,7 +444,11 @@ function classTargetOf(
       span: [start, start + [...piece].length],
     };
   }
-  return { target: { word: word.id, text: word.lemma }, context: null, span: null };
+  return {
+    target: { word: word.id, text: shownAlone(word, dimension) },
+    context: null,
+    span: null,
+  };
 }
 
 /** The strategy hint of a classification (design §5.3): ten/ta/to, the case question, the pattern. */
@@ -420,11 +469,12 @@ function classHintOf(c: Case, problem: ClassifyProblem): Hint | null {
       return { kind: 'ten-ta-to', gender: gender === 'm' ? (animate ? 'ma' : 'mi') : gender };
     }
     case 'case':
-      return { kind: 'case-question', case: Number(problem.correct) } as Hint;
     case 'pattern':
-      return problem.context === null && problem.span === null && word?.noun?.pattern
-        ? { kind: 'pattern', pattern: word.noun.pattern }
-        : null;
+    case 'tense':
+    case 'mood':
+    case 'verb-form':
+      // The method, never the case question or the pattern: those name the answer (S3's QA).
+      return { kind: 'method', method: problem.dimension };
     default:
       return null;
   }
@@ -459,9 +509,17 @@ function checkClassify(c: Case, problem: ClassifyProblem, say: Say): void {
   }
   if (params.context === 'word' && problem.target.word !== null) {
     // A word on its own or a part of it: never one written like another word (design §6.6).
-    const word = checkRef(c.data, problem.target, say);
+    const alone = rawOf(c.data).words.get(problem.target.word);
+    const reflexive = problem.dimension === 'reflexive' && alone?.verb !== undefined;
+    const word = checkRef(c.data, problem.target, say, reflexive ? [bareOf(alone)] : []);
     if (word && !selects(c.data, word, params.words)) {
       say('words', `${word.lemma} is not of the skill's words`);
+    }
+    if (reflexive && /\ss[ei]$/u.test(problem.target.text)) {
+      say('target', `"${problem.target.text}" shows the reflexive pronoun it asks`);
+    }
+    if (reflexive && bareClash(c.data, alone)) {
+      say('words', `"${problem.target.text}" is also a verb with another reflexive pronoun`);
     }
   }
   if (params.context === 'form') {
@@ -505,7 +563,10 @@ function checkOdd(c: Case, problem: OddProblem, say: Say): void {
   if (problem.words.length < 3 || problem.words.length > size) {
     say('set', `${problem.words.length} words in a set of ${size}`);
   }
-  const shown = problem.words.map((ref) => checkRef(data, ref, say));
+  const shown = problem.words.map((ref) => {
+    const word = rawOf(data).words.get(ref.word ?? '');
+    return checkRef(data, ref, say, word ? [shownAlone(word, basis)] : []);
+  });
   const texts = problem.words.map((ref) => ref.text.toLowerCase());
   if (new Set(texts).size !== texts.length) say('words', `repeats in ${texts}`);
   const parsed = parseItemId(c.item);
@@ -639,7 +700,12 @@ function checkRelation(c: Case, problem: RelationProblem, say: Say): void {
       say('tempting', `${shown.lemma}: none of ${tempting.map((w) => w.lemma)} is offered`);
     }
   }
-  if (problem.hint !== null) say('hint', `a relation hints ${JSON.stringify(problem.hint)}`);
+  // A sound-alike pair hints how such words differ (the method); other relations hint nothing.
+  const relationHint: Hint | null =
+    problem.relation === 'sound-alike' ? { kind: 'method', method: 'sound-alike' } : null;
+  if (!isDeepStrictEqual(problem.hint, relationHint)) {
+    say('hint', `a ${problem.relation} relation hints ${JSON.stringify(problem.hint)}`);
+  }
 }
 
 function violations(c: Case): { check: Check; message: string }[] {
@@ -699,9 +765,11 @@ describe('the choice generators', () => {
 
   it("serve the game's whole lexicon: every item of every dimension, basis and relation", () => {
     // Test skills over content/pearl-sea.content.json: what a skill could ever ask is servable,
-    // but for words written like another word (a homograph cannot stand in a set or an option).
+    // but for words written like another word (a homograph cannot stand in a set or an option)
+    // and verbs that, shown without se or si, are another verb with another one (hrát, hrát si).
     // The 3rd-grade skills leave out on purpose what only 4th-grade words could show.
     const unserved: string[] = [];
+    const clashes: string[] = [];
     for (const skill of wide().filter((s) => !('words' in s.params) || !s.params.words.grades)) {
       const served = new Set(servedItems(real, skill));
       for (const item of skillItems(skill, real.lexicon)) {
@@ -714,10 +782,17 @@ describe('the choice generators', () => {
               ? parsed.word.split(':')[0]!
               : '';
         const word = rawOf(real).words.get(id);
+        if (word !== undefined && parsed?.kind === 'class' && parsed.dimension === 'reflexive') {
+          if (bareClash(real, word)) {
+            clashes.push(word.id);
+            continue;
+          }
+        }
         if (word === undefined || !homograph(real, word)) unserved.push(`${skill.id} ${item}`);
       }
     }
     expect(unserved).toEqual([]);
+    expect(clashes.sort()).toEqual(['hraat', 'hraat-si']);
   });
 
   it('cover every dimension in every context, every basis and every relation', () => {

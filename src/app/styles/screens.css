@@ -9,6 +9,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .ps-title__card {
@@ -85,11 +86,11 @@
   right: clamp(8px, 2vw, 20px);
 }
 
-/* The grown-ups' button sits on open water: pearl text on a soft dark plate. */
+/* The grown-ups' button sits on open water or the title painting: pearl text on a dark plate. */
 .ps-title__corner .ps-link-button {
   font-size: 0.85rem;
   color: var(--ps-ink-inverse);
-  background: color-mix(in srgb, var(--ps-abyss) 55%, transparent);
+  background: color-mix(in srgb, var(--ps-abyss) 88%, transparent);
 }
 
 .ps-title__bubbles {

@@ -49,6 +49,7 @@ import {
   openChest,
 } from './economy/rewards';
 import { itemIndex } from './learning/index-cache';
+import { mergeRetiredItems } from './learning/migrate';
 import { MINIGAMES } from './minigames/boards';
 import { applyGrowth } from './progression/friends';
 import { isComplete, isPlayable } from './progression/levels';
@@ -87,9 +88,10 @@ function legality(action: GameAction, read: Read): Reject | null {
   const activeRound = round !== null && round.status === 'active';
   const pendingBlocking =
     state.story.pending !== null && findBeat(data, state.story.pending)?.skippable === false;
-  // The grade may be set before the first session, so the first-session story knows it.
-  const gradeSetting = action.type === 'setSetting' && action.setting.key === 'grade';
-  if (action.type !== 'startSession' && !gradeSetting && state.day === null) {
+  // Settings need no day: the grown-ups may set them before the first session (the grade so the
+  // first-session story knows it; the daily goal and the race for a child who has not played).
+  const setting = action.type === 'setSetting';
+  if (action.type !== 'startSession' && !setting && state.day === null) {
     return reject('no-session', 'Start a session first.');
   }
   switch (action.type) {
@@ -607,9 +609,10 @@ export const pearlSeaAdapter: RuntimeAdapter<ProfileState, GameAction, GameView,
   view: (read) => projectView(read),
   validate: validateState,
   canActivateContent: (read) => read.state.round === null && read.state.story.pending === null,
-  activateContent() {
-    // Content IDs are append-only (docs/contract.md §7.6), so progress carries forward unchanged;
-    // a revision that retires IDs migrates the state here.
+  activateContent(ctx) {
+    // Content IDs are append-only (docs/contract.md §7.6), so progress carries forward; only
+    // item IDs the contract retired by merging items move, into the items they stand for.
+    mergeRetiredItems(ctx.state, ctx.content.data);
   },
 };
 

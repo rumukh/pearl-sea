@@ -14,6 +14,7 @@ import {
   DEFAULT_ANCHORS,
   dressedFriend,
   friendArtId,
+  monsterForms,
   picture,
   pictureSize,
   stickerPicture,
@@ -68,7 +69,8 @@ describe('pictures', () => {
     expect(egg.style.aspectRatio).toBe('120 / 160');
     const scene = picture(art, ART.scene('sunny-lagoon'));
     expect(scene.getAttribute('aria-hidden')).toBe('true');
-    expect(scene.style.aspectRatio).toBe('1600 / 900');
+    // Scenes and maps are 1664 × 928 as S5 ships them (docs/art.md §3), so nothing moves when they land.
+    expect(scene.style.aspectRatio).toBe('1664 / 928');
     // A scene covers a backdrop of any shape, as a painting does.
     expect(scene.querySelector('svg')?.getAttribute('preserveAspectRatio')).toBe('xMidYMid slice');
     expect(
@@ -79,7 +81,7 @@ describe('pictures', () => {
   it('knows each kind’s size until the catalog says otherwise', () => {
     expect(artKind('monster/murena-mumla/inked')).toBe('monster');
     expect(pictureSize(art, KRAB.id)).toEqual([800, 600]);
-    expect(pictureSize(art, ART.map('shallows'))).toEqual([1600, 1000]);
+    expect(pictureSize(art, ART.map('shallows'))).toEqual([1664, 928]);
     expect(pictureSize(art, 'unknown/thing')).toEqual([1000, 1000]);
   });
 
@@ -155,6 +157,49 @@ describe('dressed friends', () => {
   });
 });
 
+describe('a monster’s two forms', () => {
+  const INKED: ArtEntry = {
+    id: ART.monster('murena-mumla', 'inked'),
+    kind: 'painted',
+    file: 'monsters/murena-mumla-inked.webp',
+    width: 1024,
+    height: 872,
+  };
+  const FREED: ArtEntry = {
+    ...INKED,
+    id: ART.monster('murena-mumla', 'freed'),
+    file: 'monsters/murena-mumla-freed.webp',
+    width: 900,
+    height: 1024,
+  };
+
+  it('stacks the freed form under the inked one, in the inked painting’s box', () => {
+    const forms = monsterForms(createArtLibrary(BASE, [INKED, FREED]), 'murena-mumla', {
+      alt: 'Muréna Mumla',
+      className: 'ps-round__monster',
+      testId: 'battle-monster',
+    });
+    expect(forms.style.aspectRatio).toBe('1024 / 872');
+    expect([...forms.children].map((child) => (child as HTMLElement).dataset['artId'])).toEqual([
+      FREED.id,
+      INKED.id,
+    ]);
+    expect(forms.classList.contains('ps-round__monster')).toBe(true);
+    expect(forms.dataset['monster']).toBe('murena-mumla');
+    expect(forms.dataset['testid']).toBe('battle-monster');
+    expect(forms.getAttribute('role')).toBe('img');
+    expect(forms.getAttribute('aria-label')).toBe('Muréna Mumla');
+    for (const image of forms.querySelectorAll('img')) expect(image.getAttribute('alt')).toBe('');
+  });
+
+  it('stands placeholder forms on their box’s ground too', () => {
+    const forms = monsterForms(createArtLibrary(BASE, [INKED]), 'murena-mumla');
+    expect(forms.getAttribute('role')).toBeNull();
+    const freed = forms.querySelector<HTMLElement>(`[data-art-id="${FREED.id}"]`)!;
+    expect(freed.dataset['placeholder']).toBe('true');
+    expect(freed.querySelector('svg')?.getAttribute('preserveAspectRatio')).toBe('xMidYMax meet');
+  });
+});
 describe('stickers', () => {
   const look = { icon: 'sticker/egg-hatching', frame: 'sticker/frame-shell', color: '#ffd45c' };
   const svgEntry = (id: string, file: string): ArtEntry => ({

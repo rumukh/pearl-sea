@@ -747,7 +747,9 @@ linguistic consistency:
   y or ý right after the family's letter (or a `vyjm-prefix` vy-/vý-); a listed family has a rhyme
   order and an ordinary one none; `kin` and `soundAlike` name other existing families;
 - two words that differ only in i/y (or í/ý) are declared sound-alikes, so a misspelled duplicate
-  cannot slip in;
+  cannot slip in. Capitals do not count: a proper name and its common noun (_Bublinka_,
+  _bublinka_) are homographs, not an i/y pair, and a pair declared for one spelling covers its
+  capitalised homographs;
 - sentences parse, have as many annotations as gaps, at most 10 words, tokens that match the text,
   gap words that exist and have the named spelling point, and token indices in range;
 - relation pairs are not self-pairs or duplicates and name existing words, and a sound-alike form

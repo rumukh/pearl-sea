@@ -112,6 +112,51 @@ describe('the fixture lexicon', () => {
     );
   });
 
+  /** A proper name that is a homograph of a fixture noun or verb (`Ryba`, `Bít`). */
+  const properName = (id: string, lemma: string, noun: Word['noun']): Word => ({
+    id,
+    lemma,
+    pos: 'noun',
+    grade: 3,
+    topics: ['more'],
+    tags: ['sea'],
+    src: ['ujc'],
+    noun,
+  });
+
+  it('never takes a proper name and its common noun for an i/y pair (Bublinka, bublinka)', () => {
+    const lexicon = fixture();
+    lexicon.words.push(
+      properName('ryba.jmeno', 'Ryba', {
+        gender: 'f',
+        numbers: 'sg',
+        pattern: 'zena',
+        proper: 'character',
+        paradigm: { sg: ['Ryba', 'Ryby', 'Rybě', 'Rybu', 'Rybo', 'Rybě', 'Rybou'] },
+      }),
+    );
+    expect(messages(lexicon)).toEqual([]);
+  });
+
+  it('lets a declared i/y pair cover a capitalised homograph, wherever it stands', () => {
+    const lexicon = fixture();
+    lexicon.words.unshift(
+      properName('biit.jmeno', 'Bít', {
+        gender: 'm',
+        animate: true,
+        numbers: 'sg',
+        pattern: 'pan',
+        proper: 'character',
+        paradigm: { sg: ['Bít', 'Bíta', 'Bítovi', 'Bíta', 'Bíte', 'Bítovi', 'Bítem'] },
+      }),
+    );
+    expect(messages(lexicon)).toEqual([]);
+    lexicon.relations.soundAlikes = [];
+    expect(messages(lexicon)).toEqual([
+      'word byyt: "být" and "Bít" differ only in i/y: declare them sound-alikes or fix the spelling.',
+    ]);
+  });
+
   it('catches sentence gaps and tokens that disagree with the text', () => {
     const lexicon = fixture();
     lexicon.sentences[0]!.gaps = [];

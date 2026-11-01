@@ -210,6 +210,9 @@ describe('problems', () => {
       { kind: 'ten-ta-to', gender: 'n', plural: true },
       { kind: 'ten-ta-to', gender: 'n' },
       { kind: 'not-listed', word: 'biilyy', span: [1, 2] },
+      { kind: 'rule', rule: 'velke-pismeno' },
+      { kind: 'rule', rule: 'velke-pismeno', examples: ['Brno'] },
+      { kind: 'rule', rule: 'predpona-predlozka', examples: ['podplula', 'pod mostem'] },
     ]) {
       const parsed = hintSchema.parse(hint);
       expect(parsed.ok, JSON.stringify(hint)).toBe(true);
@@ -221,6 +224,10 @@ describe('problems', () => {
       { kind: 'not-listed', word: 'biilyy', span: [2, 2] },
       { kind: 'not-listed', word: 'biilyy', span: [1, 70] },
       { kind: 'not-listed', word: 'biilyy' },
+      // Examples are one or two words as written: none is no list, and three are too many.
+      { kind: 'rule', rule: 'velke-pismeno', examples: [] },
+      { kind: 'rule', rule: 'velke-pismeno', examples: ['Brno', 'Praha', 'Vltava'] },
+      { kind: 'rule', rule: 'velke-pismeno', examples: [''] },
     ]) {
       expect(hintSchema.parse(bad).ok, JSON.stringify(bad)).toBe(false);
     }
@@ -246,7 +253,7 @@ describe('problems', () => {
     expect(problemSchema.parse({ ...split, marks: ['', '', '.'] }).ok).toBe(false);
   });
 
-  it('need the content lines of the method hints its skills can show', () => {
+  it('need the content lines of the hints its skills can show: methods, the rule of a listed set', () => {
     const skill = (generator: string, params: object) =>
       ({ id: 'sk.x', titleKey: 'skill.x', strand: 'nouns', generator, params }) as Skill;
     const classify = (dimension: string) =>
@@ -269,6 +276,10 @@ describe('problems', () => {
       'grammar.method.sound-alike',
     );
     expect(grammarKeys(relation(['synonym']))).not.toContain('grammar.method.sound-alike');
+    // A listed odd-one-out set may fall back to the listed-word rule; a family set shows no term.
+    const odd = (basis: string) => skill('odd-one-out', { basis, words: {}, size: 4 });
+    expect(grammarKeys(odd('listed'))).toEqual(['grammar.rule.vyjm']);
+    expect(grammarKeys(odd('family'))).toEqual([]);
   });
 });
 

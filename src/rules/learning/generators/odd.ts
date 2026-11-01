@@ -16,6 +16,7 @@ import type { DeepReadonly } from '@aegis/runtime';
 import { parseItemId, wordDimensionValue } from '../../contract';
 import type { Hint, ListedLetter, OddBasis, OddProblem, Skill, Word } from '../../contract';
 import { lexiconIndex, perPack } from '../index-cache';
+import { oddListedHint } from '../hints';
 import { reflexiveClash, wordText } from '../item-info';
 import { shuffle } from '../random';
 import { kinFamilies, skillWords, suits, unambiguous } from './companions';
@@ -224,9 +225,11 @@ export function oddProblem(skill: OddSkill, item: string, sources: GeneratorSour
     throw cannotPractise('odd-one-out', item);
   }
   const shown = shuffle([...belong, oddWord], sources.distractors);
-  const letter = listedLetter(data, word);
+  // A listed set hints the method on another family, never the rhyme of its letter (hints.ts).
   const hint: Hint | null =
-    skill.params.basis === 'listed' && letter !== null ? { kind: 'listed', letter } : null;
+    skill.params.basis === 'listed' && listedLetter(data, word) !== null
+      ? oddListedHint(data, word, shown)
+      : null;
   return {
     kind: 'odd',
     basis: skill.params.basis,

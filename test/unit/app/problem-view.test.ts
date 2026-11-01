@@ -33,6 +33,8 @@ const text = createContentText({
     'grammar.listed.m': 'Po m píšeme y ve vyjmenovaných slovech: my, mýt, myš…',
     'grammar.listed.p': 'Po p píšeme y ve vyjmenovaných slovech: pýcha, pytel…',
     'grammar.rule.vyjm': 'Vyjmenovaná slova a slova příbuzná píšeme s y.',
+    'grammar.rule.velke-pismeno': 'Vlastní jména píšeme s velkým písmenem.',
+    'grammar.rule.spisovne': 'Ve spisovné češtině nepíšeme vo místo o na začátku slova.',
     'grammar.case-question.2': 'koho? čeho?',
     'grammar.pattern.hrad': 'hrad',
     'grammar.method.case': 'Zkus pádové otázky.',
@@ -41,7 +43,8 @@ const text = createContentText({
 });
 
 /** The lemmas of the lexicon words the hints below name. */
-const lemmaOf = (word: string): string | null => ({ biilyy: 'bílý' })[word] ?? null;
+const lemmaOf = (word: string): string | null =>
+  ({ biilyy: 'bílý', mlynaarx: 'mlynář', mlyyn: 'mlýn', hrad: 'hrad' })[word] ?? null;
 
 function blots(element: HTMLElement): { state: string; text: string }[] {
   return [...element.querySelectorAll<HTMLElement>('.ps-blot')].map((blot) => ({
@@ -329,12 +332,14 @@ describe('answers and hints in words', () => {
   });
 
   it('turns every kind of hint into a strategy line', () => {
-    expect(
-      hintText({ kind: 'family', word: 'mlyn', related: 'mlynář' }, t, text, lemmaOf),
-    ).toContain('mlynář');
-    expect(
-      hintText({ kind: 'test-word', word: 'hrad', test: 'hrady' }, t, text, lemmaOf),
-    ).toContain('hrady');
+    // A related word and a test form are examples on other words than the asked one (design
+    // §5.3), named by their lemmas.
+    expect(hintText({ kind: 'family', word: 'mlynaarx', related: 'mlyyn' }, t, text, lemmaOf)).toBe(
+      'Najdi příbuzné vyjmenované slovo, třeba mlynář → mlýn.',
+    );
+    expect(hintText({ kind: 'test-word', word: 'hrad', test: 'hrady' }, t, text, lemmaOf)).toBe(
+      'Řekni si jiný tvar slova, třeba hrad → hrady.',
+    );
     expect(hintText({ kind: 'listed', letter: 'm' }, t, text, lemmaOf)).toBe(
       'Po m píšeme y ve vyjmenovaných slovech: my, mýt, myš…',
     );
@@ -363,7 +368,37 @@ describe('answers and hints in words', () => {
       hintText({ kind: 'not-listed', word: 'neznamy', span: [1, 2] }, t, text, lemmaOf),
     ).toBeNull();
   });
+
+  it('shows a rule’s examples after its line, the standard form before the colloquial one', () => {
+    expect(
+      hintText(
+        { kind: 'rule', rule: 'velke-pismeno', examples: ['Brno', 'Bublinka'] },
+        t,
+        text,
+        lemmaOf,
+      ),
+    ).toBe('Vlastní jména píšeme s\u00a0velkým písmenem. Například: Brno, Bublinka.');
+    expect(
+      hintText({ kind: 'rule', rule: 'velke-pismeno', examples: ['Brno'] }, t, text, lemmaOf),
+    ).toBe('Vlastní jména píšeme s\u00a0velkým písmenem. Například: Brno.');
+    expect(
+      hintText({ kind: 'rule', rule: 'spisovne', examples: ['okno', 'vokno'] }, t, text, lemmaOf),
+    ).toBe(
+      'Ve spisovné češtině nepíšeme vo místo o\u00a0na začátku slova. Například: okno, ne vokno.',
+    );
+    // Examples without their line are no hint.
+    expect(
+      hintText({ kind: 'rule', rule: 'u-prejate', examples: ['ústa'] }, t, text, lemmaOf),
+    ).toBeNull();
+  });
+
   it('leaves out a hint whose words the pack lacks, never failing the round', () => {
+    expect(
+      hintText({ kind: 'family', word: 'neznamy', related: 'mlyyn' }, t, text, lemmaOf),
+    ).toBeNull();
+    expect(
+      hintText({ kind: 'test-word', word: 'neznamy', test: 'neznámí' }, t, text, lemmaOf),
+    ).toBeNull();
     expect(hintText({ kind: 'rule', rule: 'u-prejate' }, t, text, lemmaOf)).toBeNull();
     expect(hintText({ kind: 'pattern', pattern: 'zena' }, t, text, lemmaOf)).toBeNull();
     expect(hintText({ kind: 'case-question', case: 7 }, t, text, lemmaOf)).toBeNull();

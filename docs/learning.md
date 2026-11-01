@@ -117,16 +117,35 @@ word, an end mark) shows its own options instead, in a fixed order (end marks _.
 alphabet), so the answer's place on the pad tells nothing; an end mark offers only its gap's marks,
 since after a command a full stop is right too. A gap that is a whole word (a conjunction, _mě_ or
 _mně_, a word with or without a space, a standard word) is never typed: the child could not know
-which word to type, and another one may be right too. Hints follow design §5.3: `vyjm` the family
-word (the rhyme for a head word); `obojetna-i` after a listed letter `not-listed` with the gap's
+which word to type, and another one may be right too. Hints follow design §5.3 and never show the
+asked word, a revealing form of it or a member of its family: an example is another word of the
+rule (`hint-examples.ts`). It is chosen from the lexicon, the same every time: of no family close
+to a word the problem shows (its own, a `kin` family sharing its root, its sound-alike family; a
+word of one shows a banned form, its lemma), no word or form the problem shows (for names, none
+the sentence holds), standard, not the asked word with an alternative (_vila_ for _víla_) and
+without the asked point's letters around its point (S3's rule for words whose family the lexicon
+does not mark: _měkkýš_ for _měkký_, _výhra_ for _vyhrát_); a content word (never _aby_), taken
+with another deciding letter first where the letter varies (`parova`, `predpona-souhlaska`; the
+listed letter of a related word), a test that is a form of its word first, then grade 3, nouns,
+adjectives, verbs, adverbs, then lexicon order. Where none is safe, the rule line alone. `vyjm`
+shows a related word's listed word on another family (`family`: _bydlení → bydlit_ for _mlynář_;
+the rule line alone for a listed word, whose rhyme would list it); `obojetna-i` after a listed
+letter `not-listed` with the gap's
 `span` (never the rhyme, which lists only y-words and may hold a look-alike: _být_ for _bít_), else
 the rule line, also wherever the other letter makes another word: the lemma (_b_t_: _být_), a word
 of its family's sound-alike family (_nab_t_: _nabýt_), or the gap's word in its sentence (_v_sela_:
-_vysela_); `parova` and `u-uprostred` the test word, `mne-zajmeno` the case question, `shoda`
+_vysela_), with a sound-alike pair of other families (_bydlo, bidlo_); `parova` and `u-uprostred`
+another word's test form (`test-word`: _had → hadi_ for _dub_; a word without a test shows its first
+form with _o_ for _ů_: _dům → domu_), `mne-zajmeno` the case question, `shoda`
 _ten, ta, to_ (`plural` for a plural subject: _ti, ty, ta_) for one subject and the rule line for
-several, `vzor` the pattern, other rules the
-rule. Classifications hint the gender test, or the `method` of the case, the pattern, the tense,
-the mood and the verb form; a sound-alike relation hints its `method`.
+several, `vzor` the pattern, other rules the rule, with up to two `examples` where the line teaches
+by example (`velke-pismeno`, `u-zacatek`, `u-predpona`, `vyjm-prefix`, `predpona-souhlaska`,
+`bje-vje`, `mne`: words of the rule from different families; `predpona-predlozka`: a gap of another
+sentence written together, then one apart; `spisovne`: another sentence's standard form, then its
+colloquial one). Classifications hint the gender test, or the `method` of the case, the pattern,
+the tense, the mood and the verb form; a sound-alike relation hints its `method`; an odd-one-out
+set on the listed basis a related word's listed word on a family none of its words is close to,
+else the `vyjm` rule line (never the rhyme, which names the set's listed words).
 A verb asked for its reflexive pronoun is shown without it (_bát_, not _bát se_), alone, on a net or
 in an odd-one-out set; a verb that shown so is another lexicon verb with another pronoun (_hrát_,
 _hrát si_) is not asked.

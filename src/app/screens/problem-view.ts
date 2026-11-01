@@ -363,11 +363,12 @@ export function stepHint(problem: Problem, step: number): Hint | null {
 }
 
 /**
- * A hint in words (docs/design.md §5.3): a related word, a test form, a rhyme, a question, the way
- * to find an answer step by step, or a word that is not listed, with its gap blanked (_b_lý_:
- * spelled out it would be the answer). Hints are optional help, so one whose content string or
- * word the pack lacks is `null` and simply not shown, never an error in the middle of a round.
- * `lemmaOf` gives a lexicon word's lemma.
+ * A hint in words (docs/design.md §5.3): the method shown on another word (a related listed word,
+ * a form that makes the sound clear), a rhyme, a question, a rule with examples of other families,
+ * the way to find an answer step by step, or a word that is not listed, with its gap blanked
+ * (_b_lý_: spelled out it would be the answer). Hints are optional help, so one whose content
+ * string or word the pack lacks is `null` and simply not shown, never an error in the middle of a
+ * round. `lemmaOf` gives a lexicon word's lemma.
  */
 export function hintText(
   hint: Hint,
@@ -377,10 +378,17 @@ export function hintText(
 ): string | null {
   const content = (key: string): string | null => (text.has(key) ? text(key) : null);
   switch (hint.kind) {
-    case 'family':
-      return t('hint.family', { related: hint.related });
-    case 'test-word':
-      return t('hint.testWord', { test: hint.test });
+    case 'family': {
+      // An example on another listed family: a related word and its listed word.
+      const word = lemmaOf(hint.word);
+      const related = lemmaOf(hint.related);
+      return word === null || related === null ? null : t('hint.family', { word, related });
+    }
+    case 'test-word': {
+      // An example on another word of the rule: the word and its form that makes the sound clear.
+      const word = lemmaOf(hint.word);
+      return word === null ? null : t('hint.testWord', { word, test: hint.test });
+    }
     case 'listed':
       return content(`grammar.listed.${hint.letter}`);
     case 'ten-ta-to':
@@ -391,8 +399,17 @@ export function hintText(
       const pattern = content(`grammar.pattern.${hint.pattern}`);
       return pattern === null ? null : t('hint.pattern', { pattern });
     }
-    case 'rule':
-      return content(`grammar.rule.${hint.rule}`);
+    case 'rule': {
+      const line = content(`grammar.rule.${hint.rule}`);
+      const examples = hint.examples ?? [];
+      if (line === null || examples.length === 0) return line;
+      const [standard, colloquial] = examples;
+      const shown =
+        hint.rule === 'spisovne' && standard !== undefined && colloquial !== undefined
+          ? t('hint.examplesStandard', { standard, colloquial })
+          : t('hint.examples', { examples: examples.join(', ') });
+      return `${line} ${shown}`;
+    }
     case 'method':
       return content(`grammar.method.${hint.method}`);
     case 'not-listed': {

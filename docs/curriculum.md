@@ -484,9 +484,9 @@ every problem inside these bounds.
   _fyzika_). Words whose spelling is disputed never carry a gap: ÚJČ advises schools not to mark
   _lyžina_ wrong next to _ližina_.
 - **Hints show the strategy** (`Hint` in `src/rules/contract/problems.ts`,
-  [contract.md](contract.md) §5.3): the school rhyme of the listed words, a related word (_mlýn →
-  mlynář_), a test word (_hrad → hrady_), _ten, ta, to_, the case question, the pattern, or the
-  rule.
+  [contract.md](contract.md) §5.3), never the asked word or its family: a related word's listed
+  word or a test form shown on another word (_bydlení → bydlit_, _hrad → hrady_), _ten, ta, to_, the
+  case question, the pattern, or the rule with examples of other families.
 
 ### 7.2 Per generator
 

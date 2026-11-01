@@ -49,6 +49,7 @@ import {
   openChest,
 } from './economy/rewards';
 import { itemIndex } from './learning/index-cache';
+import { mergeRetiredItems } from './learning/migrate';
 import { MINIGAMES } from './minigames/boards';
 import { applyGrowth } from './progression/friends';
 import { isComplete, isPlayable } from './progression/levels';
@@ -608,9 +609,10 @@ export const pearlSeaAdapter: RuntimeAdapter<ProfileState, GameAction, GameView,
   view: (read) => projectView(read),
   validate: validateState,
   canActivateContent: (read) => read.state.round === null && read.state.story.pending === null,
-  activateContent() {
-    // Content IDs are append-only (docs/contract.md §7.6), so progress carries forward unchanged;
-    // a revision that retires IDs migrates the state here.
+  activateContent(ctx) {
+    // Content IDs are append-only (docs/contract.md §7.6), so progress carries forward; only
+    // item IDs the contract retired by merging items move, into the items they stand for.
+    mergeRetiredItems(ctx.state, ctx.content.data);
   },
 };
 

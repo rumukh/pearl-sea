@@ -272,7 +272,9 @@ is shown. `ITEM_ID_PATTERN` is `<kind>:<content ID parts>` (at most 128 characte
 
 A classification's target and detail depend on what is classified (§6.2): a word on its own is
 `class:pos:ryba`; a consonant letter `class:consonant:cx` (the letter's `lexiconId`); a form names
-the word and its paradigm cell (`class:person:plavat:past1`, §8.6); a token of a sentence names the
+the word and its paradigm cell (`class:person:plavat:past1`, §8.6), the first cell in paradigm order
+that shows the form, so a form that several cells show is one item (`canonicalItem`, §6); a token
+of a sentence names the
 sentence and the token index (`class:case:s.ryby-1:0`); a whole sentence names the sentence
 (`class:sentence-kind:s.ryby-1`); a part of a word names the word and the segment index
 (`class:segment:vyletext:1`). A sound-alike relation or pair that names a word form (§8.5) has the
@@ -296,7 +298,13 @@ after `silverDays`, the days at least `gapDays` apart; never gold), counted in t
 A skill is `{ id, titleKey, strand, generator, params }`. The generator decides the problem family;
 its parameters are checked by `SKILL_PARAM_SCHEMAS[generator]` and by cross-field rules.
 `skillItems(skill, lexicon)` enumerates the skill's item universe (sorted, unique, bounded by the
-lexicon); content validation rejects a skill whose universe is empty. Words are selected by a
+lexicon); content validation rejects a skill whose universe is empty. A form that several cells of
+a word show is **one item**, named by the first of those cells in paradigm order: cells that show
+the same text keep the same values (§8.6), so they ask the same question (_delfíni_ is `pl1` and
+`pl5`; only `class:number:delfiin:pl1` is served). `canonicalItem(id, lexicon)` names the item an
+ID stands for: itself, or for a form item the first cell that shows the same form. Until content
+1.2.5 the universe had both cells, and saves can still hold records under the retired IDs (§7.6).
+Words are selected by a
 **word filter** `{ words?, topics?, tags?, pos?, families?, letters?, grades?, aspects?, registers?,
 core?, exclude? }` and sentences by a **sentence filter** `{ sentences?, topics?, grades? }`; every
 present field narrows the selection (`aspects` keeps to verbs of those aspects: a 3rd-grade tense
@@ -640,6 +648,17 @@ As in Dragon Valley:
   for an old save), stage the current pack, restore the save, then at the hub (no round, no pending
   beat, no pending jobs) activate the current pack. With append-only IDs no transformation is
   needed; a revision that retires an ID migrates the state there.
+- **Retired item IDs.** An item ID retires when the contract merges two items, as content 1.2.5
+  did for forms that several cells show (§6): the archived packs are unchanged, but the universe
+  no longer serves the other cells. A save with such records still restores, since `validateState`
+  only checks that item IDs parse. On activation the adapter merges each record into the item it
+  stands for (`canonicalItem`; `learning/migrate.ts`), in sorted order. If the kept item has no
+  record, the retired record moves to it. If both have records, the better one survives whole
+  (the higher mastery level, then the higher box; the kept item's own on a tie) and the other's
+  `seen` and `correct` are added to it. No answer leaves the grown-ups' totals and no pearl of a
+  form gets duller. `rightDays` are not added, so a day is never counted twice. A save without
+  retired IDs is unchanged. Content 1.2.5 changes nothing but the revision, so that every save on
+  1.2.4 or older activates it and merges.
 - **State compatibility.** New state fields are optional with a default that old saves get by
   omission. A change an old snapshot cannot continue under bumps `STATE_VERSION` (now 1) and adds a
   step to `STATE_MIGRATIONS`; `migrateProfileState` and `migrateSnapshot` (which rewrites the
@@ -737,7 +756,8 @@ Composed forms use the masculine participle (a generator may show the feminine o
 without changing the cell); the reflexive pronoun follows the auxiliary (`myl jsem se`,
 `budu se mýt`, `myl by se`). Each cell carries only the values the form shows unambiguously: a form
 shared by several cells (ryby: sg2, pl1, pl4, pl5; vyletí: 3sg and 3pl) keeps only the values those
-cells agree on, so no problem asks what a form cannot tell. Past forms with an auxiliary and every
+cells agree on, so no problem asks what a form cannot tell, and it is one item, named by the first
+of its cells (§6). Past forms with an auxiliary and every
 conditional are compound (`verb-form`), the others simple. Cells come in **groups** (`FORM_GROUPS`,
 `formGroup(cell)`: `sg`, `pl`, `inf`, `pres`, `fut`, `past`, `imp`, `cond`) that skills choose
 (§6.2). An imperfective verb whose future is not budu + infinitive must list `fut`

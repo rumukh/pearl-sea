@@ -59,7 +59,7 @@ import {
   soundRefTarget,
   soundRefWord,
 } from './lexicon';
-import type { FormDimension, FormGroup, Lexicon, Sentence, Word } from './lexicon';
+import type { FormCell, FormDimension, FormGroup, Lexicon, Sentence, Word } from './lexicon';
 import {
   PAIR_KINDS,
   alphabetItem,
@@ -67,6 +67,7 @@ import {
   familyItem,
   gapItem,
   pairItem,
+  parseItemId,
   relationItem,
   segmentItem,
   spellItem,
@@ -617,8 +618,41 @@ function relationTargets(
 }
 
 /**
+ * The cell a form item names for each form a word shows: the first cell, in paradigm order, that
+ * shows that text (_delfíni_ is `pl1` and `pl5`: both are `pl1`). Cells that show the same text
+ * keep the same values (`formCells` keeps only what they agree on), so they ask the same
+ * question and are one item.
+ */
+function firstCells(forms: readonly FormCell[]): Map<string, string> {
+  const first = new Map<string, string>();
+  for (const form of forms) if (!first.has(form.text)) first.set(form.text, form.cell);
+  return first;
+}
+
+/**
+ * The item an item ID stands for. A form item stands for the first cell of its word, in paradigm
+ * order, that shows the same form: `class:number:delfiin:pl5` (_delfíni_) stands for
+ * `class:number:delfiin:pl1`, the only one `skillItems` serves. Every other ID stands for itself.
+ * Saves made before forms were merged can hold such retired IDs; the rules merge their records
+ * into the item they stand for when they activate newer content (docs/contract.md §7.6).
+ */
+export function canonicalItem(item: string, lexicon: Read<Lexicon>): string {
+  const parsed = parseItemId(item);
+  if (parsed?.kind !== 'class' || parsed.detail === null) return item;
+  if (!(CONTEXT_DIMENSIONS.form as readonly string[]).includes(parsed.dimension)) return item;
+  const word = lexicon.words.find((entry) => entry.id === parsed.target);
+  if (word === undefined) return item;
+  const forms = formCells(word);
+  const form = forms.find((entry) => entry.cell === parsed.detail);
+  if (form === undefined) return item;
+  const cell = firstCells(forms).get(form.text)!;
+  return cell === form.cell ? item : classItem(parsed.dimension, parsed.target, cell);
+}
+
+/**
  * Every item a skill can serve, sorted (code-unit order) and unique. Bounded by the lexicon, so
- * the state that tracks items stays bounded too.
+ * the state that tracks items stays bounded too. A form is one item however many cells show it
+ * (`canonicalItem`).
  */
 export function skillItems(skill: Read<Skill>, lexicon: Read<Lexicon>): string[] {
   const items = new Set<string>();
@@ -657,10 +691,12 @@ export function skillItems(skill: Read<Skill>, lexicon: Read<Lexicon>): string[]
       } else if (context === 'form') {
         const cells = skill.params.cells;
         for (const word of filteredWords(lexicon, skill.params.words)) {
-          for (const form of formCells(word)) {
+          const forms = formCells(word);
+          const first = firstCells(forms);
+          for (const form of forms) {
             if (cells !== null && !cells.includes(formGroup(form.cell))) continue;
             if (allowed(form.values[dimension as FormDimension])) {
-              items.add(classItem(dimension, word.id, form.cell));
+              items.add(classItem(dimension, word.id, first.get(form.text)!));
             }
           }
         }
@@ -752,11 +788,13 @@ export function skillItems(skill: Read<Skill>, lexicon: Read<Lexicon>): string[]
       }
       for (const word of filteredWords(lexicon, skill.params.words)) {
         if (context === 'form') {
-          for (const form of formCells(word)) {
+          const forms = formCells(word);
+          const first = firstCells(forms);
+          for (const form of forms) {
             if (cells !== null && !cells.includes(formGroup(form.cell))) continue;
             const value = form.values[dimension as FormDimension];
             if (value !== undefined && values.includes(value)) {
-              items.add(classItem(dimension, word.id, form.cell));
+              items.add(classItem(dimension, word.id, first.get(form.text)!));
             }
           }
           continue;

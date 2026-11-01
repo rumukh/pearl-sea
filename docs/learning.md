@@ -103,9 +103,18 @@ A word gap offers the skill's `choices` (2-4): the right text and the rule's alt
 case; for `be-pe-ve-me` the slip one hears, _je_ after _b, p, v_ and _ně_ after _m_). A
 sentence gap offers `1 +` its authored alternatives, at most the grade's `input.choices`, so a
 sentence never offers a spelling its author did not foresee. `keys` (the letter pad) are the rule's
-pad in the answer's case plus every option. Hints follow design §5.3: `vyjm` the family word (the
-rhyme for a head word), `obojetna-i` the rhyme, `parova` and `u-uprostred` the test word,
+pad in the answer's case plus every option. A gap whose rule has no pad holding its answer (a whole
+word, an end mark) shows its own options instead, in a fixed order (end marks _. ? ! ,_, then the
+alphabet), so the answer's place on the pad tells nothing; an end mark offers only its gap's marks,
+since after a command a full stop is right too. A gap that is a whole word (a conjunction, _mě_ or
+_mně_, a word with or without a space, a standard word) is never typed: the child could not know
+which word to type, and another one may be right too. Hints follow design §5.3: `vyjm` the family
+word (the rhyme for a head word), `obojetna-i` the rule line (never the rhyme, which lists only
+y-words and may hold a look-alike: _být_ for _bít_), `parova` and `u-uprostred` the test word,
 `mne-zajmeno` the case question, `shoda` _ten, ta, to_, `vzor` the pattern, other rules the rule.
+A verb asked for its reflexive pronoun is shown without it (_bát_, not _bát se_), alone, on a net or
+in an odd-one-out set; a verb that shown so is another lexicon verb with another pronoun (_hrát_,
+_hrát si_) is not asked.
 
 ### 3.2 Servable and board-only items
 

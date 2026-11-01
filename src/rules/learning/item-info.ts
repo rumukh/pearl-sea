@@ -101,6 +101,42 @@ export function segmentSpan(word: Read<Word>, index: number): [number, number] |
   return [start, start + [...segments[index]![1]].length];
 }
 
+/** A verb without its reflexive pronoun: its infinitive (bát), or the lemma without se or si. */
+export function bareVerb(word: Read<Word>): string {
+  const inf = word.verb?.paradigm?.inf;
+  if (inf !== undefined) return typeof inf === 'string' ? inf : (inf[0] ?? word.lemma);
+  return word.lemma.replace(/ s[ei]$/u, '');
+}
+
+/**
+ * How a word is shown on its own when `dimension` is asked of it: its lemma, but a verb asked
+ * for its reflexive pronoun without the pronoun (bát, not bát se, which would give se away).
+ */
+export function wordText(word: Read<Word>, dimension: string): string {
+  return dimension === 'reflexive' && word.verb ? bareVerb(word) : word.lemma;
+}
+
+/** The reflexive values (`none` for none) of the lexicon's verbs, by bare verb in lower case. */
+const bareVerbValues: (data: Data) => ReadonlyMap<string, ReadonlySet<string>> = perPack((data) => {
+  const values = new Map<string, Set<string>>();
+  for (const word of data.lexicon.words) {
+    if (!word.verb) continue;
+    const key = bareVerb(word).toLowerCase();
+    const set = values.get(key) ?? new Set<string>();
+    set.add(word.verb.reflexive ?? 'none');
+    values.set(key, set);
+  }
+  return values;
+});
+
+/**
+ * Whether a verb shown bare is also another verb of the lexicon with another reflexive value
+ * (hrát beside hrát si): its reflexive pronoun cannot be asked of it alone.
+ */
+export function reflexiveClash(data: Data, word: Read<Word>): boolean {
+  return (bareVerbValues(data).get(bareVerb(word).toLowerCase())?.size ?? 0) > 1;
+}
+
 /** What a `class:` item looks at and the value it asks, or `null` when the lexicon has no such target. */
 export function classTarget(data: Data, item: string): ClassTarget | null {
   const parsed = parseItemId(item);

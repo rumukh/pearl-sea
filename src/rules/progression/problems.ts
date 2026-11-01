@@ -29,6 +29,7 @@ import type {
   ResponseBucket,
   RoundSource,
   Skill,
+  TextPart,
 } from '../contract';
 import { canGenerate, problemFor, servableIndex } from '../learning/generate';
 import type { ProblemRequest } from '../learning/generate';
@@ -319,17 +320,54 @@ function chooseItem(
   });
 }
 
-/** Whether every gap of a problem can be typed on the Czech keyboard (letters and spaces). */
+const LETTERS_ONLY = /^[\p{L} ]+$/u;
+const LETTER = /\p{L}/u;
+
+/**
+ * Whether gap `index` of a problem's text is a whole word: no letter touches it on either side
+ * (a blot next to another blot is inside a word).
+ */
+function wholeWordGap(parts: readonly TextPart[], index: number): boolean {
+  const at = parts.findIndex((part) => part.kind === 'gap' && part.gap === index);
+  if (at === -1) return false;
+  const touches = (step: -1 | 1): boolean => {
+    for (let i = at + step; i >= 0 && i < parts.length; i += step) {
+      const part = parts[i]!;
+      if (part.kind === 'gap') return true;
+      const letters = [...part.text];
+      if (letters.length === 0) continue;
+      return LETTER.test(step === -1 ? letters[letters.length - 1]! : letters[0]!);
+    }
+    return false;
+  };
+  return !touches(-1) && !touches(1);
+}
+
+/**
+ * Whether every gap of a problem can be typed on the Czech keyboard: letters and spaces, within a
+ * word whose other letters show. A gap that is a whole word (a conjunction, mě or mně, a spelling
+ * with or without a space, a standard word) is never typed: the child could not know which word
+ * to type, and another word may be right too.
+ */
 export function typeable(problem: Problem): boolean {
-  const gaps =
-    problem.kind === 'gaps' ? problem.gaps : problem.kind === 'mistake' ? [problem.fix] : [];
-  return gaps.length > 0 && gaps.every((gap) => /^[\p{L} ]+$/u.test(gap.correct));
+  if (problem.kind === 'gaps') {
+    return (
+      problem.gaps.length > 0 &&
+      problem.gaps.every(
+        (gap, index) => LETTERS_ONLY.test(gap.correct) && !wholeWordGap(problem.parts, index),
+      )
+    );
+  }
+  if (problem.kind === 'mistake') {
+    return LETTERS_ONLY.test(problem.fix.correct) && LETTER.test(problem.around.join(''));
+  }
+  return false;
 }
 
 /**
  * The input a problem is asked with (design §5.2): the round's mode (`auto`: choice below
  * `lettersFromBox`, the letter pad below `typedFromBox`, then typing), the letter pad where the
- * answer cannot be typed (end marks), by choice when retrieval is made `easier` (a review or
+ * answer cannot be typed (end marks, a gap that is a whole word), by choice when retrieval is made `easier` (a review or
  * re-ask while recent success is low), and at least the letter pad in the race and the placement
  * check (`atLeastLetters`), where a guess between two buttons measures nothing. Problems without
  * gaps (classifications, odd ones, relations) are always picked.

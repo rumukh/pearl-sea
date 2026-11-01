@@ -50,7 +50,7 @@ import type {
   Word,
 } from '../contract';
 import { formOfTarget, formsOf, itemIndex, lexiconIndex } from '../learning/index-cache';
-import { classTarget } from '../learning/item-info';
+import { classTarget, reflexiveClash, wordText } from '../learning/item-info';
 import { shuffle } from '../learning/random';
 import { SORTING_NETS_KIND, sortingNetsAdapter } from './sorting-nets';
 import type { SortingNetsConfig, SortingNetsState } from './sorting-nets';
@@ -580,20 +580,23 @@ function netsSkill(request: BoardRequest) {
 }
 
 /** The fish a nets board can take: the pool's classification items with their value and text. */
-function netFish(request: BoardRequest, values: readonly string[]) {
+function netFish(request: BoardRequest, values: readonly string[], dimension: string) {
   const data = request.data;
   return request.pool.flatMap((item) => {
     const target = classTarget(data, item);
     if (target === null || target.kind === 'segment') return [];
     const value = target.value;
     if (!values.includes(value)) return [];
+    if (dimension === 'reflexive' && target.kind === 'word' && reflexiveClash(data, target.word)) {
+      return [];
+    }
     const text =
       target.kind === 'consonant'
         ? target.letter
         : target.kind === 'form'
           ? target.form.text
           : target.kind === 'word'
-            ? target.word.lemma
+            ? wordText(target.word, dimension)
             : target.kind === 'token'
               ? target.token.t
               : target.sentence.parsed.plain;
@@ -613,7 +616,7 @@ function netsBoard(whole: BoardRequest): MinigameDefinition | null {
   const request = own(whole, skill);
   const values = [...skill.params.values];
   const previous = previousWords(request);
-  const all = netFish(request, values);
+  const all = netFish(request, values, skill.params.dimension);
   const fresh = preferFresh(
     all,
     request,

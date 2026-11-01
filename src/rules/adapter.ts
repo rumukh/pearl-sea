@@ -87,9 +87,10 @@ function legality(action: GameAction, read: Read): Reject | null {
   const activeRound = round !== null && round.status === 'active';
   const pendingBlocking =
     state.story.pending !== null && findBeat(data, state.story.pending)?.skippable === false;
-  // The grade may be set before the first session, so the first-session story knows it.
-  const gradeSetting = action.type === 'setSetting' && action.setting.key === 'grade';
-  if (action.type !== 'startSession' && !gradeSetting && state.day === null) {
+  // Settings need no day: the grown-ups may set them before the first session (the grade so the
+  // first-session story knows it; the daily goal and the race for a child who has not played).
+  const setting = action.type === 'setSetting';
+  if (action.type !== 'startSession' && !setting && state.day === null) {
     return reject('no-session', 'Start a session first.');
   }
   switch (action.type) {

@@ -7,7 +7,6 @@
  * blot, an Inkoustík's ambush, the placement check, every kind of board, the big moments and the
  * results. At 200 % text on a phone, a round and U Mrože keep to the screen's width.
  */
-import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import type { RuntimeSnapshot } from '@aegis/runtime';
 import {
@@ -29,8 +28,10 @@ import {
   solveBoards,
   throughResults,
   throughStory,
+  turnPair,
   wrongAnswer,
 } from './support/game';
+import { expect, test } from './support/fixtures';
 import { enterGrownUps, ready } from './support/screens';
 import { PERFECT, Player } from '../traces/support';
 
@@ -281,19 +282,13 @@ test('an Inkoustík’s ambush and Pexeso fit a landscape screen', async ({ page
   await fits(page, 'Pexeso');
   const board = await boardOnScreen(page, CHILD);
   if (board.kind !== 'memory-match') throw new Error(`a ${board.kind} board`);
-  for (let guard = 0; (await page.getByTestId('board-clear').count()) === 0; guard++) {
+  const open = page.locator('[data-testid="board"] [data-testid^="card-"][data-matched="false"]');
+  for (let guard = 0; ; guard++) {
     if (guard >= board.pairs) throw new Error('no two cards turned were a mismatch');
-    const open = page.locator('[data-testid="board"] [data-testid^="card-"][data-matched="false"]');
-    const pick = [
-      (await open.nth(0).getAttribute('data-testid'))!,
-      (await open.nth(1).getAttribute('data-testid'))!,
-    ];
-    for (const card of pick) {
-      await page.getByTestId(card).click();
-      await expect(
-        page.locator(`[data-testid="${card}"]:is([data-up="true"], [data-matched="true"])`),
-      ).toHaveCount(1);
-    }
+    const [first, second] = await open.evaluateAll((cards) =>
+      cards.slice(0, 2).map((card) => card.getAttribute('data-testid')!),
+    );
+    if ((await turnPair(page, first!, second!)) === 'miss') break;
   }
   await fits(page, 'Pexeso with two cards that are no pair');
 });

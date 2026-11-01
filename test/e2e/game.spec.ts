@@ -38,6 +38,7 @@ import {
   solveBoards,
   throughResults,
   throughStory,
+  turnPair,
   wrongAnswer,
   answerStep,
 } from './support/game';
@@ -480,19 +481,13 @@ test('Pexeso says what makes a pair, and two cards that are no pair are turned b
   await noViolations(page, 'Pexeso');
 
   // Two cards that are no pair stay up, with no timer, until the child turns them back.
-  for (let guard = 0; (await page.getByTestId('board-clear').count()) === 0; guard++) {
+  const open = page.locator('[data-testid="board"] [data-testid^="card-"][data-matched="false"]');
+  for (let guard = 0; ; guard++) {
     if (guard >= board.pairs) throw new Error('no two cards turned were a mismatch');
-    const open = page.locator('[data-testid="board"] [data-testid^="card-"][data-matched="false"]');
-    const pick = [
-      (await open.nth(0).getAttribute('data-testid'))!,
-      (await open.nth(1).getAttribute('data-testid'))!,
-    ];
-    for (const card of pick) {
-      await page.getByTestId(card).click();
-      await expect(
-        page.locator(`[data-testid="${card}"]:is([data-up="true"], [data-matched="true"])`),
-      ).toHaveCount(1);
-    }
+    const [first, second] = await open.evaluateAll((cards) =>
+      cards.slice(0, 2).map((card) => card.getAttribute('data-testid')!),
+    );
+    if ((await turnPair(page, first!, second!)) === 'miss') break;
   }
   await expect(page.getByTestId('board-message')).toHaveText(CS['board.mismatch']!);
   await noViolations(page, 'Pexeso with two cards that are no pair');

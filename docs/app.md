@@ -432,7 +432,10 @@ its own presentation; calls take turns, and a child opened for play waits for th
   the shell's checkpoint stores it (`support/saves.ts`). Every new screen passes axe, and each
   journey ends with no page or console error, no failed request and nothing sent to another
   origin (`support/observe.ts`). A request the page cancelled itself is noted, never failed:
-  Chromium reports a sound whose file the page has already read whole as `net::ERR_ABORTED`.
+  Chromium reports a sound whose file the page has already read whole as `net::ERR_ABORTED`. Every
+  spec imports `test` and `expect` from `support/fixtures.ts`, whose automatic guard (S6's,
+  [testing.md](testing.md)) also fails a test on any console message, CSP violation or navigation
+  away; a test that provokes one on purpose says so with `guard.allow`.
 - **Browser, the fit** (`test/e2e/fit.spec.ts`): S6's PS-QA-04 and PS-QA-05 as regression
   checks, Dragon Valley's way. At each landscape size of §16.3 the page needs no scrolling either
   way at 100 % text, measured at the tallest states each screen reaches: the title, the editor,

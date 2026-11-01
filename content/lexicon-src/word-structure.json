@@ -11,7 +11,25 @@
     { "id": "fam.plavat", "letter": null, "head": "plavat", "root": "plav", "src": ["derinet"] },
     { "id": "fam.hvexzda", "letter": null, "head": "hvexzda", "root": "hvězd", "src": ["derinet"] },
     { "id": "fam.perla", "letter": null, "head": "perla", "root": "perl", "src": ["derinet"] },
-    { "id": "fam.ostrov", "letter": null, "head": "ostrov", "root": "ostrov", "src": ["derinet"] }
+    { "id": "fam.ostrov", "letter": null, "head": "ostrov", "root": "ostrov", "src": ["derinet"] },
+    {
+      "id": "fam.zapomenout",
+      "letter": null,
+      "head": "zapomenout",
+      "root": "pomen/pomn",
+      "src": ["ssjc"]
+    },
+    {
+      "id": "fam.vexdext",
+      "letter": null,
+      "head": "vexdext",
+      "root": "věd/věď",
+      "src": ["derinet"]
+    },
+    { "id": "fam.psaat", "letter": null, "head": "psaat", "root": "ps/pis", "src": ["derinet"] },
+    { "id": "fam.vjet", "letter": null, "head": "vjet", "root": "jet/jezd", "src": ["derinet"] },
+    { "id": "fam.objevit", "letter": null, "head": "objevit", "root": "jev", "src": ["derinet"] },
+    { "id": "fam.hraat", "letter": null, "head": "hraat", "root": "hr/hř", "src": ["derinet"] }
   ],
   "words": [
     {

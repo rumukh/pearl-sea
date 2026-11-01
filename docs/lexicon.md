@@ -213,7 +213,10 @@ A family is `{ id, letter, head, order, core, root, kin, soundAlikeOf, src }`:
   `schoolListTies` lists positions that textbooks order differently (_lýtko, lýko_); an ordering
   exercise never puts tied words in one necklace.
 - **Ordinary families** (`fam.<head>`, letter `null`): the _bít_, _mlít_, _mít_ and _vír_ families
-  that sit beside their sound-alikes (`soundAlikeOf`), and the word families of the 4th grade.
+  that sit beside their sound-alikes (`soundAlikeOf`), the word families of the 4th grade, and the
+  families that mark the spelling words of one root (_zapomenout – pomněnka_, _psát – nadpis,
+  podpis_, _vjet – vjezd, objet_), so that a hint never takes one as another's example (design
+  §5.3, content.md §7).
 - `kin` groups families that share, or may share, a root (_být, bydlit, obyvatel, byt, příbytek,
   nábytek, dobytek_ are all from _být_; _sýček_ and _syčet_ may be). Kin families are never each
   other's distractors; families known to be unrelated (_lýtko, lýko_; _pýr, pýřit se_; _sychravý,
@@ -399,7 +402,7 @@ meaning, facts, naturalness and conventions was checked and corrected, for examp
 
 ## 6. Coverage
 
-`node scripts/lexicon/check.mjs --summary` prints the current counts: 783 words, 91 families, 568
+`node scripts/lexicon/check.mjs --summary` prints the current counts: 783 words, 97 families, 568
 sentences (Phase A ended with 517), every grade-3 and grade-4 topic of the plan (§2). By region:
 
 | Region            | Curriculum                                  | Data                                                                                                                                                   |

@@ -47,6 +47,7 @@ const REVISIONS: Readonly<Record<string, string>> = {
   '1.2.3': '69bff61d6002994d', // led, přístav, Bublinka and Osmička asked only in sentences
   '1.2.4': 'e5eae91473499ccd', // the Czech QA of regions 2-12; Bublinka and Osmička back in Krmení
   '1.2.5': 'fba21f3b2341dd64', // no change of data: saves activate it and merge the retired form items
+  '1.2.6': '02803c67c021d1bf', // families mark words of one root, so no hint takes one as another's example
 };
 
 /** Generators that make boards, not problems: their items are trained only by minigames. */

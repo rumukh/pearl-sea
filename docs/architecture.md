@@ -260,7 +260,8 @@ cover the new name too. The storage quota, the `navigator.storage.persist()` gra
 A build is staged next to its output and moved into place only after the finished site has been
 re-read and verified; `--clean` replaces only a previous Pearl Sea build.
 
-CI (`.github/workflows/ci.yml`) runs the gate on `ubuntu-latest` and `windows-latest` and audits its
+CI (`.github/workflows/ci.yml`) runs the gate on `ubuntu-24.04` and `windows-2025` (pinned runner
+images, never `-latest`, with action majors that run on Node 24) and audits its
 record in a separate step (`node scripts/verify.mjs --audit .verify-report.json`); the e2e jobs run
 the browser suite ([testing.md](testing.md) §5), one job per engine (Chromium, Firefox, WebKit).
 Pages (`.github/workflows/pages.yml`) builds with base `/pearl-sea/`, re-checks the artifact with

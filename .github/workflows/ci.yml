@@ -20,8 +20,10 @@ jobs:
       fail-fast: false
       matrix:
         # Windows is the development host; Ubuntu proves the rules, digests and golden hashes are
-        # byte-identical across operating systems.
-        os: [ubuntu-latest, windows-latest]
+        # byte-identical across operating systems. The runner images are pinned, never `-latest`,
+        # so a new image (ubuntu-latest moves to Ubuntu 26.04 from 2026-10-19) arrives as a change
+        # of its own, tried on a branch first.
+        os: [ubuntu-24.04, windows-2025]
     runs-on: ${{ matrix.os }}
     # A guard against a hang, not a performance assertion (a healthy run takes a few minutes).
     timeout-minutes: 30
@@ -36,9 +38,9 @@ jobs:
       NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: npm
@@ -59,10 +61,12 @@ jobs:
 
   e2e:
     name: e2e (${{ matrix.engine }})
-    runs-on: ubuntu-latest
+    # Pinned like verify's images: the engines' system packages below are installed and cached for
+    # this image.
+    runs-on: ubuntu-24.04
     # Room for a slow package mirror on a cache miss; the test step has its own limit, the guard
     # against a hang.
-    timeout-minutes: 30
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
@@ -70,9 +74,9 @@ jobs:
     env:
       NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: npm
@@ -93,7 +97,7 @@ jobs:
 
       - name: Restore ${{ matrix.engine }}'s system packages
         id: debs
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: ~/.cache/ps-debs
           key: ${{ steps.debs-key.outputs.key }}
@@ -115,28 +119,45 @@ jobs:
 
       - name: Save ${{ matrix.engine }}'s system packages
         if: steps.debs.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: ~/.cache/ps-debs
           key: ${{ steps.debs-key.outputs.key }}
 
+      # The QA reporter (test/e2e/support/qa-reporter.ts) writes the job summary and, with
+      # PS_E2E_AUDIT, fails the run when a spec never ran or a test was skipped without a reason.
+      # The screen walks photograph every slice screen at four sizes, so the step has 25 minutes.
       - name: End-to-end on ${{ matrix.engine }}
-        timeout-minutes: 15
+        timeout-minutes: 25
+        env:
+          PS_E2E_AUDIT: '1'
         run: npx playwright test --project=${{ matrix.engine }}
 
       - name: Upload the Playwright report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report-${{ matrix.engine }}
           path: |
             playwright-report/
             test-results/results.json
+            test-results/qa-summary.md
           retention-days: 14
+
+      # Every slice screen at tablet, small tablet, desktop and phone sizes, with a contact sheet
+      # per walk (docs/qa/screens.md says how to read them).
+      - name: Upload the QA screens
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: qa-screens-${{ matrix.engine }}
+          path: out/qa-screens/
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Upload failure traces
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-traces-${{ matrix.engine }}
           path: test-results/

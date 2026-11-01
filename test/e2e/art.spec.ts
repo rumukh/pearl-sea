@@ -10,7 +10,6 @@
  * - Osmička cheers beside the results of a finished round;
  * - no text sits straight on a painting, and every screen passes axe.
  */
-import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { levelSpots, regionSpot } from '../../src/app/game/map';
 import { ART, GUIDE_ID } from '../../src/rules/contract';
@@ -25,6 +24,7 @@ import {
 } from './support/game';
 import { observe } from './support/observe';
 import { noViolations, ready } from './support/screens';
+import { expect, test } from './support/fixtures';
 
 test.use({ reducedMotion: 'reduce' });
 

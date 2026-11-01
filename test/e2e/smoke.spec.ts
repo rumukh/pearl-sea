@@ -5,7 +5,7 @@
  * Owned by S6 (QA) from here on; extend rather than loosen it.
  */
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test } from './support/fixtures';
 import { observe } from './support/observe';
 
 test('the game boots at the Pages base into the Czech title screen', async ({ page, baseURL }) => {

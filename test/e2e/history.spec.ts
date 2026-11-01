@@ -11,7 +11,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { parseContentJson, requireValue } from '@aegis/runtime';
 import type { RuntimeSnapshot } from '@aegis/runtime';
-import { expect, test } from '@playwright/test';
+import { expect, test } from './support/fixtures';
 import type { Page } from '@playwright/test';
 import { readArchive, archivedRevision } from '../../scripts/lib/history.mjs';
 import { pearlSeaGame } from '../../src/app/game/definition';

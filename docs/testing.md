@@ -245,7 +245,8 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
 - **Shell logic** (S4): profiles, preferences and recovery; Czech plural forms (1 mince, 3 mince,
   5 mincí) and praise by form of address, checked against hand-written Czech; read-aloud chooses
   only local Czech voices.
-- **Browser** (S6): §5.
+- **Browser** (S6): §5; IndexedDB faults, a watch for blank screens between screens and focus rings
+  checked by their pixels in Phase 2.
 
 ## 4. Learner-simulation bots (S2)
 
@@ -303,13 +304,17 @@ $env:PS_E2E_PORT = '4401'; npm run test:e2e       # a second run beside another 
 
 - **Locally** Playwright never downloads browsers: it drives the installed Microsoft Edge (channel
   `msedge`) or Chrome (`PS_BROWSER_CHANNEL=chrome`). `PS_E2E_ALL_ENGINES=1` runs Chromium, WebKit
-  and Firefox where Playwright's own builds are installed.
+  and Firefox where Playwright's own builds are installed. Run one engine at a time with two
+  workers (`--project=firefox --workers=2`), as CI does: with Firefox and WebKit walking the screens
+  at once on one Windows machine, Firefox's IndexedDB sometimes stalls a boot past its 20 s wait.
 - **On CI** each engine is its own job (`npx playwright test --project=<engine>`, two workers,
-  `test.only` forbidden). The engines' system packages come from Ubuntu's mirror, which is at times
-  very slow, so their `.deb` files are cached per engine, runner image and Playwright version. A
-  job has 30 minutes and its test step 15, the guard against a hang. Each job uploads
-  `playwright-report-<engine>` (the HTML report and `test-results/results.json`) and, when
-  something failed, `playwright-traces-<engine>`.
+  `test.only` forbidden, `PS_E2E_AUDIT=1`). The engines' system packages come from Ubuntu's mirror,
+  which is at times very slow, so their `.deb` files are cached per engine, runner image and
+  Playwright version. A job has 40 minutes and its test step 25 (the screen walks photograph every
+  slice screen at four sizes), the guard against a hang. Each job uploads
+  `playwright-report-<engine>` (the HTML report, `test-results/results.json` and the QA summary),
+  `qa-screens-<engine>` (the walks' pictures and contact sheets) and, when something failed,
+  `playwright-traces-<engine>`; the QA reporter writes the job summary.
 - **One run per port.** The web server (`scripts/serve.mjs --build`) builds into
   `out/e2e-site-<port>` and serves on port 4331 unless `PS_E2E_PORT` says otherwise; output goes to
   `test-results/` on the default port and to `out/e2e-results-<port>` on any other, so two local
@@ -317,48 +322,82 @@ $env:PS_E2E_PORT = '4401'; npm run test:e2e       # a second run beside another 
   listening: a busy port stops the run at once. Dragon Valley's suite uses 4321.
 - **WebKit on Windows is not CI's WebKit.** Dragon Valley's suite found that it draws a page at
   rest only a few times a second, and that once a Tab pass has left the page the document loses
-  focus, so `toBeFocused` reports the focused element as inactive. Judge WebKit by CI, or by WebKit
-  on Linux or macOS.
+  focus, so `toBeFocused` reports the focused element as inactive. It has no Web Audio at all.
+  Judge WebKit by CI, or by WebKit on Linux or macOS.
+- **The QA summary.** `support/qa-reporter.ts` writes `qa-summary.md` beside each run's results
+  (and the CI job summary): totals, the known defects that still reproduce and the markers that no
+  longer do, the registered defects no test met, the tests that used more than half their time
+  budget, the performance measurements, pages too tall to photograph, checks narrowed for an engine,
+  the walk stops the game did not offer that run (a hint, a mismatch, the chest …), and axe's
+  best-practice advice by rule and screen. With `PS_E2E_AUDIT=1` it fails a run in which a spec
+  file never ran in a project or a test was skipped without a reason.
+
+### The QA specs (S6)
+
+| Spec                 | What it holds                                                                                                                                                                                                                                                                                                                       |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `screens.spec.ts`    | Every slice screen in seven walks (`support/tour.ts`): photographed at tablet 1280 × 800 and 1024 × 768, desktop 1440 × 900 and phone 390 × 844; axe WCAG 2.2 A/AA at the large tablet and the phone; layout checks at every size; play screens that fit a landscape tablet; nothing looping with less motion; a walk at 200 % text |
+| `input.spec.ts`      | A new diver's first lesson by keyboard alone (Tab both ways, arrows, typed letters, every control with a focus ring) and by touch alone; fish dragged into their nets with a finger, at normal motion and with less motion                                                                                                          |
+| `read-aloud.spec.ts` | Only local Czech voices (Zuzana), never the remote default, at 0.9; a gap read as a pause, never spelled; auto-read; pausing silences; no local Czech voice hides the speakers and the grown-ups' area says why; a late voice list is offered at once                                                                               |
+| `offline.spec.ts`    | Installed, then the test's own server shut down: the game opens from the worker and saves; the browser's offline mode (not WebKit); a browser that cannot install says so                                                                                                                                                           |
+| `audio.spec.ts`      | Watched from outside (`support/audio.ts`): the first tap unlocks audio; the grotto, practice and battle loops; the music stopped for the victory sting and back after it; decoded audio mono and within the manifest's budget                                                                                                       |
+| `perf.spec.ts`       | Script, style and offline pack sizes; a first visit on fast and slow 4G with a 4× slower processor (Chromium); feedback after a tap and the longest task while playing ([qa/performance.md](qa/performance.md))                                                                                                                     |
+| `harness.spec.ts`    | Each guard kind, the axe audit, the layout checks and the audio probe shown a planted fault                                                                                                                                                                                                                                         |
+| `live.spec.ts`       | The deployed site, on request only (`PS_E2E_LIVE=1`, it needs the internet): boots clean with its text compressed; installed for offline play, it opens and plays without the network                                                                                                                                               |
+
+`PS_QA_DOCS=1 npm run test:e2e -- screens.spec.ts` also rewrites [qa/screens.md](qa/screens.md)
+with the tablet pictures, small, for review without running anything. The QA reports are in
+[qa/](qa/): [screens](qa/screens.md), [accessibility](qa/accessibility.md),
+[performance](qa/performance.md), [defects](qa/defects.md) and [coverage](qa/coverage.md).
 
 ### Guards
 
-Today the boot test in `smoke.spec.ts` watches the page through `support/observe.ts`: uncaught page
-errors, console errors, failed or 4xx/5xx requests and requests to another origin must all stay
-empty. S6 ports Dragon Valley's automatic guard (planned): every spec imports `test` and `expect`
-from `support/fixtures.ts`, whose `guard` fixture watches the whole browser context and fails the
-test on any console message of any level, uncaught error, failed or 4xx/5xx request, request to
-another origin, outbound link or URL in the page, `window.open`, beacon, socket or peer connection,
-CSP violation or navigation away. A request the browser cancels is only noted. A test that provokes
-a finding on purpose says so with `guard.allow(kind, pattern, reason)`, and `harness.spec.ts`
-plants each kind of fault to prove that the guard and every other check see it.
+Every spec imports `test` and `expect` from `support/fixtures.ts`, whose automatic `guard` fixture
+(Dragon Valley's `support/guard.ts`, under this game's names) watches the whole browser context and
+fails the test on any console message of any level, uncaught error or rejection, the game's own
+error screen (the shell catches what nothing else did and shows it, so the browser never reports
+it), failed or 4xx/5xx request, request to another origin, outbound link or URL in the page,
+`window.open`, beacon, socket or peer connection, CSP violation or navigation away. A request the
+browser cancels is only noted. A test that provokes a finding on purpose says so with
+`guard.allow(kind, pattern, reason)`; engine noise that is not the game's doing is listed once in
+`support/known-issues.ts` (`KNOWN_ISSUES`: Firefox's bounce-tracking warning about the test
+server). `harness.spec.ts` plants each kind of fault to prove that the guard and every other check
+see it. `support/observe.ts` remains for the specs that also list what they saw.
 
 ### How the tests drive the game
 
 - **Through the screen only.** Tests act as a child or a grown-up would; test IDs are handles, never
-  private state. Today the page's hidden `boot-status` element turns `data-state="ready"` only after
-  the catalog has loaded, the font has loaded or its short wait has run out, and the first screen
-  is painted, so tests wait for it instead of guessing. Answers will come from an oracle in the test
-  support that never calls the game's own answer code (S6, planned).
-- **Faults from outside** (S6, planned): stored records damaged as a failing disk would damage them,
-  IndexedDB faults installed before the game starts, and a stand-in speech engine whose voices the
-  test chooses (only local Czech voices may be used or listed).
+  private state. The page's hidden `boot-status` element turns `data-state="ready"` only after the
+  catalog has loaded, the font has loaded or its short wait has run out, and the first screen is
+  painted, so tests wait for it instead of guessing. Answers come from the game's stored save,
+  restored in Node (`support/game.ts`), and boards are solved from the board view and the lexicon
+  with S2's trace helpers; Pexeso is played like a child with a perfect memory and no answer key.
+- **Seeded children.** A child far into the slice is played in Node by S2's trace `Player` and
+  stored as the shell's checkpoint stores it (`support/saves.ts`); the walks fix the page's date
+  (`WALK_DAY`) so the game serves the same day's mix each run.
+- **Faults from outside**: stored records damaged as a failing disk would damage them, a stand-in
+  speech engine whose voices the test chooses (`support/speech.ts`), and a Web Audio probe
+  (`support/audio.ts`). IndexedDB faults installed before the game starts are planned (S6, with the
+  save and recovery walks of Phase 2).
 - **Named waits only.** Every wait is for a named condition. There are no fixed sleeps except where
   a duration is the subject.
 - **Time budgets.** A test has 120 s and an `expect` 10 s (`playwright.config.ts`). Long flows
   declare more (`test.slow()`, `test.setTimeout`); a budget is at least twice the test's slowest
-  time on CI, and S6's QA report will list every test that used more than half of its budget, so a
-  budget is raised before a slower runner turns it into a failure (planned).
-- **Accessibility and layout.** Today axe-core must find no WCAG 2.1 A or AA violation on the title
-  screen. S6 extends the audit to every screen and state at phone, tablet and desktop sizes, with
-  Dragon Valley's layout checks (no sideways scrolling, every control inside the viewport and at
-  least 48 × 48 px, no word broken in the middle), focus rings checked by their pixels, screenshots
-  for review and a watch for blank screens between screens (planned).
+  time on CI, and the QA summary lists every test that used more than half of its budget, so a
+  budget is raised before a slower runner turns it into a failure.
+- **Accessibility and layout.** axe-core (WCAG 2.2 A and AA rules fail a test, best-practice rules
+  are advice) on every screen and state of the walks at the tablet and phone sizes; Dragon Valley's
+  layout checks (`support/layout.ts`: no sideways scrolling, every control inside the viewport and
+  at least 48 × 48 px, nothing cut off, no word broken in the middle) at all four sizes; focus rings
+  on every control the keyboard journey reaches. A watch for blank screens between screens and
+  focus rings checked by their pixels are planned (S6, Phase 2).
 
 ### Adding a browser test
 
-Drive the game through the screen, wait for named conditions, give every assertion a label that
-reads as a bug report, and plant the fault once to watch it go red. Until the guard fixture lands,
-use `observe()` and assert its lists are empty, as `smoke.spec.ts` does.
+Import `test` and `expect` from `support/fixtures.ts`, drive the game through the screen, wait for
+named conditions, give every assertion a label that reads as a bug report, and plant the fault once
+to watch it go red. A new screen joins a walk in `support/tour.ts`, so it is photographed and
+checked at every size.
 
 ## 6. Flake policy
 
@@ -367,14 +406,15 @@ A flaky test is a defect, in the game or in the test, and is treated as one.
 - **No retries.** `playwright.config.ts` sets `retries: 0` locally and on CI, and Vitest does not
   retry. A test that passes only on a second try has found something.
 - **Nothing skipped.** CI forbids `test.only`; the gate's audit fails on a skipped or todo Vitest
-  test and on a test file that never ran, and S6's QA report will audit browser runs the same way
-  (planned).
+  test and on a test file that never ran, and the QA reporter (`PS_E2E_AUDIT=1` on CI) fails a
+  browser run in which a spec never ran in a project or a test was skipped without saying why.
 - **Determinism first.** Vitest tests follow the determinism lint (§2) and use no clocks or unseeded
   randomness. Browser tests wait only for named conditions; their timeouts are generous because
   WebKit on a shared runner is slow, not because anything waits.
 - **Investigate, then record.** A failure that shows only under some timings or on one engine is
   reproduced from its trace (kept on failure) and fixed. A defect that cannot be fixed at once is
-  registered (S6, planned, after Dragon Valley's `support/known-issues.ts`): the test states the
+  registered in `support/known-issues.ts` (`DEFECTS`, with `KNOWN_LAYOUT` and `a11y.ts`'s
+  `KNOWN_AXE`; [qa/defects.md](qa/defects.md) has each one's repro and owner): the test states the
   behaviour the game should have and wraps that one assertion in `unlessKnown(...)`; a defect seen
   on one engine is listed for that engine and stays a failure everywhere else; a passing run of an
   intermittent defect is noted ("not seen this time"), never taken for a fix. Nothing unlisted is

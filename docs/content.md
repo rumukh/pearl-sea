@@ -461,8 +461,11 @@ look-alike, hint gaps, and punctuation inside Lov chyb tokens.
 generated problems were read again once the rules showed them (catalog only, no revision):
 
 - Seven agreement sentences have several subjects (_Delfíni a želvy plavali_), where _ti, ty, ta_
-  before each word does not decide. The agreement rule line now says that one masculine animate
-  noun among them makes _-i_.
+  before each word does not decide, and only they show the agreement rule line (one subject gets
+  _ti, ty, nebo ta?_). So the line states the decision in order, right for any subject: one
+  masculine animate noun makes _-i_ (_psi a kočky utíkali_), all of them neuter make _-a_, and
+  anything else _-y_. At 160 characters it fits a tablet, where the old line's 273 ran to seven
+  lines (S4).
 - A sound-alike with _i_ (_bít, mít, vít, vír, vískat, dobít, bidlo, sírový_) shown with its gap
   also spells its partner with _y_ (`b_t` is _být_ too), so a hint cannot call it neither listed
   nor related. The _i/í_ rule line now says that sound-alikes are told apart by meaning.
@@ -472,10 +475,10 @@ generated problems were read again once the rules showed them (catalog only, no 
   S6's hint baseline in #43 found three of them). They now state the method alone, so that the
   rules can add an example of the same rule from another family. The line for standard Czech
   names instead the three changes the register items show: _ej_ for _ý_ or _í_ (_velkej,
-  zejtra_), _í_ for _é_ (_mlíko_) and _vo_ for _o_ (_vokno_). A line that keeps
-  examples of its own, as the agreement and pattern lines do, uses only words that its rule's
-  problems never show. The agreement line's _kuřata_ was the subject of agree.14, and its
-  _kameny_ stood beside agree.04's _po kamenech_; they are now _prasátka_ and _stromy_.
+  zejtra_), _í_ for _é_ (_mlíko_) and _vo_ for _o_ (_vokno_). A line that keeps examples of its
+  own, as the agreement and pattern lines do, uses only words that its rule's problems never
+  show: the agreement line's old _kuřata_ was the subject of agree.14, and its _kameny_ stood
+  beside agree.04's _po kamenech_.
   `pack.test.ts` checks every rule line against what its rule's problems show. The only exception
   is the two forms the `mne-zajmeno` line teaches, _mně_ and _mě_: every one of its gaps offers
   both.

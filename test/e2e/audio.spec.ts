@@ -5,7 +5,7 @@
  * Decoded audio stays within the manifest's own budget, all of it mono.
  *
  * The page's Web Audio is watched from outside (support/audio.ts): every context, decoded buffer
- * and buffer source, each sound known by its length in S5's manifest. The shell's own word on the
+ * and buffer source, each sound known by its file in S5's manifest. The shell's own word on the
  * sound is boot-status's `data-audio`: Chromium always has an audio output, headless included, so
  * there the first tap must make it `ready`; another engine may have none here (Playwright's WebKit
  * on Windows has no Web Audio at all), and then the sound stays `blocked`, silent, and the game
@@ -17,7 +17,7 @@ import {
   audioLog,
   audioProbe,
   manifestSound,
-  soundOf,
+  soundIn,
   startedSounds,
 } from './support/audio';
 import { expect, test } from './support/fixtures';
@@ -94,7 +94,7 @@ test('each mood plays its loop, and freeing Muréna plays the victory sting betw
     .poll(() => startedSounds(page), { message: 'the battle has its own loop' })
     .toContain('music/battle');
   const battle = (await audioLog(page)).started.find(
-    (played) => soundOf(played.duration) === 'music/battle',
+    (played) => soundIn(played) === 'music/battle',
   )!;
   expect(battle.loop, 'the battle music loops').toBe(true);
 
@@ -106,7 +106,7 @@ test('each mood plays its loop, and freeing Muréna plays the victory sting betw
     .poll(() => startedSounds(page), { message: 'the victory sting plays when she is freed' })
     .toContain('sfx/victory-sting');
   const log = await audioLog(page);
-  const sting = log.started.find((played) => soundOf(played.duration) === 'sfx/victory-sting')!;
+  const sting = log.started.find((played) => soundIn(played) === 'sfx/victory-sting')!;
   expect(sting.loop, 'the sting is a one-shot').toBe(false);
   const lastLoop = log.started.filter((played) => played.loop && played.at <= sting.at).at(-1)!;
   expect(
@@ -129,7 +129,7 @@ test('each mood plays its loop, and freeing Muréna plays the victory sting betw
     (played) => played.loop && played.at > sting.at,
   )!;
   expect(back.at - sting.at, 'no music while the sting plays').toBeGreaterThanOrEqual(length - 250);
-  expect(soundOf(back.duration), 'the results play the grotto’s loop').toBe('music/grotto');
+  expect(soundIn(back), 'the results play the grotto’s loop').toBe('music/grotto');
   const decoded = (await audioLog(page)).decoded;
   testInfo.annotations.push({
     type: 'performance',
@@ -165,6 +165,6 @@ test('lessons play the practice loop, and decoded audio stays mono and within it
   });
   expect(bytes, 'decoded audio').toBeLessThanOrEqual(AUDIO_MANIFEST.decoded.budgetBytes);
   for (const buffer of log.decoded) {
-    expect(buffer.channels, `${soundOf(buffer.duration)} is mono`).toBe(1);
+    expect(buffer.channels, `${soundIn(buffer)} is mono`).toBe(1);
   }
 });

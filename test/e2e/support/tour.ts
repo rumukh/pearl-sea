@@ -536,8 +536,8 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     await expect(page.locator('select[data-testid^="wear-"]').first()).toHaveValue(value!);
     await visit({ name: '39-friends-dressed', description: 'A friend wearing what was bought' });
   }
-  await page.getByTestId('back').click();
-  if (await page.getByTestId('screen-shop').isVisible()) await page.getByTestId('back').click();
+  await leaveScreen(page, 'screen-friends', () => page.getByTestId('back').click());
+  if ((await shownScreen(page)) === 'screen-shop') await page.getByTestId('back').click();
   await expect(page.getByTestId('screen-hub')).toBeVisible();
   await page.getByTestId('place-album').click();
   await expect(page.getByTestId('screen-album')).toBeVisible();
@@ -870,8 +870,8 @@ export async function largeTextWalk(page: Page, visit: Visit): Promise<void> {
   await page.getByTestId('shop-dress').click();
   await expect(page.getByTestId('screen-friends')).toBeVisible();
   await visit({ name: '38-friends', description: 'Kamarádi at 200 % text' });
-  await page.getByTestId('back').click();
-  if (await page.getByTestId('screen-shop').isVisible()) await page.getByTestId('back').click();
+  await leaveScreen(page, 'screen-friends', () => page.getByTestId('back').click());
+  if ((await shownScreen(page)) === 'screen-shop') await page.getByTestId('back').click();
   await expect(page.getByTestId('screen-hub')).toBeVisible();
   await page.getByTestId('place-album').click();
   await expect(page.getByTestId('screen-album')).toBeVisible();

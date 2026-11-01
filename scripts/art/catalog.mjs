@@ -7,14 +7,17 @@
  *
  * The source is assets/art/provenance.json (never shipped): one record per painted file with its
  * art ID, file, digest and, for sea friends, the cosmetic anchors. Every file is measured from its
- * own WebP header, so the catalog's sizes always describe the committed bytes. Rules:
+ * own WebP header, so the catalog's sizes always describe the committed bytes. The static SVG art
+ * (eggs, cosmetics, the crown, sticker art) comes from its generator (scripts/art/svg), listed at
+ * its viewBox size. Rules:
  *
  * - the catalog parses with the contract's `artCatalogSchema`, and IDs are unique and sorted;
- * - every file is a WebP under assets/art/ whose SHA-256 matches its provenance record, with no
- *   EXIF, XMP or ICC chunk;
+ * - every painted file is a WebP under assets/art/ whose SHA-256 matches its provenance record,
+ *   with no EXIF, XMP or ICC chunk;
  * - cut-out art (friends, monsters, Inkoustíci, characters, avatars) has an alpha channel, and
  *   every painted friend publishes the `head`, `eyes` and `neck` anchors;
- * - a file stays under FILE_BUDGET_BYTES and all painted art under ART_BUDGET_BYTES.
+ * - every SVG file is byte for byte its generator's output, and no SVG file lacks a design;
+ * - a painted file stays under FILE_BUDGET_BYTES and all painted art under ART_BUDGET_BYTES.
  */
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -22,6 +25,7 @@ import { join } from 'node:path';
 import { isMain, readJson, repositoryRoot } from '../lib/tools.mjs';
 import { loadContract } from '../validate-content.mjs';
 import { readWebp } from './lib/webp.mjs';
+import { checkSvgArt, renderSvgArt } from './svg/generate.mjs';
 
 export const CATALOG_PATH = 'assets/art/catalog.json';
 export const PROVENANCE_PATH = 'assets/art/provenance.json';
@@ -43,18 +47,20 @@ function sha256(bytes) {
 }
 
 /**
- * Builds the catalog from the provenance records and the committed files.
+ * Builds the catalog from the provenance records, the committed files and the SVG generator.
  *
  * @param {string} [root]
+ * @param {import('./svg/generate.mjs').SvgArt[]} [svgArt] the generated SVG art (none in tests)
  * @returns {Promise<{ catalog: Record<string, unknown>; problems: string[]; bytes: number; count: number }>}
  */
-export async function buildArtCatalog(root = repositoryRoot) {
+export async function buildArtCatalog(root = repositoryRoot, svgArt = renderSvgArt()) {
   const domain = await loadContract();
   /** @type {{ assets: ArtRecord[] }} */
   const provenance = readJson(join(root, ...PROVENANCE_PATH.split('/')));
   /** @type {string[]} */
   const problems = [];
   const records = [...provenance.assets].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  /** @type {({ id: string } & Record<string, unknown>)[]} */
   const entries = [];
   const seen = new Set();
   let total = 0;
@@ -85,7 +91,7 @@ export async function buildArtCatalog(root = repositoryRoot) {
     const metadata = info.chunks.filter((chunk) => METADATA_CHUNKS.includes(chunk));
     if (metadata.length > 0) problems.push(`${where}: metadata chunks ${metadata.join(', ')}.`);
     if (CUT_OUT.test(record.id) && !info.alpha) problems.push(`${where}: a cut-out needs alpha.`);
-    /** @type {Record<string, unknown>} */
+    /** @type {{ id: string } & Record<string, unknown>} */
     const entry = {
       id: record.id,
       kind: 'painted',
@@ -107,6 +113,19 @@ export async function buildArtCatalog(root = repositoryRoot) {
   if (total > ART_BUDGET_BYTES) {
     problems.push(`Painted art is ${total} bytes, over the ${ART_BUDGET_BYTES}-byte budget.`);
   }
+  if (svgArt.length > 0) problems.push(...checkSvgArt(root));
+  for (const item of svgArt) {
+    if (seen.has(item.id)) problems.push(`Art ${item.id}: listed twice.`);
+    seen.add(item.id);
+    entries.push({
+      id: item.id,
+      kind: 'svg',
+      file: item.file,
+      width: item.width,
+      height: item.height,
+    });
+  }
+  entries.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const catalog = { format: domain.ART_CATALOG_FORMAT, entries };
   const parsed = domain.artCatalogSchema.parse(catalog);
   if (!parsed.ok) {
@@ -145,5 +164,7 @@ if (isMain(import.meta.url)) {
     process.exit(1);
   }
   const mib = (bytes / (1024 * 1024)).toFixed(1);
-  console.log(`${check ? 'Checked' : 'Wrote'} ${CATALOG_PATH}: ${count} images, ${mib} MiB.`);
+  console.log(
+    `${check ? 'Checked' : 'Wrote'} ${CATALOG_PATH}: ${count} entries, painted art ${mib} MiB.`,
+  );
 }

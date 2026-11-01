@@ -1,0 +1,8 @@
+# step 1: bg-sunny-lagoon/bg-sunny-lagoon-v2-s41011.png (seed 41011, Scene mode)
+Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Slunná laguna, a sunny, shallow tropical lagoon seen from inside the water. Keep exactly the same composition: bright sunbeams slanting down from the shimmering surface; a wide, calm, open band of clear turquoise water and smooth sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner a rocky ledge with swaying kelp and a purple sea fan; in the bottom-right corner a lush garden of branching pink, orange and purple corals with a yellow sea star; at the right edge a big rounded reef rock with a dark, mysterious hole in it, where a sea monster lives, mysterious but not scary; the soft sandy sea floor along the bottom with a few seashells and pebbles. Tiny bubbles rising, gentle caustic light ripples on the sand.
+Style: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, aqua blue, coral pink, sunny yellow and sand beige, gentle depth haze toward the back. Calm, magical and inviting.
+No fish, no animals, no people, no characters, no monster, no text, no letters, no logo, no watermark, no border.
+
+# negative prompt
+blurry, low resolution, text, letters, words, labels, numbers, signature, watermark, map frame, border, compass rose, characters, animals, fish, people, submarine, monster, dark, scary, photorealistic, 3d render
+

@@ -9,7 +9,13 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { artCatalogSchema, ART_CATALOG_FORMAT, ART_CATALOG_PATH } from '../../src/rules/contract';
+import {
+  artCatalogSchema,
+  ART_CATALOG_FORMAT,
+  ART_CATALOG_PATH,
+  COSMETIC_VIEWBOX,
+  CROWN_ART_ID,
+} from '../../src/rules/contract';
 import {
   buildArtCatalog,
   CATALOG_PATH,
@@ -17,6 +23,8 @@ import {
   PROVENANCE_PATH,
 } from '../../scripts/art/catalog.mjs';
 import { readWebp } from '../../scripts/art/lib/webp.mjs';
+import { checkSvgArt, renderSvgArt } from '../../scripts/art/svg/generate.mjs';
+import { DISC_RADIUS, FRAME_WINDOW, ICON_RADIUS } from '../../scripts/art/svg/stickers.mjs';
 
 const repository = join(import.meta.dirname, '..', '..');
 const published = existsSync(join(repository, ...CATALOG_PATH.split('/')));
@@ -82,7 +90,7 @@ describe('art catalog generator', () => {
         anchors,
       },
     ]);
-    const built = await buildArtCatalog(root);
+    const built = await buildArtCatalog(root, []);
     expect(built.problems).toEqual([]);
     expect(built.catalog).toEqual({
       format: ART_CATALOG_FORMAT,
@@ -119,7 +127,7 @@ describe('art catalog generator', () => {
         { id: 'friend/krab-tvrdak/grown', file: 'f/friend.webp', sha256: '0'.repeat(64) },
       ],
     );
-    const { problems } = await buildArtCatalog(root);
+    const { problems } = await buildArtCatalog(root, []);
     expect(problems.some((p) => p.includes('murena-mumla/inked') && p.includes('EXIF'))).toBe(true);
     expect(problems.some((p) => p.includes('murena-mumla/freed') && p.includes('alpha'))).toBe(
       true,
@@ -139,6 +147,40 @@ describe('art catalog generator', () => {
   });
 });
 
+describe('static SVG art generator', () => {
+  const art = renderSvgArt();
+
+  it('renders the same bytes every time, with plain fixed-point numbers', () => {
+    expect(renderSvgArt()).toEqual(art);
+    for (const item of art) {
+      expect(item.svg.startsWith('<svg xmlns="http://www.w3.org/2000/svg"'), item.id).toBe(true);
+      expect(item.svg.endsWith('</svg>\n'), item.id).toBe(true);
+      const numbersOnly = item.svg
+        .replace(/#[0-9a-f]{6}\b/g, '#')
+        .replace(/id="[^"]*"|url\(#[^)]*\)/g, '');
+      expect(numbersOnly, item.id).not.toMatch(/\d[eE][+-]?\d|NaN|Infinity|-0(?![.\d])/);
+      expect(item.svg, item.id).not.toMatch(/<text|<image|href=/);
+      expect(item.svg, item.id).toContain(`viewBox="0 0 ${item.width} ${item.height}"`);
+    }
+  });
+
+  it('draws cosmetics in the contract box and eggs at 3:4', () => {
+    for (const item of art) {
+      if (item.id.startsWith('cosmetic/')) {
+        expect([item.width, item.height], item.id).toEqual([COSMETIC_VIEWBOX, COSMETIC_VIEWBOX]);
+      }
+      if (item.id.startsWith('egg/')) expect(item.width * 4, item.id).toBe(item.height * 3);
+    }
+    expect(art.some((item) => item.id === CROWN_ART_ID)).toBe(true);
+  });
+
+  it('gives every sticker icon room inside the frame window', () => {
+    expect(ICON_RADIUS).toBeLessThan(FRAME_WINDOW);
+    expect(FRAME_WINDOW).toBeLessThan(DISC_RADIUS);
+    expect(art.some((item) => item.id === 'sticker/frame-shell')).toBe(true);
+  });
+});
+
 describe.runIf(published)('published art catalog', () => {
   it('is exactly what the generator builds, with no rule broken', async () => {
     expect(CATALOG_PATH).toBe(ART_CATALOG_PATH);
@@ -148,13 +190,17 @@ describe.runIf(published)('published art catalog', () => {
     expect(committed).toBe(formatCatalog(built.catalog));
   });
 
+  it('keeps every committed SVG file byte for byte its generator output', () => {
+    expect(checkSvgArt(repository)).toEqual([]);
+  });
+
   it('keeps every shipped file free of metadata', () => {
     const catalog = JSON.parse(
       readFileSync(join(repository, ...CATALOG_PATH.split('/')), 'utf8'),
     ) as {
-      entries: { file: string }[];
+      entries: { file: string; kind: string }[];
     };
-    for (const entry of catalog.entries) {
+    for (const entry of catalog.entries.filter((candidate) => candidate.kind === 'painted')) {
       const info = readWebp(
         readFileSync(join(repository, 'assets', 'art', ...entry.file.split('/'))),
       );

@@ -9,9 +9,13 @@ that was encoded (PSNR), and its chunks are listed.
 Anchors (friends): points given in source-image pixels are mapped into the shipped image box as
 thousandths, so SVG cosmetics land where they were placed on the master.
 
+Box groups (a monster's inked and freed forms): items with the same "boxGroup" are trimmed to the
+union of their alpha boxes on their shared source canvas, so the forms overlay exactly when the
+shell cross-fades them.
+
 Usage: python ship_art.py <spec.json>   (writes the files and <spec>.result.json)
 spec: {"repo": "...", "items": [{"id", "kind": "character"|"scene", "source", "cutout"?, "file",
-       "maxSide", "quality", "anchors"?: {"head": {"x", "y", "scale", "rotate"}, ...}}]}
+       "maxSide", "quality", "boxGroup"?, "anchors"?: {"head": {"x", "y", "scale", "rotate"}, ...}}]}
 """
 
 import hashlib
@@ -71,9 +75,14 @@ def encode(img, quality, alpha):
     return buf.getvalue()
 
 
+def alpha_box(path):
+    cut = Image.open(path).convert("RGBA")
+    return cut.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox(), cut.size
+
+
 def ship_character(item):
     cut = Image.open(item["cutout"]).convert("RGBA")
-    box = cut.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()
+    box = item.get("unionBox") or cut.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()
     side = max(box[2] - box[0], box[3] - box[1])
     pad = max(8, round(side * 0.02))
     left, top = max(box[0] - pad, 0), max(box[1] - pad, 0)
@@ -92,7 +101,9 @@ def ship_character(item):
     steps = [
         {"step": "cut-out", "tool": "cutout.py: rembg 2.0.65 U2Net (u2net.onnx) on CPU + backdrop key and edge matting",
          "cutoutSha256": sha256_file(item["cutout"])},
-        {"step": "trim", "box": [left, top, right, bottom], "marginPx": pad},
+        {"step": "trim", "box": [left, top, right, bottom], "marginPx": pad}
+        | ({"sharedWith": item["boxGroupMembers"], "note": "the union of the group's alpha boxes, so the forms overlay exactly"}
+           if item.get("unionBox") else {}),
         {"step": "scale", "factor": round(scale, 6), "filter": "Lanczos on premultiplied alpha", "size": list(final.size)},
     ]
     return final, data, anchors, steps
@@ -112,6 +123,19 @@ def main():
     spec_path = sys.argv[1]
     with open(spec_path, encoding="utf-8") as f:
         spec = json.load(f)
+    groups = {}
+    for item in spec["items"]:
+        if item.get("boxGroup"):
+            groups.setdefault(item["boxGroup"], []).append(item)
+    for name, members in groups.items():
+        boxes = [alpha_box(m["cutout"]) for m in members]
+        if len({size for _, size in boxes}) != 1:
+            raise SystemExit(f"box group {name}: the cut-outs are not on the same canvas")
+        union = (min(b[0] for b, _ in boxes), min(b[1] for b, _ in boxes),
+                 max(b[2] for b, _ in boxes), max(b[3] for b, _ in boxes))
+        for m in members:
+            m["unionBox"] = union
+            m["boxGroupMembers"] = sorted(x["id"] for x in members)
     results = []
     for item in spec["items"]:
         final, data, anchors, steps = (ship_character if item["kind"] == "character" else ship_scene)(item)

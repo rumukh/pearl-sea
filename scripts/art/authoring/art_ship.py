@@ -9,8 +9,9 @@ approval. Prompts are also written to assets/art/prompts/<asset>.prompt.txt (nev
 
 Usage: python art_ship.py <repo> <spec.json>   ($PEARL_SEA_ART_ROOT: the authoring folder, outside
 the repository, that holds the renders with their records, _briefs and _decisions)
-spec: {"assets": [{"id", "kind": "character"|"scene", "source", "file", "maxSide", "quality",
-                   "gate": "<decision json>", "approvalKey": "<label in that gate>"}]}
+spec: {"assets": [{"id", "kind": "character"|"scene"|"avatar", "source", "file", "maxSide", "quality",
+                   "gate": "<decision json>", "approvalKey": "<label in that gate>", "approvalNote"?: "...",
+                   "cell"?: <avatar 1-8 on the sheet>, "boxGroup"?: "<shared trim box>"}]}
 """
 
 import hashlib
@@ -45,6 +46,34 @@ def portable(path):
     return "/".join(parts[-2:])
 
 
+SKETCHES = None
+
+
+def sketch_of(ref):
+    """The sketches.py function that draws a reference, checked by drawing it again: the committed
+    script must reproduce the reference byte for byte."""
+    global SKETCHES
+    if SKETCHES is None:
+        SKETCHES = load(os.path.join(A, "_briefs", "sketch-index.json"))
+    name = SKETCHES.get(os.path.basename(ref["path"]))
+    if name is None:
+        return None
+    out = os.path.join(A, "_scratch", "repro", f"ship-{name}.png")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    subprocess.run([PY, os.path.join(TOOLS, "sketches.py"), name, out], check=True, capture_output=True)
+    if sha256(out) != ref["sha256"]:
+        raise SystemExit(f"sketches.py {name} no longer reproduces {portable(ref['path'])}")
+    return name
+
+
+def reference(r):
+    entry = {"image": portable(r["path"]), "role": r["role"], "sha256": r["sha256"]}
+    name = sketch_of(r)
+    if name:
+        entry["sketch"] = f"{TOOL_PATH}/sketches.py {name} (reproduced byte for byte when shipped)"
+    return entry
+
+
 def lineage(png, seen=None):
     seen = seen or set()
     rec_path = png[:-4] + ".record.json"
@@ -73,7 +102,7 @@ def lineage(png, seen=None):
         "trueCfg": rec["trueCfg"],
         "resolution": rec["resolution"],
         "referenceMode": rec["referenceMode"],
-        "references": [{"image": portable(r["path"]), "role": r["role"], "sha256": r["sha256"]} for r in rec["references"]],
+        "references": [reference(r) for r in rec["references"]],
         "date": rec["startedAt"][:10],
         "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service",
     }
@@ -90,11 +119,23 @@ def main():
     anchors = load(os.path.join(A, "_briefs", "anchors.json"))["anchors"]
     sketch_script_sha = sha256(os.path.join(TOOLS, "sketches.py"))
     cutout_sha = sha256(os.path.join(TOOLS, "cutout.py"))
+    avatar_cut_sha = sha256(os.path.join(TOOLS, "avatar_cut.py"))
     ship_sha = sha256(os.path.join(TOOLS, "ship_art.py"))
     ship_items = []
+    sheets = {}
     for a in spec["assets"]:
         item = {"id": a["id"], "kind": a["kind"], "source": a["source"], "file": a["file"],
                 "maxSide": a["maxSide"], "quality": a["quality"]}
+        if a.get("boxGroup"):
+            item["boxGroup"] = a["boxGroup"]
+        if a["kind"] == "avatar":
+            out_dir = os.path.join(os.path.dirname(a["source"]), "cut-" + os.path.splitext(os.path.basename(a["source"]))[0])
+            if a["source"] not in sheets:
+                subprocess.run([PY, "-W", "ignore", os.path.join(TOOLS, "avatar_cut.py"), a["source"], out_dir],
+                               check=True, capture_output=True)
+                sheets[a["source"]] = {c["avatar"]: c for c in load(os.path.join(out_dir, "cut.json"))["avatars"]}
+            item["kind"] = "character"
+            item["cutout"] = os.path.join(out_dir, f"diver-{a['cell']}.png")
         if a["kind"] == "character":
             out_dir = os.path.join(os.path.dirname(a["source"]), "cutouts")
             stem = os.path.splitext(os.path.basename(a["source"]))[0]
@@ -130,6 +171,15 @@ def main():
                 f.write(step["prompt"].strip().replace("\r\n", "\n") + "\n\n")
                 f.write("# negative prompt\n" + step["negativePrompt"].strip().replace("\r\n", "\n") + "\n\n")
         processing = [dict(step) for step in res["processing"]]
+        if a["kind"] == "avatar":
+            cut = sheets[a["source"]][f"diver-{a['cell']}"]
+            first = processing[0]
+            if first["step"] != "cut-out":
+                raise SystemExit(f"{a['id']}: expected the cut-out as the first processing step")
+            first.update({"tool": f"{TOOL_PATH}/avatar_cut.py (sha256 {avatar_cut_sha}): the porthole frame's "
+                          "silhouette, a fitted disc, cut out anti-aliased at 4x",
+                          "sheetCell": cut["cell"], "circleCentre": cut["centre"], "circleRadius": cut["radius"],
+                          "cutRadius": cut["cutRadius"], "iouWithDisc": cut["iouWithDisc"]})
         if a["kind"] == "character":
             cut = load(item["cutout"].replace(".cutout.png", ".cutout.json"))
             first = processing[0]
@@ -143,7 +193,7 @@ def main():
         for step in processing:
             if step["step"] != "cut-out":
                 step["tool"] = f"{TOOL_PATH}/ship_art.py (sha256 {ship_sha})"
-        uses_sketch = any("sketch" in r["role"] for s in chain for r in s["references"])
+        uses_sketch = any("sketch" in r for s in chain for r in s["references"])
         entry = {
             "id": a["id"],
             "file": a["file"],
@@ -158,7 +208,8 @@ def main():
             "sketchScript": {"path": f"{TOOL_PATH}/sketches.py", "sha256": sketch_script_sha} if uses_sketch else None,
             "processing": processing,
             "approval": {"gate": gate["gate"], "decidedAt": gate["decidedAt"], "question": gate["question"],
-                         "answer": gate["userAnswer"], "chosen": a["approvalKey"]},
+                         "answer": gate["userAnswer"], "chosen": a["approvalKey"]}
+                        | ({"note": a["approvalNote"]} if a.get("approvalNote") else {}),
         }
         by_id[a["id"]] = entry
     doc = {

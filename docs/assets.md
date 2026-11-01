@@ -57,7 +57,7 @@ documentation and never shipped.
 | `scripts/`                    | `audio/` (the audio manifest generator, authoring tools), `art/` (the art catalog generator, authoring tools); `fonts/subset-andika.mjs` | S5, S1 |
 | `src/app/`                    | painted-art integration, rendering the static SVG art, sound playback, read-aloud                                                        | S4     |
 
-Today the font, the slice's music ([audio.md](audio.md)) and the slice's first paintings
+Today the font, the slice's music ([audio.md](audio.md)) and the slice's paintings and SVG art
 ([art.md](art.md)) exist; the rest of the art and the sound effects arrive with S5's next batches.
 
 `scripts/build.mjs` copies `assets/**` into the site **except authoring metadata**: `README` files,

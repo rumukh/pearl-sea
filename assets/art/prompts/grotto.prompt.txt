@@ -1,0 +1,20 @@
+# step 1: bg-grotto/bg-grotto-edit-nochest-s97014.png (seed 97014, Scene mode)
+Edit this painting of Bublinka's home grotto under the sea. Change one thing only: remove the small wooden treasure chest on the sand at the lower right, and paint plain smooth sand, a few small pebbles and the same soft shading there instead. Keep everything else exactly the same: the arch, the open sea, the light rays, the shelves with the shells and glowing pearls, the corals, the stones, the colours, the storybook gouache and watercolour style and the framing. No text, no watermark.
+
+# negative prompt
+blurry, low resolution, text, letters, numbers, watermark, signature, photorealistic, 3d render, dark, gloomy, extra objects, submarine, people, characters, animals
+
+# step 2: bg-grotto/bg-grotto-edit-nosub-s97013.png (seed 97013, Scene mode)
+Edit this painted background of a cosy undersea grotto. Remove the yellow submarine in the middle completely, together with its shadow, and fill its place with the same smooth, empty, sunlit sandy floor and the same calm water seen through the arch, so that the middle of the floor is open and empty. Keep everything else exactly the same: the blue-violet cave walls, the arch with the bright sea and sunbeams, the ledges with shells, sea grass and pearl lanterns, the corals, the pebbles, the treasure chest, the painting style and the colours. No characters, no animals, no fish, no submarine, no text, no watermark.
+
+# negative prompt
+submarine, vehicle, boat, characters, animals, fish, people, text, letters, watermark, blurry, low resolution, photorealistic, 3d render
+
+# step 3: bg-grotto/bg-grotto-v1-s97012.png (seed 97012, Scene mode)
+Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's undersea learning game: the cosy home grotto of a little yellow submarine, where friendly sea creatures live. Keep exactly the same composition: rounded cave walls of soft blue-violet rock framing the scene; a big arched opening at the back centre with bright turquoise sea and sunbeams; flat rock ledges on the left and right walls; warm glowing pearl lanterns; a soft sandy floor across the bottom with an open, empty middle where the game will place its sea friends; a small anemone garden at each side and a little treasure chest on the right. Add cosy details on the walls and ledges only: shell decorations, small sea-grass tufts, smooth pebbles and a few tiny bubbles.
+Style: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes; warm, magical and inviting, with turquoise, lilac, coral and sunny-gold tones; never dark or scary.
+No characters, no animals, no fish, no people, no submarine, no text, no letters, no watermark.
+
+# negative prompt
+blurry, low resolution, text, letters, words, labels, numbers, signature, watermark, map frame, border, compass rose, characters, animals, fish, people, submarine, dark, scary, photorealistic, 3d render
+

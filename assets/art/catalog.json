@@ -2,6 +2,62 @@
   "format": "pearl-sea-art-catalog/1",
   "entries": [
     {
+      "id": "avatar/diver-1",
+      "kind": "painted",
+      "file": "avatars/diver-1.webp",
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": "avatar/diver-2",
+      "kind": "painted",
+      "file": "avatars/diver-2.webp",
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": "avatar/diver-3",
+      "kind": "painted",
+      "file": "avatars/diver-3.webp",
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": "avatar/diver-4",
+      "kind": "painted",
+      "file": "avatars/diver-4.webp",
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": "avatar/diver-5",
+      "kind": "painted",
+      "file": "avatars/diver-5.webp",
+      "width": 401,
+      "height": 401
+    },
+    {
+      "id": "avatar/diver-6",
+      "kind": "painted",
+      "file": "avatars/diver-6.webp",
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": "avatar/diver-7",
+      "kind": "painted",
+      "file": "avatars/diver-7.webp",
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": "avatar/diver-8",
+      "kind": "painted",
+      "file": "avatars/diver-8.webp",
+      "width": 401,
+      "height": 401
+    },
+    {
       "id": "character/bublinka",
       "kind": "painted",
       "file": "characters/bublinka.webp",
@@ -16,6 +72,111 @@
       "height": 983
     },
     {
+      "id": "cosmetic/bow-shell",
+      "kind": "svg",
+      "file": "cosmetics/bow-shell.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/cap-sailor",
+      "kind": "svg",
+      "file": "cosmetics/cap-sailor.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/glasses-sun",
+      "kind": "svg",
+      "file": "cosmetics/glasses-sun.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/goggles-diving",
+      "kind": "svg",
+      "file": "cosmetics/goggles-diving.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/hat-straw",
+      "kind": "svg",
+      "file": "cosmetics/hat-straw.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/headband-coral",
+      "kind": "svg",
+      "file": "cosmetics/headband-coral.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/lamp-anemone",
+      "kind": "svg",
+      "file": "cosmetics/lamp-anemone.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/necklace-shells",
+      "kind": "svg",
+      "file": "cosmetics/necklace-shells.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/scarf-stripes",
+      "kind": "svg",
+      "file": "cosmetics/scarf-stripes.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/scarf-waves",
+      "kind": "svg",
+      "file": "cosmetics/scarf-waves.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/shell-crown",
+      "kind": "svg",
+      "file": "cosmetics/shell-crown.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/swing-shell",
+      "kind": "svg",
+      "file": "cosmetics/swing-shell.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "egg/krab-tvrdak",
+      "kind": "svg",
+      "file": "eggs/krab-tvrdak.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/meduzka-mekulka",
+      "kind": "svg",
+      "file": "eggs/meduzka-mekulka.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/zelva-obojka",
+      "kind": "svg",
+      "file": "eggs/zelva-obojka.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
       "id": "friend/krab-tvrdak/grown",
       "kind": "painted",
       "file": "friends/krab-tvrdak-grown.webp",
@@ -25,19 +186,19 @@
         "head": {
           "x": 502,
           "y": 31,
-          "scale": 95,
+          "scale": 125,
           "rotate": 0
         },
         "eyes": {
           "x": 502,
           "y": 97,
-          "scale": 100,
+          "scale": 120,
           "rotate": 0
         },
         "neck": {
           "x": 502,
           "y": 566,
-          "scale": 60,
+          "scale": 90,
           "rotate": 0
         }
       }
@@ -52,19 +213,19 @@
         "head": {
           "x": 546,
           "y": 43,
-          "scale": 110,
+          "scale": 140,
           "rotate": 0
         },
         "eyes": {
           "x": 547,
           "y": 265,
-          "scale": 110,
+          "scale": 170,
           "rotate": 0
         },
         "neck": {
           "x": 546,
           "y": 381,
-          "scale": 70,
+          "scale": 100,
           "rotate": 0
         }
       }
@@ -79,22 +240,29 @@
         "head": {
           "x": 314,
           "y": 56,
-          "scale": 85,
+          "scale": 100,
           "rotate": -6
         },
         "eyes": {
           "x": 286,
           "y": 313,
-          "scale": 100,
+          "scale": 110,
           "rotate": -7
         },
         "neck": {
           "x": 314,
           "y": 597,
-          "scale": 60,
+          "scale": 75,
           "rotate": -5
         }
       }
+    },
+    {
+      "id": "map/shallows",
+      "kind": "painted",
+      "file": "maps/shallows.webp",
+      "width": 1664,
+      "height": 928
     },
     {
       "id": "monster/murena-mumla/inked",
@@ -102,6 +270,97 @@
       "file": "monsters/murena-mumla-inked.webp",
       "width": 1024,
       "height": 872
+    },
+    {
+      "id": "scene/grotto",
+      "kind": "painted",
+      "file": "scenes/grotto.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
+      "id": "scene/sunny-lagoon",
+      "kind": "painted",
+      "file": "scenes/sunny-lagoon.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
+      "id": "scene/title",
+      "kind": "painted",
+      "file": "scenes/title.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
+      "id": "sticker/bow",
+      "kind": "svg",
+      "file": "stickers/bow.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/coins",
+      "kind": "svg",
+      "file": "stickers/coins.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/egg-hatching",
+      "kind": "svg",
+      "file": "stickers/egg-hatching.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/emblem-sunny-lagoon",
+      "kind": "svg",
+      "file": "stickers/emblem-sunny-lagoon.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/frame-shell",
+      "kind": "svg",
+      "file": "stickers/frame-shell.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/ink-drops",
+      "kind": "svg",
+      "file": "stickers/ink-drops.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/music-notes",
+      "kind": "svg",
+      "file": "stickers/music-notes.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/star-shell",
+      "kind": "svg",
+      "file": "stickers/star-shell.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/sun-week",
+      "kind": "svg",
+      "file": "stickers/sun-week.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/three-shells",
+      "kind": "svg",
+      "file": "stickers/three-shells.svg",
+      "width": 100,
+      "height": 100
     }
   ]
 }

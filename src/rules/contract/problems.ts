@@ -97,7 +97,12 @@ export interface GapsProblem {
 export interface ClassifyProblem {
   kind: 'classify';
   dimension: Dimension;
-  /** The word to classify, alone or as the highlighted token `at` of `context`. */
+  /**
+   * The word to classify, alone or as the highlighted token `at` of `context`; for a whole
+   * sentence (`sentence-kind`, `clauses`) the sentence itself, `word: null`, up to 240 characters
+   * and without its end mark for `sentence-kind` (the mark would give the kind away), with no
+   * `context`.
+   */
   target: WordRef;
   context: { tokens: string[]; at: number } | null;
   /** For `segment`: the highlighted part of the word, `[start, end)` in code points. */
@@ -380,6 +385,11 @@ const wordRefSchema: Schema<WordRef> = schema.object({
   text: tokenText,
 });
 const tokens = schema.array(tokenText, { min: 1, max: 32 });
+/** A classification's target: a word or token, or a whole sentence (up to 240 characters). */
+const classifyTargetSchema: Schema<WordRef> = schema.object({
+  word: nullable(contentId),
+  text: schema.string({ minLength: 1, maxLength: 240 }),
+});
 
 /** Structural checks the field schemas cannot express (the gap really is among the options …). */
 function coherent(problem: Problem): string | null {
@@ -421,7 +431,7 @@ const problemUnion: Schema<Problem> = schema.union(
   schema.object({
     kind: schema.literal('classify'),
     dimension: oneOf(DIMENSIONS),
-    target: wordRefSchema,
+    target: classifyTargetSchema,
     context: nullable(schema.object({ tokens, at: int(0, 31) })),
     span: nullable(
       schema.array(int(0, 63), { min: 2, max: 2 }) as unknown as Schema<[number, number]>,

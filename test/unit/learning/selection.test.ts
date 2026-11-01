@@ -202,8 +202,11 @@ describe('no repeats (blockedKeys, withoutBlocked)', () => {
         }
         expect(new Set(served).size, `${name} ${draw}: the draws vary`).toBeGreaterThan(WINDOW + 1);
         if (data === mini && draw === 'mixed') {
+          // Not starved by the blocking: at least a quarter of a fair share of the draws.
           for (const id of ['spell:byyt:1', 'spell:biit:1']) {
-            expect(served.filter((s) => s === id).length, `${id} is drawn`).toBeGreaterThan(5);
+            expect(served.filter((s) => s === id).length, `${id} is drawn`).toBeGreaterThan(
+              served.length / pool.length / 4,
+            );
           }
         }
       }

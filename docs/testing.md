@@ -30,7 +30,7 @@ after one fails, and records each step in `.verify-report.json` (never committed
    catalog ([architecture.md](architecture.md) §3);
 6. **lexicon**: `scripts/lexicon/check.mjs`: the word bank's linguistic checks
    ([lexicon.md](lexicon.md) §1);
-7. **test**: Vitest (unit, trace, migration and tooling; simulation checks later). The run is
+7. **test**: Vitest (unit, trace, migration, simulation and tooling). The run is
    audited: every `*.test.ts` file under `test/` outside `test/e2e/` must have run, nothing may be
    skipped or left as todo, every test must pass and at least one must;
 8. **lockfile**: every registry URL in `package-lock.json` is `https://registry.npmjs.org/`.
@@ -80,7 +80,7 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
 | ----------------- | ---------- | ------------------------------------------------------------------------------------------ |
 | `test/unit/`      | Vitest     | modules in isolation: the contract, rules modules, the shell's logic (happy-dom installed) |
 | `test/traces/`    | Vitest     | command traces through the real runtime with literal goldens (S2)                          |
-| `test/sim/`       | Vitest     | the learner-simulation bots' model and checks (§4; S2, planned)                            |
+| `test/sim/`       | Vitest     | the learner-simulation bots' model and checks, short runs on the game's pack (§4; S2)      |
 | `test/migration/` | Vitest     | saves restored mid-round and across content revisions (S2; S3's history later)             |
 | `test/tooling/`   | Vitest     | the build, the scripts, the SDK pin and the lockfile                                       |
 | `test/e2e/`       | Playwright | the built site in real browsers (§5); `support/` holds its helpers                         |
@@ -167,34 +167,44 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
 - `test/unit/learning/`: response buckets, Leitner boxes, the effort path and mastery; every
   servable item of every problem skill gives schema-valid problems whose expected answer is the
   oracle's, with unique options that include it once and only real alternatives besides, and keys
-  for every letter; ambiguous points asked in sentences; selection without repeats.
+  for every letter, over the fixtures and the game's pack; the choice generators (`classify`,
+  `odd-one-out`, `relation`) over the three packs and test skills of every dimension, basis and
+  relation, with the targets, school-order options, sets, audience and tempting options of design
+  §5.7 and §6.6; ambiguous points asked in sentences; selection without repeats.
 - `test/unit/minigames/`: the three custom adapters (validation, moves, never punishing,
-  completion) and the five board makers, typed views and credits.
+  completion) and the five board makers (each board of its own skill's words), typed views and
+  credits; every minigame activity of the game's pack makes boards.
 - `test/unit/progression/`: battles (no wash or refill on a miss, the kindness cap frees the
   monster, splashes, joke cadence and cycling, arms, spaced review, the view after a reload);
   ambushes (never change a problem, only after Murena, eligible activities and problems, at most one
   a round, the bonus coin); the placement ladder (passing, three misses, a failed step, leaving,
   floored percentages, unaskable steps, never a first lesson or a monster); Svačinka (size, first
-  tastes, the review guarantee); steps (one turn a gap, Lov chyb's credit, re-asks, hints, input).
+  tastes, the review guarantee); steps (one turn a gap, Lov chyb's credit, re-asks, hints, input);
+  the boards' review (starving items first, then the chosen egg, then due or never met; a board on
+  a day without a level while items wait; boards while a board-only item starves, at most three a
+  day).
 - `test/unit/rules/adapter.test.ts`: every rejection code changes nothing; U Mrože, outfits, the
   grotto, quests, the chest and settings.
 - `test/unit/contract/events.test.ts`: event names, and docs/contract.md §13 lists exactly them.
 - `test/traces/`: golden traces with named checks and automated mutation checks: a 3rd grader's
   first session with each lagoon egg (the egg hatches in lesson 1, re-ask timing, stars, the first
   hat); a 4th grader's first sessions (the placement check, Kořínek hatching in the first session,
-  the chosen lagoon egg in a later Svačinka, before the other lagoon eggs); the lagoon end to end
-  with Murena's battle and the first Inkoustíci.
+  the chosen lagoon egg in a later session after Svačinka's first tastes, before the other lagoon
+  eggs); the lagoon end to end with Murena's battle and the first Inkoustíci; the two finales on the
+  finale fixture (`test/fixtures/rules/finale-pack.ts`): Ledana's six icicles completing the 3rd
+  grade and opening the deep, the Krakatice's ten arms (arm _k_ asking only skill _k_) completing the
+  finale once, and the kindness cap freeing her for a child who misses every answer.
 - `test/migration/next-revision.test.ts`: a mid-round save restored in a new process goes on with
   the same commits; the next content revision activates only at a safe boundary and keeps all
   progress; old saves keep their revision; a revision is never reused.
 
 ### Planned evidence
 
-- **Generators and distractors on the real pack** (S2): the exhaustive generator tests above run
-  over S3's lexicon too; the `classify`, `odd-one-out` and `relation` generators join them.
 - **Lexicon** (S3): each linguistic check of the content gate rejects a planted mistake.
-- **Command traces** (S2): Ledana's and the Krakatice's finales, on the real pack.
-- **Learner simulation** (S2): §4.
+- **Command traces** (S2): Ledana's and the Krakatice's finales on the real pack, once S3's deep
+  regions land (today on the finale fixture, above).
+- **Learner simulation** (S2): §4; the long runs' results are in balance-report.md, and the targets
+  it proposes are pinned once the coordinator agrees them.
 - **Saves and migration** (S2, S3): a failed checkpoint retried without a double reward; a shipped
   save restored with its archived pack and moved to the current pack at the hub; every revision's
   content hash pinned.
@@ -203,14 +213,18 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
   only local Czech voices.
 - **Browser** (S6): §5.
 
-## 4. Learner-simulation bots (S2, planned)
+## 4. Learner-simulation bots (S2)
 
 Deterministic synthetic learners play the real rules for simulated weeks and give measurable proxies
-for "fun" and "learning", as Dragon Valley's do. Each bot is a seeded model of answering: per-item
-strength rising with practice and fading with days without it, the chance of a right answer rising
-with it, and response times by how well the item comes to mind. A driver plays the real adapter
-through `createRuntimeHost` one day after another, following the daily adventure, and records what
-a grown-up would see. Dragon Valley's four bots are the starting point:
+for "fun" and "learning", as Dragon Valley's do. Each bot is a seeded model of answering
+(`test/sim/learners.ts`): per-item strength from Czech priors (the 2nd grade's spelling, the
+consonants and the alphabet known; the 3rd grade's listed words and grammar new; the 4th grade's
+barely known) rising with practice and fading with days without it, the chance of a right answer a
+guess among what is offered plus the rest scaled by recall, and response times by how well the item
+comes to mind, with typing and reading a sentence. The driver (`test/sim/driver.ts`) plays the real
+adapter through the runtime host one day after another, following the daily adventure (story, the
+first egg, the placement check, Svačinka, levels, board replays, the chest, free play), plays
+boards with the trace harness, buys at U Mrože, and records what a grown-up would see:
 
 | Bot        | Model                                                  |
 | ---------- | ------------------------------------------------------ |
@@ -219,17 +233,24 @@ a grown-up would see. Dragon Valley's four bots are the starting point:
 | struggling | needs many exposures, forgets quickly, slow and clumsy |
 | slow       | learns like the average child but is never quick       |
 
-Each check is named by what it measures, and its target is agreed with the coordinator before it is
-pinned. The kinds of checks carry over from Dragon Valley: success per session inside the 70-85 %
-band ([plan.md](plan.md) §4); sea friends growing by real mastery; no dead ends (every level can be
-completed and every monster freed); no known item waiting long past its review day; reward pacing
-(coins every session, the treasure chest when the daily goal is met).
+Each check (`test/sim/report.ts`, `CHECKS`) is named by what it measures, and its target
+(`TARGETS`) is agreed with the coordinator before it is pinned: success per session of the average
+child in the band, the struggling child's floor, coins every session, weekly progress, the chest
+when the daily goal is met, the first hatch and the hatch pace, no dead ends (every level completed
+and every monster freed), the struggling child's steady path, no known item waiting more than a
+week past its review day, coins per session, the first cosmetic in the first week, fluency (the
+slow child brings to gold no item only problems ask), the perfect child's pace to the finale, and
+the time to `grown` (check a). `test/sim/growth.ts` follows other growth rules alongside the shipped
+ones in the same run (growth never feeds back into play).
 
-A simulated day costs many commits, so long runs live outside the gate: a script (Dragon Valley's
-`scripts/simulate.mjs`) runs the bots for weeks in parallel processes, writes a report under `out/`
-and fails when a check fails. The gate runs only the bots' model tests, the checks against synthetic
-reports and a short first session. The measured results, the model's assumptions and the balance
-decisions are written down with the bots.
+A simulated day costs a few hundred commits, so long runs live outside the gate:
+`node scripts/simulate.mjs --days 84 [--pack <file>] [--growth test/sim/growth-study.json]
+[--balance <partial.json>] [--answers] [--check]` runs the four bots in parallel processes, writes
+`out/simulation/report.md` and the day-by-day reports (with `--answers`, every answer with its
+input, box, days overdue and the bot's recall), and fails with `--check` when a check fails.
+The gate runs the bots' model tests (`learners.test.ts`), the checks against synthetic reports
+(`checks.test.ts`) and short runs on the game's pack (`harness.test.ts`). The measured results, the
+model's assumptions and the balance decisions are in [balance-report.md](balance-report.md).
 
 ## 5. Browser end-to-end (Playwright)
 

@@ -151,6 +151,13 @@ export function currentArm(battle: DeepReadonly<BattleProgress>): number {
   return Math.min(battle.arms - 1, quotient(battle.washed * battle.arms, battle.target));
 }
 
+/** In a many-armed battle, the skill of the arm being washed (design §7.2), else `null`. */
+function armSkill(data: Data, round: DeepReadonly<ProblemRound>): string | null {
+  const battle = round.battle;
+  if (battle === null || battle.arms <= 1) return null;
+  return roundActivity(data, round)?.skills[currentArm(battle)] ?? null;
+}
+
 export function startProblemRound(
   ctx: Ctx,
   index: Index,
@@ -421,11 +428,18 @@ export function serveNext(ctx: Ctx, index: Index): void {
   let queued: string | undefined;
   let item: string | null = null;
   let skill: DeepReadonly<Skill> | undefined;
+  // A many-armed battle asks a fresh item through the arm's own skill (design §7.2); a re-ask
+  // through any of the battle's skills (its item came from an earlier arm).
+  const arm = round.placement === null ? armSkill(data, round) : null;
   for (let guard = 0; guard < 4 && skill === undefined; guard++) {
     queued = round.queue.shift();
     item = queued ?? chooseItem(ctx, round, index, problems);
     if (item === null) return;
-    skill = skillFor(data, skillIds, item, problems);
+    const armServes =
+      arm !== null &&
+      queued === undefined &&
+      (servableIndex(data).get(arm)?.includes(item) ?? false);
+    skill = skillFor(data, armServes ? [arm] : skillIds, item, problems);
   }
   if (item === null || skill === undefined) return;
   const balance = gradeBalance(data.balance, ctx.state.settings.grade);

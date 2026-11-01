@@ -13,6 +13,7 @@ import { pearlSeaAdapter } from '../../src/rules/adapter';
 import {
   ACTION_TURNS,
   BOTH_WAY_CONSONANTS,
+  formCells,
   HARD_CONSONANTS,
   SOFT_CONSONANTS,
   compareCzech,
@@ -51,7 +52,17 @@ interface Filled {
   gaps: { start: number; correct: string }[];
 }
 
-function filledSentence(data: ContentData, id: string): Filled {
+const filledCache = new WeakMap<ContentData, Map<string, Filled>>();
+
+/** A sentence's text with its gaps filled right (`plain`), from the raw lexicon. */
+export function filledSentence(data: ContentData, id: string): Filled {
+  let cache = filledCache.get(data);
+  if (cache === undefined) {
+    cache = new Map();
+    filledCache.set(data, cache);
+  }
+  const cached = cache.get(id);
+  if (cached !== undefined) return cached;
   const sentence = data.lexicon.sentences.find((s) => s.id === id);
   if (!sentence) throw new Error(`no sentence ${id}`);
   const parsed = parseGappedText(sentence.text);
@@ -65,7 +76,9 @@ function filledSentence(data: ContentData, id: string): Filled {
       plain += correct;
     }
   }
-  return { plain, gaps };
+  const filled = { plain, gaps };
+  cache.set(id, filled);
+  return filled;
 }
 
 function filledWord(data: ContentData, id: string): Filled {
@@ -131,9 +144,259 @@ export function oracle(data: ContentData, problem: Problem, step: number): Answe
       }
       throw new Error(`no wrong token in ${problem.tokens.join(' ')}`);
     }
-    default:
-      throw new Error(`no oracle for ${problem.kind} yet`);
+    case 'classify':
+      return { kind: 'option', value: classifyAnswer(data, problem) };
+    case 'odd':
+      return { kind: 'pick', index: oddAnswer(data, problem) };
+    case 'relation':
+      return { kind: 'pick', index: relationAnswer(data, problem) };
   }
+}
+
+// ------------------------------------------------------------------------------ classifications
+
+const wordIndexes = new WeakMap<
+  ContentData,
+  Map<string, ContentData['lexicon']['words'][number]>
+>();
+const word = (data: ContentData, id: string | null) => {
+  let index = wordIndexes.get(data);
+  if (index === undefined) {
+    index = new Map(data.lexicon.words.map((w) => [w.id, w]));
+    wordIndexes.set(data, index);
+  }
+  const found = id === null ? undefined : index.get(id);
+  if (!found) throw new Error(`no word ${id}`);
+  return found;
+};
+
+/** The sentences of a pack by their tokens' text joined with spaces (for a token in context). */
+const tokenTexts = new WeakMap<ContentData, Map<string, ContentData['lexicon']['sentences']>>();
+function sentencesWithTokens(data: ContentData, text: string): ContentData['lexicon']['sentences'] {
+  let index = tokenTexts.get(data);
+  if (index === undefined) {
+    index = new Map();
+    for (const s of data.lexicon.sentences) {
+      if (s.tokens === undefined) continue;
+      const key = s.tokens.map((t) => t.t).join(' ');
+      index.set(key, [...(index.get(key) ?? []), s]);
+    }
+    tokenTexts.set(data, index);
+  }
+  return index.get(text) ?? [];
+}
+
+/** A word's value of a word dimension, read off its lexicon entry. */
+function wordValue(
+  data: ContentData,
+  w: ContentData['lexicon']['words'][number],
+  dimension: string,
+) {
+  const inflected = ['noun', 'adj', 'pron', 'num', 'verb'];
+  const meaning: Record<string, string> = {
+    noun: 'thing',
+    verb: 'action',
+    adj: 'property',
+    adv: 'circumstance',
+  };
+  switch (dimension) {
+    case 'pos':
+      return w.pos;
+    case 'inflection':
+      return inflected.includes(w.pos) ? 'inflected' : 'uninflected';
+    case 'meaning-class':
+      return meaning[w.pos];
+    case 'gender':
+      return w.noun?.gender;
+    case 'gender-class':
+      return w.noun === undefined
+        ? undefined
+        : w.noun.gender === 'm'
+          ? w.noun.animate
+            ? 'ma'
+            : 'mi'
+          : w.noun.gender;
+    case 'number':
+      return w.noun === undefined ? undefined : w.noun.numbers === 'pl' ? 'pl' : 'sg';
+    case 'pattern':
+      return w.noun?.pattern ?? undefined;
+    case 'register':
+      return w.register ?? 'standard';
+    case 'reflexive':
+      return w.verb === undefined ? undefined : (w.verb.reflexive ?? 'none');
+    case 'family':
+      return w.family?.id;
+    case 'listed': {
+      // Listed words are the families with a letter; a word of no family is not one (unless a
+      // vyjm point says it is: then the lexicon cannot tell).
+      const family = data.lexicon.families.find((f) => f.id === w.family?.id);
+      if (family !== undefined) return family.letter !== null ? 'listed' : 'not-listed';
+      return (w.spelling ?? []).some((p) => p.rule === 'vyjm' || p.rule === 'vyjm-prefix')
+        ? undefined
+        : 'not-listed';
+    }
+    default:
+      throw new Error(`no word oracle for ${dimension}`);
+  }
+}
+
+const FORM_DIMENSIONS = ['number', 'case', 'person', 'tense', 'mood', 'verb-form', 'finiteness'];
+
+/** The value a shown form has: a noun's from its paradigm, a verb's from the contract's forms. */
+function formValue(
+  data: ContentData,
+  w: ContentData['lexicon']['words'][number],
+  text: string,
+  dimension: string,
+) {
+  const values = new Set<string>();
+  if (w.noun?.paradigm) {
+    for (const number of ['sg', 'pl'] as const) {
+      (w.noun.paradigm[number] ?? []).forEach((cell, index) => {
+        const texts = typeof cell === 'string' ? [cell] : [...cell];
+        if (!texts.includes(text)) return;
+        values.add(
+          dimension === 'case' ? String(index + 1) : dimension === 'number' ? number : '?',
+        );
+      });
+    }
+  } else {
+    for (const form of formCells(w)) {
+      if (form.text !== text) continue;
+      const value = form.values[dimension as keyof typeof form.values];
+      values.add(value ?? '?');
+    }
+  }
+  if (values.size !== 1 || values.has('?'))
+    throw new Error(`"${text}" does not tell its ${dimension}`);
+  return [...values][0]!;
+}
+
+function classifyAnswer(
+  data: ContentData,
+  problem: Extract<Problem, { kind: 'classify' }>,
+): string {
+  const { dimension, target, context, span } = problem;
+  if (dimension === 'consonant') return CONSONANT_CLASS[target.text.toLowerCase()]!;
+  if (context !== null) {
+    const sentences = sentencesWithTokens(data, context.tokens.join(' '));
+    const values = new Set(
+      sentences.map((s) => {
+        const token = s.tokens![context.at]!;
+        if (dimension === 'gender') {
+          return token.gender === 'ma' || token.gender === 'mi' ? 'm' : token.gender;
+        }
+        if (dimension === 'gender-class') return token.gender;
+        const value = (token as unknown as Record<string, unknown>)[dimension];
+        return value === undefined ? undefined : String(value);
+      }),
+    );
+    // Sentences written alike must not disagree; one without the annotation does not count.
+    values.delete(undefined);
+    if (values.size !== 1) throw new Error('the token does not tell');
+    return [...values][0]!;
+  }
+  if (span !== null) {
+    const w = word(data, target.word);
+    let at = 0;
+    for (const [role, piece] of w.segments ?? []) {
+      const length = [...piece].length;
+      if (at === span[0] && at + length === span[1]) return role;
+      at += length;
+    }
+    throw new Error(`no part ${span.join('-')} of ${w.lemma}`);
+  }
+  if (target.word === null) {
+    const found = data.lexicon.sentences.filter((s) => {
+      const plain = filledSentence(data, s.id).plain.trim();
+      return dimension === 'sentence-kind'
+        ? plain.replace(/[\s.?!…]+$/u, '') === target.text
+        : plain === target.text;
+    });
+    const values = new Set(
+      found.map((s) =>
+        dimension === 'sentence-kind'
+          ? s.kind
+          : s.clauses === undefined
+            ? undefined
+            : s.clauses > 1
+              ? 'compound'
+              : 'simple',
+      ),
+    );
+    values.delete(undefined);
+    if (values.size !== 1) throw new Error('the sentence does not tell');
+    return [...values][0]!;
+  }
+  const w = word(data, target.word);
+  // A form's grammar from its paradigm; a word's own (a lemma's number too) from its entry.
+  if (FORM_DIMENSIONS.includes(dimension) && !(dimension === 'number' && target.text === w.lemma)) {
+    return formValue(data, w, target.text, dimension);
+  }
+  const value = wordValue(data, w, dimension);
+  if (value === undefined) throw new Error(`${w.lemma} has no ${dimension}`);
+  return value;
+}
+
+/** The index of the one word that differs on the basis (the others share one value). */
+function oddAnswer(data: ContentData, problem: Extract<Problem, { kind: 'odd' }>): number {
+  const values = problem.words.map((ref) => wordValue(data, word(data, ref.word), problem.basis));
+  const odd = values.flatMap((value, index) =>
+    values.filter((other) => other === value).length === 1 ? [index] : [],
+  );
+  const rest = new Set(values.filter((_, index) => index !== odd[0]));
+  if (odd.length !== 1 || rest.size !== 1)
+    throw new Error(`no single odd word: ${values.join(', ')}`);
+  return odd[0]!;
+}
+
+/** The index of the one option in the relation with the shown word, from the lexicon's relations. */
+function relationAnswer(
+  data: ContentData,
+  problem: Extract<Problem, { kind: 'relation' }>,
+): number {
+  const relations = data.lexicon.relations;
+  const t = problem.target;
+  const pair = (pairs: readonly (readonly [string, string])[], a: string, b: string) =>
+    pairs.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
+  const side = (
+    ref: string | { word: string; form: string },
+    shown: { word: string | null; text: string },
+  ) =>
+    typeof ref === 'string'
+      ? ref === shown.word && word(data, ref).lemma === shown.text
+      : ref.word === shown.word && ref.form === shown.text;
+  const related = (o: { word: string | null; text: string }) => {
+    const a = t.word!;
+    const b = o.word!;
+    switch (problem.relation) {
+      case 'synonym':
+        return pair(relations.synonyms, a, b);
+      case 'antonym':
+        return pair(relations.antonyms, a, b);
+      case 'general':
+        return relations.hierarchies.some((h) => h.general === b && h.specific.includes(a));
+      case 'specific':
+        return relations.hierarchies.some((h) => h.general === a && h.specific.includes(b));
+      case 'coordinate':
+        return (
+          a !== b &&
+          relations.hierarchies.some((h) => h.specific.includes(a) && h.specific.includes(b))
+        );
+      case 'sound-alike':
+        return relations.soundAlikes.some(
+          ([x, y]) => (side(x, t) && side(y, o)) || (side(y, t) && side(x, o)),
+        );
+      case 'related':
+        return (
+          word(data, a).family?.id !== undefined &&
+          word(data, a).family?.id === word(data, b).family?.id
+        );
+    }
+  };
+  const hits = problem.options.flatMap((option, index) => (related(option) ? [index] : []));
+  if (hits.length !== 1) throw new Error(`${hits.length} options are in the relation`);
+  return hits[0]!;
 }
 
 /** A wrong answer a child could give: another offered option or key, or a different text. */
@@ -141,7 +404,15 @@ export function wrongAnswer(data: ContentData, view: ProblemRoundView): AnswerVa
   const current = view.problem!;
   const right = oracle(data, current.problem, current.step);
   if (right.kind === 'pick') {
-    const count = current.problem.kind === 'mistake' ? current.problem.tokens.length : 2;
+    const problem = current.problem;
+    const count =
+      problem.kind === 'mistake'
+        ? problem.tokens.length
+        : problem.kind === 'odd'
+          ? problem.words.length
+          : problem.kind === 'relation'
+            ? problem.options.length
+            : 2;
     return { kind: 'pick', index: (right.index + 1) % count };
   }
   if (right.kind === 'option') {
@@ -174,18 +445,13 @@ function fishValue(
   fish: { word: string | null; text: string },
 ): string | undefined {
   if (dimension === 'consonant') return CONSONANT_CLASS[fish.text.toLowerCase()];
-  const word = data.lexicon.words.find((w) => w.id === fish.word);
-  if (!word) return undefined;
-  switch (dimension) {
-    case 'pos':
-      return word.pos;
-    case 'gender':
-      return word.noun?.gender;
-    case 'register':
-      return word.register ?? 'standard';
-    default:
-      throw new Error(`no nets oracle for ${dimension} yet`);
+  if (fish.word === null) return undefined;
+  const w = word(data, fish.word);
+  // A form (rybou, plaval jsem) from its paradigm; a word shown as its lemma from its entry.
+  if (FORM_DIMENSIONS.includes(dimension) && fish.text !== w.lemma) {
+    return formValue(data, w, fish.text, dimension);
   }
+  return wordValue(data, w, dimension);
 }
 
 /** The index of the net a fish of a nets board belongs in (the oracle's own reading). */
@@ -205,6 +471,11 @@ function cardsPair(data: ContentData, kind: PairKind, a: CardFace, b: CardFace):
   const wordOf = (face: CardFace) =>
     face.kind === 'word' || face.kind === 'form' ? face.word : null;
   const word = (id: string | null) => data.lexicon.words.find((w) => w.id === id);
+  const relations = data.lexicon.relations;
+  const pair = (pairs: readonly (readonly [string, string])[]) => {
+    const [x, y] = [wordOf(a), wordOf(b)];
+    return pairs.some(([p, q]) => (p === x && q === y) || (p === y && q === x));
+  };
   switch (kind) {
     case 'plural':
       return (
@@ -222,6 +493,34 @@ function cardsPair(data: ContentData, kind: PairKind, a: CardFace, b: CardFace):
       const pattern = (face: CardFace) =>
         face.kind === 'pattern' ? face.pattern : word(wordOf(face))?.noun?.pattern;
       return a.kind !== b.kind && pattern(a) !== undefined && pattern(a) === pattern(b);
+    }
+    case 'synonym':
+      return pair(relations.synonyms);
+    case 'antonym':
+      return pair(relations.antonyms);
+    case 'general': {
+      const [x, y] = [wordOf(a), wordOf(b)];
+      return relations.hierarchies.some(
+        (h) =>
+          (h.general === x && y !== null && h.specific.includes(y)) ||
+          (h.general === y && x !== null && h.specific.includes(x)),
+      );
+    }
+    case 'standard':
+      return (
+        (word(wordOf(a))?.standard ?? null) === wordOf(b) ||
+        (word(wordOf(b))?.standard ?? null) === wordOf(a)
+      );
+    case 'sound-alike': {
+      // A side is a word shown as its lemma, or one of its forms written out (pil of pít).
+      const side = (ref: string | { word: string; form: string }, face: CardFace) =>
+        (face.kind === 'word' || face.kind === 'form') &&
+        (typeof ref === 'string'
+          ? face.kind === 'word' && face.word === ref
+          : face.word === ref.word && face.text === ref.form);
+      return relations.soundAlikes.some(
+        ([x, y]) => (side(x, a) && side(y, b)) || (side(y, a) && side(x, b)),
+      );
     }
     default:
       throw new Error(`no memory oracle for ${kind} yet`);

@@ -204,8 +204,11 @@ in seeded order including `correct`, `keys` the letter pad's keys including `cor
 spelling rule, `word` the lexicon word or null, and `item` the item the gap trains. A
 classification's `options` keep the dimension's school order (`DIMENSION_VALUES`: the cases 1-7,
 the parts of speech 1-10, the patterns by gender), never shuffled, so each value keeps its place on
-screen. `problemSchema` checks the fields and that the problem is coherent: the answer is offered,
-every gap appears exactly once and in order, indices are in range.
+screen. A classification of a whole sentence (`sentence-kind`, `clauses`) shows the sentence itself
+as its `target` (`word: null`, `text` up to 240 characters; for `sentence-kind` without its end
+mark, which would give the kind away) and has no `context`; every other `target` and word is a
+token of at most 64 characters. `problemSchema` checks the fields and that the problem is coherent:
+the answer is offered, every gap appears exactly once and in order, indices are in range.
 
 ### 5.2 Answers and steps
 
@@ -377,7 +380,7 @@ tests use; it is a shape example, not content.
 | `objectives` | `id`, `strand`, `grade`, `titleKey` (a `grownups.objective.*` key: objectives are named in the grown-ups' area only), `rvp` (RVP ZV outcome codes `ČJL-3-2-0n` / `ČJL-5-2-0n`) (curriculum.md)                                      |
 | `regions`    | `id`, `order` (map order), `titleKey`, `unlock: { after: levelId[] }`, `monster`, `map` (`shallows`/`deep`), `grade`                                                                                                                |
 | `levels`     | `id`, `region`, `order`, `titleKey`, `kind: lesson/monster`, `unlock`, `activities`, `stars` (null = balance), `rewards: { coins: [1★, 2★, 3★], eggs, cosmetics }`, `monster`, `storyBeat`, `objectives` (exactly curriculum.md §3) |
-| `activities` | `kind`, `skills`, `count` (problems or boards), `input` (`auto`/`choice`/`letters`/`typed`), `options` (per kind, `ACTIVITY_OPTION_SCHEMAS`: Krmení's `draw`, `mix` or `weakest`)                                                   |
+| `activities` | `kind`, `skills`, `count` (problems or boards, 1-40), `input` (`auto`/`choice`/`letters`/`typed`), `options` (per kind, `ACTIVITY_OPTION_SCHEMAS`: Krmení's `draw`, `mix` or `weakest`)                                             |
 | `skills`     | §6                                                                                                                                                                                                                                  |
 | `friends`    | `id`, `nameKey`, `mnemonicKey` (the friend's memory hook), `region`, `skills` (the mastery set), `monster` (whose freeing lets it grow up, or null)                                                                                 |
 | `monsters`   | `id`, `region`, `nameKey`, `mood` (`grumpy`/`sulky`/`laughing`), `meter` (right answers that wash the ink off), `reviewShare`, `jokes` (catalog keys); optional `arms` (default 1), `finale`, `gradeFinale`                         |
@@ -888,12 +891,13 @@ items for facts (design.md).
 Every minigame round carries its board twice: the narrative projection (`round.minigame.view`) and
 the same board typed (`round.current`). Moves go in `minigameMove.move` with
 `revision = round.minigame.revision`. Boards never punish: a wrong pair, net, cut or pick stays as
-gentle feedback and can be corrected; faces of hidden cards are never in the view.
+gentle feedback and can be corrected; faces of hidden cards are never in the view. After a necklace
+check that was not right yet, `inPlace` marks the pearls already in their place, until the next move.
 
 | Board                              | View (besides `kind`)                                                                                      | Moves                                                                                                                  |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `memory-match` (`matching`)        | `pair`, `cards[{ id, face, faceUp, matched }]`, `clearAvailable`, `pairs`, `matched`, `attempts`           | `{ type: 'select', card }`, `{ type: 'clear' }`                                                                        |
-| `pearl-necklace` (`ordering`)      | `order` (`alphabet`/`rhyme`), `letter`, `pearls[{ id, word, text }]`, `submitted`, `attempts`              | `{ type: 'place', item, index }`, `{ type: 'submit' }`                                                                 |
+| `pearl-necklace` (`ordering`)      | `order` (`alphabet`/`rhyme`), `letter`, `pearls[{ id, word, text, inPlace }]`, `submitted`, `attempts`     | `{ type: 'place', item, index }`, `{ type: 'submit' }`                                                                 |
 | `fishing-nets` (`ps.sorting-nets`) | `dimension`, `nets[{ value }]`, `fish[{ id, word, text, net, wrong }]`, `submitted`, `attempts`            | `{ type: 'net', fish, net \| null }`, `{ type: 'submit' }`                                                             |
 | `word-shell` (`ps.word-builder`)   | `word`, `text`, `letters`, `cuts`, `parts[{ text, role }]`, `zeroEnding`, `roles`, `submitted`, `attempts` | `{ type: 'cut' \| 'uncut', at }`, `{ type: 'label', part, role }`, `{ type: 'zero-ending', on }`, `{ type: 'submit' }` |
 | `word-family` (`ps.word-family`)   | `family`, `head`, `letter`, `words[{ id, word, text, picked }]`, `needed`, `submitted`, `attempts`         | `{ type: 'pick', word }`, `{ type: 'submit' }`                                                                         |
@@ -953,8 +957,9 @@ linguistic checks; problems, answers and item IDs; skill item universes; content
 catalog and art collection, grammar keys and curriculum gaps; the catalog convention; state, days,
 actions and events (`test/unit/contract/**`, on the fixture pack). S2's rules (docs/learning.md)
 implement the adapter and everything it registers: items, selection, rounds, Svačinka, placement,
-the daily adventure, progression, the economy, story beats, the views, the `spell.*` generators,
-the five minigames, battles and the Inkoustíci (`test/unit/**`, `test/traces/**`,
-`test/migration/**` on the rules' lagoon fixture). Planned: the `classify`, `odd-one-out` and
-`relation` generators, the finale's checks and the learner simulations (S2), the content pack and
-its strings (S3), the shell and its records (S4), art and audio (S5).
+the daily adventure, progression, the economy, story beats, the views, every problem generator
+(`spell.*`, `classify`, `odd-one-out`, `relation`), the five minigames, battles, the finales and
+the Inkoustíci (`test/unit/**`, `test/traces/**`, `test/migration/**` on the rules' lagoon fixture,
+the contract's mini pack and the game's pack), and the learner simulations measure the balance
+(`test/sim/**`, `scripts/simulate.mjs`, docs/balance-report.md). Planned: the content pack beyond
+the 3rd grade and its strings (S3), the shell and its records (S4), art and audio (S5).

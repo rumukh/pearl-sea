@@ -41,7 +41,7 @@ import type {
 import { itemIndex, itemSkills, itemsOf, perPack, sortText } from './learning/index-cache';
 import { itemLabel } from './learning/item-info';
 import { MASTERY_RANK, atLeast, isDue, masteryLevel, polishedToday } from './learning/items';
-import { lowToday } from './learning/selection';
+import { lowToday, starving } from './learning/selection';
 import { MINIGAMES, boardView } from './minigames/boards';
 import { completedGrades } from './progression/grades';
 import {
@@ -49,6 +49,7 @@ import {
   dueItems,
   friendSet,
   hungryFriends,
+  servableItems,
   shareAt,
   snackItems,
 } from './progression/friends';
@@ -85,12 +86,14 @@ export function firstFriendChoices(data: Data): string[] {
  * The daily adventure's next step (design §4.2): a pending story beat, the first friend's choice,
  * the placement check while it is pending (a 4th grader's), Svačinka at the start of the day when
  * there is something to snack on (a hungry friend, or due items in Osmička's basket), the next
- * glowing level until one is done today, then once a minigame replay if the day had none, the
- * chest once the goal is reached, Svačinka again while a known item is starving (the review
- * guarantee), and more new levels unless today's success is below 70 % (`lowToday`; a level
- * already under way is always continued). Below it the adventure reviews instead: Svačinka when
- * there is something to snack on, else a replay of an activity of the last finished levels. Then
- * free play. Pacing only chooses the suggestion: every open level stays playable from the map.
+ * glowing level until one is done today, then once a day a board replay (for variety after a
+ * level, or because a finished board's items wait: due, or never met), the chest once the goal is
+ * reached, then the review guarantee: Svačinka while a known item it can serve is starving, a
+ * board while a known item only boards train is starving (at most `STARVING_BOARDS` boards a
+ * day), and more new levels unless today's success is below 70 % (`lowToday`; a level already
+ * under way is always continued). Below it the adventure reviews instead: Svačinka when there is
+ * something to snack on, else a replay of an activity of the last finished levels. Then free
+ * play. Pacing only chooses the suggestion: every open level stays playable from the map.
  */
 function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): NextStep {
   if (state.story.pending !== null) return { kind: 'story', beat: state.story.pending };
@@ -108,20 +111,38 @@ function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): N
   const levelsToday = daily?.levels ?? 0;
   const level = nextLevel(state, data);
   if (level !== null && levelsToday === 0) return { kind: 'level', level };
-  if (daily !== null && levelsToday > 0 && daily.minigames === 0) {
+  if (daily !== null && daily.minigames === 0) {
+    // Once a day a board: for variety after a level, and on any day when a finished board's items
+    // wait for it (items only boards train are reviewed and first met so, design §6.5).
     const replay = minigameReplay(state, data, index);
-    if (replay !== null) return { kind: 'minigame', ...replay };
+    if (replay !== null && (levelsToday > 0 || replay.score > 0)) {
+      return { kind: 'minigame', level: replay.level, activity: replay.activity };
+    }
   }
   if (daily?.chest === 'ready') return { kind: 'chest' };
   const underway = level !== null && state.run?.level === level;
   // The review guarantee: known items four days past their review are fed before anything new.
   if (!underway && snack && anyStarving(state, data)) return { kind: 'snack', friend: null };
+  if (!underway && (daily?.minigames ?? 0) < STARVING_BOARDS) {
+    const starved = starvingReplay(state, data, index);
+    if (starved !== null) {
+      return { kind: 'minigame', level: starved.level, activity: starved.activity };
+    }
+  }
   if (level === null) return { kind: 'free-play' };
   if (underway || !lowToday(state)) return { kind: 'level', level };
   if (snack) return { kind: 'snack', friend: null };
   const review = reviewReplay(state, data, index) ?? minigameReplay(state, data, index);
-  return review !== null ? { kind: 'minigame', ...review } : { kind: 'free-play' };
+  return review !== null
+    ? { kind: 'minigame', level: review.level, activity: review.activity }
+    : { kind: 'free-play' };
 }
+
+/**
+ * Boards a day at most that the review guarantee asks for (design §6.3): enough to feed the items
+ * only boards train once they starve, and a bound if a board cannot thread one of them.
+ */
+export const STARVING_BOARDS = 3;
 
 /** The finished levels, the furthest first, whose activities a low day's review rotates through. */
 export const REVIEW_LEVELS = 3;
@@ -159,27 +180,67 @@ export function reviewReplay(
 }
 
 /**
- * A minigame activity of a completed level to replay for variety: the one with the most due items
- * (board-only items, the necklace's and Pexeso's, are reviewed so), else the furthest level's.
+ * The finished board activity with the highest score (the furthest level first on a tie), with
+ * its score; `null` when no finished level has a playable board.
+ */
+function bestBoard(
+  state: ReadState,
+  data: Data,
+  index: Index,
+  score: (items: readonly string[]) => number,
+): { level: string; activity: number; score: number } | null {
+  const completed = levelsInMapOrder(data)
+    .filter((level) => isComplete(state, level.id))
+    .reverse();
+  let best: { level: string; activity: number; score: number } | null = null;
+  for (const level of completed) {
+    level.activities.forEach((activity, i) => {
+      if (!isMinigameKind(activity.kind) || !canPlay(data, level, i, index, state)) return;
+      const value = score(itemsOf(activity.skills, index));
+      if (best === null || value > best.score)
+        best = { level: level.id, activity: i, score: value };
+    });
+  }
+  return best as { level: string; activity: number; score: number } | null;
+}
+
+/**
+ * A minigame activity of a completed level to replay: the one with the most items waiting for a
+ * board, due ones and board-only ones never answered (the necklace's and Pexeso's items are
+ * reviewed and first met so; Svačinka serves the others), else the furthest level's.
  */
 function minigameReplay(
   state: ReadState,
   data: Data,
   index: Index,
+): { level: string; activity: number; score: number } | null {
+  const servable = servableItems(data);
+  return bestBoard(
+    state,
+    data,
+    index,
+    (items) =>
+      dueItems(state, items) +
+      items.filter((item) => !servable.has(item) && state.items[item] === undefined).length,
+  );
+}
+
+/** The board to replay for starving items only boards train (the review guarantee), or `null`. */
+function starvingReplay(
+  state: ReadState,
+  data: Data,
+  index: Index,
 ): { level: string; activity: number } | null {
-  const completed = levelsInMapOrder(data)
-    .filter((level) => isComplete(state, level.id))
-    .reverse();
-  let best: { level: string; activity: number; due: number } | null = null;
-  for (const level of completed) {
-    level.activities.forEach((activity, i) => {
-      if (!isMinigameKind(activity.kind) || !canPlay(data, level, i, index, state)) return;
-      const due = dueItems(state, itemsOf(activity.skills, index));
-      if (best === null || due > best.due) best = { level: level.id, activity: i, due };
-    });
-  }
-  const found = best as { level: string; activity: number; due: number } | null;
-  return found === null ? null : { level: found.level, activity: found.activity };
+  const day = state.day ?? 0;
+  const servable = servableItems(data);
+  const best = bestBoard(
+    state,
+    data,
+    index,
+    (items) =>
+      items.filter((item) => !servable.has(item) && starving(state.items[item], day)).length,
+  );
+  return best !== null && best.score > 0 ? best : null;
 }
 
 function hubView(state: ReadState, data: Data, index: Index): HubView {

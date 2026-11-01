@@ -17,6 +17,7 @@ over unchanged.
 | `learning/selection.ts`                                        | what a round serves next: tiers, the learning share, the focus egg, no repeats                                                                        |
 | `learning/generate.ts`                                         | the problem generators' registry, servable items, `problemFor`                                                                                        |
 | `learning/generators/spell.ts`                                 | `spell.word`, `spell.sentence`, `spell.mistake`                                                                                                       |
+| `learning/generators/classify.ts`, `odd.ts`, `relation.ts`     | `classify`, `odd-one-out`, `relation`; `companions.ts`: the words a set or a relation may show                                                        |
 | `learning/distractors.ts`, `hints.ts`                          | gap options, letter keys and strategy hints                                                                                                           |
 | `learning/index-cache.ts`, `item-info.ts`                      | per-pack lookups (lexicon, items, sentences) and what an item is about                                                                                |
 | `progression/problems.ts`                                      | problem rounds: serving, grading step by step, re-asks, teaching, battles, ambushes                                                                   |
@@ -66,14 +67,34 @@ ok answer) can go unannounced; scheduling never reads it.
   writing one of its alternatives (or a pad key in the answer's case) gives another word or form of
   the lexicon (_pas × pás_, _být × bít_): such a point is asked in a lexicon sentence that carries
   it instead. A point with neither is not servable (§3.2).
-- **`spell.sentence`**: a sentence of the skill's filter with the drawn gap and every other gap of
-  the skill's rules, at most three, filled one by one; with `single` only the drawn gap. A re-ask of
-  a sentence item asks the word alone where it is not ambiguous (`request.alone`).
+- **`spell.sentence`**: a sentence of the skill's filter with the drawn gap and up to two more gaps
+  of the skill's rules, in text order, each item once (a word written twice, _dál a dál_, is asked
+  at the drawn gap and filled at the other), filled one by one; with `single` only the drawn gap. A
+  re-ask of a sentence item asks the word alone where it is not ambiguous (`request.alone`).
 - **`spell.mistake`**: a sentence with the drawn gap written as one of its authored alternatives;
   the tokens are the sentence split at spaces (a gap's own spaces stay in its token). Step 0 picks
   the wrong token, step 1 writes the gap right; a wrong find still leads to the fix.
-- `classify`, `odd-one-out` and `relation` follow in the second pull request; until then the
-  activities and placement steps that need them are skipped (§5, §7).
+- **`classify`**: the skill's `values` (every value of the dimension when `null`) in the dimension's
+  school order (`DIMENSION_VALUES`), never shuffled; the target as the child reads it: the consonant
+  letter, the word, the form (`formCells`), a token of its sentence (`context`), a part of the word
+  (`span`, a zero ending the empty span after the last letter), or the whole sentence (`word:
+null`, at most 240 characters, without its end mark for `sentence-kind`). A word on its own is
+  never one written like another lexicon word. Hints: _ten, ta, to_ for gender, the case question,
+  the pattern.
+- **`odd-one-out`**: 3 to the skill's `size` words, the drawn item's word among the ones that
+  belong, exactly one differing on the basis (a word dimension, the family, listed or not). The
+  companions are the skill's words (a family set may add its family's other members, of the
+  filter's registers and grades); never a homograph; a family set's odd word never from a kin
+  family, the sound-alike family's first; a listed set's words of the same letter first. A word of
+  no family is not a listed word (unless a `vyjm` point says it is: then it is left out). A word
+  alone in its family is the odd one beside another family. The hint names the listed letter.
+- **`relation`**: the shown word and `choices` options (2-4), exactly one in the relation with it:
+  the drawn item's word (`rel:general:zviirxe` is "zvíře is the general word" of the shown _pes_).
+  Wrong options: the opposite relation first (an antonym for a synonym, a synonym for an antonym, a
+  coordinate word for a general one, the general word for a coordinate one, the sound-alike
+  family's words for `related`), then the skill's words of the same part of speech, then the rest;
+  never a word of a kin family for `related`, never a homograph. Words the filter does not select
+  (a partner, a tempting option) keep to its registers and grades (`suits`).
 
 ### 3.1 Options, keys and hints
 
@@ -93,8 +114,8 @@ An item is **servable** when a problem skill of the pack can ask it (`servableIn
 counts in a friend's set but no problem could ever ask it. Items only boards train (`abc:`, `pair:`,
 `seg:`, `fam:`, and consonant letters while no classification asks them) are never served as single
 problems: they count for growth and shine in the Great Shell, a friend is hungry only for items
-Svačinka can serve, and the daily adventure's variety minigame replays the finished board whose
-items are most due.
+Svačinka can serve, and boards review them and introduce them (§5, §8): they have no first taste
+and no Svačinka.
 
 ## 4. Rounds
 
@@ -150,10 +171,13 @@ its tastes.
 
 **The daily adventure** (`hub.next`, design §4.2): a pending beat; the first egg; the placement
 check while pending; Svačinka at the start of the day; the next glowing level until one is done
-today; once a minigame replay (the finished board with the most due items); the chest once the goal
-is reached; Svačinka while an item starves; more levels while today's success is at least 70 % (a
-level under way always continues), else a review (Svačinka, or an activity of the last three
-finished levels, rotating); then free play.
+today; once a day a board replay, for variety after a level or, on a day without one, while a
+finished board's items wait (the board with the most items waiting: due, or board-only and never
+answered); the chest once the goal is reached; the review guarantee: Svačinka while an item it
+serves starves, and a board while a board-only item starves (the board with the most of them, at
+most `STARVING_BOARDS` 3 boards a day, so an item a board cannot thread never fills the day); more
+levels while today's success is at least 70 % (a level under way always continues), else a review
+(Svačinka, or an activity of the last three finished levels, rotating); then free play.
 
 **The race** opens after `race.unlockAfter`: known items first (box 2+, then any answered right
 before), at most `race.maxProblems`, single gaps on the letter pad, ended by the shell with
@@ -182,7 +206,8 @@ first at the start, the next after every 5th right answer while ink is left, the
 going round the monster's list, so a joke never repeats at once; `BattleView.jokeKey` is the joke on
 screen (until the next answer), so a reload redraws the bubble. A many-armed monster (`arms`) washes
 arm by arm: arm _k_ is clean at `k × meter / arms` blots (`arm.washed`); the finales serve one skill
-per arm in order.
+per arm in order: a fresh problem is asked through the current arm's skill, a re-ask through any of
+the battle's skills (its item came from an earlier arm).
 
 **The Inkoustíci** (`drawAmbush`): only once `ambush.unlockAfter` is complete; in Krmení,
 Inkoustová věta, Lov chyb, Určování and Svačinka, from problem `ambush.minIndex` on, with
@@ -194,17 +219,22 @@ feedback and it swims off.
 
 ## 8. Boards
 
-| Board              | Made from                                                                                                                                                | Credits                                                                                   |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Perlový náhrdelník | `alphabet`: words with distinct first letters on the first board, ordered by `compareCzech`; `rhyme`: a listed letter's core family heads in rhyme order | `abc:` items of the pearls: fast at the first check, else slow                            |
-| Pexeso             | `pairs` of the board's kind; no card that would match a card of another pair; no two cards alike                                                         | the pair's item: fast while no mismatch happened yet, else ok                             |
-| Rybářské sítě      | `sort`: fish round-robin over the nets, distinct texts                                                                                                   | each fish: fast on a clean first haul, ok on a first haul that sent some back, slow later |
-| Ulita slov         | `segment`: a word's segments and the asked roles                                                                                                         | `seg:`: fast at the first check, else slow                                                |
-| Slovní rodinka     | `family`: a family's words beside its sound-alike family's, never a kin family's                                                                         | `fam:` items: fast at the first check, else slow                                          |
+| Board              | Made from                                                                                                                                                                     | Credits                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Perlový náhrdelník | `alphabet`: words with distinct first letters on the first board, ordered by `compareCzech`; `rhyme`: a listed letter's core family heads in rhyme order                      | `abc:` items of the pearls: fast at the first check, else slow                            |
+| Pexeso             | `pairs` of the board's kind; no card that would match a card of another pair (sound-alike cards only by sound: _být ↔ bít_ and _byl ↔ bil_ share a board); no two cards alike | the pair's item: fast while no mismatch happened yet, else ok                             |
+| Rybářské sítě      | `sort`: fish round-robin over the nets, distinct texts                                                                                                                        | each fish: fast on a clean first haul, ok on a first haul that sent some back, slow later |
+| Ulita slov         | `segment`: a word's segments and the asked roles                                                                                                                              | `seg:`: fast at the first check, else slow                                                |
+| Slovní rodinka     | `family`: a family's words beside its sound-alike family's, never a kin family's                                                                                              | `fam:` items: fast at the first check, else slow                                          |
 
 Every pair, pearl, fish, part or family word earns `coins.correct`. A board is made only at the
 design's sizes (Pexeso 3-8 pairs, nets 4-12 fish, a family 2-8 words besides its head); an activity
-whose items cannot make one is skipped. A board never repeats the previous board of its round while
+whose items cannot make one is skipped. Each board of a round takes the round's skills of its kind
+in turn and threads **its own skill's words** (an activity of two necklace skills threads each
+from its own words). It threads first (`boardFocus`): starving items (the review guarantee), else
+the chosen egg's never-right items (the other eggs' after it), else the items waiting for a board
+(due, or never answered). When one move hatches several eggs, the chosen egg hatches first. A
+board never repeats the previous board of its round while
 another is possible (the same rhyme run, the same family). Boards never punish: a wrong move stays on
 the board to be corrected, and hauling in empty nets is not counted as a haul. A move the board
 cannot take (a role or a zero ending the board does not ask, a fish already caught) is rejected as
@@ -237,11 +267,13 @@ are proved by the rules' tests on the pack):
 
 ## 11. Tests
 
-`test/unit/**` (the modules: items, generators exhaustively over the fixtures, selection, boards and
-their adapters, battles, ambushes, placement, Svačinka, steps and re-asks, the adapter's legality and
-commands), `test/traces/**` (golden command traces with named checks and mutation checks: a 3rd
-grader's first session with each lagoon egg, a 4th grader's first sessions, the lagoon slice end to
-end with the first Inkoustíci) and `test/migration/**` (a mid-round save, the next content revision).
-They run on the rules' lagoon fixture (`test/fixtures/rules/lagoon-pack.ts`) and the contract's mini
-pack until S3's pack lands; the harness's oracle answers from the lexicon's raw data, never from the
+`test/unit/**` (the modules: items, the spelling generators exhaustively over the fixtures and the
+game's pack, the choice generators exhaustively over the three packs with test skills of every
+dimension, basis and relation, selection, boards and their adapters, the boards' review, battles,
+ambushes, placement, Svačinka, steps and re-asks, the adapter's legality and commands),
+`test/traces/**` (golden command traces with named checks and mutation checks: a 3rd grader's first
+session with each lagoon egg, a 4th grader's first sessions, the lagoon slice end to end with the
+first Inkoustíci) and `test/migration/**` (a mid-round save, the next content revision). They run on
+the rules' lagoon fixture (`test/fixtures/rules/lagoon-pack.ts`), the contract's mini pack and the
+game's pack (`realPack`); the harness's oracle answers from the lexicon's raw data, never from the
 code under test ([testing.md](testing.md)).

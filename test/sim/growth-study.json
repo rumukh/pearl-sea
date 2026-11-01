@@ -1,0 +1,60 @@
+[
+  {
+    "id": "shipped",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 80, "mastery": "silver", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ]
+  },
+  {
+    "id": "grown-70-silver",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 70, "mastery": "silver", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ]
+  },
+  {
+    "id": "grown-60-silver",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 60, "mastery": "silver", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ]
+  },
+  {
+    "id": "grown-80-bronze",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 80, "mastery": "bronze", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ]
+  },
+  {
+    "id": "grown-70-bronze",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 70, "mastery": "bronze", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ]
+  },
+  {
+    "id": "grown-80-silver-effort-3",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 80, "mastery": "silver", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ],
+    "effort": { "silverDays": 3 }
+  },
+  {
+    "id": "grown-70-silver-effort-3",
+    "gates": [
+      { "stage": "baby", "share": 30, "mastery": "seen", "monster": false },
+      { "stage": "grown", "share": 70, "mastery": "silver", "monster": true },
+      { "stage": "crowned", "share": 100, "mastery": "gold", "monster": true }
+    ],
+    "effort": { "silverDays": 3 }
+  }
+]

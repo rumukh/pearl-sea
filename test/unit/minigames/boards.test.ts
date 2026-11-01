@@ -67,7 +67,7 @@ import type { WordBuilderConfig } from '../../../src/rules/minigames/word-builde
 import type { WordFamilyConfig } from '../../../src/rules/minigames/word-family';
 import { moveProblem } from '../../../src/rules/progression/minigame-rounds';
 import type { Data } from '../../../src/rules/types';
-import { lagoonPack, lagoonPackJson, miniPack } from '../../fixtures/rules/packs';
+import { lagoonPack, lagoonPackJson, miniPack, realPack } from '../../fixtures/rules/packs';
 
 // ------------------------------------------------------------------------------ test content
 
@@ -301,6 +301,12 @@ const ABC8: Skill = {
   ...testSkill('abc8', 'letters-sounds'),
   generator: 'alphabet',
   params: { words: {}, order: 'alphabet', size: 8 },
+};
+/** Six pearls of any lexicon word: the necklace's order rules on pools of the tests' own. */
+const ABC6: Skill = {
+  ...testSkill('abc6', 'letters-sounds'),
+  generator: 'alphabet',
+  params: { words: {}, order: 'alphabet', size: 6 },
 };
 const RHYME_S: Skill = {
   ...testSkill('rhyme-s', 'listed-words'),
@@ -581,6 +587,30 @@ describe('making boards', () => {
     ]);
   });
 
+  it('makes boards for every minigame activity of the game’s pack', () => {
+    const real = realPack().data;
+    const index = itemIndex(real);
+    const failing: string[] = [];
+    for (const level of real.levels) {
+      level.activities.forEach((act, at) => {
+        if (!isMinigameKind(act.kind)) return;
+        const where = `${level.id}#${at} ${act.kind} ${act.skills.join(' ')}`;
+        const skills = real.skills.filter((skill) => act.skills.includes(skill.id));
+        const pool = itemsOf(act.skills, index);
+        if (!canMakeBoard(real, act.kind, pool, skills, STATE)) failing.push(where);
+        for (const seed of SEEDS.slice(0, 8)) {
+          const def = makeBoard(request(real, act.kind, skills, pool, seed));
+          if (def === null) {
+            failing.push(`${where} (seed ${seed})`);
+            continue;
+          }
+          expect(createMinigame(def, def.id, MINIGAMES).status, where).toBe('active');
+        }
+      });
+    }
+    expect(failing).toEqual([]);
+  });
+
   it('canMakeBoard is false for an activity whose pool cannot make a board', () => {
     // The mini pack: its word shell plays; its Pexeso cannot, mlýn ↔ mlynář is its only pair.
     const miniShell = activity(MINI, 'moon-caves.1', 'word-shell');
@@ -705,10 +735,10 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
     // m: mák, město; d: dýně, dům, dráha; l: led, les; h: hrad.
     const pool = words('maak', 'mexsto', 'dyynex', 'duom', 'draaha', 'led', 'les', 'hrad');
     for (const seed of SEEDS) {
-      const first = made(makeBoard(request(LAGOON, 'pearl-necklace', abc.skills, pool, seed)));
+      const first = made(makeBoard(request(LAGOON, 'pearl-necklace', [ABC6], pool, seed)));
       expect(lemmas(LAGOON, first).map(firstLetter).sort()).toEqual(['d', 'h', 'l', 'm']);
       const next = made(
-        makeBoard(request(LAGOON, 'pearl-necklace', abc.skills, pool, seed + 100, second(first))),
+        makeBoard(request(LAGOON, 'pearl-necklace', [ABC6], pool, seed + 100, second(first))),
       );
       const letters = lemmas(LAGOON, next).map(firstLetter);
       expect(letters).toHaveLength(6);
@@ -719,9 +749,9 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
   it('never threads two words that only diacritics tell apart (pas, pás)', () => {
     const pool = words('pas', 'paas', 'maak', 'ryba', 'led', 'hrad', 'kytara');
     for (const seed of SEEDS) {
-      const first = made(makeBoard(request(LAGOON, 'pearl-necklace', abc.skills, pool, seed)));
+      const first = made(makeBoard(request(LAGOON, 'pearl-necklace', [ABC6], pool, seed)));
       const next = made(
-        makeBoard(request(LAGOON, 'pearl-necklace', abc.skills, pool, seed + 100, second(first))),
+        makeBoard(request(LAGOON, 'pearl-necklace', [ABC6], pool, seed + 100, second(first))),
       );
       for (const def of [first, next]) {
         const threaded = lemmas(LAGOON, def);
@@ -729,6 +759,27 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
         expect(ties, threaded.join()).toEqual([]);
       }
       expect(config(next).solution).toHaveLength(6);
+    }
+  });
+
+  it('threads each board from its own skill’s words, the round’s skills in turn', () => {
+    // Želva's alphabet beside another necklace skill (S3's lesson 1): her board threads her words.
+    const own = (id: string, ids: string[]): Skill => ({
+      ...testSkill(id, 'letters-sounds'),
+      generator: 'alphabet',
+      params: { words: { words: ids }, order: 'alphabet', size: 3 },
+    });
+    const m = ['hrad', 'led', 'maak', 'ryba'];
+    const d = ['les', 'mexsto', 'dyynex', 'zub'];
+    const skills = [own('abc-m', m), own('abc-d', d)];
+    const pool = words(...m, ...d);
+    for (const seed of SEEDS) {
+      const first = made(makeBoard(request(LAGOON, 'pearl-necklace', skills, pool, seed)));
+      expect(config(first).solution.every((id) => m.includes(id))).toBe(true);
+      const next = made(
+        makeBoard(request(LAGOON, 'pearl-necklace', skills, pool, seed + 100, second(first))),
+      );
+      expect(config(next).solution.every((id) => d.includes(id))).toBe(true);
     }
   });
 
@@ -814,7 +865,12 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
       kind: 'pearl-necklace',
       order: 'alphabet',
       letter: null,
-      pearls: items.map((item) => ({ id: item.id, word: item.id, text: lemma(LAGOON, item.id) })),
+      pearls: items.map((item) => ({
+        id: item.id,
+        word: item.id,
+        text: lemma(LAGOON, item.id),
+        inPlace: false,
+      })),
       submitted: false,
       attempts: 0,
     });
@@ -825,7 +881,10 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
     const checked = run(def, [{ type: 'submit' }]);
     expect(checked[1]!.status).toBe('active');
     expect(viewOf('pearl-necklace', LAGOON, def, checked[1]!)).toMatchObject({
-      pearls: viewOf('pearl-necklace', LAGOON, def, checked[0]!).pearls,
+      pearls: viewOf('pearl-necklace', LAGOON, def, checked[0]!).pearls.map((pearl, index) => ({
+        ...pearl,
+        inPlace: pearl.id === solution[index],
+      })),
       submitted: true,
       attempts: 1,
     });
@@ -842,6 +901,36 @@ describe('Perlový náhrdelník boards (built-in ordering)', () => {
     expect(rhymeView.pearls.map((pearl) => pearl.text)).toEqual(
       config(rhymeDef).items.map((item) => lemma(BOARD_LAGOON, item.id)),
     );
+  });
+
+  it('marks the pearls in their place after a wrong check, never before it, until the next move', () => {
+    let wrongChecks = 0;
+    for (const seed of SEEDS) {
+      const def = made(makeBoard(request(LAGOON, 'pearl-necklace', abc.skills, abc.pool, seed)));
+      const { solution } = config(def);
+      const view = (state: MinigameState) => viewOf('pearl-necklace', LAGOON, def, state);
+      const marks = (state: MinigameState) => view(state).pearls.map((pearl) => pearl.inPlace);
+      const [dealt, threaded, checked, moved] = run(def, [
+        { type: 'place', item: solution[0]!, index: 0 },
+        { type: 'submit' },
+        { type: 'place', item: solution[1]!, index: 1 },
+      ]);
+      // Before a check nothing is marked, not even pearls the deal or a move put in place.
+      expect(marks(dealt!).some(Boolean), `seed ${seed}: dealt`).toBe(false);
+      expect(marks(threaded!).some(Boolean), `seed ${seed}: threaded`).toBe(false);
+      if (checked!.status !== 'active') continue;
+      wrongChecks += 1;
+      expect(
+        view(checked!).pearls.map(
+          (pearl, index) => pearl.inPlace === (pearl.id === solution[index]),
+        ),
+        `seed ${seed}: checked`,
+      ).not.toContain(false);
+      expect(view(checked!).pearls[0]!.inPlace, `seed ${seed}: the first pearl`).toBe(true);
+      expect(marks(checked!), `seed ${seed}: a wrong check`).toContain(false);
+      expect(marks(moved!).some(Boolean), `seed ${seed}: moved`).toBe(false);
+    }
+    expect(wrongChecks).toBeGreaterThan(SEEDS.length / 2);
   });
 
   it('credits every pearl fast at a right first check, slow after a wrong one; a coin a pearl', () => {
@@ -1006,6 +1095,38 @@ describe('Pexeso boards (built-in matching)', () => {
       cell: 'past3',
       text: 'pil',
     });
+  });
+
+  it('deals a word’s sound-alike forms beside it: být ↔ bít, byl ↔ bil, byli ↔ bili (the game’s pack)', () => {
+    // Cards of the same two words, told apart by sound only: none sounds like another pair's card.
+    const real = realPack().data;
+    const skill: Skill = {
+      ...testSkill('pairs-byt', 'listed-words'),
+      generator: 'pairs',
+      params: { pair: 'sound-alike', words: { words: ['byyt', 'biit'] }, pairs: 3 },
+    };
+    const pool = skillItems(skill, real.lexicon);
+    expect(pool).toEqual([
+      'pair:sound-alike:biit',
+      'pair:sound-alike:biit:bil',
+      'pair:sound-alike:biit:bili',
+      'pair:sound-alike:byyt',
+      'pair:sound-alike:byyt:byl',
+      'pair:sound-alike:byyt:byli',
+    ]);
+    for (const seed of SEEDS) {
+      const def = made(makeBoard(request(real, 'memory-match', [skill], pool, seed)));
+      checkDeck(real, def, pool, 3);
+      const pairs = [...pairsOf(def).values()]
+        .map((labels) =>
+          labels
+            .map((label) => shown(real, label))
+            .sort()
+            .join(' ↔ '),
+        )
+        .sort();
+      expect(pairs).toEqual(['bil ↔ byl', 'bili ↔ byli', 'bít ↔ být']);
+    }
   });
 
   /** Families of the cards of each pair, and the families' kin (listed on either side). */

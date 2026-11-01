@@ -96,6 +96,10 @@ export interface GradeStart {
 export interface Activity {
   kind: LevelActivityKind;
   skills: string[];
+  /**
+   * Problems or boards, 1-40. A battle's count is its kindness cap: it ends after `count`
+   * problems, never fewer than its meter + 5 (the Krakatice's is 40, design §3.12).
+   */
   count: number;
   input: InputMode;
   options: Record<string, number | boolean | string>;
@@ -489,7 +493,7 @@ const rvpCode = schema.string({ minLength: 10, maxLength: 12, pattern: /^ČJL-[3
 const activitySchema: Schema<Activity> = schema.object({
   kind: oneOf(LEVEL_ACTIVITY_KINDS),
   skills: uniqueArray(contentId, { min: 1, max: 16 }),
-  count: int(1, 30),
+  count: int(1, 40),
   input: oneOf(INPUT_MODES),
   options: schema.record(schema.union(int(0, 1000), schema.boolean, contentId)),
 });

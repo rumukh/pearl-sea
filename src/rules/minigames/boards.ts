@@ -32,6 +32,8 @@ import {
   compareCzech,
   lexiconId,
   parseItemId,
+  skillItems,
+  soundRefTarget,
 } from '../contract';
 import type {
   BoardView,
@@ -47,7 +49,7 @@ import type {
   SoundRef,
   Word,
 } from '../contract';
-import { formOfTarget, formsOf, lexiconIndex } from '../learning/index-cache';
+import { formOfTarget, formsOf, itemIndex, lexiconIndex } from '../learning/index-cache';
 import { classTarget } from '../learning/item-info';
 import { shuffle } from '../learning/random';
 import { SORTING_NETS_KIND, sortingNetsAdapter } from './sorting-nets';
@@ -124,6 +126,17 @@ function poolWords(pool: readonly string[], kind: 'abc' | 'seg' | 'fam'): string
     const parsed = parseItemId(item);
     return parsed?.kind === kind ? [parsed.word] : [];
   });
+}
+
+/**
+ * The request narrowed to the round's items of one skill: a board threads its own skill's words
+ * (an activity of two necklace skills makes boards of each in turn, each of its own words).
+ */
+function own(request: BoardRequest, skill: Read<Skill>): BoardRequest {
+  const items = new Set(
+    itemIndex(request.data).get(skill.id) ?? skillItems(skill, request.data.lexicon),
+  );
+  return { ...request, pool: request.pool.filter((item) => items.has(item)) };
 }
 
 /** Prefer the focus egg's entries, never the previous board's, else anything. */
@@ -256,9 +269,10 @@ function alphabetWords(
   return chosen;
 }
 
-function necklaceBoard(request: BoardRequest): MinigameDefinition | null {
-  const skill = necklaceSkill(request);
+function necklaceBoard(whole: BoardRequest): MinigameDefinition | null {
+  const skill = necklaceSkill(whole);
   if (skill === undefined || skill.generator !== 'alphabet') return null;
+  const request = own(whole, skill);
   const lexicon = lexiconIndex(request.data);
   const words = poolWords(request.pool, 'abc')
     .map((id) => lexicon.words.get(id))
@@ -316,6 +330,8 @@ interface MemoryPair {
   faces: [string, string];
   /** Word IDs on the pair's cards. */
   words: string[];
+  /** For sound-alike pairs: the cards' targets (`byyt`, `byyt:byl`), what can be confused. */
+  sounds?: [string, string];
 }
 
 /** The pair kind of a memory board, from its definition ID (`….pairs.<kind>`). */
@@ -366,7 +382,12 @@ function candidatePairs(data: Data, kind: PairKind, item: string): MemoryPair[] 
         : { label: `word:${target}`, word: target };
       for (const ref of lexicon.soundAlikes.get(target) ?? []) {
         const other = soundFace(data, ref);
-        pairs.push({ item, faces: [own.label, other.label], words: [own.word, other.word] });
+        pairs.push({
+          item,
+          faces: [own.label, other.label],
+          words: [own.word, other.word],
+          sounds: [target, soundRefTarget(ref)],
+        });
       }
       break;
     }
@@ -389,6 +410,21 @@ function candidatePairs(data: Data, kind: PairKind, item: string): MemoryPair[] 
       break;
   }
   return pairs;
+}
+
+/**
+ * Whether two pairs of a board could be confused: a card of one matches a card of the other by
+ * the board's kind. Sound-alike cards are confused only by sound, so být ↔ bít and its forms
+ * byl ↔ bil, of the same two words, can share a board.
+ */
+function pairsClash(data: Data, kind: PairKind, a: MemoryPair, b: MemoryPair): boolean {
+  if (kind === 'sound-alike' && a.sounds !== undefined && b.sounds !== undefined) {
+    const partners = lexiconIndex(data).soundAlikes;
+    const alike = (x: string, y: string) =>
+      x === y || (partners.get(x) ?? []).some((ref) => soundRefTarget(ref) === y);
+    return a.sounds.some((x) => b.sounds!.some((y) => alike(x, y)));
+  }
+  return a.words.some((w) => b.words.some((v) => related(data, kind, w, v)));
 }
 
 /** Whether two cards of different pairs relate by the board's kind (a match would be ambiguous). */
@@ -467,9 +503,7 @@ function memoryPairs(request: BoardRequest, kind: PairKind, wanted: number): Mem
       if (shown[0] === shown[1] || shown.some((text) => texts.has(text))) continue;
       const pattern = pair.faces.find((face) => face.startsWith('pattern:'));
       if (pattern !== undefined && patterns.has(pattern)) continue;
-      const clash = picks.some((p) =>
-        p.words.some((w) => pair.words.some((v) => related(data, kind, w, v))),
-      );
+      const clash = picks.some((p) => pairsClash(data, kind, p, pair));
       if (clash) continue;
       picks.push(pair);
       for (const text of shown) texts.add(text);
@@ -480,9 +514,10 @@ function memoryPairs(request: BoardRequest, kind: PairKind, wanted: number): Mem
   return picks;
 }
 
-function memoryBoard(request: BoardRequest): MinigameDefinition | null {
-  const skill = memorySkill(request);
+function memoryBoard(whole: BoardRequest): MinigameDefinition | null {
+  const skill = memorySkill(whole);
   if (skill === undefined || skill.generator !== 'pairs') return null;
+  const request = own(whole, skill);
   const kind = skill.params.pair;
   const picks = memoryPairs(request, kind, skill.params.pairs);
   if (picks.length < MIN_PAIRS) return null;
@@ -572,9 +607,10 @@ function netFish(request: BoardRequest, values: readonly string[]) {
   });
 }
 
-function netsBoard(request: BoardRequest): MinigameDefinition | null {
-  const skill = netsSkill(request);
+function netsBoard(whole: BoardRequest): MinigameDefinition | null {
+  const skill = netsSkill(whole);
   if (skill === undefined || skill.generator !== 'sort') return null;
+  const request = own(whole, skill);
   const values = [...skill.params.values];
   const previous = previousWords(request);
   const all = netFish(request, values);
@@ -661,9 +697,10 @@ export function shellTarget(
   return { letters, cuts, labels: parts.map((part) => part.role), zeroEnding };
 }
 
-function shellBoard(request: BoardRequest): MinigameDefinition | null {
-  const skill = request.skills.find((s) => s.generator === 'segment');
+function shellBoard(whole: BoardRequest): MinigameDefinition | null {
+  const skill = whole.skills.find((s) => s.generator === 'segment');
   if (skill === undefined || skill.generator !== 'segment') return null;
+  const request = own(whole, skill);
   const lexicon = lexiconIndex(request.data);
   const previous = previousWords(request);
   const words = poolWords(request.pool, 'seg')
@@ -719,9 +756,10 @@ function neighbours(data: Data, family: string): string[][] {
   return [sound, sameLetter, others];
 }
 
-function familyBoard(request: BoardRequest): MinigameDefinition | null {
-  const skill = request.skills.find((s) => s.generator === 'family');
+function familyBoard(whole: BoardRequest): MinigameDefinition | null {
+  const skill = whole.skills.find((s) => s.generator === 'family');
   if (skill === undefined || skill.generator !== 'family') return null;
+  const request = own(whole, skill);
   const data = request.data;
   const lexicon = lexiconIndex(data);
   const previous = previousWords(request);
@@ -879,16 +917,18 @@ export function boardView(
     };
   }
   if (definitionValue.kind === 'ordering') {
+    const config = definitionValue.config as unknown as OrderingConfig;
     const progress = state.progress as unknown as OrderingState;
     const shape = necklaceShape(definitionValue.id);
     return {
       kind: 'pearl-necklace',
       order: shape.order,
       letter: shape.letter,
-      pearls: progress.order.map((id) => ({
+      pearls: progress.order.map((id, index) => ({
         id,
         word: id,
         text: lexicon.words.get(id)?.lemma ?? id,
+        inPlace: progress.submitted && config.solution[index] === id,
       })),
       submitted: progress.submitted,
       attempts: progress.attempts,

@@ -1177,6 +1177,125 @@
       }
     },
     {
+      "id": "character/mroz-vousac",
+      "file": "characters/mroz-vousac.webp",
+      "width": 745,
+      "height": 1024,
+      "bytes": 94746,
+      "sha256": "49071ed7e16e48caeba350cf3dcb94872edf63ef831645184dd75459fda2ddce",
+      "anchors": null,
+      "promptFile": "prompts/mroz-vousac.prompt.txt",
+      "approvedImage": {
+        "image": "mroz-vousac/mroz-vousac-default-b-sketchv1-s98101.png",
+        "sha256": "7ad4086eb06b2ba290fb875b71e63ffc3e28355d7c554832a8f916a939a0d8ff"
+      },
+      "lineage": [
+        {
+          "image": "mroz-vousac/mroz-vousac-default-b-sketchv1-s98101.png",
+          "sha256": "7ad4086eb06b2ba290fb875b71e63ffc3e28355d7c554832a8f916a939a0d8ff",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly two short, blunt, rounded ivory tusks; one front flipper raised in a friendly wave and the other resting at his side; two flat hind flippers at the bottom. It shows Mrož Vousáč, the friendly old walrus sea captain who keeps the little shop U Mrože: a plump, cuddly walrus sitting upright and facing the viewer, an animal character and not a human, with warm cinnamon-brown, softly wrinkled skin and a lighter belly, small kind dark eyes with smile crinkles and rosy cheeks, a huge bushy cream-white moustache over his round whisker pad with a few bristle dots, and a warm smile. He wears a white captain's cap with a navy band, a black visor and a round gold badge with a little anchor, and a small teal shopkeeper's apron with a pocket tied around his tummy. Warm, welcoming, gruff but soft-hearted; never scary.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, human body, hands, fingers, arms, legs, feet, shoes, trousers, shirt, coat, jacket, beard, three tusks, one tusk, long sharp tusks, sharp teeth, angry, frown, scary, pipe, cigarette, seal, sea lion",
+          "seed": 98101,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "mroz-vousac/ref-mroz-vousac-sketch-v1.png",
+              "role": "anatomy and composition sketch of Mrož Vousáč (Pillow colour blocking, sketches.py mroz), repainted in place",
+              "sha256": "4a599a4c6ffef9e707f14c06e61b498d7360737b14e8bf935c9fe108982743e1",
+              "sketch": "scripts/art/authoring/sketches.py mroz (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-01",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "2d33e6a1a6eea9f9e8036ce252c25e83f6ffe5b4a031b4ac9125c876b4f8d29b"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "4bf58f8fd3e717bd5599fb91fd6500874cf839e22e594f55bf514fb31b9473d8",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9922
+        },
+        {
+          "step": "trim",
+          "box": [
+            235,
+            135,
+            1073,
+            1287
+          ],
+          "marginPx": 22,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.888889,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            745,
+            1024
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 39.19,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate8-mroz",
+        "decidedAt": "2026-11-02T10:43:56.236334+01:00",
+        "question": "Gate 8: Mrož Vousáč, the friendly walrus captain who keeps the shop U Mrože (S5's gate8-mroz images). Both takes wave hello in a captain's cap and a teal apron. 2-mroz-at-shop-size.jpg shows how small he appears in the shop. A has a bolder outline and livelier eyes, and his waving flipper has little finger-like bumps. B has a smooth flipper but a thinner outline and tiny eyes. Which should keep the shop?",
+        "answer": "Mrož A, bolder outline and livelier eyes (Recommended)",
+        "chosen": "Mrož A"
+      }
+    },
+    {
       "id": "character/osmicka",
       "file": "characters/osmicka.webp",
       "width": 946,

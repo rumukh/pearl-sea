@@ -65,6 +65,13 @@
       "height": 847
     },
     {
+      "id": "character/mroz-vousac",
+      "kind": "painted",
+      "file": "characters/mroz-vousac.webp",
+      "width": 745,
+      "height": 1024
+    },
+    {
       "id": "character/osmicka",
       "kind": "painted",
       "file": "characters/osmicka.webp",

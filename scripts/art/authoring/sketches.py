@@ -1002,6 +1002,61 @@ def inkoustik_klikyhak2(out, route_json=None):
     cheeks(d, [(545, 380), (785, 380)], r=28)
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
+def mroz(out, route_json=None):
+    """Mrož Vousáč, the walrus captain who keeps U Mrože: plump and sitting upright, facing the
+    viewer, waving with one front flipper; a captain's cap with a gold badge, a huge bushy
+    moustache, exactly two short blunt tusks, small kind eyes, a small shop apron with a pocket."""
+    img, d = canvas()
+    skin, belly, muzzle = (196, 134, 104), (222, 170, 138), (236, 206, 176)
+    stache, tusk = (250, 244, 232), (246, 240, 220)
+    cap, band, visor, gold = (242, 242, 248), (40, 62, 120), (34, 36, 52), (242, 192, 64)
+    apron, pocket = (72, 170, 180), (112, 198, 206)
+    paddle(d, (560, 1150), (400, 1232), 120, skin, bend=-0.08)                    # hind flippers
+    paddle(d, (768, 1150), (928, 1232), 120, skin, bend=0.08)
+    paddle(d, (900, 760), (1010, 990), 130, skin, bend=-0.10)                      # resting front flipper
+    d.ellipse([664 - 330 - 12, 520 - 12, 664 + 330 + 12, 1210 + 12], fill=PLUM)    # body
+    d.ellipse([664 - 330, 520, 664 + 330, 1210], fill=skin)
+    d.ellipse([664 - 230, 640, 664 + 230, 1170], fill=belly)
+    paddle(d, (440, 760), (300, 520), 130, skin, bend=0.12)                        # waving front flipper
+    d.rounded_rectangle([520 - 10, 806 - 10, 808 + 10, 1090 + 10], radius=70, fill=PLUM)   # apron
+    d.rounded_rectangle([520, 806, 808, 1090], radius=60, fill=apron)
+    d.rectangle([430, 798, 898, 828], fill=apron)                                  # apron ties at the waist
+    d.rounded_rectangle([606, 920, 722, 1006], radius=18, fill=pocket, outline=PLUM, width=8)
+    d.ellipse([664 - 240 - 12, 300 - 12, 664 + 240 + 12, 690 + 12], fill=PLUM)     # head
+    d.ellipse([664 - 240, 300, 664 + 240, 690], fill=skin)
+    for cx in (604, 724):                                                          # whisker pad
+        d.ellipse([cx - 92, 520, cx + 92, 650], fill=muzzle)
+    for x, y in ((560, 590), (590, 620), (630, 600), (700, 600), (738, 620), (768, 590)):
+        d.ellipse([x - 7, y - 7, x + 7, y + 7], fill=(150, 104, 86))
+    for cx in (620, 708):                                                          # two short blunt tusks
+        d.polygon([(cx - 22, 620), (cx + 22, 620), (cx + 13, 770), (cx - 13, 770)], fill=PLUM)
+        d.polygon([(cx - 16, 622), (cx + 16, 622), (cx + 8, 762), (cx - 8, 762)], fill=tusk)
+        d.ellipse([cx - 14, 748, cx + 14, 776], fill=PLUM)
+        d.ellipse([cx - 9, 746, cx + 9, 768], fill=tusk)
+    d.arc([632, 610, 696, 652], 20, 160, fill=PLUM, width=9)                       # a small smile
+    puffs = [(522, 548, 46), (566, 528, 54), (620, 520, 58), (664, 526, 56), (708, 520, 58),
+             (762, 528, 54), (806, 548, 46), (590, 566, 48), (738, 566, 48)]
+    for x, y, r in puffs:                                                          # the huge moustache
+        d.ellipse([x - r - 9, y - r - 9, x + r + 9, y + r + 9], fill=PLUM)
+    for x, y, r in puffs:
+        d.ellipse([x - r, y - r, x + r, y + r], fill=stache)
+    for x in (644, 684):                                                           # nostrils on top
+        d.ellipse([x - 9, 470, x + 9, 484], fill=(110, 70, 60))
+    eye(d, 594, 430, 24)
+    eye(d, 734, 430, 24)
+    for x, s in ((566, -1), (762, 1)):                                             # smile crinkles
+        d.arc([x + s * 6 - 18, 410, x + s * 6 + 18, 446], 300 if s > 0 else 120, 60 if s > 0 else 240, fill=PLUM, width=6)
+    cheeks(d, [(530, 488), (798, 488)], r=28)
+    d.ellipse([664 - 190 - 10, 168 - 10, 664 + 190 + 10, 330 + 10], fill=PLUM)    # captain's cap
+    d.ellipse([664 - 190, 168, 664 + 190, 330], fill=cap)
+    d.rounded_rectangle([664 - 168, 276, 664 + 168, 340], radius=20, fill=band, outline=PLUM, width=8)
+    d.chord([664 - 176, 300, 664 + 176, 392], 0, 180, fill=visor)
+    d.ellipse([640, 278, 688, 326], fill=gold, outline=PLUM, width=5)
+    d.line([(664, 288), (664, 318)], fill=band, width=6)                            # an anchor on the badge
+    d.line([(652, 296), (676, 296)], fill=band, width=5)
+    d.arc([648, 298, 680, 320], 20, 160, fill=band, width=5)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
 if __name__ == "__main__":
     name, out = sys.argv[1], sys.argv[2]
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
@@ -1010,5 +1065,5 @@ if __name__ == "__main__":
      "zelva2": zelva2, "osmicka": osmicka, "title": title, "plain-grey": plain_grey,
      "krab-baby": krab_baby, "meduzka-baby": meduzka_baby, "zelva-baby": zelva_baby,
      "avatars": avatars, "zelva-baby2": zelva_baby2, "smouha": inkoustik_smouha, "cmara": inkoustik_cmara,
-     "klikyhak": inkoustik_klikyhak, "klikyhak2": inkoustik_klikyhak2}[name](out, rj)
+     "klikyhak": inkoustik_klikyhak, "klikyhak2": inkoustik_klikyhak2, "mroz": mroz}[name](out, rj)
     print(out)

@@ -139,6 +139,23 @@ time; a painting takes 12-16 minutes.
 - A sketch that runs off the canvas is painted cropped: the first Klikyhák spring did, so a sketch's
   bounds are checked (about 80 % of the height, a margin on every side) before it is rendered.
 
+### Lessons from the 3rd-grade regions
+
+- Every region scene is sketched on `levelSpots(7)` and each sketch is measured before it renders:
+  no spot may sit on scenery. The reef's first takes put spot 6 on the coral arch, so the arch
+  moved right of the monster's node (sketch v2).
+- A character standing on scenery (Lachtan's wave) is painted as full-width scenery running off
+  the canvas in some seeds; such takes are regenerated, never cropped. A compact cushion of water
+  in the sketch keeps the scenery inside the picture.
+- Detached parts of a design (Barakuda's speed lines) need `--keep-marks`; white foam and pale
+  bellies need `--min-hole` with a tighter key; a backdrop pocket between a ski pole and the body
+  is opened with `--clear`.
+- A colour edit of a hatchling can also repaint its outline (Barakuda's baby came back with a blue
+  outline), so the take closest to the master's style wins over the closest colour.
+- Monsters need real-animal features in the sketch: a sea snake with a paddle tail and nostrils on
+  top, an eel with a fin rim round the rear half only, an anglerfish with one lure, a giant clam
+  with five wavy folds and the pearls heaped at the side (a row of pearls reads as teeth).
+
 ## 4. The catalog and the anchors
 
 `assets/art/catalog.json` (format `pearl-sea-art-catalog/1`, the contract's `artCatalogSchema`) is
@@ -265,7 +282,12 @@ node scripts/art/svg/preview.mjs board.png # a review board rendered by Chromium
   check and `test/tooling/art-catalog.test.ts` regenerate every file and compare it byte for byte.
 - **Eggs** (`egg/<friend>`): 120 × 160 (3:4). The egg wears its friend's colours and a motif from
   its memory hook: Krab Tvrďák's band of seven spikes, Medúzka Měkulka's nine tentacles, Želva
-  Obojka's eight plates.
+  Obojka's eight plates, Barakuda Bystřinka's five bars and speed lines, Lachtan Lyžař's two
+  crossed skis.
+- **Regions**: each region after the lagoon has its own module, `scripts/art/svg/regions/<region>.mjs`,
+  exporting its eggs, sticker icons and cosmetics; `eggs.mjs`, `stickers.mjs` and `cosmetics.mjs`
+  spread them into their lists. Scarves share `scarf.mjs`. Every sticker icon is checked to stay
+  within `ICON_RADIUS` on the review board.
 - **Cosmetics** (`cosmetic/<item>`, `cosmetic/shell-crown`): 100 × 100, the attachment point at
   the centre (§4): a hat's brim centre, the goggles' bridge, a scarf's knot, the crown's base.
   Grotto decorations share the box and stand on their spot's centre.

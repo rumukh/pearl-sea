@@ -12,8 +12,8 @@ measurements to the QA summary ("Performance"), so a budget is revisited with nu
 | ------------------------------------------------------- | ------------ | ------------ | --------------------------------------------------------------------------------------- |
 | `app.js` as built / gzipped                             | 650 / 210 KB | 514 / 168 KB | the whole game: rules, SDK, screens, inline SVG art                                     |
 | `app.css` as built / gzipped                            | 100 / 20 KB  | 71 / 13 KB   |                                                                                         |
-| Offline pack without its audio                          | 6 MB         | 4.08 MB      | 64 files, with S5's slice paintings (#38); more paintings are coming                    |
-| Whole offline pack (`resource-graph.json`)              | 8.5 MB       | 5.94 MB      | 68 files; the audio is 1.86 MB of it                                                    |
+| Offline pack without its audio                          | 8.5 MB       | 6.34 MB      | 153 files: the slice plus the reef and kelp forest; regions 4-7 add about 0.35 MB each  |
+| Whole offline pack (`resource-graph.json`)              | 11 MB        | 9.08 MB      | the audio is 2.74 MB of it                                                              |
 | First visit: downloaded before the title (uncompressed) | 2.4 MB       | 2.10 MB      | 510 KB as GitHub Pages sends it (budget 600 KB), with the title's painting; 520 KB live |
 | First visit, fast 4G, processor ×4: title ready         | 5 s          | 2.85 s       | first paint 0.36 s (budget 1.5 s); live site: 1.45 s                                    |
 | First visit, slow 4G, processor ×4: title ready         | 16 s         | 12.09 s      | first paint 1.13 s (budget 3 s); the test server sends text uncompressed; live: 4.33 s  |
@@ -52,7 +52,7 @@ The content pack of all twelve regions is most of it (1.24 MB, 112 KB gzipped). 
 painting is fetched at boot beside it (since #42, PS-QA-20), so the title appears with its
 painting. Nothing else loads until the child does something: the other paintings when their
 screen first shows them, each music loop when it first plays (the grotto's 626 KB at the first
-tap), and the offline pack only when a grown-up installs it (5.94 MB, in the background, with
+tap), and the offline pack only when a grown-up installs it (9.08 MB, in the background, with
 progress shown).
 
 ## The deployed site
@@ -109,6 +109,8 @@ has no Web Audio. Safari on an iPad plays Ogg Vorbis from iPadOS 18.4.
 - **Firefox and WebKit timings**: the throttling is Chromium's. Their sizes are the same files.
 - **JavaScript heap and long sessions**: memory over a whole session beyond the decoded audio, and
   battery use, are not measured.
-- **Paintings**: since #38 the offline pack without audio is 4.08 MB of its 6 MB; the slice's
-  remaining paintings (baby forms, Kořínek, Měsíční jeskyně, the freed Muréna, Mrož Vousáč, the
-  Inkoustíci, the other monsters) have 1.9 MB left, which the size test holds them to as they land.
+- **Paintings**: the offline pack budgets were raised once (#58) to cover the slice plus the painted
+  art of regions 2-7 (8.5 MB without audio, 11 MB in all). With the reef and the kelp forest the pack
+  without audio is 6.34 MB; regions 4-7 add about 0.35 MB each, about 7.8 MB in all. A region that
+  would exceed the budget recompresses its WebPs instead of raising it again. The first-screen
+  budgets are unchanged.

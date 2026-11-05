@@ -43,9 +43,13 @@ const MB = 1_000_000;
 const SIZE_BUDGETS = {
   script: { built: 650 * KB, gzipped: 210 * KB },
   style: { built: 100 * KB, gzipped: 20 * KB },
-  /** The offline pack without its audio: the slice with its painted art still landing. */
-  packWithoutAudio: 6 * MB,
-  pack: 8.5 * MB,
+  /**
+   * The offline pack without its audio: the slice plus the painted art of regions 2-7 (about
+   * 0.35 MB each). Raised once for the whole 3rd grade; a region that would exceed it recompresses
+   * its WebPs instead.
+   */
+  packWithoutAudio: 8.5 * MB,
+  pack: 11 * MB,
   /** What a first visit downloads before the title, uncompressed and gzipped as Pages sends it. */
   firstScreen: 2.4 * MB,
   firstScreenGzipped: 600 * KB,

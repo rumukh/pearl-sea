@@ -10,6 +10,7 @@ import { polar, prng } from './lib/num.mjs';
 import { g, h } from './lib/xml.mjs';
 import { CREAM, INK, SW, gleam, ink, line, scope, shade } from './style.mjs';
 import { CORAL_REEF_EGGS } from './regions/coral-reef.mjs';
+import { KELP_FOREST_EGGS } from './regions/kelp-forest.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -136,6 +137,7 @@ export const EGG_DESIGNS = [
   { id: 'meduzka-mekulka', base: '#e9a6e0', motif: meduzka },
   { id: 'zelva-obojka', base: '#5dbb8a', motif: zelva },
   ...CORAL_REEF_EGGS,
+  ...KELP_FOREST_EGGS,
 ];
 
 /**

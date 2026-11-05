@@ -22,6 +22,7 @@ import { polar } from './lib/num.mjs';
 import { g, h } from './lib/xml.mjs';
 import { CREAM, INK, SW, gleam, groundShadow, ink, line, scope, shade, tube } from './style.mjs';
 import { CORAL_REEF_COSMETICS } from './regions/coral-reef.mjs';
+import { KELP_FOREST_COSMETICS } from './regions/kelp-forest.mjs';
 import { scarf } from './scarf.mjs';
 
 /** @typedef {'head' | 'eyes' | 'neck' | 'grotto' | 'crown'} CosmeticSlot */
@@ -485,6 +486,7 @@ export const COSMETIC_DESIGNS = [
   { id: 'swing-shell', slot: 'grotto', draw: swingShell },
   { id: 'shell-crown', slot: 'crown', draw: shellCrown },
   ...CORAL_REEF_COSMETICS,
+  ...KELP_FOREST_COSMETICS,
 ];
 
 export const COSMETIC_SIZE = SIZE;

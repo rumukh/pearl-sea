@@ -1998,6 +1998,286 @@
       }
     },
     {
+      "id": "friend/konik-mydlinek/baby",
+      "file": "friends/konik-mydlinek-baby.webp",
+      "width": 820,
+      "height": 983,
+      "bytes": 64710,
+      "sha256": "4add31609fcea281b0034fd0c0277ecb68eb622f527e2ad715d37b916e2bcd9b",
+      "anchors": {
+        "head": {
+          "x": 277,
+          "y": 56,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 327,
+          "y": 246,
+          "scale": 70,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 252,
+          "y": 463,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/konik-mydlinek-baby.prompt.txt",
+      "approvedImage": {
+        "image": "konik-mydlinek/konik-mydlinek-baby-b-sketchv1-s107111.png",
+        "sha256": "75e1add2b25bf199083ac0a6758dfef32729afb35244802e3e62527b18cfc1c0"
+      },
+      "lineage": [
+        {
+          "image": "konik-mydlinek/konik-mydlinek-baby-b-sketchv1-s107111.png",
+          "sha256": "75e1add2b25bf199083ac0a6758dfef32729afb35244802e3e62527b18cfc1c0",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly three round knobs in the little crown on his head; exactly three small soap bubbles rising from the end of his short snout, each a thin shimmering rainbow film; one small fan fin on his back; his tail curled under him. It shows Koník Mýdlínek as a tiny hatchling: a sweet baby seahorse facing right, an animal character and not a human, chubby with a big round head, sunny yellow-orange with a pale belly plate, a big shiny eye with a teal iris and a rosy cheek. He is the young version of the grown-up Koník Mýdlínek: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, horse, pipe, bubble wand, more than three bubbles",
+          "seed": 107111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "konik-mydlinek/ref-konik-mydlinek-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py konik-baby), repainted in place",
+              "sha256": "427b719a659503766d3177ee9d9df5c1cf9d5688e88eb4588c9a9091550e69c4",
+              "sketch": "scripts/art/authoring/sketches.py konik-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-05",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "d74aca0ac9dd6f68bf50e251c7c10049d01d40db0811f5a874b51d01c6f38722",
+          "holesOpened": 0,
+          "specksRemoved": 19,
+          "iouWithU2net": 0.9512,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the three bubbles and their films."
+        },
+        {
+          "step": "trim",
+          "box": [
+            328,
+            210,
+            1148,
+            1193
+          ],
+          "marginPx": 19,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            820,
+            983
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 40.07,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate12-kelp-derived",
+        "decidedAt": "2026-11-05T23:18:36.612652+01:00",
+        "question": "Gate 12, Chaluhový les derived forms (images in my gate12-kelp-derived folder: each approved master beside its candidates, plus the cut-outs on navy). Recommended: Koník baby A (three whole soap bubbles), Pyskoun baby A (three head stripes, big proud lips), Mořský had freed A (ink washed off, mint and cream bands, same loops and outline as the inked form). Which should I use?",
+        "answer": "Recommended: Koník baby A, Pyskoun baby A, Had freed A",
+        "chosen": "Koník baby A"
+      }
+    },
+    {
+      "id": "friend/konik-mydlinek/grown",
+      "file": "friends/konik-mydlinek-grown.webp",
+      "width": 858,
+      "height": 1024,
+      "bytes": 82242,
+      "sha256": "f304588f710e54923819812e118486737e91b5518878359c483fe70ff8c8b0c2",
+      "anchors": {
+        "head": {
+          "x": 193,
+          "y": 109,
+          "scale": 75,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 255,
+          "y": 224,
+          "scale": 60,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 292,
+          "y": 385,
+          "scale": 60,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/konik-mydlinek-grown.prompt.txt",
+      "approvedImage": {
+        "image": "konik-mydlinek/konik-mydlinek-adult-b-sketchv1-s107012.png",
+        "sha256": "ef0bd0c6124f735e900f48c1d55dbeefb0d4f5ce5de08100095aa2c42997e5aa"
+      },
+      "lineage": [
+        {
+          "image": "konik-mydlinek/konik-mydlinek-adult-b-sketchv1-s107012.png",
+          "sha256": "ef0bd0c6124f735e900f48c1d55dbeefb0d4f5ce5de08100095aa2c42997e5aa",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly three round knobs in the little crown on his head; exactly three soap bubbles rising from the end of his snout, small, medium and big, each a thin shimmering rainbow film; one fan-shaped fin on his back; his tail curled into a spiral. It shows Koník Mýdlínek, a cheerful seahorse who loves washing and soap bubbles: a real seahorse body standing upright and facing right, an animal character and not a human, sunny yellow-orange with a pale ridged belly plate, a long tube snout with a little round mouth at its tip blowing bubbles, a big shiny eye with a teal iris and a rosy cheek. Clean, bubbly and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, horse, horse legs, pipe, bubble wand, bathtub, more than three bubbles",
+          "seed": 107012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "konik-mydlinek/ref-konik-mydlinek-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py konik), repainted in place",
+              "sha256": "e965916cf4e73511d2798f49923aec6b35c8c1d845a20f25d59f83a468219713",
+              "sketch": "scripts/art/authoring/sketches.py konik (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "78df1b074cf20d56d1f11fda9434da9561f1ca16a3ce709177828bcb160175a7",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.896,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the three detached soap bubbles (the mnemonic) and their pale films, which the default drops or opens on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            276,
+            101,
+            1231,
+            1241
+          ],
+          "marginPx": 22,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.898246,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            858,
+            1024
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 41.48,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate10-kelp-masters",
+        "decidedAt": "2026-11-05T20:40:39.582706+01:00",
+        "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
+        "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
+        "chosen": "Koník A"
+      }
+    },
+    {
       "id": "friend/krab-tvrdak/baby",
       "file": "friends/krab-tvrdak-baby.webp",
       "width": 982,
@@ -3156,6 +3436,286 @@
       }
     },
     {
+      "id": "friend/pyskoun-pysny/baby",
+      "file": "friends/pyskoun-pysny-baby.webp",
+      "width": 939,
+      "height": 591,
+      "bytes": 60050,
+      "sha256": "37cfd51a4d3c4d945e682bc4b9acb9bce5652cdff38b3460f9484eba7864b868",
+      "anchors": {
+        "head": {
+          "x": 376,
+          "y": 117,
+          "scale": 90,
+          "rotate": -8
+        },
+        "eyes": {
+          "x": 340,
+          "y": 413,
+          "scale": 70,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 504,
+          "y": 591,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/pyskoun-pysny-baby.prompt.txt",
+      "approvedImage": {
+        "image": "pyskoun-pysny/pyskoun-pysny-baby-b-sketchv1-s108111.png",
+        "sha256": "83863cfbb7a71df03a24ea0c2d2c21f7312c2cca7a38ff1866d2b285ae7538de"
+      },
+      "lineage": [
+        {
+          "image": "pyskoun-pysny/pyskoun-pysny-baby-b-sketchv1-s108111.png",
+          "sha256": "83863cfbb7a71df03a24ea0c2d2c21f7312c2cca7a38ff1866d2b285ae7538de",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: big, thick, glossy pink lips puckered forward; exactly three wavy orange stripes on his head; one long dorsal fin along his back; one small rounded tail. It shows Pyskoun Pyšný as a tiny hatchling: a sweet baby wrasse swimming to the left, an animal character and not a human, short and round, sea green with a pale green belly and blue fins, a big eye half closed with a proud, pleased look and a rosy cheek. He is the young version of the grown-up Pyskoun Pyšný: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, lipstick, teeth, open mouth, crown",
+          "seed": 108111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "pyskoun-pysny/ref-pyskoun-pysny-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py pyskoun-baby), repainted in place",
+              "sha256": "25501e9aa6bfdbbf6b6ea5f6dae2700c2eb950271cb73ccfeea1da0052673267",
+              "sketch": "scripts/art/authoring/sketches.py pyskoun-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-05",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "f48cba5343f0119a2c963f784356485f7e97d86438e37ebfcd00149ab1e5c299",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9946,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the pale belly."
+        },
+        {
+          "step": "trim",
+          "box": [
+            162,
+            381,
+            1101,
+            972
+          ],
+          "marginPx": 18,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            939,
+            591
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.17,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate12-kelp-derived",
+        "decidedAt": "2026-11-05T23:18:36.612652+01:00",
+        "question": "Gate 12, Chaluhový les derived forms (images in my gate12-kelp-derived folder: each approved master beside its candidates, plus the cut-outs on navy). Recommended: Koník baby A (three whole soap bubbles), Pyskoun baby A (three head stripes, big proud lips), Mořský had freed A (ink washed off, mint and cream bands, same loops and outline as the inked form). Which should I use?",
+        "answer": "Recommended: Koník baby A, Pyskoun baby A, Had freed A",
+        "chosen": "Pyskoun baby A"
+      }
+    },
+    {
+      "id": "friend/pyskoun-pysny/grown",
+      "file": "friends/pyskoun-pysny-grown.webp",
+      "width": 1024,
+      "height": 577,
+      "bytes": 62568,
+      "sha256": "9148889501c4b1225c4b4f311939fcd7642ea9372a951554512aba968ed7d618",
+      "anchors": {
+        "head": {
+          "x": 273,
+          "y": 130,
+          "scale": 75,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 250,
+          "y": 355,
+          "scale": 60,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 395,
+          "y": 489,
+          "scale": 65,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/pyskoun-pysny-grown.prompt.txt",
+      "approvedImage": {
+        "image": "pyskoun-pysny/pyskoun-pysny-adult-b-sketchv1-s108012.png",
+        "sha256": "8f89c328884f2fd6d8d2553e35f3500713e4e523c561ba415608276705a524fc"
+      },
+      "lineage": [
+        {
+          "image": "pyskoun-pysny/pyskoun-pysny-adult-b-sketchv1-s108012.png",
+          "sha256": "8f89c328884f2fd6d8d2553e35f3500713e4e523c561ba415608276705a524fc",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: very big, thick, glossy pink lips puckered forward; exactly three wavy orange stripes on his head; one long continuous dorsal fin along the whole back; one small rounded tail. It shows Pyskoun Pyšný, a real wrasse fish swimming to the left, an animal character and not a human, proud and very pleased with himself: a long oval sea-green body with a pale green belly, blue fins, his eye half closed under a raised eyebrow and his chin lifted in proud self-satisfaction, a rosy cheek. Funny and lovable, a little vain.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, lipstick, teeth, open mouth, crown",
+          "seed": 108012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "pyskoun-pysny/ref-pyskoun-pysny-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py pyskoun), repainted in place",
+              "sha256": "289ad0daccb262b5ecd6378d267aa97405ce87ef32a29cb8440c58a6bff601bd",
+              "sketch": "scripts/art/authoring/sketches.py pyskoun (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "7ba51f4fac4b1adf500c66907a8881d4feb0a510b0300e9bc90a3906918aead3",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9908,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the pale belly and the lip highlights on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            127,
+            396,
+            1273,
+            1042
+          ],
+          "marginPx": 22,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.893543,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            577
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 37.8,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate10-kelp-masters",
+        "decidedAt": "2026-11-05T20:40:39.582706+01:00",
+        "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
+        "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
+        "chosen": "Pyskoun A"
+      }
+    },
+    {
       "id": "friend/zelva-obojka/baby",
       "file": "friends/zelva-obojka-baby.webp",
       "width": 1024,
@@ -4245,6 +4805,304 @@
       }
     },
     {
+      "id": "monster/had-zamotal/freed",
+      "file": "monsters/had-zamotal-freed.webp",
+      "width": 1024,
+      "height": 932,
+      "bytes": 69982,
+      "sha256": "ca4c28daf412b33134a3ff3ffd2e8a4433d5012f8eed6c193464e816d8093bd2",
+      "anchors": null,
+      "promptFile": "prompts/had-zamotal-freed.prompt.txt",
+      "approvedImage": {
+        "image": "had-zamotal/had-zamotal-freed-b-from-master-s109111.png",
+        "sha256": "45693edc42fc8001c67df2afc929e28260676292087194eb7314efbdd9edc6f8"
+      },
+      "lineage": [
+        {
+          "image": "had-zamotal/had-zamotal-freed-b-from-master-s109111.png",
+          "sha256": "45693edc42fc8001c67df2afc929e28260676292087194eb7314efbdd9edc6f8",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon sea snake Mořský had Zamotal. All of the black and dark-violet magic ink has been washed away, his knot has come loose and he is happy again. Keep exactly the same character, pose, body shape, the same loose loops of his body, head shape, nostrils, flat paddle tail, the banded pattern, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing his clean, bright colours everywhere: cheerful sea-green and cream bands instead of black and cream, a soft mint head. Change only his expression: a big, friendly, grateful smile with bright, wide-open happy eyes, relaxed raised eyebrows and a rosy cheek. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, black bands, drips, dark smudges, ink blots, dirty, grumpy, angry, frowning, fangs, forked tongue, cobra hood, eel, dragon, sun, light rays, glow, extra eyes, extra heads, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 109111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "had-zamotal/had-zamotal-inked-b-sketchv1-s109012.png",
+              "role": "source image edited in place: the approved inked master s109012 (gate 10)",
+              "sha256": "d081b04bc7b05859405fab01dc59784e3055aba6008b3ffcd852adef9b33f307"
+            }
+          ],
+          "date": "2026-11-05",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "had-zamotal/had-zamotal-inked-b-sketchv1-s109012.png",
+          "sha256": "d081b04bc7b05859405fab01dc59784e3055aba6008b3ffcd852adef9b33f307",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: his long body tied in one loose, clumsy knot exactly as in the sketch, crossing over itself; the body ringed with alternating pale and dark bands all along; one flat, paddle-shaped tail like an oar; two nostrils on top of his small rounded head. It shows Mořský had Zamotal, a grumpy, muddled sea snake soaked in magic black ink, a real sea snake and not an eel or a cobra: a smooth, rounded body as thick as his small head, no hood and no neck frill, a frowning eyebrow over a round eye and a sulky pout, no fangs and no forked tongue. Glossy black and dark-violet magic ink covers part of him: blots, drips and little highlights. He is cross because he got himself into a tangle. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra heads, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp fangs, fangs, forked tongue, cobra hood, blood, gore, horror, rope, eel fins, dragon",
+          "seed": 109012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "had-zamotal/ref-had-zamotal-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py had-inked), repainted in place",
+              "sha256": "76612e72021d70e22a2910054b7c2a04cf8fbe38cfe27f72cd1a38ca79174466",
+              "sketch": "scripts/art/authoring/sketches.py had-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "ef93ceb1012eac99a385a2fded8710e2144483cc8ff85fd3bfe4443c60befbb1",
+          "holesOpened": 2,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9459,
+          "options": "--keep-marks 200",
+          "optionsWhy": "As the inked form: the default hole rule opens the gaps between the loops."
+        },
+        {
+          "step": "trim",
+          "box": [
+            153,
+            145,
+            1265,
+            1157
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/had-zamotal/freed",
+            "monster/had-zamotal/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.920863,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            932
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 41.27,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate12-kelp-derived",
+        "decidedAt": "2026-11-05T23:18:36.612652+01:00",
+        "question": "Gate 12, Chaluhový les derived forms (images in my gate12-kelp-derived folder: each approved master beside its candidates, plus the cut-outs on navy). Recommended: Koník baby A (three whole soap bubbles), Pyskoun baby A (three head stripes, big proud lips), Mořský had freed A (ink washed off, mint and cream bands, same loops and outline as the inked form). Which should I use?",
+        "answer": "Recommended: Koník baby A, Pyskoun baby A, Had freed A",
+        "chosen": "Had freed A"
+      }
+    },
+    {
+      "id": "monster/had-zamotal/inked",
+      "file": "monsters/had-zamotal-inked.webp",
+      "width": 1024,
+      "height": 932,
+      "bytes": 119080,
+      "sha256": "d0290c6355d169ed306078fb26af9e65c887cd2c389882710735fca6e7b83f25",
+      "anchors": null,
+      "promptFile": "prompts/had-zamotal-inked.prompt.txt",
+      "approvedImage": {
+        "image": "had-zamotal/had-zamotal-inked-b-sketchv1-s109012.png",
+        "sha256": "d081b04bc7b05859405fab01dc59784e3055aba6008b3ffcd852adef9b33f307"
+      },
+      "lineage": [
+        {
+          "image": "had-zamotal/had-zamotal-inked-b-sketchv1-s109012.png",
+          "sha256": "d081b04bc7b05859405fab01dc59784e3055aba6008b3ffcd852adef9b33f307",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: his long body tied in one loose, clumsy knot exactly as in the sketch, crossing over itself; the body ringed with alternating pale and dark bands all along; one flat, paddle-shaped tail like an oar; two nostrils on top of his small rounded head. It shows Mořský had Zamotal, a grumpy, muddled sea snake soaked in magic black ink, a real sea snake and not an eel or a cobra: a smooth, rounded body as thick as his small head, no hood and no neck frill, a frowning eyebrow over a round eye and a sulky pout, no fangs and no forked tongue. Glossy black and dark-violet magic ink covers part of him: blots, drips and little highlights. He is cross because he got himself into a tangle. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra heads, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp fangs, fangs, forked tongue, cobra hood, blood, gore, horror, rope, eel fins, dragon",
+          "seed": 109012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "had-zamotal/ref-had-zamotal-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py had-inked), repainted in place",
+              "sha256": "76612e72021d70e22a2910054b7c2a04cf8fbe38cfe27f72cd1a38ca79174466",
+              "sketch": "scripts/art/authoring/sketches.py had-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "5bde8fcba1dd35addaa92c9563293ed1e82bfaa9ebae2b6bdd4548c14e07023b",
+          "holesOpened": 12,
+          "specksRemoved": 36,
+          "iouWithU2net": 0.9289,
+          "options": "--keep-marks 200",
+          "optionsWhy": "Keeps the detached ink droplets; the default hole rule opens the real gaps between the loops of the knot."
+        },
+        {
+          "step": "trim",
+          "box": [
+            153,
+            145,
+            1265,
+            1157
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/had-zamotal/freed",
+            "monster/had-zamotal/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.920863,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            932
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 44.41,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate10-kelp-masters",
+        "decidedAt": "2026-11-05T20:40:39.582706+01:00",
+        "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
+        "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
+        "chosen": "Had A"
+      }
+    },
+    {
       "id": "monster/murena-mumla/freed",
       "file": "monsters/murena-mumla-freed.webp",
       "width": 1024,
@@ -5172,6 +6030,104 @@
         "question": "Gate 3b, the grade-3 sea map and Bublinka's home grotto (image gate3b-map-grotto.jpg in my gate3 folder). Both maps have a round pad of open water under every grade-3 region marker, connected by sandy paths. Map A has more open sea; Map B shows the edge of the ice sea at the right. The grotto has the arch to the sea, shelves with shells and glowing pearls, and an open sand floor for the friends and decorations. Which map should I use, with this grotto?",
         "answer": "Map A and the grotto (Recommended)",
         "chosen": "Grotto"
+      }
+    },
+    {
+      "id": "scene/kelp-forest",
+      "file": "scenes/kelp-forest.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 130984,
+      "sha256": "6ef9df7661c08b226b2223efb15929c75c331aee8ce7a24b97f564ed2c40b1f8",
+      "anchors": null,
+      "promptFile": "prompts/kelp-forest.prompt.txt",
+      "approvedImage": {
+        "image": "bg-kelp-forest/bg-kelp-forest-v1-s106011.png",
+        "sha256": "7b1b6886859619136bbb225f0a82d91373130770176820fdde5c718619ade7a4"
+      },
+      "lineage": [
+        {
+          "image": "bg-kelp-forest/bg-kelp-forest-v1-s106011.png",
+          "sha256": "7b1b6886859619136bbb225f0a82d91373130770176820fdde5c718619ade7a4",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Chaluhový les, a calm, golden-green kelp forest seen from inside the water. Keep exactly the same composition: sunbeams slanting down from the shimmering surface; a wide, calm, open band of clear blue-green water and smooth sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; two tall golden-green kelp fronds at the very left edge, and in the top-left corner a canopy of kelp fronds hanging down from the surface with leafy blades and little round golden floats; in the bottom-right foreground a low, lush thicket of kelp; at the right edge a dark, tangled thicket of kelp with a shadowy hollow where a sea monster lives, mysterious but not scary; the soft sandy floor along the bottom with a few seashells. Tiny bubbles rising, gentle caustic light ripples on the sand.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright but harmonious palette of turquoise, sea green, golden olive, amber, soft teal and sand beige, gentle depth haze toward the back. Calm, magical and inviting. No fish, no animals, no people, no characters, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, signpost, board, frame, border, fish, animals, people, characters, submarine, boat, ship, treasure chest, photorealistic, 3d render, dark, scary, trees, land, sky, forest on land",
+          "seed": 106011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-kelp-forest/ref-bg-kelp-forest-sketch-v1.png",
+              "role": "composition sketch on the shell's levelSpots(7) (Pillow colour blocking, sketches.py kelp), repainted in place",
+              "sha256": "52bca06040d2275367783c46541062c5ed12dc4d98a21c8054c21a5c9a40bd87",
+              "sketch": "scripts/art/authoring/sketches.py kelp (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 39.94,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate10-kelp-masters",
+        "decidedAt": "2026-11-05T20:40:39.582706+01:00",
+        "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
+        "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
+        "chosen": "Scene A"
       }
     },
     {

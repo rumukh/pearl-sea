@@ -9,6 +9,7 @@ import { C, L, M, Q, Z, eggD, roundCornersD, smoothOpenD } from './lib/path.mjs'
 import { polar, prng } from './lib/num.mjs';
 import { g, h } from './lib/xml.mjs';
 import { CREAM, INK, SW, gleam, ink, line, scope, shade } from './style.mjs';
+import { CORAL_REEF_EGGS } from './regions/coral-reef.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -134,6 +135,7 @@ export const EGG_DESIGNS = [
   { id: 'krab-tvrdak', base: '#ef5a43', motif: krab },
   { id: 'meduzka-mekulka', base: '#e9a6e0', motif: meduzka },
   { id: 'zelva-obojka', base: '#5dbb8a', motif: zelva },
+  ...CORAL_REEF_EGGS,
 ];
 
 /**

@@ -1718,6 +1718,286 @@
       }
     },
     {
+      "id": "friend/barakuda-bystrinka/baby",
+      "file": "friends/barakuda-bystrinka-baby.webp",
+      "width": 1024,
+      "height": 565,
+      "bytes": 64866,
+      "sha256": "095e2fbafa878152ca85a7c0c3ce6603b15368bb5265fc2f3db9483f67df35be",
+      "anchors": {
+        "head": {
+          "x": 207,
+          "y": 207,
+          "scale": 95,
+          "rotate": -8
+        },
+        "eyes": {
+          "x": 192,
+          "y": 480,
+          "scale": 75,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 344,
+          "y": 609,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/barakuda-bystrinka-baby.prompt.txt",
+      "approvedImage": {
+        "image": "barakuda-bystrinka/barakuda-bystrinka-baby-b-sketchv1-s101111.png",
+        "sha256": "463e46e210d60608adaf91d33441825a51916161e81df600ff407aef8fecf1f2"
+      },
+      "lineage": [
+        {
+          "image": "barakuda-bystrinka/barakuda-bystrinka-baby-b-sketchv1-s101111.png",
+          "sha256": "463e46e210d60608adaf91d33441825a51916161e81df600ff407aef8fecf1f2",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly five dark slanted bars along her upper side; two small dorsal fins; one small forked tail; three short speed lines behind her tail. It shows Barakuda Bystřinka as a tiny hatchling: a sweet baby barracuda dashing to the left, an animal character and not a human, with a short, chubby, rounded body, a silver-blue back and a pearly belly, one big shiny eye with a blue iris, a cheeky little smile with no teeth and a rosy cheek. She is the young version of the grown-up Barakuda Bystřinka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, teeth, eel, snake, shark",
+          "seed": 101111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "barakuda-bystrinka/ref-barakuda-bystrinka-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py barakuda-baby), repainted in place",
+              "sha256": "ccf2142491f6a57fde3ca611291d35b2f1c44fb4c39f4b66f543b7be26036ff9",
+              "sketch": "scripts/art/authoring/sketches.py barakuda-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-05",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "44001e12d9ba0eb3db6b8785c146cb2ba62e9a821d6d0447bb729214d46c6f00",
+          "holesOpened": 0,
+          "specksRemoved": 57,
+          "iouWithU2net": 0.9795,
+          "options": "--keep-marks 300 --min-hole 100000000",
+          "optionsWhy": "Keeps the three speed lines and the pale pearly body and eye white, which key out on the near-white backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            208,
+            361,
+            1232,
+            926
+          ],
+          "marginPx": 20,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            565
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.55,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate11-reef-derived",
+        "decidedAt": "2026-11-05T22:13:39.885588+01:00",
+        "question": "Gate 11, Korálový útes derived forms (images in my gate11-reef-derived folder: each approved master beside its candidates, plus the cut-outs on navy). Recommended: Barakuda baby A (same style as her master, slightly greyer), Lachtan pup A (two skis, two poles, ear flap), Žralok freed A (ink washed off, wide happy grin, same pose as the inked form). Which should I use?",
+        "answer": "Recommended: Barakuda baby A, Lachtan pup A, Žralok freed A",
+        "chosen": "Barakuda baby A"
+      }
+    },
+    {
+      "id": "friend/barakuda-bystrinka/grown",
+      "file": "friends/barakuda-bystrinka-grown.webp",
+      "width": 1024,
+      "height": 343,
+      "bytes": 50938,
+      "sha256": "6fe9427ff314df76b416e3a5ebf199bdf758e7b0b1b7123832d96f182d3b6fb6",
+      "anchors": {
+        "head": {
+          "x": 156,
+          "y": 231,
+          "scale": 70,
+          "rotate": -4
+        },
+        "eyes": {
+          "x": 152,
+          "y": 413,
+          "scale": 55,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 246,
+          "y": 591,
+          "scale": 60,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/barakuda-bystrinka-grown.prompt.txt",
+      "approvedImage": {
+        "image": "barakuda-bystrinka/barakuda-bystrinka-adult-b-sketchv1-s101011.png",
+        "sha256": "cad68be3a75c2fbbbe52f9be8bca36ed0add46cbd55eae65005dcba908ae256f"
+      },
+      "lineage": [
+        {
+          "image": "barakuda-bystrinka/barakuda-bystrinka-adult-b-sketchv1-s101011.png",
+          "sha256": "cad68be3a75c2fbbbe52f9be8bca36ed0add46cbd55eae65005dcba908ae256f",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly five dark slanted bars along her upper side; two small dorsal fins; one forked tail; three short speed lines behind her tail. It shows Barakuda Bystřinka, the quickest fish of the coral reef: a slim, sleek, streamlined barracuda dashing to the left, an animal character and not a human, with a long silver-blue body, a lighter pearly belly, a long pointed snout with a cheeky little smile and no visible teeth, a big shiny eye with a blue iris, a rosy cheek and one small pectoral fin. Speedy, sporty and friendly, never scary.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp fangs, blood, gore, horror, teeth, eel, snake, shark",
+          "seed": 101011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "barakuda-bystrinka/ref-barakuda-bystrinka-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py barakuda), repainted in place",
+              "sha256": "c08064541be144892975ef8fc611d2623c19db476f89ae303c4dacd8c65c1f72",
+              "sketch": "scripts/art/authoring/sketches.py barakuda (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-02",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "8f745870553e3bce06a16b971bf0ae32370fef005f53971c3ec97ed3330becd8",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9764,
+          "options": "--keep-marks 300",
+          "optionsWhy": "Keeps the three detached speed lines behind the tail (part of the approved design), which the default drops as specks."
+        },
+        {
+          "step": "trim",
+          "box": [
+            151,
+            457,
+            1328,
+            851
+          ],
+          "marginPx": 23,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.870008,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            343
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.07,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate9-reef-masters",
+        "decidedAt": "2026-11-05T20:00:43.369791+01:00",
+        "question": "Gate 9, Korálový útes masters (images in my gate9-reef-masters folder: scene A/B with the level spots, Barakuda A/B, Lachtan A/B, Žralok inked A/B, the reef's SVG eggs/stickers/cosmetics and the recommended set together). Recommended: scene A, Barakuda A (pointed snout, five bars), Lachtan A (sea lion on two skis on a wave), Žralok A (sulky open mouth, small blunt teeth). Which set should I use?",
+        "answer": "Recommended: scene A, Barakuda A, Lachtan A, Žralok A, SVG art as shown",
+        "chosen": "Barakuda A"
+      }
+    },
+    {
       "id": "friend/krab-tvrdak/baby",
       "file": "friends/krab-tvrdak-baby.webp",
       "width": 982,
@@ -2269,6 +2549,286 @@
         "question": "Gate 2 – the slice character masters in style B (images batch1-candidates.jpg and batch1-in-the-lagoon.jpg in my gate2 folder). Krab Tvrďák has 7 spikes, Medúzka Měkulka 9 tentacles, Želva Obojka 8 shell plates and Profesorka Osmička 8 arms. Bublinka has two takes. Murena Mumla (inked) has two takes; A is the most moray-like but has a pale belly and a carrot-like tail tip. Babies, Murena's freed form and Osmička's happy face will be derived from whichever masters you approve. Which masters should I use?",
         "answer": "Approve the recommended set: Krab A, Medúzka A, Želva A, Osmička A, Bublinka A, Murena A (Recommended)",
         "chosen": "Krab A"
+      }
+    },
+    {
+      "id": "friend/lachtan-lyzar/baby",
+      "file": "friends/lachtan-lyzar-baby.webp",
+      "width": 977,
+      "height": 1009,
+      "bytes": 92278,
+      "sha256": "a0fa24f3118d006f7b24b0909b58e75bef4980f1ce1749400953c634d466a6c4",
+      "anchors": {
+        "head": {
+          "x": 511,
+          "y": 40,
+          "scale": 120,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 536,
+          "y": 183,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 511,
+          "y": 391,
+          "scale": 100,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/lachtan-lyzar-baby.prompt.txt",
+      "approvedImage": {
+        "image": "lachtan-lyzar/lachtan-lyzar-baby-b-sketchv1-s102111.png",
+        "sha256": "bcb867ad4de36d4e9450de2100ba4c247cb1d5e41f34acce3c1edb387dd9e1a3"
+      },
+      "lineage": [
+        {
+          "image": "lachtan-lyzar/lachtan-lyzar-baby-b-sketchv1-s102111.png",
+          "sha256": "bcb867ad4de36d4e9450de2100ba4c247cb1d5e41f34acce3c1edb387dd9e1a3",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly two short red skis with curled-up tips under him; two small ski poles, one in each front flipper; a small ear flap on the side of his head, because he is a sea lion and not a seal; a small, compact cushion of teal water and white foam under the skis that ends well inside the picture. It shows Lachtan Lyžař as a tiny hatchling: a sweet sea-lion pup facing right, an animal character and not a human, round and chubby with a big head, warm brown fur, a cream belly, a pale whiskered muzzle with whisker dots, a dark button nose, a big shiny eye, a happy smile and a rosy cheek. He is the young version of the grown-up Lachtan Lyžař: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, otter, bear, dog, sled, sledge, big wave, ocean",
+          "seed": 102111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "lachtan-lyzar/ref-lachtan-lyzar-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py lachtan-baby), repainted in place",
+              "sha256": "39453b30915e440dbb8fc8aefeaf21918d93b7889fa692e89a1bc181d91f1773",
+              "sketch": "scripts/art/authoring/sketches.py lachtan-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-05",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "8867d086c26dd836cde0b7ce52988fe9f31070ac52a590713f222589f5d05389",
+          "holesOpened": 0,
+          "specksRemoved": 9,
+          "iouWithU2net": 0.9694,
+          "options": "--min-hole 100000000 --low 6 --high 18 --keep-marks 200",
+          "optionsWhy": "As the grown-up: keeps the white foam on the water cushion."
+        },
+        {
+          "step": "trim",
+          "box": [
+            191,
+            245,
+            1168,
+            1254
+          ],
+          "marginPx": 19,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            977,
+            1009
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.27,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate11-reef-derived",
+        "decidedAt": "2026-11-05T22:13:39.885588+01:00",
+        "question": "Gate 11, Korálový útes derived forms (images in my gate11-reef-derived folder: each approved master beside its candidates, plus the cut-outs on navy). Recommended: Barakuda baby A (same style as her master, slightly greyer), Lachtan pup A (two skis, two poles, ear flap), Žralok freed A (ink washed off, wide happy grin, same pose as the inked form). Which should I use?",
+        "answer": "Recommended: Barakuda baby A, Lachtan pup A, Žralok freed A",
+        "chosen": "Lachtan pup A"
+      }
+    },
+    {
+      "id": "friend/lachtan-lyzar/grown",
+      "file": "friends/lachtan-lyzar-grown.webp",
+      "width": 1024,
+      "height": 821,
+      "bytes": 104990,
+      "sha256": "7f97c37487c305b10d5cbd6663ab51701102b8f64b841e28972b65a70be869b1",
+      "anchors": {
+        "head": {
+          "x": 528,
+          "y": 66,
+          "scale": 100,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 562,
+          "y": 167,
+          "scale": 85,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 520,
+          "y": 341,
+          "scale": 85,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/lachtan-lyzar-grown.prompt.txt",
+      "approvedImage": {
+        "image": "lachtan-lyzar/lachtan-lyzar-adult-b-sketchv1-s102012.png",
+        "sha256": "2be3c85b859bce297bd9c348ddf35317ba53c63344e71cdddf49a133c96b7ad5"
+      },
+      "lineage": [
+        {
+          "image": "lachtan-lyzar/lachtan-lyzar-adult-b-sketchv1-s102012.png",
+          "sha256": "2be3c85b859bce297bd9c348ddf35317ba53c63344e71cdddf49a133c96b7ad5",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly two red skis with curled-up tips, one under each hind flipper; two ski poles, one held in each front flipper; a small ear flap on the side of his head, because he is a sea lion and not a seal. It shows Lachtan Lyžař, a cheerful young sea lion skiing down a curling teal wave with white foam, facing right, an animal character and not a human: smooth warm brown fur, a lighter belly, a pale whiskered muzzle with whisker dots, a dark button nose, a big shiny eye, a happy smile and a rosy cheek. Sporty and joyful, never scary.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp fangs, blood, gore, horror, seal, walrus, tusks, snow, mountain, three skis, one ski",
+          "seed": 102012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "lachtan-lyzar/ref-lachtan-lyzar-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py lachtan), repainted in place",
+              "sha256": "6c780b72591713a7658e16c64e63867fb7ba961b89a56f7f25cad4e4c1111601",
+              "sketch": "scripts/art/authoring/sketches.py lachtan (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-02",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "7648eebeb01ddd185c40ebd4bdc3210d73018eb993ac9d18f54afecc719f9279",
+          "holesOpened": 0,
+          "specksRemoved": 3,
+          "iouWithU2net": 0.522,
+          "options": "--min-hole 100000000 --low 6 --high 18 --keep-marks 200 --clear 850,850",
+          "optionsWhy": "The white foam of the wave crest is close to the light backdrop: a tighter key and kept pockets preserve it, spray drops are kept as marks, and the backdrop pocket between the right ski pole and the body is opened from a reviewed seed point."
+        },
+        {
+          "step": "trim",
+          "box": [
+            16,
+            231,
+            1312,
+            1270
+          ],
+          "marginPx": 25,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.790123,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            821
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 40.33,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate9-reef-masters",
+        "decidedAt": "2026-11-05T20:00:43.369791+01:00",
+        "question": "Gate 9, Korálový útes masters (images in my gate9-reef-masters folder: scene A/B with the level spots, Barakuda A/B, Lachtan A/B, Žralok inked A/B, the reef's SVG eggs/stickers/cosmetics and the recommended set together). Recommended: scene A, Barakuda A (pointed snout, five bars), Lachtan A (sea lion on two skis on a wave), Žralok A (sulky open mouth, small blunt teeth). Which set should I use?",
+        "answer": "Recommended: scene A, Barakuda A, Lachtan A, Žralok A, SVG art as shown",
+        "chosen": "Lachtan A"
       }
     },
     {
@@ -4026,6 +4586,402 @@
         "answer": "Approve the recommended set: Krab A, Medúzka A, Želva A, Osmička A, Bublinka A, Murena A (Recommended)",
         "chosen": "Murena A",
         "note": "Re-trimmed, unchanged, to the box it shares with the freed form, so the battle can cross-fade the two in place (S4's request)."
+      }
+    },
+    {
+      "id": "monster/zralok-zrout/freed",
+      "file": "monsters/zralok-zrout-freed.webp",
+      "width": 1024,
+      "height": 686,
+      "bytes": 54782,
+      "sha256": "b95fde34d5abae797ea3829889a0ce3e042787e1d3bf34ef723d97c6f86bd2d5",
+      "anchors": null,
+      "promptFile": "prompts/zralok-zrout-freed.prompt.txt",
+      "approvedImage": {
+        "image": "zralok-zrout/zralok-zrout-freed-b-from-master-s103112.png",
+        "sha256": "edf62d4cca8683f646c3678e32bd09c3ed83ba1b4e6e6439d722b0c5e5146b02"
+      },
+      "lineage": [
+        {
+          "image": "zralok-zrout/zralok-zrout-freed-b-from-master-s103112.png",
+          "sha256": "edf62d4cca8683f646c3678e32bd09c3ed83ba1b4e6e6439d722b0c5e5146b02",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon shark Žralok Žrout. All of the black and dark-violet magic ink has been washed away and he is happy again. Keep exactly the same character, pose, body shape, head shape, dorsal fin, three gill slits, tail, side fin, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing his clean, bright colours everywhere: a soft sky-blue back and a white belly. Change only his expression: a big, friendly, grateful smile with a bright, wide-open happy eye and a relaxed, raised eyebrow; his mouth a happy grin with the same few small, blunt, rounded white teeth, and a rosy cheek. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, dirty, grumpy, angry, frowning, sharp fangs, pointed teeth, many teeth, dolphin, whale, sun, light rays, glow, extra eyes, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 103112,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zralok-zrout/zralok-zrout-inked-b-sketchv1-s103011.png",
+              "role": "source image edited in place: the approved inked master s103011 (gate 9)",
+              "sha256": "37d1c9c017817f6b5b60a1a3b80dc632a777b12810c0c010610e7d8fbd96ed21"
+            }
+          ],
+          "date": "2026-11-05",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "zralok-zrout/zralok-zrout-inked-b-sketchv1-s103011.png",
+          "sha256": "37d1c9c017817f6b5b60a1a3b80dc632a777b12810c0c010610e7d8fbd96ed21",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one big dorsal fin swept back; three gill slits; one crescent tail with a bigger top lobe; a single row of small, blunt, rounded white teeth along the top of his downturned mouth. It shows Žralok Žrout, a grumpy, chubby cartoon shark soaked in magic black ink, facing left: a round plump body, grey-blue back and a white belly, a heavy low frowning eyebrow over a round eye, a sulky downturned mouth. Glossy black and dark-violet magic ink covers part of him: blots, drips and little highlights on his back and fin. He sulks because he is hungry. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp fangs, blood, gore, horror, sharp teeth, many teeth, open jaws, dolphin, whale, letters on the body",
+          "seed": 103011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zralok-zrout/ref-zralok-zrout-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py zralok-inked), repainted in place",
+              "sha256": "023c29fbf68b0bf8b0e7b77ab544692ac28b50480a14cee45e34bb29fd7dcd7f",
+              "sketch": "scripts/art/authoring/sketches.py zralok-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-02",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "2c2f30ebea83fbe8327fe38cc5e2e1b404ce0ee3de337c234ddebdd803c245ae",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9249,
+          "options": "--min-hole 100000000 --keep-marks 200",
+          "optionsWhy": "As the inked form: keeps the white belly and eye whites on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            155,
+            262,
+            1264,
+            1005
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/zralok-zrout/freed",
+            "monster/zralok-zrout/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.923354,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            686
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.17,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate11-reef-derived",
+        "decidedAt": "2026-11-05T22:13:39.885588+01:00",
+        "question": "Gate 11, Korálový útes derived forms (images in my gate11-reef-derived folder: each approved master beside its candidates, plus the cut-outs on navy). Recommended: Barakuda baby A (same style as her master, slightly greyer), Lachtan pup A (two skis, two poles, ear flap), Žralok freed A (ink washed off, wide happy grin, same pose as the inked form). Which should I use?",
+        "answer": "Recommended: Barakuda baby A, Lachtan pup A, Žralok freed A",
+        "chosen": "Žralok freed A"
+      }
+    },
+    {
+      "id": "monster/zralok-zrout/inked",
+      "file": "monsters/zralok-zrout-inked.webp",
+      "width": 1024,
+      "height": 686,
+      "bytes": 76292,
+      "sha256": "3753a5023580f7baeee46da8e3c3b47facdf5609b6564d318e07179c5de75da4",
+      "anchors": null,
+      "promptFile": "prompts/zralok-zrout-inked.prompt.txt",
+      "approvedImage": {
+        "image": "zralok-zrout/zralok-zrout-inked-b-sketchv1-s103011.png",
+        "sha256": "37d1c9c017817f6b5b60a1a3b80dc632a777b12810c0c010610e7d8fbd96ed21"
+      },
+      "lineage": [
+        {
+          "image": "zralok-zrout/zralok-zrout-inked-b-sketchv1-s103011.png",
+          "sha256": "37d1c9c017817f6b5b60a1a3b80dc632a777b12810c0c010610e7d8fbd96ed21",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one big dorsal fin swept back; three gill slits; one crescent tail with a bigger top lobe; a single row of small, blunt, rounded white teeth along the top of his downturned mouth. It shows Žralok Žrout, a grumpy, chubby cartoon shark soaked in magic black ink, facing left: a round plump body, grey-blue back and a white belly, a heavy low frowning eyebrow over a round eye, a sulky downturned mouth. Glossy black and dark-violet magic ink covers part of him: blots, drips and little highlights on his back and fin. He sulks because he is hungry. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp fangs, blood, gore, horror, sharp teeth, many teeth, open jaws, dolphin, whale, letters on the body",
+          "seed": 103011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zralok-zrout/ref-zralok-zrout-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py zralok-inked), repainted in place",
+              "sha256": "023c29fbf68b0bf8b0e7b77ab544692ac28b50480a14cee45e34bb29fd7dcd7f",
+              "sketch": "scripts/art/authoring/sketches.py zralok-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-02",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "6a78ad7c657b620e5d85f5b9017b1c0ff618d2c0991d5d8f6ffb365edf229637",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.992,
+          "options": "--min-hole 100000000 --keep-marks 200",
+          "optionsWhy": "Keeps the pale watercolour wash on the head (U2Net calls it background) and the detached ink droplets."
+        },
+        {
+          "step": "trim",
+          "box": [
+            155,
+            262,
+            1264,
+            1005
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/zralok-zrout/freed",
+            "monster/zralok-zrout/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.923354,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            686
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.72,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate9-reef-masters",
+        "decidedAt": "2026-11-05T20:00:43.369791+01:00",
+        "question": "Gate 9, Korálový útes masters (images in my gate9-reef-masters folder: scene A/B with the level spots, Barakuda A/B, Lachtan A/B, Žralok inked A/B, the reef's SVG eggs/stickers/cosmetics and the recommended set together). Recommended: scene A, Barakuda A (pointed snout, five bars), Lachtan A (sea lion on two skis on a wave), Žralok A (sulky open mouth, small blunt teeth). Which set should I use?",
+        "answer": "Recommended: scene A, Barakuda A, Lachtan A, Žralok A, SVG art as shown",
+        "chosen": "Žralok A"
+      }
+    },
+    {
+      "id": "scene/coral-reef",
+      "file": "scenes/coral-reef.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 145062,
+      "sha256": "b82178cac065c801bcc573958a97111690cd98d14fedc69b30234a286b44a631",
+      "anchors": null,
+      "promptFile": "prompts/coral-reef.prompt.txt",
+      "approvedImage": {
+        "image": "bg-coral-reef/bg-coral-reef-v2-s105021.png",
+        "sha256": "3e896e74c0a81ac7ba8732660b665d74cd8998701b18cb8a8b701c6bcd3d35b1"
+      },
+      "lineage": [
+        {
+          "image": "bg-coral-reef/bg-coral-reef-v2-s105021.png",
+          "sha256": "3e896e74c0a81ac7ba8732660b665d74cd8998701b18cb8a8b701c6bcd3d35b1",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Korálový útes, a bright, busy coral reef seen from inside the water. Keep exactly the same composition: sunbeams slanting down from the shimmering surface; a wide, calm, open band of clear blue water and smooth sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner a tall wall of colourful corals: pink and orange branching corals, a purple sea fan, a yellow round coral and two strands of green sea grass; in the bottom-right foreground a lush garden of tall pink, orange, purple and yellow corals with a round brain coral; at the right edge a big rounded coral arch, coral-red with orange coral knobs, with a dark, mysterious opening where a sea monster lives, mysterious but not scary; the soft sandy floor along the bottom with a few seashells. Tiny bubbles rising, gentle caustic light ripples on the sand.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright saturated but harmonious palette of turquoise, deep sea blue, coral red, pink, orange, sunny yellow and sand beige, gentle depth haze toward the back. Calm, magical and inviting. No fish, no animals, no people, no characters, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, signpost, board, frame, border, fish, animals, people, characters, submarine, boat, ship, treasure chest, photorealistic, 3d render, dark, scary",
+          "seed": 105021,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-coral-reef/ref-bg-coral-reef-sketch-v2.png",
+              "role": "composition sketch v2 on the shell's levelSpots(7) (Pillow colour blocking, sketches.py reef; arch and lowest coral moved clear of spots 1 and 6), repainted in place",
+              "sha256": "b777fbf47029bd1c3eda1cd21187f465d89b15fac3ef227cb6db8e53f71bb31b",
+              "sketch": "scripts/art/authoring/sketches.py reef (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 38.54,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate9-reef-masters",
+        "decidedAt": "2026-11-05T20:00:43.369791+01:00",
+        "question": "Gate 9, Korálový útes masters (images in my gate9-reef-masters folder: scene A/B with the level spots, Barakuda A/B, Lachtan A/B, Žralok inked A/B, the reef's SVG eggs/stickers/cosmetics and the recommended set together). Recommended: scene A, Barakuda A (pointed snout, five bars), Lachtan A (sea lion on two skis on a wave), Žralok A (sulky open mouth, small blunt teeth). Which set should I use?",
+        "answer": "Recommended: scene A, Barakuda A, Lachtan A, Žralok A, SVG art as shown",
+        "chosen": "Scene A"
       }
     },
     {

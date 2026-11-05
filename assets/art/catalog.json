@@ -86,6 +86,13 @@
       "height": 984
     },
     {
+      "id": "cosmetic/arch-coral",
+      "kind": "svg",
+      "file": "cosmetics/arch-coral.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/bow-shell",
       "kind": "svg",
       "file": "cosmetics/bow-shell.svg",
@@ -96,6 +103,13 @@
       "id": "cosmetic/cap-sailor",
       "kind": "svg",
       "file": "cosmetics/cap-sailor.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/crown-coral",
+      "kind": "svg",
+      "file": "cosmetics/crown-coral.svg",
       "width": 100,
       "height": 100
     },
@@ -135,6 +149,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/mask-snorkel",
+      "kind": "svg",
+      "file": "cosmetics/mask-snorkel.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/necklace-shells",
       "kind": "svg",
       "file": "cosmetics/necklace-shells.svg",
@@ -170,9 +191,23 @@
       "height": 100
     },
     {
+      "id": "egg/barakuda-bystrinka",
+      "kind": "svg",
+      "file": "eggs/barakuda-bystrinka.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
       "id": "egg/krab-tvrdak",
       "kind": "svg",
       "file": "eggs/krab-tvrdak.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/lachtan-lyzar",
+      "kind": "svg",
+      "file": "eggs/lachtan-lyzar.svg",
       "width": 120,
       "height": 160
     },
@@ -189,6 +224,60 @@
       "file": "eggs/zelva-obojka.svg",
       "width": 120,
       "height": 160
+    },
+    {
+      "id": "friend/barakuda-bystrinka/baby",
+      "kind": "painted",
+      "file": "friends/barakuda-bystrinka-baby.webp",
+      "width": 1024,
+      "height": 565,
+      "anchors": {
+        "head": {
+          "x": 207,
+          "y": 207,
+          "scale": 95,
+          "rotate": -8
+        },
+        "eyes": {
+          "x": 192,
+          "y": 480,
+          "scale": 75,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 344,
+          "y": 609,
+          "scale": 75,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/barakuda-bystrinka/grown",
+      "kind": "painted",
+      "file": "friends/barakuda-bystrinka-grown.webp",
+      "width": 1024,
+      "height": 343,
+      "anchors": {
+        "head": {
+          "x": 156,
+          "y": 231,
+          "scale": 70,
+          "rotate": -4
+        },
+        "eyes": {
+          "x": 152,
+          "y": 413,
+          "scale": 55,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 246,
+          "y": 591,
+          "scale": 60,
+          "rotate": 0
+        }
+      }
     },
     {
       "id": "friend/krab-tvrdak/baby",
@@ -240,6 +329,60 @@
           "x": 502,
           "y": 566,
           "scale": 90,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/lachtan-lyzar/baby",
+      "kind": "painted",
+      "file": "friends/lachtan-lyzar-baby.webp",
+      "width": 977,
+      "height": 1009,
+      "anchors": {
+        "head": {
+          "x": 511,
+          "y": 40,
+          "scale": 120,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 536,
+          "y": 183,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 511,
+          "y": 391,
+          "scale": 100,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/lachtan-lyzar/grown",
+      "kind": "painted",
+      "file": "friends/lachtan-lyzar-grown.webp",
+      "width": 1024,
+      "height": 821,
+      "anchors": {
+        "head": {
+          "x": 528,
+          "y": 66,
+          "scale": 100,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 562,
+          "y": 167,
+          "scale": 85,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 520,
+          "y": 341,
+          "scale": 85,
           "rotate": 0
         }
       }
@@ -402,6 +545,27 @@
       "height": 893
     },
     {
+      "id": "monster/zralok-zrout/freed",
+      "kind": "painted",
+      "file": "monsters/zralok-zrout-freed.webp",
+      "width": 1024,
+      "height": 686
+    },
+    {
+      "id": "monster/zralok-zrout/inked",
+      "kind": "painted",
+      "file": "monsters/zralok-zrout-inked.webp",
+      "width": 1024,
+      "height": 686
+    },
+    {
+      "id": "scene/coral-reef",
+      "kind": "painted",
+      "file": "scenes/coral-reef.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
       "id": "scene/grotto",
       "kind": "painted",
       "file": "scenes/grotto.webp",
@@ -421,6 +585,13 @@
       "file": "scenes/title.webp",
       "width": 1664,
       "height": 928
+    },
+    {
+      "id": "sticker/barakuda",
+      "kind": "svg",
+      "file": "stickers/barakuda.svg",
+      "width": 100,
+      "height": 100
     },
     {
       "id": "sticker/bow",
@@ -472,9 +643,37 @@
       "height": 100
     },
     {
+      "id": "sticker/shark-smile",
+      "kind": "svg",
+      "file": "stickers/shark-smile.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/skis",
+      "kind": "svg",
+      "file": "stickers/skis.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/star-coral",
+      "kind": "svg",
+      "file": "stickers/star-coral.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/star-shell",
       "kind": "svg",
       "file": "stickers/star-shell.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/stopwatch",
+      "kind": "svg",
+      "file": "stickers/stopwatch.svg",
       "width": 100,
       "height": 100
     },

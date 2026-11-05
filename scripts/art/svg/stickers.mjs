@@ -26,6 +26,7 @@ import {
 import { polar } from './lib/num.mjs';
 import { g, h } from './lib/xml.mjs';
 import { CREAM, INK, SW, gleam, ink, line, scope, shade } from './style.mjs';
+import { CORAL_REEF_STICKERS } from './regions/coral-reef.mjs';
 
 export const STICKER_SIZE = 100;
 export const DISC_RADIUS = 40;
@@ -526,4 +527,5 @@ export const STICKER_DESIGNS = [
   { id: 'ink-drops', draw: inkDrops },
   { id: 'sun-week', draw: sunWeek },
   { id: 'coins', draw: coins },
+  ...CORAL_REEF_STICKERS,
 ];

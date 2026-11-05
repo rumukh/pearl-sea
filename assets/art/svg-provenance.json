@@ -36,6 +36,14 @@
       "sha256": "3d5a411864f24d5ddd6a94fe6d367e18356b152c502d2eefa8b03a3db2b6d559"
     },
     {
+      "id": "cosmetic/curtain-kelp",
+      "file": "cosmetics/curtain-kelp.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 6502,
+      "sha256": "4295e25b70121b6ea94fe6232dc17397ed852c4991857bc476dcadc44da20182"
+    },
+    {
       "id": "cosmetic/glasses-sun",
       "file": "cosmetics/glasses-sun.svg",
       "width": 100,
@@ -50,6 +58,14 @@
       "height": 100,
       "bytes": 2174,
       "sha256": "847b78f930924d0b70e76f07624d6c5027b7dba3f8dfc75c66ea2d17e0ab6529"
+    },
+    {
+      "id": "cosmetic/hat-kelp",
+      "file": "cosmetics/hat-kelp.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1891,
+      "sha256": "0ca470efafa0b6fdcdadeb8d8572039e980d5f49beebdab2c3cbb59fa266f60f"
     },
     {
       "id": "cosmetic/hat-straw",
@@ -92,6 +108,14 @@
       "sha256": "2f6b1e3ea343413d98e563620f9f817095b3e262b76db23fa6b0639d3d32748a"
     },
     {
+      "id": "cosmetic/scarf-kelp",
+      "file": "cosmetics/scarf-kelp.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 9890,
+      "sha256": "acca25cdcd99606c3996e343a6f4eb01f3bef47b5d9c9978cb4b1e3a932bc024"
+    },
+    {
       "id": "cosmetic/scarf-stripes",
       "file": "cosmetics/scarf-stripes.svg",
       "width": 100,
@@ -132,6 +156,14 @@
       "sha256": "da6a009c41777ab83d1639d6a7691e50b5a679369a745eed74cdef524577b400"
     },
     {
+      "id": "egg/konik-mydlinek",
+      "file": "eggs/konik-mydlinek.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 3677,
+      "sha256": "ea73a0d160e8acd9967dab8ccd84ef42e0f81d01a6eee6743d013ad4bd928d82"
+    },
+    {
       "id": "egg/krab-tvrdak",
       "file": "eggs/krab-tvrdak.svg",
       "width": 120,
@@ -154,6 +186,14 @@
       "height": 160,
       "bytes": 4485,
       "sha256": "9698836d3dee1e57593f9a42edd235e603fedb7dd095e5313bef69dc0332af9d"
+    },
+    {
+      "id": "egg/pyskoun-pysny",
+      "file": "eggs/pyskoun-pysny.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 2958,
+      "sha256": "224528adaf35a25d53e5b306634ef7c75420a4fd5763ce831aa45966f271494b"
     },
     {
       "id": "egg/zelva-obojka",
@@ -228,6 +268,14 @@
       "sha256": "abe2309c3506a3cb80961b0b09db5880743c018c0053c4105cab88eafffdf257"
     },
     {
+      "id": "sticker/proud-lips",
+      "file": "stickers/proud-lips.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2114,
+      "sha256": "7ab76172437d83e0ff9fb522fd9e2cb09750fff152daeeef89e054ae330471ec"
+    },
+    {
       "id": "sticker/shark-smile",
       "file": "stickers/shark-smile.svg",
       "width": 100,
@@ -242,6 +290,22 @@
       "height": 100,
       "bytes": 2996,
       "sha256": "1c1c854969d4649eb464e02cbf376671e37bc3a8247c2ff2ee38264513f348be"
+    },
+    {
+      "id": "sticker/soap-and-hand",
+      "file": "stickers/soap-and-hand.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2752,
+      "sha256": "6ae7e5f35bdc99314309d573b8bf895321d7510ba40d932eb580620fb505c650"
+    },
+    {
+      "id": "sticker/soap-bubbles",
+      "file": "stickers/soap-bubbles.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2533,
+      "sha256": "1f99e666254806c2137011db08d8e70b6d0bcb0c749aa34eaa08f49a22ab0d66"
     },
     {
       "id": "sticker/star-coral",
@@ -282,6 +346,22 @@
       "height": 100,
       "bytes": 2998,
       "sha256": "2e2c0aba5d85e6bad038d89c96df0cb2f87a5fb1599a807977e8c0705850a6c5"
+    },
+    {
+      "id": "sticker/untied-knot",
+      "file": "stickers/untied-knot.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2604,
+      "sha256": "8cffbc82764801e35f3dcd8bfb3cb2581e40f89e5a0caee1228fa5b2434abc01"
+    },
+    {
+      "id": "sticker/wardrobe",
+      "file": "stickers/wardrobe.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2845,
+      "sha256": "b5ed8dd4950f51f4266a1d36e926c74b62dadb65ffc848341e14c77ef4a5a8af"
     }
   ]
 }

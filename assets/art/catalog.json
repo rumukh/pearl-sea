@@ -114,6 +114,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/curtain-kelp",
+      "kind": "svg",
+      "file": "cosmetics/curtain-kelp.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/glasses-sun",
       "kind": "svg",
       "file": "cosmetics/glasses-sun.svg",
@@ -124,6 +131,13 @@
       "id": "cosmetic/goggles-diving",
       "kind": "svg",
       "file": "cosmetics/goggles-diving.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/hat-kelp",
+      "kind": "svg",
+      "file": "cosmetics/hat-kelp.svg",
       "width": 100,
       "height": 100
     },
@@ -163,6 +177,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/scarf-kelp",
+      "kind": "svg",
+      "file": "cosmetics/scarf-kelp.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/scarf-stripes",
       "kind": "svg",
       "file": "cosmetics/scarf-stripes.svg",
@@ -198,6 +219,13 @@
       "height": 160
     },
     {
+      "id": "egg/konik-mydlinek",
+      "kind": "svg",
+      "file": "eggs/konik-mydlinek.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
       "id": "egg/krab-tvrdak",
       "kind": "svg",
       "file": "eggs/krab-tvrdak.svg",
@@ -215,6 +243,13 @@
       "id": "egg/meduzka-mekulka",
       "kind": "svg",
       "file": "eggs/meduzka-mekulka.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/pyskoun-pysny",
+      "kind": "svg",
+      "file": "eggs/pyskoun-pysny.svg",
       "width": 120,
       "height": 160
     },
@@ -274,6 +309,60 @@
         "neck": {
           "x": 246,
           "y": 591,
+          "scale": 60,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/konik-mydlinek/baby",
+      "kind": "painted",
+      "file": "friends/konik-mydlinek-baby.webp",
+      "width": 820,
+      "height": 983,
+      "anchors": {
+        "head": {
+          "x": 277,
+          "y": 56,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 327,
+          "y": 246,
+          "scale": 70,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 252,
+          "y": 463,
+          "scale": 70,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/konik-mydlinek/grown",
+      "kind": "painted",
+      "file": "friends/konik-mydlinek-grown.webp",
+      "width": 858,
+      "height": 1024,
+      "anchors": {
+        "head": {
+          "x": 193,
+          "y": 109,
+          "scale": 75,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 255,
+          "y": 224,
+          "scale": 60,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 292,
+          "y": 385,
           "scale": 60,
           "rotate": 0
         }
@@ -442,6 +531,60 @@
       }
     },
     {
+      "id": "friend/pyskoun-pysny/baby",
+      "kind": "painted",
+      "file": "friends/pyskoun-pysny-baby.webp",
+      "width": 939,
+      "height": 591,
+      "anchors": {
+        "head": {
+          "x": 376,
+          "y": 117,
+          "scale": 90,
+          "rotate": -8
+        },
+        "eyes": {
+          "x": 340,
+          "y": 413,
+          "scale": 70,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 504,
+          "y": 591,
+          "scale": 75,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/pyskoun-pysny/grown",
+      "kind": "painted",
+      "file": "friends/pyskoun-pysny-grown.webp",
+      "width": 1024,
+      "height": 577,
+      "anchors": {
+        "head": {
+          "x": 273,
+          "y": 130,
+          "scale": 75,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 250,
+          "y": 355,
+          "scale": 60,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 395,
+          "y": 489,
+          "scale": 65,
+          "rotate": 0
+        }
+      }
+    },
+    {
       "id": "friend/zelva-obojka/baby",
       "kind": "painted",
       "file": "friends/zelva-obojka-baby.webp",
@@ -531,6 +674,20 @@
       "height": 928
     },
     {
+      "id": "monster/had-zamotal/freed",
+      "kind": "painted",
+      "file": "monsters/had-zamotal-freed.webp",
+      "width": 1024,
+      "height": 932
+    },
+    {
+      "id": "monster/had-zamotal/inked",
+      "kind": "painted",
+      "file": "monsters/had-zamotal-inked.webp",
+      "width": 1024,
+      "height": 932
+    },
+    {
       "id": "monster/murena-mumla/freed",
       "kind": "painted",
       "file": "monsters/murena-mumla-freed.webp",
@@ -569,6 +726,13 @@
       "id": "scene/grotto",
       "kind": "painted",
       "file": "scenes/grotto.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
+      "id": "scene/kelp-forest",
+      "kind": "painted",
+      "file": "scenes/kelp-forest.webp",
       "width": 1664,
       "height": 928
     },
@@ -643,6 +807,13 @@
       "height": 100
     },
     {
+      "id": "sticker/proud-lips",
+      "kind": "svg",
+      "file": "stickers/proud-lips.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/shark-smile",
       "kind": "svg",
       "file": "stickers/shark-smile.svg",
@@ -653,6 +824,20 @@
       "id": "sticker/skis",
       "kind": "svg",
       "file": "stickers/skis.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/soap-and-hand",
+      "kind": "svg",
+      "file": "stickers/soap-and-hand.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/soap-bubbles",
+      "kind": "svg",
+      "file": "stickers/soap-bubbles.svg",
       "width": 100,
       "height": 100
     },
@@ -688,6 +873,20 @@
       "id": "sticker/three-shells",
       "kind": "svg",
       "file": "stickers/three-shells.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/untied-knot",
+      "kind": "svg",
+      "file": "stickers/untied-knot.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/wardrobe",
+      "kind": "svg",
+      "file": "stickers/wardrobe.svg",
       "width": 100,
       "height": 100
     }

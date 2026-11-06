@@ -8,19 +8,24 @@
  * code changes. A catalog that cannot be read means placeholders everywhere, never a failed boot.
  */
 import { ART_CATALOG_PATH, artCatalogSchema } from '../../rules/contract';
-import type { ArtEntry } from '../../rules/contract';
+import type { ArtEntry, ArtPack } from '../../rules/contract';
 import { fetchSiteText } from '../content/site';
 import type { Fetcher } from '../content/site';
 
 export const ART_DIRECTORY = 'assets/art/';
 
 export interface ArtLibrary {
-  /** The published entry for an art ID, or undefined (its placeholder is drawn). */
+  /**
+   * The published entry for an art ID, or undefined (its placeholder is drawn). An entry of a pack
+   * that cannot load now (the grade-4 pack offline, before it is installed) is undefined too.
+   */
   entry(id: string): ArtEntry | undefined;
   /** The file of an entry, below the deployment base. */
   url(entry: ArtEntry): string;
   /** How many art IDs are published. */
   readonly size: number;
+  /** Note that a pack is installed for offline play, so its art draws without the network. */
+  setInstalled(pack: ArtPack): void;
 }
 
 /** A catalog file path stays inside `assets/art/`. */
@@ -28,24 +33,48 @@ function safeFile(file: string): boolean {
   return !file.split('/').some((segment) => segment === '' || segment === '.' || segment === '..');
 }
 
-export function createArtLibrary(baseUrl: string, entries: readonly ArtEntry[]): ArtLibrary {
+/** Whether the browser has a network now (`navigator.onLine`; a test can say otherwise). */
+export type OnlineProbe = () => boolean;
+
+const browserOnline: OnlineProbe = () =>
+  typeof navigator === 'undefined' || navigator.onLine !== false;
+
+export function createArtLibrary(
+  baseUrl: string,
+  entries: readonly ArtEntry[],
+  online: OnlineProbe = browserOnline,
+): ArtLibrary {
   const byId = new Map<string, ArtEntry>();
   for (const entry of entries) if (safeFile(entry.file)) byId.set(entry.id, entry);
+  const installed = new Set<ArtPack>();
   return {
-    entry: (id) => byId.get(id),
+    entry: (id) => {
+      const entry = byId.get(id);
+      if (!entry || entry.pack === undefined || installed.has(entry.pack) || online()) {
+        return entry;
+      }
+      return undefined;
+    },
     url: (entry) => new URL(ART_DIRECTORY + entry.file, baseUrl).href,
     size: byId.size,
+    setInstalled: (pack) => {
+      installed.add(pack);
+    },
   };
 }
 
 /** S5's catalog as a library; an unreadable or invalid catalog is an empty one. */
-export async function loadArtLibrary(baseUrl: string, fetcher?: Fetcher): Promise<ArtLibrary> {
+export async function loadArtLibrary(
+  baseUrl: string,
+  fetcher?: Fetcher,
+  online?: OnlineProbe,
+): Promise<ArtLibrary> {
   try {
     const text = await fetchSiteText(baseUrl, ART_CATALOG_PATH, fetcher);
     const parsed = artCatalogSchema.parse(JSON.parse(text) as unknown);
-    return createArtLibrary(baseUrl, parsed.ok ? parsed.value.entries : []);
+    return createArtLibrary(baseUrl, parsed.ok ? parsed.value.entries : [], online);
   } catch {
-    return createArtLibrary(baseUrl, []);
+    return createArtLibrary(baseUrl, [], online);
   }
 }
 

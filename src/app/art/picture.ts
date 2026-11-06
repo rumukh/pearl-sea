@@ -257,6 +257,39 @@ export function fadeInIfLate(image: HTMLImageElement): void {
   );
 }
 
+/**
+ * An image that cannot load (its file missing, or grade-4 art offline before its pack is
+ * installed) gives way to `fallback`, so a screen never shows a broken image.
+ */
+export function replaceOnError(image: HTMLImageElement, fallback: () => void): void {
+  image.addEventListener('error', fallback, { once: true });
+}
+
+/** Draw the labelled placeholder of `id` in `frame`, in place of anything it held. */
+function drawPlaceholder(
+  frame: HTMLElement,
+  id: string,
+  width: number,
+  height: number,
+  alt: string | undefined,
+): void {
+  frame.dataset['placeholder'] = 'true';
+  if (alt) {
+    frame.setAttribute('role', 'img');
+    frame.setAttribute('aria-label', alt);
+  } else {
+    frame.setAttribute('aria-hidden', 'true');
+  }
+  frame.replaceChildren(
+    placeholderDrawing(id, width, height),
+    h('span', {
+      className: 'ps-art__dev',
+      text: `DEV ${id}`,
+      attributes: { 'aria-hidden': 'true' },
+    }),
+  );
+}
+
 /** A painting or SVG by art ID, or its labelled placeholder. */
 export function picture(art: ArtLibrary, id: string, options: PictureOptions = {}): HTMLElement {
   const [width, height] = pictureSize(art, id);
@@ -280,24 +313,11 @@ export function picture(art: ArtLibrary, id: string, options: PictureOptions = {
       },
     });
     fadeInIfLate(image);
+    replaceOnError(image, () => drawPlaceholder(frame, id, width, height, options.alt));
     frame.append(image);
     return frame;
   }
-  frame.dataset['placeholder'] = 'true';
-  if (options.alt) {
-    frame.setAttribute('role', 'img');
-    frame.setAttribute('aria-label', options.alt);
-  } else {
-    frame.setAttribute('aria-hidden', 'true');
-  }
-  frame.append(
-    placeholderDrawing(id, width, height),
-    h('span', {
-      className: 'ps-art__dev',
-      text: `DEV ${id}`,
-      attributes: { 'aria-hidden': 'true' },
-    }),
-  );
+  drawPlaceholder(frame, id, width, height, options.alt);
   return frame;
 }
 
@@ -349,13 +369,19 @@ const STICKER_DISC = 40;
 /** One layer of a composed picture: its catalog file, or the kind's placeholder drawing. */
 function layer(art: ArtLibrary, id: string): Element {
   const entry = art.entry(id);
+  const [width, height] = pictureSize(art, id);
   if (entry) {
-    return h('img', {
+    const image = h('img', {
       className: 'ps-sticker__layer',
       attributes: { src: art.url(entry), alt: '', decoding: 'async', draggable: 'false' },
     });
+    replaceOnError(image, () => {
+      const drawing = placeholderDrawing(id, width, height);
+      drawing.classList.add('ps-sticker__layer');
+      image.replaceWith(drawing);
+    });
+    return image;
   }
-  const [width, height] = pictureSize(art, id);
   const drawing = placeholderDrawing(id, width, height);
   drawing.classList.add('ps-sticker__layer');
   return drawing;

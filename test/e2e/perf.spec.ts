@@ -44,12 +44,17 @@ const SIZE_BUDGETS = {
   script: { built: 650 * KB, gzipped: 210 * KB },
   style: { built: 100 * KB, gzipped: 20 * KB },
   /**
-   * The offline pack without its audio: the slice plus the painted art of regions 2-7 (about
+   * The core offline pack without its audio: the slice plus the painted art of regions 2-7 (about
    * 0.35 MB each). Raised once for the whole 3rd grade; a region that would exceed it recompresses
-   * its WebPs instead.
+   * its WebPs instead. Grade-4 art is a pack of its own (below), never counted here.
    */
   packWithoutAudio: 8.5 * MB,
   pack: 11 * MB,
+  /**
+   * The grade-4 pack (resource-graph-grade-4.json), installed only once a child reaches grade 4:
+   * the painted art of regions 8-12 and the deep sea's map, without audio (it has none).
+   */
+  gradeFourWithoutAudio: 4 * MB,
   /** What a first visit downloads before the title, uncompressed and gzipped as Pages sends it. */
   firstScreen: 2.4 * MB,
   firstScreenGzipped: 600 * KB,
@@ -145,12 +150,25 @@ base('the script, the style sheet and the offline pack stay within their budgets
   const withoutAudio = total(graph.resources.filter((resource) => resource.kind !== 'audio'));
   record(
     testInfo,
-    `offline pack: ${graph.resources.length} files, ${kb(pack)} (budget ${kb(SIZE_BUDGETS.pack)}), ${kb(withoutAudio)} without audio (budget ${kb(SIZE_BUDGETS.packWithoutAudio)})`,
+    `offline pack (core): ${graph.resources.length} files, ${kb(pack)} (budget ${kb(SIZE_BUDGETS.pack)}), ${kb(withoutAudio)} without audio (budget ${kb(SIZE_BUDGETS.packWithoutAudio)})`,
   );
-  expect(withoutAudio, 'the offline pack without its audio').toBeLessThanOrEqual(
+  expect(withoutAudio, 'the core offline pack without its audio').toBeLessThanOrEqual(
     SIZE_BUDGETS.packWithoutAudio,
   );
-  expect(pack, 'the whole offline pack').toBeLessThanOrEqual(SIZE_BUDGETS.pack);
+  expect(pack, 'the whole core offline pack').toBeLessThanOrEqual(SIZE_BUDGETS.pack);
+  const gradeFour = JSON.parse(built('resource-graph-grade-4.json').toString('utf8')) as {
+    resources: Resource[];
+  };
+  const gradeFourWithoutAudio = total(
+    gradeFour.resources.filter((resource) => resource.kind !== 'audio'),
+  );
+  record(
+    testInfo,
+    `grade-4 pack: ${gradeFour.resources.length} files, ${kb(total(gradeFour.resources))}, ${kb(gradeFourWithoutAudio)} without audio (budget ${kb(SIZE_BUDGETS.gradeFourWithoutAudio)})`,
+  );
+  expect(gradeFourWithoutAudio, 'the grade-4 pack without audio').toBeLessThanOrEqual(
+    SIZE_BUDGETS.gradeFourWithoutAudio,
+  );
 });
 
 /** Runs in the page before the game: notes the first screen and every long task. */

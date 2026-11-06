@@ -139,7 +139,16 @@ export interface ArtEntry {
   width: number;
   height: number;
   anchors?: Partial<Record<ArtAnchor, AnchorPoint>>;
+  /**
+   * The offline pack the file belongs to: `grade-4` for the art of grade-4 regions (and the deep
+   * sea's map), installed only once a child reaches grade 4; none for the core pack.
+   */
+  pack?: ArtPack;
 }
+
+/** Offline packs besides the core one that art may belong to (docs/app.md §11). */
+export const ART_PACKS = ['grade-4'] as const;
+export type ArtPack = (typeof ART_PACKS)[number];
 
 export interface ArtCatalog {
   format: typeof ART_CATALOG_FORMAT;
@@ -169,6 +178,7 @@ export const artEntrySchema: Schema<ArtEntry> = objectWithOptional(
         Schema<AnchorPoint>
       >,
     ),
+    pack: oneOf(ART_PACKS),
   },
 );
 

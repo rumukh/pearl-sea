@@ -16,7 +16,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { browserBoundary, buildSite, isForbiddenModule } from '../../scripts/build.mjs';
-import { verifySite } from '../../scripts/lib/site.mjs';
+import { GRADE_FOUR_GRAPH, verifySite } from '../../scripts/lib/site.mjs';
 import { FONT_DIRECTORY, FONT_FACES } from '../../src/app/design/fonts';
 import {
   CONTENT_FILE,
@@ -27,6 +27,7 @@ import {
 import {
   DEPLOYMENT_BASE,
   OFFLINE_ERROR_MESSAGE,
+  OFFLINE_GRADE_FOUR_PACK_ID,
   OFFLINE_NAMESPACE,
 } from '../../src/rules/contract/persistence';
 
@@ -220,5 +221,87 @@ describe('scripts/build.mjs', () => {
         /Base must be/,
       );
     }
+  });
+
+  it('writes an empty grade-4 graph while no art is tagged grade-4', () => {
+    const grade = JSON.parse(readFileSync(join(site.directory, GRADE_FOUR_GRAPH), 'utf8'));
+    expect(grade).toEqual({
+      id: OFFLINE_GRADE_FOUR_PACK_ID,
+      revision: report().revision,
+      resources: [],
+    });
+  });
+});
+
+describe('the grade-4 pack', () => {
+  const SVG =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><rect width="10" height="10"/></svg>';
+  let split: Awaited<ReturnType<typeof buildSite>>;
+
+  beforeAll(async () => {
+    split = await buildSite({
+      outDir: join(directory, 'grade-four'),
+      base: BASE,
+      extraArt: [
+        {
+          entry: {
+            id: 'scene/test-deep',
+            kind: 'painted',
+            file: 'scenes/test-deep.svg',
+            width: 10,
+            height: 10,
+            pack: 'grade-4',
+          },
+          body: SVG,
+        },
+        {
+          entry: {
+            id: 'scene/test-core',
+            kind: 'painted',
+            file: 'scenes/test-core.svg',
+            width: 10,
+            height: 10,
+          },
+          body: SVG.replace('10"/>', '9"/>'),
+        },
+      ],
+    });
+  });
+
+  const read = (file: string) =>
+    JSON.parse(readFileSync(join(split.directory, file), 'utf8')) as {
+      id: string;
+      revision: string;
+      resources: { src: string }[];
+    };
+
+  it('puts the files of entries tagged grade-4 in their own graph, and only there', () => {
+    expect(verifySite(split.directory).revision).toMatch(/^[0-9a-f]{24}$/);
+    const core = read('resource-graph.json').resources.map((resource) => resource.src);
+    const grade = read(GRADE_FOUR_GRAPH);
+    expect(grade.id).toBe(OFFLINE_GRADE_FOUR_PACK_ID);
+    expect(grade.revision).toBe(read('resource-graph.json').revision);
+    expect(grade.resources.map((resource) => resource.src)).toEqual([
+      `${BASE}assets/art/scenes/test-deep.svg`,
+    ]);
+    expect(core).not.toContain(`${BASE}assets/art/scenes/test-deep.svg`);
+    expect(core, 'an untagged entry stays core').toContain(
+      `${BASE}assets/art/scenes/test-core.svg`,
+    );
+    expect(core, 'the catalog itself is core').toContain(`${BASE}assets/art/catalog.json`);
+  });
+
+  it('pins the worker to the grade-4 pack ID too', () => {
+    expect(readFileSync(join(split.directory, 'sw.js'), 'utf8')).toContain(
+      `"${OFFLINE_GRADE_FOUR_PACK_ID}"`,
+    );
+  });
+
+  it('rejects a grade-4 graph that drifts from the catalog’s tags', () => {
+    const copy = join(directory, 'grade-four-drift');
+    cpSync(split.directory, copy, { recursive: true });
+    const grade = read(GRADE_FOUR_GRAPH);
+    writeFileSync(join(copy, GRADE_FOUR_GRAPH), JSON.stringify({ ...grade, resources: [] }));
+    expect(() => verifySite(copy)).toThrow(/grade-4 files/);
   });
 });

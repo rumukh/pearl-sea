@@ -183,6 +183,13 @@ can move goldens too ([sdk-update.md](sdk-update.md)).
   it, with a round in flight on a step whose hint named the asked word, opens in the browser on
   that step without the hint and plays on, and the next checkpoint stores the current version; a
   backup file of it loaded in Pro dospělé does the same.
+- `test/e2e/grade-four.spec.ts`: on a site built with two grade-4 stand-ins (the deep sea's map
+  and Měsíční jeskyně's scene) and served by the test's own server: a first visit, a 3rd grader and
+  installing for offline play never request grade-4 art; once a 4th grader plays where the core
+  pack is installed, the grade-4 pack is installed and its art draws with the server gone; offline
+  before that, the deep sea's map draws its labelled placeholder, never a broken image.
+- `test/tooling/build.test.ts` also: entries tagged `grade-4` go to `resource-graph-grade-4.json`
+  and only there, and a grade-4 graph that drifts from the catalog's tags is refused.
 
 ### The rules' tests (S2)
 

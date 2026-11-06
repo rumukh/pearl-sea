@@ -302,6 +302,28 @@ shown ("Stahuji soubory: 12 z 64…"); "installed" appears only after both succe
 update installs a newer revision next to the running one; it takes over the next time the game is
 opened. There is no forced reload.
 
+**The grade-4 pack.** The art of grade-4 regions (and the deep sea's map) is an offline pack of its
+own, so the core pack stays within its budget and a 3rd grader's device never downloads it. S5's
+art catalog tags each such entry `"pack": "grade-4"` (`ArtEntry.pack`, `ART_PACKS` in the
+contract; S5's `catalog.mjs --check` keeps the tags to the region rule), and the build lists those
+files in `resource-graph-grade-4.json` (pack `pearl-sea-grade-4`, the same revision) instead of
+`resource-graph.json`; `verifySite` checks both graphs against the catalog and the files on disk.
+
+- **When it is installed:** only where the core pack is installed, in the background, the first
+  time a child at grade 4 plays (`ensureGradeFour`, called by `screens/play.ts`; a promotion to
+  grade 4 counts at the next return to the game). Never on a first visit, never for a 3rd grader,
+  never by the grown-ups' "Nainstalovat" itself. An update installs the newer grade-4 pack too when
+  the family had the old one.
+- **The worker** (`sw.ts`) serves art outside the core pack from the grade-4 pack once it is
+  installed, else from the network; without either it answers 503 quietly. Everything else is
+  served from the core pack exactly as before.
+- **Until it is there:** online, grade-4 art loads like any painting when its screen first shows
+  it. Offline before it is installed, the art library treats grade-4 entries as missing
+  (`art/library.ts`), and a picture whose file cannot load gives way to its labelled placeholder
+  (`replaceOnError` in `art/picture.ts`), so a grade-4 screen never shows a broken image and never
+  waits. A 3rd grader who looks at the deep sea's tab on the map fetches that one painting online,
+  as for any other screen; nothing is cached for them.
+
 ## 12. Messages
 
 All text lives in `content/catalogs/cs.ui.json` (every string) and `en.ui.json` (the grown-ups'

@@ -118,6 +118,9 @@ describe('art conventions', () => {
     expect(bigCrown.ok ? [] : bigCrown.error.diagnostics.map((d) => d.message)).toEqual([
       'cosmetic/shell-crown: a cosmetic is an SVG with a 100 × 100 viewBox.',
     ]);
+    // An entry may name the offline pack it belongs to: only the grade-4 pack; none is core.
+    expect(artCatalogSchema.parse(catalog({ ...hat, pack: 'grade-4' })).ok).toBe(true);
+    expect(artCatalogSchema.parse(catalog({ ...hat, pack: 'grade-3' })).ok).toBe(false);
   });
 });
 

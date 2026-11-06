@@ -262,6 +262,13 @@ export function createApp(options: AppOptions): App {
   const storage = options.storage ?? new IndexedDbSaveStorage(SAVE_DATABASE);
   const family = new FamilyStore(storage);
   const offline = createOfflineInstaller({ baseUrl: env.baseUrl, revision: env.revision });
+  // Grade-4 art the family has installed draws offline too (art/library.ts).
+  void offline
+    .gradeFourInstalled()
+    .then((installed) => {
+      if (installed) options.art.setInstalled('grade-4');
+    })
+    .catch(() => undefined);
   const grownUpTranslators = new Map<Language, GrownUpTranslate>();
 
   const kit: UiKit = {

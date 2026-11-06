@@ -28,6 +28,14 @@
       "sha256": "a8d447f20bab580edd67fbd8f1548d21dd1aee807d88652ba8368cd26e11753f"
     },
     {
+      "id": "cosmetic/chest-treasure",
+      "file": "cosmetics/chest-treasure.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 4389,
+      "sha256": "6e5bde367f5552c7d85be49cf9fed2d5b83626bd74f286979be59bd70a34b905"
+    },
+    {
       "id": "cosmetic/crown-coral",
       "file": "cosmetics/crown-coral.svg",
       "width": 100,
@@ -42,6 +50,14 @@
       "height": 100,
       "bytes": 6502,
       "sha256": "4295e25b70121b6ea94fe6232dc17397ed852c4991857bc476dcadc44da20182"
+    },
+    {
+      "id": "cosmetic/eyepatch",
+      "file": "cosmetics/eyepatch.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1400,
+      "sha256": "2d7e2f177eeff32b9c754db32a93e214f0c69eefab2439288e739e330174a707"
     },
     {
       "id": "cosmetic/glasses-sun",
@@ -66,6 +82,14 @@
       "height": 100,
       "bytes": 1891,
       "sha256": "0ca470efafa0b6fdcdadeb8d8572039e980d5f49beebdab2c3cbb59fa266f60f"
+    },
+    {
+      "id": "cosmetic/hat-pirate",
+      "file": "cosmetics/hat-pirate.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1651,
+      "sha256": "cd4cfb0959a050296913f5916b16ccac34982dcfbe590ba156bbd52593d59935"
     },
     {
       "id": "cosmetic/hat-straw",
@@ -156,6 +180,22 @@
       "sha256": "da6a009c41777ab83d1639d6a7691e50b5a679369a745eed74cdef524577b400"
     },
     {
+      "id": "egg/jazyk-jazycek",
+      "file": "eggs/jazyk-jazycek.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 2470,
+      "sha256": "a2ba6aa31068414350f6a676bf4bb2d2ede2a7b10b89a1cef1ba9b80ca840682"
+    },
+    {
+      "id": "egg/jezik-sycik",
+      "file": "eggs/jezik-sycik.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 2444,
+      "sha256": "c810184baa297bb06f950c5742a6866de80043daeb2ee67a95057e01b18680a3"
+    },
+    {
       "id": "egg/konik-mydlinek",
       "file": "eggs/konik-mydlinek.svg",
       "width": 120,
@@ -196,6 +236,14 @@
       "sha256": "224528adaf35a25d53e5b306634ef7c75420a4fd5763ce831aa45966f271494b"
     },
     {
+      "id": "egg/vydra-vyskalka",
+      "file": "eggs/vydra-vyskalka.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 2682,
+      "sha256": "3a674cba1bdb81c1e041ddfc5b7df9f976e0c5139e1a4777e809053685a9cdd4"
+    },
+    {
       "id": "egg/zelva-obojka",
       "file": "eggs/zelva-obojka.svg",
       "width": 120,
@@ -218,6 +266,14 @@
       "height": 100,
       "bytes": 1670,
       "sha256": "c88e3214d43dc4498530537b6d635321b9a0dbaa6dbf502de875454b10960439"
+    },
+    {
+      "id": "sticker/calendar-wave",
+      "file": "stickers/calendar-wave.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 3587,
+      "sha256": "6904890a40661ed659f1d57e670d4b96d747ce4b301275e47a9e32d2a46b5b35"
     },
     {
       "id": "sticker/coins",
@@ -260,6 +316,14 @@
       "sha256": "1ee286c3dc59737cb8b1fc1d63cb75615dc3bb50dc29c096ae05b59b2d98df7d"
     },
     {
+      "id": "sticker/lantern",
+      "file": "stickers/lantern.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1859,
+      "sha256": "3fba38d73c8fecbf19c35a0e298d24b7c96fa265e6daf97445a4402c819e1ff8"
+    },
+    {
       "id": "sticker/music-notes",
       "file": "stickers/music-notes.svg",
       "width": 100,
@@ -268,12 +332,28 @@
       "sha256": "abe2309c3506a3cb80961b0b09db5880743c018c0053c4105cab88eafffdf257"
     },
     {
+      "id": "sticker/otter",
+      "file": "stickers/otter.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2204,
+      "sha256": "75717c785165ee5a7f2a81c6823cf6778cda862c7d1fb15d76e390867d0a91c3"
+    },
+    {
       "id": "sticker/proud-lips",
       "file": "stickers/proud-lips.svg",
       "width": 100,
       "height": 100,
       "bytes": 2114,
       "sha256": "7ab76172437d83e0ff9fb522fd9e2cb09750fff152daeeef89e054ae330471ec"
+    },
+    {
+      "id": "sticker/puffer",
+      "file": "stickers/puffer.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2284,
+      "sha256": "82ed8f40d1c7249f07d37047809aff2addfed24c8b8a1e413eb465534905dba3"
     },
     {
       "id": "sticker/shark-smile",
@@ -306,6 +386,14 @@
       "height": 100,
       "bytes": 2533,
       "sha256": "1f99e666254806c2137011db08d8e70b6d0bcb0c749aa34eaa08f49a22ab0d66"
+    },
+    {
+      "id": "sticker/sole",
+      "file": "stickers/sole.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2647,
+      "sha256": "e3c758d09c2b50db21c674f2931e730e5154a295c6dd34de64e3851b43f998d1"
     },
     {
       "id": "sticker/star-coral",

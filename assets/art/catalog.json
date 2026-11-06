@@ -107,6 +107,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/chest-treasure",
+      "kind": "svg",
+      "file": "cosmetics/chest-treasure.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/crown-coral",
       "kind": "svg",
       "file": "cosmetics/crown-coral.svg",
@@ -117,6 +124,13 @@
       "id": "cosmetic/curtain-kelp",
       "kind": "svg",
       "file": "cosmetics/curtain-kelp.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/eyepatch",
+      "kind": "svg",
+      "file": "cosmetics/eyepatch.svg",
       "width": 100,
       "height": 100
     },
@@ -138,6 +152,13 @@
       "id": "cosmetic/hat-kelp",
       "kind": "svg",
       "file": "cosmetics/hat-kelp.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/hat-pirate",
+      "kind": "svg",
+      "file": "cosmetics/hat-pirate.svg",
       "width": 100,
       "height": 100
     },
@@ -219,6 +240,20 @@
       "height": 160
     },
     {
+      "id": "egg/jazyk-jazycek",
+      "kind": "svg",
+      "file": "eggs/jazyk-jazycek.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/jezik-sycik",
+      "kind": "svg",
+      "file": "eggs/jezik-sycik.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
       "id": "egg/konik-mydlinek",
       "kind": "svg",
       "file": "eggs/konik-mydlinek.svg",
@@ -250,6 +285,13 @@
       "id": "egg/pyskoun-pysny",
       "kind": "svg",
       "file": "eggs/pyskoun-pysny.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/vydra-vyskalka",
+      "kind": "svg",
+      "file": "eggs/vydra-vyskalka.svg",
       "width": 120,
       "height": 160
     },
@@ -310,6 +352,114 @@
           "x": 246,
           "y": 591,
           "scale": 60,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/jazyk-jazycek/baby",
+      "kind": "painted",
+      "file": "friends/jazyk-jazycek-baby.webp",
+      "width": 937,
+      "height": 624,
+      "anchors": {
+        "head": {
+          "x": 248,
+          "y": 196,
+          "scale": 90,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 258,
+          "y": 332,
+          "scale": 85,
+          "rotate": -6
+        },
+        "neck": {
+          "x": 418,
+          "y": 516,
+          "scale": 75,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/jazyk-jazycek/grown",
+      "kind": "painted",
+      "file": "friends/jazyk-jazycek-grown.webp",
+      "width": 1024,
+      "height": 557,
+      "anchors": {
+        "head": {
+          "x": 233,
+          "y": 195,
+          "scale": 80,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 241,
+          "y": 323,
+          "scale": 75,
+          "rotate": -8
+        },
+        "neck": {
+          "x": 373,
+          "y": 516,
+          "scale": 70,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/jezik-sycik/baby",
+      "kind": "painted",
+      "file": "friends/jezik-sycik-baby.webp",
+      "width": 825,
+      "height": 709,
+      "anchors": {
+        "head": {
+          "x": 560,
+          "y": 120,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 436,
+          "y": 367,
+          "scale": 145,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 487,
+          "y": 642,
+          "scale": 70,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/jezik-sycik/grown",
+      "kind": "painted",
+      "file": "friends/jezik-sycik-grown.webp",
+      "width": 1024,
+      "height": 820,
+      "anchors": {
+        "head": {
+          "x": 454,
+          "y": 149,
+          "scale": 90,
+          "rotate": -6
+        },
+        "eyes": {
+          "x": 444,
+          "y": 359,
+          "scale": 95,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 372,
+          "y": 627,
+          "scale": 70,
           "rotate": 0
         }
       }
@@ -585,6 +735,60 @@
       }
     },
     {
+      "id": "friend/vydra-vyskalka/baby",
+      "kind": "painted",
+      "file": "friends/vydra-vyskalka-baby.webp",
+      "width": 797,
+      "height": 842,
+      "anchors": {
+        "head": {
+          "x": 464,
+          "y": 64,
+          "scale": 100,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 464,
+          "y": 189,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 464,
+          "y": 521,
+          "scale": 90,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/vydra-vyskalka/grown",
+      "kind": "painted",
+      "file": "friends/vydra-vyskalka-grown.webp",
+      "width": 909,
+      "height": 1024,
+      "anchors": {
+        "head": {
+          "x": 406,
+          "y": 151,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 406,
+          "y": 237,
+          "scale": 95,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 406,
+          "y": 394,
+          "scale": 85,
+          "rotate": 0
+        }
+      }
+    },
+    {
       "id": "friend/zelva-obojka/baby",
       "kind": "painted",
       "file": "friends/zelva-obojka-baby.webp",
@@ -674,6 +878,20 @@
       "height": 928
     },
     {
+      "id": "monster/das-lucernik/freed",
+      "kind": "painted",
+      "file": "monsters/das-lucernik-freed.webp",
+      "width": 1024,
+      "height": 810
+    },
+    {
+      "id": "monster/das-lucernik/inked",
+      "kind": "painted",
+      "file": "monsters/das-lucernik-inked.webp",
+      "width": 1024,
+      "height": 810
+    },
+    {
       "id": "monster/had-zamotal/freed",
       "kind": "painted",
       "file": "monsters/had-zamotal-freed.webp",
@@ -737,6 +955,13 @@
       "height": 928
     },
     {
+      "id": "scene/pirate-wreck",
+      "kind": "painted",
+      "file": "scenes/pirate-wreck.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
       "id": "scene/sunny-lagoon",
       "kind": "painted",
       "file": "scenes/sunny-lagoon.webp",
@@ -761,6 +986,13 @@
       "id": "sticker/bow",
       "kind": "svg",
       "file": "stickers/bow.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/calendar-wave",
+      "kind": "svg",
+      "file": "stickers/calendar-wave.svg",
       "width": 100,
       "height": 100
     },
@@ -800,6 +1032,13 @@
       "height": 100
     },
     {
+      "id": "sticker/lantern",
+      "kind": "svg",
+      "file": "stickers/lantern.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/music-notes",
       "kind": "svg",
       "file": "stickers/music-notes.svg",
@@ -807,9 +1046,23 @@
       "height": 100
     },
     {
+      "id": "sticker/otter",
+      "kind": "svg",
+      "file": "stickers/otter.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/proud-lips",
       "kind": "svg",
       "file": "stickers/proud-lips.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/puffer",
+      "kind": "svg",
+      "file": "stickers/puffer.svg",
       "width": 100,
       "height": 100
     },
@@ -838,6 +1091,13 @@
       "id": "sticker/soap-bubbles",
       "kind": "svg",
       "file": "stickers/soap-bubbles.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/sole",
+      "kind": "svg",
+      "file": "stickers/sole.svg",
       "width": 100,
       "height": 100
     },

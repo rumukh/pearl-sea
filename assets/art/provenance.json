@@ -1998,6 +1998,566 @@
       }
     },
     {
+      "id": "friend/jazyk-jazycek/baby",
+      "file": "friends/jazyk-jazycek-baby.webp",
+      "width": 937,
+      "height": 624,
+      "bytes": 69346,
+      "sha256": "93b86e87319477c70c04355ecb3054d0b60988f1b4d3da0c8df8b4a407d59632",
+      "anchors": {
+        "head": {
+          "x": 248,
+          "y": 196,
+          "scale": 90,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 258,
+          "y": 332,
+          "scale": 85,
+          "rotate": -6
+        },
+        "neck": {
+          "x": 418,
+          "y": 516,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/jazyk-jazycek-baby.prompt.txt",
+      "approvedImage": {
+        "image": "jazyk-jazycek/jazyk-jazycek-baby-b-sketchv1-s112111.png",
+        "sha256": "11acf6cf1548f0a6416c6f865a3f9c46e715d89d8a64477955efa677acd58556"
+      },
+      "lineage": [
+        {
+          "image": "jazyk-jazycek/jazyk-jazycek-baby-b-sketchv1-s112111.png",
+          "sha256": "11acf6cf1548f0a6416c6f865a3f9c46e715d89d8a64477955efa677acd58556",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: both eyes together on the upper side of his head; one soft frilled fin running all the way round the edge of his body; one small tail. It shows Jazyk Jazýček as a tiny hatchling: a sweet baby sole seen from above and gliding left, an animal character and not a human, a small plump tongue-shaped body, rounded at the head and tapering to the tail, sandy beige with a few soft brown spots, a thin line along his middle, big blue eyes, a small smile and a rosy cheek. He is the young version of the grown-up Jazyk Jazýček: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, arms, legs, feet, tongue, ray, stingray, pancake, pie, round fish",
+          "seed": 112111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "jazyk-jazycek/ref-jazyk-jazycek-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py jazyk-baby), repainted in place",
+              "sha256": "2adc63b09a13b1bef8a0083e0cd66b6f139752804e2b8f99d6b77e81bf566b36",
+              "sketch": "scripts/art/authoring/sketches.py jazyk-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "6eec350e6cacd0d0ec963128e8ab810d9968af08f92f3713f6498139bdfd1543",
+          "holesOpened": 0,
+          "specksRemoved": 12,
+          "iouWithU2net": 0.9958,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the pale body and eye whites."
+        },
+        {
+          "step": "trim",
+          "box": [
+            198,
+            378,
+            1135,
+            1002
+          ],
+          "marginPx": 18,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            937,
+            624
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.45,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate16-wreck-derived",
+        "decidedAt": "2026-11-06T18:19:05.687296+01:00",
+        "question": "Gate 16, Pirátský vrak derived forms (images in my gate16-wreck-derived folder: each approved master beside candidates A and B, plus the cut-outs on navy). Recommended: Ježík baby A (puffed up and hissing), Vydra pup A (paws up, clean cut-out), Jazyk baby A (a tongue-shaped baby sole), Ďas freed A (ink washed off, happy, same pose and lantern as the inked form). Which should I use?",
+        "answer": "All good. Please finish without asking for approval of images. I trust your judgement. (The user delegated the choice to the agent, which took the recommended set.)",
+        "chosen": "Jazyk baby A"
+      }
+    },
+    {
+      "id": "friend/jazyk-jazycek/grown",
+      "file": "friends/jazyk-jazycek-grown.webp",
+      "width": 1024,
+      "height": 557,
+      "bytes": 64794,
+      "sha256": "8d3f676b15a6377b2e2173da5e1bae56b4ad3df03f835acd523d99e529a2675a",
+      "anchors": {
+        "head": {
+          "x": 233,
+          "y": 195,
+          "scale": 80,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 241,
+          "y": 323,
+          "scale": 75,
+          "rotate": -8
+        },
+        "neck": {
+          "x": 373,
+          "y": 516,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/jazyk-jazycek-grown.prompt.txt",
+      "approvedImage": {
+        "image": "jazyk-jazycek/jazyk-jazycek-adult-b-sketchv1-s112012.png",
+        "sha256": "12a6157f577b93cc21f12bccbc28c4fc7fe6862fe64b0d36d3a10ee648f79797"
+      },
+      "lineage": [
+        {
+          "image": "jazyk-jazycek/jazyk-jazycek-adult-b-sketchv1-s112012.png",
+          "sha256": "12a6157f577b93cc21f12bccbc28c4fc7fe6862fe64b0d36d3a10ee648f79797",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: both eyes together on the upper side of his head; one soft fin running all the way round the edge of his body; one small tail. It shows Jazyk Jazýček, a real sole, a flatfish whose Czech name is \"jazyk\" (tongue), an animal character and not a human, seen from above and gliding left: a flat, tongue-shaped body, rounded at the head and tapering to the tail, sandy beige with soft brown spots, a thin line along his middle, a small curved smile and a rosy cheek. Calm, chatty and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, arms, legs, feet, tongue, mouth open, ray, stingray, pancake, pie, bread, pizza, round fish",
+          "seed": 112012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "jazyk-jazycek/ref-jazyk-jazycek-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py jazyk), repainted in place",
+              "sha256": "c57e2e39e561305f87d36267560fd8dc81c2c2d229372ae84e1098f91ebb3978",
+              "sketch": "scripts/art/authoring/sketches.py jazyk (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "87d06c57ac0b5da7073c888ff81a5c198f85e3e2c28222b20865d5b141c4b5e5",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9971,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the pale sandy body and eye whites on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            94,
+            379,
+            1237,
+            1001
+          ],
+          "marginPx": 22,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.895888,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            557
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.06,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate13-wreck-masters",
+        "decidedAt": "2026-11-06T13:30:22.436085+01:00",
+        "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
+        "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
+        "chosen": "Jazyk A"
+      }
+    },
+    {
+      "id": "friend/jezik-sycik/baby",
+      "file": "friends/jezik-sycik-baby.webp",
+      "width": 825,
+      "height": 709,
+      "bytes": 58424,
+      "sha256": "38516237af978b185654cedf6c211867ad2c290061ea0adf21c6fb67e5e37d8a",
+      "anchors": {
+        "head": {
+          "x": 560,
+          "y": 120,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 436,
+          "y": 367,
+          "scale": 145,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 487,
+          "y": 642,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/jezik-sycik-baby.prompt.txt",
+      "approvedImage": {
+        "image": "jezik-sycik/jezik-sycik-baby-b-sketchv1-s110111.png",
+        "sha256": "da9d77b310eee89666c48ba68e43ca3a3e6874036565d5cb65c619ba8b39fc70"
+      },
+      "lineage": [
+        {
+          "image": "jezik-sycik/jezik-sycik-baby-b-sketchv1-s110111.png",
+          "sha256": "da9d77b310eee89666c48ba68e43ca3a3e6874036565d5cb65c619ba8b39fc70",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly fourteen short pale spines standing out all round his round body; two big round eyes; three small wavy white hiss puffs from his little puckered mouth; one small fan tail. It shows Ježík Syčík as a tiny hatchling: a sweet baby porcupinefish puffed up into a little round ball, facing left, an animal character and not a human, sandy yellow with soft brown spots and a creamy belly, teal eyes and a rosy cheek. He is the young version of the grown-up Ježík Syčík: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, arms, legs, feet, sea urchin, hedgehog, long spikes, teeth",
+          "seed": 110111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "jezik-sycik/ref-jezik-sycik-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py jezik-baby), repainted in place",
+              "sha256": "1da8bfae23ff80b941361e570eec65fd9990e83d9b6725e43bccd1216ca6f900",
+              "sketch": "scripts/art/authoring/sketches.py jezik-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "6381ee47e4c0626204b2b84d0e510567ba5d13482b8cce870db723c6741acffe",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9545,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the hiss marks and the pale belly."
+        },
+        {
+          "step": "trim",
+          "box": [
+            278,
+            345,
+            1103,
+            1054
+          ],
+          "marginPx": 16,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            825,
+            709
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.73,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate16-wreck-derived",
+        "decidedAt": "2026-11-06T18:19:05.687296+01:00",
+        "question": "Gate 16, Pirátský vrak derived forms (images in my gate16-wreck-derived folder: each approved master beside candidates A and B, plus the cut-outs on navy). Recommended: Ježík baby A (puffed up and hissing), Vydra pup A (paws up, clean cut-out), Jazyk baby A (a tongue-shaped baby sole), Ďas freed A (ink washed off, happy, same pose and lantern as the inked form). Which should I use?",
+        "answer": "All good. Please finish without asking for approval of images. I trust your judgement. (The user delegated the choice to the agent, which took the recommended set.)",
+        "chosen": "Ježík baby A"
+      }
+    },
+    {
+      "id": "friend/jezik-sycik/grown",
+      "file": "friends/jezik-sycik-grown.webp",
+      "width": 1024,
+      "height": 820,
+      "bytes": 95384,
+      "sha256": "a7a3bb61975606364f36e8d3c11302d21c376bc60846104f2bb1167b915a2ccf",
+      "anchors": {
+        "head": {
+          "x": 454,
+          "y": 149,
+          "scale": 90,
+          "rotate": -6
+        },
+        "eyes": {
+          "x": 444,
+          "y": 359,
+          "scale": 95,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 372,
+          "y": 627,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/jezik-sycik-grown.prompt.txt",
+      "approvedImage": {
+        "image": "jezik-sycik/jezik-sycik-adult-b-sketchv1-s110012.png",
+        "sha256": "715a34f66712bcb615362c789580b2ec26a97f5e3e6f922197aaa0adbeaedb5d"
+      },
+      "lineage": [
+        {
+          "image": "jezik-sycik/jezik-sycik-adult-b-sketchv1-s110012.png",
+          "sha256": "715a34f66712bcb615362c789580b2ec26a97f5e3e6f922197aaa0adbeaedb5d",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly fourteen short pale spines standing out all round his round body; two big round eyes; three wavy white hiss puffs coming out of his small puckered mouth; one little fan tail. It shows Ježík Syčík, a real porcupinefish puffed up into a round ball, an animal character and not a human, facing left and hissing \"sss\" like a little kettle: a sandy-yellow body with soft brown spots and a creamy white belly, teal eyes and a rosy cheek. A little bit huffy but cute and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, arms, legs, feet, sea urchin, hedgehog, porcupine, long spikes, sharp teeth, angry, letters in the puffs",
+          "seed": 110012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "jezik-sycik/ref-jezik-sycik-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py jezik), repainted in place",
+              "sha256": "d684c8629c307b2d44ae7faf35798584b495367d38d44951dcad4f58dc59bd61",
+              "sketch": "scripts/art/authoring/sketches.py jezik (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "572224bd4def6c023195523d18a8bdedfd4b627682ad0a7278eb8b42efd02f53",
+          "holesOpened": 0,
+          "specksRemoved": 15,
+          "iouWithU2net": 0.9285,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the white hiss puffs (the mnemonic, detached from the body) and the pale belly on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            112,
+            249,
+            1210,
+            1128
+          ],
+          "marginPx": 21,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.932605,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            820
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.87,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate13-wreck-masters",
+        "decidedAt": "2026-11-06T13:30:22.436085+01:00",
+        "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
+        "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
+        "chosen": "Ježík A"
+      }
+    },
+    {
       "id": "friend/konik-mydlinek/baby",
       "file": "friends/konik-mydlinek-baby.webp",
       "width": 820,
@@ -3716,6 +4276,286 @@
       }
     },
     {
+      "id": "friend/vydra-vyskalka/baby",
+      "file": "friends/vydra-vyskalka-baby.webp",
+      "width": 797,
+      "height": 842,
+      "bytes": 79668,
+      "sha256": "448fc5dc0a969303622277563b41820285a3a1bd54a97c4dc74b422a0aa7d832",
+      "anchors": {
+        "head": {
+          "x": 464,
+          "y": 64,
+          "scale": 100,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 464,
+          "y": 189,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 464,
+          "y": 521,
+          "scale": 90,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/vydra-vyskalka-baby.prompt.txt",
+      "approvedImage": {
+        "image": "vydra-vyskalka/vydra-vyskalka-baby-b-sketchv1-s111112.png",
+        "sha256": "cba7695a5ee4e0c62c6a57b41abe4a59f9c5d7d9c929d57d8981055a339ead8f"
+      },
+      "lineage": [
+        {
+          "image": "vydra-vyskalka/vydra-vyskalka-baby-b-sketchv1-s111112.png",
+          "sha256": "cba7695a5ee4e0c62c6a57b41abe4a59f9c5d7d9c929d57d8981055a339ead8f",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: both short front paws raised high above her head; two small round ears set low on the sides of her flat, wide head; puffy whisker pads with whiskers; two hind feet; one short, thick otter tail at her side. It shows Vydra Výskalka as a tiny hatchling: a sweet otter pup whooping with joy, facing the viewer, an animal character and not a human, chubby with a big head, warm brown fur, a cream face and tummy, a broad dark nose, a wide-open happy mouth, rosy cheeks and shiny eyes. She is the young version of the grown-up Vydra Výskalka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, bear, teddy bear, dog, beaver, big ears",
+          "seed": 111112,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "vydra-vyskalka/ref-vydra-vyskalka-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py vydra-baby), repainted in place",
+              "sha256": "bbc9d3af62417863438ccb6d2cc07b3378942f5f77c4efbd3eb2b0fbd66771ec",
+              "sketch": "scripts/art/authoring/sketches.py vydra-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "75a7cd285733f24260efeaecdff9bdc8b4bd8519b96fa95966d02057ddce5137",
+          "holesOpened": 0,
+          "specksRemoved": 84,
+          "iouWithU2net": 0.9968,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the cream face and tummy."
+        },
+        {
+          "step": "trim",
+          "box": [
+            293,
+            336,
+            1090,
+            1178
+          ],
+          "marginPx": 16,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            797,
+            842
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.48,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate16-wreck-derived",
+        "decidedAt": "2026-11-06T18:19:05.687296+01:00",
+        "question": "Gate 16, Pirátský vrak derived forms (images in my gate16-wreck-derived folder: each approved master beside candidates A and B, plus the cut-outs on navy). Recommended: Ježík baby A (puffed up and hissing), Vydra pup A (paws up, clean cut-out), Jazyk baby A (a tongue-shaped baby sole), Ďas freed A (ink washed off, happy, same pose and lantern as the inked form). Which should I use?",
+        "answer": "All good. Please finish without asking for approval of images. I trust your judgement. (The user delegated the choice to the agent, which took the recommended set.)",
+        "chosen": "Vydra pup A"
+      }
+    },
+    {
+      "id": "friend/vydra-vyskalka/grown",
+      "file": "friends/vydra-vyskalka-grown.webp",
+      "width": 909,
+      "height": 1024,
+      "bytes": 104450,
+      "sha256": "1f288d4ac94d2b99b35de3f789e5b82a995a6356e63cfbbc99ef5d06e03456fa",
+      "anchors": {
+        "head": {
+          "x": 406,
+          "y": 151,
+          "scale": 95,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 406,
+          "y": 237,
+          "scale": 95,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 406,
+          "y": 394,
+          "scale": 85,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/vydra-vyskalka-grown.prompt.txt",
+      "approvedImage": {
+        "image": "vydra-vyskalka/vydra-vyskalka-adult-b-sketchv1-s111011.png",
+        "sha256": "597c94836b1368027caed23626be9d928d2deedaabd604b2ad955432a7a1753b"
+      },
+      "lineage": [
+        {
+          "image": "vydra-vyskalka/vydra-vyskalka-adult-b-sketchv1-s111011.png",
+          "sha256": "597c94836b1368027caed23626be9d928d2deedaabd604b2ad955432a7a1753b",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: both front paws raised high above her head; two small round ears set low on the sides of her flat, wide head; puffy whisker pads with whiskers; two webbed hind feet; one long, thick, tapering otter tail. It shows Vydra Výskalka, a cheerful river otter whooping with joy, an animal character and not a human, standing upright on her hind feet and facing the viewer: a long, sleek brown body with a cream face, chest and muzzle, a broad dark nose, a wide-open happy mouth, rosy cheeks and shiny eyes. Joyful, bouncy and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, bear, teddy bear, dog, beaver, big ears, round ears on top of the head, clothes",
+          "seed": 111011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "vydra-vyskalka/ref-vydra-vyskalka-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py vydra), repainted in place",
+              "sha256": "4f4b2fe7a75761607d42af0cec2fc5d17a5cada738781538287b73422fd78019",
+              "sketch": "scripts/art/authoring/sketches.py vydra (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "561636bc09e14c61894edcd1a89f0c39f02d7dd29f0480b610d751a5d6f8d663",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9924,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the cream chest and whisker pads, which are close to the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            285,
+            172,
+            1215,
+            1220
+          ],
+          "marginPx": 20,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.977099,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            909,
+            1024
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 42.72,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate13-wreck-masters",
+        "decidedAt": "2026-11-06T13:30:22.436085+01:00",
+        "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
+        "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
+        "chosen": "Vydra A"
+      }
+    },
+    {
       "id": "friend/zelva-obojka/baby",
       "file": "friends/zelva-obojka-baby.webp",
       "width": 1024,
@@ -4802,6 +5642,304 @@
         "answer": "Map A and the grotto (Recommended)",
         "chosen": "Map A",
         "note": "The user approved Map A, take s96023. The shipped file is its in-place defect fix s96025: a small sign with pseudo-letters removed from the lagoon pad, at the coordinator's request (\"a defect fix on the approved take, not a new creative choice\")."
+      }
+    },
+    {
+      "id": "monster/das-lucernik/freed",
+      "file": "monsters/das-lucernik-freed.webp",
+      "width": 1024,
+      "height": 810,
+      "bytes": 64168,
+      "sha256": "613d16e391c79867ca06541cb76ae84dca82d3e21ac4b8a5cb485bf1f8823320",
+      "anchors": null,
+      "promptFile": "prompts/das-lucernik-freed.prompt.txt",
+      "approvedImage": {
+        "image": "das-lucernik/das-lucernik-freed-b-from-master-s113111.png",
+        "sha256": "4b4f1ee40c27a1f180afb2417049476a2f6487b418737011720f75982108cd1d"
+      },
+      "lineage": [
+        {
+          "image": "das-lucernik/das-lucernik-freed-b-from-master-s113111.png",
+          "sha256": "4b4f1ee40c27a1f180afb2417049476a2f6487b418737011720f75982108cd1d",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon anglerfish Ďas Lucerník. All of the black and dark-violet magic ink has been washed away and he is happy again. Keep exactly the same character, pose, round body shape, fishing-rod lure with its glowing lantern, fan tail, side fin, the same small blunt rounded teeth, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing his clean, bright colours everywhere: a soft lavender body with a pale belly. Change only his expression: a big, friendly, grateful smile with bright, wide-open happy eyes, relaxed raised eyebrows and a rosy cheek. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, dirty, grumpy, angry, frowning, sharp fangs, long teeth, many teeth, glowing eyes, extra eyes, extra lures, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 113111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "das-lucernik/das-lucernik-inked-b-sketchv1-s113011.png",
+              "role": "source image edited in place: the approved inked master s113011 (gate 13)",
+              "sha256": "c145ea380994ead1462a35d64c760f5245737e99a3868d159f21d9d88eb87cdc"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "das-lucernik/das-lucernik-inked-b-sketchv1-s113011.png",
+          "sha256": "c145ea380994ead1462a35d64c760f5245737e99a3868d159f21d9d88eb87cdc",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one long fishing-rod lure growing from his forehead, ending in one small glowing lantern; a single row of six small, blunt, rounded white teeth in his wide frowning mouth; one fan tail; one small side fin. It shows Ďas Lucerník, a grumpy, round cartoon anglerfish soaked in magic black ink, facing left: a big round dusky-violet body with a lighter belly, a small round eye under a cross eyebrow, and a warm yellow lantern he uses to lure little fish towards wrong spellings. Glossy black and dark-violet magic ink covers part of him: blots and little highlights on his back. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, arms, legs, feet, sharp fangs, long teeth, many teeth, blood, gore, horror, glowing eyes, skull, darkness, black background",
+          "seed": 113011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "das-lucernik/ref-das-lucernik-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py das-inked), repainted in place",
+              "sha256": "10bc230a58ae2d63292734e454721c308c88361f490f9ea62380e13c554c13f9",
+              "sketch": "scripts/art/authoring/sketches.py das-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "5550d416504bce64dcaa3041757957f4673459dab83fbddb97ef3dbea50e1017",
+          "holesOpened": 0,
+          "specksRemoved": 42,
+          "iouWithU2net": 0.982,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the inked form: keeps the lantern glow and the pale belly."
+        },
+        {
+          "step": "trim",
+          "box": [
+            72,
+            178,
+            1235,
+            1098
+          ],
+          "marginPx": 22,
+          "sharedWith": [
+            "monster/das-lucernik/freed",
+            "monster/das-lucernik/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.880482,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            810
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 44.44,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate16-wreck-derived",
+        "decidedAt": "2026-11-06T18:19:05.687296+01:00",
+        "question": "Gate 16, Pirátský vrak derived forms (images in my gate16-wreck-derived folder: each approved master beside candidates A and B, plus the cut-outs on navy). Recommended: Ježík baby A (puffed up and hissing), Vydra pup A (paws up, clean cut-out), Jazyk baby A (a tongue-shaped baby sole), Ďas freed A (ink washed off, happy, same pose and lantern as the inked form). Which should I use?",
+        "answer": "All good. Please finish without asking for approval of images. I trust your judgement. (The user delegated the choice to the agent, which took the recommended set.)",
+        "chosen": "Ďas freed A"
+      }
+    },
+    {
+      "id": "monster/das-lucernik/inked",
+      "file": "monsters/das-lucernik-inked.webp",
+      "width": 1024,
+      "height": 810,
+      "bytes": 73044,
+      "sha256": "62f90667d068f8a41a5c1c6bb7cadfae95deb56f283895a5ba7ab692b59e6b21",
+      "anchors": null,
+      "promptFile": "prompts/das-lucernik-inked.prompt.txt",
+      "approvedImage": {
+        "image": "das-lucernik/das-lucernik-inked-b-sketchv1-s113011.png",
+        "sha256": "c145ea380994ead1462a35d64c760f5245737e99a3868d159f21d9d88eb87cdc"
+      },
+      "lineage": [
+        {
+          "image": "das-lucernik/das-lucernik-inked-b-sketchv1-s113011.png",
+          "sha256": "c145ea380994ead1462a35d64c760f5245737e99a3868d159f21d9d88eb87cdc",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one long fishing-rod lure growing from his forehead, ending in one small glowing lantern; a single row of six small, blunt, rounded white teeth in his wide frowning mouth; one fan tail; one small side fin. It shows Ďas Lucerník, a grumpy, round cartoon anglerfish soaked in magic black ink, facing left: a big round dusky-violet body with a lighter belly, a small round eye under a cross eyebrow, and a warm yellow lantern he uses to lure little fish towards wrong spellings. Glossy black and dark-violet magic ink covers part of him: blots and little highlights on his back. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, arms, legs, feet, sharp fangs, long teeth, many teeth, blood, gore, horror, glowing eyes, skull, darkness, black background",
+          "seed": 113011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "das-lucernik/ref-das-lucernik-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py das-inked), repainted in place",
+              "sha256": "10bc230a58ae2d63292734e454721c308c88361f490f9ea62380e13c554c13f9",
+              "sketch": "scripts/art/authoring/sketches.py das-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "66e0db4c93fa766fcd125707bf9c84508bbf34c3f3f3f2569c46eae8dc822ca9",
+          "holesOpened": 0,
+          "specksRemoved": 47,
+          "iouWithU2net": 0.8998,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the pale glow round the lantern (detached from the body) and the pale belly."
+        },
+        {
+          "step": "trim",
+          "box": [
+            72,
+            178,
+            1235,
+            1098
+          ],
+          "marginPx": 22,
+          "sharedWith": [
+            "monster/das-lucernik/freed",
+            "monster/das-lucernik/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.880482,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            1024,
+            810
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 90, method 6, alpha quality 100",
+          "psnrDb": 43.39,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate13-wreck-masters",
+        "decidedAt": "2026-11-06T13:30:22.436085+01:00",
+        "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
+        "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
+        "chosen": "Ďas A"
       }
     },
     {
@@ -6127,6 +7265,104 @@
         "decidedAt": "2026-11-05T20:40:39.582706+01:00",
         "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
         "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
+        "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/pirate-wreck",
+      "file": "scenes/pirate-wreck.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 145850,
+      "sha256": "35505c44268b14b3ee4c33cfd42ffb3af8a0beff1c6d06d55658d7e99a956ee5",
+      "anchors": null,
+      "promptFile": "prompts/pirate-wreck.prompt.txt",
+      "approvedImage": {
+        "image": "bg-pirate-wreck/bg-pirate-wreck-v1-s114012.png",
+        "sha256": "02fe9e3093a0280d111e3641fd1dc75429af7f1c737221558d4290f86917606d"
+      },
+      "lineage": [
+        {
+          "image": "bg-pirate-wreck/bg-pirate-wreck-v1-s114012.png",
+          "sha256": "02fe9e3093a0280d111e3641fd1dc75429af7f1c737221558d4290f86917606d",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Pirátský vrak, an old sunken pirate ship resting on the sea floor, seen from inside the water. Keep exactly the same composition: sunbeams slanting down from the shimmering surface; a wide, calm, open band of clear blue water and smooth sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner a broken piece of the ship's deck with a broken wooden mast, a torn, faded sail and two old barrels, with a little sea grass and coral growing on them; in the bottom-right foreground scattered wooden planks and a small rusty anchor half in the sand; at the right edge the tilted wooden hull of the sunken pirate ship with round portholes and one dark open hatch glowing with a small warm lantern light, where a sea monster lives, mysterious but not scary; the soft sandy floor along the bottom with a few seashells. Tiny bubbles rising, gentle caustic light ripples on the sand.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright but harmonious palette of turquoise, deep sea blue, warm wood brown, faded cream, a touch of coral and sand beige, gentle depth haze toward the back. Adventurous, magical and inviting. No fish, no animals, no people, no characters, no skeletons, no skulls, no flags with skulls, no treasure chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, signpost, board, frame, border, fish, animals, people, characters, submarine, skeleton, skull, jolly roger, treasure chest, photorealistic, 3d render, dark, scary, sky, land",
+          "seed": 114012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-pirate-wreck/ref-bg-pirate-wreck-sketch-v1.png",
+              "role": "composition sketch on the shell's levelSpots(7) (Pillow colour blocking, sketches.py wreck), repainted in place",
+              "sha256": "88895f0efa8eed17a23b104bcdd10f07053881a9e884b826e87876a0015ae76d",
+              "sketch": "scripts/art/authoring/sketches.py wreck (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 39.19,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate13-wreck-masters",
+        "decidedAt": "2026-11-06T13:30:22.436085+01:00",
+        "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
+        "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
         "chosen": "Scene A"
       }
     },

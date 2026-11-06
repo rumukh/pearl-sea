@@ -28,6 +28,7 @@ import { g, h } from './lib/xml.mjs';
 import { CREAM, INK, SW, gleam, ink, line, scope, shade } from './style.mjs';
 import { CORAL_REEF_STICKERS } from './regions/coral-reef.mjs';
 import { KELP_FOREST_STICKERS } from './regions/kelp-forest.mjs';
+import { PIRATE_WRECK_STICKERS } from './regions/pirate-wreck.mjs';
 
 export const STICKER_SIZE = 100;
 export const DISC_RADIUS = 40;
@@ -530,4 +531,5 @@ export const STICKER_DESIGNS = [
   { id: 'coins', draw: coins },
   ...CORAL_REEF_STICKERS,
   ...KELP_FOREST_STICKERS,
+  ...PIRATE_WRECK_STICKERS,
 ];

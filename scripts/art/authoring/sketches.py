@@ -2156,6 +2156,173 @@ def pyskoun_baby(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def jezik_baby(out, route_json=None):
+    """Ježík Syčík as a hatchling, facing left like his master: a small puffed-up porcupinefish
+    ball with a big head share, exactly fourteen short pale spines, brown spots, a creamy belly, two
+    big eyes, a little puckered mouth blowing three small white hiss puffs and a small fan tail."""
+    img, d = canvas()
+    cx, cy, r = 700, 700, 270
+    body, belly, spot = (240, 206, 120), (250, 244, 226), (170, 120, 70)
+    for k in range(14):
+        a = 2 * math.pi * k / 14 + 0.11
+        b1 = (cx + (r - 8) * math.cos(a - 0.13), cy + (r - 8) * math.sin(a - 0.13))
+        b2 = (cx + (r - 8) * math.cos(a + 0.13), cy + (r - 8) * math.sin(a + 0.13))
+        d.polygon([b1, (cx + (r + 70) * math.cos(a), cy + (r + 70) * math.sin(a)), b2], fill=PLUM)
+        c1 = (cx + (r - 4) * math.cos(a - 0.09), cy + (r - 4) * math.sin(a - 0.09))
+        c2 = (cx + (r - 4) * math.cos(a + 0.09), cy + (r - 4) * math.sin(a + 0.09))
+        d.polygon([c1, (cx + (r + 56) * math.cos(a), cy + (r + 56) * math.sin(a)), c2], fill=(250, 236, 200))
+    d.polygon([(cx + r - 30, cy), (cx + r + 110, cy - 100), (cx + r + 110, cy + 100)], fill=PLUM)
+    d.polygon([(cx + r - 16, cy), (cx + r + 96, cy - 80), (cx + r + 96, cy + 80)], fill=(230, 170, 90))
+    d.ellipse([cx - r - 13, cy - r - 13, cx + r + 13, cy + r + 13], fill=PLUM)
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=body)
+    d.chord([cx - r, cy - r, cx + r, cy + r], 25, 155, fill=belly)
+    for x, y in ((800, 520), (880, 640), (760, 610), (900, 760)):
+        d.ellipse([x - 22, y - 18, x + 22, y + 18], fill=spot)
+    eye(d, 560, 630, 80, iris=(60, 140, 120))
+    eye(d, 720, 610, 72, iris=(60, 140, 120))
+    d.ellipse([440 - 12, 760 - 34, 440 + 34, 760 + 34], fill=PLUM)
+    d.ellipse([440, 760 - 22, 440 + 22, 760 + 22], fill=(150, 60, 80))
+    cheeks(d, [(580, 760)], r=30)
+    for y in (700, 760, 820):
+        d.line([(410 - i * 22, y + 14 * math.sin(i * 1.6)) for i in range(6)], fill=(250, 252, 255), width=14, joint="curve")
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def vydra_baby(out, route_json=None):
+    """Vydra Výskalka as a hatchling (an otter pup) facing the viewer like her master: a chubby pup
+    with a big flat round head, small low ears, a cream face with puffy whisker pads and whiskers, a
+    broad nose, a wide happy open mouth, both short front paws raised high, two hind feet and a
+    short thick tail at her side."""
+    img, d = canvas()
+    fur, cream = (150, 100, 66), (240, 220, 186)
+    stamp_path(d, [(780, 1080), (930, 1090), (1020, 1000)], 130, 60, fur, outline=PLUM)
+    for x in (560, 770):
+        d.ellipse([x - 80 - 12, 1110 - 36 - 12, x + 80 + 12, 1110 + 36 + 12], fill=PLUM)
+        d.ellipse([x - 80, 1110 - 36, x + 80, 1110 + 36], fill=(120, 80, 54))
+    d.ellipse([664 - 220 - 13, 900 - 220 - 13, 664 + 220 + 13, 900 + 220 + 13], fill=PLUM)
+    d.ellipse([664 - 220, 900 - 220, 664 + 220, 900 + 220], fill=fur)
+    d.ellipse([664 - 140, 780, 664 + 140, 1080], fill=cream)
+    for side in (-1, 1):
+        stamp_path(d, [(664 + side * 170, 760), (664 + side * 270, 580), (664 + side * 290, 440)], 100, 86, fur, outline=PLUM)
+        d.ellipse([664 + side * 290 - 56, 440 - 56, 664 + side * 290 + 56, 440 + 56], fill=PLUM)
+        d.ellipse([664 + side * 290 - 44, 440 - 44, 664 + side * 290 + 44, 440 + 44], fill=(120, 80, 54))
+    hx, hy = 664, 560
+    for side in (-1, 1):
+        d.ellipse([hx + side * 200 - 28, hy - 60 - 26, hx + side * 200 + 28, hy - 60 + 26], fill=PLUM)
+        d.ellipse([hx + side * 200 - 18, hy - 60 - 16, hx + side * 200 + 18, hy - 60 + 16], fill=(120, 80, 54))
+    d.ellipse([hx - 230 - 13, hy - 170 - 13, hx + 230 + 13, hy + 150 + 13], fill=PLUM)
+    d.ellipse([hx - 230, hy - 170, hx + 230, hy + 150], fill=fur)
+    d.ellipse([hx - 180, hy - 30, hx + 180, hy + 148], fill=cream)
+    for side in (-1, 1):
+        d.ellipse([hx + side * 66 - 70, hy - 10, hx + side * 66 + 70, hy + 76], fill=(248, 232, 204))
+    d.ellipse([hx - 46, hy - 30, hx + 46, hy + 16], fill=(50, 30, 40))
+    open_mouth(d, hx, hy + 92, 44, 28)
+    eye(d, hx - 100, hy - 80, 50, iris=(90, 60, 40))
+    eye(d, hx + 100, hy - 80, 50, iris=(90, 60, 40))
+    for side in (-1, 1):
+        for k in range(3):
+            d.line([(hx + side * 130, hy + 30 + k * 14), (hx + side * 230, hy + 10 + k * 26)], fill=PLUM, width=5)
+    cheeks(d, [(hx - 160, hy + 10), (hx + 160, hy + 10)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def jazyk_baby(out, route_json=None):
+    """Jazyk Jazýček as a hatchling, seen from above and gliding left like his master: a small,
+    plump, tongue-shaped sole, rounded at the head and tapering to a small tail, a soft frilled fin
+    all round, both big eyes together on the upper side near the head, a few soft spots and a smile."""
+    img, d = canvas()
+    body, fin, spot = (226, 196, 150), (206, 160, 120), (176, 132, 96)
+    cy = 690
+
+    def outline(x0, x1, hmax, pad):
+        xs = np.linspace(0, 1, 90)
+        prof = hmax * np.sin(np.pi * np.clip(xs, 0.0, 1.0)) ** 0.5 * (1.2 - 0.6 * xs) + pad
+        top = [(x0 - pad + (x1 - x0 + 2 * pad) * x, cy - p) for x, p in zip(xs, prof)]
+        return top + [(x, 2 * cy - y) for x, y in top[::-1]]
+
+    d.polygon([(960, cy), (1080, cy - 100), (1100, cy), (1080, cy + 100)], fill=PLUM)
+    d.polygon([(978, cy), (1068, cy - 80), (1086, cy), (1068, cy + 80)], fill=fin)
+    d.polygon(outline(280, 980, 240, 56), fill=PLUM)
+    d.polygon(outline(280, 980, 240, 44), fill=fin)
+    inner, outer = outline(280, 980, 240, 4), outline(280, 980, 240, 40)
+    for k in range(4, len(inner) - 4, 5):
+        d.line([inner[k], outer[k]], fill=(180, 132, 96), width=6)
+    d.polygon(outline(280, 980, 240, 12), fill=PLUM)
+    d.polygon(outline(280, 980, 240, 0), fill=body)
+    d.line([(470, cy + 10), (940, cy + 10)], fill=(200, 168, 126), width=8)
+    for x, y in ((640, 620), (780, 640), (720, 760), (860, 700)):
+        d.ellipse([x - 24, y - 18, x + 24, y + 18], fill=spot)
+    eye(d, 420, 610, 66, iris=(70, 120, 150))
+    eye(d, 540, 580, 60, iris=(70, 120, 150))
+    d.arc([340, 690, 440, 760], 20, 160, fill=PLUM, width=10)
+    cheeks(d, [(510, 700)], r=28)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def hvezdice_baby(out, route_json=None):
+    """Hvězdice Rodinka as a hatchling facing the viewer: a small chubby starfish with exactly five
+    short, plump, rounded arms, one pink heart in the middle, two cream bumps on each arm, and a big
+    happy face above the heart, in the master's coral orange."""
+    img, d = canvas()
+    cx, cy = 664, 700
+    body, bump = (246, 140, 96), (255, 226, 190)
+    for k in range(5):
+        a = -math.pi / 2 + 2 * math.pi * k / 5
+        stamp_path(d, [(cx, cy), (cx + 340 * math.cos(a), cy + 340 * math.sin(a))], 300, 150, body, outline=PLUM)
+    stamp_path(d, [(cx, cy), (cx + 1, cy)], 380, 380, body)
+    for k in range(5):
+        a = -math.pi / 2 + 2 * math.pi * k / 5
+        for t in (0.6, 0.82):
+            x, y = cx + 340 * t * math.cos(a), cy + 340 * t * math.sin(a)
+            d.ellipse([x - 16, y - 16, x + 16, y + 16], fill=bump)
+    hx, hy = cx, cy + 80
+    d.polygon([(hx - 90, hy - 30), (hx, hy + 84), (hx + 90, hy - 30)], fill=PLUM)
+    d.ellipse([hx - 100, hy - 92, hx + 6, hy + 8], fill=PLUM)
+    d.ellipse([hx - 6, hy - 92, hx + 100, hy + 8], fill=PLUM)
+    d.polygon([(hx - 78, hy - 28), (hx, hy + 70), (hx + 78, hy - 28)], fill=(240, 90, 130))
+    d.ellipse([hx - 88, hy - 80, hx - 4, hy - 4], fill=(240, 90, 130))
+    d.ellipse([hx + 4, hy - 80, hx + 88, hy - 4], fill=(240, 90, 130))
+    eye(d, cx - 75, cy - 110, 54, iris=(70, 110, 150))
+    eye(d, cx + 75, cy - 110, 54, iris=(70, 110, 150))
+    d.arc([cx - 46, cy - 70, cx + 46, cy - 20], 20, 160, fill=PLUM, width=10)
+    cheeks(d, [(cx - 150, cy - 50), (cx + 150, cy - 50)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def kalmar_baby(out, route_json=None):
+    """Kalmar Desetiruký as a hatchling facing the viewer: a short, chubby mantle with two little
+    fins, big eyes, and exactly ten short arms below it, eight short arms and two slightly longer
+    tentacles with round tips at the outside, each clearly separate, in the master's rosy pink."""
+    img, d = canvas()
+    body, light = (220, 120, 170), (250, 200, 220)
+    cx = 664
+    for k in range(10):
+        long = k in (0, 9)
+        t = (k - 4.5) / 4.5
+        base = (cx + t * 190, 820)
+        end = (cx + t * (470 if long else 400), 1150 if long else 1060 - abs(t) * 100)
+        mid = (cx + t * (310 if long else 290), 990 if long else 960 - abs(t) * 40)
+        stamp_path(d, [base, mid, end], 56, 32, body, outline=PLUM)
+        if long:
+            d.ellipse([end[0] - 44, end[1] - 30, end[0] + 44, end[1] + 30], fill=PLUM)
+            d.ellipse([end[0] - 32, end[1] - 18, end[0] + 32, end[1] + 18], fill=body)
+    d.polygon([(cx - 150, 360), (cx - 300, 300), (cx - 170, 250)], fill=PLUM)
+    d.polygon([(cx + 150, 360), (cx + 300, 300), (cx + 170, 250)], fill=PLUM)
+    d.polygon([(cx - 154, 346), (cx - 272, 300), (cx - 172, 264)], fill=body)
+    d.polygon([(cx + 154, 346), (cx + 272, 300), (cx + 172, 264)], fill=body)
+    mantle = [(cx - 250, 860), (cx - 240, 500), (cx - 150, 280), (cx, 200), (cx + 150, 280), (cx + 240, 500), (cx + 250, 860)]
+    d.polygon(mantle, fill=PLUM)
+    d.polygon([(x * 0.96 + cx * 0.04, y + (12 if y < 300 else 0)) for x, y in mantle], fill=body)
+    d.ellipse([cx - 250, 760, cx + 250, 900], fill=body)
+    eye(d, cx - 100, 640, 82, iris=(80, 60, 140))
+    eye(d, cx + 100, 640, 82, iris=(80, 60, 140))
+    d.arc([cx - 46, 720, cx + 46, 780], 20, 160, fill=PLUM, width=10)
+    cheeks(d, [(cx - 190, 740), (cx + 190, 740)], r=26)
+    for x, y in ((cx - 50, 380), (cx + 50, 450)):
+        d.ellipse([x - 20, y - 16, x + 20, y + 16], fill=light)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
 if __name__ == "__main__":
     name, out = sys.argv[1], sys.argv[2]
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
@@ -2170,5 +2337,6 @@ if __name__ == "__main__":
      "jezik": jezik, "vydra": vydra, "jazyk": jazyk, "das-inked": das_inked, "wreck": wreck,
      "hvezdice": hvezdice, "zeva-inked": zeva_inked, "bay": bay,
      "kalmar": kalmar, "uhor-inked": uhor_inked, "vents": vents,
-     "tulen": tulen, "delfin": delfin, "ledana-inked": ledana_inked, "ice": ice, "lachtan2": lachtan2, "barakuda-baby": barakuda_baby, "lachtan-baby": lachtan_baby, "konik-baby": konik_baby, "pyskoun-baby": pyskoun_baby}[name](out, rj)
+     "tulen": tulen, "delfin": delfin, "ledana-inked": ledana_inked, "ice": ice, "lachtan2": lachtan2, "barakuda-baby": barakuda_baby, "lachtan-baby": lachtan_baby, "konik-baby": konik_baby, "pyskoun-baby": pyskoun_baby, "jezik-baby": jezik_baby,
+     "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby}[name](out, rj)
     print(out)

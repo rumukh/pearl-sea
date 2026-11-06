@@ -11,6 +11,7 @@ import { g, h } from './lib/xml.mjs';
 import { CREAM, INK, SW, gleam, ink, line, scope, shade } from './style.mjs';
 import { CORAL_REEF_EGGS } from './regions/coral-reef.mjs';
 import { KELP_FOREST_EGGS } from './regions/kelp-forest.mjs';
+import { PIRATE_WRECK_EGGS } from './regions/pirate-wreck.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -138,6 +139,7 @@ export const EGG_DESIGNS = [
   { id: 'zelva-obojka', base: '#5dbb8a', motif: zelva },
   ...CORAL_REEF_EGGS,
   ...KELP_FOREST_EGGS,
+  ...PIRATE_WRECK_EGGS,
 ];
 
 /**

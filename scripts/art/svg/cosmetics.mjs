@@ -26,6 +26,7 @@ import { KELP_FOREST_COSMETICS } from './regions/kelp-forest.mjs';
 import { PIRATE_WRECK_COSMETICS } from './regions/pirate-wreck.mjs';
 import { PEARL_BAY_COSMETICS } from './regions/pearl-bay.mjs';
 import { VOLCANIC_VENTS_COSMETICS } from './regions/volcanic-vents.mjs';
+import { ICE_SEA_COSMETICS } from './regions/ice-sea.mjs';
 import { scarf } from './scarf.mjs';
 
 /** @typedef {'head' | 'eyes' | 'neck' | 'grotto' | 'crown'} CosmeticSlot */
@@ -493,6 +494,7 @@ export const COSMETIC_DESIGNS = [
   ...PIRATE_WRECK_COSMETICS,
   ...PEARL_BAY_COSMETICS,
   ...VOLCANIC_VENTS_COSMETICS,
+  ...ICE_SEA_COSMETICS,
 ];
 
 export const COSMETIC_SIZE = SIZE;

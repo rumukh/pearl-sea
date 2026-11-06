@@ -10,7 +10,8 @@
  *   content/              the pack, its catalogs and the gzip-compressed history archives (copied
  *                         verbatim; the authoring sources in content/ are not shipped)
  *   assets/**             runtime art, audio and fonts (authoring metadata is not shipped)
- *   resource-graph.json   every file above with bytes + SHA-256 (validated by the SDK validator)
+ *   resource-graph.json   every core file above with bytes + SHA-256 (validated by the SDK validator)
+ *   resource-graph-grade-4.json  the art catalog's grade-4 files, a pack of their own (docs/app.md §11)
  *   sw.js                 offline worker bundled from the PUBLIC @aegis/browser/offline/worker export
  *   build-report.json     format marker, base, revision and bundle inputs
  *
@@ -36,11 +37,16 @@ import { isMain, readJson, repositoryRoot } from './lib/tools.mjs';
 import {
   BUILD_FORMAT,
   CONTENT_SECURITY_POLICY,
+  CORE_GRAPH,
+  GRADE_FOUR_GRAPH,
   OFFLINE_ERROR_MESSAGE,
+  OFFLINE_GRADE_FOUR_PACK_ID,
   OFFLINE_NAMESPACE,
   OFFLINE_PACK_ID,
   describeResources,
+  gradeFourPaths,
   listFiles,
+  splitResources,
   validateBase,
   verifySite,
 } from './lib/site.mjs';
@@ -148,7 +154,13 @@ function isPreviousBuild(output) {
 }
 
 /**
- * @param {{ outDir?: string; base?: string; clean?: boolean; sourcemap?: boolean; root?: string }} [options]
+ * @typedef {{ entry: Record<string, unknown> & { file: string }; body: string | Uint8Array }} ExtraArt
+ * Test-only: an art file and its catalog entry added to the staged site (test/e2e/grade-four.spec.ts
+ * builds a site with grade-4 stand-ins before S5's grade-4 art exists). Never used by a real build.
+ */
+
+/**
+ * @param {{ outDir?: string; base?: string; clean?: boolean; sourcemap?: boolean; root?: string; extraArt?: readonly ExtraArt[] }} [options]
  */
 export async function buildSite(options = {}) {
   const root = options.root ?? repositoryRoot;
@@ -195,6 +207,17 @@ export async function buildSite(options = {}) {
       join(stage, 'assets'),
       (path) => !NOT_SHIPPED.some((pattern) => pattern.test(path)),
     );
+    if (options.extraArt?.length) {
+      const catalogPath = join(stage, 'assets', 'art', 'catalog.json');
+      const catalog = readJson(catalogPath);
+      for (const { entry, body } of options.extraArt) {
+        const target = join(stage, 'assets', 'art', ...entry.file.split('/'));
+        mkdirSync(dirname(target), { recursive: true });
+        writeFileSync(target, body);
+        catalog.entries.push(entry);
+      }
+      writeFileSync(catalogPath, JSON.stringify(catalog, null, 2) + '\n');
+    }
     const html = template
       .replaceAll('%PS_BASE%', base)
       .replaceAll('%PS_CSP%', CONTENT_SECURITY_POLICY);
@@ -218,9 +241,19 @@ export async function buildSite(options = {}) {
       .slice(0, 24);
     writeFileSync(join(stage, 'index.html'), html.replaceAll(REVISION_PLACEHOLDER, revision));
     const resources = describeResources(stage, base);
+    // The grade-4 art is a pack of its own, installed only once a child reaches grade 4.
+    const split = splitResources(resources, gradeFourPaths(stage), base);
     writeFileSync(
-      join(stage, 'resource-graph.json'),
-      JSON.stringify({ id: OFFLINE_PACK_ID, revision, resources }, null, 2) + '\n',
+      join(stage, CORE_GRAPH),
+      JSON.stringify({ id: OFFLINE_PACK_ID, revision, resources: split.core }, null, 2) + '\n',
+    );
+    writeFileSync(
+      join(stage, GRADE_FOUR_GRAPH),
+      JSON.stringify(
+        { id: OFFLINE_GRADE_FOUR_PACK_ID, revision, resources: split.gradeFour },
+        null,
+        2,
+      ) + '\n',
     );
     const worker = await build({
       absWorkingDir: root,
@@ -235,6 +268,7 @@ export async function buildSite(options = {}) {
       logLevel: 'warning',
       define: {
         __PS_OFFLINE_PACK_ID__: JSON.stringify(OFFLINE_PACK_ID),
+        __PS_OFFLINE_GRADE_FOUR_PACK_ID__: JSON.stringify(OFFLINE_GRADE_FOUR_PACK_ID),
         __PS_OFFLINE_NAMESPACE__: JSON.stringify(OFFLINE_NAMESPACE),
         __PS_OFFLINE_REVISION__: JSON.stringify(revision),
         __PS_OFFLINE_ERROR_MESSAGE__: JSON.stringify(OFFLINE_ERROR_MESSAGE),
@@ -250,6 +284,10 @@ export async function buildSite(options = {}) {
       sdk,
       resources: resources.length,
       bytes: resources.reduce((sum, resource) => sum + resource.bytes, 0),
+      gradeFour: {
+        resources: split.gradeFour.length,
+        bytes: split.gradeFour.reduce((sum, resource) => sum + resource.bytes, 0),
+      },
       copied: { content, assets },
       inputs: { app: appInputs, worker: workerInputs },
     };

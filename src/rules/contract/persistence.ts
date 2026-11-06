@@ -44,6 +44,11 @@ export const DAY_GAME_ID = 'pearl-sea-day';
  */
 export const OFFLINE_PACK_ID = 'pearl-sea';
 export const OFFLINE_NAMESPACE = 'pearl-sea';
+/**
+ * The grade-4 art's offline pack, in the same namespace (`aegis:pearl-sea:pack:pearl-sea-grade-4:…`),
+ * installed only once a child reaches grade 4; its graph is `resource-graph-grade-4.json`.
+ */
+export const OFFLINE_GRADE_FOUR_PACK_ID = 'pearl-sea-grade-4';
 
 /** The message type the offline worker posts to its pages when it cannot serve one. */
 export const OFFLINE_ERROR_MESSAGE = 'pearl-sea-offline-error';

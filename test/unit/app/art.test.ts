@@ -352,3 +352,55 @@ describe('a painting on its way', () => {
     for (const image of [late, early, kept]) image.remove();
   });
 });
+
+describe('the grade-4 pack', () => {
+  const DEEP: ArtEntry = {
+    id: ART.scene('moon-caves'),
+    kind: 'painted',
+    file: 'scenes/moon-caves.webp',
+    width: 1664,
+    height: 928,
+    pack: 'grade-4',
+  };
+
+  it('draws grade-4 art online, and offline only once its pack is installed', () => {
+    let online = true;
+    const art = createArtLibrary(BASE, [KRAB, DEEP], () => online);
+    expect(art.entry(DEEP.id)).toEqual(DEEP);
+    online = false;
+    expect(art.entry(DEEP.id), 'offline, before the pack is installed').toBeUndefined();
+    expect(picture(art, DEEP.id).dataset['placeholder']).toBe('true');
+    expect(art.entry(KRAB.id), 'core art is always drawn').toEqual(KRAB);
+    art.setInstalled('grade-4');
+    expect(art.entry(DEEP.id)).toEqual(DEEP);
+    expect(picture(art, DEEP.id).querySelector('img')).not.toBeNull();
+  });
+
+  it('turns a picture that cannot load into its labelled placeholder, never a broken image', () => {
+    const art = createArtLibrary(BASE, [DEEP], () => true);
+    const shown = picture(art, DEEP.id, { alt: 'Měsíční jeskyně' });
+    shown.querySelector('img')!.dispatchEvent(new Event('error'));
+    expect(shown.querySelector('img')).toBeNull();
+    expect(shown.dataset['placeholder']).toBe('true');
+    expect(shown.getAttribute('aria-label')).toBe('Měsíční jeskyně');
+    expect(shown.querySelector('.ps-art__dev')?.textContent).toBe(`DEV ${DEEP.id}`);
+  });
+
+  it('turns a sticker layer that cannot load into its placeholder drawing', () => {
+    const icon: ArtEntry = {
+      id: 'sticker/test-icon',
+      kind: 'svg',
+      file: 'stickers/test-icon.svg',
+      width: 100,
+      height: 100,
+    };
+    const sticker = stickerPicture(createArtLibrary(BASE, [icon]), {
+      icon: icon.id,
+      frame: 'sticker/frame-test',
+      color: '#336699',
+    });
+    sticker.querySelector('img')!.dispatchEvent(new Event('error'));
+    expect(sticker.querySelector('img')).toBeNull();
+    expect(sticker.querySelectorAll('svg.ps-sticker__layer').length).toBe(3);
+  });
+});

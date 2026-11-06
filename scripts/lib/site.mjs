@@ -17,9 +17,52 @@ export const BUILD_FORMAT = 'pearl-sea-build/1';
 export const OFFLINE_PACK_ID = 'pearl-sea';
 export const OFFLINE_NAMESPACE = 'pearl-sea';
 export const OFFLINE_ERROR_MESSAGE = 'pearl-sea-offline-error';
+/** The grade-4 art's own pack, installed only once a child reaches grade 4 (docs/app.md §11). */
+export const OFFLINE_GRADE_FOUR_PACK_ID = 'pearl-sea-grade-4';
+
+/** The core graph (everything grade 3 and shared) and the grade-4 art's graph. */
+export const CORE_GRAPH = 'resource-graph.json';
+export const GRADE_FOUR_GRAPH = 'resource-graph-grade-4.json';
 
 /** Files that describe the graph or install it; they are deliberately not members of it. */
-export const OUTSIDE_GRAPH = new Set(['sw.js', 'resource-graph.json', 'build-report.json']);
+export const OUTSIDE_GRAPH = new Set(['sw.js', CORE_GRAPH, GRADE_FOUR_GRAPH, 'build-report.json']);
+
+/** The art catalog's tag of an entry in the grade-4 pack (`pack` in the contract's ArtEntry). */
+export const GRADE_FOUR_PACK = 'grade-4';
+
+/**
+ * The site paths of the grade-4 pack: the files of the art catalog's entries tagged `grade-4`.
+ * @param {string} directory a built (or staged) site
+ * @returns {Set<string>} forward-slash paths relative to the site
+ */
+export function gradeFourPaths(directory) {
+  const catalog = JSON.parse(
+    readFileSync(join(directory, 'assets', 'art', 'catalog.json'), 'utf8'),
+  );
+  return new Set(
+    (catalog.entries ?? [])
+      .filter((/** @type {any} */ entry) => entry.pack === GRADE_FOUR_PACK)
+      .map((/** @type {any} */ entry) => `assets/art/${entry.file}`),
+  );
+}
+
+/**
+ * Split a site's resources into the core graph's and the grade-4 graph's, in order.
+ * @template {{ src: string }} R
+ * @param {readonly R[]} resources
+ * @param {Set<string>} gradeFour site paths of the grade-4 pack
+ * @param {string} base
+ */
+export function splitResources(resources, gradeFour, base) {
+  /** @type {R[]} */
+  const core = [];
+  /** @type {R[]} */
+  const grade = [];
+  for (const resource of resources) {
+    (gradeFour.has(resource.src.slice(base.length)) ? grade : core).push(resource);
+  }
+  return { core, gradeFour: grade };
+}
 
 /** Per-file and per-pack budgets; the SDK defaults, restated so the build fails first and clearly. */
 export const MAX_FILE_BYTES = 32 * 1024 * 1024;
@@ -165,11 +208,24 @@ export function verifySite(directory) {
   const report = JSON.parse(readFileSync(join(directory, 'build-report.json'), 'utf8'));
   if (report.format !== BUILD_FORMAT) throw new Error(`Not a ${BUILD_FORMAT} build: ${directory}`);
   const base = validateBase(report.base);
-  const graph = JSON.parse(readFileSync(join(directory, 'resource-graph.json'), 'utf8'));
+  const graph = JSON.parse(readFileSync(join(directory, CORE_GRAPH), 'utf8'));
   if (graph.id !== OFFLINE_PACK_ID) throw new Error(`Unexpected pack id ${graph.id}`);
   if (graph.revision !== report.revision) throw new Error('Graph and report revisions differ.');
   validateOfflinePack(graph, new URL(base, 'https://pearl-sea.invalid').href);
-  const actual = describeResources(directory, base);
+  const grade = JSON.parse(readFileSync(join(directory, GRADE_FOUR_GRAPH), 'utf8'));
+  if (grade.id !== OFFLINE_GRADE_FOUR_PACK_ID) throw new Error(`Unexpected pack id ${grade.id}`);
+  if (grade.revision !== report.revision) throw new Error('Grade-4 graph revision differs.');
+  // An empty grade-4 pack (no grade-4 art yet) is never installed; the SDK refuses empty graphs.
+  if (grade.resources.length > 0) {
+    validateOfflinePack(grade, new URL(base, 'https://pearl-sea.invalid').href);
+  }
+  const split = splitResources(describeResources(directory, base), gradeFourPaths(directory), base);
+  if (JSON.stringify(split.gradeFour) !== JSON.stringify(grade.resources)) {
+    throw new Error(
+      `${GRADE_FOUR_GRAPH} does not list exactly the art catalog's grade-4 files on disk.`,
+    );
+  }
+  const actual = split.core;
   const declared = JSON.stringify(graph.resources);
   if (JSON.stringify(actual) !== declared) {
     const expected = new Map(graph.resources.map((/** @type {any} */ r) => [r.src, r]));

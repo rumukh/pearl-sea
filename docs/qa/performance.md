@@ -8,18 +8,19 @@ measurements to the QA summary ("Performance"), so a budget is revisited with nu
 
 ## Budgets
 
-| What                                                    | Budget       | Now          | Notes                                                                                   |
-| ------------------------------------------------------- | ------------ | ------------ | --------------------------------------------------------------------------------------- |
-| `app.js` as built / gzipped                             | 650 / 210 KB | 514 / 168 KB | the whole game: rules, SDK, screens, inline SVG art                                     |
-| `app.css` as built / gzipped                            | 100 / 20 KB  | 71 / 13 KB   |                                                                                         |
-| Offline pack without its audio                          | 8.5 MB       | 8.26 MB      | 217 files: the slice plus all of regions 2-7                                            |
-| Whole offline pack (`resource-graph.json`)              | 11 MB        | 10.99 MB     | the audio is 2.74 MB of it; under 10 KB left                                            |
-| First visit: downloaded before the title (uncompressed) | 2.4 MB       | 2.10 MB      | 510 KB as GitHub Pages sends it (budget 600 KB), with the title's painting; 520 KB live |
-| First visit, fast 4G, processor ×4: title ready         | 5 s          | 2.85 s       | first paint 0.36 s (budget 1.5 s); live site: 1.45 s                                    |
-| First visit, slow 4G, processor ×4: title ready         | 16 s         | 12.09 s      | first paint 1.13 s (budget 3 s); the test server sends text uncompressed; live: 4.33 s  |
-| Feedback after an answer, processor ×4 (median of 7)    | 500 ms       | 101 ms       | slowest of the seven 122 ms                                                             |
-| Longest task while a round is played, processor ×4      | 400 ms       | 101 ms       | 8 long tasks (over 50 ms) in seven answers                                              |
-| Decoded audio                                           | 48 MiB       | 23.3 MiB     | after the grotto, the battle and the sting; 31.5 MiB if all four sounds are decoded     |
+| What                                                       | Budget       | Now          | Notes                                                                                   |
+| ---------------------------------------------------------- | ------------ | ------------ | --------------------------------------------------------------------------------------- |
+| `app.js` as built / gzipped                                | 650 / 210 KB | 514 / 168 KB | the whole game: rules, SDK, screens, inline SVG art                                     |
+| `app.css` as built / gzipped                               | 100 / 20 KB  | 71 / 13 KB   |                                                                                         |
+| Offline pack without its audio (core)                      | 8.5 MB       | 8.26 MB      | 217 files: the slice plus all of regions 2-7                                            |
+| Whole offline pack (core, `resource-graph.json`)           | 11 MB        | 10.99 MB     | the audio is 2.74 MB of it; under 10 KB left                                            |
+| Grade-4 pack without audio (`resource-graph-grade-4.json`) | 4 MB         | 0 MB         | regions 8-12 and the deep sea's map (S5, one PR per region); installed only at grade 4  |
+| First visit: downloaded before the title (uncompressed)    | 2.4 MB       | 2.10 MB      | 510 KB as GitHub Pages sends it (budget 600 KB), with the title's painting; 520 KB live |
+| First visit, fast 4G, processor ×4: title ready            | 5 s          | 2.85 s       | first paint 0.36 s (budget 1.5 s); live site: 1.45 s                                    |
+| First visit, slow 4G, processor ×4: title ready            | 16 s         | 12.09 s      | first paint 1.13 s (budget 3 s); the test server sends text uncompressed; live: 4.33 s  |
+| Feedback after an answer, processor ×4 (median of 7)       | 500 ms       | 101 ms       | slowest of the seven 122 ms                                                             |
+| Longest task while a round is played, processor ×4         | 400 ms       | 101 ms       | 8 long tasks (over 50 ms) in seven answers                                              |
+| Decoded audio                                              | 48 MiB       | 23.3 MiB     | after the grotto, the battle and the sting; 31.5 MiB if all four sounds are decoded     |
 
 "Now" is main `f073cff` (content 1.2.5, after #38's art and #42) with this branch's specs,
 measured in Edge on the development machine with the browser alone (one worker), 2026-11-01; the
@@ -53,7 +54,9 @@ painting is fetched at boot beside it (since #42, PS-QA-20), so the title appear
 painting. Nothing else loads until the child does something: the other paintings when their
 screen first shows them, each music loop when it first plays (the grotto's 626 KB at the first
 tap), and the offline pack only when a grown-up installs it (10.99 MB, in the background, with
-progress shown).
+progress shown). The grade-4 art is a pack of its own (budget 4 MB): it is installed in the
+background only once a child at grade 4 plays on a device where the core pack is installed, so a
+first visit and a 3rd grader's device never download it (`test/e2e/grade-four.spec.ts`).
 
 ## The deployed site
 

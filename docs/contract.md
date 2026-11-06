@@ -601,8 +601,10 @@ Content and views name art by art ID (`ART` in `media.ts`):
 
 S5 publishes `assets/art/catalog.json` (`ART_CATALOG_PATH`) in the format
 `pearl-sea-art-catalog/1`: `{ format, entries: { id, kind: 'painted' | 'svg', file, width, height,
-anchors? }[] }` (`artCatalogSchema`; `file` is relative to `assets/art/`; for an SVG, `width` and
-`height` are its viewBox size). The eggs, cosmetics, the crown and sticker art are static SVG files
+anchors?, pack? }[] }` (`artCatalogSchema`; `file` is relative to `assets/art/`; for an SVG, `width` and
+`height` are its viewBox size; `pack: 'grade-4'` (`ART_PACKS`) puts the file in the grade-4
+offline pack, `OFFLINE_GRADE_FOUR_PACK_ID`, installed only once a child reaches grade 4; no `pack`
+is the core pack). The eggs, cosmetics, the crown and sticker art are static SVG files
 that S5 makes and lists in the catalog beside the paintings; the shell (S4) renders them. Painted
 friends publish **anchors** so SVG cosmetics sit on painted creatures: for each of `head`, `eyes`
 and `neck`, a point `{ x, y }` in thousandths of the image box from its top left, the cosmetic's

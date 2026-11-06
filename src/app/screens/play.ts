@@ -10,7 +10,7 @@
  * is still in progress (the rules refuse then, and the next visit tries again). Entering it starts
  * the day's session when the local date has changed (time reaches the rules only as this date).
  */
-import { applyPendingGrade } from '../game/grade';
+import { applyPendingGrade, gradeOf } from '../game/grade';
 import { dayBaseline, gameDay } from '../game/view';
 import { localDay } from '../persistence/day';
 import type { ScreenEntry } from '../router/router';
@@ -43,6 +43,15 @@ export function playScreen(app: App, diverId: string): ScreenEntry {
       await applyPendingGrade(app, active);
       await startToday(active, today);
       const view = active.game.view();
+      // A 4th grader's art is installed for offline play now, in the background (never before).
+      if (gradeOf(view) === 4) {
+        void app.offline
+          .ensureGradeFour()
+          .then((state) => {
+            if (state === 'ready') app.art.setInstalled('grade-4');
+          })
+          .catch(() => undefined);
+      }
       switch (view.screen) {
         case 'story':
           if (view.story) return storyScreen(app, active);

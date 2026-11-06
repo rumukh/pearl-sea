@@ -32,6 +32,7 @@ import {
   FAMILY_GAME_ID,
   GAME_ID,
   OFFLINE_ERROR_MESSAGE,
+  OFFLINE_GRADE_FOUR_PACK_ID,
   OFFLINE_NAMESPACE,
   OFFLINE_PACK_ID,
   PREFERENCES_GAME_ID,
@@ -77,6 +78,7 @@ const OURS: Record<string, string> = {
   PREFERENCES_GAME_ID,
   DAY_GAME_ID,
   OFFLINE_PACK_ID,
+  OFFLINE_GRADE_FOUR_PACK_ID,
   OFFLINE_NAMESPACE,
   OFFLINE_ERROR_MESSAGE,
   BACKUP_FORMAT,
@@ -150,6 +152,7 @@ describe('every storage name belongs to this game', () => {
 
   it('builds the worker with the same pack ID, namespace and message as the contract', () => {
     expect(site.OFFLINE_PACK_ID).toBe(OFFLINE_PACK_ID);
+    expect(site.OFFLINE_GRADE_FOUR_PACK_ID).toBe(OFFLINE_GRADE_FOUR_PACK_ID);
     expect(site.OFFLINE_NAMESPACE).toBe(OFFLINE_NAMESPACE);
     expect(site.OFFLINE_ERROR_MESSAGE).toBe(OFFLINE_ERROR_MESSAGE);
   });

@@ -284,7 +284,7 @@ node scripts/art/svg/preview.mjs board.png # a review board rendered by Chromium
 - **Eggs** (`egg/<friend>`): 120 × 160 (3:4). The egg wears its friend's colours and a motif from
   its memory hook: Krab Tvrďák's band of seven spikes, Medúzka Měkulka's nine tentacles, Želva
   Obojka's eight plates, Barakuda Bystřinka's five bars and speed lines, Lachtan Lyžař's two
-  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart.
+  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms.
 - **Regions**: each region after the lagoon has its own module, `scripts/art/svg/regions/<region>.mjs`,
   exporting its eggs, sticker icons and cosmetics; `eggs.mjs`, `stickers.mjs` and `cosmetics.mjs`
   spread them into their lists. Scarves share `scarf.mjs`. Every sticker icon is checked to stay

@@ -2838,6 +2838,286 @@
       }
     },
     {
+      "id": "friend/kalmar-desetiruky/baby",
+      "file": "friends/kalmar-desetiruky-baby.webp",
+      "width": 896,
+      "height": 856,
+      "bytes": 57474,
+      "sha256": "ad9b60599022c6ada8bd0d84719e0119e2eb70261fafd04b256f74f158ab68c2",
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 70,
+          "scale": 90,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 451,
+          "scale": 120,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 665,
+          "scale": 95,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/kalmar-desetiruky-baby.prompt.txt",
+      "approvedImage": {
+        "image": "kalmar-desetiruky/kalmar-desetiruky-baby-b-sketchv1-s119111.png",
+        "sha256": "d70d9362b69802e60c9cc6d944515ce594826e80b97205df7d5b1a8838d12286"
+      },
+      "lineage": [
+        {
+          "image": "kalmar-desetiruky/kalmar-desetiruky-baby-b-sketchv1-s119111.png",
+          "sha256": "d70d9362b69802e60c9cc6d944515ce594826e80b97205df7d5b1a8838d12286",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly ten short arms below his head, each clearly separate: eight short arms and two slightly longer tentacles with round tips at the outside; two little triangular fins at the top of his mantle; two big round eyes. It shows Kalmar Desetiruký as a tiny hatchling: a sweet baby squid facing the viewer with his short, chubby mantle pointing up, an animal character and not a human, rosy pink-purple with a few pale spots, big friendly violet eyes, a small smile and rosy cheeks. He is the young version of the grown-up Kalmar Desetiruký: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, legs, feet, clothes, octopus, eight arms, nine arms, eleven arms, twelve arms, tangled arms, arms merged together, jellyfish, blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 119111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "kalmar-desetiruky/ref-kalmar-desetiruky-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py kalmar-baby), repainted in place",
+              "sha256": "b9a225f4a6eeb7abdc5840e8723998abd69f0190aced7e60981138601b2b8967",
+              "sketch": "scripts/art/authoring/sketches.py kalmar-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "6dd261ec33e09567dcd5f3deee272d7fbd5d176b8f52b400e873b98a955a5e3c",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9867,
+          "options": "--keep-marks 200",
+          "optionsWhy": "As the grown-up: the gaps between the arms open."
+        },
+        {
+          "step": "trim",
+          "box": [
+            128,
+            178,
+            1201,
+            1203
+          ],
+          "marginPx": 21,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.835042,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            856
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 42.81,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate19-vents-derived",
+        "decidedAt": "2026-11-06T19:08:13.124840+01:00",
+        "question": "(Delegated) Gate 19, Sopečné prameny derived forms: Kalmar baby A/B, Úhoř freed A/B.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose Kalmar baby s119111 and Úhoř freed s120112; reasons in agent-review-log.jsonl.",
+        "chosen": "Kalmar baby A"
+      }
+    },
+    {
+      "id": "friend/kalmar-desetiruky/grown",
+      "file": "friends/kalmar-desetiruky-grown.webp",
+      "width": 882,
+      "height": 896,
+      "bytes": 63622,
+      "sha256": "2ba986d965cf52a2c471bf6d1648867e229d0060e9dd33dd056d5f7725b260a5",
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 88,
+          "scale": 80,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 487,
+          "scale": 110,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 640,
+          "scale": 90,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/kalmar-desetiruky-grown.prompt.txt",
+      "approvedImage": {
+        "image": "kalmar-desetiruky/kalmar-desetiruky-adult-b-sketchv1-s119011.png",
+        "sha256": "8d3f78151a4eff7a58287bd923759b008ff6e4538ad5ad837367df40bd2f648d"
+      },
+      "lineage": [
+        {
+          "image": "kalmar-desetiruky/kalmar-desetiruky-adult-b-sketchv1-s119011.png",
+          "sha256": "8d3f78151a4eff7a58287bd923759b008ff6e4538ad5ad837367df40bd2f648d",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly ten arms fanning out below his head, each clearly separate: eight shorter arms and two longer tentacles with wider, paddle-shaped tips at the outside; two triangular fins at the top of his mantle; two big round eyes. It shows Kalmar Desetiruký, a cheerful, clever squid facing the viewer with his long rounded mantle pointing up, an animal character and not a human: rosy pink-purple with a few pale spots on the mantle and small pale suckers on the arms, big friendly violet eyes, a small smile and rosy cheeks. Busy, helpful and friendly: ten arms, one for each part of speech.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, glow, octopus, eight arms, nine arms, eleven arms, twelve arms, tangled arms, arms merged together, jellyfish",
+          "seed": 119011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "kalmar-desetiruky/ref-kalmar-desetiruky-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py kalmar), repainted in place",
+              "sha256": "9ef2e1786f571a9a22a6714f3ddfbb48e5f7a25468b9dd281797b1abd2d39c2e",
+              "sketch": "scripts/art/authoring/sketches.py kalmar (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "c954c1b57249d4c68d59d87aea39225c3ba5c2515f894e94be2915c66df68458",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.976,
+          "options": "--keep-marks 200",
+          "optionsWhy": "Keeps the small pale suckers and spots that sit at the outline; the default hole rule opens the real gaps between the ten arms."
+        },
+        {
+          "step": "trim",
+          "box": [
+            85,
+            47,
+            1243,
+            1224
+          ],
+          "marginPx": 23,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.761257,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            882,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 43.04,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate15-vents-masters",
+        "decidedAt": "2026-11-06T18:13:40.392668+01:00",
+        "question": "Gate 15, Sopečné prameny masters (images in my gate15-vents-masters folder: scene A/B with the level spots, Kalmar A/B, Lávový úhoř Žhavák inked A/B, the vents' SVG egg, stickers and cosmetics, and the recommended set together). Recommended: scene A (steaming chimneys, all spots clear), Kalmar A (a squid with exactly ten arms), Úhoř A (a grumpy charcoal lava eel letting off steam). Which set should I use?",
+        "answer": "Recommended: scene A, Kalmar A, Úhoř A, SVG art as shown",
+        "chosen": "Kalmar A"
+      }
+    },
+    {
       "id": "friend/konik-mydlinek/baby",
       "file": "friends/konik-mydlinek-baby.webp",
       "width": 820,
@@ -6865,6 +7145,304 @@
       }
     },
     {
+      "id": "monster/uhor-zhavak/freed",
+      "file": "monsters/uhor-zhavak-freed.webp",
+      "width": 790,
+      "height": 896,
+      "bytes": 46536,
+      "sha256": "11c754966365a0010723b339b5db69862bfc6d3041eb0879074bd1d0931d87f1",
+      "anchors": null,
+      "promptFile": "prompts/uhor-zhavak-freed.prompt.txt",
+      "approvedImage": {
+        "image": "uhor-zhavak/uhor-zhavak-freed-b-from-master-s120112.png",
+        "sha256": "08d6b8b8f7f16dbbe3e82e9fee7adc16de63bcb5c424721ed6e967a6d504c995"
+      },
+      "lineage": [
+        {
+          "image": "uhor-zhavak/uhor-zhavak-freed-b-from-master-s120112.png",
+          "sha256": "08d6b8b8f7f16dbbe3e82e9fee7adc16de63bcb5c424721ed6e967a6d504c995",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon lava eel Žhavák. All of the black and dark-violet magic ink has been washed away, he has cooled down and he is happy again. Keep exactly the same character, pose, S-curved body shape, pointed head, pectoral fin, the fin rim round his rear half and tail, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch and the steam puffs, revealing his clean, bright colours everywhere: a warm coral-orange body with a few soft golden spots and a pale belly. Change only his expression: a big, friendly, grateful smile with a bright, wide-open happy eye, a relaxed raised eyebrow and a rosy cheek. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, steam, smoke, fire, flames, lava cracks, dirty, grumpy, angry, frowning, fangs, teeth, snake, cobra, moray, glowing eyes, extra eyes, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 120112,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "uhor-zhavak/uhor-zhavak-inked-b-sketchv1-s120011.png",
+              "role": "source image edited in place: the approved inked master s120011 (gate 15)",
+              "sha256": "5957e5dfe7aa06cd7b6e163d7518aa58a68d0637754fdbc4eff37cf99847d2ae"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "uhor-zhavak/uhor-zhavak-inked-b-sketchv1-s120011.png",
+          "sha256": "5957e5dfe7aa06cd7b6e163d7518aa58a68d0637754fdbc4eff37cf99847d2ae",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one long, smooth body in an S-curve; a pointed head with a small mouth and a slightly jutting lower jaw; one small pectoral fin just behind the head; one low soft fin rimming the rear half of his body and running round the pointed tail; three puffs of steam rising above his back. It shows Lávový úhoř Žhavák, a real eel and not a moray, not a snake, a grumpy lava eel soaked in magic black ink: charcoal-dark skin with glowing orange lava cracks and warm glowing spots, an orange eye under a frowning eyebrow and a cross pout, no teeth. Glossy black and dark-violet magic ink covers part of him: blots and little highlights. He is hot-tempered and steaming. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, sharp fangs, teeth, open jaws, blood, gore, horror, fire, flames, burning, snake, cobra, moray, dragon, glowing eyes",
+          "seed": 120011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "uhor-zhavak/ref-uhor-zhavak-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py uhor-inked), repainted in place",
+              "sha256": "5c541c958a8576f4abc667871c863a6ac746557df93e46b0227d93c20f5e2086",
+              "sketch": "scripts/art/authoring/sketches.py uhor-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "a89664b5632ce039b7afe38d02b7b370c4beccf2cfa6a7baf9d1bb3fd7ee52b3",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9867,
+          "options": "--keep-marks 200",
+          "optionsWhy": "As the inked form: the gaps inside the S-curve open."
+        },
+        {
+          "step": "trim",
+          "box": [
+            107,
+            169,
+            1082,
+            1275
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/uhor-zhavak/freed",
+            "monster/uhor-zhavak/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.810127,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            790,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 42.46,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate19-vents-derived",
+        "decidedAt": "2026-11-06T19:08:13.124840+01:00",
+        "question": "(Delegated) Gate 19, Sopečné prameny derived forms: Kalmar baby A/B, Úhoř freed A/B.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose Kalmar baby s119111 and Úhoř freed s120112; reasons in agent-review-log.jsonl.",
+        "chosen": "Úhoř freed B"
+      }
+    },
+    {
+      "id": "monster/uhor-zhavak/inked",
+      "file": "monsters/uhor-zhavak-inked.webp",
+      "width": 790,
+      "height": 896,
+      "bytes": 62054,
+      "sha256": "a1f344d36b1b1feaa772b95e81fafdf8b5492012393b0924120b900d6de7123d",
+      "anchors": null,
+      "promptFile": "prompts/uhor-zhavak-inked.prompt.txt",
+      "approvedImage": {
+        "image": "uhor-zhavak/uhor-zhavak-inked-b-sketchv1-s120011.png",
+        "sha256": "5957e5dfe7aa06cd7b6e163d7518aa58a68d0637754fdbc4eff37cf99847d2ae"
+      },
+      "lineage": [
+        {
+          "image": "uhor-zhavak/uhor-zhavak-inked-b-sketchv1-s120011.png",
+          "sha256": "5957e5dfe7aa06cd7b6e163d7518aa58a68d0637754fdbc4eff37cf99847d2ae",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one long, smooth body in an S-curve; a pointed head with a small mouth and a slightly jutting lower jaw; one small pectoral fin just behind the head; one low soft fin rimming the rear half of his body and running round the pointed tail; three puffs of steam rising above his back. It shows Lávový úhoř Žhavák, a real eel and not a moray, not a snake, a grumpy lava eel soaked in magic black ink: charcoal-dark skin with glowing orange lava cracks and warm glowing spots, an orange eye under a frowning eyebrow and a cross pout, no teeth. Glossy black and dark-violet magic ink covers part of him: blots and little highlights. He is hot-tempered and steaming. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, sharp fangs, teeth, open jaws, blood, gore, horror, fire, flames, burning, snake, cobra, moray, dragon, glowing eyes",
+          "seed": 120011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "uhor-zhavak/ref-uhor-zhavak-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py uhor-inked), repainted in place",
+              "sha256": "5c541c958a8576f4abc667871c863a6ac746557df93e46b0227d93c20f5e2086",
+              "sketch": "scripts/art/authoring/sketches.py uhor-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "79b6dadf43230519b7f71ce71d4c7b0dbd2d0d7de15ee762f069ded2062a8132",
+          "holesOpened": 0,
+          "specksRemoved": 103,
+          "iouWithU2net": 0.9384,
+          "options": "--keep-marks 200",
+          "optionsWhy": "Keeps the detached steam puffs and ink droplets; the default hole rule opens the gaps inside the S-curve."
+        },
+        {
+          "step": "trim",
+          "box": [
+            107,
+            169,
+            1082,
+            1275
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/uhor-zhavak/freed",
+            "monster/uhor-zhavak/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.810127,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            790,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 41.83,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate15-vents-masters",
+        "decidedAt": "2026-11-06T18:13:40.392668+01:00",
+        "question": "Gate 15, Sopečné prameny masters (images in my gate15-vents-masters folder: scene A/B with the level spots, Kalmar A/B, Lávový úhoř Žhavák inked A/B, the vents' SVG egg, stickers and cosmetics, and the recommended set together). Recommended: scene A (steaming chimneys, all spots clear), Kalmar A (a squid with exactly ten arms), Úhoř A (a grumpy charcoal lava eel letting off steam). Which set should I use?",
+        "answer": "Recommended: scene A, Kalmar A, Úhoř A, SVG art as shown",
+        "chosen": "Úhoř A"
+      }
+    },
+    {
       "id": "monster/zeva-lakoma/freed",
       "file": "monsters/zeva-lakoma-freed.webp",
       "width": 896,
@@ -8236,6 +8814,104 @@
         "question": "Gate 3a, the Slunná laguna scene and the title backdrop (image gate3a-lagoon-title.jpg in my gate3 folder). In both lagoon takes the seven level nodes and their route sit on open water and sand, and the monster's node sits above Murena's cave; A has more open water. Both titles show a glowing pearl shell with open water above for the title text and the ink creeping in; in Title A the ink is a little ink creature. Which lagoon and which title should I use?",
         "answer": "Lagoon A and Title A (Recommended)",
         "chosen": "Title A"
+      }
+    },
+    {
+      "id": "scene/volcanic-vents",
+      "file": "scenes/volcanic-vents.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 65922,
+      "sha256": "47560235fa9b3e7b74654df934d58c642a8d057633d6c8737f63425ef97d3d13",
+      "anchors": null,
+      "promptFile": "prompts/volcanic-vents.prompt.txt",
+      "approvedImage": {
+        "image": "bg-volcanic-vents/bg-volcanic-vents-v1-s118011.png",
+        "sha256": "cc02734f18c26e9458a934f034e8069f18f84d1905503c89a841fe857dd88fe5"
+      },
+      "lineage": [
+        {
+          "image": "bg-volcanic-vents/bg-volcanic-vents-v1-s118011.png",
+          "sha256": "cc02734f18c26e9458a934f034e8069f18f84d1905503c89a841fe857dd88fe5",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Sopečné prameny, warm volcanic springs on a deeper sea floor, seen from inside the water. Keep exactly the same composition: soft sunbeams slanting down from far above; a wide, calm, open band of clear blue water and smooth dark volcanic sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner a dark, rounded volcanic ridge with three small rock chimneys glowing warm orange at their tops and puffing soft white bubbly steam; in the bottom-right foreground smooth dark pebbles with little glowing orange spots; at the right edge a big black rock chimney with one glowing orange crack where a sea monster lives, mysterious but not scary; the sandy floor along the bottom with a few pale pebbles. Tiny bubbles rising, a gentle warm glow mixing with the cool blue water.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of deep teal, sea blue, charcoal, warm orange, amber and a little rosy pink, gentle depth haze toward the back. Warm, magical and inviting, never scary. No fish, no animals, no people, no characters, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, signpost, board, frame, border, fish, animals, people, characters, submarine, boat, ship, treasure chest, photorealistic, 3d render, scary, sky, land, volcano on land, fire, flames, explosion, lava flood",
+          "seed": 118011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-volcanic-vents/ref-bg-volcanic-vents-sketch-v1.png",
+              "role": "composition sketch on the shell's levelSpots(7) (Pillow colour blocking, sketches.py vents), repainted in place",
+              "sha256": "cf1e34071fb22211671510d06b4f9f0b48c2d44e8eb3b433419bbd80f9da1c0c",
+              "sketch": "scripts/art/authoring/sketches.py vents (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 41.54,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate15-vents-masters",
+        "decidedAt": "2026-11-06T18:13:40.392668+01:00",
+        "question": "Gate 15, Sopečné prameny masters (images in my gate15-vents-masters folder: scene A/B with the level spots, Kalmar A/B, Lávový úhoř Žhavák inked A/B, the vents' SVG egg, stickers and cosmetics, and the recommended set together). Recommended: scene A (steaming chimneys, all spots clear), Kalmar A (a squid with exactly ten arms), Úhoř A (a grumpy charcoal lava eel letting off steam). Which set should I use?",
+        "answer": "Recommended: scene A, Kalmar A, Úhoř A, SVG art as shown",
+        "chosen": "Scene A"
       }
     }
   ]

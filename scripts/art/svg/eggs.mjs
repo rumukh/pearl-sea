@@ -13,6 +13,7 @@ import { CORAL_REEF_EGGS } from './regions/coral-reef.mjs';
 import { KELP_FOREST_EGGS } from './regions/kelp-forest.mjs';
 import { PIRATE_WRECK_EGGS } from './regions/pirate-wreck.mjs';
 import { PEARL_BAY_EGGS } from './regions/pearl-bay.mjs';
+import { VOLCANIC_VENTS_EGGS } from './regions/volcanic-vents.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -142,6 +143,7 @@ export const EGG_DESIGNS = [
   ...KELP_FOREST_EGGS,
   ...PIRATE_WRECK_EGGS,
   ...PEARL_BAY_EGGS,
+  ...VOLCANIC_VENTS_EGGS,
 ];
 
 /**

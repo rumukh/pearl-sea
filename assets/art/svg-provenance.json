@@ -20,6 +20,14 @@
       "sha256": "d001bb813d20377957691c155a0f7362e09c923971794239762e9b831c54188c"
     },
     {
+      "id": "cosmetic/cap-flames",
+      "file": "cosmetics/cap-flames.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2058,
+      "sha256": "4bc7fb4a9774bb198245b09cffc518df4f7e119cf8186fe8775348756dc90922"
+    },
+    {
       "id": "cosmetic/cap-sailor",
       "file": "cosmetics/cap-sailor.svg",
       "width": 100,
@@ -82,6 +90,14 @@
       "height": 100,
       "bytes": 2174,
       "sha256": "847b78f930924d0b70e76f07624d6c5027b7dba3f8dfc75c66ea2d17e0ab6529"
+    },
+    {
+      "id": "cosmetic/goggles-steam",
+      "file": "cosmetics/goggles-steam.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 3157,
+      "sha256": "36838e077ee56c9866a5a2ea1ca930e5e81d589e8de41e1e48304a69dca5de07"
     },
     {
       "id": "cosmetic/hat-kelp",
@@ -180,6 +196,14 @@
       "sha256": "6798c15f9c9552f5aa6017c97135d3a2872f0e97545ea58baff6b7c13ef79ab5"
     },
     {
+      "id": "cosmetic/stones-warm",
+      "file": "cosmetics/stones-warm.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2903,
+      "sha256": "a940c14d38e0347d633b7991ca61d979b1a59042dda41df47e743ce7ee0c4769"
+    },
+    {
       "id": "cosmetic/string-pearls",
       "file": "cosmetics/string-pearls.svg",
       "width": 100,
@@ -226,6 +250,14 @@
       "height": 160,
       "bytes": 2444,
       "sha256": "c810184baa297bb06f950c5742a6866de80043daeb2ee67a95057e01b18680a3"
+    },
+    {
+      "id": "egg/kalmar-desetiruky",
+      "file": "eggs/kalmar-desetiruky.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 2814,
+      "sha256": "62663f9397db2ec184c6041d0530e06c97af5b677ea3cb802e5188b2e1729311"
     },
     {
       "id": "egg/konik-mydlinek",
@@ -316,6 +348,14 @@
       "sha256": "9e5e92eecc1016eaa12fb6fb1173bcc920bb1ac498304fdb4cb25ab8abda6f13"
     },
     {
+      "id": "sticker/cool-eel",
+      "file": "stickers/cool-eel.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1955,
+      "sha256": "be1bbc425ba9427f0ce555fef77352e8f6cf64a8787993384f29e3bf0416ed5a"
+    },
+    {
       "id": "sticker/egg-hatching",
       "file": "stickers/egg-hatching.svg",
       "width": 100,
@@ -330,6 +370,14 @@
       "height": 100,
       "bytes": 1893,
       "sha256": "00a4e6c3e56b38387613c694c869a45ce0b25f4909906818140898080d1d8c31"
+    },
+    {
+      "id": "sticker/flame-row",
+      "file": "stickers/flame-row.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2170,
+      "sha256": "8668c5abc0f348b18d85b23dbb8f4add0d1ce8d4cf098373582a8d74682233b4"
     },
     {
       "id": "sticker/frame-shell",
@@ -452,6 +500,14 @@
       "sha256": "e3c758d09c2b50db21c674f2931e730e5154a295c6dd34de64e3851b43f998d1"
     },
     {
+      "id": "sticker/squid",
+      "file": "stickers/squid.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 6227,
+      "sha256": "58aced1e769f2e4eff1d5b3ff7fe762a444acd04230e5b73d4f04f2104c89b59"
+    },
+    {
       "id": "sticker/star-coral",
       "file": "stickers/star-coral.svg",
       "width": 100,
@@ -490,6 +546,14 @@
       "height": 100,
       "bytes": 2080,
       "sha256": "d88d2a95d4bdb71a6b76a5e33c86da18d3e198603fed0b843b4eff4ab9e2b1ac"
+    },
+    {
+      "id": "sticker/ten-arms",
+      "file": "stickers/ten-arms.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 5868,
+      "sha256": "4f2e87949d0c029f773144c4a74cd621566ee4e81796511336901c31475d0cbe"
     },
     {
       "id": "sticker/ten-shells",

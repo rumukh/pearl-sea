@@ -100,6 +100,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/cap-flames",
+      "kind": "svg",
+      "file": "cosmetics/cap-flames.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/cap-sailor",
       "kind": "svg",
       "file": "cosmetics/cap-sailor.svg",
@@ -152,6 +159,13 @@
       "id": "cosmetic/goggles-diving",
       "kind": "svg",
       "file": "cosmetics/goggles-diving.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/goggles-steam",
+      "kind": "svg",
+      "file": "cosmetics/goggles-steam.svg",
       "width": 100,
       "height": 100
     },
@@ -240,6 +254,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/stones-warm",
+      "kind": "svg",
+      "file": "cosmetics/stones-warm.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/string-pearls",
       "kind": "svg",
       "file": "cosmetics/string-pearls.svg",
@@ -278,6 +299,13 @@
       "id": "egg/jezik-sycik",
       "kind": "svg",
       "file": "eggs/jezik-sycik.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/kalmar-desetiruky",
+      "kind": "svg",
+      "file": "eggs/kalmar-desetiruky.svg",
       "width": 120,
       "height": 160
     },
@@ -542,6 +570,60 @@
           "x": 372,
           "y": 627,
           "scale": 70,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/kalmar-desetiruky/baby",
+      "kind": "painted",
+      "file": "friends/kalmar-desetiruky-baby.webp",
+      "width": 896,
+      "height": 856,
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 70,
+          "scale": 90,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 451,
+          "scale": 120,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 665,
+          "scale": 95,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/kalmar-desetiruky/grown",
+      "kind": "painted",
+      "file": "friends/kalmar-desetiruky-grown.webp",
+      "width": 882,
+      "height": 896,
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 88,
+          "scale": 80,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 487,
+          "scale": 110,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 640,
+          "scale": 90,
           "rotate": 0
         }
       }
@@ -1002,6 +1084,20 @@
       "height": 893
     },
     {
+      "id": "monster/uhor-zhavak/freed",
+      "kind": "painted",
+      "file": "monsters/uhor-zhavak-freed.webp",
+      "width": 790,
+      "height": 896
+    },
+    {
+      "id": "monster/uhor-zhavak/inked",
+      "kind": "painted",
+      "file": "monsters/uhor-zhavak-inked.webp",
+      "width": 790,
+      "height": 896
+    },
+    {
       "id": "monster/zeva-lakoma/freed",
       "kind": "painted",
       "file": "monsters/zeva-lakoma-freed.webp",
@@ -1079,6 +1175,13 @@
       "height": 928
     },
     {
+      "id": "scene/volcanic-vents",
+      "kind": "painted",
+      "file": "scenes/volcanic-vents.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
       "id": "sticker/barakuda",
       "kind": "svg",
       "file": "stickers/barakuda.svg",
@@ -1107,6 +1210,13 @@
       "height": 100
     },
     {
+      "id": "sticker/cool-eel",
+      "kind": "svg",
+      "file": "stickers/cool-eel.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/egg-hatching",
       "kind": "svg",
       "file": "stickers/egg-hatching.svg",
@@ -1117,6 +1227,13 @@
       "id": "sticker/emblem-sunny-lagoon",
       "kind": "svg",
       "file": "stickers/emblem-sunny-lagoon.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/flame-row",
+      "kind": "svg",
+      "file": "stickers/flame-row.svg",
       "width": 100,
       "height": 100
     },
@@ -1226,6 +1343,13 @@
       "height": 100
     },
     {
+      "id": "sticker/squid",
+      "kind": "svg",
+      "file": "stickers/squid.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/star-coral",
       "kind": "svg",
       "file": "stickers/star-coral.svg",
@@ -1257,6 +1381,13 @@
       "id": "sticker/sun-week",
       "kind": "svg",
       "file": "stickers/sun-week.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/ten-arms",
+      "kind": "svg",
+      "file": "stickers/ten-arms.svg",
       "width": 100,
       "height": 100
     },

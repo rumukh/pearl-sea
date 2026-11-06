@@ -117,6 +117,8 @@ test('a new diver plays the first lesson by keyboard alone', async ({ page }) =>
   expect(await storyByKeys(page)).toBe('screen-eggs');
   await tabTo(page, 'egg-krab-tvrdak');
   await page.keyboard.press('Enter');
+  // Dál appears once the choice is confirmed; with more art loading it can come a moment later.
+  await expect(page.getByTestId('eggs-next')).toBeEnabled({ timeout: 20_000 });
   await tabTo(page, 'eggs-next');
   await page.keyboard.press('Enter');
   await nextScreen(page, 'screen-eggs');

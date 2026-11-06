@@ -1998,6 +1998,286 @@
       }
     },
     {
+      "id": "friend/delfin-skokanek/baby",
+      "file": "friends/delfin-skokanek-baby.webp",
+      "width": 771,
+      "height": 832,
+      "bytes": 67248,
+      "sha256": "14034adc4c41a3800a0f3c172888baba1a546c6079fa983d49b019ad4c26e8f6",
+      "anchors": {
+        "head": {
+          "x": 469,
+          "y": 92,
+          "scale": 90,
+          "rotate": 10
+        },
+        "eyes": {
+          "x": 551,
+          "y": 237,
+          "scale": 60,
+          "rotate": 10
+        },
+        "neck": {
+          "x": 426,
+          "y": 387,
+          "scale": 75,
+          "rotate": 20
+        }
+      },
+      "promptFile": "prompts/delfin-skokanek-baby.prompt.txt",
+      "approvedImage": {
+        "image": "delfin-skokanek/delfin-skokanek-baby-b-sketchv1-s123111.png",
+        "sha256": "d27197d84d7c94508907ebad813e910e290fb0d58e70c5fb434a76171e95970c"
+      },
+      "lineage": [
+        {
+          "image": "delfin-skokanek/delfin-skokanek-baby-b-sketchv1-s123111.png",
+          "sha256": "d27197d84d7c94508907ebad813e910e290fb0d58e70c5fb434a76171e95970c",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one curved dorsal fin; one tail fluke with two lobes; one flipper; three water droplets flying off the wave. It shows Delfín Skokánek as a tiny hatchling: a sweet bottlenose dolphin calf leaping in a small arc to the right over a little curling wave with white foam, an animal character and not a human, short and chubby with a big head, a blue-grey body and a pale belly, a short beak with a big happy smile, a shiny eye and a rosy cheek. He is the young version of the grown-up Delfín Skokánek: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, shark, whale, orca, teeth, gills, two dolphins, plug, pipe",
+          "seed": 123111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "delfin-skokanek/ref-delfin-skokanek-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py delfin-baby), repainted in place",
+              "sha256": "638c78d87fc58da907e9c2b68bcd94e4cafec0f291b3c31d24abfe85d58fdaa7",
+              "sketch": "scripts/art/authoring/sketches.py delfin-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "31d7d246df793f49e8fba3f13b6fa463c4fb09a09f8185ff955b2fc2ded2d5bf",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9523,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the foam and droplets."
+        },
+        {
+          "step": "trim",
+          "box": [
+            277,
+            349,
+            1094,
+            1231
+          ],
+          "marginPx": 17,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.943311,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            771,
+            832
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 82, method 6, alpha quality 100",
+          "psnrDb": 39.8,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate20-ice-derived",
+        "decidedAt": "2026-11-06T20:26:43.223426+01:00",
+        "question": "(Delegated) Gate 20, Ledové moře derived forms: Tuleň pup A/B, Delfín calf A/B, Ledana freed A/B.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose Tuleň pup s122111, Delfín calf s123111 and Ledana freed s124112; reasons in agent-review-log.jsonl.",
+        "chosen": "Delfín calf A"
+      }
+    },
+    {
+      "id": "friend/delfin-skokanek/grown",
+      "file": "friends/delfin-skokanek-grown.webp",
+      "width": 832,
+      "height": 735,
+      "bytes": 63424,
+      "sha256": "65cbb8c3a2bd35f42e6cbcdf040f44f1efd64df7dec70c5c490e713e738f424b",
+      "anchors": {
+        "head": {
+          "x": 698,
+          "y": 171,
+          "scale": 75,
+          "rotate": 15
+        },
+        "eyes": {
+          "x": 765,
+          "y": 263,
+          "scale": 50,
+          "rotate": 15
+        },
+        "neck": {
+          "x": 634,
+          "y": 351,
+          "scale": 65,
+          "rotate": 30
+        }
+      },
+      "promptFile": "prompts/delfin-skokanek-grown.prompt.txt",
+      "approvedImage": {
+        "image": "delfin-skokanek/delfin-skokanek-adult-b-sketchv1-s123012.png",
+        "sha256": "aa1c44bb993c87ac61cb9837605b235ff48f13efb14c92e767a2dfb00deee2ae"
+      },
+      "lineage": [
+        {
+          "image": "delfin-skokanek/delfin-skokanek-adult-b-sketchv1-s123012.png",
+          "sha256": "aa1c44bb993c87ac61cb9837605b235ff48f13efb14c92e767a2dfb00deee2ae",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one curved dorsal fin; one tail fluke with two lobes; one flipper; a blowhole on top of his head; three water droplets flying off the wave. It shows Delfín Skokánek, a playful bottlenose dolphin leaping in a high arc to the right over a small curling wave with white foam, an animal character and not a human: a sleek blue-grey body with a pale belly, a short beak with a big happy smile, a shiny eye and a rosy cheek. Always on the move: jumping, swimming, playing. Joyful and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, shark, whale, orca, teeth, sharp teeth, gills, two dolphins",
+          "seed": 123012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "delfin-skokanek/ref-delfin-skokanek-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py delfin), repainted in place",
+              "sha256": "70ba9eaea2e3f58017a8aa38e4aa036afead65f1686ec74306aa5eabf881ab95",
+              "sketch": "scripts/art/authoring/sketches.py delfin (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "11bf89c6b363b19ea90ad1711e7b8bed7ca27a0faa3bbb1ec4607ef36d619f35",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.5864,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the white wave foam and the detached water droplets."
+        },
+        {
+          "step": "trim",
+          "box": [
+            90,
+            249,
+            1222,
+            1249
+          ],
+          "marginPx": 22,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.734982,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            832,
+            735
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 82, method 6, alpha quality 100",
+          "psnrDb": 40.16,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate18-ice-masters",
+        "decidedAt": "2026-11-06T18:28:10.397828+01:00",
+        "question": "(Delegated) Gate 18, Ledové moře masters: scene A/B, Tuleň A/B, Delfín A/B, Mořská saň Ledana inked A/B, and the ice-sea SVG art.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose scene B (s121012), Tuleň s122011, Delfín s123012, Ledana s124011 and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Delfín B"
+      }
+    },
+    {
       "id": "friend/hvezdice-rodinka/baby",
       "file": "friends/hvezdice-rodinka-baby.webp",
       "width": 860,
@@ -4836,6 +5116,286 @@
       }
     },
     {
+      "id": "friend/tulen-padik/baby",
+      "file": "friends/tulen-padik-baby.webp",
+      "width": 832,
+      "height": 783,
+      "bytes": 60148,
+      "sha256": "83ce604c329938f7d873414881ac711d5d38da111bb1cfc42e5997ad4a64b65e",
+      "anchors": {
+        "head": {
+          "x": 368,
+          "y": 275,
+          "scale": 105,
+          "rotate": -8
+        },
+        "eyes": {
+          "x": 388,
+          "y": 356,
+          "scale": 75,
+          "rotate": -6
+        },
+        "neck": {
+          "x": 372,
+          "y": 612,
+          "scale": 80,
+          "rotate": -15
+        }
+      },
+      "promptFile": "prompts/tulen-padik-baby.prompt.txt",
+      "approvedImage": {
+        "image": "tulen-padik/tulen-padik-baby-b-sketchv1-s122111.png",
+        "sha256": "f1a0f133909deef0b66c1fcee40ea62de4085699f2d61b3ce3487a9a0175b4df"
+      },
+      "lineage": [
+        {
+          "image": "tulen-padik/tulen-padik-baby-b-sketchv1-s122111.png",
+          "sha256": "f1a0f133909deef0b66c1fcee40ea62de4085699f2d61b3ce3487a9a0175b4df",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: a small staircase of exactly seven pale-blue icy steps rising from the bottom left to the top right, each with a frosty white top edge; the pup sliding belly-first down the steps, head first, two front flippers forward, hind flippers behind; no ear flaps. It shows Tuleň Pádík as a tiny hatchling: a sweet, round, chubby harbour-seal pup, a true seal and not a sea lion, an animal character and not a human, with a big head, a dappled soft grey coat, a pale muzzle with whisker dots, big dark shiny eyes, a happy smile and a rosy cheek. He is the young version of the grown-up Tuleň Pádík: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, ear flaps, sea lion, walrus, tusks, eight steps, six steps, railing",
+          "seed": 122111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "tulen-padik/ref-tulen-padik-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py tulen-baby), repainted in place",
+              "sha256": "55e333776fe1aa1da8ce57dad259323cfa05a5ec715b7a2d25a242ba9452c793",
+              "sketch": "scripts/art/authoring/sketches.py tulen-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "cac59b19fc74ecbb7e3281f3a610b124005dee5a794ed86eb794c852a63f308b",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.4862,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the pale icy steps."
+        },
+        {
+          "step": "trim",
+          "box": [
+            176,
+            221,
+            1234,
+            1217
+          ],
+          "marginPx": 20,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.786389,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            832,
+            783
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 82, method 6, alpha quality 100",
+          "psnrDb": 39.96,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate20-ice-derived",
+        "decidedAt": "2026-11-06T20:26:43.223426+01:00",
+        "question": "(Delegated) Gate 20, Ledové moře derived forms: Tuleň pup A/B, Delfín calf A/B, Ledana freed A/B.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose Tuleň pup s122111, Delfín calf s123111 and Ledana freed s124112; reasons in agent-review-log.jsonl.",
+        "chosen": "Tuleň pup A"
+      }
+    },
+    {
+      "id": "friend/tulen-padik/grown",
+      "file": "friends/tulen-padik-grown.webp",
+      "width": 828,
+      "height": 832,
+      "bytes": 52670,
+      "sha256": "63b32767843f16501f06780f5097708c35c667958de265ddf265d12fd3dfa89c",
+      "anchors": {
+        "head": {
+          "x": 334,
+          "y": 332,
+          "scale": 95,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 353,
+          "y": 419,
+          "scale": 65,
+          "rotate": -8
+        },
+        "neck": {
+          "x": 370,
+          "y": 604,
+          "scale": 75,
+          "rotate": -20
+        }
+      },
+      "promptFile": "prompts/tulen-padik-grown.prompt.txt",
+      "approvedImage": {
+        "image": "tulen-padik/tulen-padik-adult-b-sketchv1-s122011.png",
+        "sha256": "077287d0ba6fbdb3a7a52c056884875e20cfa19a49c11d3f39f79fb168b56340"
+      },
+      "lineage": [
+        {
+          "image": "tulen-padik/tulen-padik-adult-b-sketchv1-s122011.png",
+          "sha256": "077287d0ba6fbdb3a7a52c056884875e20cfa19a49c11d3f39f79fb168b56340",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: a staircase of exactly seven pale-blue icy steps rising from the bottom left to the top right, each step with a frosty white top edge; the seal sliding belly-first down the steps, head first, with two front flippers stretched forward and the hind flippers together behind; no ear flaps. It shows Tuleň Pádík, a round, cheerful harbour seal, a true seal and not a sea lion, an animal character and not a human: a dappled soft grey coat with darker spots, a pale muzzle with whisker dots, big dark shiny eyes, a happy smile and a rosy cheek. Whee! Playful and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, ear flaps, sea lion, walrus, tusks, eight steps, six steps, stairs with railing, snowman",
+          "seed": 122011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "tulen-padik/ref-tulen-padik-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py tulen), repainted in place",
+              "sha256": "883763a7658f126855e45d0fb5dc5ff132356dee16d73b4317ca6badfe911651",
+              "sketch": "scripts/art/authoring/sketches.py tulen (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "1cd1f4df23a1bf82e51259410b4baa348f1af8cd2dbbf2c7b0ad4e4a16444c97",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.3948,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the pale icy steps (the seven-cases mnemonic) and the frosty white edges, which are close to the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            107,
+            112,
+            1225,
+            1235
+          ],
+          "marginPx": 22,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.740873,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            828,
+            832
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 82, method 6, alpha quality 100",
+          "psnrDb": 38.57,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate18-ice-masters",
+        "decidedAt": "2026-11-06T18:28:10.397828+01:00",
+        "question": "(Delegated) Gate 18, Ledové moře masters: scene A/B, Tuleň A/B, Delfín A/B, Mořská saň Ledana inked A/B, and the ice-sea SVG art.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose scene B (s121012), Tuleň s122011, Delfín s123012, Ledana s124011 and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Tuleň A"
+      }
+    },
+    {
       "id": "friend/vydra-vyskalka/baby",
       "file": "friends/vydra-vyskalka-baby.webp",
       "width": 797,
@@ -7145,6 +7705,304 @@
       }
     },
     {
+      "id": "monster/san-ledana/freed",
+      "file": "monsters/san-ledana-freed.webp",
+      "width": 832,
+      "height": 715,
+      "bytes": 50912,
+      "sha256": "28cce8a5049acb7b66a2613a5fd3053ea574921b3d41ecd7f9b77c93fe65b2b0",
+      "anchors": null,
+      "promptFile": "prompts/san-ledana-freed.prompt.txt",
+      "approvedImage": {
+        "image": "san-ledana/san-ledana-freed-b-from-master-s124112.png",
+        "sha256": "056ae9bd084e411659e5098ba6c17b601e74f8dfde61eed808fc5c9d2cc1960f"
+      },
+      "lineage": [
+        {
+          "image": "san-ledana/san-ledana-freed-b-from-master-s124112.png",
+          "sha256": "056ae9bd084e411659e5098ba6c17b601e74f8dfde61eed808fc5c9d2cc1960f",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon sea dragon Mořská saň Ledana. All of the black and dark-violet magic ink has been washed away, her frozen heart has thawed and she is happy again. Keep exactly the same character, pose, plump body, long curving neck, head with two short horns, the row of seven icicle spines, four flippers, short tail, the three little frost sparkles, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing her clean, bright colours everywhere: a shimmering pale aqua and lilac body with soft white highlights. Change only her expression: a big, warm, grateful smile with bright, wide-open happy eyes, relaxed raised eyebrows and rosy cheeks. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, dirty, grumpy, angry, frowning, sharp fangs, teeth, fire, wings, claws, glowing eyes, extra eyes, extra heads, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 124112,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "san-ledana/san-ledana-inked-b-sketchv1-s124011.png",
+              "role": "source image edited in place: the chosen inked master s124011 (gate 18)",
+              "sha256": "8a0501cd9c3207e9f94c7b516b0eac97724c839329fde08a0d109cf92b27a389"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "san-ledana/san-ledana-inked-b-sketchv1-s124011.png",
+          "sha256": "8a0501cd9c3207e9f94c7b516b0eac97724c839329fde08a0d109cf92b27a389",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: a plump body with four paddle flippers; a long curving neck; a dragon head with a rounded snout, two nostrils and two short horns swept back; a row of exactly seven rounded icicle spines along her back; a short tail; three little frost sparkles around her. It shows Mořská saň Ledana, a big frosty sea dragon, the grand finale of the third grade, soaked in magic black ink: pale icy blue with darker blue flippers, a sulky frown under cross eyebrows, round eyes, no teeth. Glossy black and dark-violet magic ink covers part of her: blots and little highlights on her body and neck. She is cold and grumpy because the ink froze her heart. Grand, funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, wings, sharp fangs, teeth, open jaws, fire, breathing fire, blood, gore, horror, glowing eyes, claws, sharp spikes, skull, snake, seahorse",
+          "seed": 124011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "san-ledana/ref-san-ledana-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py ledana-inked), repainted in place",
+              "sha256": "1190868639cab1478b640c2500099a13701b5b0920f4241a9682fc20c95291c4",
+              "sketch": "scripts/art/authoring/sketches.py ledana-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "b102197b053519032a5954b84355bc77d1d58b42519d368edaa8cef268a6a89c",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.8703,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the inked form: keeps the frost sparkles and the pale body."
+        },
+        {
+          "step": "trim",
+          "box": [
+            59,
+            95,
+            1322,
+            1180
+          ],
+          "marginPx": 24,
+          "sharedWith": [
+            "monster/san-ledana/freed",
+            "monster/san-ledana/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.658749,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            832,
+            715
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 82, method 6, alpha quality 100",
+          "psnrDb": 41.8,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate20-ice-derived",
+        "decidedAt": "2026-11-06T20:26:43.223426+01:00",
+        "question": "(Delegated) Gate 20, Ledové moře derived forms: Tuleň pup A/B, Delfín calf A/B, Ledana freed A/B.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose Tuleň pup s122111, Delfín calf s123111 and Ledana freed s124112; reasons in agent-review-log.jsonl.",
+        "chosen": "Ledana freed B"
+      }
+    },
+    {
+      "id": "monster/san-ledana/inked",
+      "file": "monsters/san-ledana-inked.webp",
+      "width": 832,
+      "height": 715,
+      "bytes": 57886,
+      "sha256": "ebc5abe329282b3c0b74d748ba0e117113a703f44f4b835df490845f798cd244",
+      "anchors": null,
+      "promptFile": "prompts/san-ledana-inked.prompt.txt",
+      "approvedImage": {
+        "image": "san-ledana/san-ledana-inked-b-sketchv1-s124011.png",
+        "sha256": "8a0501cd9c3207e9f94c7b516b0eac97724c839329fde08a0d109cf92b27a389"
+      },
+      "lineage": [
+        {
+          "image": "san-ledana/san-ledana-inked-b-sketchv1-s124011.png",
+          "sha256": "8a0501cd9c3207e9f94c7b516b0eac97724c839329fde08a0d109cf92b27a389",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: a plump body with four paddle flippers; a long curving neck; a dragon head with a rounded snout, two nostrils and two short horns swept back; a row of exactly seven rounded icicle spines along her back; a short tail; three little frost sparkles around her. It shows Mořská saň Ledana, a big frosty sea dragon, the grand finale of the third grade, soaked in magic black ink: pale icy blue with darker blue flippers, a sulky frown under cross eyebrows, round eyes, no teeth. Glossy black and dark-violet magic ink covers part of her: blots and little highlights on her body and neck. She is cold and grumpy because the ink froze her heart. Grand, funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, wings, sharp fangs, teeth, open jaws, fire, breathing fire, blood, gore, horror, glowing eyes, claws, sharp spikes, skull, snake, seahorse",
+          "seed": 124011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "san-ledana/ref-san-ledana-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py ledana-inked), repainted in place",
+              "sha256": "1190868639cab1478b640c2500099a13701b5b0920f4241a9682fc20c95291c4",
+              "sketch": "scripts/art/authoring/sketches.py ledana-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "0cd1bf163728cc5387db31c51afcee80234fb8f00abaa8aab82b55cbdd83294a",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9374,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the detached frost sparkles and the pale icy body."
+        },
+        {
+          "step": "trim",
+          "box": [
+            59,
+            95,
+            1322,
+            1180
+          ],
+          "marginPx": 24,
+          "sharedWith": [
+            "monster/san-ledana/freed",
+            "monster/san-ledana/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.658749,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            832,
+            715
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 82, method 6, alpha quality 100",
+          "psnrDb": 39.52,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate18-ice-masters",
+        "decidedAt": "2026-11-06T18:28:10.397828+01:00",
+        "question": "(Delegated) Gate 18, Ledové moře masters: scene A/B, Tuleň A/B, Delfín A/B, Mořská saň Ledana inked A/B, and the ice-sea SVG art.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose scene B (s121012), Tuleň s122011, Delfín s123012, Ledana s124011 and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Ledana A"
+      }
+    },
+    {
       "id": "monster/uhor-zhavak/freed",
       "file": "monsters/uhor-zhavak-freed.webp",
       "width": 790,
@@ -8324,6 +9182,104 @@
         "question": "Gate 3b, the grade-3 sea map and Bublinka's home grotto (image gate3b-map-grotto.jpg in my gate3 folder). Both maps have a round pad of open water under every grade-3 region marker, connected by sandy paths. Map A has more open sea; Map B shows the edge of the ice sea at the right. The grotto has the arch to the sea, shelves with shells and glowing pearls, and an open sand floor for the friends and decorations. Which map should I use, with this grotto?",
         "answer": "Map A and the grotto (Recommended)",
         "chosen": "Grotto"
+      }
+    },
+    {
+      "id": "scene/ice-sea",
+      "file": "scenes/ice-sea.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 64434,
+      "sha256": "91a82a4afe8a0b28bbcb4bff70988428e3180aca15e4a2e128a7667f967f9fee",
+      "anchors": null,
+      "promptFile": "prompts/ice-sea.prompt.txt",
+      "approvedImage": {
+        "image": "bg-ice-sea/bg-ice-sea-v1-s121012.png",
+        "sha256": "dccf53f402ecc7c782e2f86cfb36cdc8efd6d510d7a486b9b0e95d7aeff34cb9"
+      },
+      "lineage": [
+        {
+          "image": "bg-ice-sea/bg-ice-sea-v1-s121012.png",
+          "sha256": "dccf53f402ecc7c782e2f86cfb36cdc8efd6d510d7a486b9b0e95d7aeff34cb9",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Ledové moře, a cold, sparkling icy sea, seen from inside the water. Keep exactly the same composition: soft pale sunbeams slanting down from the icy surface; a wide, calm, open band of clear, cold blue water and smooth, snowy-pale sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner the underside of a thick white ice shelf and two small floating ice floes; in the bottom-right foreground rounded grey rocks capped with soft snow; at the right edge a big rounded ice cave with smooth walls and a dark blue mouth where a sea monster lives, mysterious but not scary; the pale floor along the bottom with a few small pebbles. Tiny bubbles rising, little sparkles of frost in the water.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of icy white, pale aqua, sky blue, deep blue and a touch of soft lilac, gentle depth haze toward the back. Cool, magical and inviting, never scary. No fish, no animals, no people, no characters, no penguins, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, signpost, board, frame, border, fish, animals, people, characters, penguins, polar bear, submarine, boat, ship, treasure chest, photorealistic, 3d render, dark, scary, sky, land, icicles like teeth, fangs",
+          "seed": 121012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-ice-sea/ref-bg-ice-sea-sketch-v1.png",
+              "role": "composition sketch on the shell's levelSpots(7) (Pillow colour blocking, sketches.py ice), repainted in place",
+              "sha256": "fc0b2a1483574caf973513bef5b6682f0a298940e193cd9adb30d15e730a79e7",
+              "sketch": "scripts/art/authoring/sketches.py ice (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "fc8119a5e2ed6563584bb7369de4062969c5e2e4041be5cea53e91c69d0f1fda"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 80, method 6",
+          "psnrDb": 39.41,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate18-ice-masters",
+        "decidedAt": "2026-11-06T18:28:10.397828+01:00",
+        "question": "(Delegated) Gate 18, Ledové moře masters: scene A/B, Tuleň A/B, Delfín A/B, Mořská saň Ledana inked A/B, and the ice-sea SVG art.",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent chose scene B (s121012), Tuleň s122011, Delfín s123012, Ledana s124011 and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Scene B"
       }
     },
     {

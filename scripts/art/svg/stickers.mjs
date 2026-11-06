@@ -31,6 +31,7 @@ import { KELP_FOREST_STICKERS } from './regions/kelp-forest.mjs';
 import { PIRATE_WRECK_STICKERS } from './regions/pirate-wreck.mjs';
 import { PEARL_BAY_STICKERS } from './regions/pearl-bay.mjs';
 import { VOLCANIC_VENTS_STICKERS } from './regions/volcanic-vents.mjs';
+import { ICE_SEA_STICKERS } from './regions/ice-sea.mjs';
 
 export const STICKER_SIZE = 100;
 export const DISC_RADIUS = 40;
@@ -536,4 +537,5 @@ export const STICKER_DESIGNS = [
   ...PIRATE_WRECK_STICKERS,
   ...PEARL_BAY_STICKERS,
   ...VOLCANIC_VENTS_STICKERS,
+  ...ICE_SEA_STICKERS,
 ];

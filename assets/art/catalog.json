@@ -177,6 +177,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/hat-knit",
+      "kind": "svg",
+      "file": "cosmetics/hat-knit.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/hat-pirate",
       "kind": "svg",
       "file": "cosmetics/hat-pirate.svg",
@@ -194,6 +201,13 @@
       "id": "cosmetic/headband-coral",
       "kind": "svg",
       "file": "cosmetics/headband-coral.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/igloo",
+      "kind": "svg",
+      "file": "cosmetics/igloo.svg",
       "width": 100,
       "height": 100
     },
@@ -240,6 +254,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/scarf-wool",
+      "kind": "svg",
+      "file": "cosmetics/scarf-wool.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/shell-crown",
       "kind": "svg",
       "file": "cosmetics/shell-crown.svg",
@@ -278,6 +299,13 @@
       "id": "egg/barakuda-bystrinka",
       "kind": "svg",
       "file": "eggs/barakuda-bystrinka.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/delfin-skokanek",
+      "kind": "svg",
+      "file": "eggs/delfin-skokanek.svg",
       "width": 120,
       "height": 160
     },
@@ -341,6 +369,13 @@
       "id": "egg/pyskoun-pysny",
       "kind": "svg",
       "file": "eggs/pyskoun-pysny.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/tulen-padik",
+      "kind": "svg",
+      "file": "eggs/tulen-padik.svg",
       "width": 120,
       "height": 160
     },
@@ -409,6 +444,60 @@
           "y": 591,
           "scale": 60,
           "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/delfin-skokanek/baby",
+      "kind": "painted",
+      "file": "friends/delfin-skokanek-baby.webp",
+      "width": 771,
+      "height": 832,
+      "anchors": {
+        "head": {
+          "x": 469,
+          "y": 92,
+          "scale": 90,
+          "rotate": 10
+        },
+        "eyes": {
+          "x": 551,
+          "y": 237,
+          "scale": 60,
+          "rotate": 10
+        },
+        "neck": {
+          "x": 426,
+          "y": 387,
+          "scale": 75,
+          "rotate": 20
+        }
+      }
+    },
+    {
+      "id": "friend/delfin-skokanek/grown",
+      "kind": "painted",
+      "file": "friends/delfin-skokanek-grown.webp",
+      "width": 832,
+      "height": 735,
+      "anchors": {
+        "head": {
+          "x": 698,
+          "y": 171,
+          "scale": 75,
+          "rotate": 15
+        },
+        "eyes": {
+          "x": 765,
+          "y": 263,
+          "scale": 50,
+          "rotate": 15
+        },
+        "neck": {
+          "x": 634,
+          "y": 351,
+          "scale": 65,
+          "rotate": 30
         }
       }
     },
@@ -899,6 +988,60 @@
       }
     },
     {
+      "id": "friend/tulen-padik/baby",
+      "kind": "painted",
+      "file": "friends/tulen-padik-baby.webp",
+      "width": 832,
+      "height": 783,
+      "anchors": {
+        "head": {
+          "x": 368,
+          "y": 275,
+          "scale": 105,
+          "rotate": -8
+        },
+        "eyes": {
+          "x": 388,
+          "y": 356,
+          "scale": 75,
+          "rotate": -6
+        },
+        "neck": {
+          "x": 372,
+          "y": 612,
+          "scale": 80,
+          "rotate": -15
+        }
+      }
+    },
+    {
+      "id": "friend/tulen-padik/grown",
+      "kind": "painted",
+      "file": "friends/tulen-padik-grown.webp",
+      "width": 828,
+      "height": 832,
+      "anchors": {
+        "head": {
+          "x": 334,
+          "y": 332,
+          "scale": 95,
+          "rotate": -10
+        },
+        "eyes": {
+          "x": 353,
+          "y": 419,
+          "scale": 65,
+          "rotate": -8
+        },
+        "neck": {
+          "x": 370,
+          "y": 604,
+          "scale": 75,
+          "rotate": -20
+        }
+      }
+    },
+    {
       "id": "friend/vydra-vyskalka/baby",
       "kind": "painted",
       "file": "friends/vydra-vyskalka-baby.webp",
@@ -1084,6 +1227,20 @@
       "height": 893
     },
     {
+      "id": "monster/san-ledana/freed",
+      "kind": "painted",
+      "file": "monsters/san-ledana-freed.webp",
+      "width": 832,
+      "height": 715
+    },
+    {
+      "id": "monster/san-ledana/inked",
+      "kind": "painted",
+      "file": "monsters/san-ledana-inked.webp",
+      "width": 832,
+      "height": 715
+    },
+    {
       "id": "monster/uhor-zhavak/freed",
       "kind": "painted",
       "file": "monsters/uhor-zhavak-freed.webp",
@@ -1136,6 +1293,13 @@
       "id": "scene/grotto",
       "kind": "painted",
       "file": "scenes/grotto.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
+      "id": "scene/ice-sea",
+      "kind": "painted",
+      "file": "scenes/ice-sea.webp",
       "width": 1664,
       "height": 928
     },
@@ -1203,6 +1367,13 @@
       "height": 100
     },
     {
+      "id": "sticker/certificate",
+      "kind": "svg",
+      "file": "stickers/certificate.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/coins",
       "kind": "svg",
       "file": "stickers/coins.svg",
@@ -1213,6 +1384,13 @@
       "id": "sticker/cool-eel",
       "kind": "svg",
       "file": "stickers/cool-eel.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/dolphin",
+      "kind": "svg",
+      "file": "stickers/dolphin.svg",
       "width": 100,
       "height": 100
     },
@@ -1259,6 +1437,13 @@
       "height": 100
     },
     {
+      "id": "sticker/melted-icicle",
+      "kind": "svg",
+      "file": "stickers/melted-icicle.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/music-notes",
       "kind": "svg",
       "file": "stickers/music-notes.svg",
@@ -1297,6 +1482,20 @@
       "id": "sticker/scroll",
       "kind": "svg",
       "file": "stickers/scroll.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/seal",
+      "kind": "svg",
+      "file": "stickers/seal.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/seven-steps",
+      "kind": "svg",
+      "file": "stickers/seven-steps.svg",
       "width": 100,
       "height": 100
     },

@@ -152,7 +152,7 @@ time; a painting takes 12-16 minutes.
   is opened with `--clear`.
 - A colour edit of a hatchling can also repaint its outline (Barakuda's baby came back with a blue
   outline), so the take closest to the master's style wins over the closest colour.
-- From region 5 on, characters ship at 896 px and WebP quality 86 and scenes at quality 84 (still about 40 dB PSNR), so the 3rd grade fits the offline pack budget without raising it (docs/qa/performance.md).
+- From region 5 on, characters ship at 896 px and WebP quality 86 and scenes at quality 84 (still about 40 dB PSNR), so the 3rd grade fits the offline pack budget without raising it (docs/qa/performance.md); Ledové moře, the last, ships at 832 px / q82 and its scene at q80 (still about 39-42 dB) to stay inside the whole-pack budget.
 - Monsters need real-animal features in the sketch: a sea snake with a paddle tail and nostrils on
   top, an eel with a fin rim round the rear half only, an anglerfish with one lure, a giant clam
   with five wavy folds and the pearls heaped at the side (a row of pearls reads as teeth).
@@ -284,7 +284,7 @@ node scripts/art/svg/preview.mjs board.png # a review board rendered by Chromium
 - **Eggs** (`egg/<friend>`): 120 × 160 (3:4). The egg wears its friend's colours and a motif from
   its memory hook: Krab Tvrďák's band of seven spikes, Medúzka Měkulka's nine tentacles, Želva
   Obojka's eight plates, Barakuda Bystřinka's five bars and speed lines, Lachtan Lyžař's two
-  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms.
+  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms, Tuleň Pádík's seven icy steps, Delfín Skokánek's leaping arc.
 - **Regions**: each region after the lagoon has its own module, `scripts/art/svg/regions/<region>.mjs`,
   exporting its eggs, sticker icons and cosmetics; `eggs.mjs`, `stickers.mjs` and `cosmetics.mjs`
   spread them into their lists. Scarves share `scarf.mjs`. Every sticker icon is checked to stay

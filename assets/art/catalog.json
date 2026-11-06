@@ -135,6 +135,13 @@
       "height": 100
     },
     {
+      "id": "cosmetic/glasses-pearl",
+      "kind": "svg",
+      "file": "cosmetics/glasses-pearl.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/glasses-sun",
       "kind": "svg",
       "file": "cosmetics/glasses-sun.svg",
@@ -226,6 +233,20 @@
       "height": 100
     },
     {
+      "id": "cosmetic/shell-giant",
+      "kind": "svg",
+      "file": "cosmetics/shell-giant.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "cosmetic/string-pearls",
+      "kind": "svg",
+      "file": "cosmetics/string-pearls.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "cosmetic/swing-shell",
       "kind": "svg",
       "file": "cosmetics/swing-shell.svg",
@@ -236,6 +257,13 @@
       "id": "egg/barakuda-bystrinka",
       "kind": "svg",
       "file": "eggs/barakuda-bystrinka.svg",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "id": "egg/hvezdice-rodinka",
+      "kind": "svg",
+      "file": "eggs/hvezdice-rodinka.svg",
       "width": 120,
       "height": 160
     },
@@ -352,6 +380,60 @@
           "x": 246,
           "y": 591,
           "scale": 60,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/hvezdice-rodinka/baby",
+      "kind": "painted",
+      "file": "friends/hvezdice-rodinka-baby.webp",
+      "width": 860,
+      "height": 829,
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 214,
+          "scale": 90,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 407,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 509,
+          "scale": 75,
+          "rotate": 0
+        }
+      }
+    },
+    {
+      "id": "friend/hvezdice-rodinka/grown",
+      "kind": "painted",
+      "file": "friends/hvezdice-rodinka-grown.webp",
+      "width": 896,
+      "height": 859,
+      "anchors": {
+        "head": {
+          "x": 499,
+          "y": 108,
+          "scale": 80,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 499,
+          "y": 375,
+          "scale": 85,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 499,
+          "y": 472,
+          "scale": 70,
           "rotate": 0
         }
       }
@@ -920,6 +1002,20 @@
       "height": 893
     },
     {
+      "id": "monster/zeva-lakoma/freed",
+      "kind": "painted",
+      "file": "monsters/zeva-lakoma-freed.webp",
+      "width": 896,
+      "height": 744
+    },
+    {
+      "id": "monster/zeva-lakoma/inked",
+      "kind": "painted",
+      "file": "monsters/zeva-lakoma-inked.webp",
+      "width": 896,
+      "height": 744
+    },
+    {
       "id": "monster/zralok-zrout/freed",
       "kind": "painted",
       "file": "monsters/zralok-zrout-freed.webp",
@@ -951,6 +1047,13 @@
       "id": "scene/kelp-forest",
       "kind": "painted",
       "file": "scenes/kelp-forest.webp",
+      "width": 1664,
+      "height": 928
+    },
+    {
+      "id": "scene/pearl-bay",
+      "kind": "painted",
+      "file": "scenes/pearl-bay.webp",
       "width": 1664,
       "height": 928
     },
@@ -1046,6 +1149,13 @@
       "height": 100
     },
     {
+      "id": "sticker/open-clam",
+      "kind": "svg",
+      "file": "stickers/open-clam.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/otter",
       "kind": "svg",
       "file": "stickers/otter.svg",
@@ -1067,9 +1177,23 @@
       "height": 100
     },
     {
+      "id": "sticker/scroll",
+      "kind": "svg",
+      "file": "stickers/scroll.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/shark-smile",
       "kind": "svg",
       "file": "stickers/shark-smile.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/silver-pearls",
+      "kind": "svg",
+      "file": "stickers/silver-pearls.svg",
       "width": 100,
       "height": 100
     },
@@ -1116,6 +1240,13 @@
       "height": 100
     },
     {
+      "id": "sticker/starfish",
+      "kind": "svg",
+      "file": "stickers/starfish.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/stopwatch",
       "kind": "svg",
       "file": "stickers/stopwatch.svg",
@@ -1126,6 +1257,13 @@
       "id": "sticker/sun-week",
       "kind": "svg",
       "file": "stickers/sun-week.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/ten-shells",
+      "kind": "svg",
+      "file": "stickers/ten-shells.svg",
       "width": 100,
       "height": 100
     },

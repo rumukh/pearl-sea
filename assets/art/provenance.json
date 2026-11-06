@@ -1998,6 +1998,286 @@
       }
     },
     {
+      "id": "friend/hvezdice-rodinka/baby",
+      "file": "friends/hvezdice-rodinka-baby.webp",
+      "width": 860,
+      "height": 829,
+      "bytes": 47202,
+      "sha256": "371d76c499edb356a6793d2eecaad2d518eaab723037e3d1d2317d79cadcb369",
+      "anchors": {
+        "head": {
+          "x": 500,
+          "y": 214,
+          "scale": 90,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 500,
+          "y": 407,
+          "scale": 100,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 500,
+          "y": 509,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/hvezdice-rodinka-baby.prompt.txt",
+      "approvedImage": {
+        "image": "hvezdice-rodinka/hvezdice-rodinka-baby-b-sketchv1-s116111.png",
+        "sha256": "1ad1c68afdc1652db9e2121c3f29b7a9e3165349203492b808af1486ea7b87b1"
+      },
+      "lineage": [
+        {
+          "image": "hvezdice-rodinka/hvezdice-rodinka-baby-b-sketchv1-s116111.png",
+          "sha256": "1ad1c68afdc1652db9e2121c3f29b7a9e3165349203492b808af1486ea7b87b1",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly five short, plump, rounded arms; one pink heart in the middle where all five arms meet; two small cream bumps on each arm. It shows Hvězdice Rodinka as a tiny hatchling: a sweet baby starfish facing the viewer, an animal character and not a human, chubby and coral-orange, with big shiny eyes, a happy smile and rosy cheeks above the heart. She is the young version of the grown-up Hvězdice Rodinka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, legs, feet, clothes, six arms, four arms, extra arms, sharp star points, sea urchin, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare",
+          "seed": 116111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "hvezdice-rodinka/ref-hvezdice-rodinka-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the approved master's colours (Pillow colour blocking, sketches.py hvezdice-baby), repainted in place",
+              "sha256": "45e85e3674c99c8d63ed6cf39ac9139f2d982c7bb7477f7db339a3258bafb7e4",
+              "sketch": "scripts/art/authoring/sketches.py hvezdice-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "92f1de9bcd730ac3dbc59bc09c5285979315504908963269215b1dd3275f5aed",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9849,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the cream bumps and eye whites."
+        },
+        {
+          "step": "trim",
+          "box": [
+            234,
+            253,
+            1094,
+            1082
+          ],
+          "marginPx": 17,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            860,
+            829
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.82,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate17-bay-derived",
+        "decidedAt": "2026-11-06T18:19:05.899434+01:00",
+        "question": "(Delegated) Gate 17, Perlová zátoka derived forms: Hvězdice baby A or B, Zéva freed A or B; recommended Hvězdice baby A (s116111) and Zéva freed A (s117111).",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent took the recommended set.",
+        "chosen": "Hvězdice baby A"
+      }
+    },
+    {
+      "id": "friend/hvezdice-rodinka/grown",
+      "file": "friends/hvezdice-rodinka-grown.webp",
+      "width": 896,
+      "height": 859,
+      "bytes": 53350,
+      "sha256": "3036f63d60e52b8a354671fc38161ed9e537fa553b4e33dd3a707540f5cab29f",
+      "anchors": {
+        "head": {
+          "x": 499,
+          "y": 108,
+          "scale": 80,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 499,
+          "y": 375,
+          "scale": 85,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 499,
+          "y": 472,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/hvezdice-rodinka-grown.prompt.txt",
+      "approvedImage": {
+        "image": "hvezdice-rodinka/hvezdice-rodinka-adult-b-sketchv1-s116012.png",
+        "sha256": "02136ad58b55863f632739496db1383a73433edbbaf296f697ee135c262b0636"
+      },
+      "lineage": [
+        {
+          "image": "hvezdice-rodinka/hvezdice-rodinka-adult-b-sketchv1-s116012.png",
+          "sha256": "02136ad58b55863f632739496db1383a73433edbbaf296f697ee135c262b0636",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly five plump, rounded arms; one big pink heart in the middle of her body where all five arms meet; three small cream bumps along each arm. It shows Hvězdice Rodinka, a warm, motherly starfish facing the viewer, an animal character and not a human: coral-orange with a happy face above the heart, shiny eyes, a gentle smile and rosy cheeks. Five arms, one heart: she keeps her big family together. Warm, kind and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, six arms, four arms, extra arms, star shape with sharp points, sea urchin",
+          "seed": 116012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "hvezdice-rodinka/ref-hvezdice-rodinka-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py hvezdice), repainted in place",
+              "sha256": "7058248164388158324af987bfd3049dc8fcd9d7d9fad278f4b70ba2e2690021",
+              "sketch": "scripts/art/authoring/sketches.py hvezdice (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "4015d70553beac8c87873ebff9e161dbf5450cd345b4b7d50c34f13998524bf9",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9954,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the cream bumps and eye whites on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            127,
+            138,
+            1204,
+            1171
+          ],
+          "marginPx": 21,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.831941,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            859
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 41.91,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate14-bay-masters",
+        "decidedAt": "2026-11-06T14:36:05.458836+01:00",
+        "question": "Gate 14, Perlová zátoka masters (images in my gate14-bay-masters folder: the bay scene with the level spots, Hvězdice A/B, Zéva Lakomá inked A/B, the bay's SVG egg, stickers and cosmetics, and the recommended set together). The other scene take was rejected because it painted a face inside the clam. Recommended: the scene, Hvězdice A (five arms round one pink heart), Zéva A (a greedy giant clam hoarding six pearls). Which set should I use?",
+        "answer": "Recommended: the scene, Hvězdice A, Zéva A, SVG art as shown",
+        "chosen": "Hvězdice A"
+      }
+    },
+    {
       "id": "friend/jazyk-jazycek/baby",
       "file": "friends/jazyk-jazycek-baby.webp",
       "width": 937,
@@ -6585,6 +6865,304 @@
       }
     },
     {
+      "id": "monster/zeva-lakoma/freed",
+      "file": "monsters/zeva-lakoma-freed.webp",
+      "width": 896,
+      "height": 744,
+      "bytes": 58950,
+      "sha256": "ef24ee621ad219ae9c80a31c6803e843950e80f8a2899f2dfecd8d041a53ee95",
+      "anchors": null,
+      "promptFile": "prompts/zeva-lakoma-freed.prompt.txt",
+      "approvedImage": {
+        "image": "zeva-lakoma/zeva-lakoma-freed-b-from-master-s117111.png",
+        "sha256": "16b949fc86bad9c17a8163b0bbbd5f8deaa14a7389dd2e2b8525707472cb48cc"
+      },
+      "lineage": [
+        {
+          "image": "zeva-lakoma/zeva-lakoma-freed-b-from-master-s117111.png",
+          "sha256": "16b949fc86bad9c17a8163b0bbbd5f8deaa14a7389dd2e2b8525707472cb48cc",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon giant clam Zéva Lakomá. All of the black and dark-violet magic ink has been washed away and she is kind and generous again. Keep exactly the same character, shape, the two ribbed shell halves with their five big wavy zigzag folds, the soft blue mantle with her face, the heap of six shiny pearls, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing her clean, bright colours everywhere: a soft pearly lilac and pink shell. Change only her expression: a big, warm, generous smile with bright, wide-open happy eyes, relaxed raised eyebrows and rosy cheeks. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, dirty, grumpy, greedy, angry, frowning, teeth, fangs, tongue, glowing eyes, extra eyes, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline, puddle, water",
+          "seed": 117111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zeva-lakoma/zeva-lakoma-inked-b-sketchv1-s117011.png",
+              "role": "source image edited in place: the approved inked master s117011 (gate 14)",
+              "sha256": "b6aaa1b0b72475116a08613619aae041950f97329e5f216d8db4cc06420231fd"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "zeva-lakoma/zeva-lakoma-inked-b-sketchv1-s117011.png",
+          "sha256": "b6aaa1b0b72475116a08613619aae041950f97329e5f216d8db4cc06420231fd",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: two heavy, ribbed shell halves whose open edges meet in exactly five big wavy zigzag folds; the soft blue mantle showing between them with two round eyes, cross eyebrows and a sly, greedy little grin; a heap of exactly six shiny pearls hoarded on the lower lip at her side. It shows Zéva Lakomá, a real giant clam (Tridacna) as a greedy, grumpy character soaked in magic black ink, facing the viewer: dusky grey-violet shell, no arms, no legs, no teeth. Glossy black and dark-violet magic ink covers part of her: blots and little highlights on the shell. She hoards every pearl she can grab. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, teeth, fangs, tongue, mouth full of teeth, blood, gore, horror, glowing eyes, oyster, scallop, treasure chest, coins",
+          "seed": 117011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zeva-lakoma/ref-zeva-lakoma-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py zeva-inked), repainted in place",
+              "sha256": "945e9543208ad8892155bb0314041f9cec011d456f1929bf5e901bcb165b3602",
+              "sketch": "scripts/art/authoring/sketches.py zeva-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "6d164109e1be3a67fd39415b7f8da93e6a5c0f1bda7bd7a2de38a0aced1f4c35",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9913,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the inked form: keeps the pale pearly shell and the pearls."
+        },
+        {
+          "step": "trim",
+          "box": [
+            123,
+            293,
+            1209,
+            1195
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/zeva-lakoma/freed",
+            "monster/zeva-lakoma/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.825046,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            744
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.72,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate17-bay-derived",
+        "decidedAt": "2026-11-06T18:19:05.899434+01:00",
+        "question": "(Delegated) Gate 17, Perlová zátoka derived forms: Hvězdice baby A or B, Zéva freed A or B; recommended Hvězdice baby A (s116111) and Zéva freed A (s117111).",
+        "answer": "User, answering gate 16: \"All good. Please finish without asking for approval of images. I trust your judgement.\" The agent took the recommended set.",
+        "chosen": "Zéva freed A"
+      }
+    },
+    {
+      "id": "monster/zeva-lakoma/inked",
+      "file": "monsters/zeva-lakoma-inked.webp",
+      "width": 896,
+      "height": 744,
+      "bytes": 95006,
+      "sha256": "8572ff1353d9d4759f1e23cc8aed8fe0651fa45319cb5232f1b1f356c9a63de3",
+      "anchors": null,
+      "promptFile": "prompts/zeva-lakoma-inked.prompt.txt",
+      "approvedImage": {
+        "image": "zeva-lakoma/zeva-lakoma-inked-b-sketchv1-s117011.png",
+        "sha256": "b6aaa1b0b72475116a08613619aae041950f97329e5f216d8db4cc06420231fd"
+      },
+      "lineage": [
+        {
+          "image": "zeva-lakoma/zeva-lakoma-inked-b-sketchv1-s117011.png",
+          "sha256": "b6aaa1b0b72475116a08613619aae041950f97329e5f216d8db4cc06420231fd",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: two heavy, ribbed shell halves whose open edges meet in exactly five big wavy zigzag folds; the soft blue mantle showing between them with two round eyes, cross eyebrows and a sly, greedy little grin; a heap of exactly six shiny pearls hoarded on the lower lip at her side. It shows Zéva Lakomá, a real giant clam (Tridacna) as a greedy, grumpy character soaked in magic black ink, facing the viewer: dusky grey-violet shell, no arms, no legs, no teeth. Glossy black and dark-violet magic ink covers part of her: blots and little highlights on the shell. She hoards every pearl she can grab. Funny and only a little spooky for an eight-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, teeth, fangs, tongue, mouth full of teeth, blood, gore, horror, glowing eyes, oyster, scallop, treasure chest, coins",
+          "seed": 117011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "zeva-lakoma/ref-zeva-lakoma-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py zeva-inked), repainted in place",
+              "sha256": "945e9543208ad8892155bb0314041f9cec011d456f1929bf5e901bcb165b3602",
+              "sketch": "scripts/art/authoring/sketches.py zeva-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "9cde50de66ff29b5ae4d7204cfdafd44e5eda0fa0ae72b6e9254e6f13912c13f",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9927,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the pale pearls and shell highlights, which are close to the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            123,
+            293,
+            1209,
+            1195
+          ],
+          "marginPx": 21,
+          "sharedWith": [
+            "monster/zeva-lakoma/freed",
+            "monster/zeva-lakoma/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.825046,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            744
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 39.32,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate14-bay-masters",
+        "decidedAt": "2026-11-06T14:36:05.458836+01:00",
+        "question": "Gate 14, Perlová zátoka masters (images in my gate14-bay-masters folder: the bay scene with the level spots, Hvězdice A/B, Zéva Lakomá inked A/B, the bay's SVG egg, stickers and cosmetics, and the recommended set together). The other scene take was rejected because it painted a face inside the clam. Recommended: the scene, Hvězdice A (five arms round one pink heart), Zéva A (a greedy giant clam hoarding six pearls). Which set should I use?",
+        "answer": "Recommended: the scene, Hvězdice A, Zéva A, SVG art as shown",
+        "chosen": "Zéva A"
+      }
+    },
+    {
       "id": "monster/zralok-zrout/freed",
       "file": "monsters/zralok-zrout-freed.webp",
       "width": 1024,
@@ -7266,6 +7844,104 @@
         "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
         "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
         "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/pearl-bay",
+      "file": "scenes/pearl-bay.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 73014,
+      "sha256": "a4b88a309dab8125ed48a1621bf9430dd0168c781cce853fb0b886162a4bb1bd",
+      "anchors": null,
+      "promptFile": "prompts/pearl-bay.prompt.txt",
+      "approvedImage": {
+        "image": "bg-pearl-bay/bg-pearl-bay-v1-s115012.png",
+        "sha256": "d56020791f76829093e522b164132cbf60e16f3cecfc64de741b90401392ea66"
+      },
+      "lineage": [
+        {
+          "image": "bg-pearl-bay/bg-pearl-bay-v1-s115012.png",
+          "sha256": "d56020791f76829093e522b164132cbf60e16f3cecfc64de741b90401392ea66",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Perlová zátoka, a quiet, shimmering bay of pearls, seen from inside the water. Keep exactly the same composition: sunbeams slanting down from the shimmering surface; a wide, calm, open band of clear blue water and smooth pale sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the top-left corner a soft, rounded grey-violet rocky outcrop with pink, lilac and peach sea anemones and a few oysters; in the bottom-right foreground a row of open pink pearl shells, each with a glowing white pearl; at the right edge a huge closed giant clam with wavy zigzag lips, half buried in the sand, where a sea monster lives, mysterious but not scary; the soft sandy floor along the bottom with a few seashells. Tiny bubbles rising, gentle caustic light ripples on the sand, a pearly shimmer in the water.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, bright but harmonious palette of turquoise, sky blue, pearly white, soft pink, lilac and pale sand, gentle depth haze toward the back. Calm, magical and inviting. No fish, no animals, no people, no characters, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, signpost, board, frame, border, fish, animals, people, characters, submarine, boat, ship, treasure chest, photorealistic, 3d render, dark, scary, sky, land, beach umbrella",
+          "seed": 115012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-pearl-bay/ref-bg-pearl-bay-sketch-v1.png",
+              "role": "composition sketch on the shell's levelSpots(7) (Pillow colour blocking, sketches.py bay), repainted in place",
+              "sha256": "5f80c3aef2588a1744d30f0eb77ca45fd4ef122e4785a98d374a02aa4d0c66dc",
+              "sketch": "scripts/art/authoring/sketches.py bay (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-03",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 40.49,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate14-bay-masters",
+        "decidedAt": "2026-11-06T14:36:05.458836+01:00",
+        "question": "Gate 14, Perlová zátoka masters (images in my gate14-bay-masters folder: the bay scene with the level spots, Hvězdice A/B, Zéva Lakomá inked A/B, the bay's SVG egg, stickers and cosmetics, and the recommended set together). The other scene take was rejected because it painted a face inside the clam. Recommended: the scene, Hvězdice A (five arms round one pink heart), Zéva A (a greedy giant clam hoarding six pearls). Which set should I use?",
+        "answer": "Recommended: the scene, Hvězdice A, Zéva A, SVG art as shown",
+        "chosen": "Scene"
       }
     },
     {

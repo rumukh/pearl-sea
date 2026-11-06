@@ -24,6 +24,7 @@ import { CREAM, INK, SW, gleam, groundShadow, ink, line, scope, shade, tube } fr
 import { CORAL_REEF_COSMETICS } from './regions/coral-reef.mjs';
 import { KELP_FOREST_COSMETICS } from './regions/kelp-forest.mjs';
 import { PIRATE_WRECK_COSMETICS } from './regions/pirate-wreck.mjs';
+import { PEARL_BAY_COSMETICS } from './regions/pearl-bay.mjs';
 import { scarf } from './scarf.mjs';
 
 /** @typedef {'head' | 'eyes' | 'neck' | 'grotto' | 'crown'} CosmeticSlot */
@@ -489,6 +490,7 @@ export const COSMETIC_DESIGNS = [
   ...CORAL_REEF_COSMETICS,
   ...KELP_FOREST_COSMETICS,
   ...PIRATE_WRECK_COSMETICS,
+  ...PEARL_BAY_COSMETICS,
 ];
 
 export const COSMETIC_SIZE = SIZE;

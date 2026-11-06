@@ -2323,6 +2323,70 @@ def kalmar_baby(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def tulen_baby(out, route_json=None):
+    """Tuleň Pádík as a hatchling (a seal pup): a round, chubby, dappled grey pup with a big head and
+    big dark eyes, no ear flaps, sliding belly-first down a small staircase of exactly seven icy
+    steps from the top right to the bottom left, front flippers forward."""
+    img, d = canvas()
+    ice, edge = (200, 230, 246), (150, 196, 226)
+    for k in range(7):
+        x0, top = 220 + k * 130, 1160 - (k + 1) * 80
+        d.rectangle([x0 - 10, top - 10, x0 + 130 + 10, 1180 + 10], fill=PLUM)
+    for k in range(7):
+        x0, top = 220 + k * 130, 1160 - (k + 1) * 80
+        d.rectangle([x0, top, x0 + 130, 1180], fill=ice)
+        d.rectangle([x0, top, x0 + 130, top + 16], fill=(250, 254, 255))
+        d.line([(x0, top), (x0, 1180)], fill=edge, width=6)
+    coat, belly, spot = (150, 158, 170), (226, 230, 236), (110, 118, 132)
+    stamp_path(d, [(980, 470), (830, 560), (680, 650)], 260, 320, coat, outline=PLUM)
+    for side in (-1, 1):
+        paddle(d, (1040, 440), (1120 + side * 10, 360 + side * 50), 80, coat, bend=0.1 * side)
+    d.ellipse([560 - 220 - 13, 640 - 190 - 13, 560 + 220 + 13, 640 + 190 + 13], fill=PLUM)
+    d.ellipse([560 - 220, 640 - 190, 560 + 220, 640 + 190], fill=coat)
+    for x, y in ((820, 520), (900, 470), (760, 600)):
+        d.ellipse([x - 18, y - 14, x + 18, y + 14], fill=spot)
+    paddle(d, (520, 800), (380, 880), 90, coat, bend=-0.1)
+    paddle(d, (640, 790), (540, 900), 90, coat, bend=-0.1)
+    d.ellipse([400, 650, 560, 760], fill=belly)
+    d.ellipse([410, 640, 470, 680], fill=(50, 30, 40))
+    for x, y in ((450, 700), (480, 712), (510, 704)):
+        d.ellipse([x - 7, y - 7, x + 7, y + 7], fill=(90, 90, 100))
+    eye(d, 520, 560, 60, iris=(40, 30, 40))
+    eye(d, 660, 580, 56, iris=(40, 30, 40))
+    d.arc([420, 710, 520, 770], 20, 160, fill=PLUM, width=10)
+    cheeks(d, [(660, 690)], r=28)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def delfin_baby(out, route_json=None):
+    """Delfín Skokánek as a hatchling (a dolphin calf) leaping in a small arc to the right over a
+    little curling wave: short and chubby, a big head share, a short beak with a big smile, one
+    curved dorsal fin, one flipper, a two-lobed fluke and three water droplets."""
+    img, d = canvas()
+    body, belly = (110, 160, 210), (226, 238, 248)
+    wave = [(300, 1200), (360, 1110), (500, 1070), (680, 1090), (840, 1060), (960, 1000), (1030, 1060), (1060, 1200)]
+    d.polygon(wave, fill=(60, 160, 210))
+    for x in range(380, 1030, 64):
+        d.ellipse([x - 30, 1055 - 16, x + 30, 1055 + 20], fill=(250, 252, 255))
+    path = catmull_rom([(420, 880), (520, 650), (720, 530), (920, 620)], samples=10)
+    stamp_path(d, path, 150, 250, body, outline=PLUM)
+    stamp_path(d, catmull_rom([(480, 830), (570, 680), (740, 620), (900, 670)], samples=10), 60, 100, belly)
+    d.polygon([(640, 540), (690, 400), (760, 530)], fill=PLUM)
+    d.polygon([(654, 536), (692, 426), (744, 528)], fill=body)
+    paddle(d, (420, 900), (310, 990), 110, body, bend=0.15)
+    paddle(d, (420, 900), (530, 1000), 110, body, bend=-0.15)
+    d.rounded_rectangle([930 - 12, 620 - 36 - 12, 1060 + 12, 620 + 36 + 12], radius=46, fill=PLUM)
+    d.rounded_rectangle([930, 620 - 36, 1060, 620 + 36], radius=36, fill=body)
+    d.arc([920, 600, 1050, 670], 10, 120, fill=PLUM, width=10)
+    paddle(d, (820, 700), (850, 820), 70, body, bend=0.1)
+    eye(d, 860, 580, 46, iris=(40, 60, 90))
+    cheeks(d, [(900, 650)], r=24)
+    for x, y in ((1090, 900), (1140, 840), (1070, 810)):
+        d.ellipse([x - 20, y - 28, x + 20, y + 22], fill=PLUM)
+        d.ellipse([x - 12, y - 18, x + 12, y + 14], fill=(170, 220, 250))
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
 if __name__ == "__main__":
     name, out = sys.argv[1], sys.argv[2]
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
@@ -2338,5 +2402,6 @@ if __name__ == "__main__":
      "hvezdice": hvezdice, "zeva-inked": zeva_inked, "bay": bay,
      "kalmar": kalmar, "uhor-inked": uhor_inked, "vents": vents,
      "tulen": tulen, "delfin": delfin, "ledana-inked": ledana_inked, "ice": ice, "lachtan2": lachtan2, "barakuda-baby": barakuda_baby, "lachtan-baby": lachtan_baby, "konik-baby": konik_baby, "pyskoun-baby": pyskoun_baby, "jezik-baby": jezik_baby,
-     "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby}[name](out, rj)
+     "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby, "tulen-baby": tulen_baby,
+     "delfin-baby": delfin_baby}[name](out, rj)
     print(out)

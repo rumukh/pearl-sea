@@ -29,6 +29,7 @@ import { CREAM, INK, SW, gleam, ink, line, scope, shade } from './style.mjs';
 import { CORAL_REEF_STICKERS } from './regions/coral-reef.mjs';
 import { KELP_FOREST_STICKERS } from './regions/kelp-forest.mjs';
 import { PIRATE_WRECK_STICKERS } from './regions/pirate-wreck.mjs';
+import { PEARL_BAY_STICKERS } from './regions/pearl-bay.mjs';
 
 export const STICKER_SIZE = 100;
 export const DISC_RADIUS = 40;
@@ -532,4 +533,5 @@ export const STICKER_DESIGNS = [
   ...CORAL_REEF_STICKERS,
   ...KELP_FOREST_STICKERS,
   ...PIRATE_WRECK_STICKERS,
+  ...PEARL_BAY_STICKERS,
 ];

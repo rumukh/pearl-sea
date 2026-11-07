@@ -228,25 +228,25 @@ The treasure chest, opened after today’s goal
 
 ### 36-shop
 
-U Mrože: Mrož Vousáč’s hats, goggles and scarves (the page is 1116 px tall)
+U Mrože: Mrož Vousáč’s hats, goggles and scarves (the page is 1188 px tall)
 
 ![U Mrože: Mrož Vousáč’s hats, goggles and scarves](screens/36-shop.webp)
 
 ### 37-shop-bought
 
-U Mrože after buying: the item owned (the page is 1116 px tall)
+U Mrože after buying: the item owned (the page is 1188 px tall)
 
 ![U Mrože after buying: the item owned](screens/37-shop-bought.webp)
 
 ### 38-friends
 
-Kamarádi: the friends, the wardrobe and the grotto’s decorations (the page is 1214 px tall)
+Kamarádi: the friends, the wardrobe and the grotto’s decorations (the page is 1121 px tall)
 
 ![Kamarádi: the friends, the wardrobe and the grotto’s decorations](screens/38-friends.webp)
 
 ### 39-friends-dressed
 
-A friend wearing what was bought (the page is 1214 px tall)
+A friend wearing what was bought (the page is 1121 px tall)
 
 ![A friend wearing what was bought](screens/39-friends-dressed.webp)
 
@@ -310,7 +310,7 @@ The monster level’s results after her freeing: stars, score, coins, news
 
 ### 49-gallery
 
-Galerie přátel: Muréna Mumla freed, the other monsters waiting (the page is 1294 px tall)
+Galerie přátel: Muréna Mumla freed, the other monsters waiting (the page is 1330 px tall)
 
 ![Galerie přátel: Muréna Mumla freed, the other monsters waiting](screens/49-gallery.webp)
 

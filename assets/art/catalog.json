@@ -100,6 +100,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/cap-captain",
+      "kind": "svg",
+      "file": "cosmetics/cap-captain.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/cap-flames",
       "kind": "svg",
       "file": "cosmetics/cap-flames.svg",
@@ -140,6 +148,14 @@
       "file": "cosmetics/eyepatch.svg",
       "width": 100,
       "height": 100
+    },
+    {
+      "id": "cosmetic/glasses-heart",
+      "kind": "svg",
+      "file": "cosmetics/glasses-heart.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
     },
     {
       "id": "cosmetic/glasses-moon",
@@ -392,6 +408,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/throne-pearl",
+      "kind": "svg",
+      "file": "cosmetics/throne-pearl.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "egg/barakuda-bystrinka",
       "kind": "svg",
       "file": "eggs/barakuda-bystrinka.svg",
@@ -432,6 +456,14 @@
       "file": "eggs/kalmar-desetiruky.svg",
       "width": 120,
       "height": 160
+    },
+    {
+      "id": "egg/klauni-dvojcata",
+      "kind": "svg",
+      "file": "eggs/klauni-dvojcata.svg",
+      "width": 120,
+      "height": 160,
+      "pack": "grade-4"
     },
     {
       "id": "egg/klipka-vzorna",
@@ -836,6 +868,62 @@
           "rotate": 0
         }
       }
+    },
+    {
+      "id": "friend/klauni-dvojcata/baby",
+      "kind": "painted",
+      "file": "friends/klauni-dvojcata-baby.webp",
+      "width": 722,
+      "height": 763,
+      "anchors": {
+        "head": {
+          "x": 136,
+          "y": 548,
+          "scale": 85,
+          "rotate": -30
+        },
+        "eyes": {
+          "x": 140,
+          "y": 687,
+          "scale": 65,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 295,
+          "y": 873,
+          "scale": 65,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
+    },
+    {
+      "id": "friend/klauni-dvojcata/grown",
+      "kind": "painted",
+      "file": "friends/klauni-dvojcata-grown.webp",
+      "width": 896,
+      "height": 884,
+      "anchors": {
+        "head": {
+          "x": 106,
+          "y": 580,
+          "scale": 75,
+          "rotate": -28
+        },
+        "eyes": {
+          "x": 146,
+          "y": 702,
+          "scale": 55,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 221,
+          "y": 868,
+          "scale": 60,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
     },
     {
       "id": "friend/klipka-vzorna/baby",
@@ -1466,6 +1554,14 @@
       "height": 726
     },
     {
+      "id": "map/deep",
+      "kind": "painted",
+      "file": "maps/deep.webp",
+      "width": 1664,
+      "height": 928,
+      "pack": "grade-4"
+    },
+    {
       "id": "map/shallows",
       "kind": "painted",
       "file": "maps/shallows.webp",
@@ -1530,6 +1626,22 @@
       "file": "monsters/humr-nuzkar-inked.webp",
       "width": 896,
       "height": 604,
+      "pack": "grade-4"
+    },
+    {
+      "id": "monster/krakatice-inkoustova/freed",
+      "kind": "painted",
+      "file": "monsters/krakatice-inkoustova-freed.webp",
+      "width": 896,
+      "height": 851,
+      "pack": "grade-4"
+    },
+    {
+      "id": "monster/krakatice-inkoustova/inked",
+      "kind": "painted",
+      "file": "monsters/krakatice-inkoustova-inked.webp",
+      "width": 896,
+      "height": 851,
       "pack": "grade-4"
     },
     {
@@ -1671,6 +1783,14 @@
       "height": 928
     },
     {
+      "id": "scene/kraken-abyss",
+      "kind": "painted",
+      "file": "scenes/kraken-abyss.webp",
+      "width": 1664,
+      "height": 928,
+      "pack": "grade-4"
+    },
+    {
       "id": "scene/moon-caves",
       "kind": "painted",
       "file": "scenes/moon-caves.webp",
@@ -1728,6 +1848,13 @@
       "file": "scenes/volcanic-vents.webp",
       "width": 1664,
       "height": 928
+    },
+    {
+      "id": "sticker/all-friends",
+      "kind": "svg",
+      "file": "stickers/all-friends.svg",
+      "width": 100,
+      "height": 100
     },
     {
       "id": "sticker/barakuda",
@@ -1789,6 +1916,13 @@
       "id": "sticker/closed-scissors",
       "kind": "svg",
       "file": "stickers/closed-scissors.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/clownfish-twins",
+      "kind": "svg",
+      "file": "stickers/clownfish-twins.svg",
       "width": 100,
       "height": 100
     },
@@ -1873,6 +2007,20 @@
       "id": "sticker/free-jellyfish",
       "kind": "svg",
       "file": "stickers/free-jellyfish.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/golden-crown",
+      "kind": "svg",
+      "file": "stickers/golden-crown.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/golden-pearls",
+      "kind": "svg",
+      "file": "stickers/golden-pearls.svg",
       "width": 100,
       "height": 100
     },
@@ -2069,6 +2217,13 @@
       "id": "sticker/ten-arms",
       "kind": "svg",
       "file": "stickers/ten-arms.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/ten-clean-arms",
+      "kind": "svg",
+      "file": "stickers/ten-clean-arms.svg",
       "width": 100,
       "height": 100
     },

@@ -3398,6 +3398,286 @@
       }
     },
     {
+      "id": "friend/klauni-dvojcata/baby",
+      "file": "friends/klauni-dvojcata-baby.webp",
+      "width": 722,
+      "height": 763,
+      "bytes": 46112,
+      "sha256": "a5bf9ad86653323d171a149d76f6dd2de55b2bc0d1e94ccdfa32ca28647c8dd3",
+      "anchors": {
+        "head": {
+          "x": 136,
+          "y": 548,
+          "scale": 85,
+          "rotate": -30
+        },
+        "eyes": {
+          "x": 140,
+          "y": 687,
+          "scale": 65,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 295,
+          "y": 873,
+          "scale": 65,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/klauni-dvojcata-baby.prompt.txt",
+      "approvedImage": {
+        "image": "klauni-dvojcata/klauni-dvojcata-baby-b-sketchv1-s136111.png",
+        "sha256": "309528c74c4174736c2257282b2fda60537fc0d24f9021cbc39f693f9c474dc9"
+      },
+      "lineage": [
+        {
+          "image": "klauni-dvojcata/klauni-dvojcata-baby-b-sketchv1-s136111.png",
+          "sha256": "309528c74c4174736c2257282b2fda60537fc0d24f9021cbc39f693f9c474dc9",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly two tiny clownfish, twins swimming side by side to the left, one a little behind and above the other; each with exactly three white bands outlined in thin dark plum (head, middle and tail), small rounded orange fins; the front twin smiles with a big shiny eye, the back twin winks. It shows Klauni Dvojčata as tiny hatchlings: two sweet, very round baby clownfish, animal characters and not humans, bright orange, little smiles and rosy cheeks. They are the young version of the grown-up twins: the same colours, the same faces and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, clothes, teeth, third fish, one fish, extra eyes, blurry, low resolution, extra fins, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, flat vector art, clip art, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette",
+          "seed": 136111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "klauni-dvojcata/ref-klauni-dvojcata-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchlings in the chosen master's colours (Pillow colour blocking, sketches.py klauni-baby), repainted in place",
+              "sha256": "f2629814477e71342f3703ec3d7d9dfcf584301b80832794c5ebdcde19d77392",
+              "sketch": "scripts/art/authoring/sketches.py klauni-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "d47b4331601e02e710406a9081abb2d7788330c7fdaeb5845af564a2968e8fe6"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "e7e184cc94cf60ae32b29999444b91b8b9750f1cced67cb23668472113cb8c32",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9839,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "As the grown-ups."
+        },
+        {
+          "step": "trim",
+          "box": [
+            307,
+            294,
+            1029,
+            1057
+          ],
+          "marginPx": 15,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            722,
+            763
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 38.49,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate25-kraken-abyss",
+        "decidedAt": "2026-11-07T12:07:00.397457+01:00",
+        "question": "(Delegated) Gate 25, Krakatičí propast and the deep map: scene, map/deep, Klauni grown and babies, Krakatice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s138041, deep map s139011, Klauni s136011 and babies s136111, Krakatice inked s137022 and freed s137111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Klauni baby A"
+      }
+    },
+    {
+      "id": "friend/klauni-dvojcata/grown",
+      "file": "friends/klauni-dvojcata-grown.webp",
+      "width": 896,
+      "height": 884,
+      "bytes": 70146,
+      "sha256": "b7fde81a7f49d2c25aa7089a15eb3b0970f0adbc42542b444c6923b685b82e4f",
+      "anchors": {
+        "head": {
+          "x": 106,
+          "y": 580,
+          "scale": 75,
+          "rotate": -28
+        },
+        "eyes": {
+          "x": 146,
+          "y": 702,
+          "scale": 55,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 221,
+          "y": 868,
+          "scale": 60,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/klauni-dvojcata-grown.prompt.txt",
+      "approvedImage": {
+        "image": "klauni-dvojcata/klauni-dvojcata-adult-b-sketchv1-s136011.png",
+        "sha256": "027079bf6048f066f94a0102bc7f5c1bd9292238868462401ba8e8f407573578"
+      },
+      "lineage": [
+        {
+          "image": "klauni-dvojcata/klauni-dvojcata-adult-b-sketchv1-s136011.png",
+          "sha256": "027079bf6048f066f94a0102bc7f5c1bd9292238868462401ba8e8f407573578",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly two clownfish, twins swimming side by side to the left, one a little behind and above the other; each with exactly three white bands outlined in thin black (head, middle and tail), rounded orange fins with thin black edges; the front twin smiles with a big shiny eye, the back twin winks. It shows Klauni Dvojčata, twin clownfish who always swim together (like a subject and its predicate), animal characters and not humans: bright orange, happy smiles and rosy cheeks. Cheerful, playful and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, one fish, three fish, many fish, anemone, extra bands, stripes running lengthwise",
+          "seed": 136011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "klauni-dvojcata/ref-klauni-dvojcata-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py klauni), repainted in place",
+              "sha256": "84f738f0e40cd9626c2cecd4e111012f9a59fd9961bfb40fa36ad5044cbad239",
+              "sketch": "scripts/art/authoring/sketches.py klauni (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "d47b4331601e02e710406a9081abb2d7788330c7fdaeb5845af564a2968e8fe6"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "2c0c4e1360c8ed10c9b33b7897f2afde22ecd8f3f6399731350ebb80cbc3f1d6",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9843,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the white bands and eye white on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            148,
+            181,
+            1064,
+            1085
+          ],
+          "marginPx": 18,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.978166,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            884
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 38.41,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate25-kraken-abyss",
+        "decidedAt": "2026-11-07T12:07:00.397457+01:00",
+        "question": "(Delegated) Gate 25, Krakatičí propast and the deep map: scene, map/deep, Klauni grown and babies, Krakatice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s138041, deep map s139011, Klauni s136011 and babies s136111, Krakatice inked s137022 and freed s137111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Klauni A"
+      }
+    },
+    {
       "id": "friend/klipka-vzorna/baby",
       "file": "friends/klipka-vzorna-baby.webp",
       "width": 629,
@@ -7414,6 +7694,104 @@
       }
     },
     {
+      "id": "map/deep",
+      "file": "maps/deep.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 171322,
+      "sha256": "56b2cde8698f71c7a9be58f4dadaf7c8af331b40f56426a39515fd162ce4395a",
+      "anchors": null,
+      "promptFile": "prompts/deep.prompt.txt",
+      "approvedImage": {
+        "image": "bg-map-deep/bg-map-deep-v1-s139011.png",
+        "sha256": "502029e66a5e54b51af7bdd8c15798e08a1afffbb92c0881e804cd02813c1cde"
+      },
+      "lineage": [
+        {
+          "image": "bg-map-deep/bg-map-deep-v1-s139011.png",
+          "sha256": "502029e66a5e54b51af7bdd8c15798e08a1afffbb92c0881e804cd02813c1cde",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted map for a cheerful children's learning game: the deep sea of the 4th grade, seen from above like a storybook treasure map under water. Keep exactly the same composition: five calm, round, open patches of clear blue water, each with a soft glowing pale-blue rim, exactly where the sketch has them, kept plain and uncluttered because the game draws a region card on each; a faint glowing trail of pale-blue pebbles linking the five patches in order, winding down from the top left to the bottom right; around the patches their places: glowing crystals by a dark rock at the top left (the moon caves), a few old stone columns (the sunken city), a dark cliff with a little pink glow (the trench), white wave crests (the stormy sea), and dark ink clouds near the bottom right (the abyss). The sea darkens from soft indigo at the top to deep violet at the bottom, with drifting glowing specks.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of indigo, violet, midnight blue, glowing pale blue and a few warm pearl accents. Magical, mysterious and inviting, never scary. No fish, no animals, no people, no characters, no boats, no submarines, no compass, no labels, no text, no letters, no numbers, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, labels, compass, watermark, signature, logo, sign, frame, border, fish, animals, people, characters, faces, submarine, boat, ship, photorealistic, 3d render, scary, skull, land, coastline, creature in the lair, eyes in the dark",
+          "seed": 139011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-map-deep/ref-bg-map-deep-sketch-v1.png",
+              "role": "composition sketch on the shell's REGION_SPOTS for the deep map (Pillow colour blocking, sketches.py map-grade4), repainted in place",
+              "sha256": "a229b4864d1c7d7885537526ea43556d8cb6e0fe30493bc8721ae8646a370491",
+              "sketch": "scripts/art/authoring/sketches.py map-grade4 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "d47b4331601e02e710406a9081abb2d7788330c7fdaeb5845af564a2968e8fe6"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
+          "psnrDb": 40.11,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate25-kraken-abyss",
+        "decidedAt": "2026-11-07T12:07:00.397457+01:00",
+        "question": "(Delegated) Gate 25, Krakatičí propast and the deep map: scene, map/deep, Klauni grown and babies, Krakatice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s138041, deep map s139011, Klauni s136011 and babies s136111, Krakatice inked s137022 and freed s137111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Deep map A"
+      }
+    },
+    {
       "id": "map/shallows",
       "file": "maps/shallows.webp",
       "width": 1664,
@@ -8794,6 +9172,304 @@
         "question": "(Delegated) Gate 21, Měsíční jeskyně masters and derived forms: scene, Kořínek grown and baby, Humr inked and freed, SVG art.",
         "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s127022, Kořínek s125011, Kořínek baby s125111, Humr inked s126021 and freed s126111, and the SVG art; reasons in agent-review-log.jsonl.",
         "chosen": "Humr inked"
+      }
+    },
+    {
+      "id": "monster/krakatice-inkoustova/freed",
+      "file": "monsters/krakatice-inkoustova-freed.webp",
+      "width": 896,
+      "height": 851,
+      "bytes": 69728,
+      "sha256": "0df2a127226fd5759d52b1acfe8f8ed186d8c86ad39d4b6051f13cf4db621970",
+      "anchors": null,
+      "promptFile": "prompts/krakatice-inkoustova-freed.prompt.txt",
+      "approvedImage": {
+        "image": "krakatice-inkoustova/krakatice-inkoustova-freed-b-from-master-s137111.png",
+        "sha256": "25a2e5ecb5d5d97f0068b9dc166df5cc44bd965644b988464e3bb1d1a230c06a"
+      },
+      "lineage": [
+        {
+          "image": "krakatice-inkoustova/krakatice-inkoustova-freed-b-from-master-s137111.png",
+          "sha256": "25a2e5ecb5d5d97f0068b9dc166df5cc44bd965644b988464e3bb1d1a230c06a",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon giant squid Krakatice Inkoustová. All of the black magic ink has been washed away from her mantle and all ten arms, and she is happy at last, no longer lonely. Keep exactly the same character, pose, the rounded mantle with its two fins, the ten arms with their pale suckers and the two long tentacles with paddle tips, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing her clean, bright colours everywhere: a glowing, cheerful lilac-violet with soft pink suckers and a pearly shine. Change only her expression: a big, friendly, grateful smile, bright wide-open happy eyes, relaxed raised eyebrows and rosy cheeks. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, dirty, sad, lonely, grumpy, angry, frowning, tears, sharp teeth, fangs, beak, light ray, sunbeam, shadow, puddle, glowing eyes, extra eyes, extra arms, duplicate subjects, cropped body, text, letters, numbers, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 137111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krakatice-inkoustova/krakatice-inkoustova-inked-b-sketchv2-s137022.png",
+              "role": "source image edited in place: the chosen inked master s137022",
+              "sha256": "fbf09805eb7c3ab8aaeb9338c6f56aa2d74a1c34aa61f909d0cdf91e7f6541a4"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "krakatice-inkoustova/krakatice-inkoustova-inked-b-sketchv2-s137022.png",
+          "sha256": "fbf09805eb7c3ab8aaeb9338c6f56aa2d74a1c34aa61f909d0cdf91e7f6541a4",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly ten long arms curling out in a wide fan below her, eight arms and two longer tentacles with paddle-shaped tips; a long mantle with a smoothly rounded top pointing up, and two big fins joined to the sides of its tip like an arrowhead (no separate floating pieces); two big round eyes. It shows Krakatice Inkoustová, the grand finale: a huge giant squid soaked in her own magic black ink, deep purple-indigo with a few pale suckers, two big violet eyes under sad, cross eyebrows and a small downturned mouth, no teeth and no beak. She is more lonely and sulky than wicked. Glossy black and dark-violet ink blots and drips cover her mantle and arms. Grand, a little spooky but never frightening for a nine-year-old, never gory.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms with hands, octopus, eight arms, nine arms, eleven arms, twelve arms, tangled arms, sharp teeth, fangs, beak, blood, gore, horror, glowing red eyes, kraken attacking a ship, ship, tentacles grabbing, floating fins, detached pieces, faceted gem, angular crystal",
+          "seed": 137022,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krakatice-inkoustova/ref-krakatice-inkoustova-inked-sketch-v2.png",
+              "role": "anatomy and colour-blocking sketch v2 (sketches.py krakatice-inked2: fins joined to a rounded mantle tip), repainted in place",
+              "sha256": "d2f37fa1a0aeac101b90a23990005a676bcbb065a4b3c44613d2c16279aea410",
+              "sketch": "scripts/art/authoring/sketches.py krakatice-inked2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "d47b4331601e02e710406a9081abb2d7788330c7fdaeb5845af564a2968e8fe6"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "9bdefa75e07dff5fe80d690d2c21b6a8bec87885a0330ddb5697f7da70c5edb8",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9761,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "As the inked form."
+        },
+        {
+          "step": "trim",
+          "box": [
+            86,
+            17,
+            1243,
+            1116
+          ],
+          "marginPx": 22,
+          "sharedWith": [
+            "monster/krakatice-inkoustova/freed",
+            "monster/krakatice-inkoustova/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.774417,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            851
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 42.54,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate25-kraken-abyss",
+        "decidedAt": "2026-11-07T12:07:00.397457+01:00",
+        "question": "(Delegated) Gate 25, Krakatičí propast and the deep map: scene, map/deep, Klauni grown and babies, Krakatice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s138041, deep map s139011, Klauni s136011 and babies s136111, Krakatice inked s137022 and freed s137111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Krakatice freed A"
+      }
+    },
+    {
+      "id": "monster/krakatice-inkoustova/inked",
+      "file": "monsters/krakatice-inkoustova-inked.webp",
+      "width": 896,
+      "height": 851,
+      "bytes": 69360,
+      "sha256": "07058ae1b46172bef5ab3a60fae821cc40f87afbeada1657250c0799b74a8bf3",
+      "anchors": null,
+      "promptFile": "prompts/krakatice-inkoustova-inked.prompt.txt",
+      "approvedImage": {
+        "image": "krakatice-inkoustova/krakatice-inkoustova-inked-b-sketchv2-s137022.png",
+        "sha256": "fbf09805eb7c3ab8aaeb9338c6f56aa2d74a1c34aa61f909d0cdf91e7f6541a4"
+      },
+      "lineage": [
+        {
+          "image": "krakatice-inkoustova/krakatice-inkoustova-inked-b-sketchv2-s137022.png",
+          "sha256": "fbf09805eb7c3ab8aaeb9338c6f56aa2d74a1c34aa61f909d0cdf91e7f6541a4",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly ten long arms curling out in a wide fan below her, eight arms and two longer tentacles with paddle-shaped tips; a long mantle with a smoothly rounded top pointing up, and two big fins joined to the sides of its tip like an arrowhead (no separate floating pieces); two big round eyes. It shows Krakatice Inkoustová, the grand finale: a huge giant squid soaked in her own magic black ink, deep purple-indigo with a few pale suckers, two big violet eyes under sad, cross eyebrows and a small downturned mouth, no teeth and no beak. She is more lonely and sulky than wicked. Glossy black and dark-violet ink blots and drips cover her mantle and arms. Grand, a little spooky but never frightening for a nine-year-old, never gory.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms with hands, octopus, eight arms, nine arms, eleven arms, twelve arms, tangled arms, sharp teeth, fangs, beak, blood, gore, horror, glowing red eyes, kraken attacking a ship, ship, tentacles grabbing, floating fins, detached pieces, faceted gem, angular crystal",
+          "seed": 137022,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "krakatice-inkoustova/ref-krakatice-inkoustova-inked-sketch-v2.png",
+              "role": "anatomy and colour-blocking sketch v2 (sketches.py krakatice-inked2: fins joined to a rounded mantle tip), repainted in place",
+              "sha256": "d2f37fa1a0aeac101b90a23990005a676bcbb065a4b3c44613d2c16279aea410",
+              "sketch": "scripts/art/authoring/sketches.py krakatice-inked2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "d47b4331601e02e710406a9081abb2d7788330c7fdaeb5845af564a2968e8fe6"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "055baf180dd104c253e79ac12a9cf2f704d87909336bf138ecef4480f31730f9",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9758,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the eye whites, pale suckers and the gleams on the ink."
+        },
+        {
+          "step": "trim",
+          "box": [
+            86,
+            17,
+            1243,
+            1116
+          ],
+          "marginPx": 22,
+          "sharedWith": [
+            "monster/krakatice-inkoustova/freed",
+            "monster/krakatice-inkoustova/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.774417,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            851
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 41.79,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate25-kraken-abyss",
+        "decidedAt": "2026-11-07T12:07:00.397457+01:00",
+        "question": "(Delegated) Gate 25, Krakatičí propast and the deep map: scene, map/deep, Klauni grown and babies, Krakatice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s138041, deep map s139011, Klauni s136011 and babies s136111, Krakatice inked s137022 and freed s137111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Krakatice inked B"
       }
     },
     {
@@ -11509,6 +12185,104 @@
         "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
         "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
         "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/kraken-abyss",
+      "file": "scenes/kraken-abyss.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 91874,
+      "sha256": "d966b8611ecf56f428c999df32c421e52d900df56140ef6c7914ccec103a1e55",
+      "anchors": null,
+      "promptFile": "prompts/kraken-abyss.prompt.txt",
+      "approvedImage": {
+        "image": "bg-kraken-abyss/bg-kraken-abyss-v3b-s138041.png",
+        "sha256": "33fed8d3b3489d92bf2b3cb847bf9655f4b093ce5d0c03154da786fbf8543a58"
+      },
+      "lineage": [
+        {
+          "image": "bg-kraken-abyss/bg-kraken-abyss-v3b-s138041.png",
+          "sha256": "33fed8d3b3489d92bf2b3cb847bf9655f4b093ce5d0c03154da786fbf8543a58",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set deep under the sea: Krakatičí propast, the deepest abyss of the sea, seen from inside the water. Keep exactly the same composition: soft drifting clouds of dark ink high in the water; a wide, calm, open band of deep violet water and smooth dusky sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; at the left edge two tall dark rock spires, each with one glowing white pearl; in the bottom-right foreground glowing pink and blue sea anemones; at the right edge a tall solid cliff with one thin dark zigzag crack (no opening, no cave, no hole) and wisps of ink drifting out of it, where the giant squid hides out of sight, mysterious but not scary; the floor along the bottom with a few pale pebbles. Tiny glowing specks drifting.\nStyle: storybook gouache and watercolour painting on textured paper, with visible brush strokes, layered translucent washes, soft wet edges and painted texture on every rock, the water and the sand (not flat vector art), rounded friendly shapes, harmonious palette of deep violet, indigo, near-black plum, glowing pearl white and bioluminescent pink and turquoise accents, gentle depth haze. Grand, mysterious, magical and inviting, never scary. The lair is empty: nothing and no one inside it. No fish, no animals, no creatures, no squid, no tentacles, no people, no characters, no eyes, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, frame, border, fish, animals, squid, tentacles, octopus, people, characters, faces, eyes, monsters, submarine, boat, ship, treasure chest, photorealistic, 3d render, scary, horror, skull, sky, land, creature in the lair, eyes in the dark, cave, cave mouth, hole, open cleft, face, eyes, flat vector art, flat colour fills, clip art",
+          "seed": 138041,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-kraken-abyss/ref-bg-kraken-abyss-sketch-v3.png",
+              "role": "composition sketch v3 on the shell's levelSpots(7) (sketches.py abyss; the lair is a thin crack in a solid cliff), repainted in place",
+              "sha256": "3a523a2f784a7370851edbf40ecb126a9c8fbc18837baccfa6cb42e0531bc458",
+              "sketch": "scripts/art/authoring/sketches.py abyss (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "d47b4331601e02e710406a9081abb2d7788330c7fdaeb5845af564a2968e8fe6"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 40.48,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate25-kraken-abyss",
+        "decidedAt": "2026-11-07T12:07:00.397457+01:00",
+        "question": "(Delegated) Gate 25, Krakatičí propast and the deep map: scene, map/deep, Klauni grown and babies, Krakatice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s138041, deep map s139011, Klauni s136011 and babies s136111, Krakatice inked s137022 and freed s137111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Scene C"
       }
     },
     {

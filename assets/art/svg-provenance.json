@@ -148,6 +148,14 @@
       "sha256": "cc7b1fa27ae97e1e2ba816f2a6a73ae34df51d7c1d5bafc58202e76b3b4ef0a2"
     },
     {
+      "id": "cosmetic/headband-pattern",
+      "file": "cosmetics/headband-pattern.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1069,
+      "sha256": "3a21b81b2eeba96cf49b93e78e605025775702db30c0ba5b11d888dd4b2a6b5a"
+    },
+    {
       "id": "cosmetic/helmet-diver",
       "file": "cosmetics/helmet-diver.svg",
       "width": 100,
@@ -186,6 +194,14 @@
       "height": 100,
       "bytes": 2938,
       "sha256": "fd6448aa884af259a05f917b58c16c3653e7b68dbed1341d4e2097578a15b276"
+    },
+    {
+      "id": "cosmetic/mask-deep",
+      "file": "cosmetics/mask-deep.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1454,
+      "sha256": "b240173d34c0b65fb59618840d12d3abd3a6be0eb517e0a281e117516a005368"
     },
     {
       "id": "cosmetic/mask-snorkel",
@@ -268,6 +284,14 @@
       "sha256": "20b4f6f2b7c27d8709a5bedf50bc035cc7b601274f5ca5852cc14d83edb38f98"
     },
     {
+      "id": "cosmetic/stones-glowing",
+      "file": "cosmetics/stones-glowing.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1773,
+      "sha256": "3647295a2a937625ed266529c8d7ffa1faeebefb4b96c47183055f712f1b34df"
+    },
+    {
       "id": "cosmetic/stones-warm",
       "file": "cosmetics/stones-warm.svg",
       "width": 100,
@@ -338,6 +362,14 @@
       "height": 160,
       "bytes": 2814,
       "sha256": "62663f9397db2ec184c6041d0530e06c97af5b677ea3cb802e5188b2e1729311"
+    },
+    {
+      "id": "egg/klipka-vzorna",
+      "file": "eggs/klipka-vzorna.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 3095,
+      "sha256": "c426e7a94996b6aeec42de58c570e1722a6277249f6a39ed3c6118f710b8099b"
     },
     {
       "id": "egg/konik-mydlinek",
@@ -436,6 +468,14 @@
       "sha256": "c88e3214d43dc4498530537b6d635321b9a0dbaa6dbf502de875454b10960439"
     },
     {
+      "id": "sticker/butterflyfish",
+      "file": "stickers/butterflyfish.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2061,
+      "sha256": "85f25664b69539e62add76aa6ae71da061b1dc98a23b151f1c8620e51dd25a18"
+    },
+    {
       "id": "sticker/calendar-shell",
       "file": "stickers/calendar-shell.svg",
       "width": 100,
@@ -508,6 +548,14 @@
       "sha256": "10b52b72bcd4de23cd9b9495df7c5760d15efc386453a33a290d992d43ced58e"
     },
     {
+      "id": "sticker/dolphin-trophy",
+      "file": "stickers/dolphin-trophy.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1766,
+      "sha256": "7d959aaa7baefcb7f15131223ee4016c1f5e0366cf0c8007c413f8ee07b0df68"
+    },
+    {
       "id": "sticker/egg-hatching",
       "file": "stickers/egg-hatching.svg",
       "width": 100,
@@ -532,6 +580,14 @@
       "sha256": "8668c5abc0f348b18d85b23dbb8f4add0d1ce8d4cf098373582a8d74682233b4"
     },
     {
+      "id": "sticker/fourteen-scales",
+      "file": "stickers/fourteen-scales.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2416,
+      "sha256": "bf89d0c396e3e9e54b4d6af52a50e8a00abe8796533048492e51634e50f4721b"
+    },
+    {
       "id": "sticker/frame-shell",
       "file": "stickers/frame-shell.svg",
       "width": 100,
@@ -546,6 +602,14 @@
       "height": 100,
       "bytes": 1851,
       "sha256": "98a0f2cd89d89e89866d69d3de7a389162698662b3804825f17636f8cbe1d471"
+    },
+    {
+      "id": "sticker/happy-octopus",
+      "file": "stickers/happy-octopus.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1804,
+      "sha256": "efaa90a7acb678978aee6fc25c8de8836cd0e663b3e54e7b83e71b566facb720"
     },
     {
       "id": "sticker/hermit-crab",

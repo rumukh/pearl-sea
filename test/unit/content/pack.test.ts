@@ -466,6 +466,38 @@ describe('the content', () => {
       expect(offered, friend.id).toBeGreaterThanOrEqual(Math.ceil(set.size * 0.3));
     }
   });
+
+  it('addresses no named creature in the vocative (design §10: names stay in the nominative)', () => {
+    const czech: Record<string, string> = Object.assign(
+      {},
+      ...readdirSync(join(root, 'content', 'catalogs'))
+        .filter((name) => name.startsWith('cs.'))
+        .map((name) => JSON.parse(readFileSync(join(root, 'content', 'catalogs', name), 'utf8'))),
+    );
+    const nameKeys = [
+      ...[...data.friends, ...data.monsters, ...data.inkoustici].map((record) => record.nameKey),
+      ...Object.keys(czech).filter((key) => /^character\.[a-z-]+$/.test(key)),
+    ];
+    const names = new Set<string>(['Osmička', 'Bublinka', 'Vousáč']);
+    for (const key of nameKeys) {
+      for (const part of (czech[key] ?? '').split(/\s+/u)) {
+        if (/^\p{Lu}\p{L}{2,}$/u.test(part)) names.add(part);
+      }
+    }
+    const stems = [...names].map((name) => [name, name.replace(/[aeiouyáéíóúůýě]$/u, '')] as const);
+    // An inflected name standing alone as its own phrase, as an address does (Pádíku!, Bublinko,
+    // pojď), and not after a word (vajíčko tuleně Pádíka., žraloka Žrouta,): a vocative.
+    const addressed: string[] = [];
+    for (const [key, line] of Object.entries(czech)) {
+      for (const m of line.matchAll(/(^|[.!?:,;–]\s*)(\p{Lu}\p{L}+)(?=\s*(?:[!?,]|$))/gu)) {
+        const word = m[2]!;
+        if (names.has(word)) continue;
+        const of = stems.find(([, stem]) => stem.length >= 3 && word.startsWith(stem));
+        if (of && word.length - of[1].length <= 3) addressed.push(`${key}: ${word} (${of[0]})`);
+      }
+    }
+    expect(addressed).toEqual([]);
+  });
 });
 
 describe('content history', () => {

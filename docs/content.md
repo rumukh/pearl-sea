@@ -104,6 +104,11 @@ words a sentence and written to be read aloud. Standard Czech only (_děkuji, ne
 proto_ rather than _tak_), and a joke or story line never contains a misspelled word. Typography:
 „…“, …, –, no space before punctuation.
 
+No line addresses a named creature: its name stays in the nominative (design §10), so a mnemonic
+says _na pátém oslovujeme a voláme_, never _Pádíku!_. `pack.test.ts` flags an inflected name
+standing alone as its own phrase (_Pádíku!_, _Bublinko, pojď_); after a noun it is a genitive and
+fine (_vajíčko tuleně Pádíka_).
+
 A freed beat plays just before the results, which say that the ink is washed off
 (`results.freed`), that the monster now lives in the gallery (`results.gallery`), which sticker it
 earns and which region opens. So a freed beat repeats none of these. It shows the change in the

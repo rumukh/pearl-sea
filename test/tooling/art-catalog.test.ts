@@ -19,7 +19,9 @@ import {
 import {
   buildArtCatalog,
   CATALOG_PATH,
+  CONTENT_PATH,
   formatCatalog,
+  gradeFourArt,
   PROVENANCE_PATH,
 } from '../../scripts/art/catalog.mjs';
 import { readWebp } from '../../scripts/art/lib/webp.mjs';
@@ -178,6 +180,41 @@ describe('static SVG art generator', () => {
     expect(ICON_RADIUS).toBeLessThan(FRAME_WINDOW);
     expect(FRAME_WINDOW).toBeLessThan(DISC_RADIUS);
     expect(art.some((item) => item.id === 'sticker/frame-shell')).toBe(true);
+  });
+});
+
+describe('grade-4 pack tag', () => {
+  const data = JSON.parse(readFileSync(join(repository, CONTENT_PATH), 'utf8')).data as {
+    regions: { id: string; grade: number }[];
+    friends: { id: string; region: string }[];
+  };
+  const tagged = gradeFourArt(data);
+
+  it('tags the art of grade-4 regions and the deep map, and nothing of grade 3', () => {
+    expect(tagged.has('map/deep')).toBe(true);
+    expect(tagged.has('map/shallows')).toBe(false);
+    for (const region of data.regions) {
+      expect(tagged.has(`scene/${region.id}`), region.id).toBe(region.grade === 4);
+    }
+    const grade = new Map(data.regions.map((r) => [r.id, r.grade]));
+    for (const friend of data.friends) {
+      const four = grade.get(friend.region) === 4;
+      expect(tagged.has(`friend/${friend.id}/grown`), friend.id).toBe(four);
+      expect(tagged.has(`egg/${friend.id}`), friend.id).toBe(four);
+    }
+  });
+
+  it('keeps sticker icons core: a sticker can be earned before grade 4', () => {
+    expect([...tagged].filter((id) => id.startsWith('sticker/'))).toEqual([]);
+  });
+
+  it.runIf(published)('is what the published catalog carries, entry by entry', () => {
+    const catalog = JSON.parse(
+      readFileSync(join(repository, ...CATALOG_PATH.split('/')), 'utf8'),
+    ) as { entries: { id: string; pack?: string }[] };
+    for (const entry of catalog.entries) {
+      expect(entry.pack, entry.id).toBe(tagged.has(entry.id) ? 'grade-4' : undefined);
+    }
   });
 });
 

@@ -32,6 +32,7 @@ import { PIRATE_WRECK_STICKERS } from './regions/pirate-wreck.mjs';
 import { PEARL_BAY_STICKERS } from './regions/pearl-bay.mjs';
 import { VOLCANIC_VENTS_STICKERS } from './regions/volcanic-vents.mjs';
 import { ICE_SEA_STICKERS } from './regions/ice-sea.mjs';
+import { MOON_CAVES_STICKERS } from './regions/moon-caves.mjs';
 
 export const STICKER_SIZE = 100;
 export const DISC_RADIUS = 40;
@@ -538,4 +539,5 @@ export const STICKER_DESIGNS = [
   ...PEARL_BAY_STICKERS,
   ...VOLCANIC_VENTS_STICKERS,
   ...ICE_SEA_STICKERS,
+  ...MOON_CAVES_STICKERS,
 ];

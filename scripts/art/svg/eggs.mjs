@@ -15,6 +15,7 @@ import { PIRATE_WRECK_EGGS } from './regions/pirate-wreck.mjs';
 import { PEARL_BAY_EGGS } from './regions/pearl-bay.mjs';
 import { VOLCANIC_VENTS_EGGS } from './regions/volcanic-vents.mjs';
 import { ICE_SEA_EGGS } from './regions/ice-sea.mjs';
+import { MOON_CAVES_EGGS } from './regions/moon-caves.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -146,6 +147,7 @@ export const EGG_DESIGNS = [
   ...PEARL_BAY_EGGS,
   ...VOLCANIC_VENTS_EGGS,
   ...ICE_SEA_EGGS,
+  ...MOON_CAVES_EGGS,
 ];
 
 /**

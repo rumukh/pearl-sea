@@ -142,6 +142,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/glasses-moon",
+      "kind": "svg",
+      "file": "cosmetics/glasses-moon.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/glasses-pearl",
       "kind": "svg",
       "file": "cosmetics/glasses-pearl.svg",
@@ -205,6 +213,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/helmet-lamp",
+      "kind": "svg",
+      "file": "cosmetics/helmet-lamp.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/igloo",
       "kind": "svg",
       "file": "cosmetics/igloo.svg",
@@ -217,6 +233,14 @@
       "file": "cosmetics/lamp-anemone.svg",
       "width": 100,
       "height": 100
+    },
+    {
+      "id": "cosmetic/lantern-shell",
+      "kind": "svg",
+      "file": "cosmetics/lantern-shell.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
     },
     {
       "id": "cosmetic/mask-snorkel",
@@ -371,6 +395,14 @@
       "file": "eggs/pyskoun-pysny.svg",
       "width": 120,
       "height": 160
+    },
+    {
+      "id": "egg/rak-korinek",
+      "kind": "svg",
+      "file": "eggs/rak-korinek.svg",
+      "width": 120,
+      "height": 160,
+      "pack": "grade-4"
     },
     {
       "id": "egg/tulen-padik",
@@ -988,6 +1020,62 @@
       }
     },
     {
+      "id": "friend/rak-korinek/baby",
+      "kind": "painted",
+      "file": "friends/rak-korinek-baby.webp",
+      "width": 863,
+      "height": 739,
+      "anchors": {
+        "head": {
+          "x": 262,
+          "y": 218,
+          "scale": 90,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 264,
+          "y": 296,
+          "scale": 85,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 314,
+          "y": 719,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
+    },
+    {
+      "id": "friend/rak-korinek/grown",
+      "kind": "painted",
+      "file": "friends/rak-korinek-grown.webp",
+      "width": 896,
+      "height": 766,
+      "anchors": {
+        "head": {
+          "x": 315,
+          "y": 329,
+          "scale": 80,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 315,
+          "y": 393,
+          "scale": 70,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 372,
+          "y": 711,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
+    },
+    {
       "id": "friend/tulen-padik/baby",
       "kind": "painted",
       "file": "friends/tulen-padik-baby.webp",
@@ -1213,6 +1301,22 @@
       "height": 932
     },
     {
+      "id": "monster/humr-nuzkar/freed",
+      "kind": "painted",
+      "file": "monsters/humr-nuzkar-freed.webp",
+      "width": 896,
+      "height": 604,
+      "pack": "grade-4"
+    },
+    {
+      "id": "monster/humr-nuzkar/inked",
+      "kind": "painted",
+      "file": "monsters/humr-nuzkar-inked.webp",
+      "width": 896,
+      "height": 604,
+      "pack": "grade-4"
+    },
+    {
       "id": "monster/murena-mumla/freed",
       "kind": "painted",
       "file": "monsters/murena-mumla-freed.webp",
@@ -1311,6 +1415,14 @@
       "height": 928
     },
     {
+      "id": "scene/moon-caves",
+      "kind": "painted",
+      "file": "scenes/moon-caves.webp",
+      "width": 1664,
+      "height": 928,
+      "pack": "grade-4"
+    },
+    {
       "id": "scene/pearl-bay",
       "kind": "painted",
       "file": "scenes/pearl-bay.webp",
@@ -1374,6 +1486,20 @@
       "height": 100
     },
     {
+      "id": "sticker/closed-scissors",
+      "kind": "svg",
+      "file": "stickers/closed-scissors.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/coin-chest",
+      "kind": "svg",
+      "file": "stickers/coin-chest.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/coins",
       "kind": "svg",
       "file": "stickers/coins.svg",
@@ -1384,6 +1510,13 @@
       "id": "sticker/cool-eel",
       "kind": "svg",
       "file": "stickers/cool-eel.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/diving-badge",
+      "kind": "svg",
+      "file": "stickers/diving-badge.svg",
       "width": 100,
       "height": 100
     },
@@ -1419,6 +1552,13 @@
       "id": "sticker/frame-shell",
       "kind": "svg",
       "file": "stickers/frame-shell.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/hermit-crab",
+      "kind": "svg",
+      "file": "stickers/hermit-crab.svg",
       "width": 100,
       "height": 100
     },
@@ -1615,6 +1755,13 @@
       "id": "sticker/wardrobe",
       "kind": "svg",
       "file": "stickers/wardrobe.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/word-shell",
+      "kind": "svg",
+      "file": "stickers/word-shell.svg",
       "width": 100,
       "height": 100
     }

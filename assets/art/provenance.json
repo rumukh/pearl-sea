@@ -5116,6 +5116,286 @@
       }
     },
     {
+      "id": "friend/rak-korinek/baby",
+      "file": "friends/rak-korinek-baby.webp",
+      "width": 863,
+      "height": 739,
+      "bytes": 51318,
+      "sha256": "adaf367d398f7593bef4c9abfe95d2eda2a9ee9e61b5ccf788b928ac59a7e421",
+      "anchors": {
+        "head": {
+          "x": 262,
+          "y": 218,
+          "scale": 90,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 264,
+          "y": 296,
+          "scale": 85,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 314,
+          "y": 719,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/rak-korinek-baby.prompt.txt",
+      "approvedImage": {
+        "image": "rak-korinek/rak-korinek-baby-b-sketchv1-s125111.png",
+        "sha256": "8af4d3239340db7ae88329bcec54ecaa6388963d3d6cdb65b0e4fc03c6529d71"
+      },
+      "lineage": [
+        {
+          "image": "rak-korinek/rak-korinek-baby-b-sketchv1-s125111.png",
+          "sha256": "8af4d3239340db7ae88329bcec54ecaa6388963d3d6cdb65b0e4fc03c6529d71",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one small round spiral shell with exactly three cream bands; two big eyes on short stalks; one small claw and one slightly bigger claw; exactly three short legs in front. It shows Rak poustevník Kořínek as a tiny hatchling: a sweet baby hermit crab peeking out of his little lilac shell, facing left, an animal character and not a human, a soft orange body, big shiny dark eyes, a little smile and a rosy cheek. He is the young version of the grown-up Kořínek: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, clothes, snail, snail head, lobster, two shells, blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette",
+          "seed": 125111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "rak-korinek/ref-rak-korinek-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the chosen master's colours (Pillow colour blocking, sketches.py korinek-baby), repainted in place",
+              "sha256": "d666b112e5496616298294423c493d8e28cada527602bac343c2228fb61edce6",
+              "sketch": "scripts/art/authoring/sketches.py korinek-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "3b664b8b379907ef607de9791b3fdcf0dc08e0262657e5dc1dab397ba9e92e8b",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9886,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the grown-up: keeps the shell bands and eye whites."
+        },
+        {
+          "step": "trim",
+          "box": [
+            229,
+            329,
+            1092,
+            1068
+          ],
+          "marginPx": 17,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            863,
+            739
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 39.24,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate21-moon-caves",
+        "decidedAt": "2026-11-07T01:43:31.044849+01:00",
+        "question": "(Delegated) Gate 21, Měsíční jeskyně masters and derived forms: scene, Kořínek grown and baby, Humr inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s127022, Kořínek s125011, Kořínek baby s125111, Humr inked s126021 and freed s126111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Kořínek baby"
+      }
+    },
+    {
+      "id": "friend/rak-korinek/grown",
+      "file": "friends/rak-korinek-grown.webp",
+      "width": 896,
+      "height": 766,
+      "bytes": 61080,
+      "sha256": "5aa462d7c284a32023cd3166524d70b766dddd13a7eeac44594fc2896495d540",
+      "anchors": {
+        "head": {
+          "x": 315,
+          "y": 329,
+          "scale": 80,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 315,
+          "y": 393,
+          "scale": 70,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 372,
+          "y": 711,
+          "scale": 70,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/rak-korinek-grown.prompt.txt",
+      "approvedImage": {
+        "image": "rak-korinek/rak-korinek-adult-b-sketchv1-s125011.png",
+        "sha256": "af9215939e61edd01bdc609fe57373abe7bea4c480a033dcf995c7a68842a392"
+      },
+      "lineage": [
+        {
+          "image": "rak-korinek/rak-korinek-adult-b-sketchv1-s125011.png",
+          "sha256": "af9215939e61edd01bdc609fe57373abe7bea4c480a033dcf995c7a68842a392",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one big spiral sea-snail shell with exactly three cream bands winding round its spiral; the crab peeking out of the shell's opening at the lower left; two eyes on short stalks; one big claw and one small claw; exactly three walking legs showing in front. It shows Rak poustevník Kořínek, a cheerful hermit crab facing left, an animal character and not a human: a soft orange body tucked into his lilac shell (the word's root lives inside, its prefixes and suffixes are the shell), shiny dark eyes, a little smile and a rosy cheek. Cosy, curious and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, arms, legs on the shell, snail head, snail, two shells, lobster, crayfish, open empty shell",
+          "seed": 125011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "rak-korinek/ref-rak-korinek-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py korinek), repainted in place",
+              "sha256": "b18a5687cd5ce70eb3c622bf947b96c9a87972d0b6c39b812b2c3eabec606376",
+              "sketch": "scripts/art/authoring/sketches.py korinek (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-06",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "a80da96a0b6a78c20a9ceeb9633f85ab3af74eaec6ed451f11998967e881232e",
+          "holesOpened": 0,
+          "specksRemoved": 12,
+          "iouWithU2net": 0.983,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the cream shell bands and eye whites on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            164,
+            276,
+            1174,
+            1139
+          ],
+          "marginPx": 19,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.887129,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            766
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 41.03,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate21-moon-caves",
+        "decidedAt": "2026-11-07T01:43:31.044849+01:00",
+        "question": "(Delegated) Gate 21, Měsíční jeskyně masters and derived forms: scene, Kořínek grown and baby, Humr inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s127022, Kořínek s125011, Kořínek baby s125111, Humr inked s126021 and freed s126111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Kořínek"
+      }
+    },
+    {
       "id": "friend/tulen-padik/baby",
       "file": "friends/tulen-padik-baby.webp",
       "width": 832,
@@ -7361,6 +7641,304 @@
       }
     },
     {
+      "id": "monster/humr-nuzkar/freed",
+      "file": "monsters/humr-nuzkar-freed.webp",
+      "width": 896,
+      "height": 604,
+      "bytes": 54508,
+      "sha256": "d91fa304f62ede5d4afc867ff00508e7d8450ad5aa370a06e7fbc59bc2f7c841",
+      "anchors": null,
+      "promptFile": "prompts/humr-nuzkar-freed.prompt.txt",
+      "approvedImage": {
+        "image": "humr-nuzkar/humr-nuzkar-freed-b-from-master-s126111.png",
+        "sha256": "703e287b88a4e138fb1b995bfd857f87939afdca3fc0b34607a75e998cd01969"
+      },
+      "lineage": [
+        {
+          "image": "humr-nuzkar/humr-nuzkar-freed-b-from-master-s126111.png",
+          "sha256": "703e287b88a4e138fb1b995bfd857f87939afdca3fc0b34607a75e998cd01969",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon lobster Humr Nůžkař. All of the black and dark-violet magic ink has been washed away and he is happy again. Keep exactly the same character, pose, body shape, the two forward pincers with their open jaws, the four short legs, the segmented tail and fan, the antennae, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing his clean, bright colours everywhere: a cheerful cobalt blue shell with a lighter blue belly. Change only his expression: a big, friendly, grateful smile with a bright, wide-open happy eye, a relaxed raised eyebrow and a rosy cheek. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, dirty, grumpy, angry, frowning, sharp teeth, fangs, red cooked lobster, puddle, water, glowing eyes, extra eyes, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 126111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "humr-nuzkar/humr-nuzkar-inked-b-sketchv2-s126021.png",
+              "role": "source image edited in place: the chosen inked master s126021",
+              "sha256": "914adb79694ae4ef51ff8d7cd9d861706ca4efa637b294e96629aa7594472723"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "humr-nuzkar/humr-nuzkar-inked-b-sketchv2-s126021.png",
+          "sha256": "914adb79694ae4ef51ff8d7cd9d861706ca4efa637b294e96629aa7594472723",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: two big crusher claws reaching forward along the ground, each a fat pincer with two jaws and an open gap between them, like a pair of scissors; a segmented tail ending in a fan; exactly four short walking legs angled back under his body; two long antennae sweeping back over his body. It shows Humr Nůžkař, a grumpy real lobster soaked in magic black ink, facing left, who snips words to pieces: a deep blue lobster shell with a lighter tail fan, a round eye under a cross eyebrow and a sulky pout, no teeth. Glossy black and dark-violet magic ink covers part of him: blots and little highlights on his back. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, sharp teeth, fangs, blood, gore, horror, glowing eyes, scorpion, crab, shrimp, cooked lobster, red lobster, scissors, knife, paddles, raised arms, table legs",
+          "seed": 126021,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "humr-nuzkar/ref-humr-nuzkar-inked-sketch-v2.png",
+              "role": "anatomy and composition sketch v2 (sketches.py humr-inked2: forward pincers, short angled legs), repainted in place",
+              "sha256": "55161da73684ad7f7ce1687c9e82d62595658355fec208d2ed691e42b6fb602a",
+              "sketch": "scripts/art/authoring/sketches.py humr-inked2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "4d0d4c61c5e56edb7905951c8ae054cb7a9a12ff558761a956752568b1ee04dd",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9079,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "As the inked form."
+        },
+        {
+          "step": "trim",
+          "box": [
+            81,
+            196,
+            1282,
+            1005
+          ],
+          "marginPx": 23,
+          "sharedWith": [
+            "monster/humr-nuzkar/freed",
+            "monster/humr-nuzkar/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.746045,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            604
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 38.18,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate21-moon-caves",
+        "decidedAt": "2026-11-07T01:43:31.044849+01:00",
+        "question": "(Delegated) Gate 21, Měsíční jeskyně masters and derived forms: scene, Kořínek grown and baby, Humr inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s127022, Kořínek s125011, Kořínek baby s125111, Humr inked s126021 and freed s126111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Humr freed"
+      }
+    },
+    {
+      "id": "monster/humr-nuzkar/inked",
+      "file": "monsters/humr-nuzkar-inked.webp",
+      "width": 896,
+      "height": 604,
+      "bytes": 62358,
+      "sha256": "46c02dc50e77d2876d5763ef4171e56fe768da45429433961c53dab0d2fe0bea",
+      "anchors": null,
+      "promptFile": "prompts/humr-nuzkar-inked.prompt.txt",
+      "approvedImage": {
+        "image": "humr-nuzkar/humr-nuzkar-inked-b-sketchv2-s126021.png",
+        "sha256": "914adb79694ae4ef51ff8d7cd9d861706ca4efa637b294e96629aa7594472723"
+      },
+      "lineage": [
+        {
+          "image": "humr-nuzkar/humr-nuzkar-inked-b-sketchv2-s126021.png",
+          "sha256": "914adb79694ae4ef51ff8d7cd9d861706ca4efa637b294e96629aa7594472723",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: two big crusher claws reaching forward along the ground, each a fat pincer with two jaws and an open gap between them, like a pair of scissors; a segmented tail ending in a fan; exactly four short walking legs angled back under his body; two long antennae sweeping back over his body. It shows Humr Nůžkař, a grumpy real lobster soaked in magic black ink, facing left, who snips words to pieces: a deep blue lobster shell with a lighter tail fan, a round eye under a cross eyebrow and a sulky pout, no teeth. Glossy black and dark-violet magic ink covers part of him: blots and little highlights on his back. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, clothes, sharp teeth, fangs, blood, gore, horror, glowing eyes, scorpion, crab, shrimp, cooked lobster, red lobster, scissors, knife, paddles, raised arms, table legs",
+          "seed": 126021,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "humr-nuzkar/ref-humr-nuzkar-inked-sketch-v2.png",
+              "role": "anatomy and composition sketch v2 (sketches.py humr-inked2: forward pincers, short angled legs), repainted in place",
+              "sha256": "55161da73684ad7f7ce1687c9e82d62595658355fec208d2ed691e42b6fb602a",
+              "sketch": "scripts/art/authoring/sketches.py humr-inked2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 437bb127ca7ce65101c3a88776754986b47b92a830a3fdf864b46e9ffeb268a9): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "d5bed5d4016beefeffa3e39007d0de13ecc15afa15ed8cf5e4882eca49102c53",
+          "holesOpened": 0,
+          "specksRemoved": 2,
+          "iouWithU2net": 0.8963,
+          "options": "--keep-marks 200 --min-hole 100000000",
+          "optionsWhy": "Keeps the pale gap inside each pincer, the cream tail fan and the thin antennae."
+        },
+        {
+          "step": "trim",
+          "box": [
+            81,
+            196,
+            1282,
+            1005
+          ],
+          "marginPx": 23,
+          "sharedWith": [
+            "monster/humr-nuzkar/freed",
+            "monster/humr-nuzkar/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.746045,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            604
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.78,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate21-moon-caves",
+        "decidedAt": "2026-11-07T01:43:31.044849+01:00",
+        "question": "(Delegated) Gate 21, Měsíční jeskyně masters and derived forms: scene, Kořínek grown and baby, Humr inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s127022, Kořínek s125011, Kořínek baby s125111, Humr inked s126021 and freed s126111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Humr inked"
+      }
+    },
+    {
       "id": "monster/murena-mumla/freed",
       "file": "monsters/murena-mumla-freed.webp",
       "width": 1024,
@@ -8901,8 +9479,8 @@
       "file": "scenes/coral-reef.webp",
       "width": 1664,
       "height": 928,
-      "bytes": 145062,
-      "sha256": "b82178cac065c801bcc573958a97111690cd98d14fedc69b30234a286b44a631",
+      "bytes": 115550,
+      "sha256": "0ba9b6bf6ca6f329d1b956d2b3d5893db06210ea7e232b6369b418882a6e34e2",
       "anchors": null,
       "promptFile": "prompts/coral-reef.prompt.txt",
       "approvedImage": {
@@ -8960,7 +9538,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
       },
       "processing": [
         {
@@ -8975,8 +9553,8 @@
         },
         {
           "step": "encode",
-          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
-          "psnrDb": 38.54,
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 37.81,
           "alphaPsnrDb": null,
           "alphaExact": false,
           "chunks": [
@@ -9287,8 +9865,8 @@
       "file": "scenes/kelp-forest.webp",
       "width": 1664,
       "height": 928,
-      "bytes": 130984,
-      "sha256": "6ef9df7661c08b226b2223efb15929c75c331aee8ce7a24b97f564ed2c40b1f8",
+      "bytes": 96608,
+      "sha256": "b9ec03353fda1e8ae6a58096f18156f804511724cf2067664712fab79ce5bd9a",
       "anchors": null,
       "promptFile": "prompts/kelp-forest.prompt.txt",
       "approvedImage": {
@@ -9346,7 +9924,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "7ed688a5e4b26c72cca55223c6317d154be877d4dc0c0284a3fdb1b487e8a71e"
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
       },
       "processing": [
         {
@@ -9361,8 +9939,8 @@
         },
         {
           "step": "encode",
-          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
-          "psnrDb": 39.94,
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 38.92,
           "alphaPsnrDb": null,
           "alphaExact": false,
           "chunks": [
@@ -9378,6 +9956,104 @@
         "question": "Gate 10, Chaluhový les masters (images in my gate10-kelp-masters folder: scene A/B with the level spots, Koník A/B, Pyskoun A/B, Mořský had inked A/B, the kelp SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots on open water), Koník A (three clean soap bubbles), Pyskoun A (big proud pink lips), Had A (cream and black sea-snake bands tied in a knot). Which set should I use?",
         "answer": "Recommended: scene A, Koník A, Pyskoun A, Had A, SVG art as shown",
         "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/moon-caves",
+      "file": "scenes/moon-caves.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 94718,
+      "sha256": "0140e50e5781614c4dfd8cbc90405bf9db38d0e2d54e0604c7a60a8cae50f536",
+      "anchors": null,
+      "promptFile": "prompts/moon-caves.prompt.txt",
+      "approvedImage": {
+        "image": "bg-moon-caves/bg-moon-caves-v2-s127022.png",
+        "sha256": "9fcc93e48562aae8b1e6ae17cfa92ac948de9877c40e0d41b04ea20e4193564b"
+      },
+      "lineage": [
+        {
+          "image": "bg-moon-caves/bg-moon-caves-v2-s127022.png",
+          "sha256": "9fcc93e48562aae8b1e6ae17cfa92ac948de9877c40e0d41b04ea20e4193564b",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set deep under the sea: Měsíční jeskyně, a magical moonlit sea cave, seen from inside the water. Keep exactly the same composition: a soft silver moon glow falling through a hole in the cave roof at the top; a wide, calm, open band of clear deep-blue water and smooth pale-violet sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; at the left edge a dark rock wall with glowing blue and pink crystals; in the bottom-right foreground smooth dark pebbles with little glowing bioluminescent dots; at the right edge a craggy rock overhang with one narrow, empty, dark crevice where a sea monster hides out of sight, mysterious but not scary; the sandy floor along the bottom with a few pale pebbles. Tiny glowing bubbles and soft sparkles in the water.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of deep indigo, violet, midnight blue, silver moonlight and bioluminescent turquoise and pink accents, gentle depth haze. Calm, magical and inviting, never scary. The crevice is empty: nothing and no one inside it. No fish, no animals, no creatures, no owls, no cats, no people, no characters, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, frame, border, fish, animals, people, characters, faces, submarine, boat, ship, treasure chest, photorealistic, 3d render, scary, skull, sky, land, moon face, creature in the cave, owl, cat, eyes in the dark, creature in the cave, owl, cat, eyes in the dark",
+          "seed": 127022,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-moon-caves/ref-bg-moon-caves-sketch-v2.png",
+              "role": "composition sketch v2 on the shell's levelSpots(7) (sketches.py moon; the lair is a narrow crevice), repainted in place",
+              "sha256": "1a69c8325bf287167ed39b177dfc3227467726c48227196afe8c522189b5c896",
+              "sketch": "scripts/art/authoring/sketches.py moon (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 40.02,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate21-moon-caves",
+        "decidedAt": "2026-11-07T01:43:31.044849+01:00",
+        "question": "(Delegated) Gate 21, Měsíční jeskyně masters and derived forms: scene, Kořínek grown and baby, Humr inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s127022, Kořínek s125011, Kořínek baby s125111, Humr inked s126021 and freed s126111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Scene"
       }
     },
     {
@@ -9483,8 +10159,8 @@
       "file": "scenes/pirate-wreck.webp",
       "width": 1664,
       "height": 928,
-      "bytes": 145850,
-      "sha256": "35505c44268b14b3ee4c33cfd42ffb3af8a0beff1c6d06d55658d7e99a956ee5",
+      "bytes": 109912,
+      "sha256": "11181c14f17f18dc20db7947f7e28e07e4a3dd6cb35a20ede29f3193a29e75e5",
       "anchors": null,
       "promptFile": "prompts/pirate-wreck.prompt.txt",
       "approvedImage": {
@@ -9542,7 +10218,7 @@
       ],
       "sketchScript": {
         "path": "scripts/art/authoring/sketches.py",
-        "sha256": "b23791c7f9e211d9f568a301441468e23c9c2581ca22c6b41c9507753a9f77a7"
+        "sha256": "cf82f715792535ea42f5746f2f116bb5185e421c8ba894cea2f024fa58fa2548"
       },
       "processing": [
         {
@@ -9557,8 +10233,8 @@
         },
         {
           "step": "encode",
-          "codec": "WebP lossy (libwebp via Pillow), quality 88, method 6",
-          "psnrDb": 39.19,
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 38.3,
           "alphaPsnrDb": null,
           "alphaExact": false,
           "chunks": [

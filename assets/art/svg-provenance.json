@@ -68,6 +68,14 @@
       "sha256": "2d7e2f177eeff32b9c754db32a93e214f0c69eefab2439288e739e330174a707"
     },
     {
+      "id": "cosmetic/glasses-moon",
+      "file": "cosmetics/glasses-moon.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2169,
+      "sha256": "047d210669c59d06a1d4b8b802aacfdeff7cfbcd81e2e878dca0e55f9bae87b3"
+    },
+    {
       "id": "cosmetic/glasses-pearl",
       "file": "cosmetics/glasses-pearl.svg",
       "width": 100,
@@ -140,6 +148,14 @@
       "sha256": "cc7b1fa27ae97e1e2ba816f2a6a73ae34df51d7c1d5bafc58202e76b3b4ef0a2"
     },
     {
+      "id": "cosmetic/helmet-lamp",
+      "file": "cosmetics/helmet-lamp.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1499,
+      "sha256": "bd398a886f0ba4a546c0588603702fc050b0580b5a131ca133fa894de540806e"
+    },
+    {
       "id": "cosmetic/igloo",
       "file": "cosmetics/igloo.svg",
       "width": 100,
@@ -154,6 +170,14 @@
       "height": 100,
       "bytes": 6325,
       "sha256": "c2d67144e7e14e366de64d1526c2efa68b320fc3658352c19e2dc755a5261f8e"
+    },
+    {
+      "id": "cosmetic/lantern-shell",
+      "file": "cosmetics/lantern-shell.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2938,
+      "sha256": "fd6448aa884af259a05f917b58c16c3653e7b68dbed1341d4e2097578a15b276"
     },
     {
       "id": "cosmetic/mask-snorkel",
@@ -332,6 +356,14 @@
       "sha256": "224528adaf35a25d53e5b306634ef7c75420a4fd5763ce831aa45966f271494b"
     },
     {
+      "id": "egg/rak-korinek",
+      "file": "eggs/rak-korinek.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 3745,
+      "sha256": "96391e8f12eef9151d446b91b18e4db94b78aa2b9d9b671af2a9a3e0a998a60a"
+    },
+    {
       "id": "egg/tulen-padik",
       "file": "eggs/tulen-padik.svg",
       "width": 120,
@@ -388,6 +420,22 @@
       "sha256": "431a5895e3bd6b7f10fa9ec1d84431777f0bf139ad49cd052f5073f4174b1bb2"
     },
     {
+      "id": "sticker/closed-scissors",
+      "file": "stickers/closed-scissors.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1958,
+      "sha256": "ae2b72ff420fa84f52a9c2b94ba8c81fef1bce6d8ad11a977fd98197cd6438e6"
+    },
+    {
+      "id": "sticker/coin-chest",
+      "file": "stickers/coin-chest.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2696,
+      "sha256": "23c171ad767917511540e28a0b13edf8c33d470fb05d89216f6ce514c3443c6b"
+    },
+    {
       "id": "sticker/coins",
       "file": "stickers/coins.svg",
       "width": 100,
@@ -402,6 +450,14 @@
       "height": 100,
       "bytes": 1955,
       "sha256": "be1bbc425ba9427f0ce555fef77352e8f6cf64a8787993384f29e3bf0416ed5a"
+    },
+    {
+      "id": "sticker/diving-badge",
+      "file": "stickers/diving-badge.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1305,
+      "sha256": "4502fe0cb5865ff1ca55b5e03408f9f054d6ad878a77a46d3ec6cc1e5a923634"
     },
     {
       "id": "sticker/dolphin",
@@ -442,6 +498,14 @@
       "height": 100,
       "bytes": 3960,
       "sha256": "e2e5be8c2f73160c7c4c87a6d10c70afe509de2e513650d11eebb0e0f39108df"
+    },
+    {
+      "id": "sticker/hermit-crab",
+      "file": "stickers/hermit-crab.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2480,
+      "sha256": "7c7d6d9516dcecbcde802f3b2f84c1680ee6fe8d9420696fb2223c55f978d5fe"
     },
     {
       "id": "sticker/ink-drops",
@@ -666,6 +730,14 @@
       "height": 100,
       "bytes": 2845,
       "sha256": "b5ed8dd4950f51f4266a1d36e926c74b62dadb65ffc848341e14c77ef4a5a8af"
+    },
+    {
+      "id": "sticker/word-shell",
+      "file": "stickers/word-shell.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1956,
+      "sha256": "c19a6e044fb43e4fbff75b7feb0deabfd7522d0b3cbffec2be0a688d2eba261a"
     }
   ]
 }

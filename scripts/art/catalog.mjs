@@ -17,10 +17,12 @@
  * - cut-out art (friends, monsters, Inkoustíci, characters, avatars) has an alpha channel, and
  *   every painted friend publishes the `head`, `eyes` and `neck` anchors;
  * - every SVG file is byte for byte its generator's output, and no SVG file lacks a design;
- * - a painted file stays under FILE_BUDGET_BYTES and all painted art under ART_BUDGET_BYTES.
+ * - a painted file stays under FILE_BUDGET_BYTES and all painted art under ART_BUDGET_BYTES;
+ * - art used only by grade-4 regions (and the deep map) carries "pack": "grade-4", derived from the
+ *   content pack, so the shell's grade-4 offline pack can never drift from the content (docs/art.md §4).
  */
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { isMain, readJson, repositoryRoot } from '../lib/tools.mjs';
 import { loadContract } from '../validate-content.mjs';
@@ -28,6 +30,7 @@ import { readWebp } from './lib/webp.mjs';
 import { checkSvgArt, renderSvgArt } from './svg/generate.mjs';
 
 export const CATALOG_PATH = 'assets/art/catalog.json';
+export const CONTENT_PATH = 'content/pearl-sea.content.json';
 export const PROVENANCE_PATH = 'assets/art/provenance.json';
 export const FILE_BUDGET_BYTES = 512 * 1024;
 export const ART_BUDGET_BYTES = 28 * 1024 * 1024;
@@ -41,6 +44,45 @@ const METADATA_CHUNKS = ['EXIF', 'XMP ', 'ICCP'];
  * @typedef {{ id: string; file: string; sha256: string; anchors?: Record<string, Anchor> | null }} ArtRecord
  */
 
+/**
+ * The art IDs that belong to the grade-4 pack: the scenes, friends, eggs, monsters and cosmetics of
+ * the grade-4 regions, and the deep map. Sticker icons stay core (a sticker can be earned before
+ * grade 4), and an ID also used by a grade-3 region stays core.
+ *
+ * @param {any} data the content pack's data
+ * @returns {Set<string>}
+ */
+export function gradeFourArt(data) {
+  /** @type {Map<string, number>} */
+  const grade = new Map(data.regions.map((/** @type {any} */ r) => [r.id, r.grade]));
+  const levelRegion = new Map(data.levels.map((/** @type {any} */ l) => [l.id, l.region]));
+  /** @type {Map<string, Set<number>>} */
+  const uses = new Map();
+  const use = (/** @type {string} */ id, /** @type {string | undefined} */ region) => {
+    const g = region === undefined ? undefined : grade.get(region);
+    if (g === undefined) return;
+    if (!uses.has(id)) uses.set(id, new Set());
+    uses.get(id)?.add(g);
+  };
+  for (const r of data.regions) {
+    use(`scene/${r.id}`, r.id);
+    if (r.monster) {
+      use(`monster/${r.monster}/inked`, r.id);
+      use(`monster/${r.monster}/freed`, r.id);
+    }
+  }
+  for (const f of data.friends) {
+    for (const stage of ['baby', 'grown']) use(`friend/${f.id}/${stage}`, f.region);
+    use(`egg/${f.id}`, f.region);
+  }
+  for (const c of data.cosmetics) {
+    const at = typeof c.unlock === 'string' ? levelRegion.get(c.unlock) : undefined;
+    use(c.assetId, at);
+  }
+  const out = new Set([...uses].filter(([, g]) => g.size === 1 && g.has(4)).map(([id]) => id));
+  out.add('map/deep');
+  return out;
+}
 /** @param {Uint8Array} bytes */
 function sha256(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
@@ -55,6 +97,9 @@ function sha256(bytes) {
  */
 export async function buildArtCatalog(root = repositoryRoot, svgArt = renderSvgArt()) {
   const domain = await loadContract();
+  const contentFile = join(root, ...CONTENT_PATH.split('/'));
+  // Test fixtures have no content pack: then no art is grade-4 only.
+  const gradeFour = existsSync(contentFile) ? gradeFourArt(readJson(contentFile).data) : new Set();
   /** @type {{ assets: ArtRecord[] }} */
   const provenance = readJson(join(root, ...PROVENANCE_PATH.split('/')));
   /** @type {string[]} */
@@ -125,6 +170,7 @@ export async function buildArtCatalog(root = repositoryRoot, svgArt = renderSvgA
       height: item.height,
     });
   }
+  for (const entry of entries) if (gradeFour.has(entry.id)) entry['pack'] = 'grade-4';
   entries.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const catalog = { format: domain.ART_CATALOG_FORMAT, entries };
   const parsed = domain.artCatalogSchema.parse(catalog);

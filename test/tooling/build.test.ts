@@ -223,16 +223,30 @@ describe('scripts/build.mjs', () => {
     }
   });
 
-  it('writes an empty grade-4 graph while no art is tagged grade-4', () => {
-    const grade = JSON.parse(readFileSync(join(site.directory, GRADE_FOUR_GRAPH), 'utf8'));
-    expect(grade).toEqual({
-      id: OFFLINE_GRADE_FOUR_PACK_ID,
-      revision: report().revision,
-      resources: [],
-    });
+  it('puts exactly the catalog entries tagged grade-4 in the grade-4 graph', () => {
+    const grade = JSON.parse(readFileSync(join(site.directory, GRADE_FOUR_GRAPH), 'utf8')) as {
+      id: string;
+      revision: string;
+      resources: { src: string }[];
+    };
+    expect(grade.id).toBe(OFFLINE_GRADE_FOUR_PACK_ID);
+    expect(grade.revision).toBe(report().revision);
+    expect(grade.resources.map((resource) => resource.src).sort()).toEqual(taggedFiles());
   });
 });
 
+/** The site paths of the published catalog's grade-4 entries, sorted. */
+function taggedFiles(): string[] {
+  const catalog = JSON.parse(
+    readFileSync(join(repository, 'assets', 'art', 'catalog.json'), 'utf8'),
+  ) as {
+    entries: { file: string; pack?: string }[];
+  };
+  return catalog.entries
+    .filter((entry) => entry.pack === 'grade-4')
+    .map((entry) => `${BASE}assets/art/${entry.file}`)
+    .sort();
+}
 describe('the grade-4 pack', () => {
   const SVG =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><rect width="10" height="10"/></svg>';
@@ -281,9 +295,9 @@ describe('the grade-4 pack', () => {
     const grade = read(GRADE_FOUR_GRAPH);
     expect(grade.id).toBe(OFFLINE_GRADE_FOUR_PACK_ID);
     expect(grade.revision).toBe(read('resource-graph.json').revision);
-    expect(grade.resources.map((resource) => resource.src)).toEqual([
-      `${BASE}assets/art/scenes/test-deep.svg`,
-    ]);
+    expect(grade.resources.map((resource) => resource.src).sort()).toEqual(
+      [...taggedFiles(), `${BASE}assets/art/scenes/test-deep.svg`].sort(),
+    );
     expect(core).not.toContain(`${BASE}assets/art/scenes/test-deep.svg`);
     expect(core, 'an untagged entry stays core').toContain(
       `${BASE}assets/art/scenes/test-core.svg`,

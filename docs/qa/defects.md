@@ -22,6 +22,32 @@ main `a729482` (content 1.2.5, after #27-#34), on main `441bcab` (after #36) and
 (after #38's art and #42) the same day. S2's UI playtest of main `8d6b61d` found PS-QA-15 to
 PS-QA-18.
 
+## Phase 2 verification
+
+Run on 2026-11-07 from the phase-2 QA branch, against the current `main` baseline and the deployed
+site:
+
+| Area                           | Evidence                                                                                                             | Result |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------ |
+| Full-sea rules and progression | `npm run verify` (969 unit, trace and tooling tests), including all 12 regions, both grade traces and both finales   | Pass   |
+| Browser functionality          | `npm run test:e2e` (72 passed, 3 intentional live-test skips)                                                        | Pass   |
+| Deployed site                  | `PS_E2E_LIVE=1 npm run test:e2e -- live.spec.ts` (3 passed)                                                          | Pass   |
+| Screens and layout             | `PS_QA_DOCS=1 npm run test:e2e -- screens.spec.ts` (7 walks passed; 71 tablet images regenerated)                    | Pass   |
+| Art and audio                  | verification checks 216 art entries and 44 sounds; all catalog IDs resolve and the decoded-audio budget is respected | Pass   |
+| Czech copy and hints           | content, lexicon, typography, sample-problem and hint-giveaway checks                                                | Pass   |
+| Accessibility and performance  | axe/layout checks, keyboard and touch paths, reduced motion, 200% text, first-screen and feedback budgets            | Pass   |
+
+No new PS-QA defect was found. The registered defect list remained empty, the visual walks reported
+no known defects or axe advice, and the intentional grade-4 `DEV …` placeholders appeared only in
+the offline-before-install test. The regenerated screen document records current page heights for
+U Mrože, Kamarádi and Galerie přátel.
+
+### Release risk (not a defect)
+
+The core offline resource graph is **10.95 MB of an 11 MB budget**, leaving about 50 KB for future
+core additions. Owner area: **art/audio**. Any new core painting, font, or sound should be rejected
+or offset by recompression before release; the grade-4 pack remains separate and has ample headroom.
+
 ## Open
 
 None. Everything found so far is fixed (below). The registry in `known-issues.ts` is empty: on

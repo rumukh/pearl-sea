@@ -9,7 +9,7 @@
  * jeskyně's scene. It serves that site from its own private server, which it shuts down to take
  * the network away, as offline.spec.ts does.
  */
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { BrowserContext, Page } from '@playwright/test';
@@ -41,6 +41,20 @@ const STAND_INS = [
   { id: DEEP_MAP, file: 'maps/test-grade-four-deep.svg', colour: '#0b2545' },
   { id: MOON_CAVES, file: 'scenes/test-grade-four-moon-caves.svg', colour: '#3c1e5a' },
 ];
+
+/**
+ * Every grade-4 file a screen may ask for while the pack is not installed: the published catalog's
+ * entries tagged `grade-4` (S5's real grade-4 art, region by region) and the stand-ins.
+ */
+const GRADE_FOUR_MISSES = (() => {
+  const catalog = JSON.parse(
+    readFileSync(join(import.meta.dirname, '..', '..', 'assets', 'art', 'catalog.json'), 'utf8'),
+  ) as { entries: { file: string; pack?: string }[] };
+  const files = catalog.entries
+    .filter((entry) => entry.pack === 'grade-4')
+    .map((entry) => entry.file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  return new RegExp(['resource-graph-grade-4\\.json', 'test-grade-four-', ...files].join('|'));
+})();
 
 let directory = '';
 let siteDirectory = '';
@@ -223,15 +237,16 @@ test('offline before the grade-4 pack is installed, grade-4 screens draw their p
   guard.addOrigin(new URL(url).origin);
   let running = true;
   // With the server gone the worker answers 503 for what it does not hold: the grade-4 graph the
-  // shell tries to install and the deep sea's map; engines log a failed load to the console.
+  // shell tries to install and any grade-4 picture a screen shows (the catalog's grade-4 entries);
+  // engines log a failed load to the console. A core file failing is still an error.
   guard.allow(
     'failed-request',
-    /resource-graph-grade-4\.json|test-grade-four-/,
+    GRADE_FOUR_MISSES,
     'the grade-4 pack cannot be fetched without the network, on purpose',
   );
   guard.allow(
     'console',
-    /503|Failed to load resource|resource-graph-grade-4|test-grade-four-/i,
+    new RegExp(`503|Failed to load resource|${GRADE_FOUR_MISSES.source}`, 'i'),
     'engines log the grade-4 files the worker could not fetch without the network',
   );
   try {

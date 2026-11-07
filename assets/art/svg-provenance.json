@@ -108,6 +108,14 @@
       "sha256": "36838e077ee56c9866a5a2ea1ca930e5e81d589e8de41e1e48304a69dca5de07"
     },
     {
+      "id": "cosmetic/goggles-storm",
+      "file": "cosmetics/goggles-storm.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2444,
+      "sha256": "def9a2a1e57dd7e88c122047da4d4b75034ea82c70019f4a652fa0d517fa542a"
+    },
+    {
       "id": "cosmetic/hat-kelp",
       "file": "cosmetics/hat-kelp.svg",
       "width": 100,
@@ -130,6 +138,14 @@
       "height": 100,
       "bytes": 1651,
       "sha256": "cd4cfb0959a050296913f5916b16ccac34982dcfbe590ba156bbd52593d59935"
+    },
+    {
+      "id": "cosmetic/hat-rain",
+      "file": "cosmetics/hat-rain.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 948,
+      "sha256": "9ed34f285525fd25bba5e747534b26f21c584694d6b9258b575447b936245d95"
     },
     {
       "id": "cosmetic/hat-straw",
@@ -194,6 +210,14 @@
       "height": 100,
       "bytes": 2938,
       "sha256": "fd6448aa884af259a05f917b58c16c3653e7b68dbed1341d4e2097578a15b276"
+    },
+    {
+      "id": "cosmetic/lighthouse-model",
+      "file": "cosmetics/lighthouse-model.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1348,
+      "sha256": "933798ac3694a7eeaa2700e3afea014779d82ab2809c1dbf45a8358f7e1af219"
     },
     {
       "id": "cosmetic/mask-deep",
@@ -460,6 +484,14 @@
       "sha256": "3055a141592ae8bf95b6f5a79d54049d4d84f2c738fde64604bb84fd102a9f09"
     },
     {
+      "id": "sticker/big-dolphin",
+      "file": "stickers/big-dolphin.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1594,
+      "sha256": "18ef3f4641ed3be10559af3b9825bbe95c5d69a066027e0e6c3db0aec49ec04b"
+    },
+    {
       "id": "sticker/bow",
       "file": "stickers/bow.svg",
       "width": 100,
@@ -490,6 +522,14 @@
       "height": 100,
       "bytes": 3587,
       "sha256": "6904890a40661ed659f1d57e670d4b96d747ce4b301275e47a9e32d2a46b5b35"
+    },
+    {
+      "id": "sticker/calm-eddy",
+      "file": "stickers/calm-eddy.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2223,
+      "sha256": "eb9d85ae716daa85708d508b5eea917b0699917b0f2a8d481c5739daa4ad2357"
     },
     {
       "id": "sticker/certificate",
@@ -626,6 +666,14 @@
       "height": 100,
       "bytes": 2477,
       "sha256": "1ee286c3dc59737cb8b1fc1d63cb75615dc3bb50dc29c096ae05b59b2d98df7d"
+    },
+    {
+      "id": "sticker/ink-splash",
+      "file": "stickers/ink-splash.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1246,
+      "sha256": "2cb4387d6276eee8575086a3c86e354d1d7fc0c34807e1079f347fde27e9d822"
     },
     {
       "id": "sticker/lantern",
@@ -834,6 +882,14 @@
       "height": 100,
       "bytes": 2998,
       "sha256": "2e2c0aba5d85e6bad038d89c96df0cb2f87a5fb1599a807977e8c0705850a6c5"
+    },
+    {
+      "id": "sticker/two-scrolls",
+      "file": "stickers/two-scrolls.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1586,
+      "sha256": "afac3adad92ec72e5be4af1bd9ba916bb7a7cade78b8f04831f3eb6b4163c4c7"
     },
     {
       "id": "sticker/two-words",

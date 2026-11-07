@@ -18,6 +18,7 @@ import { ICE_SEA_EGGS } from './regions/ice-sea.mjs';
 import { MOON_CAVES_EGGS } from './regions/moon-caves.mjs';
 import { SUNKEN_CITY_EGGS } from './regions/sunken-city.mjs';
 import { DARK_TRENCH_EGGS } from './regions/dark-trench.mjs';
+import { STORM_SEA_EGGS } from './regions/storm-sea.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -152,6 +153,7 @@ export const EGG_DESIGNS = [
   ...MOON_CAVES_EGGS,
   ...SUNKEN_CITY_EGGS,
   ...DARK_TRENCH_EGGS,
+  ...STORM_SEA_EGGS,
 ];
 
 /**

@@ -5396,6 +5396,286 @@
       }
     },
     {
+      "id": "friend/stitovec-prisavka/baby",
+      "file": "friends/stitovec-prisavka-baby.webp",
+      "width": 793,
+      "height": 532,
+      "bytes": 37502,
+      "sha256": "81136adcbec7265d6349e0b34e6ccbb6fce19d314001b7622f139086217c9ac1",
+      "anchors": {
+        "head": {
+          "x": 288,
+          "y": 122,
+          "scale": 85,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 214,
+          "y": 427,
+          "scale": 75,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 366,
+          "y": 615,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/stitovec-prisavka-baby.prompt.txt",
+      "approvedImage": {
+        "image": "stitovec-prisavka/stitovec-prisavka-baby-b-sketchv1-s128111.png",
+        "sha256": "21b5eabe9c97079bcfca7933131c962dc3b44910f65b6d82e2d314715e1c8abe"
+      },
+      "lineage": [
+        {
+          "image": "stitovec-prisavka/stitovec-prisavka-baby-b-sketchv1-s128111.png",
+          "sha256": "21b5eabe9c97079bcfca7933131c962dc3b44910f65b6d82e2d314715e1c8abe",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one small oval suction disc on top of her head with exactly five ridges; one short dorsal fin and one matching fin underneath; one small forked tail; one soft dark stripe along her side. It shows Štítovec Přísavka as a tiny hatchling: a sweet, round, chubby baby remora (a shark sucker fish) swimming to the left, an animal character and not a human, a grey-teal back and a pale cream belly, one big shiny eye, a little smile and a rosy cheek. She is the young version of the grown-up Přísavka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with visible soft brush texture, wet watercolour edges and gentle rounded shading (not flat vector art), light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, clothes, shark, whale, dolphin, two discs, blurry, low resolution, duplicate subjects, extra fins, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, flat vector art, clip art, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette",
+          "seed": 128111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "stitovec-prisavka/ref-stitovec-prisavka-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the chosen master's colours (Pillow colour blocking, sketches.py prisavka-baby), repainted in place",
+              "sha256": "002cbf8803ae084b3d2c126a0a26ea32e2abdfd397e3287a7f1b5cc96548bee2",
+              "sketch": "scripts/art/authoring/sketches.py prisavka-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "eb0b669add847ab2c837185667b94c1b4b50fe7a7555520e95c70681ee036e9a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "1a006f238f0178ea1a4b31126018ab9839cad4da4faa759168827b54cde900af",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9901,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "As the grown-up."
+        },
+        {
+          "step": "trim",
+          "box": [
+            310,
+            413,
+            1103,
+            945
+          ],
+          "marginPx": 15,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            793,
+            532
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 41.41,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate22-sunken-city",
+        "decidedAt": "2026-11-07T05:10:28.214817+01:00",
+        "question": "(Delegated) Gate 22, Potopené město masters and derived forms: scene, Přísavka grown and baby, Lepka inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s130031, Přísavka s128021, Přísavka baby s128111, Lepka inked s129012 and freed s129111, and the SVG art; reasons in agent-review-log.jsonl. Rejected earlier rounds (scene v1/v2 with creatures in the doorway, Přísavka v1 flat) are logged there too.",
+        "chosen": "Přísavka baby A"
+      }
+    },
+    {
+      "id": "friend/stitovec-prisavka/grown",
+      "file": "friends/stitovec-prisavka-grown.webp",
+      "width": 896,
+      "height": 334,
+      "bytes": 39088,
+      "sha256": "9242626f8a64b58a24c959dfd41b9c4f1be913660310315f13f0ec2c730fd549",
+      "anchors": {
+        "head": {
+          "x": 275,
+          "y": 64,
+          "scale": 75,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 205,
+          "y": 434,
+          "scale": 60,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 344,
+          "y": 618,
+          "scale": 65,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/stitovec-prisavka-grown.prompt.txt",
+      "approvedImage": {
+        "image": "stitovec-prisavka/stitovec-prisavka-adult-b-sketchv2-s128021.png",
+        "sha256": "defae3dc658f275a3908a1d2c0d44c757351829b6da59dd517bcf0a11ab3f314"
+      },
+      "lineage": [
+        {
+          "image": "stitovec-prisavka/stitovec-prisavka-adult-b-sketchv2-s128021.png",
+          "sha256": "defae3dc658f275a3908a1d2c0d44c757351829b6da59dd517bcf0a11ab3f314",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one flat oval suction disc on top of her head, striped with exactly eight ridges; one long dorsal fin and one matching fin underneath near the tail; one forked tail; one soft dark stripe along her side that tapers and follows the curve of her body. It shows Štítovec Přísavka, a real remora (a shark sucker fish) swimming to the left, an animal character and not a human: long and smoothly rounded like a little torpedo, grey-teal back and a pale belly, a jutting lower jaw with a friendly smile, a shiny eye and a rosy cheek. She sticks to a shark the way a prefix sticks to its word. Clever and friendly.\nStorybook gouache and watercolour painting with visible soft brush texture, wet watercolour edges and gentle rounded shading (not flat vector art), light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, shark, eel, catfish, whiskers, teeth, suction cup on the belly, flat vector art, clip art, ruler-straight stripe",
+          "seed": 128021,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "stitovec-prisavka/ref-stitovec-prisavka-adult-sketch-v2.png",
+              "role": "anatomy and colour-blocking sketch v2 (sketches.py prisavka2), repainted in place",
+              "sha256": "702a2986e157b17630f064f1a8e1d5316805e045be44ad5614ba9978dda21a22",
+              "sketch": "scripts/art/authoring/sketches.py prisavka2 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "eb0b669add847ab2c837185667b94c1b4b50fe7a7555520e95c70681ee036e9a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "0a32b5ca7e7e2996bcc6e0ee18caa0388cb8fb44402fd3dfa263436a703bf24c",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9845,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the pale belly and eye white on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            145,
+            479,
+            1234,
+            885
+          ],
+          "marginPx": 21,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.822773,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            334
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.36,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate22-sunken-city",
+        "decidedAt": "2026-11-07T05:10:28.214817+01:00",
+        "question": "(Delegated) Gate 22, Potopené město masters and derived forms: scene, Přísavka grown and baby, Lepka inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s130031, Přísavka s128021, Přísavka baby s128111, Lepka inked s129012 and freed s129111, and the SVG art; reasons in agent-review-log.jsonl. Rejected earlier rounds (scene v1/v2 with creatures in the doorway, Přísavka v1 flat) are logged there too.",
+        "chosen": "Přísavka A"
+      }
+    },
+    {
       "id": "friend/tulen-padik/baby",
       "file": "friends/tulen-padik-baby.webp",
       "width": 832,
@@ -7939,6 +8219,305 @@
       }
     },
     {
+      "id": "monster/meduza-lepka/freed",
+      "file": "monsters/meduza-lepka-freed.webp",
+      "width": 783,
+      "height": 896,
+      "bytes": 65506,
+      "sha256": "5be0a04a60a0ccae4eedf410929a763cef6b9003080dbbcfa6d5c19bff03bbaf",
+      "anchors": null,
+      "promptFile": "prompts/meduza-lepka-freed.prompt.txt",
+      "approvedImage": {
+        "image": "meduza-lepka/meduza-lepka-freed-b-from-master-s129111.png",
+        "sha256": "fe40dbf32ff0bdfedd355caafaa482053ccaaaf3fddc4f885dd1fe11884e84ad"
+      },
+      "lineage": [
+        {
+          "image": "meduza-lepka/meduza-lepka-freed-b-from-master-s129111.png",
+          "sha256": "fe40dbf32ff0bdfedd355caafaa482053ccaaaf3fddc4f885dd1fe11884e84ad",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon jellyfish Medúza Lepka. All of the black and dark-violet magic ink has been washed away and she is happy again. Keep exactly the same character, pose, the wide dome bell with its wavy rim, the six long droopy tentacles with their little drops at the tips, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing her clean, bright colours everywhere: a cheerful, glassy pale sea-green bell with a soft pink-lilac glow and sea-green tentacles, and the drops at the tips are clear, shiny water drops. Change only her expression: a big, friendly, grateful smile, bright wide-open happy eyes, relaxed raised eyebrows and rosy cheeks. Make the whole background plain, flat, evenly lit light grey, with no light ray. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips of ink, dark smudges, ink blots, dirty, grumpy, angry, frowning, sharp teeth, fangs, light ray, sunbeam, puddle, water, glowing eyes, extra eyes, extra tentacles, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 129111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "meduza-lepka/meduza-lepka-inked-b-sketchv1-s129012.png",
+              "role": "source image edited in place: the chosen inked master s129012",
+              "sha256": "0ee234c6551102ef5961b92fd1643fd387cbfc4a5245a96377ceca299831d3ed"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "meduza-lepka/meduza-lepka-inked-b-sketchv1-s129012.png",
+          "sha256": "0ee234c6551102ef5961b92fd1643fd387cbfc4a5245a96377ceca299831d3ed",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one wide dome bell with a wavy rim; exactly six thick, gooey, wavy tentacles with a sticky drip below each; two of the tentacle tips glued together. It shows Medúza Lepka, a big, grumpy, sticky jellyfish soaked in magic black ink, who glues words together that should stay apart: pale sea-green and a little translucent, a cross face with frowning eyebrows and a sulky pout. Glossy black and dark-violet magic ink covers part of her: blots and drips on the bell. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp teeth, fangs, blood, gore, horror, glowing eyes, octopus, legs, stinging, slime monster, many thin tentacles",
+          "seed": 129012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "meduza-lepka/ref-meduza-lepka-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py lepka-inked), repainted in place",
+              "sha256": "c3d47c987e76f07711bf38ea15541fe944296b46a9e60b4036111169f0836d11",
+              "sketch": "scripts/art/authoring/sketches.py lepka-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "eb0b669add847ab2c837185667b94c1b4b50fe7a7555520e95c70681ee036e9a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "ea5414d95fff6b5f774a696ed6ad6227310eb1c1908301bc3d23d1172fc0945b",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9836,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the eye whites and the pale bell."
+        },
+        {
+          "step": "trim",
+          "box": [
+            261,
+            246,
+            1070,
+            1172
+          ],
+          "marginPx": 18,
+          "sharedWith": [
+            "monster/meduza-lepka/freed",
+            "monster/meduza-lepka/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.967603,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            783,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 41.52,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate22-sunken-city",
+        "decidedAt": "2026-11-07T05:10:28.214817+01:00",
+        "question": "(Delegated) Gate 22, Potopené město masters and derived forms: scene, Přísavka grown and baby, Lepka inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s130031, Přísavka s128021, Přísavka baby s128111, Lepka inked s129012 and freed s129111, and the SVG art; reasons in agent-review-log.jsonl. Rejected earlier rounds (scene v1/v2 with creatures in the doorway, Přísavka v1 flat) are logged there too.",
+        "chosen": "Lepka freed A"
+      }
+    },
+    {
+      "id": "monster/meduza-lepka/inked",
+      "file": "monsters/meduza-lepka-inked.webp",
+      "width": 783,
+      "height": 896,
+      "bytes": 92580,
+      "sha256": "e850f6bdf88ce43239db02269f336e4182cbd37bd177bcef457ed1d3ba5699ab",
+      "anchors": null,
+      "promptFile": "prompts/meduza-lepka-inked.prompt.txt",
+      "approvedImage": {
+        "image": "meduza-lepka/meduza-lepka-inked-b-sketchv1-s129012.png",
+        "sha256": "0ee234c6551102ef5961b92fd1643fd387cbfc4a5245a96377ceca299831d3ed"
+      },
+      "lineage": [
+        {
+          "image": "meduza-lepka/meduza-lepka-inked-b-sketchv1-s129012.png",
+          "sha256": "0ee234c6551102ef5961b92fd1643fd387cbfc4a5245a96377ceca299831d3ed",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one wide dome bell with a wavy rim; exactly six thick, gooey, wavy tentacles with a sticky drip below each; two of the tentacle tips glued together. It shows Medúza Lepka, a big, grumpy, sticky jellyfish soaked in magic black ink, who glues words together that should stay apart: pale sea-green and a little translucent, a cross face with frowning eyebrows and a sulky pout. Glossy black and dark-violet magic ink covers part of her: blots and drips on the bell. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, arms, legs, feet, clothes, sharp teeth, fangs, blood, gore, horror, glowing eyes, octopus, legs, stinging, slime monster, many thin tentacles",
+          "seed": 129012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "meduza-lepka/ref-meduza-lepka-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py lepka-inked), repainted in place",
+              "sha256": "c3d47c987e76f07711bf38ea15541fe944296b46a9e60b4036111169f0836d11",
+              "sketch": "scripts/art/authoring/sketches.py lepka-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "eb0b669add847ab2c837185667b94c1b4b50fe7a7555520e95c70681ee036e9a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "56542e04aac6c749a58c975136854f6665ea9ee78d443474c6913bf47ccaba9b",
+          "holesOpened": 0,
+          "specksRemoved": 40,
+          "iouWithU2net": 0.9909,
+          "options": "--min-hole 100000000 --drop 148,32 --edge-bleed 400",
+          "optionsWhy": "Keeps the eye whites; drops the light ray the model painted on the backdrop (detached at 148,32) and the ray sliver on the bell edge.",
+          "edgeBleedRemoved": 401
+        },
+        {
+          "step": "trim",
+          "box": [
+            261,
+            246,
+            1070,
+            1172
+          ],
+          "marginPx": 18,
+          "sharedWith": [
+            "monster/meduza-lepka/freed",
+            "monster/meduza-lepka/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.967603,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            783,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.29,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate22-sunken-city",
+        "decidedAt": "2026-11-07T05:10:28.214817+01:00",
+        "question": "(Delegated) Gate 22, Potopené město masters and derived forms: scene, Přísavka grown and baby, Lepka inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s130031, Přísavka s128021, Přísavka baby s128111, Lepka inked s129012 and freed s129111, and the SVG art; reasons in agent-review-log.jsonl. Rejected earlier rounds (scene v1/v2 with creatures in the doorway, Přísavka v1 flat) are logged there too.",
+        "chosen": "Lepka inked B"
+      }
+    },
+    {
       "id": "monster/murena-mumla/freed",
       "file": "monsters/murena-mumla-freed.webp",
       "width": 1024,
@@ -10249,6 +10828,104 @@
         "decidedAt": "2026-11-06T13:30:22.436085+01:00",
         "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
         "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
+        "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/sunken-city",
+      "file": "scenes/sunken-city.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 96856,
+      "sha256": "9f6de17b566749b2963f9a45b03f9c6d969e70f8fba19e25cdee3f659343a705",
+      "anchors": null,
+      "promptFile": "prompts/sunken-city.prompt.txt",
+      "approvedImage": {
+        "image": "bg-sunken-city/bg-sunken-city-v3-s130031.png",
+        "sha256": "e12daba077d276d203a8bbe9d71362819cfc1d492dff47de2fc00b6cf55b6d7f"
+      },
+      "lineage": [
+        {
+          "image": "bg-sunken-city/bg-sunken-city-v3-s130031.png",
+          "sha256": "e12daba077d276d203a8bbe9d71362819cfc1d492dff47de2fc00b6cf55b6d7f",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set deep under the sea: Potopené město, the quiet ruins of an old sunken town, seen from inside the water. Keep exactly the same composition: soft sunbeams slanting down from far above; a wide, calm, open band of clear deep-teal water and smooth pale sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; at the left edge two broken stone columns and a stone arch overgrown with green sea plants; in the bottom-right foreground tumbled stone blocks and a round mossy stone ball; at the right edge a small domed ruined temple whose doorway is completely sealed by a big round stone slab, with thin wisps of dark violet ink seeping out at its edge: a sea monster hides inside, out of sight, mysterious but not scary; the sandy floor along the bottom with a few pale pebbles. Tiny bubbles rising, little glowing specks in the water.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of deep teal, sea green, weathered stone grey, sand and a few warm golden accents, gentle depth haze. Mysterious, magical and inviting, never scary. The lair is empty: nothing and no one inside it. No fish, no animals, no creatures, no people, no characters, no statues with faces, no boats, no submarines, no chests, no signs, no text, no letters, no inscriptions, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, inscriptions, runes, watermark, signature, logo, sign, frame, border, fish, animals, people, characters, faces, statues, submarine, boat, ship, treasure chest, photorealistic, 3d render, scary, skull, sky, land, creature in the lair, eyes in the dark, octopus, creature in the doorway, open doorway, dark doorway, face, eyes",
+          "seed": 130031,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-sunken-city/ref-bg-sunken-city-sketch-v3.png",
+              "role": "composition sketch v3 on the shell's levelSpots(7) (sketches.py city3; the temple door is sealed by a round stone slab), repainted in place",
+              "sha256": "71663cea6940e79b045405bde9fbac2c0d2661300c8170b6091280c4745884fa",
+              "sketch": "scripts/art/authoring/sketches.py city3 (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "eb0b669add847ab2c837185667b94c1b4b50fe7a7555520e95c70681ee036e9a"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 39.53,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate22-sunken-city",
+        "decidedAt": "2026-11-07T05:10:28.214817+01:00",
+        "question": "(Delegated) Gate 22, Potopené město masters and derived forms: scene, Přísavka grown and baby, Lepka inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s130031, Přísavka s128021, Přísavka baby s128111, Lepka inked s129012 and freed s129111, and the SVG art; reasons in agent-review-log.jsonl. Rejected earlier rounds (scene v1/v2 with creatures in the doorway, Přísavka v1 flat) are logged there too.",
         "chosen": "Scene A"
       }
     },

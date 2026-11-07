@@ -213,6 +213,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/helmet-diver",
+      "kind": "svg",
+      "file": "cosmetics/helmet-diver.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/helmet-lamp",
       "kind": "svg",
       "file": "cosmetics/helmet-lamp.svg",
@@ -248,6 +256,14 @@
       "file": "cosmetics/mask-snorkel.svg",
       "width": 100,
       "height": 100
+    },
+    {
+      "id": "cosmetic/monocle-gold",
+      "kind": "svg",
+      "file": "cosmetics/monocle-gold.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
     },
     {
       "id": "cosmetic/necklace-shells",
@@ -297,6 +313,14 @@
       "file": "cosmetics/shell-giant.svg",
       "width": 100,
       "height": 100
+    },
+    {
+      "id": "cosmetic/statue-city",
+      "kind": "svg",
+      "file": "cosmetics/statue-city.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
     },
     {
       "id": "cosmetic/stones-warm",
@@ -400,6 +424,14 @@
       "id": "egg/rak-korinek",
       "kind": "svg",
       "file": "eggs/rak-korinek.svg",
+      "width": 120,
+      "height": 160,
+      "pack": "grade-4"
+    },
+    {
+      "id": "egg/stitovec-prisavka",
+      "kind": "svg",
+      "file": "eggs/stitovec-prisavka.svg",
       "width": 120,
       "height": 160,
       "pack": "grade-4"
@@ -1076,6 +1108,62 @@
       "pack": "grade-4"
     },
     {
+      "id": "friend/stitovec-prisavka/baby",
+      "kind": "painted",
+      "file": "friends/stitovec-prisavka-baby.webp",
+      "width": 793,
+      "height": 532,
+      "anchors": {
+        "head": {
+          "x": 288,
+          "y": 122,
+          "scale": 85,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 214,
+          "y": 427,
+          "scale": 75,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 366,
+          "y": 615,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
+    },
+    {
+      "id": "friend/stitovec-prisavka/grown",
+      "kind": "painted",
+      "file": "friends/stitovec-prisavka-grown.webp",
+      "width": 896,
+      "height": 334,
+      "anchors": {
+        "head": {
+          "x": 275,
+          "y": 64,
+          "scale": 75,
+          "rotate": 0
+        },
+        "eyes": {
+          "x": 205,
+          "y": 434,
+          "scale": 60,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 344,
+          "y": 618,
+          "scale": 65,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
+    },
+    {
       "id": "friend/tulen-padik/baby",
       "kind": "painted",
       "file": "friends/tulen-padik-baby.webp",
@@ -1317,6 +1405,22 @@
       "pack": "grade-4"
     },
     {
+      "id": "monster/meduza-lepka/freed",
+      "kind": "painted",
+      "file": "monsters/meduza-lepka-freed.webp",
+      "width": 783,
+      "height": 896,
+      "pack": "grade-4"
+    },
+    {
+      "id": "monster/meduza-lepka/inked",
+      "kind": "painted",
+      "file": "monsters/meduza-lepka-inked.webp",
+      "width": 783,
+      "height": 896,
+      "pack": "grade-4"
+    },
+    {
       "id": "monster/murena-mumla/freed",
       "kind": "painted",
       "file": "monsters/murena-mumla-freed.webp",
@@ -1437,6 +1541,14 @@
       "height": 928
     },
     {
+      "id": "scene/sunken-city",
+      "kind": "painted",
+      "file": "scenes/sunken-city.webp",
+      "width": 1664,
+      "height": 928,
+      "pack": "grade-4"
+    },
+    {
       "id": "scene/sunny-lagoon",
       "kind": "painted",
       "file": "scenes/sunny-lagoon.webp",
@@ -1468,6 +1580,13 @@
       "id": "sticker/bow",
       "kind": "svg",
       "file": "stickers/bow.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/calendar-shell",
+      "kind": "svg",
+      "file": "stickers/calendar-shell.svg",
       "width": 100,
       "height": 100
     },
@@ -1556,6 +1675,13 @@
       "height": 100
     },
     {
+      "id": "sticker/free-jellyfish",
+      "kind": "svg",
+      "file": "stickers/free-jellyfish.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/hermit-crab",
       "kind": "svg",
       "file": "stickers/hermit-crab.svg",
@@ -1615,6 +1741,13 @@
       "id": "sticker/puffer",
       "kind": "svg",
       "file": "stickers/puffer.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/remora",
+      "kind": "svg",
+      "file": "stickers/remora.svg",
       "width": 100,
       "height": 100
     },
@@ -1741,6 +1874,13 @@
       "id": "sticker/three-shells",
       "kind": "svg",
       "file": "stickers/three-shells.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/two-words",
+      "kind": "svg",
+      "file": "stickers/two-words.svg",
       "width": 100,
       "height": 100
     },

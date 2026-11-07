@@ -14,7 +14,8 @@ Pipeline (CPU only, offline):
    or eye whites on a white backdrop); --clear X,Y opens the light backdrop pocket at a reviewed
    seed point (between tentacles that touch, where U2Net is sure it is subject); --keep-marks N
    keeps detached painted marks of at least N pixels, clearly unlike the backdrop, that U2Net
-   rejects (an Inkoustík's speed marks and ink flecks).
+   rejects (an Inkoustík's speed marks and ink flecks); --drop X,Y removes the detached component at a
+   reviewed seed point that is not the subject (a light ray painted on the backdrop that U2Net accepts).
 4. A narrow edge band gets a matted alpha (projection between the backdrop colour and the
    nearest interior colour) and decontaminated colours, so no grey fringe remains.
 
@@ -81,7 +82,7 @@ def background_model(rgb, hint_bg):
     return cv2.resize(model.astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC), bg0
 
 
-def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, clear=(), keep_marks=0):
+def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, clear=(), keep_marks=0, drop=()):
     pil = Image.open(src).convert("RGB")
     rgb = np.asarray(pil).astype(np.float32)
     h, w = rgb.shape[:2]
@@ -191,6 +192,14 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, cl
             elif area < 60 or (area < 4000 and msum[lab] / area < 0.3):
                 fg[lab2 == lab] = False
                 specks_removed += 1
+    # opt-in (--drop x,y): a detached component at a reviewed seed point is backdrop, not subject
+    dropped = []
+    for sx, sy in drop:
+        lab = lab2[sy, sx] if n2 > 1 else 0
+        if lab == 0 or not fg[sy, sx] or lab == 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA])):
+            raise SystemExit(f"--drop {sx},{sy} is not on a detached foreground component")
+        fg[lab2 == lab] = False
+        dropped.append({"seed": [sx, sy], "pixels": int(stats[lab, cv2.CC_STAT_AREA])})
     # opt-in (--edge-bleed N): light slivers of at most N pixels on the silhouette's edge, outside the
     # dark outline (watercolour bleed, or a sliver of backdrop the key missed), become background
     bleed = np.zeros_like(fg)
@@ -284,6 +293,7 @@ def cutout(src, out_dir, t_low, t_high, min_hole, band, edge_bleed=0, peel=0, cl
         **({"edgeBleedRemoved": len(small)} if edge_bleed > 0 else {}),
         **({"peeledPixels": peeled_px} if peel > 0 else {}),
         **({"cleared": cleared} if clear else {}),
+        **({"dropped": dropped} if drop else {}),
         **({"marksKept": marks_kept} if keep_marks else {}),
         "iouWithU2net": round(iou, 4),
         "tool": "rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on onnxruntime CPU + backdrop key and edge matting (cutout.py)",
@@ -305,10 +315,11 @@ if __name__ == "__main__":
     ap.add_argument("--peel", type=int, default=0)
     ap.add_argument("--clear", action="append", default=[], metavar="X,Y")
     ap.add_argument("--keep-marks", type=int, default=0, metavar="PIXELS")
+    ap.add_argument("--drop", action="append", default=[], metavar="X,Y")
     args = ap.parse_args()
     seeds = [tuple(int(v) for v in s.split(",")) for s in args.clear]
     for s in args.sources:
         r = cutout(s, args.out, args.low, args.high, args.min_hole, args.band, args.edge_bleed, args.peel,
-                   seeds, args.keep_marks)
+                   seeds, args.keep_marks, [tuple(int(v) for v in s.split(",")) for s in args.drop])
         print(json.dumps({k: r[k] for k in ("cutout", "bbox", "coverage", "holesOpened", "specksRemoved", "iouWithU2net")}))
     sys.stdout.flush()

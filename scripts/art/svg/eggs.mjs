@@ -16,6 +16,7 @@ import { PEARL_BAY_EGGS } from './regions/pearl-bay.mjs';
 import { VOLCANIC_VENTS_EGGS } from './regions/volcanic-vents.mjs';
 import { ICE_SEA_EGGS } from './regions/ice-sea.mjs';
 import { MOON_CAVES_EGGS } from './regions/moon-caves.mjs';
+import { SUNKEN_CITY_EGGS } from './regions/sunken-city.mjs';
 
 export const EGG_WIDTH = 120;
 export const EGG_HEIGHT = 160;
@@ -148,6 +149,7 @@ export const EGG_DESIGNS = [
   ...VOLCANIC_VENTS_EGGS,
   ...ICE_SEA_EGGS,
   ...MOON_CAVES_EGGS,
+  ...SUNKEN_CITY_EGGS,
 ];
 
 /**

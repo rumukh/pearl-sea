@@ -37,10 +37,11 @@ site:
 | Czech copy and hints           | content, lexicon, typography, sample-problem and hint-giveaway checks                                                | Pass   |
 | Accessibility and performance  | axe/layout checks, keyboard and touch paths, reduced motion, 200% text, first-screen and feedback budgets            | Pass   |
 
-No new PS-QA defect was found. The registered defect list remained empty, the visual walks reported
-no known defects or axe advice, and the intentional grade-4 `DEV …` placeholders appeared only in
-the offline-before-install test. The regenerated screen document records current page heights for
-U Mrože, Kamarádi and Galerie přátel.
+The automated registry remained empty, the visual walks reported no layout or axe defect, and the
+intentional grade-4 `DEV …` placeholders appeared only in the offline-before-install test. The
+manual follow-up copy review found PS-QA-23 and PS-QA-24 below; these are content-owned and block
+release until corrected. The regenerated screen document records current page heights for U Mrože,
+Kamarádi and Galerie přátel.
 
 ### Release risk (not a defect)
 
@@ -50,9 +51,15 @@ or offset by recompression before release; the grade-4 pack remains separate and
 
 ## Open
 
-None. Everything found so far is fixed (below). The registry in `known-issues.ts` is empty: on
-main `f073cff` the screen walks find no layout problem and axe no WCAG violation or advice at any
-size, with S5's paintings in place.
+PS-QA-23 and PS-QA-24 are open content findings from the manual Czech teacher review in
+[copy/review.md](copy/review.md). The registry in `known-issues.ts` is empty: on main `f073cff`
+the screen walks find no layout problem and axe no WCAG violation or advice at any size, with S5's
+paintings in place.
+
+| ID       | Severity | Owner   | Defect                                                                                              | Source                                                                  |
+| -------- | -------- | ------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| PS-QA-23 | major    | content | `friend.tulen-padik.mnemonic` uses the vocative `Pádíku!`, contrary to the child-facing naming rule | `content/catalogs/cs.content.json`, key `friend.tulen-padik.mnemonic`   |
+| PS-QA-24 | minor    | content | `friend.jazyk-jazycek.mnemonic` contains the unnatural sentence `Jsem plochá ryba jazyk.`           | `content/catalogs/cs.content.json`, key `friend.jazyk-jazycek.mnemonic` |
 
 ## Awaiting verification
 

@@ -1,7 +1,14 @@
 import { mkdir } from 'node:fs/promises';
 import type { Page } from '@playwright/test';
 import { test, expect } from './support/fixtures';
-import { PACK, fourthGraderPlaced, levelsPlayed, playRound, throughStory } from './support/game';
+import {
+  PACK,
+  fourthGraderPlaced,
+  leaveScreen,
+  levelsPlayed,
+  playRound,
+  throughStory,
+} from './support/game';
 import { enterGrownUps, openLevel, seedFamily, CHILD } from './support/tour';
 import { ready } from './support/screens';
 import type { RuntimeSnapshot } from '@aegis/runtime';
@@ -10,6 +17,7 @@ test.use({ reducedMotion: 'reduce' });
 
 const OUT = 'docs/qa/screens/full-sea';
 const REGIONS = [...new Set(PACK.data.levels.map((level) => level.region))];
+const QA_EVIDENCE = process.env.QA_EVIDENCE === '1';
 
 function lessons(region: string): string[] {
   return PACK.data.levels
@@ -82,7 +90,9 @@ async function captureRegion(
     await battlePage.getByTestId(`diver-${CHILD}`).click();
     await throughStory(battlePage);
     await openLevel(battlePage, monster(region));
-    await battlePage.getByTestId('level-start').click();
+    await leaveScreen(battlePage, 'screen-level', () =>
+      battlePage.getByTestId('level-start').click(),
+    );
     await throughStory(battlePage);
     await expect(battlePage.getByTestId('screen-round')).toHaveAttribute('data-activity', 'battle');
     await shot(battlePage, `${region}-${size}-battle`);
@@ -95,31 +105,35 @@ async function captureRegion(
   }
 }
 
-test('QA full sea visual evidence', async ({ page }) => {
-  test.setTimeout(1_200_000);
-  await mkdir(OUT, { recursive: true });
-  for (let index = 1; index < REGIONS.length; index++) {
-    const region = REGIONS[index]!;
-    const before =
-      index < 7
-        ? await levelsPlayed(
-            PACK.data.levels
-              .filter((level) => REGIONS.indexOf(level.region) < index)
-              .sort(
-                (a, b) =>
-                  REGIONS.indexOf(a.region) - REGIONS.indexOf(b.region) || a.order - b.order,
-              )
-              .map((level) => level.id),
-            `qa-before-${region}`,
-          )
-        : await fourthGraderPlaced({ region, levels: [] });
-    const after =
-      index < 7
-        ? await levelsPlayed(grade3Before(index), `qa-region-${region}`)
-        : await fourthGraderPlaced({ region, levels: lessons(region) });
-    await page.setViewportSize({ width: 1180, height: 820 });
-    await captureRegion(page, region, before, after, 'ipad-landscape');
-    await page.setViewportSize({ width: 390, height: 844 });
-    await captureRegion(page, region, before, after, 'phone-200');
-  }
+test.describe('QA evidence', () => {
+  test.skip(!QA_EVIDENCE, 'one-off evidence capture; run with QA_EVIDENCE=1');
+
+  test('full sea visual evidence', async ({ page }) => {
+    test.setTimeout(1_200_000);
+    await mkdir(OUT, { recursive: true });
+    for (let index = 1; index < REGIONS.length; index++) {
+      const region = REGIONS[index]!;
+      const before =
+        index < 7
+          ? await levelsPlayed(
+              PACK.data.levels
+                .filter((level) => REGIONS.indexOf(level.region) < index)
+                .sort(
+                  (a, b) =>
+                    REGIONS.indexOf(a.region) - REGIONS.indexOf(b.region) || a.order - b.order,
+                )
+                .map((level) => level.id),
+              `qa-before-${region}`,
+            )
+          : await fourthGraderPlaced({ region, levels: [] });
+      const after =
+        index < 7
+          ? await levelsPlayed(grade3Before(index), `qa-region-${region}`)
+          : await fourthGraderPlaced({ region, levels: lessons(region) });
+      await page.setViewportSize({ width: 1180, height: 820 });
+      await captureRegion(page, region, before, after, 'ipad-landscape');
+      await page.setViewportSize({ width: 390, height: 844 });
+      await captureRegion(page, region, before, after, 'phone-200');
+    }
+  });
 });

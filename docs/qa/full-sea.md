@@ -5,6 +5,19 @@ The existing trace suite drives the complete rules path through all 12 regions; 
 `test/e2e/qa-phase2.spec.ts` drives the browser UI to every region 2–12 map node, region screen,
 first level and monster battle/freed state.
 
+The visual evidence test is intentionally excluded from normal CI because it is a one-off
+documentation harness and takes about ten minutes per browser. Run it explicitly when refreshing
+the committed screenshots:
+
+```text
+QA_EVIDENCE=1 npx playwright test test/e2e/qa-phase2.spec.ts --project=chromium
+```
+
+In PowerShell, use `$env:QA_EVIDENCE='1'` before the command. The harness waits for the level screen
+to leave before advancing the monster story; this avoids mistaking a slow WebKit story transition
+for a product battle-start failure. Phone captures intentionally stop after the level screen, while
+the iPad landscape path captures battle and freeing.
+
 | Area                      | Evidence                                                                                        | Result                                                                                                       |
 | ------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Regions 1–7               | `test/traces/finale.test.ts`, `test/traces/lagoon.test.ts`, browser screenshots for regions 2–7 | All levels, monster battles and freed rewards progressed without a stuck transition                          |

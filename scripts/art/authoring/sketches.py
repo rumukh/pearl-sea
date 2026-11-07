@@ -2387,6 +2387,613 @@ def delfin_baby(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def korinek(out, route_json=None):
+    """Rak poustevník Kořínek: a cheerful hermit crab facing left, his soft body tucked into a big
+    spiral sea-snail shell with exactly three turns of the spiral (the shell is the prefixes and
+    suffixes, the crab inside is the root); two eyes on short stalks, one big and one small claw,
+    exactly three walking legs showing in front, lilac-orange shell with cream bands."""
+    img, d = canvas()
+    shell, band, crab = (170, 130, 210), (248, 228, 196), (240, 130, 80)
+    cx, cy = 780, 640
+    d.ellipse([cx - 360 - 13, cy - 330 - 13, cx + 360 + 13, cy + 330 + 13], fill=PLUM)
+    d.ellipse([cx - 360, cy - 330, cx + 360, cy + 330], fill=shell)
+    for k, (r, w) in enumerate(((280, 26), (190, 24), (100, 22))):                      # three spiral turns
+        d.arc([cx + 40 - r, cy - 20 - r, cx + 40 + r, cy - 20 + r], 120, 420, fill=band, width=w)
+        d.arc([cx + 40 - r - 10, cy - 20 - r - 10, cx + 40 + r + 10, cy - 20 + r + 10], 120, 420, fill=PLUM, width=6)
+    d.ellipse([cx + 10, cy - 50, cx + 70, cy + 10], fill=band)
+    d.chord([cx - 420, cy + 60, cx - 40, cy + 380], 180, 360, fill=PLUM)              # the shell's opening
+    d.chord([cx - 404, cy + 76, cx - 56, cy + 364], 180, 360, fill=(80, 50, 90))
+    bx, by = cx - 230, cy + 190                                                          # the crab peeking out
+    d.ellipse([bx - 140 - 12, by - 110 - 12, bx + 140 + 12, by + 110 + 12], fill=PLUM)
+    d.ellipse([bx - 140, by - 110, bx + 140, by + 110], fill=crab)
+    for k in range(3):                                                                   # three legs in front
+        x = bx - 60 + k * 70
+        stamp_path(d, [(x, by + 80), (x - 40, by + 200), (x - 70, by + 260)], 40, 30, crab, outline=PLUM)
+    for ex in (bx - 90, bx - 10):                                                        # eye stalks
+        stamp_path(d, [(ex, by - 80), (ex - 10, by - 200)], 30, 26, crab, outline=PLUM)
+        eye(d, ex - 10, by - 225, 36, iris=(60, 40, 40))
+    paddle(d, (bx - 150, by + 20), (bx - 330, by - 20), 150, crab, bend=0.1)            # big claw
+    d.polygon([(bx - 350, by - 60), (bx - 300, by - 10), (bx - 360, by + 10)], fill=PLUM)
+    paddle(d, (bx - 130, by + 70), (bx - 250, by + 120), 90, crab, bend=-0.1)            # small claw
+    d.arc([bx - 70, by + 10, bx + 10, by + 60], 20, 160, fill=PLUM, width=9)
+    cheeks(d, [(bx + 40, by + 20)], r=24)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def humr_inked(out, route_json=None):
+    """Humr Nůžkař, inked: a real lobster facing left, grumpy, soaked in magic ink: a long jointed
+    body with a segmented tail ending in a fan, two long antennae, two big crusher claws held up and
+    open like scissors, exactly four walking legs on the visible side, deep blue-black lobster
+    colour with glossy black and violet ink blots, a frowning brow over round eyes."""
+    img, d = canvas()
+    body, light = (60, 80, 130), (100, 120, 170)
+    cy = 760
+    for k in range(5):                                                                   # tail segments
+        x = 740 + k * 72
+        d.ellipse([x - 70 - 12, cy - 90 + k * 6 - 12, x + 70 + 12, cy + 90 - k * 6 + 12], fill=PLUM)
+        d.ellipse([x - 70, cy - 90 + k * 6, x + 70, cy + 90 - k * 6], fill=body)
+    fx = 740 + 5 * 72
+    d.polygon([(fx - 40, cy), (fx + 110, cy - 130), (fx + 140, cy), (fx + 110, cy + 130)], fill=PLUM)
+    d.polygon([(fx - 26, cy), (fx + 100, cy - 108), (fx + 124, cy), (fx + 100, cy + 108)], fill=light)
+    d.ellipse([360 - 13, cy - 160 - 13, 800 + 13, cy + 160 + 13], fill=PLUM)            # carapace
+    d.ellipse([360, cy - 160, 800, cy + 160], fill=body)
+    for k in range(4):                                                                   # four walking legs
+        x = 480 + k * 80
+        stamp_path(d, [(x, cy + 130), (x - 30, cy + 260), (x - 60, cy + 320)], 32, 22, body, outline=PLUM)
+    for tx, ty, ang in ((250, 380, -2.3), (470, 330, -1.9)):                              # two big open pincers
+        stamp_path(d, [(470, cy - 80), ((470 + tx) / 2 + 30, (cy - 80 + ty) / 2 + 40), (tx, ty)], 74, 64, body, outline=PLUM)
+        for da, ln in ((-0.32, 190), (0.32, 160)):                                         # upper and lower jaw
+            ex, ey = tx + ln * math.cos(ang + da), ty + ln * math.sin(ang + da)
+            stamp_path(d, [(tx, ty), (ex, ey)], 120, 56, body, outline=PLUM)
+    for ax in ((380, cy - 130), (400, cy - 120)):                                         # two antennae
+        d.line([ax, (220, cy - 360), (180, cy - 520)], fill=PLUM, width=10, joint="curve")
+    eye(d, 430, cy - 90, 40)
+    d.line([(380, cy - 150), (480, cy - 120)], fill=PLUM, width=20)
+    d.arc([370, cy - 10, 450, cy + 40], 200, 340, fill=PLUM, width=10)
+    ink, violet = (28, 20, 38), (70, 42, 110)
+    for x, y, rx, ry, c in ((600, cy - 80, 70, 46, ink), (850, cy - 40, 50, 36, violet), (700, cy + 60, 44, 30, violet),
+                            (1000, cy - 20, 40, 28, ink)):
+        d.ellipse([x - rx, y - ry, x + rx, y + ry], fill=c)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def moon(out, route_json=None):
+    """Měsíční jeskyně laid out on the shell's levelSpots(7): a deep, moonlit cave seen from inside the
+    water, indigo and violet, with a pale moon glow from a hole in the cave roof, glowing blue and
+    pink crystals and soft bioluminescent spots at the left and in the bottom-right foreground, and
+    Humr Nůžkař's lair, a craggy rock overhang with a dark opening, below the monster node."""
+    rng = random.Random(48)
+    nodes = region_nodes()
+    img = vertical_gradient((64, 70, 140), (18, 20, 56))
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow)
+    gd.ellipse([620, -260, 1100, 220], fill=(230, 230, 255, 120))
+    gd.polygon([(700, 0), (1020, 0), (1180, H * 0.75), (600, H * 0.75)], fill=(200, 210, 255, 40))
+    img = Image.alpha_composite(img.convert("RGBA"), glow.filter(ImageFilter.GaussianBlur(40))).convert("RGB")
+    d = ImageDraw.Draw(img)
+    d.polygon([(0, 0), (620, 0), (560, 60), (300, 110), (0, 160)], fill=(40, 34, 70))       # cave roof
+    d.polygon([(1100, 0), (W, 0), (W, 120), (1300, 80)], fill=(40, 34, 70))
+    floor = [(0, H)] + [(x, int(H * 0.82 - 0.12 * H * x / W + 10 * math.sin(x / 110.0))) for x in range(0, W + 1, 40)] + [(W, H)]
+    d.polygon(floor, fill=(70, 66, 110))
+    blob(d, 60, 440, 120, 240, (46, 40, 80), rng, n=16, jitter=0.1)                      # left rock wall
+    for x, y, c in ((60, 330, (120, 200, 255)), (130, 450, (240, 150, 230)), (50, 580, (120, 200, 255))):
+        d.polygon([(x - 30, y + 60), (x, y - 60), (x + 30, y + 60)], fill=c)             # crystals
+    mx, my = nodes[-1]
+    blob(d, mx + 140, my + 260, 220, 170, (40, 34, 66), rng, n=18, jitter=0.12)          # the lair
+    d.polygon([(mx + 90, my + 170), (mx + 130, my + 160), (mx + 120, my + 380), (mx + 96, my + 380)], fill=(10, 10, 24))   # a narrow crevice
+    for i in range(7):                                                                   # glowing foreground
+        x = 1080 + i * 80 + rng.randint(-15, 15)
+        y = H - 70 - rng.randint(0, 40)
+        blob(d, x, y, 44, 30, (54, 50, 90), rng)
+        d.ellipse([x - 10, y - 30, x + 10, y - 10], fill=[(120, 200, 255), (240, 150, 230)][i % 2])
+    for x, y in [(90, 870), (330, 895), (560, 880)]:
+        blob(d, x, y, 22, 14, (150, 150, 200), rng)
+    img = img.filter(ImageFilter.GaussianBlur(1.2))
+    img.save(out)
+    if route_json:
+        with open(route_json, "w", encoding="utf-8") as f:
+            json.dump({"size": [W, H], "levelSpotsPx": [[round(x, 1), round(y, 1)] for x, y in nodes]}, f, indent=1)
+
+
+def prisavka(out, route_json=None):
+    """Štítovec Přísavka: a real remora (shark sucker) swimming left, slim and long, with the flat
+    oval suction disc on top of its head striped with exactly eight ridges, a long dorsal fin and a
+    matching anal fin toward the tail, a forked tail, a jutting lower jaw with a friendly smile, and
+    a dark stripe along the side; grey-teal back, pale belly."""
+    img, d = canvas()
+    cy = 680
+    back, belly, stripe = (90, 140, 150), (226, 236, 232), (50, 80, 90)
+    d.polygon([(1080, cy), (1230, 540), (1180, cy), (1230, 820)], fill=PLUM)
+    d.polygon([(1098, cy), (1212, 564), (1162, cy), (1212, 796)], fill=back)
+    d.polygon([(760, cy - 70), (840, cy - 150), (1060, cy - 70)], fill=PLUM)              # long dorsal fin
+    d.polygon([(776, cy - 74), (842, cy - 134), (1040, cy - 74)], fill=back)
+    d.polygon([(760, cy + 70), (840, cy + 150), (1060, cy + 70)], fill=PLUM)              # anal fin
+    d.polygon([(776, cy + 74), (842, cy + 134), (1040, cy + 74)], fill=back)
+    xs, h = fish_body(d, 180, 1110, cy, 120, back, belly, shape=0.4)
+    d.line([(300, cy + 10), (1080, cy + 10)], fill=stripe, width=26)
+    d.ellipse([280 - 13, cy - 190 - 13, 600 + 13, cy - 80 + 13], fill=PLUM)              # suction disc on top
+    d.ellipse([280, cy - 190, 600, cy - 80], fill=(150, 196, 200))
+    for k in range(8):                                                                    # eight ridges
+        x = 310 + k * 37
+        d.line([(x, cy - 176), (x + 4, cy - 94)], fill=PLUM, width=8)
+    d.polygon([(170, cy + 30), (330, cy + 10), (320, cy + 60)], fill=PLUM)                # jutting lower jaw
+    d.polygon([(190, cy + 32), (318, cy + 18), (310, cy + 52)], fill=belly)
+    paddle(d, (480, cy + 40), (580, cy + 130), 70, back, bend=0.1)
+    eye(d, 360, cy - 30, 40, iris=(60, 110, 120))
+    d.arc([220, cy, 300, cy + 40], 10, 150, fill=PLUM, width=9)
+    cheeks(d, [(400, cy + 40)], r=24)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def lepka_inked(out, route_json=None):
+    """Medúza Lepka, inked: a big round jellyfish who glues words together, grumpy and sticky: a wide
+    dome bell with a wavy rim, a frowning face, exactly six thick, gooey, droopy tentacles that drip
+    sticky blobs, two of them stuck together at the tips; pale sea-green with glossy black and violet
+    ink blots and drips."""
+    img, d = canvas()
+    bell, goo = (150, 210, 190), (120, 190, 170)
+    cx = 664
+    for k in range(6):                                                                     # six gooey tentacles
+        x0 = cx - 260 + k * 104
+        pts = catmull_rom([(x0, 640), (x0 + 36, 800), (x0 - 20, 940), (x0 + 10, 1060)], samples=10)
+        stamp_path(d, pts, 90, 66, goo, outline=PLUM)
+        d.ellipse([x0 + 10 - 30, 1080, x0 + 10 + 30, 1150], fill=PLUM)                      # a sticky drip below
+        d.ellipse([x0 + 10 - 18, 1092, x0 + 10 + 18, 1138], fill=goo)
+    stamp_path(d, [(cx - 156, 1050), (cx - 52, 1050)], 60, 60, goo, outline=PLUM)          # two tips glued together
+    rim = [(cx - 380 + k * 38, 660 + (24 if k % 2 else 0)) for k in range(21)]
+    dome = [(cx - 380, 660), (cx - 360, 480), (cx - 250, 330), (cx, 270), (cx + 250, 330), (cx + 360, 480), (cx + 380, 660)] + rim[::-1]
+    d.polygon(dome, fill=PLUM)
+    d.polygon([(x * 0.97 + cx * 0.03, y + (10 if y < 640 else -10)) for x, y in dome], fill=bell)
+    eye(d, cx - 100, 500, 44)
+    eye(d, cx + 100, 500, 44)
+    d.line([(cx - 170, 430), (cx - 60, 460)], fill=PLUM, width=20)
+    d.line([(cx + 170, 430), (cx + 60, 460)], fill=PLUM, width=20)
+    d.arc([cx - 60, 560, cx + 60, 620], 200, 340, fill=PLUM, width=12)
+    ink, violet = (28, 20, 38), (70, 42, 110)
+    for x, y, rx, ry, c in ((cx - 220, 420, 60, 40, ink), (cx + 220, 400, 50, 36, violet), (cx + 40, 330, 40, 28, ink)):
+        d.ellipse([x - rx, y - ry, x + rx, y + ry], fill=c)
+    for x, y0, y1 in ((cx - 220, 450, 560), (cx + 220, 430, 540)):
+        thick_path(d, [(x, y0), (x + 6, (y0 + y1) / 2), (x, y1)], 26, 16, ink)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def city(out, route_json=None):
+    """Potopené město laid out on the shell's levelSpots(7): the ruins of an old sunken town seen from
+    inside the deep-teal water: broken stone columns and an arch with sea plants at the left, tumbled
+    stone blocks and a fallen statue head in the bottom-right foreground, and Medúza Lepka's lair, a
+    domed ruined temple with a dark doorway, below the monster node."""
+    rng = random.Random(49)
+    nodes = region_nodes()
+    img = vertical_gradient((70, 150, 160), (14, 56, 74))
+    rays = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    rd = ImageDraw.Draw(rays)
+    for x0, w in [(520, 100), (840, 90), (1120, 110)]:
+        rd.polygon([(x0, 0), (x0 + w, 0), (x0 + w * 2.2, H * 0.7), (x0 + w * 1.2, H * 0.7)], fill=(220, 255, 240, 30))
+    img = Image.alpha_composite(img.convert("RGBA"), rays.filter(ImageFilter.GaussianBlur(18))).convert("RGB")
+    d = ImageDraw.Draw(img)
+    floor = [(0, H)] + [(x, int(H * 0.82 - 0.12 * H * x / W + 10 * math.sin(x / 110.0))) for x in range(0, W + 1, 40)] + [(W, H)]
+    d.polygon(floor, fill=(150, 160, 150))
+    stone = (170, 176, 170)
+    for x, top in ((40, 60), (150, 180)):                                                    # broken columns
+        d.rectangle([x - 34, top, x + 34, 520], fill=stone)
+        d.rectangle([x - 46, top - 20, x + 46, top + 10], fill=(190, 196, 190))
+    d.arc([30, 120, 300, 420], 180, 360, fill=stone, width=40)                               # an arch
+    for x in (90, 220, 300):
+        d.line([(x, 520), (x + 10, 400)], fill=(60, 150, 110), width=14)
+    mx, my = nodes[-1]                                                                       # domed temple lair
+    d.rectangle([mx - 20, my + 150, W + 20, my + 420], fill=stone)
+    d.pieslice([mx - 20, my + 20, mx + 360, my + 300], 180, 360, fill=(190, 196, 190))
+    d.rectangle([mx + 80, my + 230, mx + 200, my + 420], fill=(20, 30, 40))
+    d.pieslice([mx + 80, my + 180, mx + 200, my + 290], 180, 360, fill=(20, 30, 40))
+    for i in range(6):                                                                       # tumbled blocks foreground
+        x = 1090 + i * 95 + rng.randint(-15, 15)
+        y = H - 70 - rng.randint(0, 40)
+        d.rectangle([x - 44, y - 32, x + 44, y + 32], fill=[stone, (150, 156, 150)][i % 2])
+    d.ellipse([930, H - 230, 1060, H - 90], fill=(180, 184, 176))                            # fallen statue head
+    for x, y in [(90, 870), (330, 895), (560, 880)]:
+        blob(d, x, y, 22, 14, (210, 214, 204), rng)
+    img = img.filter(ImageFilter.GaussianBlur(1.2))
+    img.save(out)
+    if route_json:
+        with open(route_json, "w", encoding="utf-8") as f:
+            json.dump({"size": [W, H], "levelSpotsPx": [[round(x, 1), round(y, 1)] for x, y in nodes]}, f, indent=1)
+
+
+def klipka(out, route_json=None):
+    """Klipka Vzorná: a real butterflyfish swimming left: a tall, flat, round disc-shaped body with a
+    small pointed snout, a dark band through the eye, one false eyespot near the tail, and the body
+    covered in a neat pattern of exactly fourteen diamond-shaped scales in rows (the fourteen noun
+    patterns), a rounded dorsal fin, a small fan tail; sunny yellow with white and blue patterns."""
+    img, d = canvas()
+    cx, cy = 680, 660
+    body, white, band = (250, 210, 70), (252, 248, 236), (40, 50, 80)
+    d.polygon([(cx + 250, cy), (cx + 420, cy - 130), (cx + 440, cy + 130)], fill=PLUM)    # fan tail
+    d.polygon([(cx + 270, cy), (cx + 406, cy - 106), (cx + 422, cy + 106)], fill=body)
+    d.chord([cx - 240, cy - 400, cx + 260, cy + 60], 200, 340, fill=PLUM)                  # rounded dorsal fin
+    d.chord([cx - 224, cy - 384, cx + 244, cy + 44], 200, 340, fill=(250, 180, 60))
+    d.ellipse([cx - 320 - 13, cy - 310 - 13, cx + 290 + 13, cy + 310 + 13], fill=PLUM)
+    d.ellipse([cx - 320, cy - 310, cx + 290, cy + 310], fill=body)
+    k = 0
+    for row, (y, xs) in enumerate(((cy - 170, (-120, 0, 120)), (cy - 60, (-180, -60, 60, 180)), (cy + 50, (-180, -60, 60, 180)), (cy + 160, (-120, 0, 120)))):
+        for x in xs:                                                                       # fourteen diamond scales
+            x0 = cx + x + 30
+            d.polygon([(x0, y - 44), (x0 + 40, y), (x0, y + 44), (x0 - 40, y)], fill=PLUM)
+            d.polygon([(x0, y - 34), (x0 + 30, y), (x0, y + 34), (x0 - 30, y)], fill=[white, (120, 180, 230)][k % 2])
+            k += 1
+    d.ellipse([cx + 200 - 40, cy - 40, cx + 200 + 40, cy + 40], fill=band)                  # false eyespot
+    d.ellipse([cx + 200 - 22, cy - 22, cx + 200 + 22, cy + 22], fill=white)
+    d.polygon([(cx - 290, cy - 160), (cx - 230, cy - 160), (cx - 230, cy + 160), (cx - 290, cy + 120)], fill=band)  # eye band
+    d.polygon([(cx - 330, cy - 30), (cx - 430, cy), (cx - 330, cy + 30)], fill=PLUM)        # small pointed snout
+    d.polygon([(cx - 330, cy - 20), (cx - 410, cy), (cx - 330, cy + 20)], fill=body)
+    eye(d, cx - 260, cy - 60, 40, iris=(70, 110, 170))
+    d.arc([cx - 380, cy - 10, cx - 320, cy + 30], 10, 150, fill=PLUM, width=8)
+    cheeks(d, [(cx - 200, cy + 40)], r=24)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def napodobnice_inked(out, route_json=None):
+    """Chobotnice Napodobnice, inked: a mimic octopus who copies patterns wrongly, grumpy and sly,
+    soaked in magic ink: a round head with a big brow and two eyes on top, exactly eight long arms
+    spread around her, every arm banded in brown and cream stripes (she copies other animals'
+    patterns), a sulky smirk, glossy black and violet ink blots on her head."""
+    img, d = canvas()
+    cx, cy = 664, 560
+    brown, cream = (150, 100, 70), (240, 220, 180)
+    for k in range(8):                                                                     # eight banded arms
+        a = math.pi * (0.05 + 0.9 * k / 7)
+        end = (cx + 520 * math.cos(a), cy + 200 + 420 * math.sin(a))
+        mid = (cx + 300 * math.cos(a) + 40 * math.sin(k), cy + 200 + 300 * math.sin(a))
+        banded_path(d, catmull_rom([(cx + 120 * math.cos(a), cy + 200), mid, end], samples=12), 90, 34, [brown, cream], 55)
+    d.ellipse([cx - 260 - 13, cy - 280 - 13, cx + 260 + 13, cy + 260 + 13], fill=PLUM)      # round head
+    d.ellipse([cx - 260, cy - 280, cx + 260, cy + 260], fill=brown)
+    for k in range(4):                                                                     # head stripes
+        y = cy - 200 + k * 80
+        d.arc([cx - 230, y - 40, cx + 230, y + 40], 200, 340, fill=cream, width=26)
+    eye(d, cx - 100, cy + 40, 50)
+    eye(d, cx + 100, cy + 40, 50)
+    d.line([(cx - 170, cy - 30), (cx - 40, cy)], fill=PLUM, width=20)
+    d.line([(cx + 170, cy - 30), (cx + 40, cy)], fill=PLUM, width=20)
+    d.arc([cx - 40, cy + 110, cx + 90, cy + 170], 20, 150, fill=PLUM, width=11)          # sly smirk
+    ink, violet = (28, 20, 38), (70, 42, 110)
+    for x, y, rx, ry, c in ((cx - 140, cy - 160, 60, 40, ink), (cx + 150, cy - 180, 50, 34, violet), (cx, cy - 240, 36, 26, ink)):
+        d.ellipse([x - rx, y - ry, x + rx, y + ry], fill=c)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def trench(out, route_json=None):
+    """Temný příkop laid out on the shell's levelSpots(7): a deep, dark ocean trench, midnight blue,
+    lit by glowing bioluminescent plants and jelly lights: tall dark rock cliffs with glowing tube
+    worms at the left, glowing sea pens and stones in the bottom-right foreground, and Chobotnice
+    Napodobnice's lair, a dark rocky crevice glowing faintly purple, below the monster node."""
+    rng = random.Random(50)
+    nodes = region_nodes()
+    img = vertical_gradient((30, 40, 90), (6, 8, 28))
+    d = ImageDraw.Draw(img)
+    floor = [(0, H)] + [(x, int(H * 0.82 - 0.12 * H * x / W + 10 * math.sin(x / 110.0))) for x in range(0, W + 1, 40)] + [(W, H)]
+    d.polygon(floor, fill=(40, 46, 80))
+    d.polygon([(0, 0), (160, 0), (220, 300), (160, 560), (0, 620)], fill=(20, 22, 50))      # left cliff
+    for x, y in ((150, 260), (170, 360), (130, 460)):                                       # glowing tube worms
+        d.line([(x, y), (x + 50, y - 60)], fill=(240, 120, 200), width=14)
+        d.ellipse([x + 36, y - 82, x + 70, y - 48], fill=(255, 200, 240))
+    for x, y in ((420, 150), (700, 90), (1200, 200), (900, 300)):                           # floating jelly lights
+        d.ellipse([x - 24, y - 18, x + 24, y + 18], fill=(120, 220, 255))
+    mx, my = nodes[-1]
+    d.polygon([(mx - 40, my + 120), (mx + 120, my + 80), (W + 20, my + 40), (W + 20, my + 460), (mx + 40, my + 420)], fill=(22, 22, 48))
+    d.polygon([(mx + 60, my + 160), (mx + 130, my + 150), (mx + 110, my + 380), (mx + 70, my + 380)], fill=(110, 60, 160))
+    for i in range(7):                                                                      # glowing sea pens
+        x = 1080 + i * 80 + rng.randint(-15, 15)
+        y = H - 70 - rng.randint(0, 40)
+        d.line([(x, y), (x + 6, y - 90)], fill=(120, 220, 255), width=10)
+        d.ellipse([x - 12, y - 110, x + 22, y - 76], fill=[(120, 220, 255), (240, 150, 230)][i % 2])
+    for x, y in [(90, 870), (330, 895), (560, 880)]:
+        blob(d, x, y, 22, 14, (90, 96, 140), rng)
+    img = img.filter(ImageFilter.GaussianBlur(1.2))
+    img.save(out)
+    if route_json:
+        with open(route_json, "w", encoding="utf-8") as f:
+            json.dump({"size": [W, H], "levelSpotsPx": [[round(x, 1), round(y, 1)] for x, y in nodes]}, f, indent=1)
+
+
+def vir_inked(out, route_json=None):
+    """Vír Časoplet, inked: a grumpy whirlpool creature that mixes up the tenses: a swirling funnel of
+    water seen from the side, wide at the top and narrowing to a curly tip, with exactly three
+    spiral bands, a cross face in the top of the funnel, two little wave-arms, and three small clock
+    faces swept along in the swirl (yesterday, today, tomorrow); grey-blue water with foamy white
+    edges, glossy black and violet ink blots in the swirl."""
+    img, d = canvas()
+    water, foam = (90, 130, 180), (240, 248, 252)
+    cx = 664
+    funnel = [(cx - 420, 330), (cx + 420, 330), (cx + 260, 620), (cx + 120, 900), (cx + 40, 1100), (cx - 30, 1150), (cx - 60, 1100), (cx - 120, 900), (cx - 260, 620)]
+    d.polygon(funnel, fill=PLUM)
+    d.polygon([(x * 0.97 + cx * 0.03, y + (10 if y < 400 else -6)) for x, y in funnel], fill=water)
+    for k, (y, w) in enumerate(((470, 340), (700, 220), (930, 110))):                        # three spiral bands
+        d.arc([cx - w, y - 70, cx + w, y + 70], 200, 520, fill=foam, width=22)
+    d.ellipse([cx - 440, 280, cx + 440, 400], fill=PLUM)                                    # foamy rim
+    d.ellipse([cx - 426, 290, cx + 426, 390], fill=foam)
+    for side in (-1, 1):                                                                    # two little wave-arms
+        stamp_path(d, [(cx + side * 360, 380), (cx + side * 440, 300), (cx + side * 470, 210)], 80, 50, water, outline=PLUM)
+        d.ellipse([cx + side * 470 - 46, 172, cx + side * 470 + 46, 248], fill=foam)
+    eye(d, cx - 110, 500, 46)
+    eye(d, cx + 110, 500, 46)
+    d.line([(cx - 180, 430), (cx - 60, 460)], fill=PLUM, width=20)
+    d.line([(cx + 180, 430), (cx + 60, 460)], fill=PLUM, width=20)
+    d.arc([cx - 60, 570, cx + 60, 630], 200, 340, fill=PLUM, width=12)
+    for x, y in ((cx + 300, 760), (cx - 280, 820), (cx + 180, 1000)):                        # three clock faces
+        d.ellipse([x - 52, y - 52, x + 52, y + 52], fill=PLUM)
+        d.ellipse([x - 42, y - 42, x + 42, y + 42], fill=(252, 240, 200))
+        d.line([(x, y), (x, y - 28)], fill=PLUM, width=8)
+        d.line([(x, y), (x + 22, y + 6)], fill=PLUM, width=8)
+    ink, violet = (28, 20, 38), (70, 42, 110)
+    for x, y, rx, ry, c in ((cx - 200, 640, 60, 40, ink), (cx + 160, 860, 46, 32, violet), (cx - 60, 980, 36, 26, ink)):
+        d.ellipse([x - rx, y - ry, x + rx, y + ry], fill=c)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def storm(out, route_json=None):
+    """Bouřlivé moře laid out on the shell's levelSpots(7): a stormy sea seen from just under the
+    tossing surface: a dark grey-blue sky band and big rolling waves at the top, a little lighthouse
+    on a rock at the top left, swaying sea grass and rocks in the bottom-right foreground, and Vír
+    Časoplet's lair, a swirling whirlpool funnel of water, below the monster node."""
+    rng = random.Random(51)
+    nodes = region_nodes()
+    img = vertical_gradient((90, 110, 140), (20, 40, 70))
+    d = ImageDraw.Draw(img)
+    for k in range(6):                                                                       # rolling waves at the top
+        x = k * 300 - 60
+        d.pieslice([x, 40, x + 360, 200], 180, 360, fill=(70, 100, 140))
+        d.arc([x, 40, x + 360, 200], 200, 330, fill=(220, 236, 244), width=12)
+    d.polygon([(0, 140), (260, 120), (300, 210), (0, 240)], fill=(60, 60, 70))                # lighthouse rock
+    d.rectangle([110, 20, 160, 130], fill=(240, 236, 228))
+    d.rectangle([110, 50, 160, 70], fill=(220, 80, 70))
+    d.polygon([(100, 20), (170, 20), (135, -10)], fill=(220, 80, 70))
+    floor = [(0, H)] + [(x, int(H * 0.82 - 0.12 * H * x / W + 10 * math.sin(x / 110.0))) for x in range(0, W + 1, 40)] + [(W, H)]
+    d.polygon(floor, fill=(110, 116, 120))
+    mx, my = nodes[-1]                                                                       # whirlpool funnel lair
+    cx = mx + 150
+    d.polygon([(cx - 170, my + 120), (cx + 170, my + 120), (cx + 40, my + 420), (cx - 40, my + 420)], fill=(60, 90, 130))
+    for k in range(3):
+        y = my + 160 + k * 80
+        w = 150 - k * 40
+        d.arc([cx - w, y - 30, cx + w, y + 30], 200, 520, fill=(200, 226, 240), width=10)
+    for i in range(8):                                                                       # swaying sea grass
+        x = 1080 + i * 72 + rng.randint(-12, 12)
+        d.line([(x, H - 40), (x + 30, H - 200 - rng.randint(0, 60))], fill=(60, 120, 100), width=14)
+        blob(d, x + 10, H - 50, 34, 24, (80, 86, 96), rng)
+    for x, y in [(90, 870), (330, 895), (560, 880)]:
+        blob(d, x, y, 22, 14, (170, 176, 180), rng)
+    img = img.filter(ImageFilter.GaussianBlur(1.2))
+    img.save(out)
+    if route_json:
+        with open(route_json, "w", encoding="utf-8") as f:
+            json.dump({"size": [W, H], "levelSpotsPx": [[round(x, 1), round(y, 1)] for x, y in nodes]}, f, indent=1)
+
+
+def klauni(out, route_json=None):
+    """Klauni Dvojčata: twin clownfish who always swim together, side by side and facing left, one a
+    little in front of the other, both bright orange with exactly three white bands outlined in black
+    each (head, middle, tail), rounded fins with black edges, happy smiles; the front twin smiles
+    with open eyes, the back twin winks."""
+    img, d = canvas()
+    orange, white, black = (248, 130, 40), (252, 252, 248), (40, 30, 40)
+
+    def fish(ox, oy, s, wink):
+        cy = oy
+        d.pieslice([ox + 360 * s, cy - 110 * s, ox + 520 * s, cy + 110 * s], 300, 60, fill=PLUM)
+        d.pieslice([ox + 372 * s, cy - 98 * s, ox + 508 * s, cy + 98 * s], 300, 60, fill=orange)
+        d.chord([ox + 60 * s, cy - 230 * s, ox + 360 * s, cy - 60 * s], 200, 340, fill=PLUM)
+        d.chord([ox + 72 * s, cy - 218 * s, ox + 348 * s, cy - 72 * s], 200, 340, fill=orange)
+        d.ellipse([ox - 13, cy - 160 * s - 13, ox + 420 * s + 13, cy + 160 * s + 13], fill=PLUM)
+        d.ellipse([ox, cy - 160 * s, ox + 420 * s, cy + 160 * s], fill=orange)
+        for bx, bw in ((110, 46), (220, 52), (340, 40)):                                    # three white bands
+            x0 = ox + bx * s
+            hh = 160 * s * math.sqrt(max(0.0, 1 - ((bx - 210) / 215) ** 2))
+            d.rounded_rectangle([x0 - bw * s / 2 - 10, cy - hh, x0 + bw * s / 2 + 10, cy + hh], radius=18, fill=black)
+            d.rounded_rectangle([x0 - bw * s / 2, cy - hh + 8, x0 + bw * s / 2, cy + hh - 8], radius=14, fill=white)
+        paddle(d, (ox + 160 * s, cy + 60 * s), (ox + 230 * s, cy + 150 * s), 70 * s, orange, bend=0.1)
+        if wink:
+            d.arc([ox + 40 * s, cy - 70 * s, ox + 100 * s, cy - 20 * s], 200, 340, fill=PLUM, width=10)
+        else:
+            eye(d, ox + 70 * s, cy - 40 * s, 34 * s, iris=(40, 30, 40))
+        d.arc([ox + 10 * s, cy + 10 * s, ox + 80 * s, cy + 60 * s], 20, 150, fill=PLUM, width=9)
+        cheeks(d, [(ox + 120 * s, cy + 40 * s)], r=int(22 * s))
+
+    fish(420, 480, 1.2, True)
+    fish(180, 860, 1.2, False)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def krakatice_inked(out, route_json=None):
+    """Krakatice Inkoustová, inked: the grand finale, a huge giant squid soaked in magic ink, more
+    lonely and sulky than wicked: a long rounded mantle pointing up with two big fins, two big round
+    sad-grumpy eyes, and exactly ten long arms curling out in a wide fan below (eight arms and two
+    longer tentacles with paddle tips), each arm dark-violet with ink drips; deep purple-indigo body,
+    glossy black ink blots and drips everywhere, a few pale suckers."""
+    img, d = canvas()
+    body, light = (90, 60, 140), (180, 150, 220)
+    cx = 664
+    for k in range(10):                                                                     # ten arms in a wide fan
+        long = k in (0, 9)
+        t = (k - 4.5) / 4.5
+        a = math.pi * (0.5 + 0.42 * t)
+        L1 = 500 if long else 430
+        end = (cx + L1 * math.cos(a) * 1.05, 640 + L1 * math.sin(a) * 1.0)
+        mid = (cx + L1 * 0.55 * math.cos(a) * 1.05 + 60 * (1 if k % 2 else -1) * (1 - abs(t)), 640 + L1 * 0.55 * math.sin(a))
+        stamp_path(d, catmull_rom([(cx + t * 150, 650), mid, end], samples=12), 70, 26, body, outline=PLUM)
+        if long:
+            d.ellipse([end[0] - 46, end[1] - 30, end[0] + 46, end[1] + 30], fill=PLUM)
+            d.ellipse([end[0] - 34, end[1] - 18, end[0] + 34, end[1] + 18], fill=body)
+    for k in range(10):
+        t = (k - 4.5) / 4.5
+        a = math.pi * (0.5 + 0.42 * t)
+        x, y = cx + 280 * math.cos(a) * 1.05, 640 + 280 * math.sin(a)
+        d.ellipse([x - 10, y - 10, x + 10, y + 10], fill=light)
+    d.polygon([(cx - 170, 200), (cx - 330, 120), (cx - 190, 90)], fill=PLUM)                 # two big fins
+    d.polygon([(cx + 170, 200), (cx + 330, 120), (cx + 190, 90)], fill=PLUM)
+    d.polygon([(cx - 176, 186), (cx - 300, 122), (cx - 192, 104)], fill=body)
+    d.polygon([(cx + 176, 186), (cx + 300, 122), (cx + 192, 104)], fill=body)
+    mantle = [(cx - 240, 700), (cx - 230, 380), (cx - 140, 160), (cx, 60), (cx + 140, 160), (cx + 230, 380), (cx + 240, 700)]
+    d.polygon(mantle, fill=PLUM)
+    d.polygon([(x * 0.96 + cx * 0.04, y + (12 if y < 200 else 0)) for x, y in mantle], fill=body)
+    d.ellipse([cx - 240, 600, cx + 240, 740], fill=body)
+    eye(d, cx - 100, 500, 72, iris=(120, 90, 180))
+    eye(d, cx + 100, 500, 72, iris=(120, 90, 180))
+    d.line([(cx - 190, 400), (cx - 60, 430)], fill=PLUM, width=20)                        # sad-cross brows
+    d.line([(cx + 190, 400), (cx + 60, 430)], fill=PLUM, width=20)
+    d.arc([cx - 60, 610, cx + 60, 670], 200, 340, fill=PLUM, width=12)
+    ink, violet = (28, 20, 38), (70, 42, 110)
+    for x, y, rx, ry, c in ((cx - 120, 260, 60, 44, ink), (cx + 120, 300, 54, 40, ink), (cx, 180, 40, 30, violet), (cx - 150, 640, 40, 28, ink)):
+        d.ellipse([x - rx, y - ry, x + rx, y + ry], fill=c)
+    for x, y0, y1 in ((cx - 120, 300, 400), (cx + 120, 340, 430)):
+        thick_path(d, [(x, y0), (x + 6, (y0 + y1) / 2), (x, y1)], 26, 16, ink)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def abyss(out, route_json=None):
+    """Krakatičí propast laid out on the shell's levelSpots(7): the deepest abyss, a vast dark
+    violet chasm with drifting clouds of ink and glowing pearls: tall dark rock spires with glowing
+    pearls at the left, glowing anemones in the bottom-right foreground, and the Krakatice's lair, a
+    huge dark cave mouth in a cliff with wisps of ink drifting out, below the monster node."""
+    rng = random.Random(52)
+    nodes = region_nodes()
+    img = vertical_gradient((60, 40, 100), (10, 6, 30))
+    d = ImageDraw.Draw(img)
+    floor = [(0, H)] + [(x, int(H * 0.82 - 0.12 * H * x / W + 10 * math.sin(x / 110.0))) for x in range(0, W + 1, 40)] + [(W, H)]
+    d.polygon(floor, fill=(50, 40, 80))
+    for x, top, w in ((60, 60, 70), (200, 220, 50)):                                         # rock spires
+        d.polygon([(x - w, 600), (x - w * 0.3, top), (x + w * 0.3, top), (x + w, 600)], fill=(30, 22, 56))
+        d.ellipse([x - 18, top + 60, x + 18, top + 96], fill=(255, 240, 250))
+    for x, y, r in ((500, 120, 90), (900, 70, 110), (1250, 200, 80)):                         # drifting ink clouds
+        blob(d, x, y, r, r * 0.5, (36, 26, 60), rng, n=16, jitter=0.2)
+    mx, my = nodes[-1]
+    d.polygon([(mx - 60, my + 100), (mx + 140, my + 60), (W + 20, my + 10), (W + 20, my + 500), (mx + 20, my + 460)], fill=(26, 18, 48))
+    blob(d, mx + 150, my + 280, 130, 120, (6, 4, 14), rng, n=16, jitter=0.08)                # cave mouth
+    for k in range(3):
+        blob(d, mx + 40 - k * 50, my + 200 + k * 50, 50, 26, (40, 26, 70), rng, n=12, jitter=0.2)
+    for i in range(7):                                                                       # glowing anemones
+        x = 1080 + i * 80 + rng.randint(-15, 15)
+        y = H - 70 - rng.randint(0, 40)
+        for kk in range(5):
+            aa = math.pi * (1.1 + 0.8 * kk / 4)
+            d.line([(x, y), (x + 34 * math.cos(aa), y + 34 * math.sin(aa))], fill=[(240, 150, 230), (120, 220, 255)][i % 2], width=8)
+    for x, y in [(90, 870), (330, 895), (560, 880)]:
+        blob(d, x, y, 22, 14, (120, 110, 160), rng)
+    img = img.filter(ImageFilter.GaussianBlur(1.2))
+    img.save(out)
+    if route_json:
+        with open(route_json, "w", encoding="utf-8") as f:
+            json.dump({"size": [W, H], "levelSpotsPx": [[round(x, 1), round(y, 1)] for x, y in nodes]}, f, indent=1)
+
+
+def map4(out, route_json=None):
+    """Grade-4 deep sea map on the shell's REGION_SPOTS (src/app/game/map.ts, thousandths): the deep,
+    darkening from indigo at the top to near-black violet at the bottom, each region a calm open
+    patch of water with a soft glowing rim and its features around it, linked by a faint glowing
+    trail in region order down into the abyss."""
+    rng = random.Random(411)
+    spots = [("moon-caves", 150, 200), ("sunken-city", 420, 300), ("dark-trench", 280, 620),
+             ("storm-sea", 640, 480), ("kraken-abyss", 830, 800)]
+    P = {k: (x * W / 1000, y * H / 1000) for k, x, y in spots}
+    img = vertical_gradient((60, 80, 150), (14, 10, 40))
+    d = ImageDraw.Draw(img)
+    for _ in range(22):
+        blob(d, rng.randint(0, W), rng.randint(0, H), rng.randint(60, 160), rng.randint(30, 80),
+             (50, 60, 120) if rng.random() < 0.5 else (30, 30, 80), rng, jitter=0.3)
+    route = catmull_rom([P[k] for k, _, _ in spots], samples=28)
+    d.line(route, fill=(80, 120, 190), width=40, joint="curve")
+    d.line(route, fill=(150, 200, 240), width=24, joint="curve")
+    rx, ry = 108, 74
+    for k, (cx, cy) in P.items():
+        d.ellipse([cx - rx - 26, cy - ry - 22, cx + rx + 26, cy + ry + 22], fill=(120, 170, 230))
+        d.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], fill=(70, 110, 180))
+    cx, cy = P["moon-caves"]                                                                 # moon cave: a crescent rock and crystals
+    blob(d, cx - 170, cy - 40, 70, 110, (40, 34, 70), rng)
+    for ax in (-170, -140):
+        d.polygon([(cx + ax - 14, cy + 90), (cx + ax, cy + 30), (cx + ax + 14, cy + 90)], fill=(150, 210, 255))
+    cx, cy = P["sunken-city"]                                                                 # sunken city: columns
+    for ax in (150, 190, 230):
+        d.rectangle([cx + ax - 12, cy - 100, cx + ax + 12, cy + 40], fill=(170, 176, 170))
+    cx, cy = P["dark-trench"]                                                                 # trench: dark cliffs with glows
+    blob(d, cx - 180, cy, 60, 120, (14, 14, 36), rng)
+    d.ellipse([cx - 190, cy - 30, cx - 170, cy - 10], fill=(240, 150, 230))
+    cx, cy = P["storm-sea"]                                                                   # storm: wave crests
+    for ax in (-160, 160):
+        d.arc([cx + ax - 60, cy - 130, cx + ax + 60, cy - 50], 180, 360, fill=(230, 240, 250), width=12)
+    cx, cy = P["kraken-abyss"]                                                                # abyss: ink clouds and a pearl
+    for ax, ay in ((-170, -40), (-150, 60), (160, -60)):
+        blob(d, cx + ax, cy + ay, 60, 36, (30, 20, 50), rng)
+    img = img.filter(ImageFilter.GaussianBlur(1.2))
+    img.save(out)
+    if route_json:
+        with open(route_json, "w", encoding="utf-8") as f:
+            json.dump({"size": [W, H], "spotsThousandths": {k: [x, y] for k, x, y in spots},
+                       "clearingPx": [rx, ry], "route": [[round(x, 1), round(y, 1)] for x, y in route]}, f, indent=1)
+
+
+def humr_inked2(out, route_json=None):
+    """Humr Nůžkař v2: v1's raised claws became paddles. A side-view lobster facing left: the body
+    low and long, two big crusher claws reaching FORWARD (left) along the ground, each a fat C-shaped
+    pincer with an open gap between its two jaws, four short legs angled back under the body, a
+    segmented tail with a fan, two long antennae sweeping back over the body."""
+    img, d = canvas()
+    body, light = (60, 80, 130), (100, 120, 170)
+    cy = 720
+    for k in range(5):
+        x = 780 + k * 70
+        d.ellipse([x - 60 - 12, cy - 80 + k * 6 - 12, x + 60 + 12, cy + 80 - k * 6 + 12], fill=PLUM)
+        d.ellipse([x - 60, cy - 80 + k * 6, x + 60, cy + 80 - k * 6], fill=body)
+    fx = 780 + 5 * 70
+    d.polygon([(fx - 30, cy), (fx + 90, cy - 110), (fx + 120, cy), (fx + 90, cy + 110)], fill=PLUM)
+    d.polygon([(fx - 16, cy), (fx + 80, cy - 90), (fx + 104, cy), (fx + 80, cy + 90)], fill=light)
+    for k in range(4):                                                                       # four short legs angled back
+        x = 560 + k * 70
+        stamp_path(d, [(x, cy + 100), (x + 40, cy + 190), (x + 80, cy + 230)], 30, 22, body, outline=PLUM)
+    d.ellipse([440 - 13, cy - 150 - 13, 840 + 13, cy + 140 + 13], fill=PLUM)
+    d.ellipse([440, cy - 150, 840, cy + 140], fill=body)
+    for oy, scale in ((-40, 1.0), (110, 0.9)):                                              # two forward claws
+        y = cy + oy
+        stamp_path(d, [(520, y), (400, y + 10), (330, y)], 80 * scale, 70 * scale, body, outline=PLUM)
+        px, py = 230, y
+        d.ellipse([px - 110 * scale - 12, py - 90 * scale - 12, px + 110 * scale + 12, py + 90 * scale + 12], fill=PLUM)
+        d.ellipse([px - 110 * scale, py - 90 * scale, px + 110 * scale, py + 90 * scale], fill=body)
+        d.polygon([(px - 120 * scale, py - 14 * scale), (px + 10, py - 4), (px - 120 * scale, py + 14 * scale)], fill=(225, 225, 225))   # the open gap
+    for ax in ((520, cy - 120), (540, cy - 110)):                                            # antennae sweeping back
+        d.line([ax, (700, cy - 400), (1000, cy - 470)], fill=PLUM, width=10, joint="curve")
+    eye(d, 540, cy - 90, 40)
+    d.line([(490, cy - 150), (590, cy - 120)], fill=PLUM, width=20)
+    d.arc([470, cy - 10, 550, cy + 40], 200, 340, fill=PLUM, width=10)
+    ink, violet = (28, 20, 38), (70, 42, 110)
+    for x, y, rx, ry, c in ((680, cy - 80, 70, 46, ink), (860, cy - 30, 50, 36, violet), (720, cy + 60, 44, 30, violet)):
+        d.ellipse([x - rx, y - ry, x + rx, y + ry], fill=c)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def korinek_baby(out, route_json=None):
+    """Rak poustevník Kořínek as a hatchling facing left: a tiny hermit crab with a big head share
+    tucked into a small round spiral shell with exactly three cream bands, two big eyes on short
+    stalks, two small claws (one a bit bigger), three short legs in front."""
+    img, d = canvas()
+    shell, band, crab = (170, 130, 210), (248, 228, 196), (240, 130, 80)
+    cx, cy = 780, 620
+    d.ellipse([cx - 280 - 13, cy - 260 - 13, cx + 280 + 13, cy + 260 + 13], fill=PLUM)
+    d.ellipse([cx - 280, cy - 260, cx + 280, cy + 260], fill=shell)
+    for r, w in ((210, 24), (140, 22), (72, 20)):
+        d.arc([cx + 30 - r, cy - 20 - r, cx + 30 + r, cy - 20 + r], 120, 420, fill=band, width=w)
+    bx, by = cx - 230, cy + 160
+    d.ellipse([bx - 170 - 12, by - 140 - 12, bx + 170 + 12, by + 140 + 12], fill=PLUM)
+    d.ellipse([bx - 170, by - 140, bx + 170, by + 140], fill=crab)
+    for k in range(3):
+        x = bx - 70 + k * 80
+        stamp_path(d, [(x, by + 110), (x - 30, by + 200), (x - 50, by + 240)], 44, 34, crab, outline=PLUM)
+    for ex in (bx - 100, bx + 10):
+        stamp_path(d, [(ex, by - 110), (ex - 6, by - 200)], 34, 30, crab, outline=PLUM)
+        eye(d, ex - 6, by - 236, 52, iris=(60, 40, 40))
+    paddle(d, (bx - 160, by + 20), (bx - 300, by - 10), 120, crab, bend=0.1)
+    paddle(d, (bx - 150, by + 80), (bx - 250, by + 120), 80, crab, bend=-0.1)
+    d.arc([bx - 70, by + 10, bx + 10, by + 60], 20, 160, fill=PLUM, width=9)
+    cheeks(d, [(bx + 60, by + 30)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
 if __name__ == "__main__":
     name, out = sys.argv[1], sys.argv[2]
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
@@ -2403,5 +3010,10 @@ if __name__ == "__main__":
      "kalmar": kalmar, "uhor-inked": uhor_inked, "vents": vents,
      "tulen": tulen, "delfin": delfin, "ledana-inked": ledana_inked, "ice": ice, "lachtan2": lachtan2, "barakuda-baby": barakuda_baby, "lachtan-baby": lachtan_baby, "konik-baby": konik_baby, "pyskoun-baby": pyskoun_baby, "jezik-baby": jezik_baby,
      "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby, "tulen-baby": tulen_baby,
-     "delfin-baby": delfin_baby}[name](out, rj)
+     "delfin-baby": delfin_baby, "korinek": korinek,
+     "humr-inked": humr_inked, "moon": moon,
+     "prisavka": prisavka, "lepka-inked": lepka_inked, "city": city,
+     "klipka": klipka, "napodobnice-inked": napodobnice_inked, "trench": trench,
+     "vir-inked": vir_inked, "storm": storm,
+     "klauni": klauni, "krakatice-inked": krakatice_inked, "abyss": abyss, "map-grade4": map4, "humr-inked2": humr_inked2, "korinek-baby": korinek_baby}[name](out, rj)
     print(out)

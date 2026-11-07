@@ -167,12 +167,19 @@ node scripts/art/catalog.mjs          # write the catalog
 node scripts/art/catalog.mjs --check  # verify step "art": fail when stale or a rule is broken
 ```
 
-Each entry is `{ id, kind, file, width, height, anchors? }`, sorted by ID. A painting's width and
+Each entry is `{ id, kind, file, width, height, anchors?, pack? }`, sorted by ID. A painting's width and
 height are read from its WebP header, so they always describe the committed bytes; an SVG entry
 comes from the SVG generator with its viewBox size (§9). The check fails when an ID is listed
 twice, a file is missing or differs from its recorded SHA-256 or from the generator's output, a file
 carries metadata, a cut-out (friend, monster, Inkoustík, character, avatar) has no alpha, a painted
 friend lacks an anchor, a budget is exceeded or the catalog breaks the contract's schema.
+
+**The grade-4 pack**: `"pack": "grade-4"` marks art the shell installs only once a child reaches
+grade 4 (S4's `resource-graph-grade-4.json`). The generator derives it from the content pack
+(`gradeFourArt`), so it cannot drift: the scenes and monsters of the grade-4 regions, their friends
+(grown, baby) and eggs, the cosmetics unlocked by their levels, and `map/deep`. Art also used by a
+grade-3 region stays core, and so do all sticker icons, because a sticker can be earned before
+grade 4. Grade-4 paintings ship at the same 896 px / q86 (scenes q84) as regions 5-7.
 
 **Anchors** say where SVG cosmetics sit on a painted friend: `head` (a hat or a headband sits on
 it), `eyes` (the bridge of glasses or goggles) and `neck` (the knot of a scarf, the centre of a
@@ -284,7 +291,7 @@ node scripts/art/svg/preview.mjs board.png # a review board rendered by Chromium
 - **Eggs** (`egg/<friend>`): 120 × 160 (3:4). The egg wears its friend's colours and a motif from
   its memory hook: Krab Tvrďák's band of seven spikes, Medúzka Měkulka's nine tentacles, Želva
   Obojka's eight plates, Barakuda Bystřinka's five bars and speed lines, Lachtan Lyžař's two
-  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms, Tuleň Pádík's seven icy steps, Delfín Skokánek's leaping arc.
+  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms, Tuleň Pádík's seven icy steps, Delfín Skokánek's leaping arc, Rak poustevník Kořínek's three-turn spiral shell.
 - **Regions**: each region after the lagoon has its own module, `scripts/art/svg/regions/<region>.mjs`,
   exporting its eggs, sticker icons and cosmetics; `eggs.mjs`, `stickers.mjs` and `cosmetics.mjs`
   spread them into their lists. Scarves share `scarf.mjs`. Every sticker icon is checked to stay

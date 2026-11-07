@@ -12,9 +12,9 @@ measurements to the QA summary ("Performance"), so a budget is revisited with nu
 | ---------------------------------------------------------- | ------------ | ------------ | --------------------------------------------------------------------------------------- |
 | `app.js` as built / gzipped                                | 650 / 210 KB | 514 / 168 KB | the whole game: rules, SDK, screens, inline SVG art                                     |
 | `app.css` as built / gzipped                               | 100 / 20 KB  | 71 / 13 KB   |                                                                                         |
-| Offline pack without its audio (core)                      | 8.5 MB       | 8.26 MB      | 217 files: the slice plus all of regions 2-7                                            |
-| Whole offline pack (core, `resource-graph.json`)           | 11 MB        | 10.99 MB     | the audio is 2.74 MB of it; under 10 KB left                                            |
-| Grade-4 pack without audio (`resource-graph-grade-4.json`) | 4 MB         | 0 MB         | regions 8-12 and the deep sea's map (S5, one PR per region); installed only at grade 4  |
+| Offline pack without its audio (core)                      | 8.5 MB       | 8.17 MB      | 222 files: the slice, regions 2-7 and the grade-4 sticker icons so far                  |
+| Whole offline pack (core, `resource-graph.json`)           | 11 MB        | 10.91 MB     | the audio is 2.74 MB of it; about 90 KB left                                            |
+| Grade-4 pack without audio (`resource-graph-grade-4.json`) | 4 MB         | 0.33 MB      | region 8 so far (9 files); regions 9-12 and the deep map add about 1.5 MB               |
 | First visit: downloaded before the title (uncompressed)    | 2.4 MB       | 2.10 MB      | 510 KB as GitHub Pages sends it (budget 600 KB), with the title's painting; 520 KB live |
 | First visit, fast 4G, processor ×4: title ready            | 5 s          | 2.85 s       | first paint 0.36 s (budget 1.5 s); live site: 1.45 s                                    |
 | First visit, slow 4G, processor ×4: title ready            | 16 s         | 12.09 s      | first paint 1.13 s (budget 3 s); the test server sends text uncompressed; live: 4.33 s  |
@@ -53,7 +53,7 @@ The content pack of all twelve regions is most of it (1.24 MB, 112 KB gzipped). 
 painting is fetched at boot beside it (since #42, PS-QA-20), so the title appears with its
 painting. Nothing else loads until the child does something: the other paintings when their
 screen first shows them, each music loop when it first plays (the grotto's 626 KB at the first
-tap), and the offline pack only when a grown-up installs it (10.99 MB, in the background, with
+tap), and the offline pack only when a grown-up installs it (10.91 MB, in the background, with
 progress shown). The grade-4 art is a pack of its own (budget 4 MB): it is installed in the
 background only once a child at grade 4 plays on a device where the core pack is installed, so a
 first visit and a 3rd grader's device never download it (`test/e2e/grade-four.spec.ts`).
@@ -112,10 +112,9 @@ has no Web Audio. Safari on an iPad plays Ogg Vorbis from iPadOS 18.4.
 - **Firefox and WebKit timings**: the throttling is Chromium's. Their sizes are the same files.
 - **JavaScript heap and long sessions**: memory over a whole session beyond the decoded audio, and
   battery use, are not measured.
-- **Paintings**: the offline pack budgets were raised once (#58) to cover the slice plus the painted
-  art of regions 2-7 (8.5 MB without audio, 11 MB in all). With all of regions 2-7 the pack without audio
-  is 8.26 MB and the whole pack 10.99 MB (217 files), with the later regions' WebPs recompressed
-  (docs/art.md); the whole-pack budget has under 10 KB left, so any further art or audio needs
-  more recompression or a deliberate budget decision. A region that
-  would exceed the budget recompresses its WebPs instead of raising it again. The first-screen
-  budgets are unchanged.
+- **Paintings**: the core budgets were raised once (#58) for the slice plus regions 2-7, and later
+  regions recompress their WebPs instead of raising them. Grade-4 art is its own pack (#63), but its
+  sticker icons stay core (a sticker can be earned before grade 4); to make room for them the
+  scenes of regions 2-4 were re-encoded at WebP q84 like the later ones (with region 8), leaving about 90 KB
+  of the core budget, enough for the remaining grade-4 icons (about 45 KB). Anything more in the
+  core pack needs more recompression or a deliberate budget decision.

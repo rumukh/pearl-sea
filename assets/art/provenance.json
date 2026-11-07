@@ -10036,6 +10036,304 @@
       }
     },
     {
+      "id": "monster/vir-casoplet/freed",
+      "file": "monsters/vir-casoplet-freed.webp",
+      "width": 845,
+      "height": 896,
+      "bytes": 73134,
+      "sha256": "6333a0103b6fdba082dff0e69daf9dceab0ab732508547a6f6b8be270ed0c28b",
+      "anchors": null,
+      "promptFile": "prompts/vir-casoplet-freed.prompt.txt",
+      "approvedImage": {
+        "image": "vir-casoplet/vir-casoplet-freed-b-from-master-s134112.png",
+        "sha256": "d3fcc1788f7871eb51b594e6312627e6c63ccd498e4414a50c5a9d15b535932d"
+      },
+      "lineage": [
+        {
+          "image": "vir-casoplet/vir-casoplet-freed-b-from-master-s134112.png",
+          "sha256": "d3fcc1788f7871eb51b594e6312627e6c63ccd498e4414a50c5a9d15b535932d",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon whirlpool Vír Časoplet. All of the black and dark-violet magic ink has been washed away and he is happy again. Keep exactly the same character, pose, the funnel shape with its foamy top, the white spiral bands, the curly tip, the two wave-arms with foam hands, the three little clock faces, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing his clean, bright colours everywhere: a clear, sparkling turquoise-blue swirl of water with white foam, and a clear turquoise curly tip. Change only his expression: a big, friendly, grateful smile, bright wide-open happy eyes, relaxed raised eyebrows and rosy cheeks. Make the whole background plain, flat, evenly lit light grey. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, black tip, grey stone, dirty, grumpy, angry, frowning, sharp teeth, fangs, light ray, sunbeam, shadow, puddle, glowing eyes, extra eyes, extra arms, extra clocks, duplicate subjects, cropped body, text, letters, numbers, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 134112,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "vir-casoplet/vir-casoplet-inked-b-sketchv1-s134011.png",
+              "role": "source image edited in place: the chosen inked master s134011",
+              "sha256": "cfc995761dbdd5f1a144016d69213d880c9f705bbb293042fa35d9a592bd799e"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "vir-casoplet/vir-casoplet-inked-b-sketchv1-s134011.png",
+          "sha256": "cfc995761dbdd5f1a144016d69213d880c9f705bbb293042fa35d9a592bd799e",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one swirling funnel of water, wide and foamy at the top, narrowing to a curly tip; exactly three white spiral bands winding round the funnel; two little wave-arms with foamy tips; exactly three small round clock faces swept along in the swirl. It shows Vír Časoplet, a grumpy whirlpool creature soaked in magic black ink, who mixes up yesterday, today and tomorrow: grey-blue swirling water with white foam, a cross face with frowning eyebrows and a sulky pout at the top of the funnel, no teeth. Glossy black and dark-violet magic ink covers part of him: blots swirling in the water. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers on the clocks, watermark, signature, scenery, ocean, sky, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, human, human face, hands, fingers, legs, feet, clothes, tornado on land, sharp teeth, fangs, blood, gore, horror, glowing eyes",
+          "seed": 134011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "vir-casoplet/ref-vir-casoplet-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py vir-inked), repainted in place",
+              "sha256": "7e3c0a6b21c32ee9aabe5cbd2006b0d02e266fd3ecaa68d8575b98017e0cb533",
+              "sketch": "scripts/art/authoring/sketches.py vir-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "112cb5bc724993598868eba42112d032b086b18fdf05a782a8206799ef62b2c4",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.8948,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "As the inked form."
+        },
+        {
+          "step": "trim",
+          "box": [
+            94,
+            57,
+            1241,
+            1273
+          ],
+          "marginPx": 23,
+          "sharedWith": [
+            "monster/vir-casoplet/freed",
+            "monster/vir-casoplet/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.736842,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            845,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 38.57,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate24-storm-sea",
+        "decidedAt": "2026-11-07T08:51:42.451194+01:00",
+        "question": "(Delegated) Gate 24, Bouřlivé moře: scene, Vír inked and freed, SVG art (no new friend: Delfín Skokánek grows up here).",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s135011, Vír inked s134011 and freed s134112, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Vír freed B"
+      }
+    },
+    {
+      "id": "monster/vir-casoplet/inked",
+      "file": "monsters/vir-casoplet-inked.webp",
+      "width": 845,
+      "height": 896,
+      "bytes": 84576,
+      "sha256": "f0174a0b84e371ee6827699e32112eb8dde6a1104393342c9e62b3297f343463",
+      "anchors": null,
+      "promptFile": "prompts/vir-casoplet-inked.prompt.txt",
+      "approvedImage": {
+        "image": "vir-casoplet/vir-casoplet-inked-b-sketchv1-s134011.png",
+        "sha256": "cfc995761dbdd5f1a144016d69213d880c9f705bbb293042fa35d9a592bd799e"
+      },
+      "lineage": [
+        {
+          "image": "vir-casoplet/vir-casoplet-inked-b-sketchv1-s134011.png",
+          "sha256": "cfc995761dbdd5f1a144016d69213d880c9f705bbb293042fa35d9a592bd799e",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: one swirling funnel of water, wide and foamy at the top, narrowing to a curly tip; exactly three white spiral bands winding round the funnel; two little wave-arms with foamy tips; exactly three small round clock faces swept along in the swirl. It shows Vír Časoplet, a grumpy whirlpool creature soaked in magic black ink, who mixes up yesterday, today and tomorrow: grey-blue swirling water with white foam, a cross face with frowning eyebrows and a sulky pout at the top of the funnel, no teeth. Glossy black and dark-violet magic ink covers part of him: blots swirling in the water. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, malformed anatomy, cropped body, text, letters, numbers on the clocks, watermark, signature, scenery, ocean, sky, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, human, human face, hands, fingers, legs, feet, clothes, tornado on land, sharp teeth, fangs, blood, gore, horror, glowing eyes",
+          "seed": 134011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "vir-casoplet/ref-vir-casoplet-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py vir-inked), repainted in place",
+              "sha256": "7e3c0a6b21c32ee9aabe5cbd2006b0d02e266fd3ecaa68d8575b98017e0cb533",
+              "sketch": "scripts/art/authoring/sketches.py vir-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "d3f24e45532e8542db4fc82eabd370fcdbb5e173751a77feca06eab65f0afd11",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9574,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the white foam, spiral bands, clock faces and eye whites on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            94,
+            57,
+            1241,
+            1273
+          ],
+          "marginPx": 23,
+          "sharedWith": [
+            "monster/vir-casoplet/freed",
+            "monster/vir-casoplet/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.736842,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            845,
+            896
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.99,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate24-storm-sea",
+        "decidedAt": "2026-11-07T08:51:42.451194+01:00",
+        "question": "(Delegated) Gate 24, Bouřlivé moře: scene, Vír inked and freed, SVG art (no new friend: Delfín Skokánek grows up here).",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s135011, Vír inked s134011 and freed s134112, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Vír inked A"
+      }
+    },
+    {
       "id": "monster/zeva-lakoma/freed",
       "file": "monsters/zeva-lakoma-freed.webp",
       "width": 896,
@@ -11504,6 +11802,104 @@
         "decidedAt": "2026-11-06T13:30:22.436085+01:00",
         "question": "Gate 13, Pirátský vrak masters (images in my gate13-wreck-masters folder: scene A/B with the level spots, Ježík A/B, Vydra A/B, Jazyk A/B, Ďas Lucerník inked A/B, the wreck's SVG eggs, stickers and cosmetics, and the recommended set together). Recommended: scene A (all spots clear of the hull), Ježík A (puffed up and hissing \"sss\"), Vydra A (an otter cheering with both paws up), Jazyk A (a tongue-shaped sole), Ďas A (a round grumpy anglerfish with a lantern lure). Which set should I use?",
         "answer": "Recommended: scene A, Ježík A, Vydra A, Jazyk A, Ďas A, SVG art as shown",
+        "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/storm-sea",
+      "file": "scenes/storm-sea.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 88546,
+      "sha256": "379a1d443099d59bdfb857cfbfbc6750326991205533516862c7b745ca777304",
+      "anchors": null,
+      "promptFile": "prompts/storm-sea.prompt.txt",
+      "approvedImage": {
+        "image": "bg-storm-sea/bg-storm-sea-v1-s135011.png",
+        "sha256": "c5ae7cec4f111c7776fe43c76306cf94f0a56f7c296937228d58d8b4d36e2f70"
+      },
+      "lineage": [
+        {
+          "image": "bg-storm-sea/bg-storm-sea-v1-s135011.png",
+          "sha256": "c5ae7cec4f111c7776fe43c76306cf94f0a56f7c296937228d58d8b4d36e2f70",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set under the sea: Bouřlivé moře, a stormy sea seen from inside the water just below the tossing surface. Keep exactly the same composition: the underside of big rolling waves with white foam along the very top of the picture, seen from below the water; a little red-and-white lighthouse on a dark rock at the top left; a wide, calm, open band of clear grey-blue water and smooth grey sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; in the bottom-right foreground swaying green sea grass among round grey rocks; at the right edge a swirling whirlpool funnel of water with white spiral foam where a sea monster lives, mysterious but not scary; the sandy floor along the bottom with a few pale pebbles. Bubbles swirling, streaks of moving water.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of slate blue, grey-blue, deep teal, white foam and a few warm red accents, gentle depth haze. Exciting but safe, magical and inviting, never scary. The lair is empty: nothing and no one inside it. No fish, no animals, no creatures, no people, no characters, no boats, no ships, no submarines, no chests, no signs, no lightning, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, frame, border, fish, animals, people, characters, faces, boat, ship, shipwreck, submarine, treasure chest, lightning, photorealistic, 3d render, scary, skull, land, beach, creature in the lair, eyes in the dark",
+          "seed": 135011,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-storm-sea/ref-bg-storm-sea-sketch-v1.png",
+              "role": "composition sketch on the shell's levelSpots(7) (Pillow colour blocking, sketches.py storm), repainted in place",
+              "sha256": "1d6edab9de0ae99e80965633203edbba34ed10a8e52ab9079687efd230d85723",
+              "sketch": "scripts/art/authoring/sketches.py storm (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 40.27,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate24-storm-sea",
+        "decidedAt": "2026-11-07T08:51:42.451194+01:00",
+        "question": "(Delegated) Gate 24, Bouřlivé moře: scene, Vír inked and freed, SVG art (no new friend: Delfín Skokánek grows up here).",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s135011, Vír inked s134011 and freed s134112, and the SVG art; reasons in agent-review-log.jsonl.",
         "chosen": "Scene A"
       }
     },

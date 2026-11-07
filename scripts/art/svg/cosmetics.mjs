@@ -30,6 +30,7 @@ import { ICE_SEA_COSMETICS } from './regions/ice-sea.mjs';
 import { MOON_CAVES_COSMETICS } from './regions/moon-caves.mjs';
 import { SUNKEN_CITY_COSMETICS } from './regions/sunken-city.mjs';
 import { DARK_TRENCH_COSMETICS } from './regions/dark-trench.mjs';
+import { STORM_SEA_COSMETICS } from './regions/storm-sea.mjs';
 import { scarf } from './scarf.mjs';
 
 /** @typedef {'head' | 'eyes' | 'neck' | 'grotto' | 'crown'} CosmeticSlot */
@@ -501,6 +502,7 @@ export const COSMETIC_DESIGNS = [
   ...MOON_CAVES_COSMETICS,
   ...SUNKEN_CITY_COSMETICS,
   ...DARK_TRENCH_COSMETICS,
+  ...STORM_SEA_COSMETICS,
 ];
 
 export const COSMETIC_SIZE = SIZE;

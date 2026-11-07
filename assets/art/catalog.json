@@ -178,6 +178,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/goggles-storm",
+      "kind": "svg",
+      "file": "cosmetics/goggles-storm.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/hat-kelp",
       "kind": "svg",
       "file": "cosmetics/hat-kelp.svg",
@@ -197,6 +205,14 @@
       "file": "cosmetics/hat-pirate.svg",
       "width": 100,
       "height": 100
+    },
+    {
+      "id": "cosmetic/hat-rain",
+      "kind": "svg",
+      "file": "cosmetics/hat-rain.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
     },
     {
       "id": "cosmetic/hat-straw",
@@ -254,6 +270,14 @@
       "id": "cosmetic/lantern-shell",
       "kind": "svg",
       "file": "cosmetics/lantern-shell.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
+      "id": "cosmetic/lighthouse-model",
+      "kind": "svg",
+      "file": "cosmetics/lighthouse-model.svg",
       "width": 100,
       "height": 100,
       "pack": "grade-4"
@@ -1567,6 +1591,22 @@
       "height": 896
     },
     {
+      "id": "monster/vir-casoplet/freed",
+      "kind": "painted",
+      "file": "monsters/vir-casoplet-freed.webp",
+      "width": 845,
+      "height": 896,
+      "pack": "grade-4"
+    },
+    {
+      "id": "monster/vir-casoplet/inked",
+      "kind": "painted",
+      "file": "monsters/vir-casoplet-inked.webp",
+      "width": 845,
+      "height": 896,
+      "pack": "grade-4"
+    },
+    {
       "id": "monster/zeva-lakoma/freed",
       "kind": "painted",
       "file": "monsters/zeva-lakoma-freed.webp",
@@ -1653,6 +1693,14 @@
       "height": 928
     },
     {
+      "id": "scene/storm-sea",
+      "kind": "painted",
+      "file": "scenes/storm-sea.webp",
+      "width": 1664,
+      "height": 928,
+      "pack": "grade-4"
+    },
+    {
       "id": "scene/sunken-city",
       "kind": "painted",
       "file": "scenes/sunken-city.webp",
@@ -1689,6 +1737,13 @@
       "height": 100
     },
     {
+      "id": "sticker/big-dolphin",
+      "kind": "svg",
+      "file": "stickers/big-dolphin.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/bow",
       "kind": "svg",
       "file": "stickers/bow.svg",
@@ -1713,6 +1768,13 @@
       "id": "sticker/calendar-wave",
       "kind": "svg",
       "file": "stickers/calendar-wave.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/calm-eddy",
+      "kind": "svg",
+      "file": "stickers/calm-eddy.svg",
       "width": 100,
       "height": 100
     },
@@ -1832,6 +1894,13 @@
       "id": "sticker/ink-drops",
       "kind": "svg",
       "file": "stickers/ink-drops.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/ink-splash",
+      "kind": "svg",
+      "file": "stickers/ink-splash.svg",
       "width": 100,
       "height": 100
     },
@@ -2014,6 +2083,13 @@
       "id": "sticker/three-shells",
       "kind": "svg",
       "file": "stickers/three-shells.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/two-scrolls",
+      "kind": "svg",
+      "file": "stickers/two-scrolls.svg",
       "width": 100,
       "height": 100
     },

@@ -23,6 +23,9 @@ samples (at least five per exercise skill and grade where that skill exists).
 
 ## Findings
 
+Both findings below were fixed by #70 and re-read on main `a199009`. The original wording and
+diagnosis remain here as the audit trail for the manual review.
+
 ### PS-QA-23 — `friend.tulen-padik.mnemonic` uses vocative
 
 - **Severity:** major

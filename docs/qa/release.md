@@ -59,8 +59,12 @@ device gates below have an explicit sign-off.
 
 **NO-GO** if any blocker or major PS-QA defect is open, any automated gate fails, the deployed
 commit differs from the tested commit, any online screen exposes a `DEV …` placeholder, the core
-or audio budget is exceeded, or a required real-device/accessibility gate is unresolved.
+or audio budget is exceeded, or a required real-device/accessibility gate is unresolved. PS-QA-23
+and PS-QA-24 are no longer release blockers: #70 fixed both content findings and main `a199009`
+was re-read against their original keys.
 
 **GO** when all automated and manual checks above are checked, the coordinator has reviewed the
 phase-2 QA evidence, and the release commit is the one verified on GitHub Pages. The current phase-2
-automated evidence is green; manual device and child-playtest sign-off remain release prerequisites.
+automated evidence is green with no open PS-QA defects; manual device, child-playtest and explicit
+core-budget sign-off remain release prerequisites. The current decision is **NO-GO pending those
+remaining gates**, not because of the fixed copy findings.

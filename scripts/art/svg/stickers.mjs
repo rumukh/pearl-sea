@@ -34,6 +34,7 @@ import { VOLCANIC_VENTS_STICKERS } from './regions/volcanic-vents.mjs';
 import { ICE_SEA_STICKERS } from './regions/ice-sea.mjs';
 import { MOON_CAVES_STICKERS } from './regions/moon-caves.mjs';
 import { SUNKEN_CITY_STICKERS } from './regions/sunken-city.mjs';
+import { DARK_TRENCH_STICKERS } from './regions/dark-trench.mjs';
 
 export const STICKER_SIZE = 100;
 export const DISC_RADIUS = 40;
@@ -542,4 +543,5 @@ export const STICKER_DESIGNS = [
   ...ICE_SEA_STICKERS,
   ...MOON_CAVES_STICKERS,
   ...SUNKEN_CITY_STICKERS,
+  ...DARK_TRENCH_STICKERS,
 ];

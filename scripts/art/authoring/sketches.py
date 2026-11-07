@@ -2668,6 +2668,36 @@ def klipka(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def klipka_baby(out, route_json=None):
+    """Klipka Vzorná as a hatchling swimming left: a tiny, very round butterflyfish with a big eye,
+    the dark band through the eye, one false eyespot near the tail, exactly six diamond-shaped
+    scales in two rows, a small rounded dorsal fin, a small fan tail and a little fish mouth."""
+    img, d = canvas()
+    cx, cy = 680, 680
+    body, white, band = (250, 210, 70), (252, 248, 236), (40, 50, 80)
+    d.polygon([(cx + 190, cy), (cx + 320, cy - 100), (cx + 336, cy + 100)], fill=PLUM)
+    d.polygon([(cx + 208, cy), (cx + 306, cy - 80), (cx + 318, cy + 80)], fill=body)
+    d.chord([cx - 180, cy - 320, cx + 200, cy + 40], 200, 340, fill=PLUM)
+    d.chord([cx - 166, cy - 306, cx + 186, cy + 26], 200, 340, fill=(250, 180, 60))
+    d.ellipse([cx - 240 - 13, cy - 240 - 13, cx + 230 + 13, cy + 240 + 13], fill=PLUM)
+    d.ellipse([cx - 240, cy - 240, cx + 230, cy + 240], fill=body)
+    k = 0
+    for y in (cy - 60, cy + 70):                                                           # six diamond scales
+        for x in (-30, 60, 150):
+            x0 = cx + x - 20
+            d.polygon([(x0, y - 44), (x0 + 40, y), (x0, y + 44), (x0 - 40, y)], fill=PLUM)
+            d.polygon([(x0, y - 34), (x0 + 30, y), (x0, y + 34), (x0 - 30, y)], fill=[white, (120, 180, 230)][k % 2])
+            k += 1
+    d.ellipse([cx + 200 - 30, cy - 30, cx + 200 + 30, cy + 30], fill=band)                  # false eyespot
+    d.ellipse([cx + 200 - 16, cy - 16, cx + 200 + 16, cy + 16], fill=white)
+    d.polygon([(cx - 190, cy - 170), (cx - 130, cy - 170), (cx - 130, cy + 150), (cx - 190, cy + 120)], fill=band)  # eye band
+    d.ellipse([cx - 252, cy + 22, cx - 228, cy + 46], fill=PLUM)                            # little mouth
+    eye(d, cx - 160, cy - 50, 62, iris=(70, 110, 170))
+    d.arc([cx - 250, cy + 40, cx - 190, cy + 80], 10, 150, fill=PLUM, width=8)
+    cheeks(d, [(cx - 70, cy + 160)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
 def napodobnice_inked(out, route_json=None):
     """Chobotnice Napodobnice, inked: a mimic octopus who copies patterns wrongly, grumpy and sly,
     soaked in magic ink: a round head with a big brow and two eyes on top, exactly eight long arms
@@ -3081,7 +3111,7 @@ if __name__ == "__main__":
      "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby, "tulen-baby": tulen_baby,
      "delfin-baby": delfin_baby, "korinek": korinek,
      "humr-inked": humr_inked, "moon": moon,
-     "prisavka": prisavka, "prisavka2": prisavka2, "prisavka-baby": prisavka_baby, "lepka-inked": lepka_inked, "city": city, "city3": lambda out, route_json=None: city(out, route_json, door="sealed"),
+     "prisavka": prisavka, "prisavka2": prisavka2, "prisavka-baby": prisavka_baby, "klipka-baby": klipka_baby, "lepka-inked": lepka_inked, "city": city, "city3": lambda out, route_json=None: city(out, route_json, door="sealed"),
      "klipka": klipka, "napodobnice-inked": napodobnice_inked, "trench": trench,
      "vir-inked": vir_inked, "storm": storm,
      "klauni": klauni, "krakatice-inked": krakatice_inked, "abyss": abyss, "map-grade4": map4, "humr-inked2": humr_inked2, "korinek-baby": korinek_baby}[name](out, rj)

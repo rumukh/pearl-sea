@@ -213,6 +213,14 @@
       "height": 100
     },
     {
+      "id": "cosmetic/headband-pattern",
+      "kind": "svg",
+      "file": "cosmetics/headband-pattern.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/helmet-diver",
       "kind": "svg",
       "file": "cosmetics/helmet-diver.svg",
@@ -246,6 +254,14 @@
       "id": "cosmetic/lantern-shell",
       "kind": "svg",
       "file": "cosmetics/lantern-shell.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
+      "id": "cosmetic/mask-deep",
+      "kind": "svg",
+      "file": "cosmetics/mask-deep.svg",
       "width": 100,
       "height": 100,
       "pack": "grade-4"
@@ -323,6 +339,14 @@
       "pack": "grade-4"
     },
     {
+      "id": "cosmetic/stones-glowing",
+      "kind": "svg",
+      "file": "cosmetics/stones-glowing.svg",
+      "width": 100,
+      "height": 100,
+      "pack": "grade-4"
+    },
+    {
       "id": "cosmetic/stones-warm",
       "kind": "svg",
       "file": "cosmetics/stones-warm.svg",
@@ -384,6 +408,14 @@
       "file": "eggs/kalmar-desetiruky.svg",
       "width": 120,
       "height": 160
+    },
+    {
+      "id": "egg/klipka-vzorna",
+      "kind": "svg",
+      "file": "eggs/klipka-vzorna.svg",
+      "width": 120,
+      "height": 160,
+      "pack": "grade-4"
     },
     {
       "id": "egg/konik-mydlinek",
@@ -780,6 +812,62 @@
           "rotate": 0
         }
       }
+    },
+    {
+      "id": "friend/klipka-vzorna/baby",
+      "kind": "painted",
+      "file": "friends/klipka-vzorna-baby.webp",
+      "width": 629,
+      "height": 603,
+      "anchors": {
+        "head": {
+          "x": 226,
+          "y": 192,
+          "scale": 95,
+          "rotate": -28
+        },
+        "eyes": {
+          "x": 186,
+          "y": 488,
+          "scale": 75,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 226,
+          "y": 828,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
+    },
+    {
+      "id": "friend/klipka-vzorna/grown",
+      "kind": "painted",
+      "file": "friends/klipka-vzorna-grown.webp",
+      "width": 862,
+      "height": 763,
+      "anchors": {
+        "head": {
+          "x": 226,
+          "y": 212,
+          "scale": 95,
+          "rotate": -28
+        },
+        "eyes": {
+          "x": 171,
+          "y": 468,
+          "scale": 65,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 240,
+          "y": 737,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "pack": "grade-4"
     },
     {
       "id": "friend/konik-mydlinek/baby",
@@ -1361,6 +1449,22 @@
       "height": 928
     },
     {
+      "id": "monster/chobotnice-napodobnice/freed",
+      "kind": "painted",
+      "file": "monsters/chobotnice-napodobnice-freed.webp",
+      "width": 896,
+      "height": 772,
+      "pack": "grade-4"
+    },
+    {
+      "id": "monster/chobotnice-napodobnice/inked",
+      "kind": "painted",
+      "file": "monsters/chobotnice-napodobnice-inked.webp",
+      "width": 896,
+      "height": 772,
+      "pack": "grade-4"
+    },
+    {
       "id": "monster/das-lucernik/freed",
       "kind": "painted",
       "file": "monsters/das-lucernik-freed.webp",
@@ -1498,6 +1602,14 @@
       "height": 928
     },
     {
+      "id": "scene/dark-trench",
+      "kind": "painted",
+      "file": "scenes/dark-trench.webp",
+      "width": 1664,
+      "height": 928,
+      "pack": "grade-4"
+    },
+    {
       "id": "scene/grotto",
       "kind": "painted",
       "file": "scenes/grotto.webp",
@@ -1584,6 +1696,13 @@
       "height": 100
     },
     {
+      "id": "sticker/butterflyfish",
+      "kind": "svg",
+      "file": "stickers/butterflyfish.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/calendar-shell",
       "kind": "svg",
       "file": "stickers/calendar-shell.svg",
@@ -1647,6 +1766,13 @@
       "height": 100
     },
     {
+      "id": "sticker/dolphin-trophy",
+      "kind": "svg",
+      "file": "stickers/dolphin-trophy.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/egg-hatching",
       "kind": "svg",
       "file": "stickers/egg-hatching.svg",
@@ -1668,6 +1794,13 @@
       "height": 100
     },
     {
+      "id": "sticker/fourteen-scales",
+      "kind": "svg",
+      "file": "stickers/fourteen-scales.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
       "id": "sticker/frame-shell",
       "kind": "svg",
       "file": "stickers/frame-shell.svg",
@@ -1678,6 +1811,13 @@
       "id": "sticker/free-jellyfish",
       "kind": "svg",
       "file": "stickers/free-jellyfish.svg",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sticker/happy-octopus",
+      "kind": "svg",
+      "file": "stickers/happy-octopus.svg",
       "width": 100,
       "height": 100
     },

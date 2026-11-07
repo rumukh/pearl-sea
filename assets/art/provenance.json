@@ -3398,6 +3398,286 @@
       }
     },
     {
+      "id": "friend/klipka-vzorna/baby",
+      "file": "friends/klipka-vzorna-baby.webp",
+      "width": 629,
+      "height": 603,
+      "bytes": 34110,
+      "sha256": "add2400f815727c889ea9ee1c1448ed8363865d31595d03f01a3f8f524301f30",
+      "anchors": {
+        "head": {
+          "x": 226,
+          "y": 192,
+          "scale": 95,
+          "rotate": -28
+        },
+        "eyes": {
+          "x": 186,
+          "y": 488,
+          "scale": 75,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 226,
+          "y": 828,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/klipka-vzorna-baby.prompt.txt",
+      "approvedImage": {
+        "image": "klipka-vzorna/klipka-vzorna-baby-b-sketchv1-s131111.png",
+        "sha256": "d1c13647ad2be0f2af89c2908df437103e5bd3afe9bcc0771e3dd9003a8144dd"
+      },
+      "lineage": [
+        {
+          "image": "klipka-vzorna/klipka-vzorna-baby-b-sketchv1-s131111.png",
+          "sha256": "d1c13647ad2be0f2af89c2908df437103e5bd3afe9bcc0771e3dd9003a8144dd",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly six diamond-shaped pattern scales in two rows, alternating white and blue; one dark band through her eye; one round false eyespot near her tail; one rounded dorsal fin; one small fan tail; a tiny round fish mouth. It shows Klipka Vzorná as a tiny hatchling: a sweet, very round baby butterflyfish swimming to the left, an animal character and not a human, sunny yellow, one big shiny blue eye, a little smile and a rosy cheek. She is the young version of the grown-up Klipka: the same colours, the same face and the same style, only smaller, rounder and younger.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "human baby, costume, human face, nose, hair, eyebrows, hands, fingers, arms, clothes, bird beak, beak, extra eyes, blurry, low resolution, duplicate subjects, extra fins, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, flat vector art, clip art, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette",
+          "seed": 131111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "klipka-vzorna/ref-klipka-vzorna-baby-sketch-v1.png",
+              "role": "anatomy and composition sketch of the hatchling in the chosen master's colours (Pillow colour blocking, sketches.py klipka-baby), repainted in place",
+              "sha256": "8f804d2fbd296b85aa8a9cd24052132488c1c46f0200cf144f11bf23255a41de",
+              "sketch": "scripts/art/authoring/sketches.py klipka-baby (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "0085c541a149cb1ea161018a3c08b9b24564ce9716d5e7d24635c1e3a1e8dee7",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9939,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "As the grown-up."
+        },
+        {
+          "step": "trim",
+          "box": [
+            403,
+            346,
+            1032,
+            949
+          ],
+          "marginPx": 12,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            629,
+            603
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 38.3,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate23-dark-trench",
+        "decidedAt": "2026-11-07T07:22:07.383085+01:00",
+        "question": "(Delegated) Gate 23, Temný příkop masters and derived forms: scene, Klipka grown and baby, Napodobnice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s133022, Klipka s131012, Klipka baby s131111, Napodobnice inked s132012 and freed s132111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Klipka baby A"
+      }
+    },
+    {
+      "id": "friend/klipka-vzorna/grown",
+      "file": "friends/klipka-vzorna-grown.webp",
+      "width": 862,
+      "height": 763,
+      "bytes": 57948,
+      "sha256": "f91422d14bd323004e7a6307f69dc970de175e5ef81c88036ed26fad8d149cd5",
+      "anchors": {
+        "head": {
+          "x": 226,
+          "y": 212,
+          "scale": 95,
+          "rotate": -28
+        },
+        "eyes": {
+          "x": 171,
+          "y": 468,
+          "scale": 65,
+          "rotate": 0
+        },
+        "neck": {
+          "x": 240,
+          "y": 737,
+          "scale": 75,
+          "rotate": 0
+        }
+      },
+      "promptFile": "prompts/klipka-vzorna-grown.prompt.txt",
+      "approvedImage": {
+        "image": "klipka-vzorna/klipka-vzorna-adult-b-sketchv1-s131012.png",
+        "sha256": "aa528ddf831b7019d14a61d0e58b1caf00b8219e59faf1309bf1ca6461895550"
+      },
+      "lineage": [
+        {
+          "image": "klipka-vzorna/klipka-vzorna-adult-b-sketchv1-s131012.png",
+          "sha256": "aa528ddf831b7019d14a61d0e58b1caf00b8219e59faf1309bf1ca6461895550",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly fourteen diamond-shaped pattern scales in neat rows on her body, alternating white and blue; one dark band through her eye; one round false eyespot near her tail; one rounded dorsal fin; one small fan tail; a small pointed snout. It shows Klipka Vzorná, a real butterflyfish swimming to the left, an animal character and not a human: a tall, flat, round body in sunny yellow, covered in tidy patterns (the fourteen noun patterns, vzory), a shiny blue eye, a little smile and a rosy cheek. Neat, careful and friendly.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms, angelfish stripes, clownfish, extra eyes, letters, numbers on the scales",
+          "seed": 131012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "klipka-vzorna/ref-klipka-vzorna-adult-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py klipka), repainted in place",
+              "sha256": "bb5cc0df1429909e1f14ae1ac59fe907a52e6469b70b6e0143f679a01d2fb1d0",
+              "sketch": "scripts/art/authoring/sketches.py klipka (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "a226d86a803847746de012be5e9ed32db83273322930a065a1a88053dc9c3d46",
+          "holesOpened": 0,
+          "specksRemoved": 1,
+          "iouWithU2net": 0.9894,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the white diamond scales, the eyespot and the eye white on the light backdrop."
+        },
+        {
+          "step": "trim",
+          "box": [
+            273,
+            243,
+            1135,
+            1006
+          ],
+          "marginPx": 17,
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            862,
+            763
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 38.39,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate23-dark-trench",
+        "decidedAt": "2026-11-07T07:22:07.383085+01:00",
+        "question": "(Delegated) Gate 23, Temný příkop masters and derived forms: scene, Klipka grown and baby, Napodobnice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s133022, Klipka s131012, Klipka baby s131111, Napodobnice inked s132012 and freed s132111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Klipka B"
+      }
+    },
+    {
       "id": "friend/konik-mydlinek/baby",
       "file": "friends/konik-mydlinek-baby.webp",
       "width": 820,
@@ -7325,6 +7605,304 @@
       }
     },
     {
+      "id": "monster/chobotnice-napodobnice/freed",
+      "file": "monsters/chobotnice-napodobnice-freed.webp",
+      "width": 896,
+      "height": 772,
+      "bytes": 65022,
+      "sha256": "7c94be0d08ad86ee8664f0a940033dd6b1a349403e3d344fd2606a97fa83a2cf",
+      "anchors": null,
+      "promptFile": "prompts/chobotnice-napodobnice-freed.prompt.txt",
+      "approvedImage": {
+        "image": "chobotnice-napodobnice/chobotnice-napodobnice-freed-b-from-master-s132111.png",
+        "sha256": "ca71246fae8df2a8e11a847f95d9146415165d4f1c605d37dd91fdae84055df9"
+      },
+      "lineage": [
+        {
+          "image": "chobotnice-napodobnice/chobotnice-napodobnice-freed-b-from-master-s132111.png",
+          "sha256": "ca71246fae8df2a8e11a847f95d9146415165d4f1c605d37dd91fdae84055df9",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Edit this picture of the cartoon mimic octopus Chobotnice Napodobnice. All of the black and dark-violet magic ink has been washed away and she is happy again. Keep exactly the same character, pose, the round head, the eight long arms with their brown and cream bands, outline style, painting style and framing. Remove every ink blot, ink drip, ink smudge and glossy ink patch, revealing her clean, bright colours everywhere: a warm caramel-brown head with cream bands, the top of her head the same caramel brown. Change only her expression: a big, friendly, grateful smile, bright wide-open happy eyes, relaxed raised eyebrows and rosy cheeks. Make the whole background plain, flat, evenly lit light grey, with no light ray and no shadow. No ink anywhere, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "ink, black stains, drips, dark smudges, ink blots, black cap, dirty, grumpy, angry, frowning, sly, smirk, sharp teeth, fangs, light ray, sunbeam, shadow, puddle, water, glowing eyes, extra eyes, extra arms, duplicate subjects, cropped body, text, letters, watermark, signature, blurry, low resolution, photorealistic, 3d render, dark background, sticker border, white outline",
+          "seed": 132111,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "chobotnice-napodobnice/chobotnice-napodobnice-inked-b-sketchv1-s132012.png",
+              "role": "source image edited in place: the chosen inked master s132012",
+              "sha256": "cd35c2fee47b41a0decb614b155e5c7870ac6b3e0a66d14c12a8cb58bc934773"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        },
+        {
+          "image": "chobotnice-napodobnice/chobotnice-napodobnice-inked-b-sketchv1-s132012.png",
+          "sha256": "cd35c2fee47b41a0decb614b155e5c7870ac6b3e0a66d14c12a8cb58bc934773",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly eight long arms spread around her, each banded in brown and cream stripes; a round head with cream stripes and two eyes on its front. It shows Chobotnice Napodobnice, a sly, grumpy mimic octopus soaked in magic black ink, who copies the noun patterns wrongly: warm brown and cream, a cross frowning brow and a sly smirk, no teeth. Glossy black and dark-violet magic ink covers part of her: blots on her head. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms with hands, squid, ten arms, six arms, sharp teeth, fangs, beak, blood, gore, horror, glowing eyes, suckers on the face",
+          "seed": 132012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "chobotnice-napodobnice/ref-chobotnice-napodobnice-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py napodobnice-inked), repainted in place",
+              "sha256": "63f52a26847fb9b6bf2e30df75b7db66259d0b5aca239836f2b9dcf56ad46f10",
+              "sketch": "scripts/art/authoring/sketches.py napodobnice-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "094c58351439efaca717ef669fe5c298a4419d5bef5d9594104068847fd965c0",
+          "holesOpened": 0,
+          "specksRemoved": 0,
+          "iouWithU2net": 0.9774,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "As the inked form."
+        },
+        {
+          "step": "trim",
+          "box": [
+            95,
+            242,
+            1234,
+            1224
+          ],
+          "marginPx": 22,
+          "sharedWith": [
+            "monster/chobotnice-napodobnice/freed",
+            "monster/chobotnice-napodobnice/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.786655,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            772
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.99,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate23-dark-trench",
+        "decidedAt": "2026-11-07T07:22:07.383085+01:00",
+        "question": "(Delegated) Gate 23, Temný příkop masters and derived forms: scene, Klipka grown and baby, Napodobnice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s133022, Klipka s131012, Klipka baby s131111, Napodobnice inked s132012 and freed s132111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Napodobnice freed A"
+      }
+    },
+    {
+      "id": "monster/chobotnice-napodobnice/inked",
+      "file": "monsters/chobotnice-napodobnice-inked.webp",
+      "width": 896,
+      "height": 772,
+      "bytes": 73832,
+      "sha256": "b1c863eae6362a81efe1039edc6ff0bfd85e7eb1277ccb17b0cd575763c5bd92",
+      "anchors": null,
+      "promptFile": "prompts/chobotnice-napodobnice-inked.prompt.txt",
+      "approvedImage": {
+        "image": "chobotnice-napodobnice/chobotnice-napodobnice-inked-b-sketchv1-s132012.png",
+        "sha256": "cd35c2fee47b41a0decb614b155e5c7870ac6b3e0a66d14c12a8cb58bc934773"
+      },
+      "lineage": [
+        {
+          "image": "chobotnice-napodobnice/chobotnice-napodobnice-inked-b-sketchv1-s132012.png",
+          "sha256": "cd35c2fee47b41a0decb614b155e5c7870ac6b3e0a66d14c12a8cb58bc934773",
+          "size": [
+            1328,
+            1328
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished character painting for a cheerful children's learning game set under the sea. Keep exactly the same composition, pose, proportions, silhouette and colours, and keep every counted detail exactly as in the sketch: exactly eight long arms spread around her, each banded in brown and cream stripes; a round head with cream stripes and two eyes on its front. It shows Chobotnice Napodobnice, a sly, grumpy mimic octopus soaked in magic black ink, who copies the noun patterns wrongly: warm brown and cream, a cross frowning brow and a sly smirk, no teeth. Glossy black and dark-violet magic ink covers part of her: blots on her head. Funny and only a little spooky for a nine-year-old, never gory, never frightening.\nStorybook gouache and watercolour painting with soft brush texture and gentle shading, light from the top left; rounded, friendly shapes; bright, harmonious colours. A clean, confident, medium-weight outline in deep plum-brown (not black) around the whole character and its main shapes. No sticker border and no white edge around the outline.\nKeep the plain, flat, evenly lit light grey background around the character, with no glow, no light rays, no vignette and no shadow; nothing else: no sun, no water, no sand, no other animals, no text, no watermark.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, duplicate subjects, extra limbs, malformed anatomy, cropped body, text, letters, numbers, watermark, signature, scenery, photorealistic, 3d render, dark background, sticker border, white outline, white edge, shadow, sun, light rays, glow, vignette, lens flare, human, human face, hands, fingers, legs, feet, clothes, arms with hands, squid, ten arms, six arms, sharp teeth, fangs, beak, blood, gore, horror, glowing eyes, suckers on the face",
+          "seed": 132012,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1328x1328",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "chobotnice-napodobnice/ref-chobotnice-napodobnice-inked-sketch-v1.png",
+              "role": "anatomy and composition sketch (Pillow colour blocking, sketches.py napodobnice-inked), repainted in place",
+              "sha256": "63f52a26847fb9b6bf2e30df75b7db66259d0b5aca239836f2b9dcf56ad46f10",
+              "sketch": "scripts/art/authoring/sketches.py napodobnice-inked (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "cut-out",
+          "tool": "scripts/art/authoring/cutout.py (sha256 d9d8626d5c1453181ba731242eb7af7386fb63e217981bb98f8e47b1a938e4ea): rembg 2.0.65 U2Net (u2net.onnx, md5 60024c5c889badc19c04ad937298a77b) on CPU, then backdrop keying, enclosed-gap opening, shadow removal and edge matting with colour decontamination",
+          "cutoutSha256": "718466b48316b1ba4bad6c1853d846795a1eac319ab0f2dc34a501b63828a5d2",
+          "holesOpened": 0,
+          "specksRemoved": 123,
+          "iouWithU2net": 0.979,
+          "options": "--min-hole 100000000",
+          "optionsWhy": "Keeps the cream arm bands and eye whites; drops the painted drop shadow."
+        },
+        {
+          "step": "trim",
+          "box": [
+            95,
+            242,
+            1234,
+            1224
+          ],
+          "marginPx": 22,
+          "sharedWith": [
+            "monster/chobotnice-napodobnice/freed",
+            "monster/chobotnice-napodobnice/inked"
+          ],
+          "note": "the union of the group's alpha boxes, so the forms overlay exactly",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "scale",
+          "factor": 0.786655,
+          "filter": "Lanczos on premultiplied alpha",
+          "size": [
+            896,
+            772
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 86, method 6, alpha quality 100",
+          "psnrDb": 40.49,
+          "alphaPsnrDb": null,
+          "alphaExact": true,
+          "chunks": [
+            "VP8X",
+            "ALPH",
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate23-dark-trench",
+        "decidedAt": "2026-11-07T07:22:07.383085+01:00",
+        "question": "(Delegated) Gate 23, Temný příkop masters and derived forms: scene, Klipka grown and baby, Napodobnice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s133022, Klipka s131012, Klipka baby s131111, Napodobnice inked s132012 and freed s132111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Napodobnice inked B"
+      }
+    },
+    {
       "id": "monster/das-lucernik/freed",
       "file": "monsters/das-lucernik-freed.webp",
       "width": 1024,
@@ -10149,6 +10727,104 @@
         "question": "Gate 9, Korálový útes masters (images in my gate9-reef-masters folder: scene A/B with the level spots, Barakuda A/B, Lachtan A/B, Žralok inked A/B, the reef's SVG eggs/stickers/cosmetics and the recommended set together). Recommended: scene A, Barakuda A (pointed snout, five bars), Lachtan A (sea lion on two skis on a wave), Žralok A (sulky open mouth, small blunt teeth). Which set should I use?",
         "answer": "Recommended: scene A, Barakuda A, Lachtan A, Žralok A, SVG art as shown",
         "chosen": "Scene A"
+      }
+    },
+    {
+      "id": "scene/dark-trench",
+      "file": "scenes/dark-trench.webp",
+      "width": 1664,
+      "height": 928,
+      "bytes": 65862,
+      "sha256": "c9ea34781f01f17cf9f026b5e1d5e2e4c0d161fbd8475e7c87cd460ad4e30f6b",
+      "anchors": null,
+      "promptFile": "prompts/dark-trench.prompt.txt",
+      "approvedImage": {
+        "image": "bg-dark-trench/bg-dark-trench-v2-s133022.png",
+        "sha256": "22e6e45662e12e4397eaf45a6c1d122b0f423434854f3c1241c72b38026a1d78"
+      },
+      "lineage": [
+        {
+          "image": "bg-dark-trench/bg-dark-trench-v2-s133022.png",
+          "sha256": "22e6e45662e12e4397eaf45a6c1d122b0f423434854f3c1241c72b38026a1d78",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "WanGP bb68ded24f8a (github.com/deepbeepmeep/Wan2GP), headless, offline",
+          "model": {
+            "name": "Qwen Image Edit Plus (2511) 20B",
+            "transformer": {
+              "file": "qwen_image_edit_plus2_20B_quanto_bf16_int8.safetensors",
+              "bytes": 20488214755,
+              "sha256": "67c1642db72ac3906a091807712b6a65a8bd461457fd73009400816c9be96c76"
+            },
+            "textEncoder": {
+              "file": "Qwen2.5-VL-7B-Instruct_quanto_bf16_int8.safetensors",
+              "bytes": 9432992295,
+              "sha256": "18966ca6ba18261ec0465442580ad30510a758ecc0314871a0bbd30032716568"
+            },
+            "vae": {
+              "file": "qwen_vae.safetensors",
+              "bytes": 253806966,
+              "sha256": "0c8bc8b758c649abef9ea407b95408389a3b2f610d0d10fcb054fe171d0a8344"
+            },
+            "quantization": "Quanto BF16/INT8 (transformer and text encoder)",
+            "sampler": "FlowMatch Euler (WanGP default)"
+          },
+          "prompt": "Repaint this rough colour-blocking sketch as a finished, beautifully painted background for a cheerful children's learning game set deep under the sea: Temný příkop, a deep ocean trench lit only by friendly glowing sea life, seen from inside the water. Keep exactly the same composition: a wide, calm, open band of deep midnight-blue water and smooth dark-violet sand running diagonally from the bottom left up to the top right, kept plain and uncluttered because the game draws its level path there; at the left edge a tall dark rock cliff with glowing pink tube worms; a few soft glowing blue jelly lights floating high in the water; in the bottom-right foreground glowing blue and pink sea pens; at the right edge a solid dark rock wall with one thin zigzag crack glowing faintly purple (no opening, no cave, no hole), where a sea monster hides inside the rock, out of sight, mysterious but not scary; the floor along the bottom with a few pale pebbles. Tiny glowing specks and bubbles drifting.\nStyle: storybook gouache and watercolour painting, soft brush texture, rounded friendly shapes, harmonious palette of deep indigo, midnight blue, violet and glowing bioluminescent turquoise, pink and soft lilac accents, gentle depth haze. Dark but cosy, magical and inviting, never scary. The lair is empty: nothing and no one inside it. No fish, no animals, no creatures, no people, no characters, no eyes, no boats, no submarines, no chests, no signs, no text, no letters, no logo, no watermark, no border.",
+          "promptPrefixAddedByHelper": null,
+          "negativePrompt": "blurry, low resolution, text, letters, numbers, watermark, signature, logo, sign, frame, border, fish, animals, people, characters, faces, eyes, monsters, anglerfish, submarine, boat, ship, treasure chest, photorealistic, 3d render, scary, horror, skull, sky, land, creature in the lair, eyes in the dark, cave, cave mouth, hole, open crevice, face, eyes",
+          "seed": 133022,
+          "steps": 50,
+          "trueCfg": 4.0,
+          "resolution": "1664x928",
+          "referenceMode": "Scene",
+          "references": [
+            {
+              "image": "bg-dark-trench/ref-bg-dark-trench-sketch-v2.png",
+              "role": "composition sketch v2 on the shell's levelSpots(7) (sketches.py trench; the lair is a thin glowing crack in solid rock), repainted in place",
+              "sha256": "77d8f389571ca6d826c263daa429bfd964e4f7b5de16e5ab0e13edfa6a301aa7",
+              "sketch": "scripts/art/authoring/sketches.py trench (reproduced byte for byte when shipped)"
+            }
+          ],
+          "date": "2026-11-07",
+          "machine": "local NVIDIA RTX 4070 Ti SUPER (16 GB), Windows; no cloud service"
+        }
+      ],
+      "sketchScript": {
+        "path": "scripts/art/authoring/sketches.py",
+        "sha256": "a0a0dad885111845187d0e0d1f0816472f91d896831270791e419dc10652186a"
+      },
+      "processing": [
+        {
+          "step": "scale",
+          "factor": 1.0,
+          "filter": "Lanczos",
+          "size": [
+            1664,
+            928
+          ],
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        },
+        {
+          "step": "encode",
+          "codec": "WebP lossy (libwebp via Pillow), quality 84, method 6",
+          "psnrDb": 40.79,
+          "alphaPsnrDb": null,
+          "alphaExact": false,
+          "chunks": [
+            "VP8 "
+          ],
+          "metadata": "none",
+          "tool": "scripts/art/authoring/ship_art.py (sha256 42ae46c21f216f52863ab744e6a96271aa5304db5b2540ae9abb573570886b25)"
+        }
+      ],
+      "approval": {
+        "gate": "gate23-dark-trench",
+        "decidedAt": "2026-11-07T07:22:07.383085+01:00",
+        "question": "(Delegated) Gate 23, Temný příkop masters and derived forms: scene, Klipka grown and baby, Napodobnice inked and freed, SVG art.",
+        "answer": "Delegated by the user (\"All good. Please finish without asking for approval of images. I trust your judgement.\"). The agent chose scene s133022, Klipka s131012, Klipka baby s131111, Napodobnice inked s132012 and freed s132111, and the SVG art; reasons in agent-review-log.jsonl.",
+        "chosen": "Scene B"
       }
     },
     {

@@ -2869,7 +2869,41 @@ def klauni(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
-def krakatice_inked(out, route_json=None):
+def klauni_baby(out, route_json=None):
+    """Klauni Dvojčata as hatchlings: two tiny, very round baby clownfish swimming side by side to the
+    left, one a little behind and above the other, each with exactly three white bands outlined in
+    black, small rounded fins, big eyes; the front twin smiles, the back twin winks."""
+    img, d = canvas()
+    orange, white, black = (248, 130, 40), (252, 252, 248), (40, 30, 40)
+
+    def fish(ox, oy, s, wink):
+        cy = oy
+        w, hgt = 300 * s, 140 * s
+        d.polygon([(ox + w - 30 * s, cy), (ox + w + 90 * s, cy - 80 * s), (ox + w + 70 * s, cy), (ox + w + 90 * s, cy + 80 * s)], fill=PLUM)
+        d.polygon([(ox + w - 20 * s, cy), (ox + w + 80 * s, cy - 64 * s), (ox + w + 60 * s, cy), (ox + w + 80 * s, cy + 64 * s)], fill=orange)
+        d.chord([ox + 40 * s, cy - 200 * s, ox + 260 * s, cy - 60 * s], 200, 340, fill=PLUM)
+        d.chord([ox + 52 * s, cy - 188 * s, ox + 248 * s, cy - 72 * s], 200, 340, fill=orange)
+        d.ellipse([ox - 13, cy - hgt - 13, ox + w + 13, cy + hgt + 13], fill=PLUM)
+        d.ellipse([ox, cy - hgt, ox + w, cy + hgt], fill=orange)
+        for bx, bw in ((100, 20), (170, 24), (245, 16)):                                    # three white bands
+            x0 = ox + bx * s
+            hh = hgt * math.sqrt(max(0.0, 1 - ((bx - 150) / 155) ** 2))
+            d.rounded_rectangle([x0 - bw * s / 2 - 9, cy - hh, x0 + bw * s / 2 + 9, cy + hh], radius=14, fill=black)
+            d.rounded_rectangle([x0 - bw * s / 2, cy - hh + 7, x0 + bw * s / 2, cy + hh - 7], radius=11, fill=white)
+        paddle(d, (ox + 130 * s, cy + 50 * s), (ox + 180 * s, cy + 120 * s), 50 * s, orange, bend=0.1)
+        if wink:
+            d.arc([ox + 22 * s, cy - 56 * s, ox + 66 * s, cy - 20 * s], 200, 340, fill=PLUM, width=10)
+        else:
+            eye(d, ox + 46 * s, cy - 30 * s, 30 * s, iris=(40, 30, 40))
+        d.arc([ox + 8 * s, cy + 14 * s, ox + 60 * s, cy + 52 * s], 20, 150, fill=PLUM, width=9)
+        cheeks(d, [(ox + 50 * s, cy + 40 * s)], r=int(14 * s))
+
+    fish(520, 560, 1.25, True)
+    fish(320, 860, 1.25, False)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
+def krakatice_inked(out, route_json=None, rounded=False):
     """Krakatice Inkoustová, inked: the grand finale, a huge giant squid soaked in magic ink, more
     lonely and sulky than wicked: a long rounded mantle pointing up with two big fins, two big round
     sad-grumpy eyes, and exactly ten long arms curling out in a wide fan below (eight arms and two
@@ -2894,14 +2928,25 @@ def krakatice_inked(out, route_json=None):
         a = math.pi * (0.5 + 0.42 * t)
         x, y = cx + 280 * math.cos(a) * 1.05, 640 + 280 * math.sin(a)
         d.ellipse([x - 10, y - 10, x + 10, y + 10], fill=light)
-    d.polygon([(cx - 170, 200), (cx - 330, 120), (cx - 190, 90)], fill=PLUM)                 # two big fins
-    d.polygon([(cx + 170, 200), (cx + 330, 120), (cx + 190, 90)], fill=PLUM)
-    d.polygon([(cx - 176, 186), (cx - 300, 122), (cx - 192, 104)], fill=body)
-    d.polygon([(cx + 176, 186), (cx + 300, 122), (cx + 192, 104)], fill=body)
-    mantle = [(cx - 240, 700), (cx - 230, 380), (cx - 140, 160), (cx, 60), (cx + 140, 160), (cx + 230, 380), (cx + 240, 700)]
-    d.polygon(mantle, fill=PLUM)
-    d.polygon([(x * 0.96 + cx * 0.04, y + (12 if y < 200 else 0)) for x, y in mantle], fill=body)
-    d.ellipse([cx - 240, 600, cx + 240, 740], fill=body)
+    if rounded:                                                                             # fins joined to a rounded mantle tip
+        fin = [(cx - 330, 250), (cx, 40), (cx + 330, 250), (cx, 360)]
+        d.polygon(fin, fill=PLUM)
+        d.polygon([(cx - 300, 248), (cx, 62), (cx + 300, 248), (cx, 340)], fill=body)
+        d.ellipse([cx - 240 - 13, 110 - 13, cx + 240 + 13, 600 + 13], fill=PLUM)
+        d.rectangle([cx - 240 - 13, 360, cx + 240 + 13, 690], fill=PLUM)
+        d.ellipse([cx - 240, 110, cx + 240, 600], fill=body)
+        d.rectangle([cx - 240, 360, cx + 240, 690], fill=body)
+        d.ellipse([cx - 240, 600, cx + 240, 740], fill=body)
+    else:
+        d.polygon([(cx - 170, 200), (cx - 330, 120), (cx - 190, 90)], fill=PLUM)             # two big fins
+        d.polygon([(cx + 170, 200), (cx + 330, 120), (cx + 190, 90)], fill=PLUM)
+        d.polygon([(cx - 176, 186), (cx - 300, 122), (cx - 192, 104)], fill=body)
+        d.polygon([(cx + 176, 186), (cx + 300, 122), (cx + 192, 104)], fill=body)
+        mantle = [(cx - 240, 700), (cx - 230, 380), (cx - 140, 160), (cx, 60), (cx + 140, 160), (cx + 230, 380), (cx + 240, 700)]
+        d.polygon(mantle, fill=PLUM)
+        d.polygon([(x * 0.96 + cx * 0.04, y + (12 if y < 200 else 0)) for x, y in mantle], fill=body)
+        d.ellipse([cx - 240, 600, cx + 240, 740], fill=body)
+
     eye(d, cx - 100, 500, 72, iris=(120, 90, 180))
     eye(d, cx + 100, 500, 72, iris=(120, 90, 180))
     d.line([(cx - 190, 400), (cx - 60, 430)], fill=PLUM, width=20)                        # sad-cross brows
@@ -3111,8 +3156,8 @@ if __name__ == "__main__":
      "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby, "tulen-baby": tulen_baby,
      "delfin-baby": delfin_baby, "korinek": korinek,
      "humr-inked": humr_inked, "moon": moon,
-     "prisavka": prisavka, "prisavka2": prisavka2, "prisavka-baby": prisavka_baby, "klipka-baby": klipka_baby, "lepka-inked": lepka_inked, "city": city, "city3": lambda out, route_json=None: city(out, route_json, door="sealed"),
+     "prisavka": prisavka, "prisavka2": prisavka2, "prisavka-baby": prisavka_baby, "klipka-baby": klipka_baby, "klauni-baby": klauni_baby, "lepka-inked": lepka_inked, "city": city, "city3": lambda out, route_json=None: city(out, route_json, door="sealed"),
      "klipka": klipka, "napodobnice-inked": napodobnice_inked, "trench": trench,
      "vir-inked": vir_inked, "storm": storm,
-     "klauni": klauni, "krakatice-inked": krakatice_inked, "abyss": abyss, "map-grade4": map4, "humr-inked2": humr_inked2, "korinek-baby": korinek_baby}[name](out, rj)
+     "klauni": klauni, "krakatice-inked": krakatice_inked, "krakatice-inked2": lambda out, route_json=None: krakatice_inked(out, route_json, rounded=True), "abyss": abyss, "map-grade4": map4, "humr-inked2": humr_inked2, "korinek-baby": korinek_baby}[name](out, rj)
     print(out)

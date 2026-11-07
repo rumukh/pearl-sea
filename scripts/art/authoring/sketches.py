@@ -2525,6 +2525,38 @@ def prisavka(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def prisavka2(out, route_json=None):
+    """Štítovec Přísavka v2: as prisavka, but rounder and softer: a plumper torpedo body, the suction
+    disc set down into the top of the head, and a side stripe that tapers and follows the body's
+    curve instead of a ruler-straight bar."""
+    img, d = canvas()
+    cy = 680
+    back, belly, stripe = (96, 146, 156), (226, 236, 232), (58, 88, 98)
+    d.polygon([(1060, cy), (1210, 530), (1160, cy), (1210, 830)], fill=PLUM)
+    d.polygon([(1078, cy), (1192, 556), (1142, cy), (1192, 804)], fill=back)
+    d.polygon([(740, cy - 90), (830, cy - 180), (1050, cy - 70)], fill=PLUM)              # long dorsal fin
+    d.polygon([(758, cy - 94), (832, cy - 162), (1030, cy - 74)], fill=back)
+    d.polygon([(740, cy + 90), (830, cy + 180), (1050, cy + 70)], fill=PLUM)              # anal fin
+    d.polygon([(758, cy + 94), (832, cy + 162), (1030, cy + 74)], fill=back)
+    xs, h = fish_body(d, 180, 1100, cy, 150, back, belly, shape=0.55)
+    pts = catmull_rom([(330, cy + 4), (560, cy + 22), (820, cy + 20), (1060, cy + 2)], samples=12)
+    for k, (x, y) in enumerate(pts):                                                      # tapering curved stripe
+        w = 22 - 12 * k / (len(pts) - 1)
+        d.ellipse([x - w, y - w * 0.7, x + w, y + w * 0.7], fill=stripe)
+    d.ellipse([300 - 12, cy - 168 - 12, 590 + 12, cy - 78 + 12], fill=PLUM)               # disc set into the head
+    d.ellipse([300, cy - 168, 590, cy - 78], fill=(150, 196, 200))
+    for k in range(8):                                                                    # eight ridges
+        x = 330 + k * 33
+        d.line([(x, cy - 154), (x + 4, cy - 92)], fill=PLUM, width=8)
+    d.polygon([(170, cy + 34), (320, cy + 14), (312, cy + 64)], fill=PLUM)                # jutting lower jaw
+    d.polygon([(190, cy + 36), (308, cy + 22), (302, cy + 56)], fill=belly)
+    paddle(d, (480, cy + 50), (580, cy + 140), 70, back, bend=0.1)
+    eye(d, 360, cy - 24, 44, iris=(60, 110, 120))
+    d.arc([220, cy + 4, 300, cy + 44], 10, 150, fill=PLUM, width=9)
+    cheeks(d, [(410, cy + 46)], r=26)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
 def lepka_inked(out, route_json=None):
     """Medúza Lepka, inked: a big round jellyfish who glues words together, grumpy and sticky: a wide
     dome bell with a wavy rim, a frowning face, exactly six thick, gooey, droopy tentacles that drip
@@ -2557,7 +2589,7 @@ def lepka_inked(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
-def city(out, route_json=None):
+def city(out, route_json=None, door="slit"):
     """Potopené město laid out on the shell's levelSpots(7): the ruins of an old sunken town seen from
     inside the deep-teal water: broken stone columns and an arch with sea plants at the left, tumbled
     stone blocks and a fallen statue head in the bottom-right foreground, and Medúza Lepka's lair, a
@@ -2583,8 +2615,13 @@ def city(out, route_json=None):
     mx, my = nodes[-1]                                                                       # domed temple lair
     d.rectangle([mx - 20, my + 150, W + 20, my + 420], fill=stone)
     d.pieslice([mx - 20, my + 20, mx + 360, my + 300], 180, 360, fill=(190, 196, 190))
-    d.rectangle([mx + 80, my + 230, mx + 200, my + 420], fill=(20, 30, 40))
-    d.pieslice([mx + 80, my + 180, mx + 200, my + 290], 180, 360, fill=(20, 30, 40))
+    if door == "sealed":                                                                     # doorway sealed by a round stone slab
+        d.rectangle([mx + 70, my + 230, mx + 210, my + 420], fill=(110, 118, 116))
+        d.ellipse([mx + 60, my + 220, mx + 220, my + 420], fill=(200, 204, 196))
+        for k in range(3):                                                                   # wisps of ink seeping out at its edge
+            d.line([(mx + 64 - k * 6, my + 300 + k * 40), (mx + 20 - k * 20, my + 270 + k * 40)], fill=(40, 30, 70), width=10)
+    else:
+        d.rectangle([mx + 128, my + 250, mx + 152, my + 420], fill=(20, 30, 40))              # a narrow slit of a door
     for i in range(6):                                                                       # tumbled blocks foreground
         x = 1090 + i * 95 + rng.randint(-15, 15)
         y = H - 70 - rng.randint(0, 40)
@@ -2679,7 +2716,7 @@ def trench(out, route_json=None):
         d.ellipse([x - 24, y - 18, x + 24, y + 18], fill=(120, 220, 255))
     mx, my = nodes[-1]
     d.polygon([(mx - 40, my + 120), (mx + 120, my + 80), (W + 20, my + 40), (W + 20, my + 460), (mx + 40, my + 420)], fill=(22, 22, 48))
-    d.polygon([(mx + 60, my + 160), (mx + 130, my + 150), (mx + 110, my + 380), (mx + 70, my + 380)], fill=(110, 60, 160))
+    d.line([(mx + 96, my + 150), (mx + 80, my + 210), (mx + 106, my + 270), (mx + 84, my + 330), (mx + 100, my + 390)], fill=(150, 90, 210), width=10)   # a thin glowing crack, no opening
     for i in range(7):                                                                      # glowing sea pens
         x = 1080 + i * 80 + rng.randint(-15, 15)
         y = H - 70 - rng.randint(0, 40)
@@ -2866,7 +2903,7 @@ def abyss(out, route_json=None):
         blob(d, x, y, r, r * 0.5, (36, 26, 60), rng, n=16, jitter=0.2)
     mx, my = nodes[-1]
     d.polygon([(mx - 60, my + 100), (mx + 140, my + 60), (W + 20, my + 10), (W + 20, my + 500), (mx + 20, my + 460)], fill=(26, 18, 48))
-    blob(d, mx + 150, my + 280, 130, 120, (6, 4, 14), rng, n=16, jitter=0.08)                # cave mouth
+    d.line([(mx + 156, my + 150), (mx + 140, my + 220), (mx + 166, my + 290), (mx + 144, my + 360), (mx + 158, my + 420)], fill=(6, 4, 14), width=10)   # a thin crack, no opening
     for k in range(3):
         blob(d, mx + 40 - k * 50, my + 200 + k * 50, 50, 26, (40, 26, 70), rng, n=12, jitter=0.2)
     for i in range(7):                                                                       # glowing anemones
@@ -2994,6 +3031,38 @@ def korinek_baby(out, route_json=None):
     img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
 
 
+def prisavka_baby(out, route_json=None):
+    """Štítovec Přísavka as a hatchling swimming left: a tiny, round, chubby remora with a big head
+    share, a small oval suction disc on top of the head with exactly five ridges, one short dorsal
+    fin and one matching fin underneath, a small forked tail, a soft side stripe, a little smile."""
+    img, d = canvas()
+    cx, cy = 664, 680
+    back, belly, stripe = (112, 152, 156), (242, 236, 214), (78, 112, 118)
+    d.polygon([(960, cy), (1080, 560), (1050, cy), (1080, 800)], fill=PLUM)
+    d.polygon([(976, cy), (1064, 586), (1034, cy), (1064, 774)], fill=back)
+    d.polygon([(720, cy - 140), (800, cy - 250), (930, cy - 90)], fill=PLUM)
+    d.polygon([(736, cy - 142), (802, cy - 232), (912, cy - 94)], fill=back)
+    d.polygon([(720, cy + 140), (800, cy + 250), (930, cy + 90)], fill=PLUM)
+    d.polygon([(736, cy + 142), (802, cy + 232), (912, cy + 94)], fill=back)
+    d.ellipse([340 - 13, cy - 170 - 13, 990 + 13, cy + 170 + 13], fill=PLUM)
+    d.ellipse([340, cy - 170, 990, cy + 170], fill=back)
+    d.chord([340, cy - 170, 990, cy + 170], 0, 180, fill=belly)
+    pts = catmull_rom([(500, cy + 4), (700, cy + 18), (940, cy + 4)], samples=10)
+    for k, (x, y) in enumerate(pts):
+        w = 16 - 8 * k / (len(pts) - 1)
+        d.ellipse([x - w, y - w * 0.7, x + w, y + w * 0.7], fill=stripe)
+    d.ellipse([420 - 12, cy - 196 - 12, 660 + 12, cy - 116 + 12], fill=PLUM)              # small suction disc
+    d.ellipse([420, cy - 196, 660, cy - 116], fill=(160, 170, 176))
+    for k in range(5):                                                                    # five ridges
+        x = 460 + k * 40
+        d.line([(x, cy - 184), (x + 3, cy - 128)], fill=PLUM, width=8)
+    paddle(d, (600, cy + 70), (680, cy + 150), 60, back, bend=0.1)
+    eye(d, 480, cy - 40, 62, iris=(60, 110, 120))
+    d.arc([360, cy + 20, 440, cy + 70], 10, 150, fill=PLUM, width=9)
+    cheeks(d, [(540, cy + 50)], r=28)
+    img.filter(ImageFilter.GaussianBlur(0.8)).save(out)
+
+
 if __name__ == "__main__":
     name, out = sys.argv[1], sys.argv[2]
     rj = sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--route-json" else None
@@ -3012,7 +3081,7 @@ if __name__ == "__main__":
      "vydra-baby": vydra_baby, "jazyk-baby": jazyk_baby, "hvezdice-baby": hvezdice_baby, "kalmar-baby": kalmar_baby, "tulen-baby": tulen_baby,
      "delfin-baby": delfin_baby, "korinek": korinek,
      "humr-inked": humr_inked, "moon": moon,
-     "prisavka": prisavka, "lepka-inked": lepka_inked, "city": city,
+     "prisavka": prisavka, "prisavka2": prisavka2, "prisavka-baby": prisavka_baby, "lepka-inked": lepka_inked, "city": city, "city3": lambda out, route_json=None: city(out, route_json, door="sealed"),
      "klipka": klipka, "napodobnice-inked": napodobnice_inked, "trench": trench,
      "vir-inked": vir_inked, "storm": storm,
      "klauni": klauni, "krakatice-inked": krakatice_inked, "abyss": abyss, "map-grade4": map4, "humr-inked2": humr_inked2, "korinek-baby": korinek_baby}[name](out, rj)

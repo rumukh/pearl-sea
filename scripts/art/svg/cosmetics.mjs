@@ -28,6 +28,7 @@ import { PEARL_BAY_COSMETICS } from './regions/pearl-bay.mjs';
 import { VOLCANIC_VENTS_COSMETICS } from './regions/volcanic-vents.mjs';
 import { ICE_SEA_COSMETICS } from './regions/ice-sea.mjs';
 import { MOON_CAVES_COSMETICS } from './regions/moon-caves.mjs';
+import { SUNKEN_CITY_COSMETICS } from './regions/sunken-city.mjs';
 import { scarf } from './scarf.mjs';
 
 /** @typedef {'head' | 'eyes' | 'neck' | 'grotto' | 'crown'} CosmeticSlot */
@@ -497,6 +498,7 @@ export const COSMETIC_DESIGNS = [
   ...VOLCANIC_VENTS_COSMETICS,
   ...ICE_SEA_COSMETICS,
   ...MOON_CAVES_COSMETICS,
+  ...SUNKEN_CITY_COSMETICS,
 ];
 
 export const COSMETIC_SIZE = SIZE;

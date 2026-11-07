@@ -94,7 +94,8 @@ time; a painting takes 12-16 minutes.
    `--clear X,Y` opens one light backdrop pocket from a reviewed seed point (between touching
    tentacles or eye stalks); `--edge-bleed N` and `--peel N` remove light watercolour bleed outside
    the outline; `--keep-marks N` keeps detached painted marks of at least N pixels that U2Net
-   rejects (an Inkoustík's speed marks and ink flecks); `--low` and `--high` loosen the key for a
+   rejects (an Inkoustík's speed marks and ink flecks); `--drop X,Y` removes one detached piece
+   that U2Net keeps but is not the subject (a light ray painted on the backdrop); `--low` and `--high` loosen the key for a
    warm paper backdrop. The result is
    checked at full size on navy and on water. The eight avatars are painted together on one sheet,
    for one style, and `avatar_cut.py` cuts each portrait out along its porthole: a disc fitted to
@@ -126,6 +127,12 @@ time; a painting takes 12-16 minutes.
 - Words are painted literally: "watercolour blooms" became flowers on a jellyfish's bell.
 - The model adds unrequested submarines, chests, fish and small blank signs to empty scenes, and
   signs grow pseudo-letters; the review looks for them.
+- Any opening in a monster's lair is filled with a painted creature, even a narrow slit and even
+  with "empty: nothing and no one inside" in the prompt (the moon cave and the sunken temple, six
+  takes). A lair is drawn without an opening: a doorway sealed by a stone slab, a thin crack in
+  solid rock, a whirlpool.
+- A light ray the model paints across a character's backdrop is kept by U2Net as subject; the
+  cut-out's `--drop X,Y` removes that detached piece at a reviewed seed point.
 - The word "sticker" paints a white sticker border (clean to cut out, but not the chosen style).
 - A baby edited from its grown-up master in Subjects mode comes back as the grown-up; only its own
   sketch makes it younger. Each in-place edit also drifts the colours (Krab's baby went crimson,
@@ -291,7 +298,7 @@ node scripts/art/svg/preview.mjs board.png # a review board rendered by Chromium
 - **Eggs** (`egg/<friend>`): 120 × 160 (3:4). The egg wears its friend's colours and a motif from
   its memory hook: Krab Tvrďák's band of seven spikes, Medúzka Měkulka's nine tentacles, Želva
   Obojka's eight plates, Barakuda Bystřinka's five bars and speed lines, Lachtan Lyžař's two
-  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms, Tuleň Pádík's seven icy steps, Delfín Skokánek's leaping arc, Rak poustevník Kořínek's three-turn spiral shell.
+  crossed skis, Koník Mýdlínek's three soap bubbles, Pyskoun Pyšný's three wavy head stripes, Ježík Syčík's pale spines, Vydra Výskalka's paw prints, Jazyk Jazýček's fin rays, Hvězdice Rodinka's five arms round one heart, Kalmar Desetiruký's ten little arms, Tuleň Pádík's seven icy steps, Delfín Skokánek's leaping arc, Rak poustevník Kořínek's three-turn spiral shell, Štítovec Přísavka's striped suction disc.
 - **Regions**: each region after the lagoon has its own module, `scripts/art/svg/regions/<region>.mjs`,
   exporting its eggs, sticker icons and cosmetics; `eggs.mjs`, `stickers.mjs` and `cosmetics.mjs`
   spread them into their lists. Scarves share `scarf.mjs`. Every sticker icon is checked to stay

@@ -148,6 +148,14 @@
       "sha256": "cc7b1fa27ae97e1e2ba816f2a6a73ae34df51d7c1d5bafc58202e76b3b4ef0a2"
     },
     {
+      "id": "cosmetic/helmet-diver",
+      "file": "cosmetics/helmet-diver.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1718,
+      "sha256": "6b2d533f1acc4ecf547fada9b92cfddac874347d3db42be4bbd7f23e1404d674"
+    },
+    {
       "id": "cosmetic/helmet-lamp",
       "file": "cosmetics/helmet-lamp.svg",
       "width": 100,
@@ -186,6 +194,14 @@
       "height": 100,
       "bytes": 2150,
       "sha256": "1110b184c6aca5588908c1b77e9981250dbb7f82171c14bd62f300e20946f21a"
+    },
+    {
+      "id": "cosmetic/monocle-gold",
+      "file": "cosmetics/monocle-gold.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1031,
+      "sha256": "e460c37f002ced28cc89214c77ebcdbc4ac28555572a677f65b57cc3f868999c"
     },
     {
       "id": "cosmetic/necklace-shells",
@@ -242,6 +258,14 @@
       "height": 100,
       "bytes": 1794,
       "sha256": "6798c15f9c9552f5aa6017c97135d3a2872f0e97545ea58baff6b7c13ef79ab5"
+    },
+    {
+      "id": "cosmetic/statue-city",
+      "file": "cosmetics/statue-city.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 2173,
+      "sha256": "20b4f6f2b7c27d8709a5bedf50bc035cc7b601274f5ca5852cc14d83edb38f98"
     },
     {
       "id": "cosmetic/stones-warm",
@@ -364,6 +388,14 @@
       "sha256": "96391e8f12eef9151d446b91b18e4db94b78aa2b9d9b671af2a9a3e0a998a60a"
     },
     {
+      "id": "egg/stitovec-prisavka",
+      "file": "eggs/stitovec-prisavka.svg",
+      "width": 120,
+      "height": 160,
+      "bytes": 2149,
+      "sha256": "484109438fb0b1aea3542295748a93e77a72d94e3e99267bd1f1d496b960d33f"
+    },
+    {
       "id": "egg/tulen-padik",
       "file": "eggs/tulen-padik.svg",
       "width": 120,
@@ -402,6 +434,14 @@
       "height": 100,
       "bytes": 1670,
       "sha256": "c88e3214d43dc4498530537b6d635321b9a0dbaa6dbf502de875454b10960439"
+    },
+    {
+      "id": "sticker/calendar-shell",
+      "file": "stickers/calendar-shell.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1573,
+      "sha256": "977864880a015693b43e715a22b4d6cc93415daac15fc1eaf87420393602578d"
     },
     {
       "id": "sticker/calendar-wave",
@@ -500,6 +540,14 @@
       "sha256": "e2e5be8c2f73160c7c4c87a6d10c70afe509de2e513650d11eebb0e0f39108df"
     },
     {
+      "id": "sticker/free-jellyfish",
+      "file": "stickers/free-jellyfish.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1851,
+      "sha256": "98a0f2cd89d89e89866d69d3de7a389162698662b3804825f17636f8cbe1d471"
+    },
+    {
       "id": "sticker/hermit-crab",
       "file": "stickers/hermit-crab.svg",
       "width": 100,
@@ -570,6 +618,14 @@
       "height": 100,
       "bytes": 2284,
       "sha256": "82ed8f40d1c7249f07d37047809aff2addfed24c8b8a1e413eb465534905dba3"
+    },
+    {
+      "id": "sticker/remora",
+      "file": "stickers/remora.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1753,
+      "sha256": "46a812136426ac29b9310103122883a1e9fa6a4e77e0e1766ae435a2677183c4"
     },
     {
       "id": "sticker/scroll",
@@ -714,6 +770,14 @@
       "height": 100,
       "bytes": 2998,
       "sha256": "2e2c0aba5d85e6bad038d89c96df0cb2f87a5fb1599a807977e8c0705850a6c5"
+    },
+    {
+      "id": "sticker/two-words",
+      "file": "stickers/two-words.svg",
+      "width": 100,
+      "height": 100,
+      "bytes": 1340,
+      "sha256": "1b24f3b7444488005ab589730a247ed7439c35c4566971117e08e5e4ffb69cf2"
     },
     {
       "id": "sticker/untied-knot",

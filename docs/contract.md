@@ -531,12 +531,12 @@ options (`gradeBalance(balance, grade)`); a grade without an entry uses the pack
 Strings live in flat `{ key: string }` maps with `{placeholder}` parameters (the format
 `createMessages` from `@aegis/browser/ui` consumes), one file per locale and scope:
 
-| File                               | Holds                                                                                               | Owner |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------- | ----- |
-| `content/catalogs/cs.ui.json`      | the shell's strings, Czech                                                                          | S4    |
-| `content/catalogs/cs.content.json` | every string the pack refers to: titles, names, mnemonics, jokes, story lines, grammar terms; Czech | S3    |
-| `content/catalogs/en.ui.json`      | the grown-ups' area of the shell in English (`grownups.*` keys only)                                | S4    |
-| `content/catalogs/en.content.json` | the pack's grown-ups' strings in English: the objective titles (`grownups.objective.*`)             | S3    |
+| File                               | Holds                                                                                                        | Owner |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------ | ----- |
+| `content/catalogs/cs.ui.json`      | the shell's strings, Czech                                                                                   | S4    |
+| `content/catalogs/cs.content.json` | every string the pack refers to: titles, names, mnemonics, jokes, story lines, grammar terms, lessons; Czech | S3    |
+| `content/catalogs/en.ui.json`      | the grown-ups' area of the shell in English (`grownups.*` keys only)                                         | S4    |
+| `content/catalogs/en.content.json` | the pack's grown-ups' strings in English: the objective titles (`grownups.objective.*`)                      | S3    |
 
 Children see only Czech. A key lives in one Czech scope only. The grown-ups' area has an English
 switch, so English is complete for it: every Czech `grownups.*` key has an English twin in the same
@@ -576,6 +576,13 @@ hint is `grammar.rule.<rule>`, and the listed-word rule shows each letter's scho
 `grammar.rule.vyjm`; relations are `grammar.relation.<relation>` and word parts
 `grammar.segment.<role>`; a method hint is `grammar.method.<method>`, needed by the
 classifications of a dimension with a method and by sound-alike relations (`grammarKeys`).
+
+**Lessons** (Osmička's _Jak na to?_, design §5.3): a lesson level's lesson is its lines in
+`cs.content.json`, `lesson.<level>.1`, `lesson.<level>.2`, … (`lessonKey`), numbered from 1
+without gaps; `collectCatalogKeys` requires the first line of every lesson level, so the gate
+does too. A monster level has no lesson of its own: the shell shows its region's lessons. A lesson
+teaches the level's material before or while the child plays it, so unlike a hint it may name the
+words the level asks.
 
 Czech text follows Czech typography („…“, ‚…‘, …, –, no space before punctuation) and uses only
 characters of the reading font (Pearl Reading, the Andika subset); the gate checks both.

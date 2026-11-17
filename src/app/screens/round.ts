@@ -45,6 +45,7 @@ import type {
 } from '../../rules/contract';
 import { diverSaveStatus, topBar } from './common';
 import { activityName } from './level';
+import { lessonButton } from './lesson';
 import {
   gapHoldsLetters,
   hintText,
@@ -788,6 +789,17 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     onPress: pause,
     onError: app.kit.onError,
   });
+  // Osmička's lesson of the level, a battle's of its region; Svačinka, the race and the placement
+  // check have none. It lies over the round: the response time runs on while the child reads.
+  const lesson = levelId
+    ? lessonButton(app, {
+        levels: data.levels,
+        level: levelId,
+        preferences: () => active.preferences.current(),
+        testId: 'round-lesson',
+        size: 'small',
+      })
+    : [];
 
   const element = h(
     'main',
@@ -799,7 +811,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene(regionId ?? 'grotto'))),
     topBar({
       title: h('div', { className: 'ps-round__header' }, heading, progress.element),
-      tools: [streak, coins.element, saveStatus.element, pauseButton],
+      tools: [...lesson, streak, coins.element, saveStatus.element, pauseButton],
       onError: app.kit.onError,
     }),
     h(

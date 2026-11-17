@@ -38,6 +38,7 @@ import type {
 import type { ContentText } from '../content/text';
 import { diverSaveStatus, topBar } from './common';
 import { activityName } from './level';
+import { lessonButton } from './lesson';
 
 function minigameRound(view: GameView): MinigameRoundView | null {
   return view.round?.type === 'minigame' ? view.round : null;
@@ -730,6 +731,16 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
   });
 
   draw(first.current);
+  // Osmička's lesson of the level: a rhyme to thread or nets to sort may be new to the child.
+  const lesson = levelId
+    ? lessonButton(app, {
+        levels: data.levels,
+        level: levelId,
+        preferences: () => active.preferences.current(),
+        testId: 'board-lesson',
+        size: 'small',
+      })
+    : [];
   const element = h(
     'main',
     {
@@ -740,7 +751,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     h('div', { className: 'ps-backdrop' }, picture(app.art, ART.scene(regionId ?? 'grotto'))),
     topBar({
       title: h('div', { className: 'ps-round__header' }, heading, progress.element),
-      tools: [coins.element, saveStatus.element, quit],
+      tools: [...lesson, coins.element, saveStatus.element, quit],
       onError: app.kit.onError,
     }),
     h('section', { className: 'ps-card ps-board__card' }, message, boardSlot, actions),

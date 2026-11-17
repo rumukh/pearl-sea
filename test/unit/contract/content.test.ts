@@ -231,6 +231,8 @@ describe('cross-file references', () => {
       'grownups.objective.letters.hard-soft',
       'region.sunny-lagoon',
       'level.moon-caves.monster',
+      'lesson.sunny-lagoon.1.1',
+      'lesson.moon-caves.1.1',
       'skill.listed-l',
       'friend.krab-tvrdak.mnemonic',
       'monster.murena-mumla.joke.1',
@@ -244,5 +246,10 @@ describe('cross-file references', () => {
       expect(keys, key).toContain(key);
     }
     expect(keys.filter((key) => key.startsWith('grammar.case'))).toEqual([]);
+    // A monster level has no lesson of its own: it shows its region's lessons.
+    expect(keys.filter((key) => key.startsWith('lesson.')).sort()).toEqual([
+      'lesson.moon-caves.1.1',
+      'lesson.sunny-lagoon.1.1',
+    ]);
   });
 });

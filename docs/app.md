@@ -581,17 +581,17 @@ What the shell does so that real paintings drop in:
 
 ### 16.3 The screens
 
-| Screen                                                                                                                                   | Module                            |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| Children and the profile editor (name, picture, kluk/holka/nechci říct, 3. or 4. třída)                                                  | `divers.ts`, `editor.ts`          |
-| Story beats with read-aloud, the first egg                                                                                               | `story.ts`, `eggs.ts`             |
-| The grotto: the featured friend, its growth and the week, Dnešní výprava, today (goal, quests, chest), the places                        | `hub.ts`                          |
-| The sea map (shallows, deep), a region's levels, a level's intro                                                                         | `map.ts`, `region.ts`, `level.ts` |
-| Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`     |
-| Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                       |
-| Results with the big moments (hatching, a monster freed, a grade done) and Osmička cheering                                              | `results.ts`                      |
-| U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                  |
-| Goodbye with the diary card                                                                                                              | `goodbye.ts`                      |
+| Screen                                                                                                                                   | Module                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Children and the profile editor (name, picture, kluk/holka/nechci říct, 3. or 4. třída)                                                  | `divers.ts`, `editor.ts`                       |
+| Story beats with read-aloud, the first egg                                                                                               | `story.ts`, `eggs.ts`                          |
+| The grotto: the featured friend, its growth and the week, Dnešní výprava, today (goal, quests, chest), the places                        | `hub.ts`                                       |
+| The sea map (shallows, deep), a region's levels, a level's intro, Osmička's lesson (_Jak na to?_)                                        | `map.ts`, `region.ts`, `level.ts`, `lesson.ts` |
+| Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`                  |
+| Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                                    |
+| Results with the big moments (hatching, a monster freed, a grade done) and Osmička cheering                                              | `results.ts`                                   |
+| U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                               |
+| Goodbye with the diary card                                                                                                              | `goodbye.ts`                                   |
 
 A problem is shown as the rules structure it, one step at a time: a word or sentence with its gaps
 as ink blots (the current one glows, answered ones show their letters, and after a miss the right
@@ -610,6 +610,14 @@ velkej._), a method to follow (S3's `grammar.method.*` lines), or a word that is
 gap blanked (_Slovo `b_lý` není vyjmenované ani příbuzné s vyjmenovaným._). Punctuation the rules
 give beside a sentence's words (`marks`: _Delfíne, skoč!_) follows each word outside the highlight
 and the word buttons, and is read aloud with it.
+_Jak na to?_ (`lesson.ts`) opens Osmička's lesson of the level (design §5.3) as a dialog: her
+portrait with _Osmička vysvětluje_, the lesson's sections (a lesson level's own lines; a monster
+level's region's lessons, each under its level's title) in a named region that scrolls on its own
+and takes the keyboard first, so the heading and _Rozumím!_ stay in view, a read-aloud button (a
+contrast ×, an arrow → and a cut | said as pauses, a slash as _nebo_) and _Rozumím!_ (Escape
+too). It stands beside _Začít_ on the level's intro and first in the top bar of the level's rounds,
+battles and boards; Svačinka, the race and the placement check have none. Nothing pauses under it:
+the response timer runs on, and the problem or board waits as it was.
 The placement check's meter counts its parts (_Části 2 / 8_), not problems, and its results thank
 the child (_Díky! Osmička teď ví, kde začneš._) instead of counting right answers: the check is no
 score. Leaving it from the pause ends it for good and keeps what it placed, and the pause dialog

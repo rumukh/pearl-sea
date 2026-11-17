@@ -495,6 +495,21 @@ elimination. Classifications show the gender test, or the method of the case,
 the pattern, the tense, the mood or the verb form (`grammar.method.<method>`): never the case
 question or the pattern, which name the answer. A sound-alike relation shows how such words differ.
 
+**Osmička's lesson (_Jak na to?_).** A hint recalls a strategy the school has taught; a child who
+meets a level's material before school teaches it needs the material itself, or the necklace's
+rhyme and the parts of speech are guesswork. Every lesson level has Profesorka Osmička's lesson: a
+few short lines in the textbook's terms, the rule with its list or table (the listed words'
+rhyme in the necklace's order, the cases with their questions, the patterns with their 1st and
+2nd case) and examples, for the child (_ty_, neutral). _Jak na to?_ opens it on the level's intro
+beside _Začít_ and in the top bar of every round and board of the level, over the game; it is read
+aloud on request and closes with _Rozumím!_. A monster level shows its region's lessons, each under
+its level's title; Svačinka, the race and the placement check have none. Unlike a hint, a lesson
+may name the words its level asks: the child chose to read it. Nothing pauses while it is open, so
+the reading counts in the step's response time: a step answered after a long read is slow, and its
+item keeps its box rather than being promoted as if recalled (§6.2); its coins, like a hint's, are
+never reduced. Lessons are catalog lines (`lesson.<level>.<n>`, contract §7.4); examples are words
+the level does not ask where possible.
+
 ### 5.4 Krmení (`feeding`): the core
 
 A friend is hungry; each right answer feeds it a shrimp (_mňam!_; an egg glows). 8-12 problems of

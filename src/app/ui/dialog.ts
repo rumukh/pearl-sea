@@ -21,6 +21,8 @@ export interface ModalOptions<T> {
   label: string;
   heading?: boolean;
   tone?: 'default' | 'warning';
+  /** A modifier class beside `ps-dialog` (`ps-dialog--lesson`), for a dialog's own layout. */
+  className?: string;
   testId?: string;
   /** The dialog's language when it differs from the page's (`en` in an English grown-ups' area). */
   lang?: string;
@@ -32,7 +34,7 @@ export interface ModalOptions<T> {
 
 export function openModal<T>(kit: UiKit, options: ModalOptions<T>): DialogHandle<T> {
   const dialog = h('dialog', {
-    className: 'ps-dialog',
+    className: options.className ? `ps-dialog ${options.className}` : 'ps-dialog',
     testId: options.testId ?? 'dialog',
     dataset: { tone: options.tone ?? 'default' },
     attributes: {

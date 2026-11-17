@@ -8,6 +8,37 @@
   "level.sunny-lagoon.6": "Velká písmena ve jménech",
   "level.sunny-lagoon.monster": "Muréna Mumla",
 
+  "lesson.sunny-lagoon.1.1": "Abeceda: a, á, b, c, č, d, ď, e, é, ě, f, g, h, ch, i, í, j, k, l, m, n, ň, o, ó, p, q, r, ř, s, š, t, ť, u, ú, ů, v, w, x, y, ý, z, ž.",
+  "lesson.sunny-lagoon.1.2": "Slova řadíme podle prvního písmene. Když je stejné, rozhoduje druhé písmeno.",
+  "lesson.sunny-lagoon.1.3": "Pozor: ch je jedno písmeno a stojí až za h: hrad, chata. Č je za c, ř za r, š za s a ž za z: cibule, čáp.",
+  "lesson.sunny-lagoon.1.4": "Tvrdé souhlásky jsou h, ch, k, r, d, t, n. Měkké souhlásky jsou ž, š, č, ř, c, j, ď, ť, ň. Obojetné souhlásky jsou b, f, l, m, p, s, v, z.",
+  "lesson.sunny-lagoon.1.5": "Po tvrdých souhláskách píšeme y/ý: kytka, hýbat. Po měkkých souhláskách píšeme i/í: žirafa, cibule.",
+  "lesson.sunny-lagoon.1.6": "Slyšíme [bje, pje, vje, mňe], ale píšeme bě, pě, vě, mě: běhat, pěšky, květina, měkký.",
+
+  "lesson.sunny-lagoon.2.1": "Samohlásky krátké jsou a, e, i, o, u, y. Samohlásky dlouhé jsou á, é, í, ó, ú, ů, ý.",
+  "lesson.sunny-lagoon.2.2": "Dlouhou samohlásku vyslovujeme déle. Píšeme ji s čárkou nebo s kroužkem.",
+  "lesson.sunny-lagoon.2.3": "Délka samohlásky mění význam slova: pas × pás, rada × ráda, dal × dál.",
+  "lesson.sunny-lagoon.2.4": "Řekni si slovo pomalu nahlas. Zní samohláska dlouze? Pak má čárku nebo kroužek.",
+
+  "lesson.sunny-lagoon.3.1": "Krab Tvrďák má sedm tvrdých ostnů: h, ch, k, r, d, t, n. Po tvrdých souhláskách píšeme y/ý: kytka, hýbat, dýně.",
+  "lesson.sunny-lagoon.3.2": "Medúzka Měkulka má devět měkkých chapadel: ž, š, č, ř, c, j, ď, ť, ň. Po měkkých souhláskách píšeme i/í: žirafa, cibule, řípa.",
+  "lesson.sunny-lagoon.3.3": "Želva Obojka má na krunýři osm destiček: b, f, l, m, p, s, v, z. Po obojetných souhláskách píšeme někdy i, jindy y.",
+
+  "lesson.sunny-lagoon.4.1": "Slyšíme [ďe, ťe, ňe], ale píšeme dě, tě, ně: dělat, těšit se, němý.",
+  "lesson.sunny-lagoon.4.2": "Slyšíme [ďi, ťi, ňi], ale píšeme di, ti, ni: divoký, tiše, nic. Tvrdě znějí dy, ty, ny: dým, tyčka.",
+  "lesson.sunny-lagoon.4.3": "Slyšíme [bje, pje, vje, mňe], ale píšeme bě, pě, vě, mě: běhat, pěšky, květina, měkký.",
+
+  "lesson.sunny-lagoon.5.1": "Na začátku slova píšeme ú s čárkou: ústa, úterý, úzký. Stejně píšeme ú po předponě: zúžit, neúplný.",
+  "lesson.sunny-lagoon.5.2": "Uprostřed a na konci slova píšeme ů s kroužkem: stůl, nůž, růže, domů.",
+  "lesson.sunny-lagoon.5.3": "Ů se často střídá s o: stůl → stoly, nůž → nože, vůz → vozy.",
+  "lesson.sunny-lagoon.5.4": "Párové souhlásky jsou b – p, d – t, ď – ť, z – s, ž – š, v – f, h – ch, g – k. Uvnitř a na konci slova se špatně slyší.",
+  "lesson.sunny-lagoon.5.5": "Řekni si slovo jinak, aby za souhláskou byla samohláska: chléb → chleba, plot → ploty, nůž → nože.",
+
+  "lesson.sunny-lagoon.6.1": "Velké písmeno píšeme na začátku věty.",
+  "lesson.sunny-lagoon.6.2": "Vlastní jména píšeme s velkým písmenem. Jsou to jména lidí a zvířat: Jana, Tomáš, Micka.",
+  "lesson.sunny-lagoon.6.3": "S velkým písmenem píšeme i jména měst, řek, hor a států: Brno, Labe, Říp, Slovensko.",
+  "lesson.sunny-lagoon.6.4": "Ostatní slova píšeme s malým písmenem: kočka Micka, řeka Labe, město Brno.",
+
   "skill.lagoon.abc": "Řazení podle abecedy",
   "skill.lagoon.abc-pairs": "Abeceda: ch za h, písmena s háčkem",
   "skill.lagoon.consonants": "Tvrdé, měkké a obojetné souhlásky",
@@ -266,6 +297,35 @@
   "level.coral-reef.6": "B a L dohromady (být/bít, bydlo/bidlo)",
   "level.coral-reef.monster": "Žralok Žrout",
 
+  "lesson.coral-reef.1.1": "Obojetné souhlásky jsou b, f, l, m, p, s, v, z. Želva Obojka je má na krunýři jako osm destiček.",
+  "lesson.coral-reef.1.2": "Po obojetných souhláskách píšeme uvnitř slova většinou i/í: lidé, opice, slavík.",
+  "lesson.coral-reef.1.3": "Uvnitř slova po nich píšeme y/ý jen ve vyjmenovaných slovech a ve slovech příbuzných.",
+  "lesson.coral-reef.1.4": "Vyjmenovaná slova po B: být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla, býk, Přibyslav.",
+  "lesson.coral-reef.1.5": "Vyjmenovaná slova po L: slyšet, mlýn, blýskat se, polykat, plynout, plýtvat, vzlykat, lysý, lýtko, lýko, lyže, pelyněk, plyš.",
+
+  "lesson.coral-reef.2.1": "Vyjmenovaná slova po B: být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla, býk, Přibyslav.",
+  "lesson.coral-reef.2.2": "V těchto slovech a ve slovech příbuzných píšeme po b tvrdé y/ý. V ostatních slovech píšeme uvnitř slova po b měkké i/í: babička, bič, bílek.",
+  "lesson.coral-reef.2.3": "Říkej si vyjmenovaná slova nahlas jako básničku, pořád ve stejném pořadí.",
+
+  "lesson.coral-reef.3.1": "Slova příbuzná mají stejný kořen a podobný význam. Patří do jedné slovní rodiny.",
+  "lesson.coral-reef.3.2": "Ve slovech příbuzných s vyjmenovaným slovem píšeme také y/ý: bydlit → bydliště, obydlí; být → pobyt, zbytek; býk → býček.",
+  "lesson.coral-reef.3.3": "Nevíš si rady? Najdi vyjmenované slovo, ke kterému slovo patří významem. Když žádné není, píšeš uvnitř slova i/í.",
+
+  "lesson.coral-reef.4.1": "Vyjmenovaná slova po L: slyšet, mlýn, blýskat se, polykat, plynout, plýtvat, vzlykat, lysý, lýtko, lýko, lyže, pelyněk, plyš.",
+  "lesson.coral-reef.4.2": "V těchto slovech a ve slovech příbuzných píšeme po l tvrdé y/ý. V ostatních slovech píšeme uvnitř slova po l měkké i/í: lidé, lilie, lízat.",
+  "lesson.coral-reef.4.3": "Plýtvat znamená zbytečně utrácet. Vzlykat znamená plakat a trhaně se nadechovat. Lysý znamená bez vlasů.",
+  "lesson.coral-reef.4.4": "Lýko je pod kůrou stromu. Pelyněk je hořká bylina.",
+
+  "lesson.coral-reef.5.1": "Slova příbuzná s vyjmenovaným slovem mají stejný kořen. Píšeme v nich také y/ý.",
+  "lesson.coral-reef.5.2": "Například: mlýn → mlynář, mlýnek; slyšet → uslyšet; lyže → lyžař, lyžovat; plynout → plyn.",
+  "lesson.coral-reef.5.3": "Pozor: mlít se píše s měkkým í. Do rodiny slova mlýn nepatří.",
+
+  "lesson.coral-reef.6.1": "Vyjmenovaná slova po B: být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla, býk, Přibyslav.",
+  "lesson.coral-reef.6.2": "Vyjmenovaná slova po L: slyšet, mlýn, blýskat se, polykat, plynout, plýtvat, vzlykat, lysý, lýtko, lýko, lyže, pelyněk, plyš.",
+  "lesson.coral-reef.6.3": "Některá slova znějí stejně, ale znamenají něco jiného. Jsou to slova stejně znějící. Rozliš je podle významu.",
+  "lesson.coral-reef.6.4": "Například: být doma × bít do bubnu, dobýt hrad × dobít baterii.",
+  "lesson.coral-reef.6.5": "A ještě: bydlo je bydlení × bidlo je tyč, na které sedí slepice.",
+
   "friend.barakuda-bystrinka": "Barakuda Bystřinka",
   "friend.barakuda-bystrinka.mnemonic": "Jsem bystrá jako blesk. Bystrý je vyjmenované slovo po B, a proto se píše s y.",
   "friend.lachtan-lyzar": "Lachtan Lyžař",
@@ -326,6 +386,30 @@
   "level.kelp-forest.4": "Slova příbuzná po P (pyl/pil)",
   "level.kelp-forest.5": "M a P dohromady",
   "level.kelp-forest.monster": "Mořský had Zamotal",
+
+  "lesson.kelp-forest.1.1": "Vyjmenovaná slova po M: my, mýt, myslit, mýlit se, hmyz, myš, hlemýžď, mýtit, zamykat, smýkat, dmýchat, chmýří, nachomýtnout se, Litomyšl.",
+  "lesson.kelp-forest.1.2": "V těchto slovech a ve slovech příbuzných píšeme po m tvrdé y/ý. V ostatních slovech píšeme uvnitř slova po m měkké i/í: mír, minuta, mimo.",
+  "lesson.kelp-forest.1.3": "Mýtit znamená kácet stromy. Smýkat znamená táhnout po zemi. Dmýchat znamená foukat do ohně.",
+  "lesson.kelp-forest.1.4": "Chmýří je jemné a lehké, třeba na odkvetlé pampelišce. Nachomýtnout se znamená náhodou se někde objevit.",
+  "lesson.kelp-forest.1.5": "Říkej si vyjmenovaná slova nahlas jako básničku, pořád ve stejném pořadí.",
+
+  "lesson.kelp-forest.2.1": "Ve slovech příbuzných s vyjmenovanými slovy píšeme také y/ý: mýt → mýdlo, umývat; myslit → myšlenka, přemýšlet; myš → myška.",
+  "lesson.kelp-forest.2.2": "Slova stejně znějící rozliš podle významu: mýt ruce × mít kolo.",
+  "lesson.kelp-forest.2.3": "My jsme kamarádi. × Podej mi to. My znamená já a ostatní, mi znamená totéž co mně.",
+
+  "lesson.kelp-forest.3.1": "Vyjmenovaná slova po P: pýcha, pytel, pysk, netopýr, slepýš, pyl, kopyto, klopýtat, třpytit se, zpytovat, pykat, pýr, pýřit se, čepýřit se.",
+  "lesson.kelp-forest.3.2": "V těchto slovech a ve slovech příbuzných píšeme po p tvrdé y/ý. V ostatních slovech píšeme uvnitř slova po p měkké i/í: pila, pivoňka, opice.",
+  "lesson.kelp-forest.3.3": "Slepýš je ještěrka bez nohou. Pýr je plevel. Pýřit se znamená červenat se. Čepýřit se znamená načechrat si peří.",
+  "lesson.kelp-forest.3.4": "Zpytovat znamená zkoumat. Pykat znamená nést trest za chybu.",
+  "lesson.kelp-forest.3.5": "Říkej si vyjmenovaná slova nahlas jako básničku, pořád ve stejném pořadí.",
+
+  "lesson.kelp-forest.4.1": "Ve slovech příbuzných píšeme také y/ý: pýcha → pyšný; pytel → pytlík; kopyto → kopýtko; třpytit se → třpyt.",
+  "lesson.kelp-forest.4.2": "Slova stejně znějící rozliš podle významu. Pyl je žlutý prášek z květů. Pil je od slova pít: Pes pil vodu.",
+  "lesson.kelp-forest.4.3": "Opylovat znamená přenášet pyl z květu na květ. Opilovat znamená brousit pilníkem.",
+
+  "lesson.kelp-forest.5.1": "Vyjmenovaná slova po M: my, mýt, myslit, mýlit se, hmyz, myš, hlemýžď, mýtit, zamykat, smýkat, dmýchat, chmýří, nachomýtnout se, Litomyšl.",
+  "lesson.kelp-forest.5.2": "Vyjmenovaná slova po P: pýcha, pytel, pysk, netopýr, slepýš, pyl, kopyto, klopýtat, třpytit se, zpytovat, pykat, pýr, pýřit se, čepýřit se.",
+  "lesson.kelp-forest.5.3": "Když slovo není vyjmenované ani příbuzné s vyjmenovaným, píšeme uvnitř slova po m a p měkké i/í: mír, pila.",
 
   "friend.konik-mydlinek": "Koník Mýdlínek",
   "friend.konik-mydlinek.mnemonic": "Foukám bubliny z mýdla. Mýdlo je příbuzné se slovem mýt, a proto se píše s ý.",
@@ -397,6 +481,35 @@
   "level.pirate-wreck.6": "S, V, Z dohromady",
   "level.pirate-wreck.monster": "Ďas Lucerník",
 
+  "lesson.pirate-wreck.1.1": "Vyjmenovaná slova po S: syn, sytý, sýr, syrový, sychravý, usychat, sýkora, sýček, sysel, syčet, sypat.",
+  "lesson.pirate-wreck.1.2": "V těchto slovech a ve slovech příbuzných píšeme po s tvrdé y/ý. V ostatních slovech píšeme uvnitř slova po s měkké i/í: silnice, sirup, sítko.",
+  "lesson.pirate-wreck.1.3": "Sytý znamená najedený. Syrový znamená nevařený. Sychravý den je studený a vlhký. Sysel je hlodavec, který žije v norách.",
+  "lesson.pirate-wreck.1.4": "Říkej si vyjmenovaná slova nahlas jako básničku, pořád ve stejném pořadí.",
+
+  "lesson.pirate-wreck.2.1": "Ve slovech příbuzných píšeme také y/ý: syn → synovec; sypat → nasypat, posypat; sýr → sýrový.",
+  "lesson.pirate-wreck.2.2": "Slova stejně znějící rozliš podle významu: sýrový (ze sýra) × sírový (ze síry). Pozor, syrový (nevařený) má krátké y a zní jinak.",
+  "lesson.pirate-wreck.2.3": "Přečti si celou větu a zeptej se, co slovo znamená.",
+
+  "lesson.pirate-wreck.3.1": "Vyjmenovaná slova po V: vy, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, vyžle, povyk, výheň.",
+  "lesson.pirate-wreck.3.2": "Předponu vy-/vý- píšeme vždy s y/ý: vyletět, vyplavat, výlet, východ.",
+  "lesson.pirate-wreck.3.3": "Y/ý píšeme také ve slovech příbuzných. V ostatních slovech píšeme uvnitř slova po v měkké i/í: slavík, víčko, svíčka.",
+  "lesson.pirate-wreck.3.4": "Výskat znamená radostně křičet. Vyžle je lovecký pes. Povyk je hluk a křik. Výheň je kovářská pec.",
+  "lesson.pirate-wreck.3.5": "Říkej si vyjmenovaná slova nahlas jako básničku, pořád ve stejném pořadí.",
+
+  "lesson.pirate-wreck.4.1": "Ve slovech příbuzných píšeme také y/ý: vysoký → výška, zvýšit; zvykat → zvyk, obvykle; žvýkat → žvýkačka.",
+  "lesson.pirate-wreck.4.2": "Slova stejně znějící rozliš podle významu: výr (velká sova) × vír (točící se voda), výt (vlk vyje) × vít (vít věneček).",
+  "lesson.pirate-wreck.4.3": "A ještě: výskat (radostně křičet) × vískat (probírat se ve vlasech), vysel (vysel obilí) × visel (obraz visel na zdi).",
+
+  "lesson.pirate-wreck.5.1": "Vyjmenovaná slova po Z: brzy, jazyk, nazývat, Ruzyně.",
+  "lesson.pirate-wreck.5.2": "Ve slovech příbuzných píšeme také y/ý: jazyk → jazýček, jazykový; nazývat → ozývat se, vyzývat.",
+  "lesson.pirate-wreck.5.3": "V ostatních slovech píšeme uvnitř slova po z měkké i/í: zip, zisk, zírat.",
+  "lesson.pirate-wreck.5.4": "Ruzyně je část Prahy, kde je letiště.",
+
+  "lesson.pirate-wreck.6.1": "Vyjmenovaná slova po S: syn, sytý, sýr, syrový, sychravý, usychat, sýkora, sýček, sysel, syčet, sypat.",
+  "lesson.pirate-wreck.6.2": "Vyjmenovaná slova po V: vy, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, vyžle, povyk, výheň a předpona vy-/vý-.",
+  "lesson.pirate-wreck.6.3": "Vyjmenovaná slova po Z: brzy, jazyk, nazývat, Ruzyně.",
+  "lesson.pirate-wreck.6.4": "Když slovo není vyjmenované ani příbuzné s vyjmenovaným, píšeme uvnitř slova po s, v a z měkké i/í: silnice, slavík, zip.",
+
   "friend.jezik-sycik": "Ježík Syčík",
   "friend.jezik-sycik.mnemonic": "Když se nafouknu, syčím: sss! Syčet je vyjmenované slovo po S.",
   "friend.vydra-vyskalka": "Vydra Výskalka",
@@ -458,6 +571,34 @@
   "level.pearl-bay.5": "Slova nadřazená, podřazená a souřadná",
   "level.pearl-bay.monster": "Zéva Lakomá",
 
+  "lesson.pearl-bay.1.1": "Po obojetných souhláskách b, f, l, m, p, s, v, z píšeme uvnitř slova y/ý jen ve vyjmenovaných slovech a ve slovech příbuzných. Jinak tam píšeme i/í.",
+  "lesson.pearl-bay.1.2": "Vyjmenovaná slova po B: být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla, býk, Přibyslav.",
+  "lesson.pearl-bay.1.3": "Vyjmenovaná slova po L: slyšet, mlýn, blýskat se, polykat, plynout, plýtvat, vzlykat, lysý, lýtko, lýko, lyže, pelyněk, plyš.",
+  "lesson.pearl-bay.1.4": "Vyjmenovaná slova po M: my, mýt, myslit, mýlit se, hmyz, myš, hlemýžď, mýtit, zamykat, smýkat, dmýchat, chmýří, nachomýtnout se, Litomyšl.",
+  "lesson.pearl-bay.1.5": "Vyjmenovaná slova po P: pýcha, pytel, pysk, netopýr, slepýš, pyl, kopyto, klopýtat, třpytit se, zpytovat, pykat, pýr, pýřit se, čepýřit se.",
+  "lesson.pearl-bay.1.6": "Vyjmenovaná slova po S: syn, sytý, sýr, syrový, sychravý, usychat, sýkora, sýček, sysel, syčet, sypat.",
+  "lesson.pearl-bay.1.7": "Vyjmenovaná slova po V: vy, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, vyžle, povyk, výheň a předpona vy-/vý-.",
+  "lesson.pearl-bay.1.8": "Vyjmenovaná slova po Z: brzy, jazyk, nazývat, Ruzyně.",
+
+  "lesson.pearl-bay.2.1": "Slovní rodinu tvoří slova příbuzná. Mají stejný kořen a jejich význam spolu souvisí: les, lesník, lesní, zalesnit.",
+  "lesson.pearl-bay.2.2": "Hledej společnou část slova, kořen: voda, vodník, podvodní.",
+  "lesson.pearl-bay.2.3": "Slova podobná jen tvarem do rodiny nepatří. Mýdlo patří k mýt (umývat), ale majitel k mít (vlastnit).",
+
+  "lesson.pearl-bay.3.1": "Slova stejně znějící se vyslovují stejně, ale píšou se jinak a znamenají něco jiného.",
+  "lesson.pearl-bay.3.2": "Například: být doma × bít do bubnu, mýt ruce × mít kolo, my dva × dej mi.",
+  "lesson.pearl-bay.3.3": "Dále: pyl z květů × pil vodu, sýrový chléb × sírový pramen.",
+  "lesson.pearl-bay.3.4": "A ještě: výr je sova × vír je ve vodě, výt jako vlk × vít věneček, výskat radostí × vískat ve vlasech.",
+  "lesson.pearl-bay.3.5": "Rozhoduje význam. Přečti si celou větu a zeptej se, co slovo znamená.",
+
+  "lesson.pearl-bay.4.1": "Slova souznačná znamenají totéž nebo skoro totéž: kamarád – přítel, ošklivý – škaredý.",
+  "lesson.pearl-bay.4.2": "Slova protikladná znamenají opak: starý × mladý, zima × léto, vysoký × nízký.",
+  "lesson.pearl-bay.4.3": "Zkus slovo ve větě vyměnit za jiné. Znamená věta pořád totéž? Pak jsou slova souznačná.",
+
+  "lesson.pearl-bay.5.1": "Slovo nadřazené pojmenuje celou skupinu: barva, hračka.",
+  "lesson.pearl-bay.5.2": "Slova podřazená do skupiny patří: barva → červená, modrá; hračka → míč, panenka.",
+  "lesson.pearl-bay.5.3": "Slova souřadná stojí ve stejné skupině vedle sebe: červená, modrá, zelená.",
+  "lesson.pearl-bay.5.4": "Zeptej se: Je míč druh hračky? Ano, proto je hračka slovo nadřazené a míč slovo podřazené.",
+
   "friend.hvezdice-rodinka": "Hvězdice Rodinka",
   "friend.hvezdice-rodinka.mnemonic": "Mám pět ramen, ale jen jedno tělo. Příbuzná slova mají společnou část: ryba, rybka, rybář.",
 
@@ -511,6 +652,29 @@
   "level.volcanic-vents.4": "Předložky, spojky, částice, citoslovce",
   "level.volcanic-vents.5": "Všech deset slovních druhů",
   "level.volcanic-vents.monster": "Lávový úhoř Žhavák",
+
+  "lesson.volcanic-vents.1.1": "Podstatná jména jsou názvy osob, zvířat a věcí, ale i vlastností a dějů: máma, pes, stůl, radost, běh. Ptáme se na ně kdo? co?",
+  "lesson.volcanic-vents.1.2": "Slovesa vyjadřují, co osoby, zvířata a věci dělají nebo co se s nimi děje: běží, plave, spí, roste. Ptáme se na ně co dělá? co se děje?",
+  "lesson.volcanic-vents.1.3": "Zkouška: Pes plave. Kdo plave? Pes, to je podstatné jméno. Co pes dělá? Plave, to je sloveso.",
+
+  "lesson.volcanic-vents.2.1": "Přídavná jména vyjadřují, jaké něco je nebo čí je: velký, modrý, mořský, mámin. Ptáme se na ně jaký? který? čí?",
+  "lesson.volcanic-vents.2.2": "Příslovce vyjadřují, jak, kde nebo kdy se něco děje: rychle, dole, zítra. Ptáme se na ně jak? kde? kdy?",
+  "lesson.volcanic-vents.2.3": "Přídavné jméno stojí u podstatného jména: rychlý delfín. Příslovce stojí u slovesa: plave rychle.",
+  "lesson.volcanic-vents.2.4": "Opakování: podstatné jméno – kdo? co? (pes), sloveso – co dělá? (plave).",
+
+  "lesson.volcanic-vents.3.1": "Zájmena zastupují podstatná a přídavná jména nebo na ně ukazují: já, ty, on, my, vy, oni, můj, tvůj, ten, tento.",
+  "lesson.volcanic-vents.3.2": "Číslovky vyjadřují počet nebo pořadí: jeden, dva, pět, sto, první, druhý. Ptáme se na ně kolik? kolikátý?",
+  "lesson.volcanic-vents.3.3": "Opakování: podstatné jméno (pes), přídavné jméno (velký), sloveso (plave), příslovce (rychle).",
+
+  "lesson.volcanic-vents.4.1": "Předložky stojí před podstatnými jmény a zájmeny: na, v, do, pod, za, s, k, od.",
+  "lesson.volcanic-vents.4.2": "Spojky spojují slova nebo věty: a, ale, nebo, protože, když, že.",
+  "lesson.volcanic-vents.4.3": "Částice často stojí na začátku věty. Vyjadřují přání, pochybnost nebo souhlas: kéž, ať, prý, ano, ne.",
+  "lesson.volcanic-vents.4.4": "Citoslovce vyjadřují pocity a napodobují zvuky: au, ach, haf, bum, mňau.",
+
+  "lesson.volcanic-vents.5.1": "Slovní druhy: 1. podstatná jména, 2. přídavná jména, 3. zájmena, 4. číslovky, 5. slovesa, 6. příslovce, 7. předložky, 8. spojky, 9. částice, 10. citoslovce.",
+  "lesson.volcanic-vents.5.2": "Ohebná slova mění svůj tvar: pes, psa, psovi. Ohebné jsou slovní druhy 1 až 5.",
+  "lesson.volcanic-vents.5.3": "Neohebná slova svůj tvar nemění: rychle, na, a, kéž, haf. Neohebné jsou slovní druhy 6 až 10.",
+  "lesson.volcanic-vents.5.4": "Slovo může vyjadřovat děj (plave), věc (ryba), vlastnost (modrý) nebo okolnost (rychle).",
 
   "friend.kalmar-desetiruky": "Kalmar Desetiruký",
   "friend.kalmar-desetiruky.mnemonic": "Mám deset ramen a v každém jeden slovní druh. Spočítáš je se mnou?",
@@ -571,6 +735,43 @@
   "level.ice-sea.6": "Velké opakování 3. třídy",
   "level.ice-sea.monster": "Mořská saň Ledana",
 
+  "lesson.ice-sea.1.1": "Rod podstatného jména poznáš, když si před slovo řekneš ten, ta nebo to.",
+  "lesson.ice-sea.1.2": "Ten stůl – rod mužský. Ta lavice – rod ženský. To okno – rod střední.",
+  "lesson.ice-sea.1.3": "Číslo jednotné znamená jednu věc: kámen. Číslo množné znamená víc věcí: kameny.",
+  "lesson.ice-sea.1.4": "U jiného tvaru si nejdřív řekni základní tvar: s rybami → ryba → ta ryba.",
+
+  "lesson.ice-sea.2.1": "Podstatné jméno má sedm pádů. Pád poznáš podle pádové otázky.",
+  "lesson.ice-sea.2.2": "1. pád: kdo? co? – ryba",
+  "lesson.ice-sea.2.3": "2. pád: bez koho? čeho? – bez ryby",
+  "lesson.ice-sea.2.4": "3. pád: ke komu? čemu? – k rybě",
+  "lesson.ice-sea.2.5": "4. pád: vidím koho? co? – vidím rybu",
+  "lesson.ice-sea.2.6": "5. pád: oslovujeme, voláme – rybo!",
+  "lesson.ice-sea.2.7": "6. pád: o kom? o čem? – o rybě",
+  "lesson.ice-sea.2.8": "7. pád: s kým? s čím? – s rybou",
+  "lesson.ice-sea.2.9": "Pozor, 2. i 4. pád mají otázku koho. Pomůže pomocné slovo: bez koho? čeho? × vidím koho? co?",
+
+  "lesson.ice-sea.3.1": "Osobu slovesa poznáš podle zájmena: 1. osoba já, my; 2. osoba ty, vy; 3. osoba on, ona, ono, oni.",
+  "lesson.ice-sea.3.2": "Číslo jednotné: já plavu, ty plaveš, on plave. Číslo množné: my plaveme, vy plavete, oni plavou.",
+  "lesson.ice-sea.3.3": "Čas přítomný: teď plave. Čas minulý: včera plaval. Čas budoucí: zítra bude plavat.",
+  "lesson.ice-sea.3.4": "Řekni si ke slovesu zájmeno: plaveme → my plaveme. To je 1. osoba čísla množného.",
+
+  "lesson.ice-sea.4.1": "Infinitiv je základní tvar slovesa. Většinou končí na -t: plavat, skákat, číst.",
+  "lesson.ice-sea.4.2": "Určitý tvar slovesa nám řekne osobu, číslo a čas: plave, skáčeme, četl.",
+  "lesson.ice-sea.4.3": "Zkouška: Řekne ti tvar osobu? Plavu (já), plaveme (my), to je určitý tvar. Plavat osobu neřekne, to je infinitiv.",
+
+  "lesson.ice-sea.5.1": "Věta oznamovací něco oznamuje a končí tečkou: Delfín skáče.",
+  "lesson.ice-sea.5.2": "Věta tázací se ptá a končí otazníkem: Kde je delfín?",
+  "lesson.ice-sea.5.3": "Věta rozkazovací rozkazuje, věta přací něco přeje. Obvykle končí vykřičníkem: Skoč! Ať se ti daří!",
+  "lesson.ice-sea.5.4": "Věta jednoduchá má jedno sloveso v určitém tvaru. Souvětí jich má víc: Delfín skáče. × Delfín skáče, protože má radost.",
+  "lesson.ice-sea.5.5": "Věty v souvětí spojují spojky a, ale, protože, když. Před ale, protože a když píšeme čárku, před a většinou ne.",
+
+  "lesson.ice-sea.6.1": "Po tvrdých souhláskách h, ch, k, r, d, t, n píšeme y/ý. Po měkkých ž, š, č, ř, c, j, ď, ť, ň píšeme i/í.",
+  "lesson.ice-sea.6.2": "Po obojetných souhláskách b, f, l, m, p, s, v, z píšeme uvnitř slova y/ý jen ve vyjmenovaných slovech a ve slovech příbuzných.",
+  "lesson.ice-sea.6.3": "Slovní druhy: podstatná jména, přídavná jména, zájmena, číslovky, slovesa, příslovce, předložky, spojky, částice, citoslovce.",
+  "lesson.ice-sea.6.4": "Rod poznáš podle ten, ta, to. Pády: 1. kdo? co? 2. koho? čeho? 3. komu? čemu? 4. koho? co? 5. oslovujeme 6. o kom? o čem? 7. s kým? s čím?",
+  "lesson.ice-sea.6.5": "Čas slovesa: přítomný (teď plave), minulý (včera plaval), budoucí (zítra bude plavat).",
+  "lesson.ice-sea.6.6": "Pamatuj také na dě, tě, ně, bě, pě, vě, mě a na velké písmeno na začátku věty a ve vlastních jménech.",
+
   "friend.tulen-padik": "Tuleň Pádík",
   "friend.tulen-padik.mnemonic": "Kloužu po sedmi ledových schodech. Každý schod je jeden pád. Na šesti se ptáme, na pátém oslovujeme a voláme.",
   "friend.delfin-skokanek": "Delfín Skokánek",
@@ -626,6 +827,27 @@
   "level.moon-caves.4": "Koncovka",
   "level.moon-caves.5": "Celá stavba slova",
   "level.moon-caves.monster": "Humr Nůžkař",
+
+  "lesson.moon-caves.1.1": "Kořen je část slova, kterou mají všechna slova příbuzná společnou. Nese hlavní význam slova.",
+  "lesson.moon-caves.1.2": "Například: les, lesník, lesní a zalesnit mají společný kořen les.",
+  "lesson.moon-caves.1.3": "V kořeni se hláska někdy změní: dům → domek, vůz → vozík.",
+  "lesson.moon-caves.1.4": "Příbuzná slova mají i podobný význam: voda a vodník ano, voda a vodit ne.",
+
+  "lesson.moon-caves.2.1": "Předpona je část slova před kořenem. Mění význam slova: letět → vyletět, přiletět, odletět.",
+  "lesson.moon-caves.2.2": "Časté předpony: na-, za-, od-, do-, při-, vy-, roz-, pod-.",
+  "lesson.moon-caves.2.3": "Najdi kořen a podívej se, co stojí před ním: vý|let, od|jezd.",
+
+  "lesson.moon-caves.3.1": "Přípona je část slova za kořenem. Pomáhá tvořit nová slova: les → lesník, ryba → rybář.",
+  "lesson.moon-caves.3.2": "Například: les|ník, ryb|ář, dom|ek.",
+  "lesson.moon-caves.3.3": "Když slovo skloňuješ, mění se hlavně koncovka: lesník, lesníka, lesníkovi. Někdy vypadne i hláska: domek, domku.",
+
+  "lesson.moon-caves.4.1": "Koncovka je na konci slova. Mění se, když slovo skloňujeme nebo časujeme: žen|a, žen|y, žen|ou.",
+  "lesson.moon-caves.4.2": "Některé tvary koncovku na konci nemají. Mají nulovou koncovku: hrad (ale hrad|y, hrad|u).",
+  "lesson.moon-caves.4.3": "Řekni slovo v jiném tvaru. Co se na konci změní, je koncovka.",
+
+  "lesson.moon-caves.5.1": "Slovo může mít předponu, kořen, příponu a koncovku: za|hrád|k|a.",
+  "lesson.moon-caves.5.2": "Kořen mají společný slova příbuzná. Předpona stojí před kořenem, přípona za ním. Koncovka je na konci a mění se.",
+  "lesson.moon-caves.5.3": "Postup: nejdřív najdi kořen. Pak urči, co je před ním a co je za ním.",
 
   "friend.rak-korinek": "Rak poustevník Kořínek",
   "friend.rak-korinek.mnemonic": "Bydlím v ulitě a kořen slova také bydlí uvnitř. Rybka i rybník mají stejný kořen.",
@@ -683,6 +905,29 @@
   "level.sunken-city.4": "pě, mě/mně",
   "level.sunken-city.5": "Potopené město: všechno dohromady",
   "level.sunken-city.monster": "Medúza Lepka",
+
+  "lesson.sunken-city.1.1": "Předpona je část slova. Píšeme ji se slovem dohromady: odletět, nadzvednout.",
+  "lesson.sunken-city.1.2": "Předložka je samostatné slovo. Píšeme ji zvlášť: od břehu, nad vodou.",
+  "lesson.sunken-city.1.3": "Zkus mezi ně vložit jiné slovo: nad (modrou) vodou. Jde to? Je to předložka a píšeš ji zvlášť.",
+
+  "lesson.sunken-city.2.1": "Předpony od-, nad-, pod-, před- píšeme vždy s d, i když slyšíme t: odpadky, podkova, předsíň.",
+  "lesson.sunken-city.2.2": "Předpony roz- a bez- píšeme vždy se z, i když slyšíme s: roztát, bezstarostný.",
+  "lesson.sunken-city.2.3": "Když kořen začíná stejnou souhláskou, jakou končí předpona, píšeme obě: oddech, rozzlobit, bezzubý.",
+
+  "lesson.sunken-city.3.1": "Bje a vje píšeme tam, kde se předpona ob- nebo v- potká s kořenem, který začíná na je: ob|jednávka, ob|jemný, v|jede.",
+  "lesson.sunken-city.3.2": "Jinde píšeme bě a vě: oběd, běhat, věda, závěs.",
+  "lesson.sunken-city.3.3": "Rozděl si slovo. Je tam předpona ob- nebo v- a kořen začíná na je? Pak píšeš bje, vje.",
+
+  "lesson.sunken-city.4.1": "Pě píšeme vždy s ě: pěšky, zpěv, opět.",
+  "lesson.sunken-city.4.2": "Mně píšeme tam, kde se potká m s n. Pomůže příbuzné slovo: zapomněl – zapomenout, vzpomněl – vzpomenout.",
+  "lesson.sunken-city.4.3": "Jinde píšeme mě: měkký, mělký, směr.",
+  "lesson.sunken-city.4.4": "U slova já píšeme mně ve 3. a 6. pádě (komu? o kom?), mě ve 2. a 4. pádě (koho?): Dej to mně. Vidíš mě?",
+  "lesson.sunken-city.4.5": "Zkouška: řekni místo já ty. Tobě – mně, tebe – mě.",
+
+  "lesson.sunken-city.5.1": "Předponu píšeme se slovem dohromady, předložku zvlášť: odletět × od břehu.",
+  "lesson.sunken-city.5.2": "Od-, nad-, pod-, před- píšeme s d, roz- a bez- se z: podkova, roztát.",
+  "lesson.sunken-city.5.3": "Bje, vje píšeme na hranici předpony ob-, v- a kořene na je: objednávka, vjede. Jinde bě, vě: oběd, věda.",
+  "lesson.sunken-city.5.4": "Mně píšeme tam, kde se potká m s n: zapomněl. U slova já: mně jako tobě, mě jako tebe.",
 
   "friend.stitovec-prisavka": "Štítovec Přísavka",
   "friend.stitovec-prisavka.mnemonic": "Držím se žraloka jako předpona slova: odplavala. Předložka plave sama: od mola.",
@@ -743,6 +988,45 @@
   "level.dark-trench.6": "Všech 14 vzorů",
   "level.dark-trench.monster": "Chobotnice Napodobnice",
 
+  "lesson.dark-trench.1.1": "Vzor určíš podle rodu a podle konce slova v 1. a 2. pádě. Rod střední poznáš, když si před slovo řekneš to.",
+  "lesson.dark-trench.1.2": "Vzor město: to město, bez města. Tak i kolo – bez kola.",
+  "lesson.dark-trench.1.3": "Vzor moře: to moře, bez moře. Tak i pole – bez pole.",
+  "lesson.dark-trench.1.4": "Vzor kuře: to kuře, bez kuřete. Tak i kotě – bez kotěte.",
+  "lesson.dark-trench.1.5": "Vzor stavení: to stavení, bez stavení. Tak i náměstí – bez náměstí.",
+  "lesson.dark-trench.1.6": "Moře a kuře končí stejně. Rozhodne 2. pád: bez moře, ale bez kuřete.",
+
+  "lesson.dark-trench.2.1": "Rod ženský poznáš, když si před slovo řekneš ta. Vzory jsou žena, růže, píseň a kost.",
+  "lesson.dark-trench.2.2": "Vzor žena: ta žena, bez ženy. Tak i škola – bez školy.",
+  "lesson.dark-trench.2.3": "Vzor růže: ta růže, bez růže. Tak i ulice – bez ulice.",
+  "lesson.dark-trench.2.4": "Vzor píseň: ta píseň, bez písně. Tak i dlaň – bez dlaně.",
+  "lesson.dark-trench.2.5": "Vzor kost: ta kost, bez kosti. Tak i myš – bez myši.",
+  "lesson.dark-trench.2.6": "Píseň a kost končí souhláskou. Rozhodne 2. pád: bez písně, ale bez kosti.",
+
+  "lesson.dark-trench.3.1": "Rod mužský životný mají jména lidí a zvířat: ten tatínek, ten pes. Vzory jsou pán, muž, předseda a soudce.",
+  "lesson.dark-trench.3.2": "Vzor pán: ten pán, bez pána. Tak i kluk – bez kluka.",
+  "lesson.dark-trench.3.3": "Vzor muž: ten muž, bez muže. Tak i lékař – bez lékaře.",
+  "lesson.dark-trench.3.4": "Vzor předseda končí na -a: ten předseda, bez předsedy. Tak i hrdina – bez hrdiny.",
+  "lesson.dark-trench.3.5": "Vzor soudce končí na -e: ten soudce, bez soudce. Tak i vůdce – bez vůdce.",
+  "lesson.dark-trench.3.6": "Pán a muž končí souhláskou. Rozhodne 2. pád: bez pána, ale bez muže.",
+
+  "lesson.dark-trench.4.1": "Rod mužský neživotný mají jména věcí, které nežijí: ten stůl, ten kámen. Vzory jsou hrad a stroj.",
+  "lesson.dark-trench.4.2": "Vzor hrad: ten hrad, bez hradu. Tak i strom – bez stromu.",
+  "lesson.dark-trench.4.3": "Vzor stroj: ten stroj, bez stroje. Tak i nůž – bez nože.",
+  "lesson.dark-trench.4.4": "Hrad má ve 2. pádě -u nebo -a: bez hradu, bez lesa. Stroj má -e: bez stroje.",
+  "lesson.dark-trench.4.5": "Životnost poznáš i podle 4. pádu: vidím psa – rod mužský životný, vidím stůl – rod mužský neživotný.",
+
+  "lesson.dark-trench.5.1": "Koncovku podstatného jména napiš podle vzoru. Urči vzor a dej ho do stejného pádu a čísla.",
+  "lesson.dark-trench.5.2": "Kde mají tvrdé vzory pán, hrad, žena, město v koncovce y, mají měkké vzory muž, stroj, moře i: s pány × s muži, s hrady × se stroji, s městy × s moři.",
+  "lesson.dark-trench.5.3": "V 1. pádě čísla množného mají jména rodu mužského životného často koncovku -i: páni, delfíni, rybáři. Koncovku -y tam nemají.",
+  "lesson.dark-trench.5.4": "Například: s delfíny jako s pány, s talíři jako se stroji.",
+  "lesson.dark-trench.5.5": "Pád poznáš podle pádové otázky: kdo? co? je 1. pád, s kým? s čím? je 7. pád.",
+
+  "lesson.dark-trench.6.1": "Vzory rodu mužského životného: pán, muž, předseda, soudce.",
+  "lesson.dark-trench.6.2": "Vzory rodu mužského neživotného: hrad, stroj.",
+  "lesson.dark-trench.6.3": "Vzory rodu ženského: žena, růže, píseň, kost.",
+  "lesson.dark-trench.6.4": "Vzory rodu středního: město, moře, kuře, stavení.",
+  "lesson.dark-trench.6.5": "Postup: urči rod (ten, ta, to) a u rodu mužského i životnost. Pak porovnej 1. a 2. pád se vzory: bez pána, bez muže, bez hradu, bez stroje.",
+
   "friend.klipka-vzorna": "Klipka Vzorná",
   "friend.klipka-vzorna.mnemonic": "Na šupinách nosím vzory: žena, hrad, město… Podle vzoru poznám koncovku.",
 
@@ -794,6 +1078,28 @@
   "level.storm-sea.5": "Spisovná a nespisovná čeština",
   "level.storm-sea.monster": "Vír Časoplet",
 
+  "lesson.storm-sea.1.1": "Osoba: 1. osoba já, my; 2. osoba ty, vy; 3. osoba on, ona, ono, oni, ony.",
+  "lesson.storm-sea.1.2": "Číslo jednotné: já maluji, ty maluješ, on maluje. Číslo množné: my malujeme, vy malujete, oni malují.",
+  "lesson.storm-sea.1.3": "Čas přítomný: maluje. Čas minulý: maloval. Čas budoucí: bude malovat.",
+  "lesson.storm-sea.1.4": "Řekni si ke slovesu zájmeno: malovali jsme → my. To je 1. osoba čísla množného, čas minulý.",
+
+  "lesson.storm-sea.2.1": "Tvar jednoduchý je jedno slovo: maluje, maloval.",
+  "lesson.storm-sea.2.2": "Tvar složený má víc slov: budu malovat, maloval jsem, maloval bych.",
+  "lesson.storm-sea.2.3": "Tvar složený poznáš podle pomocného slovesa: jsem, jsi, jsme, jste, budu, bude, bych, bys.",
+  "lesson.storm-sea.2.4": "Zájmeno se nebo si se nepočítá: směje se je tvar jednoduchý.",
+
+  "lesson.storm-sea.3.1": "Způsob oznamovací oznamuje, co se děje, dělo nebo bude dít: maluje, maloval, bude malovat.",
+  "lesson.storm-sea.3.2": "Způsob rozkazovací rozkazuje nebo prosí: Maluj! Malujte!",
+  "lesson.storm-sea.3.3": "Způsob podmiňovací říká, co by se stalo. Poznáš ho podle by, bych, bys, bychom, byste: maloval bych.",
+
+  "lesson.storm-sea.4.1": "Zvratná slovesa mají u sebe zájmeno se nebo si: smát se, bát se, hrát si, všimnout si.",
+  "lesson.storm-sea.4.2": "Se a si patří ke slovesu, i když stojí jinde ve větě: Kočka se bojí vody. Delfín si hraje s míčem.",
+  "lesson.storm-sea.4.3": "Některá slovesa nemají se ani si: plavat, skákat.",
+
+  "lesson.storm-sea.5.1": "Spisovnou češtinou píšeme a mluvíme ve škole, v knihách a ve zprávách: dobrý, mléko, okno.",
+  "lesson.storm-sea.5.2": "Nespisovná slova často říkáme doma a s kamarády: dobrej, mlíko, vokno.",
+  "lesson.storm-sea.5.3": "Ve spisovné češtině píšeme velký, ne velkej; mléko, ne mlíko; okno, ne vokno.",
+
   "monster.vir-casoplet": "Vír Časoplet",
   "monster.vir-casoplet.joke.1": "Včera bude pršet, zítra pršelo! Točí se mi hlava!",
   "monster.vir-casoplet.joke.2": "Točím se, točím… Plavu, plaval jsem, budu plavat!",
@@ -840,6 +1146,38 @@
   "level.kraken-abyss.4": "Velké opakování: pravopis",
   "level.kraken-abyss.5": "Velké opakování: mluvnice",
   "level.kraken-abyss.monster": "Krakatice Inkoustová",
+
+  "lesson.kraken-abyss.1.1": "Podmět a přísudek tvoří základní skladební dvojici.",
+  "lesson.kraken-abyss.1.2": "Přísudek je sloveso. Říká, co podmět dělá: Delfín plave. Přísudek je plave.",
+  "lesson.kraken-abyss.1.3": "Podmět je ten, kdo nebo co něco dělá. Najdeš ho otázkou kdo? co? Kdo plave? Delfín.",
+  "lesson.kraken-abyss.1.4": "Postup: nejdřív najdi přísudek. Pak se zeptej kdo? co? a najdeš podmět.",
+  "lesson.kraken-abyss.1.5": "Podmět ve větě někdy chybí, je nevyjádřený: Plaveme k útesu. Kdo plave? My.",
+
+  "lesson.kraken-abyss.2.1": "V minulém čase se přísudek řídí podmětem. V čísle množném píšeme na konci -i, -y nebo -a.",
+  "lesson.kraken-abyss.2.2": "Řekni si před podmět ti, ty nebo ta: ti rybáři lovili, ty vlny šuměly, ty stromy rostly, ta koťata spala.",
+  "lesson.kraken-abyss.2.3": "V čísle množném má rod mužský životný -i. Rod mužský neživotný a rod ženský mají -y. Rod střední má -a.",
+  "lesson.kraken-abyss.2.4": "Je-li v podmětu aspoň jedno podstatné jméno rodu mužského životného, píšeme -i: chlapci a dívky zpívali.",
+  "lesson.kraken-abyss.2.5": "Pozor: řekneš ty děti, proto píšeme děti si hrály.",
+
+  "lesson.kraken-abyss.3.1": "Věta jednoduchá má jeden přísudek. Souvětí má dva přísudky nebo víc: Delfín skáče. × Delfín skáče a racek letí.",
+  "lesson.kraken-abyss.3.2": "Věty v souvětí spojují spojky a jiné spojovací výrazy: a, ale, nebo, protože, když, že, který.",
+  "lesson.kraken-abyss.3.3": "Před ale, protože, když, že a který píšeme čárku. Před a čárku většinou nepíšeme.",
+  "lesson.kraken-abyss.3.4": "Spojku vyber podle smyslu: a přidává, ale ukazuje protiklad, protože vysvětluje důvod.",
+  "lesson.kraken-abyss.3.5": "Předložka stojí před podstatným jménem: na útesu. Spojka spojuje slova a věty: ryby a krabi.",
+
+  "lesson.kraken-abyss.4.1": "Předponu píšeme se slovem dohromady, předložku zvlášť: odletět × od břehu.",
+  "lesson.kraken-abyss.4.2": "Od-, nad-, pod-, před- píšeme s d, roz- a bez- se z: podkova, roztát.",
+  "lesson.kraken-abyss.4.3": "Bje, vje píšeme na hranici předpony a kořene na je: objednávka, vjede. Jinde bě, vě: oběd, věda.",
+  "lesson.kraken-abyss.4.4": "Mně píšeme tam, kde se potká m s n: zapomněl. U slova já: mně jako tobě, mě jako tebe.",
+  "lesson.kraken-abyss.4.5": "Po obojetných souhláskách píšeme uvnitř slova y/ý jen ve vyjmenovaných slovech a ve slovech příbuzných: bydliště, mlynář, myslivec, pytlík.",
+  "lesson.kraken-abyss.4.6": "Shoda v minulém čase: ti rybáři lovili, ty vlny šuměly, ta koťata spala.",
+
+  "lesson.kraken-abyss.5.1": "Vzory: pán, muž, předseda, soudce, hrad, stroj; žena, růže, píseň, kost; město, moře, kuře, stavení.",
+  "lesson.kraken-abyss.5.2": "Vzor určíš podle rodu a životnosti a podle 1. a 2. pádu: bez pána, bez muže, bez hradu, bez stroje.",
+  "lesson.kraken-abyss.5.3": "Tvar jednoduchý: maluje. Tvar složený: budu malovat, maloval jsem.",
+  "lesson.kraken-abyss.5.4": "Způsob oznamovací: maluje. Způsob rozkazovací: Maluj! Způsob podmiňovací: maloval by.",
+  "lesson.kraken-abyss.5.5": "Věta jednoduchá má jeden přísudek, souvětí dva nebo víc.",
+  "lesson.kraken-abyss.5.6": "Stavba slova: předpona, kořen, přípona a koncovka: za|hrád|k|a.",
 
   "friend.klauni-dvojcata": "Klauni Dvojčata",
   "friend.klauni-dvojcata.mnemonic": "Jsme dvojčata a plaveme vždycky spolu, jako podmět a přísudek.",

@@ -86,7 +86,8 @@ the placement check's own skills; beats `beat.<region>-welcome`, `beat.<monster>
 record names its strings by catalog key: `region.<id>`, `level.<id>`, `skill.<region>.<topic>`,
 `friend.<id>` and `friend.<id>.mnemonic`, `monster.<id>` and `monster.<id>.joke.<n>`,
 `inkoustik.<name>`, `cosmetic.<id>`, `sticker.<id>`, `quest.<id>`, `story.<beat>.<n>` and
-`story.next`, and objectives `grownups.objective.<strand>.<id>` with an English twin. A skill also
+`story.next`, objectives `grownups.objective.<strand>.<id>` with an English twin, and a lesson
+level's lesson `lesson.<level>.<n>`. A skill also
 shows the grammar keys of its rules and values: `grammar.rule.<rule>` (the strategy after a miss),
 `grammar.<dimension>.<value>` (contract §7.4) and `grammar.method.<id>`, the hint of a case,
 pattern, tense, mood or verb-form classification and of a sound-alike relation. A method hint shows
@@ -114,6 +115,16 @@ A freed beat plays just before the results, which say that the ink is washed off
 earns and which region opens. So a freed beat repeats none of these. It shows the change in the
 monster (_Ďas Lucerník už nikoho neláká do tmy._), its thanks, and what lies ahead (_Za útesem se
 vlní Chaluhový les._).
+
+**Lessons.** Every lesson level has Profesorka Osmička's lesson, _Jak na to?_ (design §5.3):
+`lesson.<level>.1`, `.2`, … numbered without gaps, a few short lines in the textbook's terms that
+teach the level's material to a child who has not met it at school yet: the rule, its list or
+table (a listed-word lesson shows the rhyme its necklace threads, in order) and examples, then a
+tip to decide by. A monster level has none: it shows its region's lessons. Examples are words the
+level does not ask where one is available (the rhyme and the patterns are the material itself),
+colloquial forms appear only after _ne_ (_velký, ne velkej_), and contrasts take ×, derivations →
+and a word's cut parts |, which read-aloud says as pauses. `pack.test.ts` checks the numbering and
+the rhymes; lessons are catalog lines, so they need no revision.
 
 **Skills.** A spelling skill lists its words or sentences by ID and keeps to one grade. The tests
 check that:

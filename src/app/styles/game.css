@@ -1305,6 +1305,65 @@
   color: var(--ps-success-deep);
 }
 
+/* ---- Osmička's lesson (Jak na to?) ------------------------------------------------------ */
+
+/* A browser keeps a modal dialog 2em from the window's edges, which at large text on a phone
+   leaves a few letters a line: the lesson takes the window's width, as a screen does. */
+.ps-dialog.ps-dialog--lesson {
+  width: min(40em, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  padding-inline: clamp(10px, 2.6vw, 28px);
+}
+
+.ps-lesson__head {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.ps-lesson__guide {
+  flex: none;
+  width: min(4.5em, 18vw);
+}
+
+.ps-lesson__head > h2 {
+  color: var(--ps-primary-deep);
+}
+
+/* The lesson scrolls inside the dialog, so its heading and "Rozumím!" stay in view; where even
+   that leaves too little room (a phone at large text), the dialog itself scrolls. */
+.ps-lesson__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  max-height: max(6em, calc(100vh - 16em));
+  max-height: max(6em, calc(100dvh - 16em));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.2em;
+}
+
+.ps-lesson__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+}
+
+/* Kept to the window's width like the headings, so the longest words (vyjmenovaných) still fit a
+   line on a phone at large text. */
+.ps-lesson__section > h3 {
+  font-size: min(1.1rem, 7vw);
+  color: var(--ps-accent-deep);
+}
+
+.ps-lesson__section > p {
+  padding: 0.35em 0.6em;
+  border-left: 0.25em solid var(--ps-info);
+  border-radius: 0.3em;
+  font-size: min(1rem, 8vw);
+  background: var(--ps-card);
+}
+
 /* ---- Problem rounds --------------------------------------------------------------------- */
 
 /* A round's or a board's title and meter, on paper over the region's painting. */

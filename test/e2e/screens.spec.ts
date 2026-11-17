@@ -45,21 +45,21 @@ const WALKS: readonly Walk[] = [
     id: 'first-dive',
     title: 'The first dive',
     summary:
-      'A new family makes its first diver (a 3rd grader), hears the prologue, chooses Krab Tvrďák’s egg and plays the whole first lesson of Slunná laguna, with a check too early, a hint, a miss and a pause, up to the egg hatching (`firstDiveWalk` in test/e2e/support/tour.ts).',
+      'A new family makes its first diver (a 3rd grader), hears the prologue, chooses Krab Tvrďák’s egg and plays the whole first lesson of Slunná laguna, with a check too early, Jak na to? over the necklace, a hint, a miss and a pause, up to the egg hatching (`firstDiveWalk` in test/e2e/support/tour.ts).',
     walk: firstDiveWalk,
   },
   {
     id: 'the-lagoon',
     title: 'The lagoon',
     summary:
-      'A diver who played four lessons comes back another day: Dnešní výprava’s Svačinka, the map, a lesson’s intro, the letter pad, Pexeso, Inkoustová věta, Lov chyb, today’s goal and the treasure chest, U Mrože, dressing a friend, the album, the Great Shell and goodbye (`lagoonWalk`).',
+      'A diver who played four lessons comes back another day: Dnešní výprava’s Svačinka, the map, a lesson’s intro and its Jak na to?, the letter pad, Pexeso, Inkoustová věta, Lov chyb, today’s goal and the treasure chest, U Mrože, dressing a friend, the album, the Great Shell and goodbye (`lagoonWalk`).',
     walk: lagoonWalk,
   },
   {
     id: 'the-monster',
     title: 'Muréna Mumla',
     summary:
-      'A diver who played every lesson of the lagoon battles Muréna Mumla, wipes her ink blots, frees her, finds her in the friends’ gallery and meets an Inkoustík ambush (`monsterWalk`).',
+      'A diver who played every lesson of the lagoon reads the lagoon’s lessons on Muréna Mumla’s level, battles her, wipes her ink blots, frees her, finds her in the friends’ gallery and meets an Inkoustík ambush (`monsterWalk`).',
     walk: monsterWalk,
   },
   {

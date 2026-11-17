@@ -213,6 +213,15 @@ export async function firstDiveWalk(page: Page, visit: Visit): Promise<void> {
     play: true,
     description: 'The necklace checked before it is done: “Ještě ne”, the pearls in place marked',
   });
+  await page.getByTestId('board-lesson').click();
+  await expect(page.getByTestId('lesson-dialog')).toBeVisible();
+  await visit({
+    name: '74-lesson-board',
+    play: true,
+    description: 'Jak na to? over the necklace: Osmička explains the alphabet and the consonants',
+  });
+  await page.getByTestId('lesson-close').click();
+  await expect(page.getByTestId('lesson-dialog')).toHaveCount(0);
   const necklace = await boardOnScreen(page, CHILD);
   await arrangeBoard(page, necklace);
   await checkBoard(page);
@@ -312,8 +321,8 @@ async function createChildFromEditor(page: Page): Promise<void> {
 
 /**
  * The lagoon after four lessons, on a later day: the daily adventure's Svačinka, the map, a region
- * and a level, Inkoustová věta, Pexeso, Lov chyb, the treasure chest, U Mrože, the friends'
- * wardrobe, the album, the Great Shell and goodbye.
+ * and a level with its Jak na to?, Inkoustová věta, Pexeso, Lov chyb, the treasure chest, U Mrože,
+ * the friends' wardrobe, the album, the Great Shell and goodbye.
  */
 export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
   const four = await levelsPlayed(
@@ -379,6 +388,15 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     play: true,
     description: 'A lesson’s intro: its games, stars and Hrát',
   });
+  await page.getByTestId('level-lesson').click();
+  await expect(page.getByTestId('lesson-dialog')).toBeVisible();
+  await visit({
+    name: '72-lesson',
+    play: true,
+    description: 'Jak na to? on a lesson’s intro: Osmička explains ú/ů and the paired consonants',
+  });
+  await page.getByTestId('lesson-close').click();
+  await expect(page.getByTestId('lesson-dialog')).toHaveCount(0);
   await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
   expect(await throughStory(page)).toBe('screen-round');
   // Lesson 5: Krmení, Pexeso, Inkoustová věta.
@@ -561,7 +579,7 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
   });
 }
 
-/** Muréna Mumla's battle, her freeing, the gallery and an Inkoustík ambush after her. */
+/** Muréna Mumla's lesson, battle, freeing, the gallery and an Inkoustík ambush after her. */
 export async function monsterWalk(page: Page, visit: Visit): Promise<void> {
   await seedFamily(page, await lagoonPlayed());
   expect(await openChild(page, CHILD)).toBe('screen-hub');
@@ -571,6 +589,15 @@ export async function monsterWalk(page: Page, visit: Visit): Promise<void> {
     play: true,
     description: 'Muréna Mumla’s level: the battle ahead',
   });
+  await page.getByTestId('level-lesson').click();
+  await expect(page.getByTestId('lesson-dialog')).toBeVisible();
+  await visit({
+    name: '73-monster-lesson',
+    play: true,
+    description: 'Jak na to? on Muréna Mumla’s level: every lesson of the lagoon, to scroll',
+  });
+  await page.getByTestId('lesson-close').click();
+  await expect(page.getByTestId('lesson-dialog')).toHaveCount(0);
   await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
   expect(await shownScreen(page)).toBe('screen-story');
   await visit({
@@ -814,8 +841,9 @@ export async function troubleWalk(page: Page, visit: Visit): Promise<void> {
 
 /**
  * A diver whose grown-up chose Velikost písma 200 % plays on another day: the grotto, Svačinka
- * with a miss, the results, the map, a region and a lesson's intro, Pexeso and Inkoustová věta,
- * the shop, the friends, the album, the Great Shell and goodbye (reflow at large text).
+ * with a miss, the results, the map, a region and a lesson's intro with its Jak na to?, Pexeso and
+ * Inkoustová věta, the shop, the friends, the album, the Great Shell and goodbye (reflow at large
+ * text).
  */
 export async function largeTextWalk(page: Page, visit: Visit): Promise<void> {
   const four = await levelsPlayed(
@@ -853,6 +881,11 @@ export async function largeTextWalk(page: Page, visit: Visit): Promise<void> {
   await page.getByTestId('level-sunny-lagoon.5').click();
   await ready(page, 'level');
   await visit({ name: '26-level', description: 'A lesson’s intro at 200 % text' });
+  await page.getByTestId('level-lesson').click();
+  await expect(page.getByTestId('lesson-dialog')).toBeVisible();
+  await visit({ name: '72-lesson', description: 'Jak na to? at 200 % text' });
+  await page.getByTestId('lesson-close').click();
+  await expect(page.getByTestId('lesson-dialog')).toHaveCount(0);
   await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
   expect(await throughStory(page)).toBe('screen-round');
   await playRound(page, CHILD);

@@ -13,6 +13,7 @@ import {
   catalogHasKey,
   collectCatalogKeys,
   contentRegistration,
+  lessonKey,
   skillItemIndex,
   skillItems,
 } from '../../../src/rules/contract';
@@ -363,6 +364,91 @@ describe('the content', () => {
       }
     }
     expect(named, 'example words no problem of the rule shows (docs/content.md §7)').toEqual([]);
+  });
+
+  describe('Osmička’s lessons (Jak na to?)', () => {
+    const catalog = JSON.parse(
+      readFileSync(join(root, 'content', 'catalogs', 'cs.content.json'), 'utf8'),
+    ) as Record<string, string>;
+    const lessonLevels = data.levels.filter((level) => level.kind === 'lesson');
+    /** A level's lesson as one text, its lines in order (`lessonKey`). */
+    const lesson = (level: string): string => {
+      const lines: string[] = [];
+      for (let line = 1; catalog[lessonKey(level, line)] !== undefined; line++) {
+        lines.push(catalog[lessonKey(level, line)]!);
+      }
+      return lines.join('\n');
+    };
+
+    it('gives every lesson level a lesson, its lines numbered from 1 without a gap', () => {
+      const lines = new Map(lessonLevels.map((level) => [level.id, [] as number[]]));
+      const stray: string[] = [];
+      for (const key of Object.keys(catalog).filter((key) => key.startsWith('lesson.'))) {
+        const match = /^lesson\.(.+)\.(\d+)$/.exec(key);
+        const numbers = match ? lines.get(match[1]!) : undefined;
+        if (numbers) numbers.push(Number(match![2]));
+        else stray.push(key);
+      }
+      expect(stray, 'lesson lines of no lesson level (a monster level shows its region’s)').toEqual(
+        [],
+      );
+      for (const [level, numbers] of lines) {
+        const sorted = [...numbers].sort((a, b) => a - b);
+        expect(sorted.length, `${level} has a lesson`).toBeGreaterThan(0);
+        expect(sorted, `${level}: lines numbered 1, 2, … without a gap`).toEqual(
+          sorted.map((_, index) => index + 1),
+        );
+      }
+    });
+
+    it('shows in a listed-word lesson the rhyme its necklace threads, in the rhyme’s order', () => {
+      const words = new Map(data.lexicon.words.map((word) => [word.id, word]));
+      const families = new Map(data.lexicon.families.map((family) => [family.id, family]));
+      const letters = ['b', 'l', 'm', 'p', 's', 'v', 'z'];
+      /** Where `word` stands whole in `text` from `from` on, or -1. */
+      const find = (text: string, word: string, from: number): number => {
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const pattern = new RegExp(`(?<!\\p{L})${escaped}(?!\\p{L})`, 'gu');
+        pattern.lastIndex = from;
+        return pattern.exec(text)?.index ?? -1;
+      };
+      let rhymes = 0;
+      const astray: string[] = [];
+      for (const level of lessonLevels) {
+        const text = lesson(level.id);
+        for (const activity of level.activities.filter((a) => a.kind === 'pearl-necklace')) {
+          for (const id of activity.skills) {
+            const skill = data.skills.find((candidate) => candidate.id === id);
+            if (skill?.generator !== 'alphabet' || skill.params.order !== 'rhyme') continue;
+            rhymes++;
+            // The rhyme as the lexicon orders it: the letters in school order, then each family's
+            // place in its letter's rhyme.
+            const rhyme = (skill.params.words.words ?? [])
+              .map((word) => words.get(word)!)
+              .map((word) => ({ word, family: families.get(word.family!.id)! }))
+              .sort(
+                (a, b) =>
+                  letters.indexOf(a.family.letter!) - letters.indexOf(b.family.letter!) ||
+                  (a.family.order ?? 0) - (b.family.order ?? 0),
+              )
+              .map(({ word }) => word.lemma);
+            let at = 0;
+            for (const lemma of rhyme) {
+              const found = find(text, lemma, at);
+              if (found === -1) {
+                astray.push(`${level.id}: ${lemma} (${id})`);
+                break;
+              }
+              at = found + lemma.length;
+            }
+          }
+        }
+      }
+      expect(rhymes, 'the levels that thread a rhyme').toBeGreaterThanOrEqual(8);
+      expect(astray, 'a rhyme word missing from its lesson, or out of the rhyme’s order').toEqual(
+        [],
+      );
+    });
   });
 
   it('feeds a friend with every item a problem teaches, but the basket’s skills', () => {

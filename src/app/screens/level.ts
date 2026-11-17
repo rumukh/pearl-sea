@@ -1,7 +1,8 @@
 /**
  * A level's intro: its title and region, the monster for a monster level, the activities that
  * wait (a done mark for those of a run under way) and its stars. "Začít" enters the level; a run
- * under way continues at its next activity; a finished level can replay one of its games.
+ * under way continues at its next activity; a finished level can replay one of its games. "Jak na
+ * to?" opens Osmička's lesson of the level first (lesson.ts).
  */
 import { picture } from '../art/picture';
 import { taken } from '../controller/commands';
@@ -15,6 +16,7 @@ import { icon, starIcon } from '../ui/icons';
 import { ART, isMinigameKind } from '../../rules/contract';
 import type { ContentData, GameAction } from '../../rules/contract';
 import { diverSaveStatus, topBar } from './common';
+import { lessonButton } from './lesson';
 
 export function activityName(t: (key: MessageKey) => string, kind: string): string {
   return t(`activity.${kind}` as MessageKey);
@@ -95,6 +97,13 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
 
       const heading = h('h1', { text: text(card.titleKey) });
       const monster = found.region.monster;
+      // Osmička's lesson, before the level is played: the new material, explained.
+      const lesson = lessonButton(app, {
+        levels: data.levels,
+        level: levelId,
+        preferences: () => active.preferences.current(),
+        testId: 'level-lesson',
+      });
       const element = h(
         'main',
         { className: 'ps-level', testId: 'screen-level', dataset: { level: levelId } },
@@ -136,7 +145,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
             : null,
           h('h2', { text: t('level.activities') }),
           activities,
-          h('div', { className: 'ps-row ps-row--center' }, go),
+          h('div', { className: 'ps-row ps-row--center' }, ...lesson, go),
         ),
       );
       return {

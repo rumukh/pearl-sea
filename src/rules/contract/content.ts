@@ -1300,16 +1300,28 @@ export const contentRegistration: ContentRegistration<ContentData> = {
 // Cross-file references (catalog strings, art, curriculum), checked by scripts/validate-content.mjs
 
 /**
+ * The catalog key of line `line` (1, 2, …) of a lesson level's lesson, Osmička's "Jak na to?"
+ * (docs/contract.md §7.4): `lesson.<level>.<line>`. Its lines are numbered from 1 without gaps; a
+ * monster level has none and shows its region's lessons.
+ */
+export function lessonKey(level: string, line: number): string {
+  return `lesson.${level}.${line}`;
+}
+
+/**
  * Every catalog key a pack refers to, with where it is used (resolved with `catalogHasKey`):
- * the records' title, name and joke keys, story lines, and the grammar terms its skills can show
- * (`grammarKeys`).
+ * the records' title, name and joke keys, the first line of every lesson level's lesson
+ * (`lessonKey`), story lines, and the grammar terms its skills can show (`grammarKeys`).
  */
 export function collectCatalogKeys(data: Read<ContentData>): { key: string; where: string }[] {
   const keys: { key: string; where: string }[] = [];
   const add = (key: string, where: string) => keys.push({ key, where });
   data.objectives.forEach((o) => add(o.titleKey, `objective ${o.id}`));
   data.regions.forEach((r) => add(r.titleKey, `region ${r.id}`));
-  data.levels.forEach((l) => add(l.titleKey, `level ${l.id}`));
+  data.levels.forEach((l) => {
+    add(l.titleKey, `level ${l.id}`);
+    if (l.kind === 'lesson') add(lessonKey(l.id, 1), `level ${l.id} lesson`);
+  });
   data.skills.forEach((s) => {
     add(s.titleKey, `skill ${s.id}`);
     for (const key of grammarKeys(s)) add(key, `skill ${s.id}`);

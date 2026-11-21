@@ -40,6 +40,16 @@ const LOCAL = new Set([
   '--paper-ratio',
   '--paper-pt',
   '--font-pt',
+  // Per-portrait geometry and timing in portrait-motion.css, not theme tokens.
+  '--ps-body-cut',
+  '--ps-body-motion',
+  '--ps-cycle',
+  '--ps-repeat',
+  '--ps-root',
+  '--ps-skin',
+  '--ps-stroke',
+  '--ps-tempo',
+  '--ps-tip',
 ]);
 
 /** The regions of the plan (docs/plan.md §2), shallow to deep. */

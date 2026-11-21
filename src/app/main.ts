@@ -36,6 +36,7 @@ import './styles/base.css';
 import './styles/components.css';
 import './styles/screens.css';
 import './styles/game.css';
+import './styles/portrait-motion.css';
 
 const basePath = schema.string({
   minLength: 1,

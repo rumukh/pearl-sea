@@ -216,6 +216,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
       const left = round.battle.target > 0 ? 1 - round.battle.washed / round.battle.target : 0;
       // The freed form shows through as the ink washes off; the last of it goes in the results.
       const monster = monsterForms(app.art, round.battle.monster, {
+        motion: 'greet',
         className: 'ps-round__monster',
         testId: 'battle-monster',
         alt: text(round.battle.nameKey),
@@ -227,7 +228,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         h(
           'div',
           { className: 'ps-round__bublinka', testId: 'bublinka' },
-          picture(app.art, ART.character(SUBMARINE_ID)),
+          picture(app.art, ART.character(SUBMARINE_ID), { motion: 'greet' }),
         ),
         monster,
         jokeBubble,
@@ -248,7 +249,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
           dressedFriend(
             app.art,
             { friend: friend.id, stage: friend.stage, outfit: friend.outfit },
-            { alt: text(friend.nameKey) },
+            { alt: text(friend.nameKey), motion: 'greet' },
           ),
         ),
       );
@@ -262,7 +263,9 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
           testId: 'round-friend',
           dataset: { guide: GUIDE_ID, expression: guideCheers ? 'happy' : 'idle' },
         },
-        picture(app.art, guideCheers ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID)),
+        picture(app.art, guideCheers ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID), {
+          motion: 'greet',
+        }),
       ),
     );
   };
@@ -378,6 +381,7 @@ export function problemRoundScreen(app: App, active: ActiveDiver): Screen {
         'div',
         { className: 'ps-ambush', testId: 'ambush', dataset: { inkoustik: problem.ambush } },
         picture(app.art, ART.inkoustik(problem.ambush), {
+          motion: 'greet',
           alt: inkoustik ? text(inkoustik.nameKey) : problem.ambush,
         }),
         h('p', {

@@ -136,7 +136,11 @@ export function shopScreen(app: App, diverId: string): ScreenEntry {
       h(
         'section',
         { className: 'ps-shop__counter' },
-        h('div', { className: 'ps-shop__keeper' }, picture(app.art, ART.character(SHOPKEEPER_ID))),
+        h(
+          'div',
+          { className: 'ps-shop__keeper' },
+          picture(app.art, ART.character(SHOPKEEPER_ID), { motion: 'greet' }),
+        ),
         line,
       ),
       items.length > 0
@@ -266,6 +270,7 @@ export function friendsScreen(app: App, diverId: string): ScreenEntry {
             { friend: friend.id, stage: friend.stage, outfit: friend.outfit },
             {
               alt: friendStageName(t, name, friend.stage),
+              motion: 'idle',
             },
           ),
         ),

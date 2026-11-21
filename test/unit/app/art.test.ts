@@ -6,6 +6,7 @@
  * a catalog that cannot be trusted is an empty one (placeholders everywhere), never a failed boot;
  * a screen's painting fetched ahead of it, and one that arrives after its screen fades in.
  */
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { createArtLibrary, loadArtLibrary, preloadPictures } from '../../../src/app/art/library';
 import type { PreloadImage } from '../../../src/app/art/library';
@@ -158,6 +159,36 @@ describe('dressed friends', () => {
     expect(anchorOf(art, ART.friend('zelva-obojka', 'baby'), 'eyes')).toEqual(DEFAULT_ANCHORS.eyes);
     expect(anchorOf(art, KRAB.id, 'eyes')).toEqual(KRAB.anchors!.eyes);
   });
+
+  it('articulates a loaded featured starter without duplicating its accessible image or its outfit', () => {
+    const look = { friend: 'krab-tvrdak', stage: 'baby', outfit: { head: 'cap' } } as const;
+    const portrait = dressedFriend(art, look, { alt: 'Krab', motion: 'idle' });
+    const image = portrait.querySelector('img')!;
+    image.dispatchEvent(new Event('load'));
+    expect(portrait.querySelectorAll('img')).toHaveLength(1);
+    expect(image.alt).toBe('Krab');
+    expect(portrait.querySelector('.ps-puppet__parts')?.getAttribute('aria-hidden')).toBe('true');
+    expect(portrait.lastElementChild?.querySelector('[data-anchor="head"]')).not.toBeNull();
+    const thumbnail = dressedFriend(art, look);
+    thumbnail.querySelector('img')!.dispatchEvent(new Event('load'));
+    expect(thumbnail.querySelector('.ps-puppet__parts')).toBeNull();
+    const missing = dressedFriend(createArtLibrary(BASE, []), look, { motion: 'idle' });
+    expect(missing.querySelector('.ps-puppet__parts')).toBeNull();
+  });
+
+  it('animates every published cast painting, but not eggs, avatars, stickers or scenery', () => {
+    const { entries } = JSON.parse(readFileSync('assets/art/catalog.json', 'utf8')) as {
+      entries: ArtEntry[];
+    };
+    const art = createArtLibrary(BASE, entries);
+    for (const entry of entries) {
+      const portrait = picture(art, entry.id, { motion: 'greet' });
+      portrait.querySelector('img')!.dispatchEvent(new Event('load'));
+      expect(portrait.dataset['motion'], entry.id).toBe(
+        /^(friend|monster|character|inkoustik)\//.test(entry.id) ? 'greet' : undefined,
+      );
+    }
+  });
 });
 
 describe('a monster’s two forms', () => {
@@ -201,6 +232,18 @@ describe('a monster’s two forms', () => {
     const freed = forms.querySelector<HTMLElement>(`[data-art-id="${FREED.id}"]`)!;
     expect(freed.dataset['placeholder']).toBe('true');
     expect(freed.querySelector('svg')?.getAttribute('preserveAspectRatio')).toBe('xMidYMax meet');
+  });
+
+  it('starts both articulated wash layers together, not when the first form arrives', () => {
+    const forms = monsterForms(createArtLibrary(BASE, [INKED, FREED]), 'murena-mumla', {
+      motion: 'greet',
+    });
+    const images = forms.querySelectorAll('img');
+    images[0]!.dispatchEvent(new Event('load'));
+    expect(forms.querySelectorAll('.ps-puppet__parts')).toHaveLength(0);
+    images[1]!.dispatchEvent(new Event('load'));
+    expect(forms.querySelectorAll('.ps-puppet__parts')).toHaveLength(2);
+    expect(forms.dataset['motion']).toBe('greet');
   });
 });
 describe('stickers', () => {

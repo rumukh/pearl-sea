@@ -128,7 +128,11 @@ export async function openLesson(
         h(
           'div',
           { className: 'ps-lesson__head' },
-          h('div', { className: 'ps-lesson__guide' }, picture(app.art, ART.character(GUIDE_ID))),
+          h(
+            'div',
+            { className: 'ps-lesson__guide' },
+            picture(app.art, ART.character(GUIDE_ID), { motion: 'greet' }),
+          ),
           h('h2', { text: t('lesson.heading') }),
         ),
         reading,

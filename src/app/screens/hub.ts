@@ -101,7 +101,7 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
         dressedFriend(
           app.art,
           { friend: featured.id, stage: featured.stage, outfit: featured.outfit },
-          { alt: friendStageName(t, name, featured.stage) },
+          { alt: friendStageName(t, name, featured.stage), motion: 'idle' },
         ),
       ),
       h('p', { className: 'ps-hub__friend-name', text: name }),

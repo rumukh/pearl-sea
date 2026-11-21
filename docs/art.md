@@ -202,6 +202,18 @@ too, the centre of its base at the viewBox centre, on the `head` anchor. A baby 
 anchors, set on its own painting and checked with every cosmetic on the review board
 (`scripts/art/svg/preview.mjs`) beside its grown-up: a baby's bigger head can take a larger hat.
 
+### Animated portraits
+
+The full painted cast uses its original WebPs: fish flick their tails, jellyfish pulse, squid jet,
+Osmička waves, and the moray peers out of its rock. `src/app/art/portrait-motion.ts` maps each
+painting to a gesture and places its joints in the trimmed image. The baby jellyfish's bell, for
+example, sits lower than the adult's. The seal's ice and the dolphin's wave stay put; their
+outfits follow the upper body. A monster's inked and freed forms move together through the wash.
+
+Featured grotto and wardrobe portraits idle; story, shop, lesson, encounter and reward portraits
+greet once and settle. Thumbnails remain still. Either reduced-motion preference restores the
+whole, uncut painting. The motion needs no new downloads, timers, or changes to the game rules.
+
 ## 5. Scenes and maps: open water for the shell
 
 The shell draws its own markers over the painted pictures (S4, `src/app/game/map.ts`, positions in

@@ -78,7 +78,11 @@ export function firstFriendScreen(app: App, active: ActiveDiver): Screen {
     h(
       'section',
       { className: 'ps-story__stage' },
-      h('div', { className: 'ps-story__figure' }, picture(app.art, ART.character(GUIDE_ID))),
+      h(
+        'div',
+        { className: 'ps-story__figure' },
+        picture(app.art, ART.character(GUIDE_ID), { motion: 'greet' }),
+      ),
       h(
         'div',
         { className: 'ps-card ps-story__card' },

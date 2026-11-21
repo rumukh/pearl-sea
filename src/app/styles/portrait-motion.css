@@ -1,0 +1,390 @@
+/* The head stays in the rigid band so the published eyes/head/neck anchors still fit.
+   Opposite edges of each hinge share a transform origin. Half a pixel of bleed
+   covers fractional-device-pixel seams without a second outline. */
+.ps-puppet__parts {
+  display: none;
+}
+
+.ps-puppet {
+  --ps-cycle: 3.8s;
+  --ps-body-motion: ps-turtle-glide;
+}
+
+.ps-puppet[data-hinge='sides'] {
+  --ps-body-cut: inset(0 21% 0 21%);
+  --ps-body-motion: ps-crab-settle;
+}
+
+.ps-puppet--crab {
+  --ps-cycle: 3.6s;
+}
+.ps-puppet--star {
+  --ps-cycle: 3s;
+}
+.ps-puppet--wave {
+  --ps-cycle: 4.4s;
+}
+
+.ps-puppet--jelly {
+  --ps-cycle: 4.2s;
+  --ps-body-motion: ps-jelly-pump;
+  --ps-stroke: ps-jelly-ribbons;
+}
+
+.ps-puppet--turtle {
+  --ps-cycle: 4.8s;
+  --ps-body-motion: ps-turtle-glide;
+  --ps-stroke: ps-turtle-paddle;
+}
+
+.ps-puppet--jet {
+  --ps-cycle: 3.2s;
+  --ps-body-motion: ps-jet;
+  --ps-stroke: ps-jelly-ribbons;
+}
+.ps-puppet--curl {
+  --ps-cycle: 4.1s;
+  --ps-stroke: ps-tail-curl;
+}
+.ps-puppet--scuttle {
+  --ps-cycle: 3.3s;
+  --ps-body-motion: ps-crab-settle;
+  --ps-stroke: ps-feet;
+}
+.ps-puppet--swim {
+  --ps-cycle: 4.3s;
+  --ps-stroke: ps-fin;
+}
+.ps-puppet--dart {
+  --ps-cycle: 3.1s;
+  --ps-body-motion: ps-dart;
+  --ps-stroke: ps-fin;
+}
+.ps-puppet--puff {
+  --ps-body-motion: ps-inflate;
+}
+.ps-puppet--spring {
+  --ps-cycle: 2.6s;
+  --ps-body-motion: ps-spring;
+  transform-origin: 50% 92%;
+}
+.ps-puppet--drift {
+  --ps-cycle: 4.8s;
+}
+.ps-puppet--perch {
+  --ps-stroke: ps-balance;
+}
+.ps-puppet--leap {
+  --ps-stroke: ps-breach;
+}
+.ps-puppet--peek {
+  --ps-stroke: ps-peek;
+}
+
+.ps-puppet[data-hinge='below'] {
+  --ps-body-cut: inset(0 0 calc(100% - var(--ps-root)) 0);
+}
+
+.ps-puppet[data-hinge='above'] {
+  --ps-body-motion: none;
+  --ps-body-cut: inset(var(--ps-root) 0 0);
+}
+
+.ps-puppet[data-hinge='right'] {
+  --ps-body-cut: inset(0 calc(100% - var(--ps-root)) 0 0);
+}
+
+.ps-puppet[data-motion='greet'] {
+  --ps-repeat: 1;
+}
+
+[data-expression='sleepy'] {
+  --ps-repeat: 1;
+  --ps-tempo: 6s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-reduced-motion='true']) .ps-puppet {
+    animation: var(--ps-body-motion) var(--ps-tempo, var(--ps-cycle)) ease-in-out
+      var(--ps-repeat, infinite);
+  }
+
+  :root:not([data-reduced-motion='true']) .ps-puppet__cut > .ps-art__image {
+    clip-path: var(--ps-body-cut);
+  }
+
+  :root:not([data-reduced-motion='true']) .ps-puppet__parts {
+    position: absolute;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+  }
+
+  .ps-art__image[data-late='true'] + .ps-puppet__parts {
+    animation: ps-art-in 450ms ease-out both;
+  }
+
+  :root:not([data-reduced-motion='true']) .ps-puppet[data-hinge='above'] > .ps-puppet__outfit {
+    transform-origin: 50% var(--ps-root);
+    animation: var(--ps-stroke) var(--ps-tempo, var(--ps-cycle)) ease-in-out
+      var(--ps-repeat, infinite);
+  }
+}
+
+.ps-puppet__outfit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ps-joint,
+.ps-joint::before {
+  position: absolute;
+  inset: 0;
+}
+
+.ps-joint {
+  transform-origin: 50% var(--ps-root);
+  animation: var(--ps-stroke, none) var(--ps-tempo, var(--ps-cycle)) ease-in-out
+    var(--ps-repeat, infinite);
+}
+
+.ps-joint::before {
+  content: '';
+  background: var(--ps-skin) center / 100% 100% no-repeat;
+  clip-path: inset(calc(var(--ps-root) - 0.5px) 0 calc(100% - var(--ps-tip)) 0);
+}
+
+.ps-joint .ps-joint {
+  transform-origin: 50% var(--ps-tip);
+  animation-name: ps-stroke-follow;
+}
+
+.ps-joint .ps-joint::before {
+  clip-path: inset(calc(var(--ps-tip) - 0.5px) 0 0);
+}
+
+.ps-monster-forms .ps-joint::before {
+  /* Match object-fit: contain / object-position: bottom on both stages of the wash. */
+  background-size: contain;
+  background-position: center bottom;
+}
+
+[data-hinge='above'] .ps-joint::before {
+  clip-path: inset(0 0 calc(100% - var(--ps-root) - 0.5px));
+}
+
+[data-hinge='right'] .ps-joint {
+  transform-origin: var(--ps-root) 50%;
+}
+
+[data-hinge='right'] .ps-joint::before {
+  clip-path: inset(0 calc(100% - var(--ps-tip)) 0 calc(var(--ps-root) - 0.5px));
+}
+
+[data-hinge='right'] .ps-joint .ps-joint {
+  animation-name: ps-fin-tip;
+  transform-origin: var(--ps-tip) 50%;
+}
+
+[data-hinge='right'] .ps-joint .ps-joint::before {
+  clip-path: inset(0 0 0 calc(var(--ps-tip) - 0.5px));
+}
+
+[data-hinge='sides'] .ps-joint--first {
+  transform-origin: 21% 50%;
+  animation-name: ps-left-claw;
+}
+
+[data-hinge='sides'] .ps-joint--first::before {
+  clip-path: inset(0 calc(79% - 0.5px) 0 0);
+}
+
+[data-hinge='sides'] .ps-joint--second {
+  transform-origin: 79% 50%;
+  animation-name: ps-right-claw;
+}
+
+[data-hinge='sides'] .ps-joint--second::before {
+  clip-path: inset(0 0 0 calc(79% - 0.5px));
+}
+
+@keyframes ps-crab-settle {
+  24% {
+    transform: translate(-0.9%, -0.5%) rotate(-1deg);
+  }
+  55% {
+    transform: translate(0.7%, 0) rotate(0.7deg);
+  }
+}
+
+@keyframes ps-left-claw {
+  22% {
+    transform: skewY(13deg);
+  }
+  39% {
+    transform: skewY(-4deg);
+  }
+  58%,
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes ps-right-claw {
+  0%,
+  36% {
+    transform: none;
+  }
+  56% {
+    transform: skewY(-11deg);
+  }
+  73% {
+    transform: skewY(3deg);
+  }
+}
+
+@keyframes ps-jelly-pump {
+  23% {
+    transform: translateY(0.8%) scale(1.035, 0.973);
+  }
+  42% {
+    transform: translateY(-3%) scale(0.962, 1.035);
+  }
+  74% {
+    transform: translateY(-1%) scale(1.012, 0.992);
+  }
+}
+
+@keyframes ps-jelly-ribbons {
+  30% {
+    transform: skewX(-6deg) scaleY(0.97);
+  }
+  60% {
+    transform: skewX(7deg) scaleY(1.025);
+  }
+}
+
+@keyframes ps-turtle-glide {
+  32% {
+    transform: translate(0.6%, 0.8%) rotate(1.3deg);
+  }
+  60% {
+    transform: translate(-1.6%, -1.4%) rotate(-1.7deg);
+  }
+}
+
+@keyframes ps-turtle-paddle {
+  26% {
+    transform: skewX(-11deg) scaleY(0.94);
+  }
+  53% {
+    transform: skewX(16deg) scaleY(0.87);
+  }
+  79% {
+    transform: skewX(3deg) scaleY(1.025);
+  }
+}
+
+@keyframes ps-stroke-follow {
+  34% {
+    transform: skewX(-6deg);
+  }
+  66% {
+    transform: skewX(10deg);
+  }
+}
+
+@keyframes ps-fin {
+  28% {
+    transform: skewY(8deg) scaleX(0.97);
+  }
+  60% {
+    transform: skewY(-9deg);
+  }
+}
+@keyframes ps-fin-tip {
+  37% {
+    transform: skewY(12deg);
+  }
+  70% {
+    transform: skewY(-11deg);
+  }
+}
+@keyframes ps-dart {
+  20% {
+    transform: translateX(1%) rotate(0.8deg);
+  }
+  39% {
+    transform: translate(-2.6%, -0.6%) rotate(-1deg);
+  }
+}
+@keyframes ps-tail-curl {
+  30% {
+    transform: skewX(-9deg) scaleY(0.96);
+  }
+  64% {
+    transform: skewX(10deg);
+  }
+}
+@keyframes ps-feet {
+  18%,
+  55% {
+    transform: skewX(10deg);
+  }
+  34%,
+  72% {
+    transform: skewX(-8deg);
+  }
+}
+@keyframes ps-jet {
+  22% {
+    transform: translateY(0.7%) scale(1.03, 0.98);
+  }
+  41% {
+    transform: translateY(-3.2%) scale(0.97, 1.03);
+  }
+}
+@keyframes ps-inflate {
+  38% {
+    transform: translateY(-1.2%) scale(1.045, 1.065);
+  }
+  78% {
+    transform: scale(0.99, 0.985);
+  }
+}
+@keyframes ps-spring {
+  22% {
+    transform: scale(1.05, 0.9);
+  }
+  43% {
+    transform: scale(0.97, 1.045) rotate(-2deg);
+  }
+  66% {
+    transform: scale(1.01, 0.98);
+  }
+}
+@keyframes ps-balance {
+  30% {
+    transform: skewX(-3deg);
+  }
+  65% {
+    transform: skewX(4deg);
+  }
+}
+@keyframes ps-breach {
+  29% {
+    transform: skewX(-3deg) scaleY(0.96);
+  }
+  54% {
+    transform: skewX(3deg) scaleY(1.04);
+  }
+}
+@keyframes ps-peek {
+  27% {
+    transform: scaleY(0.93);
+  }
+  55% {
+    transform: skewX(-2.5deg) scaleY(1.035);
+  }
+}

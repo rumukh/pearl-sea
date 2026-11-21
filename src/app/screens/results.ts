@@ -214,9 +214,12 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
               ? dressedFriend(
                   app.art,
                   { friend: friend.id, stage: friend.stage, outfit: friend.outfit },
-                  { alt: friendStageName(t, text(friend.nameKey), friend.stage) },
+                  {
+                    alt: friendStageName(t, text(friend.nameKey), friend.stage),
+                    motion: 'greet',
+                  },
                 )
-              : picture(app.art, ART.friend(event.data.friend, 'baby')),
+              : picture(app.art, ART.friend(event.data.friend, 'baby'), { motion: 'greet' }),
           ),
           h('h1', {
             className: 'ps-moment__title',
@@ -233,6 +236,7 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
           'section',
           { className: 'ps-moment ps-moment--freed', testId: 'moment-freed' },
           monsterForms(app.art, monster, {
+            motion: 'greet',
             className: 'ps-moment__art ps-moment__wash',
             alt: name(data.monsters, monster),
           }),
@@ -269,7 +273,9 @@ export function resultsScreen(app: App, active: ActiveDiver): Screen {
       testId: 'results-guide',
       dataset: { expression: cheering ? 'happy' : 'idle' },
     },
-    picture(app.art, cheering ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID)),
+    picture(app.art, cheering ? ART.character(GUIDE_ID, 'happy') : ART.character(GUIDE_ID), {
+      motion: 'greet',
+    }),
   );
   const scene = h('div', { className: 'ps-results__scene' }, guide, card);
 

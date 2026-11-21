@@ -275,6 +275,46 @@ test('with less motion a painting that arrives after its screen is simply there'
 test.describe('with motion', () => {
   test.use({ reducedMotion: 'no-preference' });
 
+  test('a featured starter moves at the joint; either reduced-motion setting restores the whole painting', async ({
+    page,
+  }) => {
+    await page.goto('./');
+    await ready(page, 'title');
+    await seedChild(
+      page,
+      { id: CHILD, name: 'Ema', avatar: 'diver-2', address: 'girl' },
+      await lagoonPlayed(),
+    );
+    await page.reload();
+    await ready(page, 'title');
+    await page.getByTestId('title-play').click();
+    await page.getByTestId(`diver-${CHILD}`).click();
+    expect(await throughStory(page)).toBe('screen-hub');
+    const crab = page.getByTestId('hub-featured');
+    const joint = crab.locator('.ps-joint--first');
+    await expect(joint).toBeVisible();
+    const bent = await joint.evaluate((el) => {
+      const animation = el.getAnimations()[0]!;
+      animation.pause();
+      animation.currentTime = 0;
+      const rest = getComputedStyle(el).transform;
+      animation.currentTime = Number(animation.effect!.getComputedTiming().duration) * 0.22;
+      return getComputedStyle(el).transform !== rest;
+    });
+    expect(bent, 'the claw moves relative to the shell').toBe(true);
+    const body = crab.locator('.ps-puppet > img');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(joint).toBeHidden();
+    await expect(body).toHaveCSS('clip-path', 'none');
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await expect(joint).toBeVisible();
+    await page.evaluate(() => {
+      document.documentElement.dataset['reducedMotion'] = 'true';
+    });
+    await expect(joint).toBeHidden();
+    await expect(body).toHaveCSS('clip-path', 'none');
+  });
+
   test('a painting that arrives after its screen is shown fades in, never pops in', async ({
     page,
   }) => {

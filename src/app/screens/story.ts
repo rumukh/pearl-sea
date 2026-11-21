@@ -41,7 +41,7 @@ export function storyScreen(app: App, active: ActiveDiver): Screen {
   const figure = h(
     'div',
     { className: 'ps-story__figure', dataset: { figure: beatFigure(data, story.beat) } },
-    picture(app.art, beatFigure(data, story.beat)),
+    picture(app.art, beatFigure(data, story.beat), { motion: 'greet' }),
   );
 
   let spoken = '';

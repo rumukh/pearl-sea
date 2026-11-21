@@ -13,8 +13,11 @@ import type { AnchorPoint, ArtAnchor, ArtEntry, FriendStage } from '../../rules/
 import { ART, COSMETIC_BASE_WIDTH, CROWN_ART_ID } from '../../rules/contract';
 import { h, svg } from '../ui/dom';
 import type { ArtLibrary } from './library';
+import { articulatePortrait, type PortraitMotion } from './portrait-motion';
 
 export interface PictureOptions {
+  /** Omit on thumbnails, maps and printed pages. A greeting settles after one cycle. */
+  readonly motion?: PortraitMotion;
   /** What the picture shows, for screen readers; omit for a decorative picture. */
   readonly alt?: string;
   readonly className?: string;
@@ -315,6 +318,7 @@ export function picture(art: ArtLibrary, id: string, options: PictureOptions = {
     fadeInIfLate(image);
     replaceOnError(image, () => drawPlaceholder(frame, id, width, height, options.alt));
     frame.append(image);
+    if (options.motion) articulatePortrait(frame, id, options.motion);
     return frame;
   }
   drawPlaceholder(frame, id, width, height, options.alt);
@@ -334,6 +338,10 @@ export function monsterForms(
 ): HTMLElement {
   const inked = ART.monster(monster, 'inked');
   const [width, height] = pictureSize(art, inked);
+  const forms = [
+    picture(art, ART.monster(monster, 'freed'), { className: 'ps-monster-forms__freed' }),
+    picture(art, inked, { className: 'ps-monster-forms__inked' }),
+  ];
   const box = h(
     'div',
     {
@@ -341,10 +349,10 @@ export function monsterForms(
       dataset: { monster },
       ...(options.testId ? { testId: options.testId } : {}),
     },
-    picture(art, ART.monster(monster, 'freed'), { className: 'ps-monster-forms__freed' }),
-    picture(art, inked, { className: 'ps-monster-forms__inked' }),
+    ...forms,
   );
   box.style.aspectRatio = `${width} / ${height}`;
+  if (options.motion) articulatePortrait(box, inked, options.motion, forms);
   if (options.alt) {
     box.setAttribute('role', 'img');
     box.setAttribute('aria-label', options.alt);
@@ -480,6 +488,10 @@ export function dressedFriend(
   const id = friendArtId(look.friend, look.stage);
   const base = picture(art, id, options);
   if (look.stage === 'egg') return base;
+  const outfit = h('span', {
+    className: 'ps-puppet__outfit',
+    attributes: { 'aria-hidden': 'true' },
+  });
   /**
    * Put `element` on an anchor, `width` thousandths of the painting wide at scale 100: for a
    * cosmetic, the contract's anchor scale (`cosmeticPlacement`, `COSMETIC_BASE_WIDTH`) in percent.
@@ -492,7 +504,7 @@ export function dressedFriend(
     holder.style.width = `${(width * point.scale) / 1000}%`;
     holder.style.transform = `translate(-50%, -50%) rotate(${point.rotate}deg)`;
     holder.append(element);
-    base.append(holder);
+    outfit.append(holder);
   };
   for (const anchor of ['neck', 'eyes', 'head'] as const) {
     const item = look.outfit?.[anchor];
@@ -502,5 +514,6 @@ export function dressedFriend(
     if (art.entry(CROWN_ART_ID)) place(picture(art, CROWN_ART_ID), 'head', COSMETIC_BASE_WIDTH);
     else place(shellCrown(), 'head', CROWN_WIDTH);
   }
+  if (outfit.childElementCount) base.append(outfit);
   return base;
 }

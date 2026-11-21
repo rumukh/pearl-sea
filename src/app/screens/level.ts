@@ -124,6 +124,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
                 'div',
                 { className: 'ps-level__monster' },
                 picture(app.art, ART.monster(monster.id, monster.freed ? 'freed' : 'inked'), {
+                  motion: 'greet',
                   alt: text(monster.nameKey),
                 }),
               )

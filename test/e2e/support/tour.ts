@@ -320,9 +320,9 @@ async function createChildFromEditor(page: Page): Promise<void> {
 }
 
 /**
- * The lagoon after four lessons, on a later day: the daily adventure's Svačinka, the map, a region
- * and a level with its Jak na to?, Inkoustová věta, Pexeso, Lov chyb, the treasure chest, U Mrože,
- * the friends' wardrobe, the album, the Great Shell and goodbye.
+ * The lagoon after four lessons, on a later day: the map, a region and the day's new level with
+ * its Jak na to?, Pexeso, Inkoustová věta, then the daily adventure's Svačinka, Lov chyb, the
+ * treasure chest, U Mrože, the friends' wardrobe, the album, the Great Shell and goodbye.
  */
 export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
   const four = await levelsPlayed(
@@ -344,29 +344,7 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     description: 'A new day in the grotto: three baby friends, today’s plan',
   });
 
-  // Dnešní výprava on a new day: the friends are hungry, so a snack of review comes first.
-  expect(await goAdventuring(page)).toBe('screen-round');
-  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'snack');
-  await visit({
-    name: '23-snack',
-    play: true,
-    description:
-      'Dnešní výprava on a new day: Svačinka, a review round for the hungry friends; a word the child knows well is answered on the letter pad (e é ě je, i í y ý …)',
-  });
-  // The first dive shows the two-tile choice; the letter pad comes with words the child knows
-  // well. Unless the snack opened on it, it is looked for in the snack, then in lesson 5's Krmení.
-  const letterPad = {
-    name: '23-letter-pad',
-    play: true,
-    description: 'The letter pad (i í y ý …), for a word the child knows well',
-  };
-  let letterPadSeen = await onLetterPad(page);
-  if (!letterPadSeen && (await untilLetterPad(page))) {
-    letterPadSeen = true;
-    await visit(letterPad);
-  }
-  await untilHub(page);
-
+  // The day opens with something new: lesson 5, here from the map with its Jak na to?.
   await page.getByTestId('place-map').click();
   await ready(page, 'map');
   await visit({
@@ -399,17 +377,16 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
   await expect(page.getByTestId('lesson-dialog')).toHaveCount(0);
   await leaveScreen(page, 'screen-level', () => page.getByTestId('level-start').click());
   expect(await throughStory(page)).toBe('screen-round');
-  // Lesson 5: Krmení, Pexeso, Inkoustová věta.
-  if (!letterPadSeen && (await untilLetterPad(page))) {
-    letterPadSeen = true;
-    await visit(letterPad);
-  }
-  if (!letterPadSeen) {
-    notOffered(
-      letterPad.name,
-      'neither Svačinka nor lesson 5’s Krmení asked on the big letter pad',
-    );
-  }
+  // Lesson 5: Krmení, Pexeso, Inkoustová věta. The first dive shows the two-tile choice; the
+  // letter pad comes with words the child knows well: it is looked for in lesson 5's Krmení, then
+  // in Svačinka.
+  const letterPad = {
+    name: '23-letter-pad',
+    play: true,
+    description: 'The letter pad (i í y ý …), for a word the child knows well',
+  };
+  let letterPadSeen = await untilLetterPad(page);
+  if (letterPadSeen) await visit(letterPad);
   await playRound(page, CHILD);
   expect(await pastResults(page)).toBe('screen-board');
   await expect(page.getByTestId('screen-board')).toHaveAttribute('data-activity', 'memory-match');
@@ -464,6 +441,31 @@ export async function lagoonWalk(page: Page, visit: Visit): Promise<void> {
     play: true,
     description: 'The results of a sentence round: stars, score and coins',
   });
+  await untilHub(page);
+
+  // Dnešní výprava after the day's new lesson: the friends are hungry, so a snack of review.
+  expect(await goAdventuring(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'snack');
+  await visit({
+    name: '23-snack',
+    play: true,
+    description:
+      'Dnešní výprava after the day’s new lesson: Svačinka, a review round for the hungry friends; a word the child knows well is answered on the letter pad (e é ě je, i í y ý …)',
+  });
+  // Unless Krmení showed the letter pad, Svačinka does: at once (its own stop shows it) or later.
+  if (!letterPadSeen) {
+    if (await onLetterPad(page)) letterPadSeen = true;
+    else if (await untilLetterPad(page)) {
+      letterPadSeen = true;
+      await visit(letterPad);
+    }
+  }
+  if (!letterPadSeen) {
+    notOffered(
+      letterPad.name,
+      'neither lesson 5’s Krmení nor Svačinka asked on the big letter pad',
+    );
+  }
   await untilHub(page);
 
   // Lesson 6: Krmení, Lov chyb.

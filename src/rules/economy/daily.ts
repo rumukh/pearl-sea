@@ -93,12 +93,13 @@ export function questProgress(ctx: Ctx, goal: QuestGoal, amount: number): void {
 }
 
 /**
- * Count one thing done today towards the daily adventure's order: a completed level or a finished
- * minigame round.
+ * Count one thing done today towards the daily adventure's order: a completed level, a finished
+ * minigame round, a level finished for the first time (`newLevels`, the daily limit) or a started
+ * Svačinka (`snacks`).
  */
-export function countToday(ctx: Ctx, what: 'levels' | 'minigames'): void {
+export function countToday(ctx: Ctx, what: 'levels' | 'minigames' | 'newLevels' | 'snacks'): void {
   const daily = ctx.state.daily;
-  if (daily && daily.day === ctx.state.day) daily[what] += 1;
+  if (daily && daily.day === ctx.state.day) daily[what] = (daily[what] ?? 0) + 1;
 }
 
 /**

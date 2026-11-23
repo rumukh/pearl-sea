@@ -95,10 +95,11 @@ on the shared origin (`test/unit/persistence/origin-isolation.test.ts`).
   characters, Czech letters welcome, unique ignoring case), a picture from the contract's
   `DIVER_AVATARS` (`diver-1` … `diver-8`; S5 paints them as `avatar/<diver-n>`), an **address**
   from `FORMS_OF_ADDRESS` (`boy`, `girl` or `neutral`: kluk, holka or neither, for grammatical
-  praise, §12) and, until the game save has it, the **grade** from `GRADES` (3 or 4) chosen in the
-  editor. The record also holds `grownUpsLanguage` (`cs` or `en`). Removing a child erases that
-  slot's game, preferences and day records **before** the list drops them. None of this enters
-  game state or a hash.
+  praise, §12), optionally the **vocative** the grotto greets them with (_Emo_; tidied like a name, up
+  to two letters longer than a name may be; an empty one is dropped) and, until the game save has it, the
+  **grade** from `GRADES` (3 or 4) chosen in the editor. The record also holds `grownUpsLanguage`
+  (`cs` or `en`). Removing a child erases that slot's game, preferences and day records **before**
+  the list drops them. None of this enters game state or a hash.
 - **Preferences** (`preferences.ts`): `presentation` (the SDK's `PresentationPreferences`: locale
   `cs`, text 100/125/150/200 %, less motion, volumes for narration/music/effects, all 1.0 by
   default), `readAloud`, `autoRead`, `voice` (a local voice URI or null) and `timeLimit` (null or
@@ -354,8 +355,12 @@ The catalog format carries Czech grammar. It is the contract's convention (docs/
   on request), falling back to Czech for any key English lacks.
 - **Names** (S3's rule): code never declines a name, so a name inserted into a sentence stands
   only at its start or after a colon or dash, and no verb or adjective agrees with it ("Hurá!
-  Vajíčko se vylíhlo: {name}!"); the child is never addressed by name, which would need the
-  vocative (the grotto shows the child's name as a label beside the picture instead).
+  Vajíčko se vylíhlo: {name}!"). The child is addressed by name only in the grotto's greeting
+  ("Ahoj, {vocative}!"), with the vocative the family record keeps, which a person confirmed in
+  the profile editor; for a child without one, `i18n/vocative.ts` suggests it only where its rules
+  are sure, else the grotto greets without the name. Beside the greeting the grotto shows the
+  child's picture, and the name as a label only when the greeting does not say it (screen readers
+  hear it either way).
 
 Child-facing sentences keep to the narrative toolkit's child profile (at most ten words); a unit
 test runs `catalogProblems` on both catalogs and checks sentence length, placeholders, `{count}` in
@@ -387,7 +392,9 @@ Behind the gate, in Czech or English (`screens/grownups.ts`), on the calm sandy 
   starts and what the game suggests; content that does not serve a grade, or a placement round,
   keeps the old one and says why; the grade picked in the editor goes to the game when this area
   first reads it, so the grade shown is the one the child plays), daily goal (the dolphin race's
-  switch waits until the race has a way in on screen, §16.5), and the placement check again
+  switch waits until the race has a way in on screen, §16.5), new levels a day (1, 2, 3, 5 or no
+  limit; the game's 3 until chosen; design §4.2), for a 3rd grader the listed words the school has
+  taught (a toggle for each of B L M P S V Z; all until chosen), and the placement check again
   for a grade that has one (it starts the next time the child plays; a round or a story under way
   keeps it for later); read-aloud, auto-read, voice with a test line, music and effects volumes
   (with a note when sound could not start, §9), text size, less motion, a time limit for one
@@ -581,17 +588,17 @@ What the shell does so that real paintings drop in:
 
 ### 16.3 The screens
 
-| Screen                                                                                                                                   | Module                                         |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| Children and the profile editor (name, picture, kluk/holka/nechci říct, 3. or 4. třída)                                                  | `divers.ts`, `editor.ts`                       |
-| Story beats with read-aloud, the first egg                                                                                               | `story.ts`, `eggs.ts`                          |
-| The grotto: the featured friend, its growth and the week, Dnešní výprava, today (goal, quests, chest), the places                        | `hub.ts`                                       |
-| The sea map (shallows, deep), a region's levels, a level's intro, Osmička's lesson (_Jak na to?_)                                        | `map.ts`, `region.ts`, `level.ts`, `lesson.ts` |
-| Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush | `round.ts`, `problem-view.ts`                  |
-| Boards: Pexeso, Perlový náhrdelník, Rybářské sítě, Ulita slov, Slovní rodinka                                                            | `boards.ts`                                    |
-| Results with the big moments (hatching, a monster freed, a grade done) and Osmička cheering                                              | `results.ts`                                   |
-| U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                            | `collections.ts`                               |
-| Goodbye with the diary card                                                                                                              | `goodbye.ts`                                   |
+| Screen                                                                                                                                                        | Module                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Children and the profile editor (name, the greeting's vocative, picture, kluk/holka/nechci říct, 3. or 4. třída)                                              | `divers.ts`, `editor.ts`                       |
+| Story beats with read-aloud, the first egg                                                                                                                    | `story.ts`, `eggs.ts`                          |
+| The grotto: the greeting by name, the featured friend, its growth and the week, Dnešní výprava and why a level waits, today (goal, quests, chest), the places | `hub.ts`                                       |
+| The sea map (shallows, deep), a region's levels (a moon or a book on a level that waits), a level's intro, Osmička's lesson (_Jak na to?_)                    | `map.ts`, `region.ts`, `level.ts`, `lesson.ts` |
+| Problem rounds: Krmení, Inkoustová věta, Lov chyb, Určování, Svačinka, the placement check, the monster battle and the Inkoustíci ambush                      | `round.ts`, `problem-view.ts`                  |
+| Boards: Pexeso, Perlový náhrdelník (with the school rhyme on a rhyme necklace), Rybářské sítě, Ulita slov, Slovní rodinka                                     | `boards.ts`                                    |
+| Results with the big moments (hatching, a monster freed, a grade done) and Osmička cheering                                                                   | `results.ts`                                   |
+| U Mrože, friends and wardrobe with the grotto's decorations, the friends' gallery, the album, the Great Shell                                                 | `collections.ts`                               |
+| Goodbye with the diary card                                                                                                                                   | `goodbye.ts`                                   |
 
 A problem is shown as the rules structure it, one step at a time: a word or sentence with its gaps
 as ink blots (the current one glows, answered ones show their letters, and after a miss the right

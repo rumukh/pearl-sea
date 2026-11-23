@@ -222,6 +222,7 @@ export function completeLevel(ctx: Ctx, index: Index): void {
   ctx.emit(EVENTS.levelCompleted, { level: level.id, stars, firstTime });
   questProgress(ctx, 'finish-level', 1);
   countToday(ctx, 'levels');
+  if (firstTime) countToday(ctx, 'newLevels');
   if (level.monster && !ctx.state.monsters[level.monster]) {
     ctx.state.monsters[level.monster] = { freedDay: ctx.state.day ?? 0 };
     earnCoins(ctx, data.balance.coins.monsterFreed, 'monster');

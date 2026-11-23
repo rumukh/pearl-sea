@@ -11,6 +11,8 @@
 import { schema } from '@aegis/runtime';
 import type { JsonValue, Schema } from '@aegis/runtime';
 import type { Grade } from './kinds';
+import { LISTED_LETTERS } from './language';
+import type { ListedLetter } from './language';
 import { answerValueSchema } from './problems';
 import type { AnswerValue } from './problems';
 import {
@@ -22,7 +24,7 @@ import {
   oneOf,
   uniqueArray,
 } from './schema';
-import { GROTTO_SPOTS, WEARABLE_SLOTS } from './state';
+import { GROTTO_SPOTS, MAX_NEW_LEVELS, WEARABLE_SLOTS } from './state';
 import type { WearableSlot } from './state';
 
 /** Longest response time recorded; anything slower is simply `slow`. */
@@ -43,7 +45,11 @@ export type SettingChange =
   | { key: 'race'; value: boolean }
   | { key: 'unlockAhead'; value: string[] }
   /** The child's school grade (3 or 4): moves the start region and the suggestions only. */
-  | { key: 'grade'; value: Grade };
+  | { key: 'grade'; value: Grade }
+  /** The most new levels a day, `0` for no limit (design §4.2). */
+  | { key: 'newLevels'; value: number }
+  /** The listed-word letters the child's school has taught, in any order (design §4.2). */
+  | { key: 'listedLetters'; value: ListedLetter[] };
 
 export type GameAction =
   /** Start (or resume) a play session on the child's local date `YYYY-MM-DD`. */
@@ -114,6 +120,11 @@ const settingSchema: Schema<SettingChange> = schema.union(
     value: uniqueArray(contentId, { max: 100 }),
   }),
   schema.object({ key: schema.literal('grade'), value: gradeSchema }),
+  schema.object({ key: schema.literal('newLevels'), value: int(0, MAX_NEW_LEVELS) }),
+  schema.object({
+    key: schema.literal('listedLetters'),
+    value: uniqueArray(oneOf(LISTED_LETTERS), { max: LISTED_LETTERS.length }),
+  }),
 );
 
 export const gameActionSchema: Schema<GameAction> = schema.union(

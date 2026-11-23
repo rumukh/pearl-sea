@@ -8,8 +8,9 @@
  */
 import { dressedFriend, picture } from '../art/picture';
 import { taken } from '../controller/commands';
-import { adventureFor, featuredFriend, findLevel, growthOf } from '../game/view';
+import { adventureFor, featuredFriend, findLevel, glowingLevel, growthOf } from '../game/view';
 import type { MessageKey } from '../i18n/messages';
+import { suggestVocative } from '../i18n/vocative';
 import type { Screen } from '../router/router';
 import type { ActiveDiver, App } from '../shell/app';
 import { candyButton } from '../ui/button';
@@ -35,17 +36,27 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
   const view = active.game.view();
   const saveStatus = diverSaveStatus(app, active);
   const coins = createCoinCounter(app.kit, view.coins);
+  // The child by name, in the vocative their profile keeps (or a sure suggestion; else no name).
+  const vocative =
+    active.diver.vocative ?? suggestVocative(active.diver.name, active.diver.address);
   const heading = h('h1', {
     className: 'ps-hub__greeting',
     testId: 'hub-greeting',
-    text: t('hub.greeting'),
+    text: vocative ? t('hub.greetingName', { vocative }) : t('hub.greeting'),
   });
-  // The child's own picture and name, as a label: a greeting by name would need the vocative.
+  // The child's own picture and name, as a label beside the greeting. A greeting by name says the
+  // name already, so the label then shows the picture only (the name stays for screen readers).
   const diverLabel = h(
     'p',
-    { className: 'ps-hub__diver', testId: 'hub-diver' },
+    {
+      className: vocative ? 'ps-hub__diver ps-hub__diver--picture' : 'ps-hub__diver',
+      testId: 'hub-diver',
+    },
     picture(app.art, ART.avatar(active.diver.avatar), { className: 'ps-avatar' }),
-    h('span', { className: 'ps-hub__diver-name', text: active.diver.name }),
+    h('span', {
+      className: vocative ? 'ps-hub__diver-name ps-visually-hidden' : 'ps-hub__diver-name',
+      text: active.diver.name,
+    }),
   );
 
   // ---- Friends ----------------------------------------------------------------------------
@@ -210,6 +221,17 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
       case 'free-play':
         return t('adventure.free');
     }
+  };
+  /** Why the glowing level waits, if it does: for tomorrow, or for the school (design §4.2). */
+  const waitNote = (current: GameView): HTMLElement | null => {
+    const waits = glowingLevel(current)?.waits ?? null;
+    if (waits === null) return null;
+    return h('p', {
+      className: 'ps-hub__wait',
+      testId: 'adventure-wait',
+      dataset: { waits },
+      text: t(waits === 'school' ? 'hub.waitSchool' : 'hub.waitTomorrow'),
+    });
   };
   const adventure = candyButton({
     label: t('adventure.button'),
@@ -431,6 +453,7 @@ export function hubScreen(app: App, active: ActiveDiver): Screen {
         { className: 'ps-hub__adventure', testId: 'hub-adventure' },
         adventure,
         h('p', { className: 'ps-hub__next', testId: 'adventure-next', text: adventureNote(view) }),
+        waitNote(view),
       ),
       todaySection(view),
       places,

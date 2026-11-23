@@ -377,28 +377,55 @@ a golden trace checks both hatches.
 ### 4.2 The daily adventure (_Dnešní výprava_)
 
 One big button, about 10-15 minutes. `hub.next` (contract §12) decides, in Dragon Valley's priority
-order: a pending beat; the first friend's choice (`first-friend`, answered with
-`chooseFirstFriend`); the placement check (a 4th grader who has not done it); **Svačinka** for
-hungry friends and the basket at the start of the day; the next glowing level until one is done
-today; a minigame for variety once (`startLevel { level, activity }`, which never completes a level
-again; it replays the finished board whose items wait most, due or never met, which is how items
-only boards train are reviewed and first met, §6.5; on a day with no level to play it comes only
-when such items wait); the **treasure chest** once the daily goal is met; a board while an item
-only boards train is starving (at most six boards a day), then Svačinka again while an item is
-starving; the next level again **while today's success is at least 70 %** (below it the adventure
-reviews the last three finished levels instead, and a level under way always continues); then free
-play. **Pacing** (a balance study for content 1.2, balance-report.md): new levels, the day's first
-too, wait while the last 20 answers are below 70 % right or more than **40 items** wait for review
-_(`BACKLOG_LIMIT`)_, and come all the same on the first day of practice and on **every third
-day** _(`PACE_EVERY`)_, so a child always moves on and a 4th grader's first lesson follows the
-placement check; Svačinka and reviews come instead, and every open level stays playable from the
-map. After the goal the friends get **sleepy** (an expression, never a lock). A time
-limit set by the grown-ups ends the round gently (`endRound{ reason: 'time-limit' }`).
+order but opening the day with something new: a pending beat; the first friend's choice
+(`first-friend`, answered with `chooseFirstFriend`); the placement check (a 4th grader who has not
+done it); **the day's first new level** (or the level under way), unless pacing holds it or it
+waits (below); then **Svačinka** once for hungry friends and the basket, right after that level (at
+the start of the day when no new level comes); a minigame for variety once (`startLevel { level,
+activity }`, which never completes a level again; it replays the finished board whose items wait
+most, due or never met, which is how items only boards train are reviewed and first met, §6.5; on a
+day with no level to play it comes only when such items wait); the **treasure chest** once the
+daily goal is met; a board while an item only boards train is starving (at most six boards a day),
+then Svačinka again while an item is starving; the next level again **while today's success is at
+least 70 %** (below it the adventure reviews the last three finished levels instead, and a level
+under way always continues); then free play. A level's own rounds review due items too (the mix,
+§6.3), so after a good first level Svačinka is often not needed that day.
 
-The hub is the **home grotto** (`scene/grotto`): the featured friend with its next stage (the
-rules' exact `next.have` of `next.need`), the other friends, the week, today's goal and quests, the
-chest and the button. Places: the sea map, U Mrože, the wardrobe and grotto decorations, the
-friends' gallery, the sticker album, the Great Shell and, once open, the race.
+**Pacing** (a balance study for content 1.2, balance-report.md): new levels, the day's first too,
+wait while the last 20 answers are below 70 % right or more than **40 items** wait for review
+_(`BACKLOG_LIMIT`)_, and come all the same on the first day of practice, on **every third day**
+_(`PACE_EVERY`)_ and on the day a child **comes back after a break** of at least four days since
+the last day with an answer _(`RETURN_AFTER`)_, so a child always moves on, a return opens with
+something new rather than a pile of reviews (the first playtest: a child back after two weeks was
+greeted by 155 overdue items and the snack first), and a 4th grader's first lesson follows the
+placement check; Svačinka and reviews come instead, and every open level stays playable from the
+map.
+
+**New levels that wait** (after the first playtest, contract §12 `LevelCard.waits`). A level never
+finished cannot start, and the map shows why, when:
+
+- **today's new levels are done**: at most **three new levels a day** (`DEFAULT_NEW_LEVELS`; the
+  grown-ups choose 1, 2, 3, 5 or no limit, `settings.newLevels`), counted as levels finished for
+  the first time today (`daily.newLevels`); the first day too, so a first session cannot run
+  through three regions and into material school has not taught. The next one waits for tomorrow
+  (a moon on the map: _Nová úroveň přijde zítra._). Replays of finished levels and their games,
+  Svačinka, the race, U Mrože and the grotto stay open, and a level under way always finishes;
+- **the school has not taught its listed words yet**: a 3rd grader's grown-ups tick the letters
+  whose listed words the class has covered (_Vyjmenovaná slova probraná ve škole_: B L M P S V Z,
+  `settings.listedLetters`; absent means all). A level whose objectives name the listed words
+  after an unticked letter (`obj.listed.<letter>`, or `obj.listed.all` for every letter) waits for
+  the school (a book on the map: _Další vyjmenovaná slova nejdřív probereš ve škole._), and with
+  it everything after it on the way. A rhyme necklace or a listed-word Krmení would otherwise be
+  guesswork. A 4th grader has learnt every letter.
+
+After the goal the friends get **sleepy** (an expression, never a lock). A time limit set by the
+grown-ups ends the round gently (`endRound{ reason: 'time-limit' }`).
+
+The hub is the **home grotto** (`scene/grotto`): a greeting by name (_Ahoj, Emo!_, §10.2), the
+featured friend with its next stage (the rules' exact `next.have` of `next.need`), the other
+friends, the week, today's goal and quests, the chest and the button, with a line under it when the
+next level waits. Places: the sea map, U Mrože, the wardrobe and grotto decorations, the friends'
+gallery, the sticker album, the Great Shell and, once open, the race.
 
 ### 4.3 Habit, not streaks
 
@@ -571,6 +598,12 @@ accents only break ties: `compareCzech`) or a letter's listed words in **the sch
 (`rhyme`). A wrong necklace stays editable; pearls in place gleam (a mark, not only colour). A coin a
 pearl; credits `abc:<word>`. The rhyme order is a publisher's convention (ÚJČ); the pack uses one
 common textbook order, named for grown-ups.
+
+**The rhyme on the board** (after the first playtest: a child who had not learnt the rhyme after S
+yet needed ten checks to guess six pearls). A rhyme necklace shows _Ukaž říkanku_ under its task;
+the button opens the school rhyme of its letter (`grammar.listed.<letter>`, the line Osmička's
+lesson shows), read aloud on request, and it opens by itself after a check that was not right
+yet. As with the lesson, the child chose to read it, so the board credits its pearls as usual.
 
 ### 5.10 Rybářské sítě (`fishing-nets`): custom `ps.sorting-nets`
 
@@ -951,6 +984,17 @@ After name and avatar the profile editor asks _Jsi kluk, nebo holka?_ (_Kluk_, _
 never in the save, a snapshot, an action or a game hash; the rules never see it. `neutral` is the
 default and the fallback, written as full Czech, never as "naučil(a)".
 
+**The greeting by name** (after the first playtest: Dragon Valley greets the child, _Hello, Ada!_,
+and Perlové moře did not). Beside the name (below it on a narrow screen) the editor asks _Jak tě
+máme oslovovat?_ and fills in the vocative it suggests from the name and kluk or holka
+(`src/app/i18n/vocative.ts`: _Ema → Emo_, _Jan → Jane_, _Tomáš → Tomáši_), with a preview
+(_Pozdravíme tě: Ahoj, Emo!_); the child or a grown-up corrects it. The family record keeps it
+as `vocative` (contract §14), and the grotto greets _Ahoj, {vocative}! Kam se dnes ponoříme?_, with
+the child's picture beside it (the name label is left out, as the greeting says it). A child whose
+profile has none yet is greeted with the suggestion when the rules are sure (a name in -a, another
+vowel, a boy's or a girl's consonant ending whose vowel does not drop), else as before, without the
+name.
+
 ### 10.3 The catalog convention
 
 For **every** catalog: the **bare key** `<key>` is the required neutral phrasing (`praise.done`:
@@ -968,9 +1012,10 @@ English twin, and objective titles are `grownups.objective.*` keys, shown only t
 child's, a friend's, a monster's, a cosmetic's) as it is: in the nominative, as its catalog label,
 with its capital. So a name placeholder stands only at the start of a sentence or after a colon or
 dash, and nothing in the sentence agrees with it: no verb, adjective or pronoun that depends on its
-gender or number (never _{friend} vyrostl_). The child is never addressed by name (never _Ahoj,
-{name}!_): Czech addresses people in the vocative (_Petře_, _Jano_), which code cannot derive, so
-address goes through the form of address (§10.2). Inside a sentence a species label is lowercase
+gender or number (never _{friend} vyrostl_). The child is addressed by name only in the vocative a
+person confirmed in the profile editor, or that the editor's rules are sure of (§10.2: _Ahoj,
+{vocative}!_); code never declines a name inside a sentence, so other address goes through the form
+of address. Inside a sentence a species label is lowercase
 (_krab Tvrďák_, [lexicon.md](lexicon.md) §3.1), the capitals rule the game teaches, so only
 authored lines name a creature mid-sentence. Copy review checks this rule; the gate does not.
 
@@ -1018,9 +1063,10 @@ every Czech `grownups.*` string has an English twin, and objectives are named on
 (`grownups.objective.*`). **Progress** (the view's `grownUps`, contract §12): days, answers,
 pearls, friends, the Great Shell as plain lists per strand, accuracy and mastery per objective and
 skill, the **ten hardest words** with their strategies, the last 60 days. **Printables** (§8.5).
-**Settings**: grade, daily goal (10-100 right answers, default 30), time limit (5-120 minutes), the
-race on or off, **unlock ahead**, rerun the placement check, form of address, voice and auto-read,
-volumes, text size, reduced motion. **Data**: backup export and import per child
+**Settings**: grade, daily goal (10-100 right answers, default 30), **new levels a day** (1, 2, 3,
+5 or no limit; default 3, §4.2), for a 3rd grader **the listed words the school has taught** (B L M
+P S V Z, §4.2), time limit (5-120 minutes), the race on or off, **unlock ahead**, rerun the
+placement check, form of address, voice and auto-read, volumes, text size, reduced motion. **Data**: backup export and import per child
 (`pearl-sea-backup`), confirmed reset, **offline install**, storage status (_Uloženo v tomto
 zařízení_). Up to four children (`profile-1` … `profile-4`), names of at most 16 characters.
 

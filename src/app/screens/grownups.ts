@@ -1,7 +1,8 @@
 /**
  * The grown-ups' area, behind the gate, in Czech or English (the family's choice): the language
- * switch, reading aloud and each child's settings (the game's grade, daily goal, dolphin race and
- * the placement check again; read-aloud, voice, volumes, text size, less motion, time limit), each
+ * switch, reading aloud and each child's settings (the game's grade, daily goal, new levels a day,
+ * the listed words the school has taught, dolphin race and the placement check again; read-aloud,
+ * voice, volumes, text size, less motion, time limit), each
  * child's progress with printable flashcards and diplomas (grownups/progress.ts), backups and
  * erasing, storage persistence, offline installation and updates, and what the game does and does
  * not do.
@@ -36,12 +37,21 @@ import { h, replaceKeepingFocus } from '../ui/dom';
 import type { ScreenEntry } from '../router/router';
 import { GROWN_UPS_TABS } from '../shell/app';
 import type { App, GrownUpsTab } from '../shell/app';
-import { GRADES } from '../../rules/contract';
-import type { GameAction, GameView, Grade, SettingChange } from '../../rules/contract';
+import { DEFAULT_NEW_LEVELS, GRADES, LISTED_LETTERS } from '../../rules/contract';
+import type {
+  GameAction,
+  GameView,
+  Grade,
+  ListedLetter,
+  SettingChange,
+} from '../../rules/contract';
 import { diverBadge, downloadText, fileSlug, pickTextFile, topBar } from './common';
 
 /** Daily goals offered to grown-ups, in right answers (the game's own goal is kept too). */
 export const DAILY_GOALS = [10, 20, 30, 40, 50] as const;
+
+/** New levels a day offered to grown-ups (design §4.2); `0` is no limit. */
+export const NEW_LEVEL_CHOICES = [1, 2, 3, 5, 0] as const;
 
 /**
  * Whether the shell offers the dolphin race yet. The rules open it once Muréna Mumla is free, but
@@ -258,6 +268,43 @@ export function grownUpsScreen(
             return null;
           };
         const goals = [...new Set([...DAILY_GOALS, settings.dailyGoal])].sort((a, b) => a - b);
+        const newLevels = settings.newLevels ?? DEFAULT_NEW_LEVELS;
+        // The day's new levels: the choices, any other value the game holds, and "no limit" last.
+        const levelChoices = [...new Set([...NEW_LEVEL_CHOICES, newLevels])].sort((a, b) =>
+          a === 0 ? 1 : b === 0 ? -1 : a - b,
+        );
+        /** The listed-word letters the school has taught: a toggle each, in school order. */
+        const lettersField = (taught: readonly ListedLetter[]): HTMLElement => {
+          const group = h('div', {
+            className: 'ps-segmented',
+            testId: 'setting-letters',
+            attributes: { role: 'group', 'aria-label': g('grownups.game.listedLetters') },
+          });
+          for (const letter of LISTED_LETTERS) {
+            const on = taught.includes(letter);
+            const button = h('button', {
+              className: 'ps-segment',
+              text: letter.toUpperCase(),
+              testId: `setting-letter-${letter}`,
+              attributes: { type: 'button', lang: 'cs', 'aria-pressed': String(on) },
+            });
+            button.addEventListener('click', () => {
+              const next = on ? taught.filter((other) => other !== letter) : [...taught, letter];
+              void changeGame(
+                setting({
+                  key: 'listedLetters',
+                  value: LISTED_LETTERS.filter((other) => next.includes(other)),
+                }),
+              ).catch(app.kit.onError);
+            });
+            group.append(button);
+          }
+          return field(
+            g('grownups.game.listedLetters'),
+            group,
+            g('grownups.game.listedLettersNote'),
+          );
+        };
         // The race's switch waits for the race to have a way in on screen.
         const race = RACE_ON_SCREEN
           ? h('input', {
@@ -301,6 +348,19 @@ export function grownUpsScreen(
               (value) => changeGame(setting({ key: 'dailyGoal', value: Number(value) })),
             ),
           ),
+          field(
+            g('grownups.game.newLevels'),
+            segmented(
+              g('grownups.game.newLevels'),
+              levelChoices.map(String),
+              String(newLevels),
+              (value) => (value === '0' ? g('grownups.game.newLevelsNone') : value),
+              (value) => `setting-new-levels-${value}`,
+              (value) => changeGame(setting({ key: 'newLevels', value: Number(value) })),
+            ),
+            g('grownups.game.newLevelsNote'),
+          ),
+          settings.grade === 3 ? lettersField(settings.listedLetters ?? LISTED_LETTERS) : null,
           race
             ? h(
                 'label',

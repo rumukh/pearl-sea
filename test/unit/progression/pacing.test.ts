@@ -141,7 +141,10 @@ describe('pacing: the day’s new levels', () => {
     expect(state.run?.level).toBe(NEXT);
     state.daysPracticed = 2;
     const day = state.day!;
-    state.history = [{ day, answers: 20, correct: 8, fast: 0 }];
+    state.history = [
+      { day: day - 1, answers: 20, correct: 8, fast: 0 },
+      { day, answers: 20, correct: 8, fast: 0 },
+    ];
     state.daily = { ...state.daily!, answers: 20, correct: 8 };
     expect(levelsHeld(state, data), 'held for anything new').toBe(true);
     expect(next(state)).toEqual({ kind: 'level', level: NEXT });
@@ -195,7 +198,8 @@ describe('Svačinka below the success target', () => {
     const player = await playerFrom(snapshot);
     await player.act({ type: 'startSession', day: '2026-11-03' });
     await player.settleStory();
-    expect(player.view().hub.next.kind).toBe('snack');
+    // The day opens with its new level; Svačinka, started here, follows it (design §4.2).
+    expect(player.view().hub.next.kind).toBe('level');
     await player.act({ type: 'startActivity', activity: { kind: 'snack', friend: null } });
     const round = player.view().round as ProblemRoundView;
     const state = player.state();

@@ -215,21 +215,33 @@ friend eats (eggs' items included). A snack of the basket alone is never longer 
 its tastes.
 
 **The daily adventure** (`hub.next`, design §4.2): a pending beat; the first egg; the placement
-check while pending; Svačinka at the start of the day; the next glowing level until one is done
-today; once a day a board replay, for variety after a level or, on a day without one, while a
-finished board's items wait (the board with the most items waiting: due, or board-only and never
-answered); the chest once the goal is reached; the review guarantee: a board while a board-only
-item starves (the board with the most of them, at most `STARVING_BOARDS` 6 boards a day, so an item
-a board cannot thread never fills the day), then Svačinka while an item it serves starves; more
-levels while today's success is at least 70 % (a level under way always continues), else a review
-(Svačinka, or an activity of the last three finished levels, rotating); then free play.
+check while pending; the day's first new level (or the level under way) unless levels are held or
+it waits; Svačinka once, right after it (at the start of the day when no new level comes;
+`daily.snacks` counts the day's snacks); once a day a board replay, for variety after a level or,
+on a day without one, while a finished board's items wait (the board with the most items waiting:
+due, or board-only and never answered); the chest once the goal is reached; the review guarantee: a
+board while a board-only item starves (the board with the most of them, at most `STARVING_BOARDS` 6
+boards a day, so an item a board cannot thread never fills the day), then Svačinka while an item it
+serves starves; more levels while today's success is at least 70 % and today's new levels are under
+the limit (a level under way always continues), else a review (Svačinka, or an activity of the last
+three finished levels, rotating); then free play.
 
 **Pacing** (`levelsHeld`, design §4.2): new levels, the day's first too, wait while recent success
 is below 70 % (`lowSuccess`) or more than `BACKLOG_LIMIT` 40 items Svačinka can serve are due
-(`reviewBacklog`), except on the first day of practice and every `PACE_EVERY`-th (3rd) day
-(`daysPracticed`), so every child moves on at least every third day and a 4th grader's first lesson
-follows the placement check. A held day offers Svačinka or a review instead; a level under way is
-never held.
+(`reviewBacklog`), except on the first day of practice, every `PACE_EVERY`-th (3rd) day
+(`daysPracticed`) and a return after a break (`returning`: the last day with an answer at least
+`RETURN_AFTER` 4 days ago, or beyond the history for a child who practised before), so every child
+moves on at least every third day, a return opens with something new, and a 4th grader's first
+lesson follows the placement check. A held day offers Svačinka or a review instead; a level under
+way is never held.
+
+**Waiting levels** (`levelWait` in `progression/levels.ts`, design §4.2): a level never finished
+and not under way cannot start (`startLevel` refuses it with `school-letters` or
+`new-levels-done`) while it practises the listed words after a letter a 3rd grader's school has
+not taught (`untaughtLetters`, from `settings.listedLetters`; a level's letters are its
+`obj.listed.<letter>` objectives, `levelLetters`), or once `daily.newLevels`, the levels finished
+for the first time today, reached `settings.newLevels` (absent: `DEFAULT_NEW_LEVELS` 3; `0` no
+limit). Pacing holds only the suggestion; a waiting level waits on the map too.
 
 **The race** opens after `race.unlockAfter`: known items first (box 2+, then any answered right
 before), at most `race.maxProblems`, single gaps on the letter pad, ended by the shell with

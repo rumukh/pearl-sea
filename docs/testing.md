@@ -223,7 +223,13 @@ pack lands; the traces' oracle (`test/traces/support.ts`) answers from the lexic
   a day without a level while items wait; boards while a board-only item starves, before
   Svačinka's starving round, at most six a day); pacing (new levels held while recent success is
   below the band or more than 40 items are due, never on the first or every third day of practice,
-  never a level under way) and Svačinka's likeliest successes first below the success target.
+  never a level under way) and Svačinka's likeliest successes first below the success target;
+  waiting levels and returns (`daily-limit.test.ts`: three new levels a day unless the grown-ups
+  choose (`0`: no limit), replays free and a level under way never stopped; a 3rd grader's levels
+  with the listed words after a letter the school has not taught; new levels on a return after
+  `RETURN_AFTER` days, however the reviews piled up); the day's order (`adventure.test.ts`: the
+  day opens with its new level, then Svačinka). Fixtures that play a region in one day lift the
+  limit first, as a grown-up can (`Player.unlimited()` in `test/traces/support.ts`).
 - `test/unit/rules/adapter.test.ts`: every rejection code changes nothing; U Mrože, outfits, the
   grotto, quests, the chest and settings.
 - `test/unit/contract/events.test.ts`: event names, and docs/contract.md §13 lists exactly them.

@@ -157,13 +157,6 @@ test('a monster’s Jak na to? gathers its region’s lessons, and Svačinka has
   await seedFamily(page, await lagoonPlayed());
   await toGrotto(page);
 
-  // A new day starts with Svačinka: it reviews many levels at once, so it has no lesson.
-  expect(await goAdventuring(page)).toBe('screen-round');
-  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'snack');
-  await expect(page.getByTestId('round-pause')).toBeVisible();
-  await expect(page.getByTestId('round-lesson'), 'no lesson in Svačinka').toHaveCount(0);
-  await untilHub(page);
-
   // Muréna Mumla asks the whole lagoon: her lesson is the lagoon's lessons, in their order.
   const lagoon = LAGOON_LESSONS.map(written);
   await openLevel(page, 'sunny-lagoon.monster');
@@ -178,4 +171,11 @@ test('a monster’s Jak na to? gathers its region’s lessons, and Svačinka has
   expect(await shownLesson(page), 'the lagoon’s lessons in the battle').toEqual(lagoon);
   await page.getByTestId('lesson-close').click();
   await expect(page.getByTestId('lesson-dialog')).toHaveCount(0);
+  await untilHub(page);
+
+  // The day's new level done, Svačinka comes: it reviews many levels at once, so it has no lesson.
+  expect(await goAdventuring(page)).toBe('screen-round');
+  await expect(page.getByTestId('screen-round')).toHaveAttribute('data-activity', 'snack');
+  await expect(page.getByTestId('round-pause')).toBeVisible();
+  await expect(page.getByTestId('round-lesson'), 'no lesson in Svačinka').toHaveCount(0);
 });

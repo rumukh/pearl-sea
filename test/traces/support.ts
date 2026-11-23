@@ -695,6 +695,14 @@ export class Player {
     return ok && (await this.act({ type: 'chooseFirstFriend', friend: egg }));
   }
 
+  /**
+   * Lift the daily limit on new levels (design §4.2), as a grown-up can: for fixtures that play a
+   * whole region in one day. Tests of the limit itself leave it in place.
+   */
+  async unlimited(): Promise<boolean> {
+    return this.act({ type: 'setSetting', setting: { key: 'newLevels', value: 0 } });
+  }
+
   /** Skip every pending skippable beat; click through the others. */
   async settleStory(): Promise<void> {
     for (let guard = 0; guard < 30 && this.view().story !== null; guard++) {

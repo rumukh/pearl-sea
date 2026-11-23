@@ -9,7 +9,8 @@ the measurements support.
 on 2026-11-01: the rules' pacing, Svačinka's aim and the boards' order, and content 1.2.2's
 balance (`grown` at 70 % bronze, coins back towards 50-80). §8 measures the result. The band's
 shortfall is known, to revisit after the playtest. The Krakatice's cap of 40 is in the contract (an
-activity's `count` up to 40) and in content 1.2.1.
+activity's `count` up to 40) and in content 1.2.1. §9 measures the changes after the first
+playtest (the daily limit on new levels, the school's letters, the day's order and returns).
 
 - **Code**: the learner model `test/sim/learners.ts`, the driver `test/sim/driver.ts`, the named
   checks `test/sim/report.ts` and the growth probes `test/sim/growth.ts`.
@@ -616,3 +617,31 @@ rare (0.2 a session) and the chest pays 1.7.
   smaller quest coins (content), would bring it down.
 - **Eggs a lesson ahead of their topic** wait longer under pacing (Hvězdice, Delfín): content
   could give them with their topic's first lesson.
+
+## 9. After the first playtest: the daily limit, the day's order and returns
+
+The family's own play (a 3rd grader's saves, read on the device) showed what the models do not:
+on her first day she played 303 answers through three regions at 87.5 % and reached the listed
+words after M and P, which school had not taught yet (levels at 50-61 %, the rhyme necklaces
+solved by trial; one took ten checks); she came back two weeks later to 155 overdue items and
+Svačinka first. Design §4.2 now limits new levels to three a day (`settings.newLevels`), holds a
+3rd grader's levels with the listed words after letters the school has not taught
+(`settings.listedLetters`), opens the day with its first new level and Svačinka after it, and lifts
+pacing the day a child comes back after `RETURN_AFTER` (4) days. A rhyme necklace shows its rhyme
+(design §5.9). With the default settings (all letters taught, three new levels a day), the average
+and struggling children, 84 days on content 1.2.6, seed `simulation`, before and after:
+
+| Measure                                  | Before           | After            |
+| ---------------------------------------- | ---------------- | ---------------- |
+| Average: sessions at 70-90 % (of 60)     | 42 (median 76 %) | 43 (median 74 %) |
+| Average: levels in 84 days               | 42               | 41               |
+| Average: longest overdue (days)          | 8                | 6                |
+| Average: coins per session (median)      | 78               | 76               |
+| Struggling: success per session (median) | 68 %             | 68 %             |
+| Struggling: levels in 84 days            | 26               | 27               |
+
+The models play 35-45 answers a day on school days, so the limit seldom binds and their weekend gap
+is three days, below `RETURN_AFTER`: the balance of §8 stands, and the review guarantee holds
+(no known item more than 7 days overdue, against 8 before). The band and check (a) miss as before
+(§8.5). A level's own rounds review due items, so after the day's first level Svačinka is often
+not needed: the day's reviews move, they are not lost.

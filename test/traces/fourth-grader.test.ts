@@ -27,10 +27,12 @@ vi.setConfig({ testTimeout: 300_000 });
  * Pinned literals (docs/testing.md, "When a golden moves"). The trajectory was re-pinned when hints
  * took their examples from other families (7f5244ab2c0888bb before; with every hint neutralized,
  * the old and the new rules both give 3afcf347fff8792e), and both when the state version became 2
- * (1cdbe9207ad8b207 and cee91e57b6e49a00 before; with STATE_VERSION 1 they come back).
+ * (1cdbe9207ad8b207 and cee91e57b6e49a00 before; with STATE_VERSION 1 they come back), and when the
+ * day began to count its new levels and Svačinka rounds (the daily limit, design §4.2:
+ * f23beda2de7c1b14 and f790059c732d21b7 before; without the two counters they come back).
  */
-const GOLDEN_HASH = 'f23beda2de7c1b14';
-const GOLDEN_TRAJECTORY = 'f790059c732d21b7';
+const GOLDEN_HASH = 'c2ebe8c1fb43545c';
+const GOLDEN_TRAJECTORY = '8fca01565b7a9aa6';
 
 const SEED = 'golden-fourth-grader';
 const EGG = 'zelva-obojka';

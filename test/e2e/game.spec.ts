@@ -172,7 +172,8 @@ test('a new 3rd grader dives in and hatches the first friend in Slunná laguna',
   await noViolations(page, 'the prologue');
   await chooseEgg(page, 'krab-tvrdak');
 
-  await expect(page.getByTestId('hub-greeting')).toHaveText('Ahoj! Kam se dnes ponoříme?');
+  // The grotto greets the child by name, in the vocative the editor suggested for Ema.
+  await expect(page.getByTestId('hub-greeting')).toHaveText('Ahoj, Emo! Kam se dnes ponoříme?');
   await expect(page.getByTestId('hub-diver').locator('.ps-hub__diver-name')).toHaveText('Ema');
   await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-friend', 'krab-tvrdak');
   await expect(page.getByTestId('hub-featured')).toHaveAttribute('data-stage', 'egg');

@@ -17,7 +17,10 @@ export const LAGOON_LESSONS = [
   'sunny-lagoon.6',
 ];
 
-/** Play `levels` with a perfect 3rd grader who chose `egg`, and return the last commit's save. */
+/**
+ * Play `levels` with a perfect 3rd grader who chose `egg`, and return the last commit's save. The
+ * levels are played in one day, so the daily limit on new levels is lifted first.
+ */
 export async function saveAfter(
   levels: readonly string[],
   options: { egg?: string; pack?: ContentPack<ContentData>; seed?: string } = {},
@@ -27,6 +30,7 @@ export async function saveAfter(
   player.host.subscribeCommits((commit) => {
     snapshot = commit.snapshot;
   });
+  await player.unlimited();
   await player.begin(options.egg ?? 'krab-tvrdak');
   for (const level of levels) await player.playLevel(level);
   if (player.failures.length > 0) throw new Error(`save failed: ${player.failures.join('; ')}`);

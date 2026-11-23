@@ -562,8 +562,10 @@ it and the content gate runs it on every catalog):
 **Inserted names** bind every catalog too (from S3's Czech copy review; design §10.3). A
 `{placeholder}` that inserts a name (a child's, a friend's, a monster's, a cosmetic's) stands only
 at the start of a sentence or after a colon or dash. Nothing in the sentence agrees with it: no
-verb, adjective or pronoun depends on its gender or number. The child is never addressed by name:
-Czech needs the vocative (_Petře_, _Jano_), which code cannot derive. Inside a sentence a species
+verb, adjective or pronoun depends on its gender or number. The child is addressed by name only
+as the family record's `vocative` (§14), a form a person confirmed in the profile editor (or the
+editor's sure suggestion), in the grotto's greeting (_Ahoj, {vocative}!_); code never declines a
+name inside a sentence. Inside a sentence a species
 label is lowercase (_krab Tvrďák_), the capitals rule the game teaches. Copy review checks this; the
 gate does not.
 
@@ -859,28 +861,28 @@ dimension (m, f, n) is derived.
 `ProfileState` is everything authoritative about one child's game. It lives in the runtime snapshot
 and is saved after every commit. The structure is Dragon Valley's, with sea names.
 
-| Field                                             | Meaning                                                                                                                     |
-| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `day`, `firstDay`                                 | current and first session day (day numbers: days since 1970-01-01, local; `dayNumber`, `isoDay`)                            |
-| `sessions`, `daysPracticed`                       | counters                                                                                                                    |
-| `onboarding`                                      | `firstFriend` (the chosen first egg, or null), `placement: pending/done/skipped`                                            |
-| `items`                                           | per item: `box` 0-5, `due` day, `seen`, `correct`, `recent` (last 3 buckets), `lastDay`, effort counts (§5.4)               |
-| `levels`                                          | per level: best `stars`, `bestAccuracy`, `plays`, `placed`, `paidStars`                                                     |
-| `monsters`                                        | freed monsters and the day (`freedDay`)                                                                                     |
-| `friends`                                         | owned friends: `stage`, `obtainedDay`, `stageDay`, `outfit` (`head`, `eyes`, `neck`: an item or null)                       |
-| `coins`, `coinsEarned`                            | wallet and lifetime earnings                                                                                                |
-| `cosmetics`                                       | `@aegis/narrative` `CosmeticState` (owned items and idempotent grant claims; `equipped` stays empty)                        |
-| `grotto`                                          | the decoration on each of the 6 spots, or null                                                                              |
-| `stickers`                                        | earned stickers and the day                                                                                                 |
-| `daily`                                           | today's answers, right and fast answers, levels and minigames finished, the goal, quests, the chest (`locked/ready/opened`) |
-| `history`                                         | the last 60 days' records                                                                                                   |
-| `race`, `questsClaimed`, `bestStreak`, `splashed` | records for stickers and the grown-ups' area (`splashed`: Inkoustíci splashed away)                                         |
-| `story`                                           | the beat in progress (`NarrativeState`), `pending`, `queue`, `done`                                                         |
-| `run`                                             | the level being played: `level`, `next` activity, `results`                                                                 |
-| `round`                                           | the active or finished round (a problem round or a minigame round)                                                          |
-| `roundCounter`                                    | for round IDs `r1`, `r2`, …                                                                                                 |
-| `settings`                                        | rule settings: `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4)                                                         |
-| `finale`                                          | the day the finale was completed                                                                                            |
+| Field                                             | Meaning                                                                                                                                                                                                                                                                           |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `day`, `firstDay`                                 | current and first session day (day numbers: days since 1970-01-01, local; `dayNumber`, `isoDay`)                                                                                                                                                                                  |
+| `sessions`, `daysPracticed`                       | counters                                                                                                                                                                                                                                                                          |
+| `onboarding`                                      | `firstFriend` (the chosen first egg, or null), `placement: pending/done/skipped`                                                                                                                                                                                                  |
+| `items`                                           | per item: `box` 0-5, `due` day, `seen`, `correct`, `recent` (last 3 buckets), `lastDay`, effort counts (§5.4)                                                                                                                                                                     |
+| `levels`                                          | per level: best `stars`, `bestAccuracy`, `plays`, `placed`, `paidStars`                                                                                                                                                                                                           |
+| `monsters`                                        | freed monsters and the day (`freedDay`)                                                                                                                                                                                                                                           |
+| `friends`                                         | owned friends: `stage`, `obtainedDay`, `stageDay`, `outfit` (`head`, `eyes`, `neck`: an item or null)                                                                                                                                                                             |
+| `coins`, `coinsEarned`                            | wallet and lifetime earnings                                                                                                                                                                                                                                                      |
+| `cosmetics`                                       | `@aegis/narrative` `CosmeticState` (owned items and idempotent grant claims; `equipped` stays empty)                                                                                                                                                                              |
+| `grotto`                                          | the decoration on each of the 6 spots, or null                                                                                                                                                                                                                                    |
+| `stickers`                                        | earned stickers and the day                                                                                                                                                                                                                                                       |
+| `daily`                                           | today's answers, right and fast answers, levels and minigames finished, the goal, quests, the chest (`locked/ready/opened`); optional `newLevels` (levels finished for the first time today, for the daily limit) and `snacks` (Svačinka rounds started today)                    |
+| `history`                                         | the last 60 days' records                                                                                                                                                                                                                                                         |
+| `race`, `questsClaimed`, `bestStreak`, `splashed` | records for stickers and the grown-ups' area (`splashed`: Inkoustíci splashed away)                                                                                                                                                                                               |
+| `story`                                           | the beat in progress (`NarrativeState`), `pending`, `queue`, `done`                                                                                                                                                                                                               |
+| `run`                                             | the level being played: `level`, `next` activity, `results`                                                                                                                                                                                                                       |
+| `round`                                           | the active or finished round (a problem round or a minigame round)                                                                                                                                                                                                                |
+| `roundCounter`                                    | for round IDs `r1`, `r2`, …                                                                                                                                                                                                                                                       |
+| `settings`                                        | rule settings: `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4); optional `newLevels` (the most new levels a day, `0` no limit; absent: `DEFAULT_NEW_LEVELS`, 3) and `listedLetters` (the listed-word letters a 3rd grader's school has taught, in school order; absent: all) |
+| `finale`                                          | the day the finale was completed                                                                                                                                                                                                                                                  |
 
 A **problem round** keeps its activity, source, skills, input, target (or `null` for a battle that
 ends by its meter and a race that ends by time), the counters, the re-ask queue, the recent items,
@@ -911,30 +913,31 @@ Every action is validated by `gameActionSchema` and then by the rules' legality 
 action changes nothing, costs nothing and draws no randomness. Only answers cost a logical turn
 (`ACTION_TURNS`); re-ask jobs count turns.
 
-| Action                                                 | Turns | Legal when                                                                                               | Effect                                                                                          |
-| ------------------------------------------------------ | ----- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `startSession { day }`                                 | 0     | always (the first action of a profile)                                                                   | a new day: daily record, history; the first session: the prologue                               |
-| `chooseFirstFriend { friend }`                         | 0     | no friend chosen yet; one of `FIRST_FRIEND_CHOICES`                                                      | the first egg                                                                                   |
-| `startLevel { level, activity? }`                      | 0     | the level open, no active round, no blocking beat; with `activity`, a completed level's activity         | start a run (and its level-start beat), or replay one activity                                  |
-| `startActivity { activity }`                           | 0     | `level` (index ≤ next), `race` (open and on), `snack` (a hungry friend, or due items), `placement`       | start a round                                                                                   |
-| `answer { value, elapsedMs }`                          | 1     | a problem is on screen (not in the placement check)                                                      | grade the step; the Leitner move, coins, the ink washed, a re-ask job; the next step or problem |
-| `placementAnswer { value, elapsedMs }`                 | 1     | a placement problem is on screen                                                                         | grade, climb the ladder; at the end place levels                                                |
-| `minigameMove { revision, move }`                      | 0     | a board is active, `revision` is its revision, the move is legal (§12.1)                                 | reduce the board; credit items and coins; the next board or the end of the round                |
-| `hint`                                                 | 0     | a problem is on screen, not yet hinted                                                                   | mark hinted (the shell shows the strategy)                                                      |
-| `endRound { reason }`                                  | 0     | a round exists                                                                                           | `done`, `quit` (progress kept), `time-up` (the race), `time-limit`                              |
-| `buy { item }`                                         | 0     | available at U Mrože, not owned, affordable                                                              | pay, grant                                                                                      |
-| `equip { friend, slot, item \| null }`                 | 0     | friend owned; item owned and of that slot                                                                | dress the friend                                                                                |
-| `decorate { spot, item \| null }`                      | 0     | spot 0-5; item owned and of slot `grotto`                                                                | place or clear a grotto decoration                                                              |
-| `claimQuest { quest }`                                 | 0     | quest done and unclaimed                                                                                 | pay the quest's coins                                                                           |
-| `openChest`                                            | 0     | the chest is ready (the daily goal reached)                                                              | a weighted grant from `rewards`                                                                 |
-| `storyChoice { beat, node, revision, choice \| null }` | 0     | the pending beat, its node and revision                                                                  | advance (or skip a skippable beat); grant rewards                                               |
-| `setSetting { setting }`                               | 0     | values in range, also before the first session; `grade` one the content serves, not in a placement round | `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4; progress, friends and coins stay)          |
+| Action                                                 | Turns | Legal when                                                                                                                                                                             | Effect                                                                                                                                                             |
+| ------------------------------------------------------ | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `startSession { day }`                                 | 0     | always (the first action of a profile)                                                                                                                                                 | a new day: daily record, history; the first session: the prologue                                                                                                  |
+| `chooseFirstFriend { friend }`                         | 0     | no friend chosen yet; one of `FIRST_FRIEND_CHOICES`                                                                                                                                    | the first egg                                                                                                                                                      |
+| `startLevel { level, activity? }`                      | 0     | the level open, no active round, no blocking beat; a level never finished does not wait (`LevelCard.waits`, §12) unless it is under way; with `activity`, a completed level's activity | start a run (and its level-start beat), or replay one activity                                                                                                     |
+| `startActivity { activity }`                           | 0     | `level` (index ≤ next), `race` (open and on), `snack` (a hungry friend, or due items), `placement`                                                                                     | start a round                                                                                                                                                      |
+| `answer { value, elapsedMs }`                          | 1     | a problem is on screen (not in the placement check)                                                                                                                                    | grade the step; the Leitner move, coins, the ink washed, a re-ask job; the next step or problem                                                                    |
+| `placementAnswer { value, elapsedMs }`                 | 1     | a placement problem is on screen                                                                                                                                                       | grade, climb the ladder; at the end place levels                                                                                                                   |
+| `minigameMove { revision, move }`                      | 0     | a board is active, `revision` is its revision, the move is legal (§12.1)                                                                                                               | reduce the board; credit items and coins; the next board or the end of the round                                                                                   |
+| `hint`                                                 | 0     | a problem is on screen, not yet hinted                                                                                                                                                 | mark hinted (the shell shows the strategy)                                                                                                                         |
+| `endRound { reason }`                                  | 0     | a round exists                                                                                                                                                                         | `done`, `quit` (progress kept), `time-up` (the race), `time-limit`                                                                                                 |
+| `buy { item }`                                         | 0     | available at U Mrože, not owned, affordable                                                                                                                                            | pay, grant                                                                                                                                                         |
+| `equip { friend, slot, item \| null }`                 | 0     | friend owned; item owned and of that slot                                                                                                                                              | dress the friend                                                                                                                                                   |
+| `decorate { spot, item \| null }`                      | 0     | spot 0-5; item owned and of slot `grotto`                                                                                                                                              | place or clear a grotto decoration                                                                                                                                 |
+| `claimQuest { quest }`                                 | 0     | quest done and unclaimed                                                                                                                                                               | pay the quest's coins                                                                                                                                              |
+| `openChest`                                            | 0     | the chest is ready (the daily goal reached)                                                                                                                                            | a weighted grant from `rewards`                                                                                                                                    |
+| `storyChoice { beat, node, revision, choice \| null }` | 0     | the pending beat, its node and revision                                                                                                                                                | advance (or skip a skippable beat); grant rewards                                                                                                                  |
+| `setSetting { setting }`                               | 0     | values in range, also before the first session; `grade` one the content serves, not in a placement round                                                                               | `dailyGoal`, `race`, `unlockAhead`, `grade` (3 or 4; progress, friends and coins stay), `newLevels` (0-10, `0` no limit), `listedLetters` (stored in school order) |
 
 Rejections are runtime errors with stable codes, as in Dragon Valley (`no-session`, `invalid-day`,
 `story-pending`, `round-active`, `unknown-level`, `locked-level`, `no-problem`, `wrong-action`,
 `already-hinted`, `no-round`, `stale-move`, `invalid-move`, `insufficient-coins`, `not-owned`,
 `wrong-slot`, `invalid-setting`, …) plus the sea's (`friend-chosen`, `not-a-first-friend`,
-`chest-not-ready`, `race-locked`, `unknown-friend`). The shell localizes by code
+`chest-not-ready`, `race-locked`, `unknown-friend`, and for a new level that waits
+`new-levels-done` and `school-letters`). The shell localizes by code
 (`error.<code>`) and never shows diagnostic text to a child. The shell dispatches with
 `{ expectedRevision }` captured when the control was rendered, so a stale button cannot act on a
 newer view; `elapsedMs` excludes paused time and is capped at 600 000 ms.
@@ -972,10 +975,13 @@ and words carry their Czech text from the lexicon.
   status.
 - `story`: the pending beat's node, scene art ID, text key, choices, `skippable`, `finished`.
 - `hub`: regions (map, grade, unlocked, the monster with its mood, `freed` and `arms`, and level
-  cards `locked/open/completed` with stars, `placed` and `glowing`); `next`, the daily adventure's
-  next step (`story`, `first-friend`, `placement`, `snack`, `level`, `minigame { level, activity }`,
-  `chest`, `free-play`, in the priority order of design.md); `hungry` friends; the race's
-  availability and best; grade `certificates` (the 3rd grade's sea done).
+  cards `locked/open/completed` with stars, `placed`, `glowing` and `waits`: why an open level
+  never finished cannot start yet, `tomorrow` once today's new levels reached the limit or
+  `school` while it practises listed words after a letter the school has not taught, else `null`);
+  `next`, the daily adventure's next step (`story`, `first-friend`, `placement`, `snack`, `level`,
+  `minigame { level, activity }`, `chest`, `free-play`, in the priority order of design.md §4.2);
+  `hungry` friends; the race's availability and best; grade `certificates` (the 3rd grade's sea
+  done); `newLevels` (levels finished for the first time today, and the day's `limit`, `0` none).
 - `run`: the level's activities, done flags and the result once finished.
 - `round`: for problem rounds the progress, the current `problem` (item, structured problem,
   resolved input, `step` of `steps`, re-ask, hinted, `teach` and the `ambush` Inkoustík), the last
@@ -1060,9 +1066,11 @@ proves none collides with Dragon Valley's; a new storage name is added here and 
 
 The **family record** (S4's schema, `pearl-sea-family`) holds, per child, the name, the diver
 avatar (`diver-1` … `diver-8`), the grade (3 or 4, picked in the profile editor and handed to the
-game at the first session) and the **form of address** (`boy`, `girl` or `neutral`), and, for the
-device, the **grown-ups' language** (`cs` or `en`). The form of address and the language live there
-only, never in game state, and need no new storage names. The **preferences record**
+game at the first session), the **form of address** (`boy`, `girl` or `neutral`) and, optionally,
+the **vocative** the grotto greets the child with (_Emo_, confirmed in the profile editor;
+design §10.2), and, for the device, the **grown-ups' language** (`cs` or `en`). The form of
+address, the vocative and the language live there only, never in game state, and need no new
+storage names. The **preferences record**
 (`pearl-sea-preferences`) holds presentation settings per profile (volumes, text size, reduced
 motion, read-aloud).
 

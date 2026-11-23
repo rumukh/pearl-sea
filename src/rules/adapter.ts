@@ -25,6 +25,7 @@ import {
   FIRST_FRIEND_CHOICES,
   GROTTO_SPOTS,
   JOB_RULES,
+  LISTED_LETTERS,
   RANDOM_STREAMS,
   STATE_VERSION,
   contentId,
@@ -52,7 +53,7 @@ import { itemIndex } from './learning/index-cache';
 import { mergeRetiredItems } from './learning/migrate';
 import { MINIGAMES } from './minigames/boards';
 import { applyGrowth } from './progression/friends';
-import { isComplete, isPlayable } from './progression/levels';
+import { isComplete, isPlayable, levelWait } from './progression/levels';
 import { applyMinigameMove, moveProblem } from './progression/minigame-rounds';
 import { placementFor } from './progression/ladder';
 import { placementProblem, startPlacement } from './progression/placement';
@@ -115,7 +116,16 @@ function legality(action: GameAction, read: Read): Reject | null {
       if (!isPlayable(state, data, action.level)) {
         return reject('locked-level', 'This level is still locked.');
       }
-      if (action.activity === undefined) return null;
+      if (action.activity === undefined) {
+        // A new level may wait for the school or for tomorrow (design §4.2); replays never do.
+        const wait = levelWait(state, level);
+        if (wait === 'school') {
+          return reject('school-letters', 'The school has not taught these listed words yet.');
+        }
+        return wait === 'tomorrow'
+          ? reject('new-levels-done', 'Today’s new levels are done; this one waits for tomorrow.')
+          : null;
+      }
       if (!isComplete(state, level.id)) {
         return reject('locked-activity', 'Replay single activities of finished levels.');
       }
@@ -593,7 +603,13 @@ export const pearlSeaAdapter: RuntimeAdapter<ProfileState, GameAction, GameView,
           checkDailyGoal(ctx);
         } else if (setting.key === 'race') ctx.state.settings.race = setting.value;
         else if (setting.key === 'grade') ctx.state.settings.grade = setting.value;
-        else ctx.state.settings.unlockAhead = [...setting.value];
+        else if (setting.key === 'newLevels') ctx.state.settings.newLevels = setting.value;
+        else if (setting.key === 'listedLetters') {
+          // Kept in school order, so the same letters always make the same state.
+          ctx.state.settings.listedLetters = LISTED_LETTERS.filter((letter) =>
+            setting.value.includes(letter),
+          );
+        } else ctx.state.settings.unlockAhead = [...setting.value];
       },
     }),
   ],

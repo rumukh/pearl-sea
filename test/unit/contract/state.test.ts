@@ -7,6 +7,7 @@ import { requireValue } from '@aegis/runtime';
 import {
   ACTION_TURNS,
   GROTTO_SPOTS,
+  MAX_NEW_LEVELS,
   STATE_VERSION,
   dayNumber,
   gameActionSchema,
@@ -101,6 +102,39 @@ describe('profile state', () => {
       }).ok,
     ).toBe(true);
   });
+
+  it('accepts the optional daily limit and the school’s letters, absent from older saves', () => {
+    const state = initialProfileState({ dailyGoal: 30, race: true });
+    expect(state.settings).not.toHaveProperty('newLevels');
+    expect(state.settings).not.toHaveProperty('listedLetters');
+    const settings = (patch: object) =>
+      profileStateSchema.parse({ ...state, settings: { ...state.settings, ...patch } }).ok;
+    expect(settings({ newLevels: 0 })).toBe(true);
+    expect(settings({ newLevels: MAX_NEW_LEVELS })).toBe(true);
+    expect(settings({ newLevels: MAX_NEW_LEVELS + 1 })).toBe(false);
+    expect(settings({ listedLetters: ['b', 'l'] })).toBe(true);
+    expect(settings({ listedLetters: [] })).toBe(true);
+    expect(settings({ listedLetters: ['b', 'b'] })).toBe(false);
+    expect(settings({ listedLetters: ['x'] })).toBe(false);
+    const daily = {
+      day: 20765,
+      answers: 0,
+      correct: 0,
+      fast: 0,
+      levels: 0,
+      minigames: 0,
+      goal: 30,
+      quests: [],
+      chest: 'locked',
+    };
+    expect(profileStateSchema.parse({ ...state, daily }).ok, 'an older day').toBe(true);
+    expect(
+      profileStateSchema.parse({ ...state, daily: { ...daily, newLevels: 2, snacks: 1 } }).ok,
+    ).toBe(true);
+    expect(profileStateSchema.parse({ ...state, daily: { ...daily, newLevels: -1 } }).ok).toBe(
+      false,
+    );
+  });
 });
 
 describe('actions', () => {
@@ -121,6 +155,10 @@ describe('actions', () => {
     expect(ok({ type: 'equip', friend: 'krab-tvrdak', slot: 'head', item: null })).toBe(true);
     expect(ok({ type: 'decorate', spot: GROTTO_SPOTS - 1, item: 'coral-arch' })).toBe(true);
     expect(ok({ type: 'setSetting', setting: { key: 'grade', value: 4 } })).toBe(true);
+    expect(ok({ type: 'setSetting', setting: { key: 'newLevels', value: 0 } })).toBe(true);
+    expect(ok({ type: 'setSetting', setting: { key: 'listedLetters', value: ['b', 'l'] } })).toBe(
+      true,
+    );
     expect(ok({ type: 'openChest' })).toBe(true);
 
     expect(ok({ type: 'startSession', day: '31.10.2026' })).toBe(false);
@@ -130,6 +168,8 @@ describe('actions', () => {
     expect(ok({ type: 'equip', friend: 'krab-tvrdak', slot: 'grotto', item: null })).toBe(false);
     expect(ok({ type: 'decorate', spot: GROTTO_SPOTS, item: null })).toBe(false);
     expect(ok({ type: 'setSetting', setting: { key: 'grade', value: 5 } })).toBe(false);
+    expect(ok({ type: 'setSetting', setting: { key: 'newLevels', value: -1 } })).toBe(false);
+    expect(ok({ type: 'setSetting', setting: { key: 'listedLetters', value: ['q'] } })).toBe(false);
     expect(ok({ type: 'setSetting', setting: { key: 'address', value: 'girl' } })).toBe(false);
     expect(ok({ type: 'launchSubmarine' })).toBe(false);
   });

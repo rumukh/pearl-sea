@@ -22,7 +22,7 @@ import { pearlSeaGame } from '../../../src/app/game/definition';
 import type { PearlSeaGame, PearlSeaPack } from '../../../src/app/game/definition';
 import { gamePolicy } from '../../../src/app/persistence/game-session';
 import { pearlSeaAdapter } from '../../../src/rules/adapter';
-import { compareCzech, contentRegistration } from '../../../src/rules/contract';
+import { DEFAULT_NEW_LEVELS, compareCzech, contentRegistration } from '../../../src/rules/contract';
 import type {
   AnswerValue,
   BoardView,
@@ -241,6 +241,7 @@ export async function lagoonFreed(): Promise<RuntimeSnapshot> {
  * A 3rd grader who chose `egg` and played `levels` in order on `day` (SEED_DAY unless the test
  * needs today: S2's trace player on the real pack), then went home: the snapshot a save of that
  * child holds. `slips` makes every n-th answer a miss, as a child who is still learning gives them.
+ * More levels than a day's limit on new levels lift the limit first, as a grown-up can.
  */
 export async function levelsPlayed(
   levels: readonly string[],
@@ -255,6 +256,7 @@ export async function levelsPlayed(
       : PERFECT;
   const player = new Player(style, seed, GAME.adapter, GAME.content);
   try {
+    if (levels.length > DEFAULT_NEW_LEVELS) await player.unlimited();
     if (!(await player.begin(egg, day))) {
       throw new Error(`the seeded child could not begin: ${player.failures.join(', ')}`);
     }
@@ -305,6 +307,7 @@ export async function fourthGraderPlaced(ahead?: {
         type: 'setSetting',
         setting: { key: 'unlockAhead', value: [ahead.region] },
       });
+      if (ahead.levels.length > DEFAULT_NEW_LEVELS) await player.unlimited();
       for (const level of ahead.levels) await player.playLevel(level);
       if (player.failures.length > 0) {
         throw new Error(`the seeded child got stuck: ${player.failures.join(', ')}`);

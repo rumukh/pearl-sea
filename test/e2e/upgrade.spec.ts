@@ -54,6 +54,8 @@ interface InFlight {
 async function roundInFlight(): Promise<InFlight> {
   const player = new Player(PERFECT, 'e2e-upgrade', GAME.adapter, GAME.content);
   try {
+    // The lagoon's lessons in one day: past the daily limit on new levels.
+    await player.unlimited();
     if (!(await player.begin('krab-tvrdak', SEED_DAY))) {
       throw new Error(`the seeded child could not begin: ${player.failures.join(', ')}`);
     }

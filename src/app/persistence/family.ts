@@ -9,6 +9,9 @@
  * - `address`: kluk (`boy`), holka (`girl`) or neither (`neutral`), the contract's
  *   `FORMS_OF_ADDRESS`, for grammatical praise (i18n/messages.ts). It is presentation: it never
  *   enters a game hash.
+ * - `vocative`: how the grotto greets the child (5. pád: "Ahoj, Emo!"), as the profile editor
+ *   suggested it and a person confirmed or wrote it (i18n/vocative.ts). Optional: a child without
+ *   one is greeted with the editor's suggestion when it is sure, else without the name.
  * - `avatar`: one of the contract's `DIVER_AVATARS` (S5 paints them as `avatar/<diver-n>`).
  * - `grade`: the class chosen in the editor before the child's game save exists. The game takes
  *   it at the first session and the profile drops it, so the save stays the only lasting home of
@@ -40,6 +43,8 @@ export interface Diver {
   readonly avatar: DiverAvatar;
   /** How the game addresses this child: as a boy, a girl, or in neutral phrasing. */
   readonly address: FormOfAddress;
+  /** The name in the vocative, for the grotto's greeting ("Emo"). */
+  readonly vocative?: string;
   /** The grade chosen before the game save exists; handed to the game at the first session. */
   readonly grade?: Grade;
 }
@@ -51,7 +56,8 @@ export interface FamilyState {
 }
 
 export type NameProblem = 'empty' | 'long' | 'chars' | 'taken';
-export type FamilyProblem = NameProblem | 'full' | 'missing' | 'avatar' | 'address' | 'grade';
+export type FamilyProblem =
+  NameProblem | 'full' | 'missing' | 'avatar' | 'address' | 'grade' | 'vocative';
 export type FamilyResult<T> =
   | { readonly ok: true; readonly value: T }
   | { readonly ok: false; readonly problem: FamilyProblem };
@@ -71,6 +77,20 @@ export function normalizeName(
   if ([...name].length > MAX_NAME_LENGTH) return { ok: false, problem: 'long' };
   if (!NAME_PATTERN.test(name)) return { ok: false, problem: 'chars' };
   return { ok: true, name };
+}
+
+/** A vocative is a declined name: at most two letters longer (Petr → Petře). */
+export const MAX_VOCATIVE_LENGTH = MAX_NAME_LENGTH + 2;
+
+/**
+ * Tidy a typed vocative like a name: `null` for an empty one (the greeting then suggests its own),
+ * `undefined` for one that cannot be used.
+ */
+export function normalizeVocative(raw: string): string | null | undefined {
+  const vocative = raw.normalize('NFC').replace(/\s+/gu, ' ').trim();
+  if (vocative === '') return null;
+  if ([...vocative].length > MAX_VOCATIVE_LENGTH || !NAME_PATTERN.test(vocative)) return undefined;
+  return vocative;
 }
 
 function sameName(a: string, b: string): boolean {
@@ -103,6 +123,7 @@ function hasExactKeys(value: object, keys: readonly string[]): boolean {
 }
 
 const DIVER_KEYS = ['id', 'name', 'avatar', 'address'];
+const OPTIONAL_DIVER_KEYS = ['vocative', 'grade'];
 
 export function isFamilyState(value: unknown): value is FamilyState {
   if (!isRecord(value) || !hasExactKeys(value, ['profiles', 'grownUpsLanguage'])) return false;
@@ -113,10 +134,16 @@ export function isFamilyState(value: unknown): value is FamilyState {
   const names: string[] = [];
   for (const diver of profiles as unknown[]) {
     if (!isRecord(diver)) return false;
-    const withGrade = 'grade' in diver;
-    if (!hasExactKeys(diver, withGrade ? [...DIVER_KEYS, 'grade'] : DIVER_KEYS)) return false;
-    const { id, name, avatar, address, grade } = diver;
-    if (withGrade && !isGrade(grade)) return false;
+    const optional = OPTIONAL_DIVER_KEYS.filter((key) => key in diver);
+    if (!hasExactKeys(diver, [...DIVER_KEYS, ...optional])) return false;
+    const { id, name, avatar, address, grade, vocative } = diver;
+    if ('grade' in diver && !isGrade(grade)) return false;
+    if (
+      'vocative' in diver &&
+      (typeof vocative !== 'string' || normalizeVocative(vocative) !== vocative)
+    ) {
+      return false;
+    }
     if (!isProfileId(id) || ids.has(id) || typeof name !== 'string') return false;
     const normalized = normalizeName(name);
     if (!normalized.ok || normalized.name !== name) return false;
@@ -141,13 +168,15 @@ export interface DiverInput {
   readonly name: string;
   readonly avatar: DiverAvatar;
   readonly address: FormOfAddress;
+  /** The vocative as typed: empty drops it; absent keeps the child's (on an update). */
+  readonly vocative?: string;
 }
 
 function checkInput(
   state: FamilyState,
   input: DiverInput,
   self?: string,
-): FamilyResult<{ name: string }> {
+): FamilyResult<{ name: string; vocative: string | null | undefined }> {
   const normalized = normalizeName(input.name);
   if (!normalized.ok) return normalized;
   if (state.profiles.some((diver) => diver.id !== self && sameName(diver.name, normalized.name))) {
@@ -155,7 +184,27 @@ function checkInput(
   }
   if (!isDiverAvatar(input.avatar)) return { ok: false, problem: 'avatar' };
   if (!isFormOfAddress(input.address)) return { ok: false, problem: 'address' };
-  return { ok: true, value: { name: normalized.name } };
+  const vocative = input.vocative === undefined ? undefined : normalizeVocative(input.vocative);
+  if (input.vocative !== undefined && vocative === undefined) {
+    return { ok: false, problem: 'vocative' };
+  }
+  return { ok: true, value: { name: normalized.name, vocative } };
+}
+
+/** A child's record with its optional fields in a fixed order (the vocative, then the grade). */
+function diverRecord(
+  base: Pick<Diver, 'id' | 'name' | 'avatar' | 'address'>,
+  vocative: string | null | undefined,
+  grade: Grade | undefined,
+): Diver {
+  return {
+    id: base.id,
+    name: base.name,
+    avatar: base.avatar,
+    address: base.address,
+    ...(vocative ? { vocative } : {}),
+    ...(grade !== undefined ? { grade } : {}),
+  };
 }
 
 export function addDiver(
@@ -167,13 +216,11 @@ export function addDiver(
   const checked = checkInput(state, input);
   if (!checked.ok) return checked;
   if (input.grade !== undefined && !isGrade(input.grade)) return { ok: false, problem: 'grade' };
-  const diver: Diver = {
-    id: slot,
-    name: checked.value.name,
-    avatar: input.avatar,
-    address: input.address,
-    ...(input.grade !== undefined ? { grade: input.grade } : {}),
-  };
+  const diver = diverRecord(
+    { id: slot, name: checked.value.name, avatar: input.avatar, address: input.address },
+    checked.value.vocative,
+    input.grade,
+  );
   return {
     ok: true,
     value: { state: { ...state, profiles: ordered([...state.profiles, diver]) }, diver },
@@ -189,12 +236,11 @@ export function updateDiver(
   if (!current) return { ok: false, problem: 'missing' };
   const checked = checkInput(state, input, id);
   if (!checked.ok) return checked;
-  const diver: Diver = {
-    ...current,
-    name: checked.value.name,
-    avatar: input.avatar,
-    address: input.address,
-  };
+  const diver = diverRecord(
+    { id: current.id, name: checked.value.name, avatar: input.avatar, address: input.address },
+    checked.value.vocative === undefined ? current.vocative : checked.value.vocative,
+    current.grade,
+  );
   return {
     ok: true,
     value: {
@@ -216,13 +262,7 @@ export function setPendingGrade(
   const current = findDiver(state, id);
   if (!current) return { ok: false, problem: 'missing' };
   if (grade !== null && !isGrade(grade)) return { ok: false, problem: 'grade' };
-  const rest: Diver = {
-    id: current.id,
-    name: current.name,
-    avatar: current.avatar,
-    address: current.address,
-  };
-  const diver: Diver = grade === null ? rest : { ...rest, grade };
+  const diver = diverRecord(current, current.vocative, grade ?? undefined);
   return {
     ok: true,
     value: {

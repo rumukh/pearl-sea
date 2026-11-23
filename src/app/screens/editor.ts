@@ -1,14 +1,17 @@
 /**
- * Create or change a child's profile: a name, one of eight diver pictures, how the game should
- * address them (_Jsi kluk, nebo holka?_: kluk, holka or _Nechci říct_, docs/design.md §10.2) and,
- * for a new child, the class they are in (3. or 4. třída; 3 until someone chooses). The class
- * waits on the family record until the play screen hands it to the new game save. Removing a
- * child is behind the grown-ups' gate and a confirmation, and erases that child's saved data.
+ * Create or change a child's profile: a name, how the grotto greets them (the vocative, 5. pád:
+ * suggested from the name and kluk or holka, i18n/vocative.ts, and free to correct), one of eight
+ * diver pictures, how the game should address them (_Jsi kluk, nebo holka?_: kluk, holka or
+ * _Nechci říct_, docs/design.md §10.2) and, for a new child, the class they are in (3. or 4.
+ * třída; 3 until someone chooses). The class waits on the family record until the play screen
+ * hands it to the new game save. Removing a child is behind the grown-ups' gate and a
+ * confirmation, and erases that child's saved data.
  */
 import { picture } from '../art/picture';
 import { openGrownUpsGate } from '../grownups/gate-dialog';
 import type { MessageKey } from '../i18n/messages';
-import { findDiver, MAX_NAME_LENGTH } from '../persistence/family';
+import { suggestVocative } from '../i18n/vocative';
+import { findDiver, MAX_NAME_LENGTH, MAX_VOCATIVE_LENGTH } from '../persistence/family';
 import type { FamilyProblem } from '../persistence/family';
 import { eraseDiverData } from '../persistence/profile-data';
 import type { ScreenEntry } from '../router/router';
@@ -31,6 +34,7 @@ const PROBLEM_KEYS: Record<FamilyProblem, MessageKey> = {
   avatar: 'editor.problem.avatar',
   address: 'editor.problem.address',
   grade: 'editor.problem.grade',
+  vocative: 'editor.problem.vocative',
 };
 
 export const GRADE_LABEL_KEYS: Readonly<Record<Grade, MessageKey>> = {
@@ -111,6 +115,7 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
               ].includes(key),
           ),
         );
+        vocativeInput.setAttribute('aria-invalid', String(key === 'editor.problem.vocative'));
       };
 
       let avatar: DiverAvatar | null = existing?.avatar ?? null;
@@ -148,8 +153,53 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
           ),
         (value) => {
           address = value;
+          suggestVocativeNow();
         },
       );
+
+      // The grotto's greeting: the name in the vocative, suggested until someone types their own.
+      const vocativeInput = h('input', {
+        className: 'ps-input ps-input--name',
+        testId: 'diver-vocative',
+        attributes: {
+          id: 'ps-diver-vocative',
+          type: 'text',
+          maxlength: String(MAX_VOCATIVE_LENGTH + 10),
+          autocomplete: 'off',
+          autocapitalize: 'words',
+          spellcheck: 'false',
+          enterkeyhint: 'done',
+          lang: 'cs',
+          'aria-describedby': 'ps-diver-vocative-hint ps-diver-problem',
+        },
+      });
+      const vocativeHint = h('span', {
+        className: 'ps-field__hint',
+        testId: 'diver-vocative-hint',
+        attributes: { id: 'ps-diver-vocative-hint' },
+      });
+      let vocativeTyped = existing?.vocative !== undefined;
+      const showGreeting = (): void => {
+        const value = vocativeInput.value.trim();
+        vocativeHint.textContent =
+          value === ''
+            ? t('editor.vocativeEmpty')
+            : t('editor.vocativeHint', { vocative: value.normalize('NFC') });
+      };
+      function suggestVocativeNow(): void {
+        if (vocativeTyped) return;
+        vocativeInput.value = suggestVocative(nameInput.value, address) ?? '';
+        showGreeting();
+      }
+      vocativeInput.value =
+        existing?.vocative ??
+        (existing ? (suggestVocative(existing.name, existing.address) ?? '') : '');
+      vocativeInput.addEventListener('input', () => {
+        vocativeTyped = vocativeInput.value.trim() !== '';
+        showGreeting();
+      });
+      nameInput.addEventListener('input', suggestVocativeNow);
+      showGreeting();
 
       let grade: Grade = DEFAULT_GRADE;
       const grades = radioGroup(
@@ -202,10 +252,16 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
         // Saving the child and opening the game takes a moment on a first visit: say so.
         const ready = showBusy(save, t('editor.busy'));
         let result;
+        const vocative = vocativeInput.value;
         try {
           result = existing
-            ? await app.family.update(existing.id, { name: nameInput.value, avatar, address })
-            : await app.family.add({ name: nameInput.value, avatar, address, grade });
+            ? await app.family.update(existing.id, {
+                name: nameInput.value,
+                avatar,
+                address,
+                vocative,
+              })
+            : await app.family.add({ name: nameInput.value, avatar, address, vocative, grade });
         } catch {
           ready();
           showProblem('editor.problem.save');
@@ -215,6 +271,7 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
           ready();
           showProblem(PROBLEM_KEYS[result.problem]);
           if (['empty', 'long', 'chars', 'taken'].includes(result.problem)) nameInput.focus();
+          if (result.problem === 'vocative') vocativeInput.focus();
           return;
         }
         showProblem(null);
@@ -238,20 +295,36 @@ export function editorScreen(app: App, diverId: string | null): ScreenEntry {
       const form = h(
         'form',
         { className: 'ps-card ps-editor__card', attributes: { novalidate: '' } },
+        // The name and the greeting's vocative share a row while it has room, and wrap.
         h(
           'div',
-          { className: 'ps-field' },
-          h('label', {
-            className: 'ps-field__label',
-            text: t('editor.nameLabel'),
-            attributes: { for: 'ps-diver-name' },
-          }),
-          nameInput,
-          h('span', {
-            className: 'ps-field__hint',
-            text: t.plural('editor.nameHint', MAX_NAME_LENGTH),
-            attributes: { id: 'ps-diver-name-hint' },
-          }),
+          { className: 'ps-editor__names' },
+          h(
+            'div',
+            { className: 'ps-field' },
+            h('label', {
+              className: 'ps-field__label',
+              text: t('editor.nameLabel'),
+              attributes: { for: 'ps-diver-name' },
+            }),
+            nameInput,
+            h('span', {
+              className: 'ps-field__hint',
+              text: t.plural('editor.nameHint', MAX_NAME_LENGTH),
+              attributes: { id: 'ps-diver-name-hint' },
+            }),
+          ),
+          h(
+            'div',
+            { className: 'ps-field' },
+            h('label', {
+              className: 'ps-field__label',
+              text: t('editor.vocativeLabel'),
+              attributes: { for: 'ps-diver-vocative' },
+            }),
+            vocativeInput,
+            vocativeHint,
+          ),
         ),
         fieldset(t('editor.avatarLabel'), 'ps-picker--avatars', 'diver-avatar', avatars),
         // Kluk/holka, the grade and the button share a row while it has room, and wrap.

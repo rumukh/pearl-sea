@@ -57,7 +57,10 @@ import { placementFor } from './progression/ladder';
 import {
   isComplete,
   levelStatus,
+  levelWait,
   levelsInMapOrder,
+  newLevelLimit,
+  newLevelsToday,
   nextLevel,
   percentOf,
   regionOpen,
@@ -84,19 +87,23 @@ export function firstFriendChoices(data: Data): string[] {
 
 /**
  * The daily adventure's next step (design §4.2): a pending story beat, the first friend's choice,
- * the placement check while it is pending (a 4th grader's), Svačinka at the start of the day when
- * there is something to snack on (a hungry friend, or due items in Osmička's basket), the next
- * glowing level until one is done today, then once a day a board replay (for variety after a
- * level, or because a finished board's items wait: due, or never met), the chest once the goal is
- * reached, then the review guarantee: a board while a known item only boards train is starving
- * (at most `STARVING_BOARDS` boards a day), Svačinka while a known item it can serve is starving,
- * and more new levels unless today's success is below 70 % (`lowToday`; a level already under way
- * is always continued). Below it the adventure reviews instead: Svačinka when there is something
- * to snack on, else a replay of an activity of the last finished levels. Then free play.
+ * the placement check while it is pending (a 4th grader's), then the day opens with something
+ * new: its first new level, unless levels are held or the next one waits (for the school, or for
+ * tomorrow), then Svačinka once when there is something to snack on (a hungry friend, or due items
+ * in Osmička's basket); then once a day a board replay (for variety after a level, or because a
+ * finished board's items wait: due, or never met), the chest once the goal is reached, then the
+ * review guarantee: a board while a known item only boards train is starving (at most
+ * `STARVING_BOARDS` boards a day), Svačinka while a known item it can serve is starving, and more
+ * new levels unless today's success is below 70 % (`lowToday`; a level already under way is
+ * always continued) or today's new levels reached their limit. Below it the adventure reviews
+ * instead: Svačinka when there is something to snack on, else a replay of an activity of the last
+ * finished levels. Then free play.
  *
  * **Pacing** (`levelsHeld`): new levels, the day's first too, wait while recent success is below
- * the band or the reviews pile up, except on the first day of practice and every `PACE_EVERY`-th
- * day. Pacing only chooses the suggestion: every open level stays playable from the map.
+ * the band or the reviews pile up, except on the first day of practice, every `PACE_EVERY`-th
+ * day, and the day a child comes back after a break (`returning`). Pacing and waiting levels only
+ * choose the suggestion; a waiting level also refuses to start (`levelWait`), while every other
+ * open level stays playable from the map.
  */
 function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): NextStep {
   if (state.story.pending !== null) return { kind: 'story', beat: state.story.pending };
@@ -110,12 +117,22 @@ function nextStep(state: ReadState, data: Data, snack: boolean, index: Index): N
     return { kind: 'placement' };
   }
   const daily = state.daily !== null && state.daily.day === state.day ? state.daily : null;
-  if (snack && daily !== null && daily.answers === 0) return { kind: 'snack', friend: null };
   const levelsToday = daily?.levels ?? 0;
   const level = nextLevel(state, data);
   const underway = level !== null && state.run?.level === level;
-  const held = !underway && levelsHeld(state, data);
+  const found = level === null ? undefined : data.levels.find((l) => l.id === level);
+  const waiting = found !== undefined && levelWait(state, found) !== null;
+  const held = !underway && (waiting || levelsHeld(state, data));
   if (level !== null && levelsToday === 0 && !held) return { kind: 'level', level };
+  // Svačinka once at the start of the day, or right after its first level: never more by itself.
+  if (
+    snack &&
+    daily !== null &&
+    (daily.answers === 0 || levelsToday > 0) &&
+    (daily.snacks ?? 0) === 0
+  ) {
+    return { kind: 'snack', friend: null };
+  }
   if (daily !== null && daily.minigames === 0) {
     // Once a day a board: for variety after a level, and on any day when a finished board's items
     // wait for it (items only boards train are reviewed and first met so, design §6.5).
@@ -152,6 +169,27 @@ export const BACKLOG_LIMIT = 40;
 /** Every `PACE_EVERY`-th day of practice brings a new level all the same (design §4.2). */
 export const PACE_EVERY = 3;
 
+/**
+ * Days since the last practised day after which a child is back from a break (design §4.2): that
+ * day brings new levels all the same, so a return opens with something new, not a pile of reviews.
+ * Above a weekend's gap, so a child who plays on school days is paced as before.
+ */
+export const RETURN_AFTER = 4;
+
+/**
+ * Whether today is a return after a break: the last day before today with an answer is at least
+ * `RETURN_AFTER` days ago, or older than the history keeps for a child who has practised before.
+ */
+export function returning(state: ReadState): boolean {
+  const day = state.day;
+  if (day === null) return false;
+  let last: number | null = null;
+  for (const record of state.history) {
+    if (record.day < day && record.answers > 0) last = record.day;
+  }
+  return last === null ? state.daysPracticed > 1 : day - last >= RETURN_AFTER;
+}
+
 /** The review backlog: items Svačinka can serve whose review day has come. */
 export function reviewBacklog(state: ReadState, data: Data): number {
   const day = state.day ?? 0;
@@ -168,10 +206,12 @@ export function reviewBacklog(state: ReadState, data: Data): number {
  * (`lowSuccess`) or more than `BACKLOG_LIMIT` items are due. The first day of practice never
  * waits (a 4th grader's first lesson, and Kořínek's hatching, follows the placement check, whose
  * misses would hold it, design §4.1), nor does every `PACE_EVERY`-th day, which brings a new level
- * all the same (`daysPracticed` counts today from the day's first session).
+ * all the same (`daysPracticed` counts today from the day's first session), nor a return after a
+ * break (`returning`).
  */
 export function levelsHeld(state: ReadState, data: Data): boolean {
   if (state.daysPracticed <= 1 || state.daysPracticed % PACE_EVERY === 0) return false;
+  if (returning(state)) return false;
   return lowSuccess(state, data) || reviewBacklog(state, data) > BACKLOG_LIMIT;
 }
 
@@ -308,22 +348,27 @@ function hubView(state: ReadState, data: Data, index: Index): HubView {
           levels: data.levels
             .filter((level) => level.region === region.id)
             .sort((a, b) => a.order - b.order)
-            .map((level) => ({
-              id: level.id,
-              titleKey: level.titleKey,
-              order: level.order,
-              kind: level.kind,
-              status: levelStatus(state, data, level),
-              stars: state.levels[level.id]?.stars ?? 0,
-              placed: state.levels[level.id]?.placed ?? false,
-              glowing: level.id === glowing,
-            })),
+            .map((level) => {
+              const status = levelStatus(state, data, level);
+              return {
+                id: level.id,
+                titleKey: level.titleKey,
+                order: level.order,
+                kind: level.kind,
+                status,
+                stars: state.levels[level.id]?.stars ?? 0,
+                placed: state.levels[level.id]?.placed ?? false,
+                glowing: level.id === glowing,
+                waits: status === 'open' ? levelWait(state, level) : null,
+              };
+            }),
         };
       }),
     next: nextStep(state, data, snackProblem(state, data, index, null) === null, index),
     hungry,
     race: { available: raceProblem(state, data) === null, best: state.race.best },
     certificates: completedGrades(state, data),
+    newLevels: { today: newLevelsToday(state), limit: newLevelLimit(state) },
   };
 }
 
@@ -797,6 +842,10 @@ export function projectView(read: Read): GameView {
       race: state.settings.race,
       unlockAhead: [...state.settings.unlockAhead],
       grade: state.settings.grade,
+      ...(state.settings.newLevels !== undefined ? { newLevels: state.settings.newLevels } : {}),
+      ...(state.settings.listedLetters !== undefined
+        ? { listedLetters: [...state.settings.listedLetters] }
+        : {}),
     },
     onboarding: {
       firstFriend: state.onboarding.firstFriend,

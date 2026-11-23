@@ -29,12 +29,15 @@ vi.setConfig({ testTimeout: 300_000 });
  * and the old and new values in the commit message (docs/testing.md, "When a golden moves").
  * Re-pinned when the state version became 2 (13a006d7f7486e4a/1c6cf50d9c98b444,
  * fd794d395fab67e0/b79ec55ba6c2329d and 819507a19c048d70/5567d451ce70d5f0 before; with
- * STATE_VERSION 1 they come back).
+ * STATE_VERSION 1 they come back), and when the day began to count its new levels and Svačinka
+ * rounds (the daily limit, design §4.2: 570ea4b5932384a9/d6178eb4afa5d24d,
+ * 1c0e8029d5bb44bb/762873952a2114b0 and c908510b88d0f063/41d014d6f02dcad4 before; without the two
+ * counters they come back).
  */
 const GOLDEN: Record<string, { state: string; trajectory: string }> = {
-  'krab-tvrdak': { state: '570ea4b5932384a9', trajectory: 'd6178eb4afa5d24d' },
-  'meduzka-mekulka': { state: '1c0e8029d5bb44bb', trajectory: '762873952a2114b0' },
-  'zelva-obojka': { state: 'c908510b88d0f063', trajectory: '41d014d6f02dcad4' },
+  'krab-tvrdak': { state: 'd7a36a502d437317', trajectory: '4954c88e432e236b' },
+  'meduzka-mekulka': { state: 'e97b6faa57e3aa95', trajectory: 'baa6df40945c96ca' },
+  'zelva-obojka': { state: 'e5b9a8de8307540d', trajectory: '40e0a8fb16ce9e58' },
 };
 
 const SEED = 'golden-first-session';

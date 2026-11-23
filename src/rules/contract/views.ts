@@ -74,6 +74,12 @@ export interface StoryView {
 
 export type LevelStatus = 'locked' | 'open' | 'completed';
 
+/**
+ * Why an open level cannot start yet (design §4.2): today's new levels are done (`tomorrow`), or
+ * it practises listed words after a letter the child's school has not taught (`school`).
+ */
+export type LevelWait = 'tomorrow' | 'school';
+
 export interface LevelCard {
   id: string;
   titleKey: string;
@@ -84,6 +90,8 @@ export interface LevelCard {
   placed: boolean;
   /** The level the map should make glow (the next suggestion). */
   glowing: boolean;
+  /** Why this open level waits, or `null` (always `null` unless `status` is `open`). */
+  waits: LevelWait | null;
 }
 
 export interface RegionView {
@@ -122,6 +130,8 @@ export interface HubView {
   race: { available: boolean; best: number };
   /** Grade certificates earned (the 3rd grade's sea done). */
   certificates: Grade[];
+  /** Levels finished for the first time today, and the day's limit (`0`: no limit). */
+  newLevels: { today: number; limit: number };
 }
 
 // ------------------------------------------------------------------------------ rounds

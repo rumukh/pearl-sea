@@ -48,10 +48,12 @@ vi.setConfig({ testTimeout: 300_000 });
  * (be8a19c3a1fdddce before; folding the marks back into the tokens gives it again) and when hints
  * took their examples from other families (f68a7cb0c42ecaf2 before; with every hint neutralized,
  * the old and the new rules both give d90aea382003ed47); both when the state version became 2
- * (65c4e9180da5809d and 9d7acb3bd68638ec before; with STATE_VERSION 1 they come back).
+ * (65c4e9180da5809d and 9d7acb3bd68638ec before; with STATE_VERSION 1 they come back), and with the
+ * daily limit on new levels (design §4.2: the trace lifts it and the day counts its new levels and
+ * Svačinka rounds; 3a9c807cb5fbc53e and c50f36ec0ec55e6a before).
  */
-const GOLDEN_HASH = '3a9c807cb5fbc53e';
-const GOLDEN_TRAJECTORY = 'c50f36ec0ec55e6a';
+const GOLDEN_HASH = '3c8696aa141f58f7';
+const GOLDEN_TRAJECTORY = 'd8d26bbbdefbf06d';
 
 const SEED = 'golden-finales';
 const EGG = 'krab-tvrdak';
@@ -269,6 +271,8 @@ async function play(
   player.host.subscribeCommits((commit) => {
     save.last = commit.snapshot;
   });
+  // The lagoon and the ice sea in one day: past the daily limit on new levels (design §4.2).
+  await player.unlimited();
   await player.begin(EGG, DAYS[0]);
   for (const level of [...LAGOON, ICE_SEA_LESSON]) await player.playLevel(level);
   const ledana = await fight(player, LEDANA_LEVEL);

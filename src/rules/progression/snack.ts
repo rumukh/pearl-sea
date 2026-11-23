@@ -9,6 +9,7 @@
  * input; 4 to 6 while recent success is low. A snack of the basket alone (no friend is hungry) is
  * never longer than the basket and its first tastes.
  */
+import { countToday } from '../economy/daily';
 import { clamp, lowSuccess } from '../learning/selection';
 import { basketItems, dueItems, firstTastes, hungryFriends, snackItems } from './friends';
 import { TASTES_PER_SNACK, playableSkills, poolOf, startProblemRound } from './problems';
@@ -80,6 +81,8 @@ export function startSnack(ctx: Ctx, index: Index, friend: string | null): void 
   // Room for the first tastes as well, so that they do not crowd out the due items.
   const tastes = Math.min(TASTES_PER_SNACK, firstTastes(ctx.state, data, index, friend).length);
   const target = snackTarget(due + tastes, lowSuccess(ctx.state, data));
+  // The day's first Svačinka follows its first new level (design §4.2): count the snacks.
+  countToday(ctx, 'snacks');
   startProblemRound(ctx, index, {
     activity: 'snack',
     source: { kind: 'snack', friend },

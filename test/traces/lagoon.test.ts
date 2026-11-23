@@ -10,7 +10,8 @@
  * joke twice in a row), and frees Muréna, which opens the deep, the race and the Inkoustíci. Then
  * the child opens the treasure chest and plays Měsíční jeskyně 1, where an Inkoustík ambushes a
  * Krmení problem (never before the third problem, at most one a round) and a right answer splashes
- * it away for a bonus coin; on 2026-11-03 Svačinka feeds the hungry friends.
+ * it away for a bonus coin; on 2026-11-03 the day opens with the deep's next level and Svačinka
+ * feeds the hungry friends after it.
  *
  * Named checks come first; the golden hash and trajectory are change detectors checked last.
  */
@@ -30,10 +31,12 @@ vi.setConfig({ testTimeout: 300_000 });
  * back into the tokens gives it again), and when hints took their examples from other families
  * (0462676a1ecfe3a4 before; with every hint neutralized, the old and the new rules both give
  * b29b6dec9c9b7473); both when the state version became 2 (3e39d1b03b1f527c and 64b802a933949722
- * before; with STATE_VERSION 1 they come back).
+ * before; with STATE_VERSION 1 they come back); and both with the daily limit on new levels (design
+ * §4.2: the trace lifts it, the day counts its new levels and Svačinka rounds, and the next day
+ * opens with the deep's next level before Svačinka; 7842bc5461a7b7df and cad636562d32ac3b before).
  */
-const GOLDEN_HASH = '7842bc5461a7b7df';
-const GOLDEN_TRAJECTORY = 'cad636562d32ac3b';
+const GOLDEN_HASH = '626724dd5f61a0fc';
+const GOLDEN_TRAJECTORY = '266a33692e234230';
 
 const SEED = 'slice-b';
 const LESSONS = [
@@ -71,6 +74,8 @@ interface Observation {
 
 async function play(pack: ContentPack<ContentData> = lagoonPack(), seed = SEED) {
   const player = new Player(CHILD, seed, pearlSeaAdapter, pack);
+  // The whole lagoon in one day: past the daily limit on new levels (design §4.2).
+  await player.unlimited();
   await player.act({ type: 'startSession', day: '2026-11-02' });
   await player.choose(null);
   await player.settleStory();
@@ -87,6 +92,9 @@ async function play(pack: ContentPack<ContentData> = lagoonPack(), seed = SEED) 
   const caves = player.served.slice(cavesStart).filter((s) => s.activity === 'feeding');
   await player.act({ type: 'startSession', day: '2026-11-03' });
   await player.settleStory();
+  // The day opens with something new, then Svačinka feeds the hungry friends (design §4.2).
+  const opener = player.view().hub.next;
+  if (opener.kind === 'level') await player.playLevel(opener.level);
   const next = player.view().hub.next;
   if (next.kind === 'snack') {
     await player.act({ type: 'startActivity', activity: { kind: 'snack', friend: next.friend } });

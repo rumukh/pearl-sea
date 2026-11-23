@@ -49,7 +49,12 @@ const SIZE_BUDGETS = {
    * its WebPs instead. Grade-4 art is a pack of its own (below), never counted here.
    */
   packWithoutAudio: 8.5 * MB,
-  pack: 11 * MB,
+  /**
+   * Raised from 11 MB for code, never for paintings: #72's animations left about 1 KB, and the
+   * daily limit, the school's letters and the greeting by name add about 10 KB of script, style
+   * and catalog (2026-11-22).
+   */
+  pack: 11.1 * MB,
   /**
    * The grade-4 pack (resource-graph-grade-4.json), installed only once a child reaches grade 4:
    * the painted art of regions 8-12 and the deep sea's map, without audio (it has none).

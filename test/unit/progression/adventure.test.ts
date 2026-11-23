@@ -1,10 +1,12 @@
 /**
  * The daily adventure's big button (`hub.next`, design §4.2): new levels in order while the day
- * goes well, the treasure chest as soon as the daily goal is met, Svačinka first on a new day, a
- * minigame for variety once, and below 70 % of today's answers right a review of the last
- * finished levels instead of anything new, though a level under way always continues; after a
- * hard day new levels wait (pacing) until the third day of practice; free play when nothing is
- * left. test/unit/progression/pacing.test.ts covers the pacing rules one by one.
+ * goes well, up to the day's limit on new levels; the treasure chest as soon as the daily goal is
+ * met; a day opens with its first new level and Svačinka follows it (Svačinka first when no new
+ * level comes); a minigame for variety once, and below 70 % of today's answers right a review of
+ * the last finished levels instead of anything new, though a level under way always continues;
+ * after a hard day new levels wait (pacing) until the third day of practice; free play when
+ * nothing is left. test/unit/progression/pacing.test.ts covers the pacing rules one by one, and
+ * test/unit/progression/daily-limit.test.ts the limit, the school's letters and returns.
  */
 import { describe, expect, it, vi } from 'vitest';
 import type { NextStep } from '../../../src/rules/contract';
@@ -58,9 +60,11 @@ async function follow(player: Player, steps: number) {
 }
 
 describe('a day that goes well', () => {
-  it('goes from level to level, opens the chest when the goal is met, and starts the next day with Svačinka', async () => {
+  it('goes from level to level, opens the chest when the goal is met, and opens the next day with its new level', async () => {
     const player = new Player(PERFECT, 'adventure');
     expect(tag(player.view().hub.next)).toBe('first-friend');
+    // The whole lagoon in a day: the grown-ups lifted the limit on new levels.
+    await player.unlimited();
     await player.act({ type: 'startSession', day: '2026-11-02' });
     expect(tag(player.view().hub.next)).toBe('story:beat.prologue');
     await player.begin('krab-tvrdak');
@@ -87,8 +91,45 @@ describe('a day that goes well', () => {
     await player.act({ type: 'startSession', day: '2026-11-03' });
     await player.settleStory();
     const next = await follow(player, 6);
-    expect(next[0]!.step, 'Svačinka first on a new day').toBe('snack');
+    expect(next[0]!.step, 'the day opens with something new').toMatch(/^level:/);
+    expect(
+      next.slice(1).some((d) => d.step === 'snack'),
+      `Svačinka follows: ${next.map((d) => d.step).join(', ')}`,
+    ).toBe(true);
     expect(next.at(-1)!.step, 'free play when nothing new is left').toBe('free-play');
+    expect(player.failures).toEqual([]);
+    await player.dispose();
+  });
+
+  it('brings three new levels a day by default, then reviews; the next day opens with the next level', async () => {
+    const player = new Player(PERFECT, 'adventure');
+    await player.begin('krab-tvrdak');
+    const day = (await follow(player, 7)).map((d) => d.step);
+    expect(day.filter((step) => step.startsWith('level:'))).toEqual([
+      'level:sunny-lagoon.1',
+      'level:sunny-lagoon.2',
+      'level:sunny-lagoon.3',
+    ]);
+    const card = player
+      .view()
+      .hub.regions.flatMap((region) => region.levels)
+      .find((level) => level.id === 'sunny-lagoon.4')!;
+    expect(card.glowing).toBe(true);
+    expect(card.waits, 'the fourth new level waits for tomorrow').toBe('tomorrow');
+    expect(player.view().hub.newLevels).toEqual({ today: 3, limit: 3 });
+    expect(
+      day.slice(3).every((step) => step === 'chest' || step.startsWith('replay:')),
+      `after the day's new levels, the chest and reviews: ${day.join(', ')}`,
+    ).toBe(true);
+    expect(
+      await player.reject({ type: 'startLevel', level: 'sunny-lagoon.4' }, 'new-levels-done'),
+    ).toBe(true);
+
+    await player.act({ type: 'startSession', day: '2026-11-03' });
+    await player.settleStory();
+    // The level's own mix reviews the due items, so no Svačinka needs to follow it today.
+    const next = (await follow(player, 1)).map((d) => d.step);
+    expect(next, 'the day opens with something new').toEqual(['level:sunny-lagoon.4']);
     expect(player.failures).toEqual([]);
     await player.dispose();
   });

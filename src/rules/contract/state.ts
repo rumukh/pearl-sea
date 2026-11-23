@@ -34,6 +34,8 @@ import type {
   ResolvedInputMode,
   ResponseBucket,
 } from './kinds';
+import { LISTED_LETTERS } from './language';
+import type { ListedLetter } from './language';
 import { answerValueSchema, itemIdSchema, problemSchema } from './problems';
 import type { AnswerValue, Problem, ProblemStep } from './problems';
 import {
@@ -152,6 +154,14 @@ export function migrateSnapshot(
 /** Days since 1970-01-01 in the child's local calendar (see `dayNumber`). */
 export type DayNumber = number;
 
+/**
+ * New levels a day when the grown-ups have not chosen (`RuleSettings.newLevels`, design §4.2): a
+ * level never played before can start while fewer were finished for the first time today.
+ */
+export const DEFAULT_NEW_LEVELS = 3;
+/** The most new levels a day the grown-ups can choose; `0` means no limit. */
+export const MAX_NEW_LEVELS = 10;
+
 /** Slots worn by a friend; `grotto` cosmetics are placed in the grotto instead. */
 export const WEARABLE_SLOTS = ['head', 'eyes', 'neck'] as const;
 export type WearableSlot = (typeof WEARABLE_SLOTS)[number];
@@ -216,6 +226,10 @@ export interface DailyState {
   quests: QuestState[];
   /** The treasure chest after the daily goal. */
   chest: 'locked' | 'ready' | 'opened';
+  /** Levels finished for the first time today, for the daily limit (absent: none yet). */
+  newLevels?: number;
+  /** Svačinka rounds started today: the day's first follows its first new level (absent: none). */
+  snacks?: number;
 }
 
 /** One practised day, for the grown-ups' trend and "days practised this week". */
@@ -373,6 +387,13 @@ export interface RuleSettings {
   unlockAhead: string[];
   /** The child's school grade: where the child starts and what the daily adventure suggests. */
   grade: Grade;
+  /** The most new levels a day, `0` for no limit (absent: `DEFAULT_NEW_LEVELS`). */
+  newLevels?: number;
+  /**
+   * The listed-word letters the child's school has taught (a 3rd grader's; absent: all of them).
+   * A new level that practises the listed words after another letter waits for the school.
+   */
+  listedLetters?: ListedLetter[];
 }
 
 export interface ProfileState {
@@ -579,25 +600,28 @@ export const profileStateSchema: Schema<ProfileState> = schema.object({
   grotto: schema.array(nullable(contentId), { min: GROTTO_SPOTS, max: GROTTO_SPOTS }),
   stickers: idRecord(schema.object({ day })),
   daily: nullable(
-    schema.object({
-      day,
-      answers: counter,
-      correct: counter,
-      fast: counter,
-      levels: counter,
-      minigames: counter,
-      goal: int(1, 1000),
-      quests: schema.array(
-        schema.object({
-          id: schema.string({ minLength: 3, maxLength: 96, pattern: /^[a-z0-9.:-]+@[0-9]+$/ }),
-          template: contentId,
-          progress: counter,
-          claimed: schema.boolean,
-        }),
-        { max: 5 },
-      ),
-      chest: oneOf(['locked', 'ready', 'opened'] as const),
-    }),
+    objectWithOptional(
+      {
+        day,
+        answers: counter,
+        correct: counter,
+        fast: counter,
+        levels: counter,
+        minigames: counter,
+        goal: int(1, 1000),
+        quests: schema.array(
+          schema.object({
+            id: schema.string({ minLength: 3, maxLength: 96, pattern: /^[a-z0-9.:-]+@[0-9]+$/ }),
+            template: contentId,
+            progress: counter,
+            claimed: schema.boolean,
+          }),
+          { max: 5 },
+        ),
+        chest: oneOf(['locked', 'ready', 'opened'] as const),
+      },
+      { newLevels: counter, snacks: counter },
+    ),
   ),
   history: schema.array(schema.object({ day, answers: counter, correct: counter, fast: counter }), {
     max: 366,
@@ -630,12 +654,18 @@ export const profileStateSchema: Schema<ProfileState> = schema.object({
   ),
   round: nullable(schema.union(problemRoundSchema, minigameRoundSchema)),
   roundCounter: counter,
-  settings: schema.object({
-    dailyGoal: int(1, 1000),
-    race: schema.boolean,
-    unlockAhead: uniqueArray(contentId, { max: 100 }),
-    grade: gradeSchema,
-  }),
+  settings: objectWithOptional(
+    {
+      dailyGoal: int(1, 1000),
+      race: schema.boolean,
+      unlockAhead: uniqueArray(contentId, { max: 100 }),
+      grade: gradeSchema,
+    },
+    {
+      newLevels: int(0, MAX_NEW_LEVELS),
+      listedLetters: uniqueArray(oneOf(LISTED_LETTERS), { max: LISTED_LETTERS.length }),
+    },
+  ),
   finale: schema.object({ day: nullable(day) }),
 });
 

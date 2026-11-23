@@ -39,6 +39,7 @@ import type { ContentText } from '../content/text';
 import { diverSaveStatus, topBar } from './common';
 import { activityName } from './level';
 import { lessonButton } from './lesson';
+import { speakerButton } from './speaker';
 
 function minigameRound(view: GameView): MinigameRoundView | null {
   return view.round?.type === 'minigame' ? view.round : null;
@@ -158,6 +159,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
     boardSlot.dataset['board'] = String(round.board);
     if (round.board !== lastBoard) {
       lastBoard = round.board;
+      rhymeOpen = false;
       app.kit.cue('fx.board-done');
       message.textContent = t('board.solved');
     }
@@ -236,6 +238,52 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
 
   // ---- Perlový náhrdelník ---------------------------------------------------------------------------
   let held: string | null = null;
+  /**
+   * The school rhyme of a rhyme necklace (design §5.9): one tap away, and open by itself after a
+   * check that was not right yet, so a child who has not learnt the rhyme reads it, not guesses.
+   */
+  let rhymeOpen = false;
+  const rhymeHelp = (board: NecklaceBoard): HTMLElement | null => {
+    const key = board.letter === null ? null : `grammar.listed.${board.letter}`;
+    if (key === null || !text.has(key)) return null;
+    if (board.submitted) rhymeOpen = true;
+    const line = text(key);
+    const toggle = candyButton({
+      label: t(rhymeOpen ? 'board.rhymeHide' : 'board.rhymeShow'),
+      icon: 'book',
+      variant: 'paper',
+      size: 'small',
+      testId: 'board-rhyme-toggle',
+      onPress: () => {
+        rhymeOpen = !rhymeOpen;
+        const round = minigameRound(active.game.view());
+        if (round) draw(round.current);
+      },
+      onError: app.kit.onError,
+    });
+    toggle.setAttribute('aria-expanded', String(rhymeOpen));
+    toggle.setAttribute('aria-controls', 'ps-necklace-rhyme');
+    return h(
+      'div',
+      { className: 'ps-necklace__help', dataset: { open: String(rhymeOpen) } },
+      h(
+        'div',
+        { className: 'ps-row' },
+        toggle,
+        ...(rhymeOpen
+          ? speakerButton(app, active.preferences.current(), () => line, 'board-rhyme-read')
+          : []),
+      ),
+      rhymeOpen
+        ? h('p', {
+            className: 'ps-necklace__rhyme',
+            testId: 'board-rhyme',
+            text: line,
+            attributes: { id: 'ps-necklace-rhyme', lang: 'cs' },
+          })
+        : null,
+    );
+  };
   const necklaceBoard = (board: NecklaceBoard): HTMLElement => {
     const pearls = board.pearls.map((pearl, index) => {
       // After a check that was not right yet, a pearl already in its place wears a check mark.
@@ -315,6 +363,7 @@ export function minigameScreen(app: App, active: ActiveDiver): Screen {
           letter: board.letter ?? '',
         }),
       }),
+      rhymeHelp(board),
       h(
         'ol',
         { className: 'ps-necklace__string', attributes: { 'aria-label': t('board.necklace') } },

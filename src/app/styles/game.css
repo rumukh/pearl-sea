@@ -459,6 +459,17 @@
   flex: 1 1 auto;
 }
 
+.ps-editor__names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1em 2em;
+}
+
+.ps-editor__names > .ps-field {
+  flex: 1 1 14em;
+  min-width: 0;
+}
+
 /* On a landscape window the editor's card widens and the eight pictures stand in one row, so
    "Ponořit se!" is in view without scrolling. */
 @media (orientation: landscape) and (min-width: 900px) {
@@ -484,6 +495,7 @@
 
 @media (orientation: landscape) and (min-width: 900px) and (max-height: 860px) {
   .ps-editor__card,
+  .ps-editor__names,
   .ps-editor__choices {
     row-gap: 0.7em;
   }
@@ -646,6 +658,12 @@
   width: 2em;
 }
 
+/* After a greeting by name, the label is the picture alone, leading the line. */
+.ps-hub__diver--picture {
+  order: -1;
+  padding: 0.15em;
+}
+
 .ps-hub__layout {
   flex: 1;
   display: grid;
@@ -741,6 +759,17 @@
   font-weight: 700;
   text-align: center;
   background: color-mix(in srgb, var(--ps-paper) 90%, transparent);
+}
+
+/* Why the next level waits (for tomorrow, or for the school): quieter than the next step. */
+.ps-hub__wait {
+  max-width: min(100%, 30em);
+  padding: 0.25em 0.8em;
+  border-radius: 1em;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--ps-ink-soft);
+  background: color-mix(in srgb, var(--ps-paper) 80%, transparent);
 }
 
 .ps-hub__today {
@@ -1013,9 +1042,15 @@
   box-shadow: 0 0.5em 1.4em color-mix(in srgb, var(--ps-shadow) 30%, transparent);
 }
 
-/* A board as wide as fits the screen at its painting's ratio (`--picture-ratio`). */
+/* A board as wide as fits the screen at its painting's ratio (`--picture-ratio`), below the top
+   bar and the tabs (`--map-reserve`). */
 .ps-map__board {
-  width: min(100%, 64em, calc((100dvh - 9.5rem) * var(--picture-ratio, 1.79)));
+  width: min(100%, 64em, calc((100dvh - var(--map-reserve, 9.5rem)) * var(--picture-ratio, 1.79)));
+}
+
+/* "Další úroveň" under the map takes a line of its own: the board leaves room for it. */
+.ps-map:has(> .ps-note) {
+  --map-reserve: 11rem;
 }
 
 .ps-region__board {
@@ -1185,6 +1220,12 @@
 .ps-level-node[data-glowing='true'] .ps-level-node__pearl {
   border-color: var(--ps-sun-deep);
   animation: ps-glow 2.4s ease-in-out infinite;
+}
+
+/* A level that waits (for tomorrow, or for the school) rests: no glow, its moon or book shown. */
+.ps-level-node:not([data-waits='no']) .ps-level-node__pearl {
+  border-style: dashed;
+  animation: none;
 }
 
 .ps-level-node__stars {
@@ -2056,6 +2097,24 @@
 .ps-necklace {
   display: grid;
   gap: 0.8em;
+}
+
+/* The school rhyme of a rhyme necklace: a button, and the rhyme on paper once open. */
+.ps-necklace__help {
+  display: grid;
+  justify-items: center;
+  gap: 0.5em;
+}
+
+.ps-necklace__rhyme {
+  max-width: min(100%, 40em);
+  padding: 0.5em 0.9em;
+  border: 0.1em solid var(--ps-line-strong);
+  border-radius: 0.9em;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  background: var(--ps-card);
 }
 
 .ps-necklace__string {

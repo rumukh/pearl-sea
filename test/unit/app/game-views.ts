@@ -43,6 +43,7 @@ export function level(id: string, order: number, patch: Partial<LevelCard> = {})
     stars: 0,
     placed: false,
     glowing: false,
+    waits: null,
     ...patch,
   };
 }
@@ -104,6 +105,7 @@ export function lagoonView(patch: Partial<GameView> = {}): GameView {
       hungry: [],
       race: { available: false, best: 0 },
       certificates: [],
+      newLevels: { today: 0, limit: 3 },
     },
     run: null,
     round: null,

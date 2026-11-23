@@ -69,6 +69,8 @@ const GLYPHS = {
   ],
   bag: [{ d: 'M5.5 8h13l-1 12h-11z' }, { d: 'M9 8V6.5a3 3 0 0 1 6 0V8' }],
   pearl: [{ d: 'M12 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14z' }, { d: 'M8.8 10.4a3.4 3.4 0 0 1 2.9-2.6' }],
+  // A crescent: a level that waits for tomorrow.
+  moon: [{ d: 'M15 4.6a7.5 7.5 0 1 0 4.4 13.6A6.3 6.3 0 0 1 15 4.6z' }],
 } satisfies Record<string, readonly Shape[]>;
 
 export type IconName = keyof typeof GLYPHS;

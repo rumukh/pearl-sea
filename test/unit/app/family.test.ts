@@ -215,6 +215,45 @@ describe('children on the device', () => {
   it('cannot be removed when they are not there', () => {
     expect(removeDiver(family('Ema'), 'profile-3')).toEqual({ ok: false, problem: 'missing' });
   });
+
+  it('keep the vocative they are greeted with, and drop an empty one', () => {
+    const added = addDiver(EMPTY_FAMILY, {
+      name: 'Klára',
+      avatar: 'diver-3',
+      address: 'girl',
+      vocative: '  Kláro ',
+      grade: 3,
+    });
+    if (!added.ok) throw new Error('add failed');
+    expect(added.value.diver.vocative).toBe('Kláro');
+    expect(isFamilyState(added.value.state)).toBe(true);
+    const graded = setPendingGrade(added.value.state, 'profile-1', null);
+    if (!graded.ok) throw new Error('grade failed');
+    expect(graded.value.diver.vocative, 'kept when the grade goes to the game').toBe('Kláro');
+    const renamed = updateDiver(graded.value.state, 'profile-1', {
+      name: 'Klárka',
+      avatar: 'diver-3',
+      address: 'girl',
+    });
+    if (!renamed.ok) throw new Error('update failed');
+    expect(renamed.value.diver.vocative, 'kept when the editor sends none').toBe('Kláro');
+    const cleared = updateDiver(renamed.value.state, 'profile-1', {
+      name: 'Klárka',
+      avatar: 'diver-3',
+      address: 'girl',
+      vocative: '',
+    });
+    if (!cleared.ok) throw new Error('clear failed');
+    expect(cleared.value.diver).not.toHaveProperty('vocative');
+    expect(
+      updateDiver(cleared.value.state, 'profile-1', {
+        name: 'Klárka',
+        avatar: 'diver-3',
+        address: 'girl',
+        vocative: 'Klárko!',
+      }),
+    ).toEqual({ ok: false, problem: 'vocative' });
+  });
 });
 
 describe('the grown-ups’ language', () => {
@@ -237,6 +276,13 @@ describe('stored family validation', () => {
     expect(isFamilyState(EMPTY_FAMILY)).toBe(true);
     expect(isFamilyState(family('Ema', 'Šárka', 'Jiří', 'Dana'))).toBe(true);
     expect(isFamilyState(withGrownUpsLanguage(family('Ema'), 'en'))).toBe(true);
+    const greeted = { id: 'profile-1', name: 'Ema', avatar: 'diver-1', address: 'girl' };
+    expect(
+      isFamilyState({
+        profiles: [{ ...greeted, vocative: 'Emo', grade: 3 }],
+        grownUpsLanguage: 'cs',
+      }),
+    ).toBe(true);
   });
 
   it('rejects tampered records', () => {
@@ -260,6 +306,9 @@ describe('stored family validation', () => {
       of({ ...ema, address: 'female' }),
       of({ id: 'profile-1', name: 'Ema', avatar: 'diver-1' }),
       of({ ...ema, grade: 2 }),
+      of({ ...ema, vocative: '' }),
+      of({ ...ema, vocative: ' Emo' }),
+      of({ ...ema, vocative: 7 }),
       of({ ...ema, seed: 'pearl-sea:profile-1' }),
       of(
         ...['profile-1', 'profile-2', 'profile-3', 'profile-4', 'profile-4'].map((id, index) => ({

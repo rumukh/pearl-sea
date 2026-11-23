@@ -155,6 +155,8 @@ async function miss(page: Page): Promise<void> {
 async function ambushed(): Promise<RuntimeSnapshot> {
   const player = new Player(PERFECT, 'e2e-ambush', GAME.adapter, GAME.content);
   try {
+    // The whole lagoon in one day: past the daily limit on new levels.
+    await player.unlimited();
     await player.begin('krab-tvrdak', SEED_DAY);
     const levels = PACK.data.levels
       .filter((level) => level.region === 'sunny-lagoon')

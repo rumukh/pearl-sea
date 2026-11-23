@@ -13,7 +13,7 @@ measurements to the QA summary ("Performance"), so a budget is revisited with nu
 | `app.js` as built / gzipped                                | 650 / 210 KB | 514 / 168 KB | the whole game: rules, SDK, screens, inline SVG art                                     |
 | `app.css` as built / gzipped                               | 100 / 20 KB  | 71 / 13 KB   |                                                                                         |
 | Offline pack without its audio (core)                      | 8.5 MB       | 8.21 MB      | 239 files: the slice, regions 2-7 and all the grade-4 sticker icons                     |
-| Whole offline pack (core, `resource-graph.json`)           | 11 MB        | 10.95 MB     | the audio is 2.74 MB of it; about 50 KB left                                            |
+| Whole offline pack (core, `resource-graph.json`)           | 11.1 MB      | 10.95 MB     | the audio is 2.74 MB of it; 11.01 MB after #72 and the daily limit (see below)          |
 | Grade-4 pack without audio (`resource-graph-grade-4.json`) | 4 MB         | 1.75 MB      | regions 8-12 and the deep map, all of grade 4 (43 files)                                |
 | First visit: downloaded before the title (uncompressed)    | 2.4 MB       | 2.10 MB      | 510 KB as GitHub Pages sends it (budget 600 KB), with the title's painting; 520 KB live |
 | First visit, fast 4G, processor ×4: title ready            | 5 s          | 2.85 s       | first paint 0.36 s (budget 1.5 s); live site: 1.45 s                                    |
@@ -117,4 +117,7 @@ has no Web Audio. Safari on an iPad plays Ogg Vorbis from iPadOS 18.4.
   sticker icons stay core (a sticker can be earned before grade 4); to make room for them the
   scenes of regions 2-4 were re-encoded at WebP q84 like the later ones (with region 8). With every
   grade-4 icon in, about 50 KB of the core budget is left. Anything more in the core pack needs more
-  recompression or a deliberate budget decision. The whole grade-4 pack is 1.75 MB of its 4 MB.
+  recompression or a deliberate budget decision. #72's animations took all but about 1 KB of it; on
+  2026-11-22 the whole pack's budget was raised from 11 MB to 11.1 MB for code (about 10 KB of
+  script, style and catalog for the daily limit, the school's letters and the greeting by name),
+  not for paintings, which still recompress. The whole grade-4 pack is 1.75 MB of its 4 MB.

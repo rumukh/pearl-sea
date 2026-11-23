@@ -1,8 +1,9 @@
 /**
  * A level's intro: its title and region, the monster for a monster level, the activities that
  * wait (a done mark for those of a run under way) and its stars. "Začít" enters the level; a run
- * under way continues at its next activity; a finished level can replay one of its games. "Jak na
- * to?" opens Osmička's lesson of the level first (lesson.ts).
+ * under way continues at its next activity; a finished level can replay one of its games. A new
+ * level that waits for tomorrow or for the school says why and cannot start yet. "Jak na to?"
+ * opens Osmička's lesson of the level first (lesson.ts).
  */
 import { picture } from '../art/picture';
 import { taken } from '../controller/commands';
@@ -94,6 +95,22 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
             onPress: () => start({ type: 'startLevel', level: levelId }),
             onError: app.kit.onError,
           });
+      // A new level that waits (design §4.2) says why, and starts another day.
+      const waits = run ? null : card.waits;
+      const waitNote =
+        waits === null
+          ? null
+          : h('p', {
+              className: 'ps-note ps-level__wait',
+              testId: 'level-wait',
+              dataset: { waits },
+              attributes: { id: 'ps-level-wait' },
+              text: t(waits === 'school' ? 'level.restSchool' : 'level.restTomorrow'),
+            });
+      if (waits !== null) {
+        go.disabled = true;
+        go.setAttribute('aria-describedby', 'ps-level-wait');
+      }
 
       const heading = h('h1', { text: text(card.titleKey) });
       const monster = found.region.monster;
@@ -146,6 +163,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
             : null,
           h('h2', { text: t('level.activities') }),
           activities,
+          waitNote,
           h('div', { className: 'ps-row ps-row--center' }, ...lesson, go),
         ),
       );
@@ -155,7 +173,7 @@ export function levelScreen(app: App, diverId: string, levelId: string): ScreenE
         field: 'sea',
         region: found.region.id,
         music: 'map',
-        focusTarget: () => go,
+        focusTarget: () => (waits === null ? go : (lesson[0] ?? heading)),
         dispose: saveStatus.dispose,
       };
     },

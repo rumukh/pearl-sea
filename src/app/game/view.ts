@@ -33,6 +33,11 @@ export function findFriend(view: GameView, friendId: string): FriendView | undef
   return view.friends.find((friend) => friend.id === friendId);
 }
 
+/** The level the map makes glow (the game's next suggestion), if any. */
+export function glowingLevel(view: GameView): LevelCard | undefined {
+  return view.hub.regions.flatMap((region) => region.levels).find((level) => level.glowing);
+}
+
 /** The friend the grotto shows big: the first friend while it is there, else the first one. */
 export function featuredFriend(view: GameView): FriendView | undefined {
   const first = view.onboarding.firstFriend;

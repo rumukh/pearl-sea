@@ -30,6 +30,8 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
 
       const statusText = (level: LevelCard): string => {
         if (level.status === 'locked') return t('level.locked');
+        if (level.waits === 'school') return t('level.waitSchool');
+        if (level.waits === 'tomorrow') return t('level.waitTomorrow');
         if (level.status === 'open') return level.glowing ? t('level.next') : t('level.open');
         return t.plural('level.doneStars', level.stars);
       };
@@ -46,6 +48,7 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
               status: level.status,
               kind: level.kind,
               glowing: String(level.glowing),
+              waits: level.waits ?? 'no',
             },
             attributes: {
               type: 'button',
@@ -62,7 +65,9 @@ export function regionScreen(app: App, diverId: string, regionId: string): Scree
                 )
               : level.status === 'locked'
                 ? icon('lock')
-                : h('span', { text: String(level.order) }),
+                : level.waits !== null
+                  ? icon(level.waits === 'school' ? 'book' : 'moon')
+                  : h('span', { text: String(level.order) }),
           ),
           level.status === 'completed'
             ? h(
